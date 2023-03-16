@@ -18,12 +18,12 @@ require("./plugin/component_mods/cursor_target_component_mod");
 require("./plugin/component_mods/mouse_look_component_mod");
 
 //	AUDIO
-require("./audio/spatial_audio_listener");
-require("./audio/audio_manager_component");
+require("./audio/components/spatial_audio_listener_component");
+require("./audio/components/audio_manager_component");
 require("./audio/audio_manager");
 require("./audio/audio_player");
 require("./audio/audio_setup");
-require("./audio/mute_everything");
+require("./audio/components/mute_everything_component");
 require("./audio/audio_utils");
 
 require("./audio/howler/howler_audio_player");

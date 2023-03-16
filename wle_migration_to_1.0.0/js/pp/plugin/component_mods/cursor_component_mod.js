@@ -54,10 +54,10 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
         this.transformQuat = PP.quat2_create();
         this.rotationQuat = PP.quat_create();
         this.transformMatrix = PP.mat4_create();
-        this.origin = new Float32Array(3);
-        this.cursorObjScale = new Float32Array(3);
+        this.origin = PP.vec3_create();
+        this.cursorObjScale = PP.vec3_create();
         this.direction = PP.vec3_create();
-        this.tempQuat = new Float32Array(4);
+        this.tempQuat = PP.quat_create();
         this.setViewComponent(this.object.getComponent("view"));
         this.isHovering = false;
         this.visible = true;
@@ -66,7 +66,7 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
         this.isUpWithNoDown = false;
         this.isRealDown = false;
 
-        this.cursorPos = new Float32Array(3);
+        this.cursorPos = PP.vec3_create();
         this.hoveringObject = null;
 
         const onXRSessionStart = this.setupVREvents.bind(this);
@@ -81,8 +81,8 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
         if (this.cursorRayObject) {
             this.cursorRayObject.pp_setActive(true);
             this.showRay = false;
-            this.cursorRayOrigin = new Float32Array(3);
-            this.cursorRayScale = new Float32Array(3);
+            this.cursorRayOrigin = PP.vec3_create();
+            this.cursorRayScale = PP.vec3_create();
             this.cursorRayScale.set(this.cursorRayObject.scalingLocal);
 
             /* Set ray to a good default distance of the cursor of 1m */
@@ -108,7 +108,7 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
             const onPointerLeave = this.onPointerLeave.bind(this);
             WL.canvas.addEventListener("pointerleave", onPointerLeave);
 
-            this.projectionMatrix = new Float32Array(16);
+            this.projectionMatrix = PP.mat4_create();
             mat4.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
             const onViewportResize = this.onViewportResize.bind(this);
             window.addEventListener("resize", onViewportResize);
