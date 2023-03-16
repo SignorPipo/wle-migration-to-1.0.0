@@ -29,8 +29,8 @@ require("./audio/audio_utils");
 require("./audio/howler/howler_audio_player");
 
 //	CAULDRON
-require("./cauldron/benchmarks/max_physx");
-require("./cauldron/benchmarks/max_visible_triangles");
+require("./cauldron/benchmarks/max_physx_component");
+require("./cauldron/benchmarks/max_visible_triangles_component");
 
 require("./cauldron/cauldron/object_pool");
 require("./cauldron/cauldron/object_pools_manager");

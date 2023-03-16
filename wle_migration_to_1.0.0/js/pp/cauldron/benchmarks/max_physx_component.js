@@ -1,25 +1,30 @@
+import { Component, Type } from '@wonderlandengine/api';
+
 // adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away
-WL.registerComponent('pp-benchmark-max-physx', {
-    _myStaticDomeSize: { type: WL.Type.Float, default: 40 },
-    _myStaticPhysXCount: { type: WL.Type.Int, default: 1000 },
-    _myDynamicDomeSize: { type: WL.Type.Float, default: 80 },
-    _myDynamicPhysXCount: { type: WL.Type.Int, default: 250 },
-    _myKinematicDomeSize: { type: WL.Type.Float, default: 120 },
-    _myKinematicPhysXCount: { type: WL.Type.Int, default: 250 },
-    _myRaycastCount: { type: WL.Type.Int, default: 100 },
-    _myVisualizeRaycast: { type: WL.Type.Bool, default: false },
-    _myVisualizeRaycastDelay: { type: WL.Type.Float, default: 0.5 },
+PP.BenchmarkMaxPhysXComponent = class BenchmarkMaxPhysXComponent extends Component {
+    static TypeName = 'pp-benchmark-max-physx';
+    static Properties = {
+        _myStaticDomeSize: { type: Type.Float, default: 40 },
+        _myStaticPhysXCount: { type: Type.Int, default: 1000 },
+        _myDynamicDomeSize: { type: Type.Float, default: 80 },
+        _myDynamicPhysXCount: { type: Type.Int, default: 250 },
+        _myKinematicDomeSize: { type: Type.Float, default: 120 },
+        _myKinematicPhysXCount: { type: Type.Int, default: 250 },
+        _myRaycastCount: { type: Type.Int, default: 100 },
+        _myVisualizeRaycast: { type: Type.Bool, default: false },
+        _myVisualizeRaycastDelay: { type: Type.Float, default: 0.5 },
 
-    // you can use this to test with convex mesh, 
-    // but u first need to add a physx with a convex mesh to the scene and read the shapeData index on the component to set it as _myShapeIndex
-    _myUseConvexMesh: { type: WL.Type.Bool, default: false },
-    _myShapeIndex: { type: WL.Type.Int, default: 0 },
-    _myShapeScaleMultiplier: { type: WL.Type.Float, default: 1 }, // used to adjust the scale of the convex mesh if too big or small based on how u imported it
+        // you can use this to test with convex mesh, 
+        // but u first need to add a physx with a convex mesh to the scene and read the shapeData index on the component to set it as _myShapeIndex
+        _myUseConvexMesh: { type: Type.Bool, default: false },
+        _myShapeIndex: { type: Type.Int, default: 0 },
+        _myShapeScaleMultiplier: { type: Type.Float, default: 1 }, // used to adjust the scale of the convex mesh if too big or small based on how u imported it
 
-    _myEnableLog: { type: WL.Type.Bool, default: true },
-}, {
-    start: function () {
-        this._myRootObject = WL.scene.addObject(this.object);
+        _myEnableLog: { type: Type.Bool, default: true }
+    };
+
+    start() {
+        this._myRootObject = this.engine.scene.addObject(this.object);
 
         this._myRaycastSetup = new PP.RaycastSetup();
         this._myRaycastResults = new PP.RaycastResults();
@@ -51,8 +56,9 @@ WL.registerComponent('pp-benchmark-max-physx', {
 
         this._myTranslateVec3 = PP.vec3_create();
         this._myRotateVec3 = PP.vec3_create();
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         this._myStartTimer.update(dt);
         if (this._myStartTimer.isDone()) {
             this._myTimer.update(dt);
@@ -132,7 +138,8 @@ WL.registerComponent('pp-benchmark-max-physx', {
             this._myRotateVec3.vec3_set(Math.pp_random(-rotateStrength, rotateStrength), Math.pp_random(-rotateStrength, rotateStrength), Math.pp_random(-rotateStrength, rotateStrength));
             physX.pp_rotate(this._myRotateVec3);
         }
-    },
+    }
+
     _raycastTest(debugActive) {
         let raycastCount = this._myRaycastCount;
 
@@ -154,7 +161,8 @@ WL.registerComponent('pp-benchmark-max-physx', {
                 PP.myDebugVisualManager.drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
             }
         }
-    },
+    }
+
     _spawnDome(isStatic, isDynamic) {
         let maxCount = this._myStaticPhysXCount;
         let physXList = this._myStaticPhysXObjects;
@@ -236,17 +244,18 @@ WL.registerComponent('pp-benchmark-max-physx', {
 
             horizontalDirection.vec3_rotateAxisRadians(angleForClove, upDirection, horizontalDirection);
         }
-    },
+    }
+
     _addPhysX(physXDirection, isStatic, isDynamic) {
         let position = physXDirection;
         let scale = Math.pp_random(1, 10);
-        let shape = Math.pp_randomPick(WL.Shape.Sphere, WL.Shape.Box);
+        let shape = Math.pp_randomPick(this.engine.Shape.Sphere, this.engine.Shape.Box);
         if (this._myUseConvexMesh) {
-            shape = WL.Shape.ConvexMesh;
+            shape = this.engine.Shape.ConvexMesh;
             scale *= this._myShapeScaleMultiplier;
         }
 
-        let physX = WL.scene.addObject(this._myRootObject);
+        let physX = this.engine.scene.addObject(this._myRootObject);
         physX.pp_setPosition(position);
 
         let physXComponent = physX.pp_addComponent("physx", {
@@ -271,4 +280,6 @@ WL.registerComponent('pp-benchmark-max-physx', {
             this._myKinematicPhysXCollectors.push(new PP.PhysicsCollisionCollector(physXComponent));
         }
     }
-});
+};
+
+this.engine.registerComponent(PP.BenchmarkMaxPhysXComponent);

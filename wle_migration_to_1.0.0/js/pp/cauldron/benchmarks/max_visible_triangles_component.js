@@ -1,19 +1,24 @@
-WL.registerComponent("pp-benchmark-max-visible-triangles", {
-    _myTargetFrameRate: { type: WL.Type.Int, default: -1 },     // -1 means it will auto detect it at start
-    _myTargetFrameRateThreshold: { type: WL.Type.Int, default: 3 },
-    _myStartPlaneCount: { type: WL.Type.Int, default: 1 },
-    _myPlaneTriangles: { type: WL.Type.Int, default: 100 },
-    _mySecondsBeforeDoubling: { type: WL.Type.Float, default: 0.5 },    // higher gives a better frame rate evaluation
-    _myDTHistoryToIgnorePercentage: { type: WL.Type.Float, default: 0.25 },
-    _myCloneMaterial: { type: WL.Type.Bool, default: false },
-    _myCloneMesh: { type: WL.Type.Bool, default: false },
+import { Component, Type } from '@wonderlandengine/api';
 
-    _myEnableLog: { type: WL.Type.Bool, default: true },
+PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesComponent extends Component {
+    static TypeName = 'pp-benchmark-max-visible-triangles';
+    static Properties = {
+        _myTargetFrameRate: { type: Type.Int, default: -1 },                // -1 means it will auto detect it at start
+        _myTargetFrameRateThreshold: { type: Type.Int, default: 3 },
+        _myStartPlaneCount: { type: Type.Int, default: 1 },
+        _myPlaneTriangles: { type: Type.Int, default: 100 },
+        _mySecondsBeforeDoubling: { type: Type.Float, default: 0.5 },       // higher gives a better frame rate evaluation
+        _myDTHistoryToIgnorePercentage: { type: Type.Float, default: 0.25 },
+        _myCloneMaterial: { type: Type.Bool, default: false },
+        _myCloneMesh: { type: Type.Bool, default: false },
 
-    _myPlaneMaterial: { type: WL.Type.Material },
-    _myBackgroundMaterial: { type: WL.Type.Material },
-    _myTextMaterial: { type: WL.Type.Material, default: null },
-}, {
+        _myEnableLog: { type: Type.Bool, default: true },
+
+        _myPlaneMaterial: { type: Type.Material },
+        _myBackgroundMaterial: { type: Type.Material },
+        _myTextMaterial: { type: Type.Material, default: null }
+    };
+
     _start() {
         this._myBackgroundSize = 4;
         this._myBackgroundObject.pp_setActive(true);
@@ -37,7 +42,8 @@ WL.registerComponent("pp-benchmark-max-visible-triangles", {
         this._myMaxPlanesReached = false;
 
         this._myFirstTime = true;
-    },
+    }
+
     _update(dt) {
         // Skip lag frames after the new set of plane has been shown, wait for it to be stable
         {
@@ -180,7 +186,8 @@ WL.registerComponent("pp-benchmark-max-visible-triangles", {
                 }
             }
         }
-    },
+    }
+
     _displayPlanes(count) {
         while (this._myPlanes.length > count) {
             let plane = this._myPlanes.pop();
@@ -216,23 +223,24 @@ WL.registerComponent("pp-benchmark-max-visible-triangles", {
                 currentCount--;
             }
         }
-    },
+    }
+
     start() {
         this._myLagColor = PP.vec4_create(0.5, 0, 0, 1);
         this._myNormalColor = PP.vec4_create(0, 0, 0, 1);
 
         this._myRealTrianglesAmount = 0;
 
-        this._myTrianglesObject = WL.scene.addObject(this.object);
+        this._myTrianglesObject = this.engine.scene.addObject(this.object);
 
-        this._myBackgroundObject = WL.scene.addObject(this._myTrianglesObject);
+        this._myBackgroundObject = this.engine.scene.addObject(this._myTrianglesObject);
         {
             let meshComponent = this._myBackgroundObject.addComponent('mesh');
             meshComponent.mesh = PP.MeshUtils.createPlaneMesh();
             meshComponent.material = this._myBackgroundMaterial.clone();
         }
 
-        this._myPlaneObject = WL.scene.addObject(this._myTrianglesObject);
+        this._myPlaneObject = this.engine.scene.addObject(this._myTrianglesObject);
         {
             let meshComponent = this._myPlaneObject.addComponent('mesh');
             meshComponent.mesh = this._createPlaneMesh(this._myPlaneTriangles);
@@ -267,52 +275,52 @@ WL.registerComponent("pp-benchmark-max-visible-triangles", {
         this._myStartTimer = new PP.Timer(this._mySecondsBeforeDoubling * 2);
         this._mySessionStarted = false;
 
-        this._myTextsObject = WL.scene.addObject(this._myTrianglesObject);
+        this._myTextsObject = this.engine.scene.addObject(this._myTrianglesObject);
         //this._myTextsObject.pp_addComponent("pp-easy-transform");
 
-        this._myTriangleTextObject = WL.scene.addObject(this._myTextsObject);
+        this._myTriangleTextObject = this.engine.scene.addObject(this._myTextsObject);
         //this._myTriangleTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
         this._myTriangleTextComponent = this._myTriangleTextObject.addComponent('text');
 
-        this._myTriangleTextComponent.alignment = WL.Alignment.Left;
-        this._myTriangleTextComponent.justification = WL.Justification.Line;
+        this._myTriangleTextComponent.alignment = this.engine.Alignment.Left;
+        this._myTriangleTextComponent.justification = this.engine.Justification.Line;
         this._myTriangleTextComponent.material = this._myTextMaterial.clone();
         this._myTriangleTextComponent.material.color = this._myNormalColor;
         this._myTriangleTextComponent.text = " ";
         //this._myTriangleTextComponent.text = "Triangles: 9999999";
 
-        this._myPlaneTextObject = WL.scene.addObject(this._myTextsObject);
+        this._myPlaneTextObject = this.engine.scene.addObject(this._myTextsObject);
 
         this._myPlaneTextComponent = this._myPlaneTextObject.addComponent('text');
         //this._myPlaneTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
-        this._myPlaneTextComponent.alignment = WL.Alignment.Left;
-        this._myPlaneTextComponent.justification = WL.Justification.Line;
+        this._myPlaneTextComponent.alignment = this.engine.Alignment.Left;
+        this._myPlaneTextComponent.justification = this.engine.Justification.Line;
         this._myPlaneTextComponent.material = this._myTextMaterial.clone();
         this._myPlaneTextComponent.material.color = this._myNormalColor;
         this._myPlaneTextComponent.text = " ";
         //this._myPlaneTextComponent.text = "Planes: 9999999";
 
-        this._myFPSTextObject = WL.scene.addObject(this._myTextsObject);
+        this._myFPSTextObject = this.engine.scene.addObject(this._myTextsObject);
 
         this._myFPSTextComponent = this._myFPSTextObject.addComponent('text');
         //this._myFPSTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
-        this._myFPSTextComponent.alignment = WL.Alignment.Left;
-        this._myFPSTextComponent.justification = WL.Justification.Line;
+        this._myFPSTextComponent.alignment = this.engine.Alignment.Left;
+        this._myFPSTextComponent.justification = this.engine.Justification.Line;
         this._myFPSTextComponent.material = this._myTextMaterial.clone();
         this._myFPSTextComponent.material.color = this._myNormalColor;
         this._myFPSTextComponent.text = " ";
         //this._myFPSTextComponent.text = "FPS: 99.99";
 
-        this._myDoneTextObject = WL.scene.addObject(this._myTrianglesObject);
+        this._myDoneTextObject = this.engine.scene.addObject(this._myTrianglesObject);
 
         this._myDoneTextComponent = this._myDoneTextObject.addComponent('text');
         //this._myDoneTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
-        this._myDoneTextComponent.alignment = WL.Alignment.Center;
-        this._myDoneTextComponent.justification = WL.Justification.Line;
+        this._myDoneTextComponent.alignment = this.engine.Alignment.Center;
+        this._myDoneTextComponent.justification = this.engine.Justification.Line;
         this._myDoneTextComponent.material = this._myTextMaterial.clone();
         this._myDoneTextComponent.material.color = this._myNormalColor;
         this._myDoneTextComponent.text = " ";
@@ -328,7 +336,8 @@ WL.registerComponent("pp-benchmark-max-visible-triangles", {
         this._myDoneTextObject.pp_setScale(4);
 
         this._myDTHistory = [];
-    },
+    }
+
     update(dt) {
         if (this._mySessionStarted) {
             if (this._myStartTimer.isRunning()) {
@@ -353,9 +362,10 @@ WL.registerComponent("pp-benchmark-max-visible-triangles", {
                 this._update(dt);
             }
         } else {
-            this._mySessionStarted = WL.xrSession != null;
+            this._mySessionStarted = this.engine.xrSession != null;
         }
-    },
+    }
+
     _computeAverageFrameRate(isStart) {
         let frameRate = 0;
 
@@ -375,7 +385,8 @@ WL.registerComponent("pp-benchmark-max-visible-triangles", {
         this._myDTHistory = [];
 
         return frameRate;
-    },
+    }
+
     _createPlaneMesh(trianglesAmount) {
         let squaresAmount = Math.ceil(trianglesAmount / 2);
 
@@ -443,4 +454,6 @@ WL.registerComponent("pp-benchmark-max-visible-triangles", {
 
         return mesh;
     }
-});
+};
+
+this.engine.registerComponent(PP.BenchmarkMaxVisibleTrianglesComponent);
