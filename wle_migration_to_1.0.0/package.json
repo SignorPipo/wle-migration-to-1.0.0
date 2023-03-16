@@ -1,0 +1,17 @@
+{
+  "name": "wle_migration_to_1.0.0",
+  "version": "1.0.0",
+  "author": "Pipo",
+  "dependencies": {
+    "@wonderlandengine/api": "0.9.4",
+    "@wonderlandengine/components": "^0.8.16",
+    "gl-matrix": "^3.4.3",
+    "howler": "^2.2.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.54"
+  },
+  "scripts": {
+    "build": "esbuild ./js/bundle.js --sourcemap --bundle --outfile=\"deploy/wle_migration_to_1.0.0-bundle.js\""
+  }
+}
