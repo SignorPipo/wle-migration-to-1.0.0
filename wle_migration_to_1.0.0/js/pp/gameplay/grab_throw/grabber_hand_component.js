@@ -1,19 +1,25 @@
-WL.registerComponent('pp-grabber-hand', {
-    _myHandedness: { type: WL.Type.Enum, values: ['left', 'right'], default: 'left' },
-    _myGrabButton: { type: WL.Type.Enum, values: ['select', 'squeeze', 'both', 'both_exclusive'], default: 'squeeze' }, // both_exclusive means u can use both buttons but you have to use the same button you grabbed with to throw
-    _mySnapOnPivot: { type: WL.Type.Bool, default: false },
-    _myMaxNumberOfObjects: { type: WL.Type.Int, default: 1 }, // how many objects you can grab at the same time
-    // ADVANCED SETTINGS
-    _myThrowVelocitySource: { type: WL.Type.Enum, values: ['hand', 'grabbable'], default: 'hand' },
-    _myThrowLinearVelocityMultiplier: { type: WL.Type.Float, default: 1 }, // multiply the overall throw speed, so slow throws will be multiplied too
-    _myThrowMaxLinearSpeed: { type: WL.Type.Float, default: 15 },
-    _myThrowAngularVelocityMultiplier: { type: WL.Type.Float, default: 0.5 },
-    _myThrowMaxAngularSpeed: { type: WL.Type.Float, default: 1080 }, // degrees
-    _myThrowLinearVelocityBoost: { type: WL.Type.Float, default: 1.75 },   // this boost is applied from 0% to 100% based on how fast you throw, so slow throws are not affected
-    _myThrowLinearVelocityBoostMinSpeedThreshold: { type: WL.Type.Float, default: 0.6 },   // 0% boost is applied if plain throw speed is under this value
-    _myThrowLinearVelocityBoostMaxSpeedThreshold: { type: WL.Type.Float, default: 2.5 },   // 100% boost is applied if plain throw speed is over this value
-}, {
-    init: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.GrabberHandComponent = class GrabberHandComponent extends Component {
+    static TypeName = "pp-grabber-hand";
+    static Properties = {
+        _myHandedness: { type: Type.Enum, values: ['left', 'right'], default: 'left' },
+        _myGrabButton: { type: Type.Enum, values: ['select', 'squeeze', 'both', 'both_exclusive'], default: 'squeeze' }, // both_exclusive means u can use both buttons but you have to use the same button you grabbed with to throw
+        _mySnapOnPivot: { type: Type.Bool, default: false },
+        _myMaxNumberOfObjects: { type: Type.Int, default: 1 }, // how many objects you can grab at the same time
+
+        // ADVANCED SETTINGS
+        _myThrowVelocitySource: { type: Type.Enum, values: ['hand', 'grabbable'], default: 'hand' },
+        _myThrowLinearVelocityMultiplier: { type: Type.Float, default: 1 }, // multiply the overall throw speed, so slow throws will be multiplied too
+        _myThrowMaxLinearSpeed: { type: Type.Float, default: 15 },
+        _myThrowAngularVelocityMultiplier: { type: Type.Float, default: 0.5 },
+        _myThrowMaxAngularSpeed: { type: Type.Float, default: 1080 }, // degrees
+        _myThrowLinearVelocityBoost: { type: Type.Float, default: 1.75 },   // this boost is applied from 0% to 100% based on how fast you throw, so slow throws are not affected
+        _myThrowLinearVelocityBoostMinSpeedThreshold: { type: Type.Float, default: 0.6 },   // 0% boost is applied if plain throw speed is under this value
+        _myThrowLinearVelocityBoostMaxSpeedThreshold: { type: Type.Float, default: 2.5 },   // 100% boost is applied if plain throw speed is over this value
+    };
+
+    init() {
         this._myGrabbables = [];
 
         this._myGamepad = null;
@@ -38,8 +44,9 @@ WL.registerComponent('pp-grabber-hand', {
         this._myThrowCallbacks = new Map();     // Signature: callback(grabber, grabbable)
 
         this._myDebugActive = false;
-    },
-    start: function () {
+    }
+
+    start() {
         if (this._myHandedness == PP.HandednessIndex.LEFT) {
             this._myGamepad = PP.myLeftGamepad;
         } else {
@@ -48,39 +55,49 @@ WL.registerComponent('pp-grabber-hand', {
 
         this._myPhysX = this.object.pp_getComponent('physx');
         this._myCollisionsCollector = new PP.PhysicsCollisionCollector(this._myPhysX, true);
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         this._myCollisionsCollector.update(dt);
 
         if (this._myGrabbables.length > 0) {
             this._updateLinearVelocityHistory();
             this._updateAngularVelocityHistory();
         }
-    },
-    grab: function (grabButton = null) {
+    }
+
+    grab(grabButton = null) {
         this._grab(grabButton);
-    },
-    throw: function (throwButton = null) {
+    }
+
+    throw(throwButton = null) {
         this._throw(throwButton);
-    },
+    }
+
     getGamepad() {
         return this._myGamepad;
-    },
+    }
+
     getHandedness() {
         return PP.InputUtils.getHandednessByIndex(this._myHandedness);
-    },
+    }
+
     registerGrabEventListener(id, callback) {
         this._myGrabCallbacks.set(id, callback);
-    },
+    }
+
     unregisterGrabEventListener(id) {
         this._myGrabCallbacks.delete(id);
-    },
+    }
+
     registerThrowEventListener(id, callback) {
         this._myThrowCallbacks.set(id, callback);
-    },
+    }
+
     unregisterThrowEventListener(id) {
         this._myThrowCallbacks.delete(id);
-    },
+    }
+
     onActivate() {
         if (this._myGamepad == null) {
             return;
@@ -99,7 +116,8 @@ WL.registerComponent('pp-grabber-hand', {
             this._myGamepad.registerButtonEventListener(PP.GamepadButtonID.SELECT, PP.GamepadButtonEvent.PRESS_START, this, this._grab.bind(this, PP.GamepadButtonID.SELECT));
             this._myGamepad.registerButtonEventListener(PP.GamepadButtonID.SELECT, PP.GamepadButtonEvent.PRESS_END, this, this._throw.bind(this, PP.GamepadButtonID.SELECT));
         }
-    },
+    }
+
     onDeactivate() {
         if (this._myGamepad == null) {
             return;
@@ -118,8 +136,9 @@ WL.registerComponent('pp-grabber-hand', {
             this._myGamepad.unregisterButtonEventListener(PP.GamepadButtonID.SELECT, PP.GamepadButtonEvent.PRESS_START, this);
             this._myGamepad.unregisterButtonEventListener(PP.GamepadButtonID.SELECT, PP.GamepadButtonEvent.PRESS_END, this);
         }
-    },
-    _grab: function (grabButton) {
+    }
+
+    _grab(grabButton) {
         if (this._myGrabbables.length >= this._myMaxNumberOfObjects) {
             return;
         }
@@ -148,7 +167,7 @@ WL.registerComponent('pp-grabber-hand', {
 
             for (let grabbableToGrab of grabbablesToGrab) {
                 if (!this._isAlreadyGrabbed(grabbableToGrab)) {
-                    let grabbableData = new PP.GrabberHandGrabbableData(grabbableToGrab, this._myThrowVelocitySource == 1, this._myLinearVelocityHistorySize, this._myAngularVelocityHistorySize);
+                    let grabbableData = new PP.GrabberHandComponentGrabbableData(grabbableToGrab, this._myThrowVelocitySource == 1, this._myLinearVelocityHistorySize, this._myAngularVelocityHistorySize);
                     this._myGrabbables.push(grabbableData);
                     grabbableToGrab.grab(this.object);
                     grabbableToGrab.registerReleaseEventListener(this, this._onRelease.bind(this));
@@ -171,8 +190,9 @@ WL.registerComponent('pp-grabber-hand', {
                 }
             }
         }
-    },
-    _throw: function (throwButton) {
+    }
+
+    _throw(throwButton) {
         if (this._myGrabButton == 2 || this._myActiveGrabButton == null || this._myActiveGrabButton == throwButton || throwButton == null) {
             if (this._myGrabbables.length > 0) {
                 let linearVelocity = null;
@@ -203,7 +223,8 @@ WL.registerComponent('pp-grabber-hand', {
 
             this._myActiveGrabButton = null;
         }
-    },
+    }
+
     _onRelease(grabber, grabbable) {
         grabbable.unregisterReleaseEventListener(this);
         this._myGrabbables.pp_remove(element => element.getGrabbable() == grabbable);
@@ -211,7 +232,8 @@ WL.registerComponent('pp-grabber-hand', {
         if (this._myGrabbables.length <= 0) {
             this._myActiveGrabButton = null;
         }
-    },
+    }
+
     _updateLinearVelocityHistory() {
         let handPose = this._myGamepad.getHandPose();
         this._myHandLinearVelocityHistory.unshift(handPose.getLinearVelocity().pp_clone());
@@ -220,7 +242,8 @@ WL.registerComponent('pp-grabber-hand', {
         for (let grabbable of this._myGrabbables) {
             grabbable.updateLinearVelocityHistory();
         }
-    },
+    }
+
     _updateAngularVelocityHistory() {
         let handPose = this._myGamepad.getHandPose();
         this._myHandAngularVelocityHistory.unshift(handPose.getAngularVelocityRadians().pp_clone());
@@ -229,7 +252,8 @@ WL.registerComponent('pp-grabber-hand', {
         for (let grabbable of this._myGrabbables) {
             grabbable.updateAngularVelocityHistory();
         }
-    },
+    }
+
     _computeReleaseLinearVelocity(linearVelocityHistory) {
         //speed
         let speed = linearVelocityHistory[0].vec3_length();
@@ -269,7 +293,8 @@ WL.registerComponent('pp-grabber-hand', {
         direction.vec3_scale(speed, direction);
 
         return direction;
-    },
+    }
+
     _computeReleaseAngularVelocity(angularVelocityHistory) {
         let angularVelocity = angularVelocityHistory[0];
 
@@ -285,7 +310,8 @@ WL.registerComponent('pp-grabber-hand', {
         direction.vec3_scale(speed, direction);
 
         return direction;
-    },
+    }
+
     _debugDirectionLines(linearVelocityHistory) {
         for (let j = this._myLinearVelocityHistoryDirectionAverageSkipFromStart + this._myLinearVelocityHistoryDirectionAverageSamplesFromStart; j > this._myLinearVelocityHistoryDirectionAverageSkipFromStart; j--) {
 
@@ -305,14 +331,17 @@ WL.registerComponent('pp-grabber-hand', {
 
             PP.myDebugVisualManager.drawLine(5, this.object.pp_getPosition(), direction, 0.2, PP.vec4_create(olor, color, color, 1));
         }
-    },
+    }
+
     _isAlreadyGrabbed(grabbable) {
         let found = this._myGrabbables.pp_find(element => element.getGrabbable() == grabbable);
         return found != null;
     }
-});
+};
 
-PP.GrabberHandGrabbableData = class GrabberHandGrabbableData {
+WL.registerComponent(PP.GrabberHandComponent);
+
+PP.GrabberHandComponentGrabbableData = class GrabberHandComponentGrabbableData {
     constructor(grabbable, useGrabbableAsVelocitySource, linearVelocityHistorySize, angularVelocityHistorySize) {
         this._myGrabbable = grabbable;
         this._myUseGrabbableAsVelocitySource = useGrabbableAsVelocitySource;

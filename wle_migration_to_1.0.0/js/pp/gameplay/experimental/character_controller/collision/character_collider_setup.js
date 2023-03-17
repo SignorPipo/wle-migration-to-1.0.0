@@ -584,6 +584,7 @@ PP.CharacterColliderDebugSetup.prototype.copy = function copy(other) {
 };
 
 
+
 Object.defineProperty(PP.CharacterColliderSetup.prototype, "copy", { enumerable: false });
 Object.defineProperty(PP.CharacterColliderHorizontalCheckSetup.prototype, "copy", { enumerable: false });
 Object.defineProperty(PP.CharacterColliderVerticalCheckSetup.prototype, "copy", { enumerable: false });

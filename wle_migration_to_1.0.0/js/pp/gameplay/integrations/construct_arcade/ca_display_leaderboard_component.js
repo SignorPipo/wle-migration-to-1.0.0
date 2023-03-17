@@ -1,15 +1,18 @@
-WL.registerComponent("pp-ca-display-leaderboard", {
-    _myLeaderboardID: { type: WL.Type.String, default: "" },
-    _myIsLocal: { type: WL.Type.Bool, default: false },
-    _myIsAscending: { type: WL.Type.Bool, default: false },
-    _myScoresAmount: { type: WL.Type.Int, default: 10 },
-    _myScoreFormat: { type: WL.Type.Enum, values: ['value', 'hours:minutes:seconds', 'minutes:seconds', 'seconds', 'hours:minutes', 'minutes'], default: 'value' },
-    _myPositionAndUsernameSeparator: { type: WL.Type.String, default: " - " },
-    _myNumberOfLinesBetweenScores: { type: WL.Type.Int, default: 1 },
-}, {
-    init: function () {
-    },
-    start: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.CADisplayLeaderboardComponent = class CADisplayLeaderboardComponent extends Component {
+    static TypeName = "pp-ca-display-leaderboard";
+    static Properties = {
+        _myLeaderboardID: { type: Type.String, default: "" },
+        _myIsLocal: { type: Type.Bool, default: false },
+        _myIsAscending: { type: Type.Bool, default: false },
+        _myScoresAmount: { type: Type.Int, default: 10 },
+        _myScoreFormat: { type: Type.Enum, values: ["value", "hours:minutes:seconds", "minutes:seconds", "seconds", "hours:minutes", "minutes"], default: "value" },
+        _myPositionAndUsernameSeparator: { type: Type.String, default: " - " },
+        _myNumberOfLinesBetweenScores: { type: Type.Int, default: 1 }
+    };
+
+    start() {
         this._myNamesTextComponent = null;
         this._myScoresTextComponent = null;
 
@@ -18,8 +21,9 @@ WL.registerComponent("pp-ca-display-leaderboard", {
         PP.CAUtils.setDummyServer(new PP.CADummyServer());
         PP.CAUtils.setUseDummyServerOnSDKMissing(true);
         PP.CAUtils.setUseDummyServerOnError(true);
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         if (!this._myStarted) {
             this._myStarted = true;
 
@@ -33,10 +37,12 @@ WL.registerComponent("pp-ca-display-leaderboard", {
 
             this.updateLeaderboard();
         }
-    },
-    updateLeaderboard: function () {
+    }
+
+    updateLeaderboard() {
         PP.CAUtils.getLeaderboard(this._myLeaderboardID, this._myIsAscending, this._myIsLocal, this._myScoresAmount, this._onLeaderboardRetrieved.bind(this));
-    },
+    }
+
     _onLeaderboardRetrieved(leaderboard) {
         let namesText = "";
         let scoresText = "";
@@ -71,7 +77,8 @@ WL.registerComponent("pp-ca-display-leaderboard", {
             this._myNamesTextComponent.text = namesText;
             this._myScoresTextComponent.text = scoresText;
         }
-    },
+    }
+
     _formatScore(score) {
         let convertedScore = score.toString();
 
@@ -88,7 +95,8 @@ WL.registerComponent("pp-ca-display-leaderboard", {
         }
 
         return convertedScore;
-    },
+    }
+
     _formatTime(score, hoursEnabled, minutesEnabled, secondsEnabled) {
         let time = Math.floor(score / 1000);
 
@@ -124,7 +132,8 @@ WL.registerComponent("pp-ca-display-leaderboard", {
         }
 
         return convertedTime;
-    },
+    }
+
     pp_clone(targetObject) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
 
@@ -134,5 +143,7 @@ WL.registerComponent("pp-ca-display-leaderboard", {
         clonedComponent._myNumberOfLinesBetweenScores = this._myNumberOfLinesBetweenScores;
 
         return clonedComponent;
-    },
-});
+    }
+};
+
+WL.registerComponent(PP.CADisplayLeaderboardComponent);
