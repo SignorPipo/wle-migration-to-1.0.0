@@ -14,12 +14,12 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
 
         if (this.requireMouseDown) {
             if (this.mouseButtonIndex == 2) {
-                WL.canvas.addEventListener("contextmenu", function (event) {
+                this.engine.canvas.addEventListener("contextmenu", function (event) {
                     event.preventDefault();
                 }, false);
             }
 
-            WL.canvas.addEventListener('pointerdown', function (event) {
+            this.engine.canvas.addEventListener('pointerdown', function (event) {
                 if (this.pointerId != null) return;
 
                 if (!this.mouseDown) {

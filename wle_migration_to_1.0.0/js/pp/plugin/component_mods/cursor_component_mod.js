@@ -98,15 +98,15 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
          * otherwise just use the objects transformation */
         if (this.viewComponent != null) {
             const onClick = this.onClick.bind(this);
-            WL.canvas.addEventListener("click", onClick);
+            this.engine.canvas.addEventListener("click", onClick);
             const onPointerDown = this.onPointerDown.bind(this);
-            WL.canvas.addEventListener("pointerdown", onPointerDown);
+            this.engine.canvas.addEventListener("pointerdown", onPointerDown);
             const onPointerMove = this.onPointerMove.bind(this);
-            WL.canvas.addEventListener("pointermove", onPointerMove);
+            this.engine.canvas.addEventListener("pointermove", onPointerMove);
             const onPointerUp = this.onPointerUp.bind(this);
-            WL.canvas.addEventListener("pointerup", onPointerUp);
+            this.engine.canvas.addEventListener("pointerup", onPointerUp);
             const onPointerLeave = this.onPointerLeave.bind(this);
-            WL.canvas.addEventListener("pointerleave", onPointerLeave);
+            this.engine.canvas.addEventListener("pointerleave", onPointerLeave);
 
             this.projectionMatrix = PP.mat4_create();
             mat4.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
@@ -114,11 +114,11 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
             window.addEventListener("resize", onViewportResize);
 
             this.onDestroyCallbacks.push(() => {
-                WL.canvas.removeEventListener("click", onClick);
-                WL.canvas.removeEventListener("pointerdown", onPointerDown);
-                WL.canvas.removeEventListener("pointermove", onPointerMove);
-                WL.canvas.removeEventListener("pointerup", onPointerUp);
-                WL.canvas.removeEventListener("pointerleave", onPointerLeave);
+                this.engine.canvas.removeEventListener("click", onClick);
+                this.engine.canvas.removeEventListener("pointerdown", onPointerDown);
+                this.engine.canvas.removeEventListener("pointermove", onPointerMove);
+                this.engine.canvas.removeEventListener("pointerup", onPointerUp);
+                this.engine.canvas.removeEventListener("pointerleave", onPointerLeave);
                 window.removeEventListener("resize", onViewportResize);
             });
         }
@@ -168,8 +168,8 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
         /* If in VR, set the cursor ray based on object transform */
         if (this.session) {
             /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
-            if (this.arTouchDown && this.input && WL.xrSession.inputSources[0].handedness === 'none' && WL.xrSession.inputSources[0].gamepad) {
-                const p = WL.xrSession.inputSources[0].gamepad.axes;
+            if (this.arTouchDown && this.input && this.engine.xrSession.inputSources[0].handedness === 'none' && this.engine.xrSession.inputSources[0].gamepad) {
+                const p = this.engine.xrSession.inputSources[0].gamepad.axes;
                 /* Screenspace Y is inverted */
                 this.direction.vec3_set(p[0], -p[1], -1.0);
                 this.updateDirection();
@@ -178,8 +178,8 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
                 this.object.getForward(this.direction);
             }
             const rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                WL.scene.rayCast(this.origin, this.direction, this.collisionMask) :
-                WL.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
+                this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
+                this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
             if (rayHit.hitCount > 0) {
                 this.cursorPos.set(rayHit.locations[0]);
@@ -483,8 +483,8 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
         vec3.normalize(this.direction, this.direction);
         vec3.transformQuat(this.direction, this.direction, this.object.transformWorld);
         const rayHit = this.rayHit = (this.rayCastMode == 0) ?
-            WL.scene.rayCast(this.origin, this.direction, this.collisionMask) :
-            WL.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
+            this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
+            this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
         if (rayHit.hitCount > 0) {
             this.cursorPos.set(rayHit.locations[0]);
