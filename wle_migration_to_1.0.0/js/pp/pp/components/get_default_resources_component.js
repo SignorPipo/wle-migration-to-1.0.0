@@ -1,17 +1,43 @@
-WL.registerComponent('pp-get-default-resources', {
-    _myPlane: { type: WL.Type.Mesh },
-    _myCube: { type: WL.Type.Mesh },
-    _mySphere: { type: WL.Type.Mesh },
-    _myCone: { type: WL.Type.Mesh },
-    _myCylinder: { type: WL.Type.Mesh },
-    _myCircle: { type: WL.Type.Mesh },
+import { Component, Type } from "@wonderlandengine/api";
 
-    _myFlatOpaque: { type: WL.Type.Material },
-    _myFlatTransparentNoDepth: { type: WL.Type.Material },
-    _myPhongOpaque: { type: WL.Type.Material },
-    _myText: { type: WL.Type.Material },
+PP.myDefaultResources = {
+    myMeshes: {
+        myPlane: null,
+        myCube: null,
+        mySphere: null,
+        myCone: null,
+        myCylinder: null,
+        myCircle: null,
 
-}, {
+        myInvertedCube: null,
+        myInvertedSphere: null,
+        myInvertedCone: null,
+        myInvertedCylinder: null
+    },
+    myMaterials: {
+        myFlatOpaque: null,
+        myFlatTransparentNoDepth: null, // for now the pipeline needs to be the last one to make this work properly
+        myPhongOpaque: null,
+        myText: null,
+    }
+};
+
+PP.GetDefaultResourcesComponent = class GetDefaultResourcesComponent extends Component {
+    static TypeName = "pp-get-default-resources";
+    static Properties = {
+        _myPlane: { type: Type.Mesh },
+        _myCube: { type: Type.Mesh },
+        _mySphere: { type: Type.Mesh },
+        _myCone: { type: Type.Mesh },
+        _myCylinder: { type: Type.Mesh },
+        _myCircle: { type: Type.Mesh },
+
+        _myFlatOpaque: { type: Type.Material },
+        _myFlatTransparentNoDepth: { type: Type.Material },
+        _myPhongOpaque: { type: Type.Material },
+        _myText: { type: Type.Material }
+    };
+
     init() {
         PP.myDefaultResources.myMeshes.myPlane = PP.MeshUtils.cloneMesh(this._myPlane);
         PP.myDefaultResources.myMeshes.myCube = PP.MeshUtils.cloneMesh(this._myCube);
@@ -41,26 +67,6 @@ WL.registerComponent('pp-get-default-resources', {
             PP.myDefaultResources.myMaterials.myText = this._myText.clone();
         }
     }
-});
-
-PP.myDefaultResources = {
-    myMeshes: {
-        myPlane: null,
-        myCube: null,
-        mySphere: null,
-        myCone: null,
-        myCylinder: null,
-        myCircle: null,
-
-        myInvertedCube: null,
-        myInvertedSphere: null,
-        myInvertedCone: null,
-        myInvertedCylinder: null
-    },
-    myMaterials: {
-        myFlatOpaque: null,
-        myFlatTransparentNoDepth: null, // for now the pipeline needs to be the last one to make this work properly
-        myPhongOpaque: null,
-        myText: null,
-    }
 };
+
+WL.registerComponent(PP.GetDefaultResourcesComponent);

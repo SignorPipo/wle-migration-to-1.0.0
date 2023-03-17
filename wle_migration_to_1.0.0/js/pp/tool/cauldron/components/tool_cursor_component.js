@@ -1,12 +1,17 @@
-WL.registerComponent('pp-tool-cursor', {
-    _myHandedness: { type: WL.Type.Enum, values: ['left', 'right'], default: 'left' },
-    _myFixForward: { type: WL.Type.Bool, default: true },
-    _myApplyDefaultCursorOffset: { type: WL.Type.Bool, default: true },
-    _myPulseOnHover: { type: WL.Type.Bool, default: false },
-    _myShowFingerCursor: { type: WL.Type.Bool, default: false },
-}, {
-    init: function () {
-        this._myHandednessString = ['left', 'right'][this._myHandedness];
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.ToolCursorComponent = class ToolCursorComponent extends Component {
+    static TypeName = "pp-tool-cursor";
+    static Properties = {
+        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myFixForward: { type: Type.Bool, default: true },
+        _myApplyDefaultCursorOffset: { type: Type.Bool, default: true },
+        _myPulseOnHover: { type: Type.Bool, default: false },
+        _myShowFingerCursor: { type: Type.Bool, default: false }
+    }
+
+    init() {
+        this._myHandednessString = ["left", "right"][this._myHandedness];
 
         this._myCursorPositionDefaultOffset = PP.vec3_create(0, -0.035, -0.05);
         this._myCursorRotationDefaultOffset = PP.vec3_create(-30, 0, 0);
@@ -15,16 +20,17 @@ WL.registerComponent('pp-tool-cursor', {
         this._myCursorColor = [255 / 255, 255 / 255, 255 / 255, 1];
 
         this._myCursorTargetCollisionGroup = 7;
-    },
-    start: function () {
-        this._myToolCursorObject = WL.scene.addObject(this.object);
-        this._myFixForwardObject = WL.scene.addObject(this._myToolCursorObject);
+    }
+
+    start() {
+        this._myToolCursorObject = this.engine.scene.addObject(this.object);
+        this._myFixForwardObject = this.engine.scene.addObject(this._myToolCursorObject);
 
         if (this._myFixForward) {
             this._myFixForwardObject.pp_rotateObject(PP.vec3_create(0, 180, 0));
         }
 
-        this._myCursorObjectVR = WL.scene.addObject(this._myFixForwardObject);
+        this._myCursorObjectVR = this.engine.scene.addObject(this._myFixForwardObject);
 
         if (this._myApplyDefaultCursorOffset) {
             this._myCursorObjectVR.pp_setPositionLocal(this._myCursorPositionDefaultOffset);
@@ -32,7 +38,7 @@ WL.registerComponent('pp-tool-cursor', {
         }
 
         {
-            this._myCursorMeshobject = WL.scene.addObject(this._myCursorObjectVR);
+            this._myCursorMeshobject = this.engine.scene.addObject(this._myCursorObjectVR);
             this._myCursorMeshobject.pp_setScale(this._myCursorMeshScale);
 
             let cursorMeshComponent = this._myCursorMeshobject.addComponent("mesh");
@@ -47,7 +53,7 @@ WL.registerComponent('pp-tool-cursor', {
             }
         }
 
-        this._myCursorObjectNonVR = WL.scene.addObject(this._myToolCursorObject);
+        this._myCursorObjectNonVR = this.engine.scene.addObject(this._myToolCursorObject);
 
         {
             this._myCursorComponentNonVR = this._myCursorObjectNonVR.addComponent("cursor", { "collisionGroup": this._myCursorTargetCollisionGroup, "handedness": this._myHandedness + 1 });
@@ -72,7 +78,7 @@ WL.registerComponent('pp-tool-cursor', {
             fingerCursorMeshObject.pp_setScale(fingerCollisionSize);
         }
 
-        this._myFingerCursorObject = WL.scene.addObject(this._myToolCursorObject);
+        this._myFingerCursorObject = this.engine.scene.addObject(this._myToolCursorObject);
         this._myFingerCursorComponent = this._myFingerCursorObject.addComponent("pp-finger-cursor", {
             "_myHandedness": this._myHandedness,
             "_myEnableMultipleClicks": true,
@@ -85,36 +91,18 @@ WL.registerComponent('pp-tool-cursor', {
         this._myCursorComponentNonVR.active = false;
         this._myFingerCursorComponent.active = false;
 
-    },
-    update: function () {
-        let transformQuat = PP.quat2_create();
-        return function update(dt) {
-            let isUsingHand = this._isUsingHand();
+    }
 
-            this._myFingerCursorComponent.active = isUsingHand;
+    update(dt) {
+        // implemented outside class definition
+    }
 
-            if (isUsingHand) {
-                this._myCursorComponentVR.active = false;
-                this._myCursorComponentNonVR.active = false;
-            } else {
-                if (PP.XRUtils.isSessionActive()) {
-                    this._myCursorComponentVR.active = !isUsingHand;
-                    this._myCursorComponentNonVR.active = false;
-                } else {
-                    this._myCursorComponentNonVR.active = !isUsingHand;
-                    this._myCursorComponentVR.active = false;
-
-                    this._myCursorObjectNonVR.pp_setTransformQuat(PP.myPlayerObjects.myNonVRCamera.pp_getTransformQuat(transformQuat));
-                }
-            }
-        };
-    }(),
-    _isUsingHand: function () {
+    _isUsingHand() {
         let isUsingHand = false;
 
-        if (WL.xrSession && WL.xrSession.inputSources) {
-            for (let i = 0; i < WL.xrSession.inputSources.length; i++) {
-                let input = WL.xrSession.inputSources[i];
+        if (this.engine.xrSession && this.engine.xrSession.inputSources) {
+            for (let i = 0; i < this.engine.xrSession.inputSources.length; i++) {
+                let input = this.engine.xrSession.inputSources[i];
                 if (input.hand && input.handedness == this._myHandednessString) {
                     isUsingHand = true;
                     break;
@@ -123,8 +111,9 @@ WL.registerComponent('pp-tool-cursor', {
         }
 
         return isUsingHand;
-    },
-    _pulseOnHover: function (object) {
+    }
+
+    _pulseOnHover(object) {
         let targetComponent = object.getComponent("cursor-target");
 
         if (targetComponent && !targetComponent.isSurface) {
@@ -139,4 +128,34 @@ WL.registerComponent('pp-tool-cursor', {
             }
         }
     }
-});
+};
+
+WL.registerComponent(PP.ToolCursorComponent);
+
+
+
+// IMPLEMENTATION
+
+PP.ToolCursorComponent.prototype.update = function () {
+    let transformQuat = PP.quat2_create();
+    return function update(dt) {
+        let isUsingHand = this._isUsingHand();
+
+        this._myFingerCursorComponent.active = isUsingHand;
+
+        if (isUsingHand) {
+            this._myCursorComponentVR.active = false;
+            this._myCursorComponentNonVR.active = false;
+        } else {
+            if (PP.XRUtils.isSessionActive()) {
+                this._myCursorComponentVR.active = !isUsingHand;
+                this._myCursorComponentNonVR.active = false;
+            } else {
+                this._myCursorComponentNonVR.active = !isUsingHand;
+                this._myCursorComponentVR.active = false;
+
+                this._myCursorObjectNonVR.pp_setTransformQuat(PP.myPlayerObjects.myNonVRCamera.pp_getTransformQuat(transformQuat));
+            }
+        }
+    };
+}()

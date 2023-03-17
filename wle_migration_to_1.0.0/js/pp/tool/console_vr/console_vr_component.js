@@ -1,18 +1,24 @@
-WL.registerComponent('pp-console-vr', {
-    _myHandedness: { type: WL.Type.Enum, values: ['none', 'left', 'right'], default: 'none' },
-    _myOverrideBrowserConsole: { type: WL.Type.Bool, default: true },
-    _myShowOnStart: { type: WL.Type.Bool, default: false },
-    _myShowVisibilityButton: { type: WL.Type.Bool, default: false },
-    _myPulseOnNewMessage: { type: WL.Type.Enum, values: ['never', 'always', 'when hidden'], default: 'never' }
-}, {
-    init: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.ConsoleVRComponent = class ConsoleVRComponent extends Component {
+    static TypeName = "pp-console-vr";
+    static Properties = {
+        _myHandedness: { type: Type.Enum, values: ["none", "left", "right"], default: "none" },
+        _myOverrideBrowserConsole: { type: Type.Bool, default: true },
+        _myShowOnStart: { type: Type.Bool, default: false },
+        _myShowVisibilityButton: { type: Type.Bool, default: false },
+        _myPulseOnNewMessage: { type: Type.Enum, values: ["never", "always", "when hidden"], default: "never" }
+    };
+
+    init() {
         this._myWidget = new PP.ConsoleVRWidget();
 
         this._myStarted = false;
-    },
-    start: function () {
+    }
+
+    start() {
         let additionalSetup = new PP.ConsoleVRWidget.AdditionalSetup();
-        additionalSetup.myHandedness = [null, 'left', 'right'][this._myHandedness];
+        additionalSetup.myHandedness = [null, "left", "right"][this._myHandedness];
         additionalSetup.myOverrideBrowserConsole = this._myOverrideBrowserConsole;
         additionalSetup.myShowOnStart = this._myShowOnStart;
         additionalSetup.myShowVisibilityButton = this._myShowVisibilityButton;
@@ -26,8 +32,9 @@ WL.registerComponent('pp-console-vr', {
         this._mySetVisibleNextUpdate = false;
 
         this._myStarted = true;
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         if (this._mySetVisibleNextUpdate) {
             this._mySetVisibleNextUpdate = false;
             this._myWidget.setVisible(false);
@@ -35,15 +42,19 @@ WL.registerComponent('pp-console-vr', {
         }
 
         this._myWidget.update(dt);
-    },
+    }
+
     onActivate() {
         this._mySetVisibleNextUpdate = true;
-    },
+    }
+
     onDeactivate() {
         if (this._myStarted) {
             this._myWidgetVisibleBackup = this._myWidget.isVisible();
 
             this._myWidget.setVisible(false);
         }
-    },
-});
+    }
+};
+
+WL.registerComponent(PP.ConsoleVRComponent);

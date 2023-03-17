@@ -1,15 +1,20 @@
-WL.registerComponent('pp-easy-tune', {
-    _myHandedness: { type: WL.Type.Enum, values: ['none', 'left', 'right'], default: 'none' },
-    _myShowOnStart: { type: WL.Type.Bool, default: false },
-    _myShowVisibilityButton: { type: WL.Type.Bool, default: false },
-    _myEnableGamepadScrollVariable: { type: WL.Type.Bool, default: true },
-    _myEnableVariablesImportExportButtons: { type: WL.Type.Bool, default: false },
-    _myVariablesImportURL: { type: WL.Type.String, default: '' },   // the URL can contain parameters inside brackets, like {param}
-    _myVariablesExportURL: { type: WL.Type.String, default: '' },   // those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
-    _myImportVariablesOnStart: { type: WL.Type.Bool, default: false },
-    _myResetVariablesDefaultValueOnImport: { type: WL.Type.Bool, default: false }
-}, {
-    init: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.EasyTuneComponent = class EasyTuneComponent extends Component {
+    static TypeName = "pp-easy-tune";
+    static Properties = {
+        _myHandedness: { type: Type.Enum, values: ["none", "left", "right"], default: "none" },
+        _myShowOnStart: { type: Type.Bool, default: false },
+        _myShowVisibilityButton: { type: Type.Bool, default: false },
+        _myEnableGamepadScrollVariable: { type: Type.Bool, default: true },
+        _myEnableVariablesImportExportButtons: { type: Type.Bool, default: false },
+        _myVariablesImportURL: { type: Type.String, default: "" },   // the URL can contain parameters inside brackets, like {param}
+        _myVariablesExportURL: { type: Type.String, default: "" },   // those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
+        _myImportVariablesOnStart: { type: Type.Bool, default: false },
+        _myResetVariablesDefaultValueOnImport: { type: Type.Bool, default: false }
+    };
+
+    init() {
         this._myWidget = new PP.EasyTuneWidget();
 
         PP.mySetEasyTuneWidgetActiveVariableCallbacks.push(function (variableName) {
@@ -21,10 +26,11 @@ WL.registerComponent('pp-easy-tune', {
         }.bind(this));
 
         this._myStarted = false;
-    },
-    start: function () {
+    }
+
+    start() {
         let additionalSetup = new PP.EasyTuneWidgetAdditionalSetup();
-        additionalSetup.myHandedness = [null, 'left', 'right'][this._myHandedness];
+        additionalSetup.myHandedness = [null, "left", "right"][this._myHandedness];
         additionalSetup.myShowOnStart = this._myShowOnStart;
         additionalSetup.myShowVisibilityButton = this._myShowVisibilityButton;
         additionalSetup.myEnableAdditionalButtons = true;
@@ -47,8 +53,9 @@ WL.registerComponent('pp-easy-tune', {
 
         this._myStarted = true;
         this._myFirstUpdate = true;
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         if (this._myFirstUpdate) {
             this._myFirstUpdate = false;
             if (this._myImportVariablesOnStart) {
@@ -63,15 +70,19 @@ WL.registerComponent('pp-easy-tune', {
         }
 
         this._myWidget.update(dt);
-    },
+    }
+
     onActivate() {
         this._mySetVisibleNextUpdate = true;
-    },
+    }
+
     onDeactivate() {
         if (this._myStarted) {
             this._myWidgetVisibleBackup = this._myWidget.isVisible();
 
             this._myWidget.setVisible(false);
         }
-    },
-});
+    }
+};
+
+WL.registerComponent(PP.EasyTuneComponent);

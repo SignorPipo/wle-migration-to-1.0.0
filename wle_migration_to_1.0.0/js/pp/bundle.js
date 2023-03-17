@@ -3,8 +3,8 @@
 require("./pp/pp");
 
 require("./pp/components/pp_gateway_component");
-require("./pp/components/get_player_objects");
-require("./pp/components/get_default_resources");
+require("./pp/components/get_player_objects_component");
+require("./pp/components/get_default_resources_component");
 
 //	PLUGIN
 require("./plugin/extensions/array_extension");
@@ -240,7 +240,7 @@ require("./input/pose/components/copy_player_pivot_transform_component");
 
 //	TOOL
 require("./tool/cauldron/cauldron/tool_types");
-require("./tool/cauldron/components/tool_cursor");
+require("./tool/cauldron/components/tool_cursor_component");
 
 require("./tool/console_vr/console_vr_widget_setup");
 require("./tool/console_vr/console_vr_widget_ui");
@@ -283,7 +283,7 @@ require("./tool/easy_tune/easy_tune_variable_types");
 require("./tool/easy_tune/easy_tune_globals");
 
 require("./tool/easy_tune/components/easy_tune_component");
-require("./tool/easy_tune/components/easy_tune_import_variables");
+require("./tool/easy_tune/components/easy_tune_import_variables_component");
 
 require("./tool/widget_frame/widget_frame_setup");
 require("./tool/widget_frame/widget_frame_ui");
