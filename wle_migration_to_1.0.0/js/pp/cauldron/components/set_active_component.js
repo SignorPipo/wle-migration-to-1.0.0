@@ -1,25 +1,33 @@
-WL.registerComponent('pp-set-active', {
-    _myActive: { type: WL.Type.Bool, default: true },
-    _mySetActiveOn: { type: WL.Type.Enum, values: ['self', 'children', 'descendants', 'hierarchy'], default: 'hierarchy' },
-    _mySetActiveWhen: { type: WL.Type.Enum, values: ['init', 'start', 'first_update'], default: 'init' },
-}, {
-    init: function () {
+import { Component, Type } from '@wonderlandengine/api';
+
+PP.SetActiveComponent = class SetActiveComponent extends Component {
+    static TypeName = 'pp-set-active';
+    static Properties = {
+        _myActive: { type: Type.Bool, default: true },
+        _mySetActiveOn: { type: Type.Enum, values: ['self', 'children', 'descendants', 'hierarchy'], default: 'hierarchy' },
+        _mySetActiveWhen: { type: Type.Enum, values: ['init', 'start', 'first_update'], default: 'init' }
+    };
+
+    init() {
         if (this.active && this._mySetActiveWhen == 0) {
             this._setActive();
         }
-    },
-    start: function () {
+    }
+
+    start() {
         if (this._mySetActiveWhen == 1) {
             this._setActive();
         }
         this._myFirst = true;
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         if (this._mySetActiveWhen == 2 && this._myFirst) {
             this._myFirst = false;
             this._setActive();
         }
-    },
+    }
+
     _setActive() {
         if (this._mySetActiveOn == 0) {
             this.object.pp_setActiveSelf(this._myActive);
@@ -31,4 +39,6 @@ WL.registerComponent('pp-set-active', {
             this.object.pp_setActiveHierarchy(this._myActive);
         }
     }
-});
+};
+
+WL.registerComponent(PP.SetActiveComponent);

@@ -1,23 +1,31 @@
-WL.registerComponent('pp-adjust-hierarchy-physx-scale', {
-    _myWhen: { type: WL.Type.Enum, values: ['init', 'start', 'first_update'], default: 'start' },
-}, {
-    init: function () {
+import { Component, Type } from '@wonderlandengine/api';
+
+PP.AdjustHierarchyPhysXScaleComponent = class AdjustHierarchyPhysXScaleComponent extends Component {
+    static TypeName = 'pp-adjust-hierarchy-physx-scale';
+    static Properties = {
+        _myWhen: { type: Type.Enum, values: ['init', 'start', 'first_update'], default: 'start' }
+    };
+
+    init() {
         if (this.active && this._myWhen == 0) {
             this._adjustScale();
         }
-    },
-    start: function () {
+    }
+
+    start() {
         if (this._myWhen == 1) {
             this._adjustScale();
         }
         this._myFirst = true;
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         if (this._myWhen == 2 && this._myFirst) {
             this._myFirst = false;
             this._adjustScale();
         }
-    },
+    }
+
     _adjustScale() {
         let scale = this.object.pp_getScale();
         let physXComponents = this.object.pp_getComponentsHierarchy("physx");
@@ -32,4 +40,6 @@ WL.registerComponent('pp-adjust-hierarchy-physx-scale', {
             }
         }
     }
-});
+};
+
+WL.registerComponent(PP.AdjustHierarchyPhysXScaleComponent);
