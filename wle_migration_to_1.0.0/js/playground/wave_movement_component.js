@@ -1,7 +1,9 @@
-WL.registerComponent("wave-movement", {
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.WaveMovementComponent = class WaveMovementComponent extends Component {
+    static TypeName = "wave-movement";
+    static Properties = {};
+
     start() {
         this._myStartTimer = new PP.Timer(0);
 
@@ -22,7 +24,8 @@ WL.registerComponent("wave-movement", {
         this._myRandomSigns = [Math.pp_randomPick(-1, 1), Math.pp_randomPick(-1, 1), Math.pp_randomPick(-1, 1)];
 
         PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("Wave Speed Multiplier", 1.00, 5, 3));
-    },
+    }
+
     update(dt) {
         if (this._myStartTimer.isRunning()) {
             this._myStartTimer.update(dt);
@@ -55,14 +58,19 @@ WL.registerComponent("wave-movement", {
                 this._myMaxDistances[i] = Math.pp_lerp(this._myMaxDistances[i], this._myMaxDistanceTargets[i], 0.3 * dt);
             }
         }
-    },
+    }
+
     _randomTimer() {
         return new PP.Timer(Math.pp_random(4, 8));
-    },
+    }
+
     _randomSpeedMultiplier() {
         return Math.pp_random(0.25, 1.5);
-    },
+    }
+
     _randomMaxDistance(middle) {
         return Math.pp_random(middle - middle / 3, middle + middle / 3);
     }
-});
+};
+
+WL.registerComponent(PP.WaveMovementComponent);

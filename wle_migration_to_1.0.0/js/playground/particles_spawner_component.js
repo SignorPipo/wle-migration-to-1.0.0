@@ -1,9 +1,12 @@
-WL.registerComponent("particles-spawner", {
-    _myParticlesContainer: { type: WL.Type.Object },
-    _myRadius: { type: WL.Type.Float, default: 0.25 }
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.ParticlesSpawnerComponent = class ParticlesSpawnerComponent extends Component {
+    static TypeName = "particles-spawner";
+    static Properties = {
+        _myParticlesContainer: { type: Type.Object },
+        _myRadius: { type: Type.Float, default: 0.25 }
+    };
+
     start() {
         this._myParticles = this._myParticlesContainer.pp_getChildren();
 
@@ -27,9 +30,8 @@ WL.registerComponent("particles-spawner", {
 
             this._myObjectPoolsManager.addPool(i, particle, poolParams);
         }
-    },
-    update(dt) {
-    },
+    }
+
     spawn(position) {
         let amount = Math.pp_randomInt(15, 30);
 
@@ -41,8 +43,11 @@ WL.registerComponent("particles-spawner", {
 
             particle.pp_setActive(true);
         }
-    },
+    }
+
     onParticleDone(particle) {
         this._myObjectPoolsManager.releaseObject(particle);
     }
-});
+};
+
+WL.registerComponent(PP.ParticlesSpawnerComponent);

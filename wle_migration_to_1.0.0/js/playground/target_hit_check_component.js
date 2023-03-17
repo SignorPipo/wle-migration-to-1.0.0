@@ -1,14 +1,17 @@
-WL.registerComponent("target-hit-check", {
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.TargetHitCheckComponent = class TargetHitCheckComponent extends Component {
+    static TypeName = "target-hit-check";
+    static Properties = {};
+
     start() {
         this._myTrigger = this.object.pp_getComponent("physx");
-        this._myParticlesSpawner = WL.scene.pp_getRoot().pp_getComponent("particles-spawner");
+        this._myParticlesSpawner = this.engine.scene.pp_getRoot().pp_getComponent("particles-spawner");
         this._myCollisionsCollector = new PP.PhysicsCollisionCollector(this._myTrigger, true);
 
         this._mySFX = PP.myAudioManager.createAudioPlayer("strike");
-    },
+    }
+
     update(dt) {
         this._myCollisionsCollector.update(dt);
 
@@ -22,7 +25,8 @@ WL.registerComponent("target-hit-check", {
         //if (PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.SELECT).isPressStart()) {
         //    this._myParticlesSpawner.spawn(this.object.pp_getPosition());
         //}
-    },
+    }
+
     _strike(strikeSource) {
         this._mySFX.setPosition(strikeSource.pp_getPosition());
         this._mySFX.setPitch(Math.pp_random(1.25 - 0.15, 1.25 + 0.05));
@@ -30,4 +34,6 @@ WL.registerComponent("target-hit-check", {
 
         this._myParticlesSpawner.spawn(strikeSource.pp_getPosition());
     }
-});
+};
+
+WL.registerComponent(PP.TargetHitCheckComponent);

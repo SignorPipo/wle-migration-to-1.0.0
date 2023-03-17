@@ -1,15 +1,19 @@
-WL.registerComponent("grabbable-spawner", {
-    _myPrototypesContainer: { type: WL.Type.Object }
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.GrabbableSpawnerComponent = class GrabbableSpawnerComponent extends Component {
+    static TypeName = "grabbable-spawner";
+    static Properties = {
+        _myPrototypesContainer: { type: Type.Object }
+    };
+
     start() {
         this._myPrototypes = this._myPrototypesContainer.pp_getChildren();
         this._myCurrentGrabbable = null;
 
         this._myFirstUpdate = true;
         this._myStartTimer = new PP.Timer(0);
-    },
+    }
+
     update(dt) {
         if (this._myFirstUpdate) {
             this._myFirstUpdate = false;
@@ -31,11 +35,14 @@ WL.registerComponent("grabbable-spawner", {
                 }
             }
         }
-    },
+    }
+
     _spawn() {
         this._myCurrentGrabbable = Math.pp_randomPick(this._myPrototypes).pp_clone();
         this._myCurrentGrabbable.pp_setParent(this.object);
         this._myCurrentGrabbable.pp_setPosition(this.object.pp_getPosition());
         this._myCurrentGrabbable.pp_setActive(true);
     }
-});
+};
+
+WL.registerComponent(PP.GrabbableSpawnerComponent);

@@ -1,9 +1,11 @@
-WL.registerComponent("sfx-on-grab-throw", {
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.SFXOnGrabThrowComponent = class SFXOnGrabThrowComponent extends Component {
+    static TypeName = "sfx-on-grab-throw";
+    static Properties = {};
+
     start() {
-        let grabbers = WL.scene.pp_getRoot().pp_getComponents("pp-grabber-hand");
+        let grabbers = this.engine.scene.pp_getRoot().pp_getComponents("pp-grabber-hand");
 
         for (let grabber of grabbers) {
             grabber.registerGrabEventListener(this, this._onGrab.bind(this));
@@ -12,9 +14,11 @@ WL.registerComponent("sfx-on-grab-throw", {
 
         this._myGrabSFX = PP.myAudioManager.createAudioPlayer("grab");
         this._myThrowSFX = PP.myAudioManager.createAudioPlayer("throw");
-    },
+    }
+
     update(dt) {
-    },
+    }
+
     _onGrab(grabber, grabbable) {
         this._myGrabSFX.setPosition(grabber.object.pp_getPosition());
         this._myGrabSFX.setPitch(Math.pp_random(1.25 - 0.15, 1.25 + 0.05));
@@ -25,7 +29,8 @@ WL.registerComponent("sfx-on-grab-throw", {
         if (pulseInfo.myIntensity <= intensity) {
             grabber.getGamepad().pulse(intensity, 0.1);
         }
-    },
+    }
+
     _onThrow(grabber, grabbable) {
         this._myThrowSFX.setPosition(grabber.object.pp_getPosition());
         this._myThrowSFX.setPitch(Math.pp_random(1.25 - 0.15, 1.25 + 0.05));
@@ -37,4 +42,6 @@ WL.registerComponent("sfx-on-grab-throw", {
             grabber.getGamepad().pulse(intensity, 0.1);
         }
     }
-});
+};
+
+WL.registerComponent(PP.SFXOnGrabThrowComponent);

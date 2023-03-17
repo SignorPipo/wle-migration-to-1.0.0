@@ -1,10 +1,13 @@
-WL.registerComponent("play-music", {
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.PlayMusicComponent = class PlayMusicComponent extends Component {
+    static TypeName = "play-music";
+    static Properties = {};
+
     start() {
         this._myStarted = false;
-    },
+    }
+
     update(dt) {
         if (!this._myStarted) {
             this._myMusic = PP.myAudioManager.createAudioPlayer("playground_ambient");
@@ -13,4 +16,6 @@ WL.registerComponent("play-music", {
             this._myStarted = true;
         }
     }
-});
+};
+
+WL.registerComponent(PP.PlayMusicComponent);

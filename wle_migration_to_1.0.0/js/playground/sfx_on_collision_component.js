@@ -1,7 +1,9 @@
-WL.registerComponent("sfx-on-collision", {
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.SFXOnCollisionComponent = class SFXOnCollisionComponent extends Component {
+    static TypeName = "sfx-on-collision";
+    static Properties = {};
+
     start() {
         this._myPhysX = this.object.pp_getComponent('physx');
         this._myCollisionsCollector = new PP.PhysicsCollisionCollector(this._myPhysX);
@@ -11,7 +13,8 @@ WL.registerComponent("sfx-on-collision", {
         this._myGrabbable = this.object.pp_getComponent("pp-grabbable");
         this._myLastLastGrabbed = this._myGrabbable.isGrabbed();
         this._myLastGrabbed = this._myGrabbable.isGrabbed();
-    },
+    }
+
     update(dt) {
         this._myCollisionsCollector.update(dt);
 
@@ -23,10 +26,13 @@ WL.registerComponent("sfx-on-collision", {
 
         this._myLastLastGrabbed = this._myLastGrabbed;
         this._myLastGrabbed = this._myGrabbable.isGrabbed(); // fix a physX bug that trigger a collision start when kinematic is changed
-    },
+    }
+
     pp_clone(targetObject) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
 
         return clonedComponent;
     }
-});
+};
+
+WL.registerComponent(PP.SFXOnCollisionComponent);

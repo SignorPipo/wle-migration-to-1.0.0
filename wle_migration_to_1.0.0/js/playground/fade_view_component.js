@@ -1,10 +1,13 @@
-WL.registerComponent("fade-view", {
-    _myColor: { type: WL.Type.String, default: "0, 0, 0" },
-    _myTimeToFadeIn: { type: WL.Type.Float, default: 0 },
-    _myStartDelay: { type: WL.Type.Float, default: 0 },
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.FadeViewComponent = class FadeViewComponent extends Component {
+    static TypeName = "fade-view";
+    static Properties = {
+        _myColor: { type: Type.String, default: "0, 0, 0" },
+        _myTimeToFadeIn: { type: Type.Float, default: 0 },
+        _myStartDelay: { type: Type.Float, default: 0 }
+    };
+
     start() {
         this._myStartTimer = new PP.Timer(this._myStartDelay);
         this._myFadeInTimer = new PP.Timer(this._myTimeToFadeIn, false);
@@ -30,7 +33,8 @@ WL.registerComponent("fade-view", {
 
         this._myFadeParentObject.pp_setParent(PP.myPlayerObjects.myHead, false);
         this._myFadeParentObject.pp_resetTransformLocal();
-    },
+    }
+
     update(dt) {
         if (this._myStartTimer.isRunning()) {
             this._myStartTimer.update(dt);
@@ -47,4 +51,6 @@ WL.registerComponent("fade-view", {
             this._myFadeMaterial.color = this._myColorVector;
         }
     }
-});
+};
+
+WL.registerComponent(PP.FadeViewComponent);

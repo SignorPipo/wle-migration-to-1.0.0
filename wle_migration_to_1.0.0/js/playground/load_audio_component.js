@@ -1,13 +1,13 @@
-WL.registerComponent("load-audio", {
-}, {
-    init() {
-    },
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.LoadAudioComponent = class LoadAudioComponent extends Component {
+    static TypeName = "load-audio";
+    static Properties = {};
+
     start() {
         this._loadAudio();
-    },
-    update(dt) {
+    }
 
-    },
     _loadAudio() {
         let manager = PP.myAudioManager;
 
@@ -51,4 +51,6 @@ WL.registerComponent("load-audio", {
             manager.addAudioSetup("strike", audioSetup);
         }
     }
-});
+};
+
+WL.registerComponent(PP.LoadAudioComponent);
