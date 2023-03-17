@@ -1,7 +1,7 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.ClearConsoleOnXRSessionStartComponent = class ClearConsoleOnXRSessionStartComponent extends Component {
-    static TypeName = 'pp-clear-console-on-xr-session-start';
+    static TypeName = "pp-clear-console-on-xr-session-start";
     static Properties = {};
 
     start() {

@@ -1,10 +1,10 @@
-import { Component, Type } from '@wonderlandengine/api';
-import { Howler } from 'howler';
+import { Component, Type } from "@wonderlandengine/api";
+import { Howler } from "howler";
 
 PP.SpatialAudioListenerComponent = class SpatialAudioListenerComponent extends Component {
-    static TypeName = 'pp-spatial-audio-listener';
+    static TypeName = "pp-spatial-audio-listener";
     static Properties = {
-        _myEnabled: { type: Type.Enum, values: ['always', 'vr', 'non vr'], default: 'always' }
+        _myEnabled: { type: Type.Enum, values: ["always", "vr", "non vr"], default: "always" }
     };
 
     init() {

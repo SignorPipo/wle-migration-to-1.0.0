@@ -1,14 +1,11 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.ShowFPSComponent = class ShowFPSComponent extends Component {
-    static TypeName = 'pp-show-fps';
+    static TypeName = "pp-show-fps";
     static Properties = {
         _myRefreshSeconds: { type: Type.Float, default: 0.25 },
         _myTextMaterial: { type: Type.Material }
     };
-
-    init() {
-    }
 
     start() {
         this._myTimer = new PP.Timer(this._myRefreshSeconds);

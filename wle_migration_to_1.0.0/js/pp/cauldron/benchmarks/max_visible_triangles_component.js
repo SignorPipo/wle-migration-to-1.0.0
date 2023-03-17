@@ -1,7 +1,7 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesComponent extends Component {
-    static TypeName = 'pp-benchmark-max-visible-triangles';
+    static TypeName = "pp-benchmark-max-visible-triangles";
     static Properties = {
         _myTargetFrameRate: { type: Type.Int, default: -1 },                // -1 means it will auto detect it at start
         _myTargetFrameRateThreshold: { type: Type.Int, default: 3 },
@@ -235,14 +235,14 @@ PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesCom
 
         this._myBackgroundObject = this.engine.scene.addObject(this._myTrianglesObject);
         {
-            let meshComponent = this._myBackgroundObject.addComponent('mesh');
+            let meshComponent = this._myBackgroundObject.addComponent("mesh");
             meshComponent.mesh = PP.MeshUtils.createPlaneMesh();
             meshComponent.material = this._myBackgroundMaterial.clone();
         }
 
         this._myPlaneObject = this.engine.scene.addObject(this._myTrianglesObject);
         {
-            let meshComponent = this._myPlaneObject.addComponent('mesh');
+            let meshComponent = this._myPlaneObject.addComponent("mesh");
             meshComponent.mesh = this._createPlaneMesh(this._myPlaneTriangles);
             this._myRealTrianglesAmount = meshComponent.mesh.indexData.length / 3;
             meshComponent.material = this._myPlaneMaterial.clone();
@@ -281,7 +281,7 @@ PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesCom
         this._myTriangleTextObject = this.engine.scene.addObject(this._myTextsObject);
         //this._myTriangleTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
-        this._myTriangleTextComponent = this._myTriangleTextObject.addComponent('text');
+        this._myTriangleTextComponent = this._myTriangleTextObject.addComponent("text");
 
         this._myTriangleTextComponent.alignment = this.engine.Alignment.Left;
         this._myTriangleTextComponent.justification = this.engine.Justification.Line;
@@ -292,7 +292,7 @@ PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesCom
 
         this._myPlaneTextObject = this.engine.scene.addObject(this._myTextsObject);
 
-        this._myPlaneTextComponent = this._myPlaneTextObject.addComponent('text');
+        this._myPlaneTextComponent = this._myPlaneTextObject.addComponent("text");
         //this._myPlaneTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
         this._myPlaneTextComponent.alignment = this.engine.Alignment.Left;
@@ -304,7 +304,7 @@ PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesCom
 
         this._myFPSTextObject = this.engine.scene.addObject(this._myTextsObject);
 
-        this._myFPSTextComponent = this._myFPSTextObject.addComponent('text');
+        this._myFPSTextComponent = this._myFPSTextObject.addComponent("text");
         //this._myFPSTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
         this._myFPSTextComponent.alignment = this.engine.Alignment.Left;
@@ -316,7 +316,7 @@ PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesCom
 
         this._myDoneTextObject = this.engine.scene.addObject(this._myTrianglesObject);
 
-        this._myDoneTextComponent = this._myDoneTextObject.addComponent('text');
+        this._myDoneTextComponent = this._myDoneTextObject.addComponent("text");
         //this._myDoneTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
         this._myDoneTextComponent.alignment = this.engine.Alignment.Center;

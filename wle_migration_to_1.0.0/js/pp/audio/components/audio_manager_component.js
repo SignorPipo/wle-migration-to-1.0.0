@@ -1,9 +1,9 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.myAudioManager = null;
 
 PP.AudioManagerComponent = class AudioManagerComponent extends Component {
-    static TypeName = 'pp-audio-manager';
+    static TypeName = "pp-audio-manager";
     static Properties = {};
 
     init() {

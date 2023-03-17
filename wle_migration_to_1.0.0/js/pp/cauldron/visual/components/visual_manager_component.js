@@ -1,9 +1,29 @@
-WL.registerComponent('pp-visual-manager', {
-}, {
-    init: function () {
-        PP.myVisualData.myRootObject = WL.scene.addObject(null);
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.myVisualManager = null;
+
+PP.myVisualData = {
+    myRootObject: null,
+    myDefaultMaterials: {
+        myDefaultMeshMaterial: null,
+        myDefaultTextMaterial: null,
+        myDefaultRightMaterial: null,
+        myDefaultUpMaterial: null,
+        myDefaultForwardMaterial: null,
+        myDefaultRayMaterial: null,
+        myDefaultHitNormalMaterial: null
+    }
+};
+
+PP.VisualManagerComponent = class VisualManagerComponent extends Component {
+    static TypeName = "pp-visual-manager";
+    static Properties = {};
+
+    init() {
+        PP.myVisualData.myRootObject = this.engine.scene.addObject(null);
         PP.myVisualManager = new PP.VisualManager();
-    },
+    }
+
     start() {
         PP.myVisualData.myDefaultMaterials.myDefaultMeshMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
 
@@ -22,23 +42,11 @@ WL.registerComponent('pp-visual-manager', {
         PP.myVisualData.myDefaultMaterials.myDefaultHitNormalMaterial.color = PP.vec4_create(1, 0, 0, 1);
 
         PP.myVisualManager.start();
-    },
+    }
+
     update(dt) {
         PP.myVisualManager.update(dt);
     }
-});
-
-PP.myVisualManager = null;
-
-PP.myVisualData = {
-    myRootObject: null,
-    myDefaultMaterials: {
-        myDefaultMeshMaterial: null,
-        myDefaultTextMaterial: null,
-        myDefaultRightMaterial: null,
-        myDefaultUpMaterial: null,
-        myDefaultForwardMaterial: null,
-        myDefaultRayMaterial: null,
-        myDefaultHitNormalMaterial: null
-    }
 };
+
+WL.registerComponent(PP.VisualManagerComponent);

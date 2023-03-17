@@ -1,8 +1,8 @@
-import { Component, Type } from '@wonderlandengine/api';
-import { Howler } from 'howler';
+import { Component, Type } from "@wonderlandengine/api";
+import { Howler } from "howler";
 
 PP.MuteEverythingComponent = class MuteEverythingComponent extends Component {
-    static TypeName = 'pp-mute-everything';
+    static TypeName = "pp-mute-everything";
     static Properties = {};
 
     init() {

@@ -1,8 +1,8 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 // adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away
 PP.BenchmarkMaxPhysXComponent = class BenchmarkMaxPhysXComponent extends Component {
-    static TypeName = 'pp-benchmark-max-physx';
+    static TypeName = "pp-benchmark-max-physx";
     static Properties = {
         _myStaticDomeSize: { type: Type.Float, default: 40 },
         _myStaticPhysXCount: { type: Type.Int, default: 1000 },
