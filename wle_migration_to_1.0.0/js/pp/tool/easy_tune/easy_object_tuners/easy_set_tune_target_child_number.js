@@ -1,10 +1,13 @@
-WL.registerComponent("pp-easy-set-tune-target-child-number", {
-    _myVariableName: { type: WL.Type.String, default: "" },
-    _mySetAsDefault: { type: WL.Type.Bool, default: false },
-}, {
-    init: function () {
-    },
-    start: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.EasySetTuneTargetChildNumberComponent = class EasySetTuneTargetChildNumberComponent extends Component {
+    static TypeName = "pp-easy-set-tune-target-child-number";
+    static Properties = {
+        _myVariableName: { type: Type.String, default: "" },
+        _mySetAsDefault: { type: Type.Bool, default: false },
+    };
+
+    start() {
         this._myEasyTuneVariableName = "Target Child ";
 
         if (this._myVariableName == "") {
@@ -28,8 +31,9 @@ WL.registerComponent("pp-easy-set-tune-target-child-number", {
 
         this._myCurrentChildIndex = -1;
         this._myCurrentChildrenCount = childrenCount;
-    },
-    update: function () {
+    }
+
+    update(dt) {
         if (PP.myEasyTuneVariables.isActive(this._myEasyTuneVariableName)) {
             let childrenCount = this.object.pp_getChildren().length;
             if (childrenCount != this._myCurrentChildrenCount) {
@@ -59,4 +63,6 @@ WL.registerComponent("pp-easy-set-tune-target-child-number", {
             }
         }
     }
-});
+};
+
+WL.registerComponent(PP.EasySetTuneTargetChildNumberComponent);

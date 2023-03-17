@@ -3284,6 +3284,7 @@
                 "js/pp/gameplay/experimental/locomotion/player/teleport",
                 "js/pp/input",
                 "js/pp/input/cauldron",
+                "js/pp/input/cauldron/components",
                 "js/pp/input/gamepad",
                 "js/pp/input/gamepad/cauldron",
                 "js/pp/input/gamepad/gamepad_cores",

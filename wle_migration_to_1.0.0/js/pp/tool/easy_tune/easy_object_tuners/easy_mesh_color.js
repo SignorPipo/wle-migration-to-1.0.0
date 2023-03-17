@@ -1,41 +1,11 @@
-WL.registerComponent("pp-easy-mesh-color", {
-    _myVariableName: { type: WL.Type.String, default: "" },
-    _myUseTuneTarget: { type: WL.Type.Bool, default: false },
-    _mySetAsDefault: { type: WL.Type.Bool, default: false },
-    _myColorModel: { type: WL.Type.Enum, values: ['rgb', 'hsv'], default: 'hsv' },
-    _myColorType: { type: WL.Type.Enum, values: ['color', 'diffuse color', 'ambient color', 'specular color', 'emissive color', 'fog color', 'ambient factor'], default: 'color' },
-
-}, {
-    init: function () {
-        this._myEasyObjectTuner = new PP.EasyMeshColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
-    },
-    start: function () {
-        this._myEasyObjectTuner.start();
-    },
-    update: function (dt) {
-        this._myEasyObjectTuner.update(dt);
-    },
-    pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, {
-            "_myVariableName": this._myVariableName,
-            "_mySetAsDefault": this._mySetAsDefault,
-            "_myUseTuneTarget": this._myUseTuneTarget,
-            "_myColorModel": this._myColorModel,
-            "_myColorType": this._myColorType,
-        });
-
-        clonedComponent.active = this.active;
-
-        return clonedComponent;
-    }
-});
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
     constructor(colorModel, colorType, object, variableName, setAsDefault, useTuneTarget) {
         super(object, variableName, setAsDefault, useTuneTarget);
         this._myColorModel = colorModel;
         this._myColorType = colorType;
-        this._myColorVariableNames = ['color', 'diffuseColor', 'ambientColor', 'specularColor', 'emissiveColor', 'fogColor', 'ambientFactor',];
+        this._myColorVariableNames = ["color", "diffuseColor", "ambientColor", "specularColor", "emissiveColor", "fogColor", "ambientFactor",];
     }
 
     _getVariableNamePrefix() {
@@ -126,3 +96,42 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
         return material;
     }
 };
+
+PP.EasyMeshColorComponent = class EasyMeshColorComponent extends Component {
+    static TypeName = "pp-easy-mesh-color";
+    static Properties = {
+        _myVariableName: { type: Type.String, default: "" },
+        _myUseTuneTarget: { type: Type.Bool, default: false },
+        _mySetAsDefault: { type: Type.Bool, default: false },
+        _myColorModel: { type: Type.Enum, values: ["rgb", "hsv"], default: "hsv" },
+        _myColorType: { type: Type.Enum, values: ["color", "diffuse color", "ambient color", "specular color", "emissive color", "fog color", "ambient factor"], default: "color" },
+    };
+
+    init() {
+        this._myEasyObjectTuner = new PP.EasyMeshColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+    }
+
+    start() {
+        this._myEasyObjectTuner.start();
+    }
+
+    update(dt) {
+        this._myEasyObjectTuner.update(dt);
+    }
+
+    pp_clone(targetObject) {
+        let clonedComponent = targetObject.pp_addComponent(this.type, {
+            "_myVariableName": this._myVariableName,
+            "_mySetAsDefault": this._mySetAsDefault,
+            "_myUseTuneTarget": this._myUseTuneTarget,
+            "_myColorModel": this._myColorModel,
+            "_myColorType": this._myColorType,
+        });
+
+        clonedComponent.active = this.active;
+
+        return clonedComponent;
+    }
+};
+
+WL.registerComponent(PP.EasyMeshColorComponent);

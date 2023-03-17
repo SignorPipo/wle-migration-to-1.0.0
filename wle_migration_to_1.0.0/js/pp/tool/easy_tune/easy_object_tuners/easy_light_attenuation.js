@@ -1,19 +1,4 @@
-WL.registerComponent("pp-easy-light-attenuation", {
-    _myVariableName: { type: WL.Type.String, default: "" },
-    _mySetAsDefault: { type: WL.Type.Bool, default: false },
-    _myUseTuneTarget: { type: WL.Type.Bool, default: false }
-
-}, {
-    init: function () {
-        this._myEasyObjectTuner = new PP.EasyLightAttenuation(this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
-    },
-    start: function () {
-        this._myEasyObjectTuner.start();
-    },
-    update: function (dt) {
-        this._myEasyObjectTuner.update(dt);
-    }
-});
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.EasyLightAttenuation = class EasyLightAttenuation extends PP.EasyObjectTuner {
     constructor(object, variableName, setAsDefault, useTuneTarget) {
@@ -58,3 +43,26 @@ PP.EasyLightAttenuation = class EasyLightAttenuation extends PP.EasyObjectTuner 
         return attenuation;
     }
 };
+
+PP.EasyLightAttenuationComponent = class EasyLightAttenuationComponent extends Component {
+    static TypeName = "pp-easy-light-attenuation";
+    static Properties = {
+        _myVariableName: { type: Type.String, default: "" },
+        _mySetAsDefault: { type: Type.Bool, default: false },
+        _myUseTuneTarget: { type: Type.Bool, default: false }
+    };
+
+    init() {
+        this._myEasyObjectTuner = new PP.EasyLightAttenuation(this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+    }
+
+    start() {
+        this._myEasyObjectTuner.start();
+    }
+
+    update(dt) {
+        this._myEasyObjectTuner.update(dt);
+    }
+};
+
+WL.registerComponent(PP.EasyLightAttenuationComponent);

@@ -1,28 +1,11 @@
-WL.registerComponent("pp-easy-text-color", {
-    _myVariableName: { type: WL.Type.String, default: "" },
-    _mySetAsDefault: { type: WL.Type.Bool, default: false },
-    _myUseTuneTarget: { type: WL.Type.Bool, default: false },
-    _myColorModel: { type: WL.Type.Enum, values: ['rgb', 'hsv'], default: 'hsv' },
-    _myColorType: { type: WL.Type.Enum, values: ['color', 'effect color'], default: 'color' }
-
-}, {
-    init: function () {
-        this._myEasyObjectTuner = new PP.EasyTextColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
-    },
-    start: function () {
-        this._myEasyObjectTuner.start();
-    },
-    update: function (dt) {
-        this._myEasyObjectTuner.update(dt);
-    }
-});
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.EasyTextColor = class EasyTextColor extends PP.EasyObjectTuner {
     constructor(colorModel, colorType, object, variableName, setAsDefault, useTuneTarget) {
         super(object, variableName, setAsDefault, useTuneTarget);
         this._myColorModel = colorModel;
         this._myColorType = colorType;
-        this._myColorVariableNames = ['color', 'effectColor'];
+        this._myColorVariableNames = ["color", "effectColor"];
     }
 
     _getVariableNamePrefix() {
@@ -98,3 +81,28 @@ PP.EasyTextColor = class EasyTextColor extends PP.EasyObjectTuner {
         return material;
     }
 };
+
+PP.EasyTextColorComponent = class EasyTextColorComponent extends Component {
+    static TypeName = "pp-easy-text-color";
+    static Properties = {
+        _myVariableName: { type: Type.String, default: "" },
+        _mySetAsDefault: { type: Type.Bool, default: false },
+        _myUseTuneTarget: { type: Type.Bool, default: false },
+        _myColorModel: { type: Type.Enum, values: ["rgb", "hsv"], default: "hsv" },
+        _myColorType: { type: Type.Enum, values: ["color", "effect color"], default: "color" }
+    };
+
+    init() {
+        this._myEasyObjectTuner = new PP.EasyTextColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+    }
+
+    start() {
+        this._myEasyObjectTuner.start();
+    }
+
+    update(dt) {
+        this._myEasyObjectTuner.update(dt);
+    }
+};
+
+WL.registerComponent(PP.EasyTextColorComponent);

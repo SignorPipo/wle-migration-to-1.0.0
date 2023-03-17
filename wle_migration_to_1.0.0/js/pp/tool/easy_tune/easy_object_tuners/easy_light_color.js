@@ -1,20 +1,4 @@
-WL.registerComponent("pp-easy-light-color", {
-    _myVariableName: { type: WL.Type.String, default: "" },
-    _mySetAsDefault: { type: WL.Type.Bool, default: false },
-    _myUseTuneTarget: { type: WL.Type.Bool, default: false },
-    _myColorModel: { type: WL.Type.Enum, values: ['rgb', 'hsv'], default: 'hsv' }
-
-}, {
-    init: function () {
-        this._myEasyObjectTuner = new PP.EasyLightColor(this._myColorModel, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
-    },
-    start: function () {
-        this._myEasyObjectTuner.start();
-    },
-    update: function (dt) {
-        this._myEasyObjectTuner.update(dt);
-    }
-});
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.EasyLightColor = class EasyLightColor extends PP.EasyObjectTuner {
     constructor(colorModel, object, variableName, setAsDefault, useTuneTarget) {
@@ -96,3 +80,27 @@ PP.EasyLightColor = class EasyLightColor extends PP.EasyObjectTuner {
         return color;
     }
 };
+
+PP.EasyLightColorComponent = class EasyLightColorComponent extends Component {
+    static TypeName = "pp-easy-light-color";
+    static Properties = {
+        _myVariableName: { type: Type.String, default: "" },
+        _mySetAsDefault: { type: Type.Bool, default: false },
+        _myUseTuneTarget: { type: Type.Bool, default: false },
+        _myColorModel: { type: Type.Enum, values: ["rgb", "hsv"], default: "hsv" }
+    };
+
+    init() {
+        this._myEasyObjectTuner = new PP.EasyLightColor(this._myColorModel, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+    }
+
+    start() {
+        this._myEasyObjectTuner.start();
+    }
+
+    update(dt) {
+        this._myEasyObjectTuner.update(dt);
+    }
+};
+
+WL.registerComponent(PP.EasyLightColorComponent);

@@ -1,27 +1,4 @@
-WL.registerComponent("pp-easy-mesh-ambient-factor", {
-    _myVariableName: { type: WL.Type.String, default: "" },
-    _myUseTuneTarget: { type: WL.Type.Bool, default: false },
-    _mySetAsDefault: { type: WL.Type.Bool, default: false }
-}, {
-    init: function () {
-        this._myEasyObjectTuner = new PP.EasyMeshAmbientFactor(this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
-    },
-    start: function () {
-        this._myEasyObjectTuner.start();
-    },
-    update: function (dt) {
-        this._myEasyObjectTuner.update(dt);
-    },
-    pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, {
-            "_myVariableName": this._myVariableName,
-            "_mySetAsDefault": this._mySetAsDefault,
-            "_myUseTuneTarget": this._myUseTuneTarget
-        });
-
-        return clonedComponent;
-    }
-});
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.EasyMeshAmbientFactor = class EasyMeshAmbientFactor extends PP.EasyObjectTuner {
     constructor(object, variableName, setAsDefault, useTuneTarget) {
@@ -80,3 +57,38 @@ PP.EasyMeshAmbientFactor = class EasyMeshAmbientFactor extends PP.EasyObjectTune
         return material;
     }
 };
+
+PP.EasyMeshAmbientFactorComponent = class EasyMeshAmbientFactorComponent extends Component {
+    static TypeName = "pp-easy-mesh-ambient-factor";
+    static Properties = {
+        _myVariableName: { type: Type.String, default: "" },
+        _myUseTuneTarget: { type: Type.Bool, default: false },
+        _mySetAsDefault: { type: Type.Bool, default: false }
+    };
+
+    init() {
+        this._myEasyObjectTuner = new PP.EasyMeshAmbientFactor(this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+    }
+
+    start() {
+        this._myEasyObjectTuner.start();
+    }
+
+    update(dt) {
+        this._myEasyObjectTuner.update(dt);
+    }
+
+    pp_clone(targetObject) {
+        let clonedComponent = targetObject.pp_addComponent(this.type, {
+            "_myVariableName": this._myVariableName,
+            "_mySetAsDefault": this._mySetAsDefault,
+            "_myUseTuneTarget": this._myUseTuneTarget
+        });
+
+        clonedComponent.active = this.active;
+
+        return clonedComponent;
+    }
+};
+
+WL.registerComponent(PP.EasyMeshAmbientFactorComponent);

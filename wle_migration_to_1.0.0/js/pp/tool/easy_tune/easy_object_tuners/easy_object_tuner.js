@@ -1,5 +1,3 @@
-//Don't move inside easy_object_tuners folder, otherwise it won't resolve the parent class dependency
-
 PP.EasyObjectTuner = class EasyObjectTuner {
     constructor(object, variableName, setAsDefault, useTuneTarget) {
         this._myObject = object;

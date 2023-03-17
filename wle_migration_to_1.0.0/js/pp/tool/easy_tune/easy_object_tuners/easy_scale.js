@@ -1,20 +1,4 @@
-WL.registerComponent("pp-easy-scale", {
-    _myVariableName: { type: WL.Type.String, default: "" },
-    _mySetAsDefault: { type: WL.Type.Bool, default: false },
-    _myUseTuneTarget: { type: WL.Type.Bool, default: false },
-    _myIsLocal: { type: WL.Type.Bool, default: false },
-    _myScaleAsOne: { type: WL.Type.Bool, default: true }, // Edit all scale values together
-}, {
-    init: function () {
-        this._myEasyObjectTuner = new PP.EasyScale(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
-    },
-    start: function () {
-        this._myEasyObjectTuner.start();
-    },
-    update: function (dt) {
-        this._myEasyObjectTuner.update(dt);
-    }
-});
+import { Component, Type } from "@wonderlandengine/api";
 
 PP.EasyScale = class EasyScale extends PP.EasyObjectTuner {
     constructor(isLocal, scaleAsOne, object, variableName, setAsDefault, useTuneTarget) {
@@ -47,3 +31,28 @@ PP.EasyScale = class EasyScale extends PP.EasyObjectTuner {
         }
     }
 };
+
+PP.EasyScaleComponent = class EasyScaleComponent extends Component {
+    static TypeName = "pp-easy-scale";
+    static Properties = {
+        _myVariableName: { type: Type.String, default: "" },
+        _mySetAsDefault: { type: Type.Bool, default: false },
+        _myUseTuneTarget: { type: Type.Bool, default: false },
+        _myIsLocal: { type: Type.Bool, default: false },
+        _myScaleAsOne: { type: Type.Bool, default: true } // Edit all scale values together
+    };
+
+    init() {
+        this._myEasyObjectTuner = new PP.EasyScale(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+    }
+
+    start() {
+        this._myEasyObjectTuner.start();
+    }
+
+    update(dt) {
+        this._myEasyObjectTuner.update(dt);
+    }
+};
+
+WL.registerComponent(PP.EasyScaleComponent);
