@@ -82,7 +82,6 @@ if (WL && WL.Object) {
         }
 
         let clonedComponent = targetObject.pp_addComponent(this.type, componentParams);
-
         clonedComponent.active = this.active;
 
         return clonedComponent;

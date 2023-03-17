@@ -23,6 +23,8 @@ WL.registerComponent("pp-easy-transform", {
             "_myScaleAsOne": this._myScaleAsOne,
         });
 
+        clonedComponent.active = this.active;
+
         return clonedComponent;
     }
 });

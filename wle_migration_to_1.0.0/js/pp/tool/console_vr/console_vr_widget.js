@@ -46,8 +46,8 @@ PP.ConsoleVRWidget = class ConsoleVRWidget {
     }
 
     start(parentObject, additionalSetup) {
-        this._myLeftGamepad = PP.myLeftGamepad; //@EDIT get gamepad LEFT here based on how you store it in your game
-        this._myRightGamepad = PP.myRightGamepad; //@EDIT get gamepad RIGHT here based on how you store it in your game
+        this._myLeftGamepad = PP.myLeftGamepad;
+        this._myRightGamepad = PP.myRightGamepad;
 
         this._myAdditionalSetup = additionalSetup;
 

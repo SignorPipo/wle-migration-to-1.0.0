@@ -30,6 +30,7 @@ PP.ScaleOnSpawnComponent = class ScaleOnSpawnComponent extends Component {
 
     pp_clone(targetObject) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
+        clonedComponent.active = this.active;
 
         clonedComponent._myStartDelay = this._myStartDelay;
         clonedComponent._myScaleDuration = this._myScaleDuration;

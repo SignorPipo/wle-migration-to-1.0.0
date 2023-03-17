@@ -24,6 +24,8 @@ WL.registerComponent("pp-easy-mesh-color", {
             "_myColorType": this._myColorType,
         });
 
+        clonedComponent.active = this.active;
+
         return clonedComponent;
     }
 });

@@ -136,6 +136,7 @@ PP.CADisplayLeaderboardComponent = class CADisplayLeaderboardComponent extends C
 
     pp_clone(targetObject) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
+        clonedComponent.active = this.active;
 
         clonedComponent._myLeaderboardID = this._myLeaderboardID;
         clonedComponent._myIsLocal = this._myIsLocal;
