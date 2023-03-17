@@ -1,17 +1,19 @@
-WL.registerComponent('pp-tracked-hand-draw-all-joints', {
-    _myHandedness: { type: WL.Type.Enum, values: ['left', 'right'], default: 'left' },
-    _myFixForward: { type: WL.Type.Bool, default: true },
-    _myHideMetacarpals: { type: WL.Type.Bool, default: true },
-    _myJointMesh: { type: WL.Type.Mesh },
-    _myJointMaterial: { type: WL.Type.Material }
-}, {
-    init: function () {
-    },
-    start: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.TrackedHandDrawAllJointsComponent = class TrackedHandDrawAllJointsComponent extends Component {
+    static TypeName = "pp-tracked-hand-draw-all-joints";
+    static Properties = {
+        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myFixForward: { type: Type.Bool, default: true },
+        _myHideMetacarpals: { type: Type.Bool, default: true },
+        _myJointMesh: { type: Type.Mesh },
+        _myJointMaterial: { type: Type.Material }
+    };
+
+    start() {
         this._buildTrackedHandHierarchy();
-    },
-    update: function (dt) {
-    },
+    }
+
     _buildTrackedHandHierarchy() {
         this._myTrackedHandMeshObject = this.object.pp_addObject();
 
@@ -39,4 +41,6 @@ WL.registerComponent('pp-tracked-hand-draw-all-joints', {
             }
         }
     }
-});
+};
+
+WL.registerComponent(PP.TrackedHandDrawAllJointsComponent);

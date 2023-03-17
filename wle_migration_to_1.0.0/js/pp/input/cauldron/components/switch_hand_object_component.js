@@ -1,20 +1,25 @@
-WL.registerComponent('pp-switch-hand-object', {
-    _myHandedness: { type: WL.Type.Enum, values: ['left', 'right'], default: 'left' },
-    _myGamepad: { type: WL.Type.Object },
-    _myTrackedHand: { type: WL.Type.Object }
-}, {
-    init: function () {
-    },
-    start: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.SwitchHandObjectComponent = class SwitchHandObjectComponent extends Component {
+    static TypeName = "pp-switch-hand-object";
+    static Properties = {
+        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myGamepad: { type: Type.Object },
+        _myTrackedHand: { type: Type.Object }
+    };
+
+    start() {
         this._myHandednessType = PP.InputUtils.getHandednessByIndex(this._myHandedness);
         this._myFirstUpdate = true;
 
         this._myCurrentInputSourceType = null;
-    },
+    }
+
     onActivate() {
         this._myFirstUpdate = true;
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         if (this._myFirstUpdate) {
             this._myFirstUpdate = false;
             this._start();
@@ -40,7 +45,8 @@ WL.registerComponent('pp-switch-hand-object', {
                 }
             }
         }
-    },
+    }
+
     _start() {
         if (this._myGamepad != null) {
             this._myGamepad.pp_setActive(false);
@@ -52,4 +58,6 @@ WL.registerComponent('pp-switch-hand-object', {
 
         this._myCurrentInputSourceType = null;
     }
-});
+};
+
+WL.registerComponent(PP.SwitchHandObjectComponent);

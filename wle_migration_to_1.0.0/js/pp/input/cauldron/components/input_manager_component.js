@@ -1,8 +1,24 @@
-WL.registerComponent('pp-input-manager', {
-    _myGamepadFixForward: { type: WL.Type.Bool, default: true },
-    _myMousePreventContextMenu: { type: WL.Type.Bool, default: true },
-    _myMousePreventMiddleButtonScroll: { type: WL.Type.Bool, default: true },
-}, {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.myInputManager = null;
+
+PP.myMouse = null;
+
+PP.myKeyboard = null;
+
+PP.myGamepadsManager = null;
+PP.myGamepads = null;
+PP.myLeftGamepad = null;
+PP.myRightGamepad = null;
+
+PP.InputManagerComponent = class InputManagerComponent extends Component {
+    static TypeName = "pp-input-manager";
+    static Properties = {
+        _myGamepadFixForward: { type: Type.Bool, default: true },
+        _myMousePreventContextMenu: { type: Type.Bool, default: true },
+        _myMousePreventMiddleButtonScroll: { type: Type.Bool, default: true }
+    };
+
     init() {
         this._myInputManager = new PP.InputManager();
 
@@ -15,16 +31,19 @@ WL.registerComponent('pp-input-manager', {
         PP.myGamepads = PP.myGamepadsManager.getGamepads();
         PP.myLeftGamepad = PP.myGamepadsManager.getLeftGamepad();
         PP.myRightGamepad = PP.myGamepadsManager.getRightGamepad();
-    },
+    }
+
     start() {
         this._myInputManager.start();
 
         this._setupMousePrevent();
         this._addGamepadCores();
-    },
+    }
+
     update(dt) {
         this._myInputManager.update(dt);
-    },
+    }
+
     _setupMousePrevent() {
         if (this._myMousePreventContextMenu) {
             PP.myMouse.setContextMenuActive(false);
@@ -33,7 +52,8 @@ WL.registerComponent('pp-input-manager', {
         if (this._myMousePreventMiddleButtonScroll) {
             PP.myMouse.setMiddleButtonScrollActive(false);
         }
-    },
+    }
+
     _addGamepadCores() {
         let handPoseParams = new PP.HandPoseParams();
         handPoseParams.myReferenceObject = PP.myPlayerObjects.myPlayerPivot;
@@ -58,15 +78,6 @@ WL.registerComponent('pp-input-manager', {
         PP.myLeftGamepad.addGamepadCore("left_classic_gamepad", leftClassicGamepadCore);
         PP.myRightGamepad.addGamepadCore("right_classic_gamepad", rightClassicGamepadCore);
     }
-});
+};
 
-PP.myInputManager = null;
-
-PP.myMouse = null;
-
-PP.myKeyboard = null;
-
-PP.myGamepadsManager = null;
-PP.myGamepads = null;
-PP.myLeftGamepad = null;
-PP.myRightGamepad = null;
+WL.registerComponent(PP.InputManagerComponent);

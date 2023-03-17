@@ -1,20 +1,27 @@
-WL.registerComponent('pp-tracked-hand-draw-skin', {
-    _myHandedness: { type: WL.Type.Enum, values: ['left', 'right'], default: 'left' },
-    _myFixForward: { type: WL.Type.Bool, default: true },
-    _myHandSkin: { type: WL.Type.Skin, default: null }
-}, {
-    init: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.TrackedHandDrawSkinComponent = class TrackedHandDrawSkinComponent extends Component {
+    static TypeName = "pp-tracked-hand-draw-skin";
+    static Properties = {
+        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myFixForward: { type: Type.Bool, default: true },
+        _myHandSkin: { type: Type.Skin, default: null }
+    };
+
+    init() {
         this._myHandednessInternal = PP.InputUtils.getHandednessByIndex(this._myHandedness);
 
         this._myTrackedHandPose = new PP.TrackedHandPose(this._myHandednessInternal);
         this._myTrackedHandPose.setFixForward(this._myFixForward);
-    },
-    start: function () {
+    }
+
+    start() {
         this._myTrackedHandPose.start();
 
         this._prepareJoints();
-    },
-    update: function update(dt) {
+    }
+
+    update(dt) {
         this._myTrackedHandPose.update(dt);
 
         for (let i = 0; i < this._myJoints.length; i++) {
@@ -25,7 +32,8 @@ WL.registerComponent('pp-tracked-hand-draw-skin', {
 
             jointObject.pp_setTransformLocalQuat(jointPose.getTransformQuat());
         }
-    },
+    }
+
     _prepareJoints() {
         this._myJoints = [];
 
@@ -35,4 +43,6 @@ WL.registerComponent('pp-tracked-hand-draw-skin', {
             this._myJoints[i] = new WL.Object(skinJointIDs[i]);
         }
     }
-});
+};
+
+WL.registerComponent(PP.TrackedHandDrawSkinComponent);
