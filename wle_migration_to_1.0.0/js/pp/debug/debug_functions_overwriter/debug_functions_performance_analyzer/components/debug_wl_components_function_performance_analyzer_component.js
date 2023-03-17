@@ -1,25 +1,29 @@
+import { Component, Type } from "@wonderlandengine/api";
 
-WL.registerComponent('pp-debug-wl-components-functions-performance-analyzer', {
-    _myAnalyzeComponentTypes: { type: WL.Type.Bool, default: true },
-    _myAnalyzeComponentInstances: { type: WL.Type.Bool, default: false },
-    _myDelayStart: { type: WL.Type.Float, default: 0.0 },
-    _myLogFunction: { type: WL.Type.Enum, values: ["log", "error", "warn", "debug"], default: "log" },
-    _mySecondsBetweenLogs: { type: WL.Type.Float, default: 1.0 },
-    _myLogMaxResults: { type: WL.Type.Bool, default: false },
-    _myLogSortOrder: { type: WL.Type.Enum, values: ["none", "calls count", "total execution time", "average execution time"], default: "none" },
-    _myLogCallsCountResults: { type: WL.Type.Bool, default: true },
-    _myLogTotalExecutionTimeResults: { type: WL.Type.Bool, default: true },
-    _myLogTotalExecutionTimePercentageResults: { type: WL.Type.Bool, default: true },
-    _myLogAverageExecutionTimeResults: { type: WL.Type.Bool, default: true },
-    _myLogMaxAmountOfFunctions: { type: WL.Type.Int, default: -1 },
-    _myLogFunctionsWithCallsCountAbove: { type: WL.Type.Int, default: -1 },
-    _myLogFunctionsWithTotalExecutionTimePercentageAbove: { type: WL.Type.Float, default: -1 },
-    _myFunctionPathsToInclude: { type: WL.Type.String, default: "" },
-    _myFunctionPathsToExclude: { type: WL.Type.String, default: "" },
-    _myExcludeConstructors: { type: WL.Type.Bool, default: false },
-    _myClearConsoleBeforeLog: { type: WL.Type.Bool, default: false },
-    _myResetMaxResultsShortcutEnabled: { type: WL.Type.Bool, default: false }
-}, {
+PP.DebugWLComponentsFunctionsPerformanceAnalyzerComponent = class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Component {
+    static TypeName = "pp-debug-wl-components-functions-performance-analyzer";
+    static Properties = {
+        _myAnalyzeComponentTypes: { type: Type.Bool, default: true },
+        _myAnalyzeComponentInstances: { type: Type.Bool, default: false },
+        _myDelayStart: { type: Type.Float, default: 0.0 },
+        _myLogFunction: { type: Type.Enum, values: ["log", "error", "warn", "debug"], default: "log" },
+        _mySecondsBetweenLogs: { type: Type.Float, default: 1.0 },
+        _myLogMaxResults: { type: Type.Bool, default: false },
+        _myLogSortOrder: { type: Type.Enum, values: ["none", "calls count", "total execution time", "average execution time"], default: "none" },
+        _myLogCallsCountResults: { type: Type.Bool, default: true },
+        _myLogTotalExecutionTimeResults: { type: Type.Bool, default: true },
+        _myLogTotalExecutionTimePercentageResults: { type: Type.Bool, default: true },
+        _myLogAverageExecutionTimeResults: { type: Type.Bool, default: true },
+        _myLogMaxAmountOfFunctions: { type: Type.Int, default: -1 },
+        _myLogFunctionsWithCallsCountAbove: { type: Type.Int, default: -1 },
+        _myLogFunctionsWithTotalExecutionTimePercentageAbove: { type: Type.Float, default: -1 },
+        _myFunctionPathsToInclude: { type: Type.String, default: "" },
+        _myFunctionPathsToExclude: { type: Type.String, default: "" },
+        _myExcludeConstructors: { type: Type.Bool, default: false },
+        _myClearConsoleBeforeLog: { type: Type.Bool, default: false },
+        _myResetMaxResultsShortcutEnabled: { type: Type.Bool, default: false }
+    };
+
     init() {
         let objectsByPath = "";
 
@@ -66,9 +70,7 @@ WL.registerComponent('pp-debug-wl-components-functions-performance-analyzer', {
             _myClearConsoleBeforeLog: this._myClearConsoleBeforeLog,
             _myResetMaxResultsShortcutEnabled: this._myResetMaxResultsShortcutEnabled
         });
-    },
-    update(dt) {
-        let a = 2;
-        let b = a * 2;
     }
-});
+};
+
+WL.registerComponent(PP.DebugWLComponentsFunctionsPerformanceAnalyzerComponent);

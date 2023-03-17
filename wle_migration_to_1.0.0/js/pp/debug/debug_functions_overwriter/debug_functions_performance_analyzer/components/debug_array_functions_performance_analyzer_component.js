@@ -1,25 +1,30 @@
 
-WL.registerComponent('pp-debug-array-functions-performance-analyzer', {
-    _myIncludeOnlyMainArrayTypes: { type: WL.Type.Bool, default: true },
-    _myIncludeOnlyArrayExtensionFunctions: { type: WL.Type.Bool, default: false },
-    _myDelayStart: { type: WL.Type.Float, default: 0.0 },
-    _myLogFunction: { type: WL.Type.Enum, values: ["log", "error", "warn", "debug"], default: "log" },
-    _mySecondsBetweenLogs: { type: WL.Type.Float, default: 1.0 },
-    _myLogMaxResults: { type: WL.Type.Bool, default: false },
-    _myLogSortOrder: { type: WL.Type.Enum, values: ["none", "calls count", "total execution time", "average execution time"], default: "none" },
-    _myLogCallsCountResults: { type: WL.Type.Bool, default: true },
-    _myLogTotalExecutionTimeResults: { type: WL.Type.Bool, default: true },
-    _myLogTotalExecutionTimePercentageResults: { type: WL.Type.Bool, default: true },
-    _myLogAverageExecutionTimeResults: { type: WL.Type.Bool, default: true },
-    _myLogMaxAmountOfFunctions: { type: WL.Type.Int, default: -1 },
-    _myLogFunctionsWithCallsCountAbove: { type: WL.Type.Int, default: -1 },
-    _myLogFunctionsWithTotalExecutionTimePercentageAbove: { type: WL.Type.Float, default: -1 },
-    _myFunctionPathsToInclude: { type: WL.Type.String, default: "" },
-    _myFunctionPathsToExclude: { type: WL.Type.String, default: "" },
-    _myExcludeConstructors: { type: WL.Type.Bool, default: false },
-    _myClearConsoleBeforeLog: { type: WL.Type.Bool, default: false },
-    _myResetMaxResultsShortcutEnabled: { type: WL.Type.Bool, default: false }
-}, {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.DebugArrayFunctionsPerformanceAnalyzerComponent = class DebugArrayFunctionsPerformanceAnalyzerComponent extends Component {
+    static TypeName = "pp-debug-array-functions-performance-analyzer";
+    static Properties = {
+        _myIncludeOnlyMainArrayTypes: { type: Type.Bool, default: true },
+        _myIncludeOnlyArrayExtensionFunctions: { type: Type.Bool, default: false },
+        _myDelayStart: { type: Type.Float, default: 0.0 },
+        _myLogFunction: { type: Type.Enum, values: ["log", "error", "warn", "debug"], default: "log" },
+        _mySecondsBetweenLogs: { type: Type.Float, default: 1.0 },
+        _myLogMaxResults: { type: Type.Bool, default: false },
+        _myLogSortOrder: { type: Type.Enum, values: ["none", "calls count", "total execution time", "average execution time"], default: "none" },
+        _myLogCallsCountResults: { type: Type.Bool, default: true },
+        _myLogTotalExecutionTimeResults: { type: Type.Bool, default: true },
+        _myLogTotalExecutionTimePercentageResults: { type: Type.Bool, default: true },
+        _myLogAverageExecutionTimeResults: { type: Type.Bool, default: true },
+        _myLogMaxAmountOfFunctions: { type: Type.Int, default: -1 },
+        _myLogFunctionsWithCallsCountAbove: { type: Type.Int, default: -1 },
+        _myLogFunctionsWithTotalExecutionTimePercentageAbove: { type: Type.Float, default: -1 },
+        _myFunctionPathsToInclude: { type: Type.String, default: "" },
+        _myFunctionPathsToExclude: { type: Type.String, default: "" },
+        _myExcludeConstructors: { type: Type.Bool, default: false },
+        _myClearConsoleBeforeLog: { type: Type.Bool, default: false },
+        _myResetMaxResultsShortcutEnabled: { type: Type.Bool, default: false }
+    };
+
     init() {
         let classesByPath = "Array, Uint8ClampedArray, Uint8Array, Uint16Array, Uint32Array, Int8Array, Int16Array, Int32Array, Float32Array, Float64Array";
         if (this._myIncludeOnlyMainArrayTypes) {
@@ -50,4 +55,6 @@ WL.registerComponent('pp-debug-array-functions-performance-analyzer', {
             _myResetMaxResultsShortcutEnabled: this._myResetMaxResultsShortcutEnabled
         });
     }
-});
+};
+
+WL.registerComponent(PP.DebugArrayFunctionsPerformanceAnalyzerComponent);
