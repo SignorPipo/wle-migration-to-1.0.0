@@ -83,7 +83,7 @@ PP.FingerCursorComponent = class FingerCursorComponent extends Component {
         }
     }
 
-    _targetTouchstart() {
+    _targetTouchStart() {
         this._myLastTarget.onHover(this._myLastTarget.object, this);
         this._myLastTarget.onDown(this._myLastTarget.object, this);
     }
@@ -143,7 +143,7 @@ PP.FingerCursorComponent = class FingerCursorComponent extends Component {
         }
     }
 
-    _onXRSessionstart(session) {
+    _onXRSessionStart(session) {
         session.requestReferenceSpace(WebXR.refSpace).then(function (referenceSpace) { this._myReferenceSpace = referenceSpace; }.bind(this));
     }
 

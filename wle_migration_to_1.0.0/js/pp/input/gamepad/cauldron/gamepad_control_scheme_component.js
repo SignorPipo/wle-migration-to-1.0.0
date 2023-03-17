@@ -1,32 +1,35 @@
-WL.registerComponent('pp-gamepad-control-scheme', {
-    _myShowOnStart: { type: WL.Type.Bool, default: true },
+import { Component, Type } from "@wonderlandengine/api";
 
-    _myHandedness: { type: WL.Type.Enum, values: ['left', 'right'], default: 'left' },
+PP.GamepadControlSchemeComponent = class GamepadControlSchemeComponent extends Component {
+    static TypeName = "pp-gamepad-control-scheme";
+    static Properties = {
+        _myShowOnStart: { type: Type.Bool, default: true },
 
-    _mySelectText: { type: WL.Type.String, default: "" },
-    _mySqueezeText: { type: WL.Type.String, default: "" },
-    _myThumbstickText: { type: WL.Type.String, default: "" },
-    _myBottomButtonText: { type: WL.Type.String, default: "" },
-    _myTopButtonText: { type: WL.Type.String, default: "" },
+        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
 
-    _mySelect: { type: WL.Type.Object, default: null },
-    _mySqueeze: { type: WL.Type.Object, default: null },
-    _myThumbstick: { type: WL.Type.Object, default: null },
-    _myBottomButton: { type: WL.Type.Object, default: null },
-    _myTopButton: { type: WL.Type.Object, default: null },
+        _mySelectText: { type: Type.String, default: "" },
+        _mySqueezeText: { type: Type.String, default: "" },
+        _myThumbstickText: { type: Type.String, default: "" },
+        _myBottomButtonText: { type: Type.String, default: "" },
+        _myTopButtonText: { type: Type.String, default: "" },
 
-    _myTextScaleMultiplier: { type: WL.Type.Float, default: 1 },
-    _myTextOffsetMultiplier: { type: WL.Type.Float, default: 1 },
-    _myLineLengthMultiplier: { type: WL.Type.Float, default: 1 },
-    _myLineThicknessMultiplier: { type: WL.Type.Float, default: 1 },
-    _myDistanceFromButtonsMultiplier: { type: WL.Type.Float, default: 1 },
+        _mySelect: { type: Type.Object, default: null },
+        _mySqueeze: { type: Type.Object, default: null },
+        _myThumbstick: { type: Type.Object, default: null },
+        _myBottomButton: { type: Type.Object, default: null },
+        _myTopButton: { type: Type.Object, default: null },
 
-    _myTextMaterial: { type: WL.Type.Material },
-    _myLineMaterial: { type: WL.Type.Material }
-}, {
-    init: function () {
-    },
-    start: function () {
+        _myTextScaleMultiplier: { type: Type.Float, default: 1 },
+        _myTextOffsetMultiplier: { type: Type.Float, default: 1 },
+        _myLineLengthMultiplier: { type: Type.Float, default: 1 },
+        _myLineThicknessMultiplier: { type: Type.Float, default: 1 },
+        _myDistanceFromButtonsMultiplier: { type: Type.Float, default: 1 },
+
+        _myTextMaterial: { type: Type.Material },
+        _myLineMaterial: { type: Type.Material }
+    };
+
+    start() {
         this._myTextMaterialFinal = (this._myTextMaterial != null) ? this._myTextMaterial : PP.myDefaultResources.myMaterials.myText.clone();
         this._myLineMaterialFinal = (this._myLineMaterial != null) ? this._myLineMaterial : PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
 
@@ -40,24 +43,29 @@ WL.registerComponent('pp-gamepad-control-scheme', {
         this.setVisible(this._myShowOnStart);
 
         this._myVisibleBackup = this._myVisible;
-    },
-    update: function (dt) {
+    }
+
+    update(dt) {
         if (this._mySetVisibleNextUpdate) {
             this._mySetVisibleNextUpdate = false;
             this.setVisible(false);
             this.setVisible(this._myVisibleBackup);
         }
-    },
+    }
+
     onActivate() {
         this._mySetVisibleNextUpdate = true;
-    },
+    }
+
     onDeactivate() {
         this._myVisibleBackup = this._myVisible;
         this.setVisible(false);
-    },
+    }
+
     isVisible() {
         return this._myVisible;
-    },
+    }
+
     setVisible(visible) {
         this._myVisible = visible;
 
@@ -68,32 +76,38 @@ WL.registerComponent('pp-gamepad-control-scheme', {
                 this._hideEmptySchemes();
             }
         }
-    },
+    }
+
     setSelectText(text) {
         this._mySelectText = text;
         this._mySelectTextComponent.text = this._mySelectText;
         this.setVisible(this._myVisible);
-    },
+    }
+
     setSqueezeText(text) {
         this._mySqueezeText = text;
         this._mySqueezeTextComponent.text = this._mySqueezeText;
         this.setVisible(this._myVisible);
-    },
+    }
+
     setThumbstickText(text) {
         this._myThumbstickText = text;
         this._myThumbstickTextComponent.text = this._myThumbstickText;
         this.setVisible(this._myVisible);
-    },
+    }
+
     setBottomButtonText(text) {
         this._myBottomButtonText = text;
         this._myBottomButtonTextComponent.text = this._myBottomButtonText;
         this.setVisible(this._myVisible);
-    },
+    }
+
     setTopButtonText(text) {
         this._myTopButtonText = text;
         this._myTopButtonTextComponent.text = this._myTopButtonText;
         this.setVisible(this._myVisible);
-    },
+    }
+
     _createControlScheme() {
         this._myRootObject = this.object.pp_addObject();
 
@@ -151,7 +165,8 @@ WL.registerComponent('pp-gamepad-control-scheme', {
                 this._myTopButtonObject);
             this._myTopButtonTextComponent.text = this._myTopButtonText;
         }
-    },
+    }
+
     _addScheme(buttonObject, referenceObject, startOffset, endOffset, parentObject) {
         let buttonPosition = buttonObject.pp_getPositionLocal();
         let referenceForward = referenceObject.pp_getForwardLocal();
@@ -173,7 +188,8 @@ WL.registerComponent('pp-gamepad-control-scheme', {
         let textComponent = this._addText(textPosition, referenceForward, referenceUp, parentObject);
 
         return textComponent;
-    },
+    }
+
     _addLine(start, end, parentObject) {
         let lineDirection = end.vec3_sub(start);
         let length = lineDirection.vec3_length();
@@ -182,7 +198,7 @@ WL.registerComponent('pp-gamepad-control-scheme', {
         lineRootObject = parentObject.pp_addObject();
         lineObject = lineRootObject.pp_addObject();
 
-        let lineMesh = lineObject.addComponent('mesh');
+        let lineMesh = lineObject.addComponent("mesh");
         lineMesh.mesh = PP.myDefaultResources.myMeshes.myCylinder;
         lineMesh.material = this._myLineMaterialFinal;
 
@@ -193,7 +209,8 @@ WL.registerComponent('pp-gamepad-control-scheme', {
 
         lineObject.pp_setUpLocal(lineDirection);
         lineObject.pp_translateObject(PP.vec3_create(0, length / 2, 0));
-    },
+    }
+
     _addText(position, forward, up, parentObject) {
         let textObject = parentObject.pp_addObject();
         textObject.pp_setPositionLocal(position);
@@ -206,7 +223,8 @@ WL.registerComponent('pp-gamepad-control-scheme', {
         textComponent.material = this._myTextMaterialFinal;
 
         return textComponent;
-    },
+    }
+
     _hideEmptySchemes() {
         if (this._mySelectText.length == 0) {
             this._mySelectObject.pp_setActive(false);
@@ -224,4 +242,6 @@ WL.registerComponent('pp-gamepad-control-scheme', {
             this._myTopButtonObject.pp_setActive(false);
         }
     }
-});
+};
+
+WL.registerComponent(PP.GamepadControlSchemeComponent);

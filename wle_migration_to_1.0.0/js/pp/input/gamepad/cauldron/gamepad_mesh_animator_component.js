@@ -1,25 +1,30 @@
-WL.registerComponent('pp-gamepad-mesh-animator', {
-    _myHandedness: { type: WL.Type.Enum, values: ['left', 'right'], default: 'left' },
-    _mySelect: { type: WL.Type.Object, default: null },
-    _mySqueeze: { type: WL.Type.Object, default: null },
-    _myThumbstick: { type: WL.Type.Object, default: null },
-    _myTopButton: { type: WL.Type.Object, default: null },
-    _myBottomButton: { type: WL.Type.Object, default: null },
-    _mySelectRotateAngle: { type: WL.Type.Float, default: 15 },
-    _mySqueezeRotateAngle: { type: WL.Type.Float, default: 11 },
-    _myThumbstickRotateAngle: { type: WL.Type.Float, default: 15 },
-    _myThumbstickPressOffset: { type: WL.Type.Float, default: 0.000625 },
-    _myTopButtonPressOffset: { type: WL.Type.Float, default: 0.0015 },
-    _myBottomButtonPressOffset: { type: WL.Type.Float, default: 0.0015 },
-    _myUsePressForSqueeze: { type: WL.Type.Bool, default: false },
-    _mySqueezePressOffset: { type: WL.Type.Float, default: 0.0015 },
-}, {
-    start: function () {
+import { Component, Type } from "@wonderlandengine/api";
+
+PP.GamepadMeshAnimatorComponent = class GamepadMeshAnimatorComponent extends Component {
+    static TypeName = "pp-gamepad-mesh-animator";
+    static Properties = {
+        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _mySelect: { type: Type.Object, default: null },
+        _mySqueeze: { type: Type.Object, default: null },
+        _myThumbstick: { type: Type.Object, default: null },
+        _myTopButton: { type: Type.Object, default: null },
+        _myBottomButton: { type: Type.Object, default: null },
+        _mySelectRotateAngle: { type: Type.Float, default: 15 },
+        _mySqueezeRotateAngle: { type: Type.Float, default: 11 },
+        _myThumbstickRotateAngle: { type: Type.Float, default: 15 },
+        _myThumbstickPressOffset: { type: Type.Float, default: 0.000625 },
+        _myTopButtonPressOffset: { type: Type.Float, default: 0.0015 },
+        _myBottomButtonPressOffset: { type: Type.Float, default: 0.0015 },
+        _myUsePressForSqueeze: { type: Type.Bool, default: false },
+        _mySqueezePressOffset: { type: Type.Float, default: 0.0015 }
+    };
+
+    start() {
         let gamepad = null;
         if (this._myHandedness == 0) {
-            gamepad = PP.myLeftGamepad; // @EDIT get gamepad LEFT here based on how you store it in your game
+            gamepad = PP.myLeftGamepad;
         } else {
-            gamepad = PP.myRightGamepad; // @EDIT get gamepad RIGHT here based on how you store it in your game
+            gamepad = PP.myRightGamepad;
         }
 
         if (this._mySelect != null) {
@@ -82,38 +87,41 @@ WL.registerComponent('pp-gamepad-mesh-animator', {
         if (this._myThumbstick != null) {
             gamepad.registerAxesEventListener(PP.GamepadAxesID.THUMBSTICK, PP.GamepadAxesEvent.AXES_CHANGED, this, this._thumbstickValueChanged.bind(this));
         }
-    },
-    _thumbstickPressedStart: function () {
-        let upTranslation = PP.vec3_create();
-        return function _thumbstickPressedStart(buttonInfo, gamepad) {
-            // since thumbstick object rotate you need to specifically use its original up to translate it
-            this._myThumbstickOriginalUp.vec3_scale(-this._myThumbstickPressOffset, upTranslation);
-            this._myThumbstick.pp_translateLocal(upTranslation);
-        };
-    }(),
-    _thumbstickPressedEnd: function _thumbstickPressedEnd(buttonInfo, gamepad) {
+    }
+
+    _thumbstickPressedStart() {
+        // implemented outside class definition
+    }
+
+    _thumbstickPressedEnd(buttonInfo, gamepad) {
         this._myThumbstick.pp_setPositionLocal(this._myThumbstickOriginalPosition);
-    },
-    _topButtonPressedStart: function (buttonInfo, gamepad) {
+    }
+
+    _topButtonPressedStart(buttonInfo, gamepad) {
         this._myTopButton.pp_translateAxisLocal(-this._myTopButtonPressOffset, this._myTopButtonOriginalUp);
-    },
-    _topButtonPressedEnd: function (buttonInfo, gamepad) {
+    }
+
+    _topButtonPressedEnd(buttonInfo, gamepad) {
         this._myTopButton.pp_setPositionLocal(this._myTopButtonOriginalPosition);
-    },
-    _bottomButtonPressedStart: function (buttonInfo, gamepad) {
+    }
+
+    _bottomButtonPressedStart(buttonInfo, gamepad) {
         this._myBottomButton.pp_translateAxisLocal(-this._myBottomButtonPressOffset, this._myBottomButtonOriginalUp);
-    },
-    _bottomButtonPressedEnd: function (buttonInfo, gamepad) {
+    }
+
+    _bottomButtonPressedEnd(buttonInfo, gamepad) {
         this._myBottomButton.pp_setPositionLocal(this._myBottomButtonOriginalPosition);
-    },
-    _selectValueChanged: function (buttonInfo, gamepad) {
+    }
+
+    _selectValueChanged(buttonInfo, gamepad) {
         this._mySelect.pp_setRotationLocalQuat(this._mySelectOriginalRotation);
 
         if (buttonInfo.myValue > 0.00001) {
             this._mySelect.pp_rotateAxisLocal(this._mySelectRotateAngle * buttonInfo.myValue, this._mySelectOriginalLeft);
         }
-    },
-    _squeezeValueChanged: function (buttonInfo, gamepad) {
+    }
+
+    _squeezeValueChanged(buttonInfo, gamepad) {
         this._mySqueeze.pp_setPositionLocal(this._mySqueezeOriginalPosition);
         this._mySqueeze.pp_setRotationLocalQuat(this._mySqueezeOriginalRotation);
 
@@ -134,8 +142,9 @@ WL.registerComponent('pp-gamepad-mesh-animator', {
                 this._mySqueeze.pp_rotateAxisLocal(rotation * buttonInfo.myValue, this._mySqueezeOriginalForward);
             }
         }
-    },
-    _thumbstickValueChanged: function (axesInfo, gamepad) {
+    }
+
+    _thumbstickValueChanged(axesInfo, gamepad) {
         this._myThumbstick.pp_setRotationLocalQuat(this._myThumbstickOriginalRotation);
 
         let leftRotation = this._myThumbstickRotateAngle * axesInfo.myAxes[1];
@@ -149,4 +158,19 @@ WL.registerComponent('pp-gamepad-mesh-animator', {
             this._myThumbstick.pp_rotateAxisLocal(forwardRotation, this._myThumbstickOriginalForward);
         }
     }
-});
+};
+
+WL.registerComponent(PP.GamepadMeshAnimatorComponent);
+
+
+
+// IMPLEMENTATION
+
+PP.GamepadMeshAnimatorComponent.prototype._thumbstickPressedStart = function () {
+    let upTranslation = PP.vec3_create();
+    return function _thumbstickPressedStart(buttonInfo, gamepad) {
+        // since thumbstick object rotate you need to specifically use its original up to translate it
+        this._myThumbstickOriginalUp.vec3_scale(-this._myThumbstickPressOffset, upTranslation);
+        this._myThumbstick.pp_translateLocal(upTranslation);
+    };
+}();

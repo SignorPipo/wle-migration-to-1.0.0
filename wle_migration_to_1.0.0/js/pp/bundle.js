@@ -37,10 +37,10 @@ require("./cauldron/cauldron/object_pools_manager");
 require("./cauldron/cauldron/save_manager");
 require("./cauldron/cauldron/timer");
 
-require("./cauldron/components/clear_console_on_xr_session_start");
-require("./cauldron/components/set_active");
-require("./cauldron/components/adjust_hierarchy_physx_scale");
-require("./cauldron/components/show_fps");
+require("./cauldron/components/clear_console_on_xr_session_start_component");
+require("./cauldron/components/set_active_component");
+require("./cauldron/components/adjust_hierarchy_physx_scale_component");
+require("./cauldron/components/show_fps_component");
 
 require("./cauldron/fsm/fsm");
 require("./cauldron/fsm/state");
@@ -99,13 +99,13 @@ require("./gameplay/cauldron/cauldron/direction_2D_to_3D_converter");
 require("./gameplay/cauldron/cauldron/number_over_value");
 
 //    GRAB & THROW
-require("./gameplay/grab_throw/grabbable");
-require("./gameplay/grab_throw/grabber_hand");
+require("./gameplay/grab_throw/grabbable_component");
+require("./gameplay/grab_throw/grabber_hand_component");
 
 //    INTEGRATIONS
 require("./gameplay/integrations/construct_arcade/ca_utils");
 require("./gameplay/integrations/construct_arcade/ca_dummy_server");
-require("./gameplay/integrations/construct_arcade/ca_display_leaderboard");
+require("./gameplay/integrations/construct_arcade/ca_display_leaderboard_component");
 
 //    EXPERIMENTAL
 
@@ -188,17 +188,18 @@ require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_loc
 require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_transform_manager_cleaned");
 
 //	INPUT
-require("./input/cauldron/finger_cursor");
 require("./input/cauldron/input_types");
 require("./input/cauldron/input_utils");
 require("./input/cauldron/keyboard");
 require("./input/cauldron/mouse");
 require("./input/cauldron/input_manager");
-require("./input/cauldron/input_manager_component");
-require("./input/cauldron/switch_hand_object");
-require("./input/cauldron/tracked_hand_draw_joint");
-require("./input/cauldron/tracked_hand_draw_all_joints");
-require("./input/cauldron/tracked_hand_draw_skin");
+
+require("./input/cauldron/components/finger_cursor_component");
+require("./input/cauldron/components/input_manager_component");
+require("./input/cauldron/components/switch_hand_object_component");
+require("./input/cauldron/components/tracked_hand_draw_joint_component");
+require("./input/cauldron/components/tracked_hand_draw_all_joints_component");
+require("./input/cauldron/components/tracked_hand_draw_skin_component");
 
 require("./input/gamepad/gamepad_buttons");
 require("./input/gamepad/base_gamepad");
@@ -208,10 +209,10 @@ require("./input/gamepad/gamepad_cores/xr_gamepad_core");
 require("./input/gamepad/gamepad_cores/keyboard_gamepad_core");
 require("./input/gamepad/gamepad_cores/virtual_gamepad_gamepad_core");
 require("./input/gamepad/gamepad_cores/classic_gamepad_core");
-require("./input/gamepad/cauldron/gamepad_mesh_animator");
+require("./input/gamepad/cauldron/gamepad_mesh_animator_component");
 require("./input/gamepad/cauldron/gamepads_manager");
 require("./input/gamepad/cauldron/gamepad_utils");
-require("./input/gamepad/cauldron/gamepad_control_scheme");
+require("./input/gamepad/cauldron/gamepad_control_scheme_component");
 
 require("./input/gamepad/virtual_gamepad/virtual_gamepad");
 require("./input/gamepad/virtual_gamepad/virtual_gamepad_component");
@@ -225,16 +226,17 @@ require("./input/pose/hand_pose");
 require("./input/pose/head_pose");
 require("./input/pose/tracked_hand_joint_pose");
 require("./input/pose/tracked_hand_pose");
-require("./input/pose/components/set_player_height");
-require("./input/pose/components/set_hand_local_transform");
-require("./input/pose/components/set_head_local_transform");
-require("./input/pose/components/set_vr_head_local_transform");
-require("./input/pose/components/set_non_vr_head_local_transform");
-require("./input/pose/components/set_tracked_hand_joint_local_transform");
-require("./input/pose/components/copy_hand_transform");
-require("./input/pose/components/copy_head_transform");
-require("./input/pose/components/copy_player_transform");
-require("./input/pose/components/copy_player_pivot_transform");
+
+require("./input/pose/components/set_player_height_component");
+require("./input/pose/components/set_hand_local_transform_component");
+require("./input/pose/components/set_head_local_transform_component");
+require("./input/pose/components/set_vr_head_local_transform_component");
+require("./input/pose/components/set_non_vr_head_local_transform_component");
+require("./input/pose/components/set_tracked_hand_joint_local_transform_component");
+require("./input/pose/components/copy_hand_transform_component");
+require("./input/pose/components/copy_head_transform_component");
+require("./input/pose/components/copy_player_transform_component");
+require("./input/pose/components/copy_player_pivot_transform_component");
 
 //	TOOL
 require("./tool/cauldron/cauldron/tool_types");
