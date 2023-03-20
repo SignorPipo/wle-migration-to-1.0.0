@@ -1,6 +1,6 @@
-if (WL && WL.Object) {
+if (window.WL && window.WL.Object) {
 
-    WL.MeshComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
+    window.WL.MeshComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -21,7 +21,7 @@ if (WL && WL.Object) {
         return clonedComponent;
     };
 
-    WL.CollisionComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
+    window.WL.CollisionComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -32,7 +32,7 @@ if (WL && WL.Object) {
         return clonedComponent;
     };
 
-    WL.TextComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
+    window.WL.TextComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -55,7 +55,7 @@ if (WL && WL.Object) {
     };
 
     // #TODO not completed, missing flags like gravity or groups
-    WL.PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
+    window.WL.PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
         let componentParams = {
             "static": this.static,
             "simulate": this.simulate,
@@ -89,9 +89,9 @@ if (WL && WL.Object) {
 
 
 
-    Object.defineProperty(WL.MeshComponent.prototype, "pp_clone", { enumerable: false });
-    Object.defineProperty(WL.CollisionComponent.prototype, "pp_clone", { enumerable: false });
-    Object.defineProperty(WL.TextComponent.prototype, "pp_clone", { enumerable: false });
-    Object.defineProperty(WL.PhysXComponent.prototype, "pp_clone", { enumerable: false });
+    Object.defineProperty(window.WL.MeshComponent.prototype, "pp_clone", { enumerable: false });
+    Object.defineProperty(window.WL.CollisionComponent.prototype, "pp_clone", { enumerable: false });
+    Object.defineProperty(window.WL.TextComponent.prototype, "pp_clone", { enumerable: false });
+    Object.defineProperty(window.WL.PhysXComponent.prototype, "pp_clone", { enumerable: false });
 
 }

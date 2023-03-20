@@ -1,8 +1,8 @@
-if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices["mouse-look"]]) {
+if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["mouse-look"]]) {
 
     // Modified Functions
 
-    _WL._componentTypes[_WL._componentTypeIndices["mouse-look"]].prototype.init = function init() {
+    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["mouse-look"]].prototype.init = function init() {
         this.pointerId = null;
         this.prevMoveEvent = null;
 
@@ -60,7 +60,7 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
         }.bind(this));
     };
 
-    _WL._componentTypes[_WL._componentTypeIndices["mouse-look"]].prototype.update = function update(dt) {
+    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["mouse-look"]].prototype.update = function update(dt) {
         if (this.resetMovingTimer.isRunning()) {
             this.resetMovingTimer.update(dt);
             if (this.resetMovingTimer.isDone()) {
@@ -78,7 +78,7 @@ if (_WL && _WL._componentTypes && _WL._componentTypes[_WL._componentTypeIndices[
         }
     };
 
-    _WL._componentTypes[_WL._componentTypeIndices["mouse-look"]].prototype._onMove = function () {
+    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["mouse-look"]].prototype._onMove = function () {
         let viewForward = PP.vec3_create();
         let viewUp = PP.vec3_create();
 

@@ -12,6 +12,6 @@
     "esbuild": "^0.14.54"
   },
   "scripts": {
-    "build": "esbuild ./js/bundle.js --sourcemap --bundle --outfile=\"deploy/wle_migration_to_1.0.0-bundle.js\""
+    "build": "esbuild ./js/index.js --sourcemap --bundle --outfile=\"deploy/wle_migration_to_1.0.0-bundle.js\""
   }
 }

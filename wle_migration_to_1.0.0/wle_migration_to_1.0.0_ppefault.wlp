@@ -1010,7 +1010,9 @@
         },
         "scripting": {
             "sourcePaths": [
+                "js/index.js",
                 "js/bundle.js",
+                "js/pp/pp/pp.js",
                 "js/pp",
                 "js/pp/audio",
                 "js/pp/audio/howler",
@@ -1086,8 +1088,8 @@
             "libraryPaths": [
                 "/js/lib/"
             ],
-            "autoManageEntryPoint": false,
-            "bundlingType": "npm"
+            "autoManageEntryPoint": true,
+            "bundlingType": "esbuild"
         },
         "vr": {
             "leftEyeObject": "26",
