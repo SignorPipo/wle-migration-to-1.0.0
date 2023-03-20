@@ -339,8 +339,6 @@ PP.GrabberHandComponent = class GrabberHandComponent extends Component {
     }
 };
 
-WL.registerComponent(PP.GrabberHandComponent);
-
 PP.GrabberHandComponentGrabbableData = class GrabberHandComponentGrabbableData {
     constructor(grabbable, useGrabbableAsVelocitySource, linearVelocityHistorySize, angularVelocityHistorySize) {
         this._myGrabbable = grabbable;

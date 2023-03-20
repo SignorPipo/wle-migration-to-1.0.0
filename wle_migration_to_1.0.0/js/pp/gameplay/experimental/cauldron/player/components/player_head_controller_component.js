@@ -19,5 +19,3 @@ PP.PlayerHeadControllerComponent = class PlayerHeadControllerComponent extends C
         return this._myPlayerHeadController;
     }
 };
-
-WL.registerComponent(PP.PlayerHeadControllerComponent);

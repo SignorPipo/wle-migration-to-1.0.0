@@ -104,5 +104,3 @@ PP.EasyTextColorComponent = class EasyTextColorComponent extends Component {
         this._myEasyObjectTuner.update(dt);
     }
 };
-
-WL.registerComponent(PP.EasyTextColorComponent);

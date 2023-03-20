@@ -34,5 +34,3 @@ PP.SFXOnCollisionComponent = class SFXOnCollisionComponent extends Component {
         return clonedComponent;
     }
 };
-
-WL.registerComponent(PP.SFXOnCollisionComponent);

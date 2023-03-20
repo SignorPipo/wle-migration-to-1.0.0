@@ -64,5 +64,3 @@ PP.EasySetTuneTargetChildNumberComponent = class EasySetTuneTargetChildNumberCom
         }
     }
 };
-
-WL.registerComponent(PP.EasySetTuneTargetChildNumberComponent);

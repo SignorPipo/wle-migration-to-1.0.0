@@ -64,5 +64,3 @@ PP.EasyLightAttenuationComponent = class EasyLightAttenuationComponent extends C
         this._myEasyObjectTuner.update(dt);
     }
 };
-
-WL.registerComponent(PP.EasyLightAttenuationComponent);

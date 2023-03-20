@@ -78,5 +78,3 @@ PP.ParticleComponent = class ParticleComponent extends Component {
         return clonedComponent;
     }
 };
-
-WL.registerComponent(PP.ParticleComponent);

@@ -19,5 +19,3 @@ PP.CharacterControllerComponent = class CharacterControllerComponent extends Com
         return this._myCharacterController;
     }
 };
-
-WL.registerComponent(PP.CharacterControllerComponent);

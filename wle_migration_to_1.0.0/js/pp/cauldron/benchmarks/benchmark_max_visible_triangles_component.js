@@ -455,5 +455,3 @@ PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesCom
         return mesh;
     }
 };
-
-this.engine.registerComponent(PP.BenchmarkMaxVisibleTrianglesComponent);

@@ -172,5 +172,3 @@ PP.GrabbableComponent = class GrabbableComponent extends Component {
         this.start();
     }
 };
-
-WL.registerComponent(PP.GrabbableComponent);

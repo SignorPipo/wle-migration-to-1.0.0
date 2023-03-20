@@ -41,8 +41,6 @@ PP.ShowFPSComponent = class ShowFPSComponent extends Component {
     }
 };
 
-WL.registerComponent(PP.ShowFPSComponent);
-
 
 
 // IMPLEMENTATION

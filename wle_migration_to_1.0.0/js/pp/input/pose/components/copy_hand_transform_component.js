@@ -16,5 +16,3 @@ PP.CopyHandTransformComponent = class CopyHandTransformComponent extends Compone
         this.object.pp_setScale(hand.pp_getScale());
     }
 };
-
-WL.registerComponent(PP.CopyHandTransformComponent);

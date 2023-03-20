@@ -281,5 +281,3 @@ PP.BenchmarkMaxPhysXComponent = class BenchmarkMaxPhysXComponent extends Compone
         }
     }
 };
-
-this.engine.registerComponent(PP.BenchmarkMaxPhysXComponent);

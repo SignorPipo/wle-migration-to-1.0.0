@@ -41,5 +41,3 @@ PP.AdjustHierarchyPhysXScaleComponent = class AdjustHierarchyPhysXScaleComponent
         }
     }
 };
-
-WL.registerComponent(PP.AdjustHierarchyPhysXScaleComponent);

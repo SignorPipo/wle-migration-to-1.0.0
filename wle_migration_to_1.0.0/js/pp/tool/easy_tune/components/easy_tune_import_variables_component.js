@@ -18,5 +18,3 @@ PP.EasyTuneImportVariablesComponent = class EasyTuneImportVariablesComponent ext
         }
     }
 };
-
-WL.registerComponent(PP.EasyTuneImportVariablesComponent);

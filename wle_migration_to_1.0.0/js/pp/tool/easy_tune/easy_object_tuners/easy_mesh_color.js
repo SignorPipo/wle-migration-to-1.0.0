@@ -133,5 +133,3 @@ PP.EasyMeshColorComponent = class EasyMeshColorComponent extends Component {
         return clonedComponent;
     }
 };
-
-WL.registerComponent(PP.EasyMeshColorComponent);

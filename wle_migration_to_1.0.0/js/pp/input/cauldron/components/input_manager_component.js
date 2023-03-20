@@ -79,5 +79,3 @@ PP.InputManagerComponent = class InputManagerComponent extends Component {
         PP.myRightGamepad.addGamepadCore("right_classic_gamepad", rightClassicGamepadCore);
     }
 };
-
-WL.registerComponent(PP.InputManagerComponent);

@@ -32,5 +32,3 @@ PP.EasySetTuneTargeetGrabComponent = class EasySetTuneTargeetGrabComponent exten
         this._myGrabber.unregisterThrowEventListener(this);
     }
 };
-
-WL.registerComponent(PP.EasySetTuneTargeetGrabComponent);

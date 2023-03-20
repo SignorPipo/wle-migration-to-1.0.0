@@ -42,5 +42,3 @@ PP.SetPlayerHeightComponent = class SetPlayerHeightComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.SetPlayerHeightComponent);

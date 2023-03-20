@@ -29,8 +29,6 @@ PP.SetHeadLocalTransformComponent = class SetHeadLocalTransformComponent extends
     }
 };
 
-WL.registerComponent(PP.SetHeadLocalTransformComponent);
-
 
 
 // IMPLEMENTATION
@@ -53,7 +51,7 @@ PP.SetHeadLocalTransformComponent.prototype.update = function () {
     };
 }();
 
-PP.SetHeadLocalTransform.prototype.onPoseUpdated = function () {
+PP.SetHeadLocalTransformComponent.prototype.onPoseUpdated = function () {
     let headPoseTransform = PP.quat2_create();
     return function onPoseUpdated() {
         if (PP.XRUtils.isSessionActive()) {

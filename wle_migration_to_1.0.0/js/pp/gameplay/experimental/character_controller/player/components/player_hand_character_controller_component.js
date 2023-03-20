@@ -19,5 +19,3 @@ PP.PlayerHandCharacterControllerComponent = class PlayerHandCharacterControllerC
         return this._myPlayerHandCharacterController;
     }
 };
-
-WL.registerComponent(PP.PlayerHandCharacterControllerComponent);

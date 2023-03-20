@@ -45,8 +45,6 @@ PP.SetTrackedHandJointLocalTransformComponent = class SetTrackedHandJointLocalTr
     }
 };
 
-WL.registerComponent(PP.SetTrackedHandJointLocalTransformComponent);
-
 
 
 // IMPLEMENTATION

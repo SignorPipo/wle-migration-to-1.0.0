@@ -49,5 +49,3 @@ PP.ParticlesSpawnerComponent = class ParticlesSpawnerComponent extends Component
         this._myObjectPoolsManager.releaseObject(particle);
     }
 };
-
-WL.registerComponent(PP.ParticlesSpawnerComponent);

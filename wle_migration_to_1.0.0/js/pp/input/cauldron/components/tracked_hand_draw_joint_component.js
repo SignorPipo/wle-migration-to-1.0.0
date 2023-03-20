@@ -51,5 +51,3 @@ PP.TrackedHandDrawJointComponent = class TrackedHandDrawJointComponent extends C
         this._myJointMeshObject.pp_setScaleLocal(0);
     }
 };
-
-WL.registerComponent(PP.TrackedHandDrawJointComponent);

@@ -40,5 +40,3 @@ PP.SetActiveComponent = class SetActiveComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.SetActiveComponent);

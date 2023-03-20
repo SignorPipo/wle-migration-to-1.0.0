@@ -16,6 +16,4 @@ PP.CharacterCollisionSystemComponent = class CharacterCollisionSystemComponent e
     }
 };
 
-WL.registerComponent(PP.CharacterCollisionSystemComponent);
-
 PP.myCharacterCollisionSystem = null;

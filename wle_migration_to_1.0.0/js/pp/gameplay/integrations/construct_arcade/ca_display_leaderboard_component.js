@@ -146,5 +146,3 @@ PP.CADisplayLeaderboardComponent = class CADisplayLeaderboardComponent extends C
         return clonedComponent;
     }
 };
-
-WL.registerComponent(PP.CADisplayLeaderboardComponent);

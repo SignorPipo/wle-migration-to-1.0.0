@@ -48,5 +48,3 @@ PP.VisualManagerComponent = class VisualManagerComponent extends Component {
         PP.myVisualManager.update(dt);
     }
 };
-
-WL.registerComponent(PP.VisualManagerComponent);

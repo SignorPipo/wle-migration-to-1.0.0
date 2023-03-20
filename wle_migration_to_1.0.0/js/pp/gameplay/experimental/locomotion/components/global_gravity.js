@@ -8,7 +8,5 @@ PP.GlobalGravityComponent = class GlobalGravityComponent extends Component {
     }
 };
 
-WL.registerComponent(PP.GlobalGravityComponent);
-
 PP.myGravityAcceleration = 0;
 PP.myGravityDirection = PP.vec3_create();

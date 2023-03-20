@@ -20,5 +20,3 @@ PP.DebugManagerComponent = class DebugManagerComponent extends Component {
         PP.myDebugManager.update(dt);
     }
 };
-
-WL.registerComponent(PP.DebugManagerComponent);

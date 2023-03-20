@@ -21,5 +21,3 @@ PP.GatewayComponent = class GatewayComponent extends Component {
     update(dt) {
     }
 };
-
-WL.registerComponent(PP.GatewayComponent);

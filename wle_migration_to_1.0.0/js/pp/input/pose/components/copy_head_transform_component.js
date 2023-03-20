@@ -10,5 +10,3 @@ PP.CopyHeadTransformComponent = class CopyHeadTransformComponent extends Compone
         this.object.pp_setScale(head.pp_getScale());
     }
 };
-
-WL.registerComponent(PP.CopyHeadTransformComponent);

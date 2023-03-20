@@ -42,5 +42,3 @@ PP.TrackedHandDrawAllJointsComponent = class TrackedHandDrawAllJointsComponent e
         }
     }
 };
-
-WL.registerComponent(PP.TrackedHandDrawAllJointsComponent);

@@ -17,5 +17,3 @@ PP.PlayMusicComponent = class PlayMusicComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.PlayMusicComponent);

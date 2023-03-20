@@ -84,5 +84,3 @@ PP.EasyTuneComponent = class EasyTuneComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.EasyTuneComponent);

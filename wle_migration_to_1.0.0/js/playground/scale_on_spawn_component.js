@@ -40,5 +40,3 @@ PP.ScaleOnSpawnComponent = class ScaleOnSpawnComponent extends Component {
         return clonedComponent;
     }
 };
-
-WL.registerComponent(PP.ScaleOnSpawnComponent);

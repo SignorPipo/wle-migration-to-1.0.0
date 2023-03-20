@@ -51,5 +51,3 @@ PP.DebugPPFunctionsPerformanceAnalyzer = class DebugPPFunctionsPerformanceAnalyz
         });
     }
 };
-
-WL.registerComponent(PP.DebugPPFunctionsPerformanceAnalyzer);

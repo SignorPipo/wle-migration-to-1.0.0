@@ -35,5 +35,3 @@ PP.TargetHitCheckComponent = class TargetHitCheckComponent extends Component {
         this._myParticlesSpawner.spawn(strikeSource.pp_getPosition());
     }
 };
-
-WL.registerComponent(PP.TargetHitCheckComponent);

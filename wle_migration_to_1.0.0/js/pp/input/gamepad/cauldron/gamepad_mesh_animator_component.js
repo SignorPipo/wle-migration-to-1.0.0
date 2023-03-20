@@ -160,8 +160,6 @@ PP.GamepadMeshAnimatorComponent = class GamepadMeshAnimatorComponent extends Com
     }
 };
 
-WL.registerComponent(PP.GamepadMeshAnimatorComponent);
-
 
 
 // IMPLEMENTATION

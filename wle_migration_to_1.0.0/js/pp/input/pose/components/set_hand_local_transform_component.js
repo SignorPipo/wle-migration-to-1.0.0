@@ -29,8 +29,6 @@ PP.SetHandLocalTransformComponent = class SetHandLocalTransformComponent extends
     }
 };
 
-WL.registerComponent(PP.SetHandLocalTransformComponent);
-
 
 
 // IMPLEMENTATION

@@ -90,5 +90,3 @@ PP.EasyMeshAmbientFactorComponent = class EasyMeshAmbientFactorComponent extends
         return clonedComponent;
     }
 };
-
-WL.registerComponent(PP.EasyMeshAmbientFactorComponent);

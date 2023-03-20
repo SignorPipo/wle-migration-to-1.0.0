@@ -123,5 +123,3 @@ PP.PlayerLocomotionComponent = class PlayerLocomotionComponent extends Component
         return physicsFlags;
     }
 };
-
-WL.registerComponent(PP.PlayerLocomotionComponent);

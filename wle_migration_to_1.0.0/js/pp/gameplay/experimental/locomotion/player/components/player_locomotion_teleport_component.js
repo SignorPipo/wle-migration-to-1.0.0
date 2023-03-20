@@ -19,5 +19,3 @@ PP.PlayerLocomotionTeleportComponent = class PlayerLocomotionTeleportComponent e
         return this._myPlayerLocomotionTeleport;
     }
 };
-
-WL.registerComponent(PP.PlayerLocomotionTeleportComponent);

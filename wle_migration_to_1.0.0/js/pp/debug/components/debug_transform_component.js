@@ -20,5 +20,3 @@ PP.DebugTransformComponent = class DebugTransformComponent extends Component {
         this._myDebugVisualTransform.paramsUpdated();
     }
 };
-
-WL.registerComponent(PP.DebugTransformComponent);

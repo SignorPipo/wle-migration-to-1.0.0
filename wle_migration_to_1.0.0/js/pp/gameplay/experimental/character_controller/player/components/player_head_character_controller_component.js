@@ -19,5 +19,3 @@ PP.PlayerHeadCharacterControllerComponent = class PlayerHeadCharacterControllerC
         return this._myPlayerHeadCharacterController;
     }
 };
-
-WL.registerComponent(PP.PlayerHeadCharacterControllerComponent);

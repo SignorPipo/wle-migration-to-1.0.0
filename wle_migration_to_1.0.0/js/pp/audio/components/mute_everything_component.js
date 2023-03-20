@@ -15,5 +15,3 @@ PP.MuteEverythingComponent = class MuteEverythingComponent extends Component {
     update(dt) {
     }
 };
-
-WL.registerComponent(PP.MuteEverythingComponent);

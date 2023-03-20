@@ -68,5 +68,3 @@ PP.GetDefaultResourcesComponent = class GetDefaultResourcesComponent extends Com
         }
     }
 };
-
-WL.registerComponent(PP.GetDefaultResourcesComponent);

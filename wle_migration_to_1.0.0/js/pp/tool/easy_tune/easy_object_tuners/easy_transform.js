@@ -68,5 +68,3 @@ PP.EasyTransformComponent = class EasyTransformComponent extends Component {
         return clonedComponent;
     }
 };
-
-WL.registerComponent(PP.EasyTransformComponent);

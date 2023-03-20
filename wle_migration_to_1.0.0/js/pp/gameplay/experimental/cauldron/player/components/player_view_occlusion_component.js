@@ -19,5 +19,3 @@ PP.PlayerViewOcclusionComponent = class PlayerViewOcclusionComponent extends Com
         return this._myPlayerViewOcclusion;
     }
 };
-
-WL.registerComponent(PP.PlayerViewOcclusionComponent);

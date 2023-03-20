@@ -72,5 +72,3 @@ PP.WaveMovementComponent = class WaveMovementComponent extends Component {
         return Math.pp_random(middle - middle / 3, middle + middle / 3);
     }
 };
-
-WL.registerComponent(PP.WaveMovementComponent);

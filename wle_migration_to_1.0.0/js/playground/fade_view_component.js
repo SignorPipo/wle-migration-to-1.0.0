@@ -52,5 +52,3 @@ PP.FadeViewComponent = class FadeViewComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.FadeViewComponent);

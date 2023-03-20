@@ -55,5 +55,3 @@ PP.GetPlayerObjectsComponent = class GetPlayerObjectsComponent extends Component
         }
     }
 };
-
-WL.registerComponent(PP.GetPlayerObjectsComponent);

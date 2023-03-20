@@ -151,5 +151,3 @@ PP.FingerCursorComponent = class FingerCursorComponent extends Component {
         this._myReferenceSpace = null;
     }
 };
-
-WL.registerComponent(PP.FingerCursorComponent);

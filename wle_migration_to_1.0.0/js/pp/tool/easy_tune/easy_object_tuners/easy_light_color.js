@@ -102,5 +102,3 @@ PP.EasyLightColorComponent = class EasyLightColorComponent extends Component {
         this._myEasyObjectTuner.update(dt);
     }
 };
-
-WL.registerComponent(PP.EasyLightColorComponent);

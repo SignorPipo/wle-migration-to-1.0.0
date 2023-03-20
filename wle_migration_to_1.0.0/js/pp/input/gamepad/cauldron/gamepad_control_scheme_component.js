@@ -243,5 +243,3 @@ PP.GamepadControlSchemeComponent = class GamepadControlSchemeComponent extends C
         }
     }
 };
-
-WL.registerComponent(PP.GamepadControlSchemeComponent);

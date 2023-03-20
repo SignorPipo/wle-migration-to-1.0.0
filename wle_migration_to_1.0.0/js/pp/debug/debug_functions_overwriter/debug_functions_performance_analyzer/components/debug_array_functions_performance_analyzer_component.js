@@ -56,5 +56,3 @@ PP.DebugArrayFunctionsPerformanceAnalyzerComponent = class DebugArrayFunctionsPe
         });
     }
 };
-
-WL.registerComponent(PP.DebugArrayFunctionsPerformanceAnalyzerComponent);

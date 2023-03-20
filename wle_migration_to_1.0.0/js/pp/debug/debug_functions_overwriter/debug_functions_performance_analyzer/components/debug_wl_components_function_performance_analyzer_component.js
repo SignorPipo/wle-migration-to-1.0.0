@@ -72,5 +72,3 @@ PP.DebugWLComponentsFunctionsPerformanceAnalyzerComponent = class DebugWLCompone
         });
     }
 };
-
-WL.registerComponent(PP.DebugWLComponentsFunctionsPerformanceAnalyzerComponent);

@@ -10,5 +10,3 @@ PP.AudioManagerComponent = class AudioManagerComponent extends Component {
         PP.myAudioManager = new PP.AudioManager();
     }
 };
-
-WL.registerComponent(PP.AudioManagerComponent);

@@ -10,5 +10,3 @@ PP.CopyPlayerPivotTransformComponent = class CopyPlayerPivotTransformComponent e
         this.object.pp_setScale(playerPivot.pp_getScale());
     }
 };
-
-WL.registerComponent(PP.CopyPlayerPivotTransformComponent);

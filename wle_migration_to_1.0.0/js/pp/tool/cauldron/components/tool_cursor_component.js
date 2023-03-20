@@ -130,8 +130,6 @@ PP.ToolCursorComponent = class ToolCursorComponent extends Component {
     }
 };
 
-WL.registerComponent(PP.ToolCursorComponent);
-
 
 
 // IMPLEMENTATION

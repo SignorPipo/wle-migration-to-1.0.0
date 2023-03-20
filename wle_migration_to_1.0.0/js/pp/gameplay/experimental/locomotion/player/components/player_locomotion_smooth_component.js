@@ -19,5 +19,3 @@ PP.PlayerLocomotionSmoothComponent = class PlayerLocomotionSmoothComponent exten
         return this._myPlayerLocomotionSmooth;
     }
 };
-
-WL.registerComponent(PP.PlayerLocomotionSmoothComponent);

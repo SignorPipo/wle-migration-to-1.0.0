@@ -19,5 +19,3 @@ PP.PlayerLocomotionGravityComponent = class PlayerLocomotionGravityComponent ext
         return this._myPlayerLocomotionGravity;
     }
 };
-
-WL.registerComponent(PP.PlayerLocomotionGravityComponent);

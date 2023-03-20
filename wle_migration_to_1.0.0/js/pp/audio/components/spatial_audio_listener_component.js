@@ -25,5 +25,3 @@ PP.SpatialAudioListenerComponent = class SpatialAudioListenerComponent extends C
         }
     }
 };
-
-WL.registerComponent(PP.SpatialAudioListenerComponent);

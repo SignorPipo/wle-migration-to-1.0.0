@@ -146,5 +146,3 @@ PP.DebugFunctionsPerformanceAnalyzerComponent = class DebugFunctionsPerformanceA
         this._myFunctionsPerformanceAnalysisResultsLogger = new PP.DebugFunctionsPerformanceAnalysisResultsLogger(functionsPerformanceAnalysisResultsLoggerParams);
     }
 };
-
-WL.registerComponent(PP.DebugFunctionsPerformanceAnalyzerComponent);

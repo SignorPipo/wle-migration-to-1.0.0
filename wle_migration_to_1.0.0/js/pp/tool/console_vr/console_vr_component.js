@@ -56,5 +56,3 @@ PP.ConsoleVRComponent = class ConsoleVRComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.ConsoleVRComponent);

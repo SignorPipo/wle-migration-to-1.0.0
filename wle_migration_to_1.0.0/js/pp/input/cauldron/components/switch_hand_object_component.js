@@ -59,5 +59,3 @@ PP.SwitchHandObjectComponent = class SwitchHandObjectComponent extends Component
         this._myCurrentInputSourceType = null;
     }
 };
-
-WL.registerComponent(PP.SwitchHandObjectComponent);

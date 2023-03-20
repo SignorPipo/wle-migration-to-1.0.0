@@ -44,5 +44,3 @@ PP.TrackedHandDrawSkinComponent = class TrackedHandDrawSkinComponent extends Com
         }
     }
 };
-
-WL.registerComponent(PP.TrackedHandDrawSkinComponent);

@@ -10,5 +10,3 @@ PP.CopyPlayerTransformComponent = class CopyPlayerTransformComponent extends Com
         this.object.pp_setScale(player.pp_getScale());
     }
 };
-
-WL.registerComponent(PP.CopyPlayerTransformComponent);

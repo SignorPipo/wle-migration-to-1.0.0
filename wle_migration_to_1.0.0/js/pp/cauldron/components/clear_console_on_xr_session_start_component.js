@@ -14,5 +14,3 @@ PP.ClearConsoleOnXRSessionStartComponent = class ClearConsoleOnXRSessionStartCom
         }.bind(this));
     }
 };
-
-WL.registerComponent(PP.ClearConsoleOnXRSessionStartComponent);

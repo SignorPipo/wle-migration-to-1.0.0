@@ -19,5 +19,3 @@ PP.PlayerLocomotionRotateComponent = class PlayerLocomotionRotateComponent exten
         return this._myPlayerLocomotionRotate;
     }
 };
-
-WL.registerComponent(PP.PlayerLocomotionRotateComponent);

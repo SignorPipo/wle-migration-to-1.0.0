@@ -54,5 +54,3 @@ PP.EasyScaleComponent = class EasyScaleComponent extends Component {
         this._myEasyObjectTuner.update(dt);
     }
 };
-
-WL.registerComponent(PP.EasyScaleComponent);

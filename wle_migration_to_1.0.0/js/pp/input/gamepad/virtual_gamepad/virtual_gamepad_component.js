@@ -292,5 +292,3 @@ PP.VirtualGamepadComponent = class VirtualGamepadComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.VirtualGamepadComponent);

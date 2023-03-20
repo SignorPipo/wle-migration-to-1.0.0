@@ -28,8 +28,6 @@ PP.SetVRHeadLocalTransformComponent = class SetVRHeadLocalTransformComponent ext
     }
 };
 
-WL.registerComponent(PP.SetVRHeadLocalTransformComponent);
-
 
 
 // IMPLEMENTATION

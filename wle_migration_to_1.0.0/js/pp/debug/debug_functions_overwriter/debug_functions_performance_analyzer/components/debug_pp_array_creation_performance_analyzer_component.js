@@ -44,5 +44,3 @@ PP.DebugPPArrayCreationPerformanceAnalyzer = class DebugPPArrayCreationPerforman
         });
     }
 };
-
-WL.registerComponent(PP.DebugPPArrayCreationPerformanceAnalyzer);

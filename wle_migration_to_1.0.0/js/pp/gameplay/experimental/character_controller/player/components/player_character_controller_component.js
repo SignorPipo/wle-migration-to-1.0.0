@@ -19,5 +19,3 @@ PP.PlayerCharacterControllerComponent = class PlayerCharacterControllerComponent
         return this._myPlayerCharacterController;
     }
 };
-
-WL.registerComponent(PP.PlayerCharacterControllerComponent);

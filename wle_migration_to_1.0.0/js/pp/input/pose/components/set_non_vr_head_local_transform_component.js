@@ -16,8 +16,6 @@ PP.SetNonVRHeadLocalTransformComponent = class SetNonVRHeadLocalTransformCompone
     }
 };
 
-WL.registerComponent(PP.SetNonVRHeadLocalTransformComponent);
-
 
 
 // IMPLEMENTATION

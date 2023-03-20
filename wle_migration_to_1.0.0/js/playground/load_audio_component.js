@@ -52,5 +52,3 @@ PP.LoadAudioComponent = class LoadAudioComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.LoadAudioComponent);

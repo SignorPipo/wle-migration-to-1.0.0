@@ -43,5 +43,3 @@ PP.SFXOnGrabThrowComponent = class SFXOnGrabThrowComponent extends Component {
         }
     }
 };
-
-WL.registerComponent(PP.SFXOnGrabThrowComponent);

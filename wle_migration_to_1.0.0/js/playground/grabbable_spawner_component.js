@@ -44,5 +44,3 @@ PP.GrabbableSpawnerComponent = class GrabbableSpawnerComponent extends Component
         this._myCurrentGrabbable.pp_setActive(true);
     }
 };
-
-WL.registerComponent(PP.GrabbableSpawnerComponent);
