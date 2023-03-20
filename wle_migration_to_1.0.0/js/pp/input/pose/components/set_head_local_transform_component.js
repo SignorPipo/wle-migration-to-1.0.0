@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SetHeadLocalTransformComponent = class SetHeadLocalTransformComponent extends Component {
+export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {
         _myNonVRCamera: { type: Type.Object },
@@ -33,7 +33,7 @@ PP.SetHeadLocalTransformComponent = class SetHeadLocalTransformComponent extends
 
 // IMPLEMENTATION
 
-PP.SetHeadLocalTransformComponent.prototype.update = function () {
+SetHeadLocalTransformComponent.prototype.update = function () {
     let nonVRCameraRotation = PP.quat_create();
     let nonVRCameraUp = PP.vec3_create();
     let nonVRCameraPosition = PP.vec3_create();
@@ -51,7 +51,7 @@ PP.SetHeadLocalTransformComponent.prototype.update = function () {
     };
 }();
 
-PP.SetHeadLocalTransformComponent.prototype.onPoseUpdated = function () {
+SetHeadLocalTransformComponent.prototype.onPoseUpdated = function () {
     let headPoseTransform = PP.quat2_create();
     return function onPoseUpdated() {
         if (PP.XRUtils.isSessionActive()) {

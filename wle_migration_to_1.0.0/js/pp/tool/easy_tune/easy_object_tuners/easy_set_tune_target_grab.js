@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.EasySetTuneTargeetGrabComponent = class EasySetTuneTargeetGrabComponent extends Component {
+export class EasySetTuneTargeetGrabComponent extends Component {
     static TypeName = "pp-easy-set-tune-target-grab";
     static Properties = {};
 

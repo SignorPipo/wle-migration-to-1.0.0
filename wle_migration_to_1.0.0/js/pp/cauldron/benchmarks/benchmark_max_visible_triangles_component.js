@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.BenchmarkMaxVisibleTrianglesComponent = class BenchmarkMaxVisibleTrianglesComponent extends Component {
+export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     static TypeName = "pp-benchmark-max-visible-triangles";
     static Properties = {
         _myTargetFrameRate: { type: Type.Int, default: -1 },                // -1 means it will auto detect it at start

@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.ParticlesSpawnerComponent = class ParticlesSpawnerComponent extends Component {
+export class ParticlesSpawnerComponent extends Component {
     static TypeName = "particles-spawner";
     static Properties = {
         _myParticlesContainer: { type: Type.Object },

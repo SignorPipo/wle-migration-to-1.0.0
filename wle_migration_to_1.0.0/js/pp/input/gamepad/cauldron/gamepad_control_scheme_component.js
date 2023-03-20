@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.GamepadControlSchemeComponent = class GamepadControlSchemeComponent extends Component {
+export class GamepadControlSchemeComponent extends Component {
     static TypeName = "pp-gamepad-control-scheme";
     static Properties = {
         _myShowOnStart: { type: Type.Bool, default: true },

@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SetHandLocalTransformComponent = class SetHandLocalTransformComponent extends Component {
+export class SetHandLocalTransformComponent extends Component {
     static TypeName = "pp-set-hand-local-transform";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
@@ -33,7 +33,7 @@ PP.SetHandLocalTransformComponent = class SetHandLocalTransformComponent extends
 
 // IMPLEMENTATION
 
-PP.SetHandLocalTransformComponent.prototype.onPoseUpdated = function () {
+SetHandLocalTransformComponent.prototype.onPoseUpdated = function () {
     let handPoseTransform = PP.quat2_create()
     return function onPoseUpdated() {
         this.object.pp_setTransformLocalQuat(this._myHandPose.getTransformQuat(handPoseTransform));

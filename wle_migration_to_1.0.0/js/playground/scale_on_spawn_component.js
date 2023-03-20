@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.ScaleOnSpawnComponent = class ScaleOnSpawnComponent extends Component {
+export class ScaleOnSpawnComponent extends Component {
     static TypeName = "scale-on-spawn";
     static Properties = {
         _myStartDelay: { type: Type.Float, default: 0.0 },

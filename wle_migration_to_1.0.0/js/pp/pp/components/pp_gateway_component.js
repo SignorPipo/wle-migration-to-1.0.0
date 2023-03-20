@@ -1,6 +1,6 @@
 import { Component, Type } from '@wonderlandengine/api';
 
-PP.GatewayComponent = class GatewayComponent extends Component {
+export class GatewayComponent extends Component {
     static TypeName = 'pp-gateway';
     static Properties = {};
 

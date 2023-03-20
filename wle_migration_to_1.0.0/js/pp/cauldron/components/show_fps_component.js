@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.ShowFPSComponent = class ShowFPSComponent extends Component {
+export class ShowFPSComponent extends Component {
     static TypeName = "pp-show-fps";
     static Properties = {
         _myRefreshSeconds: { type: Type.Float, default: 0.25 },
@@ -45,7 +45,7 @@ PP.ShowFPSComponent = class ShowFPSComponent extends Component {
 
 // IMPLEMENTATION
 
-PP.ShowFPSComponent.prototype.update = function () {
+ShowFPSComponent.prototype.update = function () {
     let playerTransformQuat = PP.quat2_create();
     return function update(dt) {
         this._myTotalDT += dt;

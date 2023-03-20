@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SFXOnGrabThrowComponent = class SFXOnGrabThrowComponent extends Component {
+export class SFXOnGrabThrowComponent extends Component {
     static TypeName = "sfx-on-grab-throw";
     static Properties = {};
 

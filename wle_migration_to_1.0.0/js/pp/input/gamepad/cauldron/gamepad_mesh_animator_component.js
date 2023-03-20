@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.GamepadMeshAnimatorComponent = class GamepadMeshAnimatorComponent extends Component {
+export class GamepadMeshAnimatorComponent extends Component {
     static TypeName = "pp-gamepad-mesh-animator";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
@@ -164,7 +164,7 @@ PP.GamepadMeshAnimatorComponent = class GamepadMeshAnimatorComponent extends Com
 
 // IMPLEMENTATION
 
-PP.GamepadMeshAnimatorComponent.prototype._thumbstickPressedStart = function () {
+GamepadMeshAnimatorComponent.prototype._thumbstickPressedStart = function () {
     let upTranslation = PP.vec3_create();
     return function _thumbstickPressedStart(buttonInfo, gamepad) {
         // since thumbstick object rotate you need to specifically use its original up to translate it

@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.GrabberHandComponent = class GrabberHandComponent extends Component {
+export class GrabberHandComponent extends Component {
     static TypeName = "pp-grabber-hand";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ['left', 'right'], default: 'left' },

@@ -15,7 +15,7 @@ PP.myVisualData = {
     }
 };
 
-PP.VisualManagerComponent = class VisualManagerComponent extends Component {
+export class VisualManagerComponent extends Component {
     static TypeName = "pp-visual-manager";
     static Properties = {};
 

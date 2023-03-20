@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SetNonVRHeadLocalTransformComponent = class SetNonVRHeadLocalTransformComponent extends Component {
+export class SetNonVRHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-non-vr-head-local-transform";
     static Properties = {
         _myNonVRCamera: { type: Type.Object },
@@ -20,7 +20,7 @@ PP.SetNonVRHeadLocalTransformComponent = class SetNonVRHeadLocalTransformCompone
 
 // IMPLEMENTATION
 
-PP.SetNonVRHeadLocalTransformComponent.prototype.update = function () {
+SetNonVRHeadLocalTransformComponent.prototype.update = function () {
     let nonVRCameraRotation = PP.quat_create();
     let nonVRCameraUp = PP.vec3_create();
     let nonVRCameraPosition = PP.vec3_create();

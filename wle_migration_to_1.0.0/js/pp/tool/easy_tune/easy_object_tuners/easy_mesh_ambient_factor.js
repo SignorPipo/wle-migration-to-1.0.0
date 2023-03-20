@@ -58,7 +58,7 @@ PP.EasyMeshAmbientFactor = class EasyMeshAmbientFactor extends PP.EasyObjectTune
     }
 };
 
-PP.EasyMeshAmbientFactorComponent = class EasyMeshAmbientFactorComponent extends Component {
+export class EasyMeshAmbientFactorComponent extends Component {
     static TypeName = "pp-easy-mesh-ambient-factor";
     static Properties = {
         _myVariableName: { type: Type.String, default: "" },

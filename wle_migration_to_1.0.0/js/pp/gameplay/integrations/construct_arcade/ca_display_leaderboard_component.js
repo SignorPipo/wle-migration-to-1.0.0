@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.CADisplayLeaderboardComponent = class CADisplayLeaderboardComponent extends Component {
+export class CADisplayLeaderboardComponent extends Component {
     static TypeName = "pp-ca-display-leaderboard";
     static Properties = {
         _myLeaderboardID: { type: Type.String, default: "" },

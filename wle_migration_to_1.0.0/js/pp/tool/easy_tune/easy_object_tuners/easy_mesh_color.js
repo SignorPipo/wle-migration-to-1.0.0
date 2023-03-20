@@ -97,7 +97,7 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
     }
 };
 
-PP.EasyMeshColorComponent = class EasyMeshColorComponent extends Component {
+export class EasyMeshColorComponent extends Component {
     static TypeName = "pp-easy-mesh-color";
     static Properties = {
         _myVariableName: { type: Type.String, default: "" },

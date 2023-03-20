@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.EasyTuneComponent = class EasyTuneComponent extends Component {
+export class EasyTuneComponent extends Component {
     static TypeName = "pp-easy-tune";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["none", "left", "right"], default: "none" },

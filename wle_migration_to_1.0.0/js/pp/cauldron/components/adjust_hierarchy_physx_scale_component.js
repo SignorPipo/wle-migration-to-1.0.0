@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.AdjustHierarchyPhysXScaleComponent = class AdjustHierarchyPhysXScaleComponent extends Component {
+export class AdjustHierarchyPhysXScaleComponent extends Component {
     static TypeName = "pp-adjust-hierarchy-physx-scale";
     static Properties = {
         _myWhen: { type: Type.Enum, values: ["init", "start", "first_update"], default: "start" }

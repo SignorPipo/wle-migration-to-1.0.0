@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SetActiveComponent = class SetActiveComponent extends Component {
+export class SetActiveComponent extends Component {
     static TypeName = "pp-set-active";
     static Properties = {
         _myActive: { type: Type.Bool, default: true },

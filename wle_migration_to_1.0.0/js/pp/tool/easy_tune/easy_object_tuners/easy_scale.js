@@ -32,7 +32,7 @@ PP.EasyScale = class EasyScale extends PP.EasyObjectTuner {
     }
 };
 
-PP.EasyScaleComponent = class EasyScaleComponent extends Component {
+export class EasyScaleComponent extends Component {
     static TypeName = "pp-easy-scale";
     static Properties = {
         _myVariableName: { type: Type.String, default: "" },

@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.GrabbableSpawnerComponent = class GrabbableSpawnerComponent extends Component {
+export class GrabbableSpawnerComponent extends Component {
     static TypeName = "grabbable-spawner";
     static Properties = {
         _myPrototypesContainer: { type: Type.Object }

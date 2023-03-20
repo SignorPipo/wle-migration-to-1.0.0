@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.EasyTuneImportVariablesComponent = class EasyTuneImportVariablesComponent extends Component {
+export class EasyTuneImportVariablesComponent extends Component {
     static TypeName = "pp-easy-tune-import-variables";
     static Properties = {
         _myVariablesImportURL: { type: Type.String, default: "" },

@@ -22,7 +22,7 @@ PP.myDefaultResources = {
     }
 };
 
-PP.GetDefaultResourcesComponent = class GetDefaultResourcesComponent extends Component {
+export class GetDefaultResourcesComponent extends Component {
     static TypeName = "pp-get-default-resources";
     static Properties = {
         _myPlane: { type: Type.Mesh },

@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.DebugWLComponentsFunctionsPerformanceAnalyzerComponent = class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Component {
+export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-wl-components-functions-performance-analyzer";
     static Properties = {
         _myAnalyzeComponentTypes: { type: Type.Bool, default: true },

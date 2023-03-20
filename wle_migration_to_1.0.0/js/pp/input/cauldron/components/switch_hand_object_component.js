@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SwitchHandObjectComponent = class SwitchHandObjectComponent extends Component {
+export class SwitchHandObjectComponent extends Component {
     static TypeName = "pp-switch-hand-object";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },

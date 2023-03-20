@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.TargetHitCheckComponent = class TargetHitCheckComponent extends Component {
+export class TargetHitCheckComponent extends Component {
     static TypeName = "target-hit-check";
     static Properties = {};
 

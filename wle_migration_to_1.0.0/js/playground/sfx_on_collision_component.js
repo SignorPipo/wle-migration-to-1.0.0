@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SFXOnCollisionComponent = class SFXOnCollisionComponent extends Component {
+export class SFXOnCollisionComponent extends Component {
     static TypeName = "sfx-on-collision";
     static Properties = {};
 

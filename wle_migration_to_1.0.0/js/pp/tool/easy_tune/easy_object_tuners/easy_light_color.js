@@ -81,7 +81,7 @@ PP.EasyLightColor = class EasyLightColor extends PP.EasyObjectTuner {
     }
 };
 
-PP.EasyLightColorComponent = class EasyLightColorComponent extends Component {
+export class EasyLightColorComponent extends Component {
     static TypeName = "pp-easy-light-color";
     static Properties = {
         _myVariableName: { type: Type.String, default: "" },

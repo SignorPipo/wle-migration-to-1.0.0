@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.CopyPlayerPivotTransformComponent = class CopyPlayerPivotTransformComponent extends Component {
+export class CopyPlayerPivotTransformComponent extends Component {
     static TypeName = "pp-copy-player-pivot-transform";
     static Properties = {};
 

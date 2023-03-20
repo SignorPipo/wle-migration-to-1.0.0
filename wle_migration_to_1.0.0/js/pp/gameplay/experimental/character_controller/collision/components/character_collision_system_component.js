@@ -1,6 +1,6 @@
 import { Component, Type } from '@wonderlandengine/api';
 
-PP.CharacterCollisionSystemComponent = class CharacterCollisionSystemComponent extends Component {
+export class CharacterCollisionSystemComponent extends Component {
     static TypeName = 'pp-character-collision-system';
     static Properties = {};
 

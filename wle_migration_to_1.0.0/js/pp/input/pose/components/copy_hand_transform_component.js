@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.CopyHandTransformComponent = class CopyHandTransformComponent extends Component {
+export class CopyHandTransformComponent extends Component {
     static TypeName = "pp-copy-hand-transform";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" }

@@ -15,7 +15,7 @@ PP.myPlayerObjects = {
     myHands: [],
 };
 
-PP.GetPlayerObjectsComponent = class GetPlayerObjectsComponent extends Component {
+export class GetPlayerObjectsComponent extends Component {
     static TypeName = "pp-get-player-objects";
     static Properties = {
         _myPlayer: { type: Type.Object },

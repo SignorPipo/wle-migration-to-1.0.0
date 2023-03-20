@@ -1,7 +1,7 @@
 
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.DebugArrayFunctionsPerformanceAnalyzerComponent = class DebugArrayFunctionsPerformanceAnalyzerComponent extends Component {
+export class DebugArrayFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-array-functions-performance-analyzer";
     static Properties = {
         _myIncludeOnlyMainArrayTypes: { type: Type.Bool, default: true },

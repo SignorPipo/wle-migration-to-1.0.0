@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.DebugFunctionsPerformanceAnalyzerComponent = class DebugFunctionsPerformanceAnalyzerComponent extends Component {
+export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-functions-performance-analyzer";
     static Properties = {
         _myObjectsByPath: { type: Type.String, default: "" },

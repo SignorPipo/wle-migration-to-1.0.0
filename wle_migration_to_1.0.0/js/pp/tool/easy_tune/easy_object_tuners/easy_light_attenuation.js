@@ -44,7 +44,7 @@ PP.EasyLightAttenuation = class EasyLightAttenuation extends PP.EasyObjectTuner 
     }
 };
 
-PP.EasyLightAttenuationComponent = class EasyLightAttenuationComponent extends Component {
+export class EasyLightAttenuationComponent extends Component {
     static TypeName = "pp-easy-light-attenuation";
     static Properties = {
         _myVariableName: { type: Type.String, default: "" },

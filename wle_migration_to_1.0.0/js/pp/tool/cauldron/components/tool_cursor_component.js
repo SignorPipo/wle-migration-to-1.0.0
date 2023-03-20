@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.ToolCursorComponent = class ToolCursorComponent extends Component {
+export class ToolCursorComponent extends Component {
     static TypeName = "pp-tool-cursor";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
@@ -134,7 +134,7 @@ PP.ToolCursorComponent = class ToolCursorComponent extends Component {
 
 // IMPLEMENTATION
 
-PP.ToolCursorComponent.prototype.update = function () {
+ToolCursorComponent.prototype.update = function () {
     let transformQuat = PP.quat2_create();
     return function update(dt) {
         let isUsingHand = this._isUsingHand();

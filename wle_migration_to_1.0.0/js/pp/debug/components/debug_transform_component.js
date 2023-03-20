@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.DebugTransformComponent = class DebugTransformComponent extends Component {
+export class DebugTransformComponent extends Component {
     static TypeName = "pp-debug-transform";
     static Properties = {
         _myLength: { type: Type.Float, default: 0.1 },

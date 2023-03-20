@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.WaveMovementComponent = class WaveMovementComponent extends Component {
+export class WaveMovementComponent extends Component {
     static TypeName = "wave-movement";
     static Properties = {};
 

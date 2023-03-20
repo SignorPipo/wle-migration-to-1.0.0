@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.ConsoleVRComponent = class ConsoleVRComponent extends Component {
+export class ConsoleVRComponent extends Component {
     static TypeName = "pp-console-vr";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["none", "left", "right"], default: "none" },

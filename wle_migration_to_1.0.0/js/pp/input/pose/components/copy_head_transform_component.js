@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.CopyHeadTransformComponent = class CopyHeadTransformComponent extends Component {
+export class CopyHeadTransformComponent extends Component {
     static TypeName = "pp-copy-head-transform";
     static Properties = {};
 

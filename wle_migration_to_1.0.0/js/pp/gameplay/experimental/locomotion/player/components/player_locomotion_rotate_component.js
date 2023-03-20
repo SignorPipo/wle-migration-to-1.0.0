@@ -1,6 +1,6 @@
 import { Component, Type } from '@wonderlandengine/api';
 
-PP.PlayerLocomotionRotateComponent = class PlayerLocomotionRotateComponent extends Component {
+export class PlayerLocomotionRotateComponent extends Component {
     static TypeName = 'pp-player-locomotion-rotate';
     static Properties = {};
 

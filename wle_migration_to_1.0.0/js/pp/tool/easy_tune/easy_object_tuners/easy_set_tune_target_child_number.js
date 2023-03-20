@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.EasySetTuneTargetChildNumberComponent = class EasySetTuneTargetChildNumberComponent extends Component {
+export class EasySetTuneTargetChildNumberComponent extends Component {
     static TypeName = "pp-easy-set-tune-target-child-number";
     static Properties = {
         _myVariableName: { type: Type.String, default: "" },

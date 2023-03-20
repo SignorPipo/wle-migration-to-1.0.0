@@ -32,7 +32,7 @@ PP.EasyTransform = class EasyTransform extends PP.EasyObjectTuner {
     }
 };
 
-PP.EasyTransformComponent = class EasyTransformComponent extends Component {
+export class EasyTransformComponent extends Component {
     static TypeName = "pp-easy-transform";
     static Properties = {
         _myVariableName: { type: Type.String, default: "" },

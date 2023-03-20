@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.LoadAudioComponent = class LoadAudioComponent extends Component {
+export class LoadAudioComponent extends Component {
     static TypeName = "load-audio";
     static Properties = {};
 

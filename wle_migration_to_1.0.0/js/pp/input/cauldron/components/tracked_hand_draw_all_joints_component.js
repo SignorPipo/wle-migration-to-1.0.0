@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.TrackedHandDrawAllJointsComponent = class TrackedHandDrawAllJointsComponent extends Component {
+export class TrackedHandDrawAllJointsComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-all-joints";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },

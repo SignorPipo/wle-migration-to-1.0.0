@@ -1,6 +1,6 @@
 import { Component, Type } from '@wonderlandengine/api';
 
-PP.CharacterControllerComponent = class CharacterControllerComponent extends Component {
+export class CharacterControllerComponent extends Component {
     static TypeName = 'pp-character-controller';
     static Properties = {};
 

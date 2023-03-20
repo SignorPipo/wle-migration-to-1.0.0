@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.ParticleComponent = class ParticleComponent extends Component {
+export class ParticleComponent extends Component {
     static TypeName = "particle";
     static Properties = {};
 

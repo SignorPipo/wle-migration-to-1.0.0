@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.FingerCursorComponent = class FingerCursorComponent extends Component {
+export class FingerCursorComponent extends Component {
     static TypeName = "pp-finger-cursor";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },

@@ -1,6 +1,6 @@
 import { Component, Type } from '@wonderlandengine/api';
 
-PP.PlayerViewOcclusionComponent = class PlayerViewOcclusionComponent extends Component {
+export class PlayerViewOcclusionComponent extends Component {
     static TypeName = 'pp-player-occlusion';
     static Properties = {};
 

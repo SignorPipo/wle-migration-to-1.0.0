@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.FadeViewComponent = class FadeViewComponent extends Component {
+export class FadeViewComponent extends Component {
     static TypeName = "fade-view";
     static Properties = {
         _myColor: { type: Type.String, default: "0, 0, 0" },

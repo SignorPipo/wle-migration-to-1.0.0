@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.GrabbableComponent = class GrabbableComponent extends Component {
+export class GrabbableComponent extends Component {
     static TypeName = "pp-grabbable";
     static Properties = {
         _myThrowLinearVelocityMultiplier: { type: Type.Float, default: 1 },

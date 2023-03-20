@@ -2,7 +2,7 @@ import { Component, Type } from "@wonderlandengine/api";
 
 PP.myCollisionCheck = null;
 
-PP.PlayerLocomotionComponent = class PlayerLocomotionComponent extends Component {
+export class PlayerLocomotionComponent extends Component {
     static TypeName = "pp-player-locomotion";
     static Properties = {
         _myPhysicsBlockLayerFlags: { type: Type.String, default: "1, 0, 0, 0, 0, 0, 0, 0" },

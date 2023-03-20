@@ -1,6 +1,6 @@
 import { Component, Type } from '@wonderlandengine/api';
 
-PP.GlobalGravityComponent = class GlobalGravityComponent extends Component {
+export class GlobalGravityComponent extends Component {
     static TypeName = 'pp-global-gravity';
     static Properties = {};
 

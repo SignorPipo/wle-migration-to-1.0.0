@@ -3,7 +3,7 @@ import { Component, Type } from "@wonderlandengine/api";
 PP.myDebugManager = null;
 PP.myDebugVisualManager = null;
 
-PP.DebugManagerComponent = class DebugManagerComponent extends Component {
+export class DebugManagerComponent extends Component {
     static TypeName = "pp-debug-manager";
     static Properties = {};
 

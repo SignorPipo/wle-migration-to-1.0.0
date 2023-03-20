@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.VirtualGamepadComponent = class VirtualGamepadComponent extends Component {
+export class VirtualGamepadComponent extends Component {
     static TypeName = "pp-virtual-gamepad";
     static Properties = {
         _myShowOnDesktop: { type: Type.Bool, default: false },   // you may have to enable headset too

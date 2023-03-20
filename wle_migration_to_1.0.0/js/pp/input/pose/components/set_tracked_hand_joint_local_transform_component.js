@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SetTrackedHandJointLocalTransformComponent = class SetTrackedHandJointLocalTransformComponent extends Component {
+export class SetTrackedHandJointLocalTransformComponent extends Component {
     static TypeName = "pp-set-tracked-hand-joint-local-transform";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
@@ -49,7 +49,7 @@ PP.SetTrackedHandJointLocalTransformComponent = class SetTrackedHandJointLocalTr
 
 // IMPLEMENTATION
 
-PP.SetTrackedHandJointLocalTransformComponent.prototype.onPoseUpdated = function () {
+SetTrackedHandJointLocalTransformComponent.prototype.onPoseUpdated = function () {
     let jointPoseTransform = PP.quat2_create()
     return function onPoseUpdated() {
         this.object.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat(jointPoseTransform));

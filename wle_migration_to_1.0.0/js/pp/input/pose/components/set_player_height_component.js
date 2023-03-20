@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 
-PP.SetPlayerHeightComponent = class SetPlayerHeightComponent extends Component {
+export class SetPlayerHeightComponent extends Component {
     static TypeName = "pp-set-player-height";
     static Properties = {
         _myEyesHeight: { type: Type.Float, default: 1.65 },

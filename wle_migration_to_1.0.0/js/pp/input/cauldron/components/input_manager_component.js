@@ -11,7 +11,7 @@ PP.myGamepads = null;
 PP.myLeftGamepad = null;
 PP.myRightGamepad = null;
 
-PP.InputManagerComponent = class InputManagerComponent extends Component {
+export class InputManagerComponent extends Component {
     static TypeName = "pp-input-manager";
     static Properties = {
         _myGamepadFixForward: { type: Type.Bool, default: true },
