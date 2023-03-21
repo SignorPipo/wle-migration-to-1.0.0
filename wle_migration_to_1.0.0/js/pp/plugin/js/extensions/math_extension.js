@@ -30,7 +30,7 @@ export function initMathExtension() {
     initMathExtensionStatic();
 }
 
-export const EasingFunction = {
+export var EasingFunction = {
     linear: t => t,
     easeIn: t => t * t * t,
     easeOut: t => (t - 1) * (t - 1) * (t - 1) + 1,
