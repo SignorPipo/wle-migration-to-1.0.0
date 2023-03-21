@@ -20,7 +20,7 @@
         - pp_roundDecimal
         - pp_mapToRange
         - pp_random         / pp_randomInt    / pp_randomInt        / pp_randomSign / pp_randomPick
-        - pp_lerp           / pp_interpolate  / PP.EasingFunction
+        - pp_lerp           / pp_interpolate  / EasingFunction
         - pp_angleDistance  / pp_angleDistanceSigned
         - pp_angleClamp
         - pp_isInsideAngleRange
@@ -29,6 +29,13 @@
 export function initMathExtension() {
     initMathExtensionStatic();
 }
+
+export var EasingFunction = {
+    linear: t => t,
+    easeIn: t => t * t * t,
+    easeOut: t => (t - 1) * (t - 1) * (t - 1) + 1,
+    easeInOut: t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+};
 
 export function initMathExtensionStatic() {
 
@@ -137,14 +144,7 @@ export function initMathExtensionStatic() {
         return interpolationValue * (to - from) + from;
     };
 
-    PP.EasingFunction = {
-        linear: t => t,
-        easeIn: t => t * t * t,
-        easeOut: t => (t - 1) * (t - 1) * (t - 1) + 1,
-        easeInOut: t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
-    };
-
-    Math.pp_interpolate = function pp_interpolate(from, to, interpolationValue, easingFunction = PP.EasingFunction.linear) {
+    Math.pp_interpolate = function pp_interpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear) {
         let lerpValue = easingFunction(interpolationValue);
         return Math.pp_lerp(from, to, lerpValue);
     };
@@ -250,7 +250,7 @@ export function initMathExtensionStatic() {
 
 
     for (let key in Math) {
-        let prefixes = ["pp_", "_pp_"];
+        let prefixes = ["pp_", "_pp_", "PP_"];
 
         let found = false;
         for (let prefix of prefixes) {
