@@ -142,7 +142,7 @@ PP.JSUtils = {
 
         return currentParent;
     },
-    overwriteReferenceProperty: function (newProperty, reference, propertyName, overwriteOnOwnParent = true, javascriptObjectFunctionsSpecialOverwrite = false, debugLogActive = false) {
+    overwriteReferenceProperty: function (newProperty, reference, propertyName, overwriteOnOwnParent = true, jsObjectFunctionsSpecialOverwrite = false, debugLogActive = false) {
         let success = false;
 
         try {
@@ -152,7 +152,7 @@ PP.JSUtils = {
 
                 if (originalPropertyDescriptor != null) {
                     let originalProperty = this.getReferenceProperty(propertyOwnParent, propertyName);
-                    this.copyReferenceProperties(originalProperty, newProperty, true, javascriptObjectFunctionsSpecialOverwrite, debugLogActive);
+                    this.copyReferenceProperties(originalProperty, newProperty, true, jsObjectFunctionsSpecialOverwrite, debugLogActive);
 
                     let overwriteTarget = reference;
                     if (overwriteOnOwnParent) {
@@ -189,7 +189,7 @@ PP.JSUtils = {
 
         return success;
     },
-    copyReferenceProperties(fromReference, toReference, cleanCopy = false, javascriptObjectFunctionsSpecialCopy = false, debugLogActive = false) {
+    copyReferenceProperties(fromReference, toReference, cleanCopy = false, jsObjectFunctionsSpecialCopy = false, debugLogActive = false) {
         if (fromReference != null) {
             if (cleanCopy) {
                 this.cleanReferenceProperties(toReference);
@@ -215,8 +215,8 @@ PP.JSUtils = {
                 }
             }
 
-            if (javascriptObjectFunctionsSpecialCopy) {
-                this._javascriptObjectFunctionsSpecialCopy(fromReference, toReference);
+            if (jsObjectFunctionsSpecialCopy) {
+                this._jsObjectFunctionsSpecialCopy(fromReference, toReference);
             }
         }
     },
@@ -286,7 +286,7 @@ PP.JSUtils = {
 
         return isObject;
     },
-    _javascriptObjectFunctionsSpecialCopy(fromReference, toReference) {
+    _jsObjectFunctionsSpecialCopy(fromReference, toReference) {
         try {
             if (typeof toReference == "function" && typeof fromReference == "function") {
                 let functionsToOverwrite = ["toString", "toLocaleString", "valueOf"];
