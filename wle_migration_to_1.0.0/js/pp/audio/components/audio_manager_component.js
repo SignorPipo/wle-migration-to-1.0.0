@@ -1,5 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
-import { getMainEngine } from "../../plugin/extensions/wle/engine_extension"
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 
 var myAudioManagers = new WeakMap();
 

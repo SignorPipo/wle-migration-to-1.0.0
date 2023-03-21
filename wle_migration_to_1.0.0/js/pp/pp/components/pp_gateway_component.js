@@ -1,7 +1,7 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 export class GatewayComponent extends Component {
-    static TypeName = 'pp-gateway';
+    static TypeName = "pp-gateway";
     static Properties = {};
 
     init() {

@@ -43,15 +43,13 @@ export function initCursorComponentModPrototype() {
         if (this.handedness == 0) {
             const inputComp = this.object.getComponent(InputComponent);
             if (!inputComp) {
-                console.warn('cursor component on object', this.object.name,
-                    'was configured with handedness "input component", ' +
-                    'but object has no input component.');
+                console.warn("cursor component on object " + this.object.name + " was configured with handedness \"input component\", " + "but object has no input component.");
             } else {
                 this.handedness = inputComp.handedness;
                 this.input = inputComp;
             }
         } else {
-            this.handedness = ['left', 'right'][this.handedness - 1];
+            this.handedness = ["left", "right"][this.handedness - 1];
         }
 
         this.globalTarget = this.object.addComponent(CursorTarget);
@@ -141,7 +139,7 @@ export function initCursorComponentModPrototype() {
         /* If in VR, set the cursor ray based on object transform */
         if (this.session) {
             /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
-            if (this.arTouchDown && this.input && this.engine.xrSession.inputSources[0].handedness === 'none' && this.engine.xrSession.inputSources[0].gamepad) {
+            if (this.arTouchDown && this.input && this.engine.xrSession.inputSources[0].handedness === "none" && this.engine.xrSession.inputSources[0].gamepad) {
                 const p = this.engine.xrSession.inputSources[0].gamepad.axes;
                 /* Screenspace Y is inverted */
                 this.direction.vec3_set(p[0], -p[1], -1.0);
@@ -296,21 +294,21 @@ export function initCursorComponentModPrototype() {
              * it starts again */
             this.session = null;
         }.bind(this);
-        s.addEventListener('end', onSessionEnd);
+        s.addEventListener("end", onSessionEnd);
 
         const onSelect = this.onSelect.bind(this);
-        s.addEventListener('select', onSelect);
+        s.addEventListener("select", onSelect);
         const onSelectStart = this.onSelectStart.bind(this);
-        s.addEventListener('selectstart', onSelectStart);
+        s.addEventListener("selectstart", onSelectStart);
         const onSelectEnd = this.onSelectEnd.bind(this);
-        s.addEventListener('selectend', onSelectEnd);
+        s.addEventListener("selectend", onSelectEnd);
 
         this.onDestroyCallbacks.push(() => {
             if (!this.session) return;
-            s.removeEventListener('end', onSessionEnd);
-            s.removeEventListener('select', onSelect);
-            s.removeEventListener('selectstart', onSelectStart);
-            s.removeEventListener('selectend', onSelectEnd);
+            s.removeEventListener("end", onSessionEnd);
+            s.removeEventListener("select", onSelect);
+            s.removeEventListener("selectstart", onSelectStart);
+            s.removeEventListener("selectend", onSelectEnd);
         });
 
         /* After AR session was entered, the projection matrix changed */

@@ -21,8 +21,8 @@ import './pp/bundle.js';
 import './pp/plugin/init_plugins.js';
 import './pp/pp/init_pp.js';
 import {GatewayComponent} from './pp/pp/components/pp_gateway_component.js';
-import './pp/plugin/wl/mods/components/init_component_mods.js';
-import './pp/plugin/wl/mods/components/cursor_target_component_mod.js';
+import './pp/plugin/wl/mods/components/mouse_look_component_mod.js';
+import './pp/plugin/wl/mods/components/cursor_component_mod.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"

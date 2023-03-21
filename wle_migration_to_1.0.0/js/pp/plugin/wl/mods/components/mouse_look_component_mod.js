@@ -1,16 +1,22 @@
-if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["mouse-look"]]) {
+import { MouseLookComponent } from "@wonderlandengine/components";
+import { vec3_create } from "../../../js/extensions/array_extension";
 
+export function initMouseLookComponentMod() {
+    initMouseLookComponentModPrototype();
+}
+
+export function initMouseLookComponentModPrototype() {
     // Modified Functions
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["mouse-look"]].prototype.init = function init() {
+    MouseLookComponent.prototype.init = function init() {
         this.pointerId = null;
         this.prevMoveEvent = null;
 
         this.resetMovingDelay = 0.15;
-        this.resetMovingTimer = new PP.Timer(this.resetMovingDelay, false);
+        this.resetMovingTimer = new Timer(this.resetMovingDelay, false);
         this.isMoving = false;
 
-        document.body.addEventListener('pointermove', this._onMove.bind(this));
+        document.body.addEventListener("pointermove", this._onMove.bind(this));
 
         if (this.requireMouseDown) {
             if (this.mouseButtonIndex == 2) {
@@ -19,7 +25,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
                 }, false);
             }
 
-            this.engine.canvas.addEventListener('pointerdown', function (event) {
+            this.engine.canvas.addEventListener("pointerdown", function (event) {
                 if (this.pointerId != null) return;
 
                 if (!this.mouseDown) {
@@ -35,7 +41,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
                 }
             }.bind(this));
 
-            document.body.addEventListener('pointerup', function (event) {
+            document.body.addEventListener("pointerup", function (event) {
                 if (event.pointerId != this.pointerId) return;
 
                 if (this.mouseDown) {
@@ -47,7 +53,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
             }.bind(this));
         }
 
-        document.body.addEventListener('pointerleave', function (event) {
+        document.body.addEventListener("pointerleave", function (event) {
             if (event.pointerId != this.pointerId) return;
 
             this.pointerId = null;
@@ -60,7 +66,9 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }.bind(this));
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["mouse-look"]].prototype.update = function update(dt) {
+    // New Functions
+
+    MouseLookComponent.prototype.update = function update(dt) {
         if (this.resetMovingTimer.isRunning()) {
             this.resetMovingTimer.update(dt);
             if (this.resetMovingTimer.isDone()) {
@@ -78,15 +86,15 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["mouse-look"]].prototype._onMove = function () {
-        let viewForward = PP.vec3_create();
-        let viewUp = PP.vec3_create();
+    MouseLookComponent.prototype._onMove = function () {
+        let viewForward = vec3_create();
+        let viewUp = vec3_create();
 
-        let referenceUp = PP.vec3_create();
-        let referenceUpNegate = PP.vec3_create();
-        let referenceRight = PP.vec3_create();
+        let referenceUp = vec3_create();
+        let referenceUpNegate = vec3_create();
+        let referenceRight = vec3_create();
 
-        let newUp = PP.vec3_create();
+        let newUp = vec3_create();
         return function _onMove(event) {
             if (this.pointerId != null && event.pointerId != this.pointerId) return;
 
@@ -148,6 +156,9 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
             }
         };
     }();
-} else {
-    console.error("Wonderland Engine \"mouse-look\" component not found.\n Add the component to your project to avoid any issue with the PP library.");
+
+
+
+    Object.defineProperty(MouseLookComponent.prototype, "update", { enumerable: false });
+    Object.defineProperty(MouseLookComponent.prototype, "_onMove", { enumerable: false });
 }
