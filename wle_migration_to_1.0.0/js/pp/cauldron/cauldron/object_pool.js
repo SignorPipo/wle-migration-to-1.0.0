@@ -84,8 +84,8 @@ PP.ObjectPool = class ObjectPool {
         if (this._myObjectPoolParams.myOptimizeObjectsAllocation) {
             if (this._myObjectPoolParams.myOptimizeObjectsAllocationCallback) {
                 this._myObjectPoolParams.myOptimizeObjectsAllocationCallback(this._myPrototype, size);
-            } else if (this._myPrototype.pp_reserveObjectsHierarchy != null) {
-                this._myPrototype.pp_reserveObjectsHierarchy(size);
+            } else if (this._myPrototype.pp_reserveObjects != null) {
+                this._myPrototype.pp_reserveObjects(size); // #ENGINE
             }
         }
 

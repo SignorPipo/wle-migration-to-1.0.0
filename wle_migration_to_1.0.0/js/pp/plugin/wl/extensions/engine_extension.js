@@ -32,14 +32,7 @@ export function addEngine(engine) {
 }
 
 export function removeEngine(engine) {
-    let index = -1;
-
-    for (let i = 0; i < myEngines.length; i++) {
-        if (myEngines[i] == engine) {
-            index = i;
-            break;
-        }
-    }
+    let index = myEngines.indexOf(engine);
 
     if (index >= 0) {
         myEngines.splice(index, 1);
