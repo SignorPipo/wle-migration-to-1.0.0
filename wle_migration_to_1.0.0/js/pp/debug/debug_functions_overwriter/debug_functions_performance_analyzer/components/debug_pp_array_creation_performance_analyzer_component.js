@@ -37,7 +37,7 @@ PP.DebugPPArrayCreationPerformanceAnalyzer = class DebugPPArrayCreationPerforman
             _myLogAverageExecutionTimeResults: this._myLogAverageExecutionTimeResults,
             _myFunctionPathsToInclude: "vec2_create, vec3_create, vec4_create, quat_create, quat2_create, mat3_create, mat4_create",
             _myExcludeConstructors: true,
-            _myExcludeJavascriptObjectFunctions: true,
+            _myExcludeJSObjectFunctions: true,
             _myAddPathPrefixToFunctionID: true,
             _myClearConsoleBeforeLog: this._myClearConsoleBeforeLog,
             _myResetMaxResultsShortcutEnabled: this._myResetMaxResultsShortcutEnabled

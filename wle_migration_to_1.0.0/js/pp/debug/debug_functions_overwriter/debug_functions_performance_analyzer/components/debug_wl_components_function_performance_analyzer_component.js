@@ -63,7 +63,7 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
             _myFunctionPathsToInclude: this._myFunctionPathsToInclude,
             _myFunctionPathsToExclude: this._myFunctionPathsToExclude + (this._myFunctionPathsToExclude.length > 0 ? ", " : "") + "_WL\\._components\\., _WL\\._componentTypes\\., functions-performance-analyzer",
             _myExcludeConstructors: this._myExcludeConstructors,
-            _myExcludeJavascriptObjectFunctions: true,
+            _myExcludeJSObjectFunctions: true,
             _myAddPathPrefixToFunctionID: true,
             _myObjectAddObjectDescendantsDepthLevel: 1,
             _myObjectAddClassDescendantsDepthLevel: 1,

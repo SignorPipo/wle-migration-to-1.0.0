@@ -22,7 +22,7 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
         _myFunctionPathsToInclude: { type: Type.String, default: "" },
         _myFunctionPathsToExclude: { type: Type.String, default: "" },
         _myExcludeConstructors: { type: Type.Bool, default: false },
-        _myExcludeJavascriptObjectFunctions: { type: Type.Bool, default: true },
+        _myExcludeJSObjectFunctions: { type: Type.Bool, default: true },
         _myAddPathPrefixToFunctionID: { type: Type.Bool, default: true },
         _myObjectAddObjectDescendantsDepthLevel: { type: Type.Int, default: 0 },
         _myObjectAddClassDescendantsDepthLevel: { type: Type.Int, default: 0 },
@@ -94,7 +94,7 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
         }
 
         functionsPerformanceAnalyzerParams.myExcludeConstructors = this._myExcludeConstructors;
-        functionsPerformanceAnalyzerParams.myExcludeJavascriptObjectFunctions = this._myExcludeJavascriptObjectFunctions;
+        functionsPerformanceAnalyzerParams.myExcludeJSObjectFunctions = this._myExcludeJSObjectFunctions;
         functionsPerformanceAnalyzerParams.myAddPathPrefixToFunctionID = this._myAddPathPrefixToFunctionID;
 
         if (this._myFunctionPathsToInclude.length > 0) {

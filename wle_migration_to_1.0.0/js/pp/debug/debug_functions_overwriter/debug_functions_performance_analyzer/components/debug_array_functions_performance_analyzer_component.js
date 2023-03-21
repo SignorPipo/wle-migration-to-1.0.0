@@ -49,7 +49,7 @@ export class DebugArrayFunctionsPerformanceAnalyzerComponent extends Component {
             _myFunctionPathsToInclude: this._myFunctionPathsToInclude + (this._myFunctionPathsToInclude.length > 0 && this._myIncludeOnlyArrayExtensionFunctions ? ", " : "") + (this._myIncludeOnlyArrayExtensionFunctions ? "pp_, vec_, vec2_, vec3_, vec4_, quat_, quat2_, mat3_, mat4_, _pp_, _vec_, _quat_" : ""),
             _myFunctionPathsToExclude: this._myFunctionPathsToExclude,
             _myExcludeConstructors: this._myExcludeConstructors,
-            _myExcludeJavascriptObjectFunctions: true,
+            _myExcludeJSObjectFunctions: true,
             _myAddPathPrefixToFunctionID: true,
             _myClearConsoleBeforeLog: this._myClearConsoleBeforeLog,
             _myResetMaxResultsShortcutEnabled: this._myResetMaxResultsShortcutEnabled

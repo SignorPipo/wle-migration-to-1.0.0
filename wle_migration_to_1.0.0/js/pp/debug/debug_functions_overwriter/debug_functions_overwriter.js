@@ -16,7 +16,7 @@ PP.DebugFunctionsOverwriterParams = class DebugFunctionsOverwriterParams {
         // It's mostly for global functions, which could be tracked anyway using window as object reference
 
         this.myExcludeConstructors = false;      // constructor calls count can be a problem for some classes (like Array)
-        this.myExcludeJavascriptObjectFunctions = false;
+        this.myExcludeJSObjectFunctions = false;
 
         this.myFunctionNamesToInclude = [];     // empty means every function is included, can be a regex (. must be escaped with \\.)
         this.myFunctionNamesToExclude = [];     // empty means no function is excluded, can be a regex (. must be escaped with \\.)
@@ -182,7 +182,7 @@ PP.DebugFunctionsOverwriter = class DebugFunctionsOverwriter {
             let isPropertyCountedAlready = this._myPropertiesAlreadyOverwritten.get(propertyName) != null && this._myPropertiesAlreadyOverwritten.get(propertyName).pp_hasEqual(reference);
             if (!isPropertyCountedAlready) {
                 if (PP.JSUtils.isFunctionByName(reference, propertyName)) {
-                    if (!this._myParams.myExcludeJavascriptObjectFunctions || !this._isJavascriptObjectFunction(propertyName)) {
+                    if (!this._myParams.myExcludeJSObjectFunctions || !this._isJSObjectFunction(propertyName)) {
                         let isValidFunctionName = this._filterName(propertyName, this._myParams.myFunctionNamesToInclude, this._myParams.myFunctionNamesToExclude);
                         let isValidFunctionPath = this._filterName((referencePath != null ? referencePath + "." : "") + propertyName, this._myParams.myFunctionPathsToInclude, this._myParams.myFunctionPathsToExclude);
                         if (isValidFunctionName && isValidFunctionPath) {
@@ -414,15 +414,15 @@ PP.DebugFunctionsOverwriter = class DebugFunctionsOverwriter {
 
 
 
-PP.DebugFunctionsOverwriter.prototype._isJavascriptObjectFunction = function () {
-    let javascriptObjectFunctions = [
+PP.DebugFunctionsOverwriter.prototype._isJSObjectFunction = function () {
+    let jsObjectFunctions = [
         "__defineGetter__", "__defineSetter__", "hasOwnProperty", "__lookupGetter__", "__lookupSetter__", "isPrototypeOf",
         "propertyIsEnumerable", "toString", "valueOf", "__proto__", "toLocaleString", "arguments", "caller", "apply", "bind", "call", "callee"];
-    return function _isJavascriptObjectFunction(propertyName) {
-        return javascriptObjectFunctions.pp_hasEqual(propertyName);
+    return function _isJSObjectFunction(propertyName) {
+        return jsObjectFunctions.pp_hasEqual(propertyName);
     };
 }();
 
 
 
-Object.defineProperty(PP.DebugFunctionsOverwriter.prototype, "_isJavascriptObjectFunction", { enumerable: false });
+Object.defineProperty(PP.DebugFunctionsOverwriter.prototype, "_isJSObjectFunction", { enumerable: false });
