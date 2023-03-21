@@ -149,5 +149,5 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         };
     }();
 } else {
-    console.error("Wonderland Engine \"mouse-look\" component not found.\n Add the component to your project to avoid any issue with the PP bundle.");
+    console.error("Wonderland Engine \"mouse-look\" component not found.\n Add the component to your project to avoid any issue with the PP library.");
 }

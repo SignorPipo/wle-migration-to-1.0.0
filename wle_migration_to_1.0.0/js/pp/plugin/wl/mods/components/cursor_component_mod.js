@@ -1,6 +1,6 @@
 import { InputComponent, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
-import { vec3_create, quat_create, quat2_create, mat4_create } from "../../../js/extensions/array_extension"
+import { vec3_create, quat_create, quat2_create, mat4_create } from "../../../js/extensions/array_extension";
 
 export function initCursorComponentMod() {
     initCursorComponentModPrototype();

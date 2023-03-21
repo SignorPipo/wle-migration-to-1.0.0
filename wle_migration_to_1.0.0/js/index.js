@@ -21,10 +21,8 @@ import './pp/bundle.js';
 import './pp/plugin/init_plugins.js';
 import './pp/pp/init_pp.js';
 import {GatewayComponent} from './pp/pp/components/pp_gateway_component.js';
-import './pp/plugin/wl/mods/components/cursor_component_mod.js';
-import {AudioManagerComponent} from './pp/audio/components/audio_manager_component.js';
-import './pp/plugin/js/extensions/math_extension.js';
-import './pp/plugin/wl/extensions/scene_extension.js';
+import './pp/plugin/wl/mods/components/init_component_mods.js';
+import './pp/plugin/wl/mods/components/cursor_target_component_mod.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -63,7 +61,6 @@ if (vrButton) {
 /* wle:auto-register:start */
 engine.registerComponent(ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent);
 engine.registerComponent(GatewayComponent);
-engine.registerComponent(AudioManagerComponent);
 /* wle:auto-register:end */
 
 initPP(engine);
