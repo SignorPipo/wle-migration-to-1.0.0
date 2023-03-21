@@ -108,12 +108,12 @@
         - pp_getObjectsByNameObjects
 */
 
+import { vec3_create, quat_create, quat2_create, mat3_create, mat4_create } from "../js/array_extension";
+
 export function initObjectExtension(engine) {
     initObjectExtensionProtoype(engine);
     initObjectExtensionStatic(engine);
 }
-
-
 
 export class CloneParams {
     constructor() {

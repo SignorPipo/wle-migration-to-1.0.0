@@ -28,11 +28,19 @@ export function getEngines() {
 
 export function addEngine(engine) {
     removeEngine(engine);
-    return myEngines.push(engine);
+    myEngines.push(engine);
 }
 
 export function removeEngine(engine) {
-    let index = myEngines.findIndex(engine);
+    let index = -1;
+
+    for (let i = 0; i < myEngines.length; i++) {
+        if (myEngines[i] == engine) {
+            index = i;
+            break;
+        }
+    }
+
     if (index >= 0) {
         myEngines.splice(index, 1);
     }
