@@ -1,21 +1,22 @@
 //PP
 
-require("./pp/pp");
+require("./pp/init_pp");
 
 require("./pp/components/pp_gateway_component");
 require("./pp/components/get_player_objects_component");
 require("./pp/components/get_default_resources_component");
 
 //	PLUGIN
-require("./plugin/extensions/array_extension");
-require("./plugin/extensions/math_extension");
-require("./plugin/extensions/object_extension");
-require("./plugin/extensions/scene_extension");
+require("./plugin/extensions/js/array_extension");
+require("./plugin/extensions/js/math_extension");
+require("./plugin/extensions/wle/object_extension");
+require("./plugin/extensions/wle/scene_extension");
+require("./plugin/extensions/wle/engine_extension");
 
-require("./plugin/component_mods/clone_component_mod");
-require("./plugin/component_mods/cursor_component_mod");
-require("./plugin/component_mods/cursor_target_component_mod");
-require("./plugin/component_mods/mouse_look_component_mod");
+require("./plugin/mods/wle/components/clone_component_mod");
+require("./plugin/mods/wle/components/cursor_component_mod");
+require("./plugin/mods/wle/components/cursor_target_component_mod");
+require("./plugin/mods/wle/components/mouse_look_component_mod");
 
 //	AUDIO
 require("./audio/components/spatial_audio_listener_component");
