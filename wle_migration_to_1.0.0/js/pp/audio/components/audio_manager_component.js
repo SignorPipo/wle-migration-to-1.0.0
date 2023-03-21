@@ -1,7 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 
-var myAudioManagers = new WeakMap();
+let myAudioManagers = new WeakMap();
 
 export function getAudioManager(engine = getMainEngine()) {
     return myAudioManagers.get(engine);

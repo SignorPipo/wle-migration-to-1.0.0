@@ -8,7 +8,7 @@
         - pp_isInsideAngleRangeRadians
         
     List of constants:
-        - PP_EPSILON_NUMBER / PP_EPSILON_DEGREES
+        - PP_EPSILON_NUMBER / PP_EPSILON_NUMBER_SQUARED / PP_EPSILON_DEGREES
 
     List of functions:
         Notes:
@@ -30,7 +30,7 @@ export function initMathExtension() {
     initMathExtensionStatic();
 }
 
-export var EasingFunction = {
+export let EasingFunction = {
     linear: t => t,
     easeIn: t => t * t * t,
     easeOut: t => (t - 1) * (t - 1) * (t - 1) + 1,

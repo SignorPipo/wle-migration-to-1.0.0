@@ -1,5 +1,5 @@
-var myMainEngine = null;
-var myEngines = [];
+let myMainEngine = null;
+let myEngines = [];
 
 export function initEngineExtension(engine) {
     initEngineExtensionGlobal(engine);
