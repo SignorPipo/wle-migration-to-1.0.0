@@ -1,10 +1,15 @@
-import { vec3, mat4 } from 'gl-matrix';
+import { InputComponent, ViewComponent } from "@wonderlandengine/api";
+import { Cursor, CursorTarget } from "@wonderlandengine/components";
+import { vec3_create, quat_create, quat2_create, mat4_create } from "../../../js/extensions/array_extension"
 
-if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]]) {
+export function initCursorComponentMod() {
+    initCursorComponentModPrototype();
+}
 
+export function initCursorComponentModPrototype() {
     // Modified Functions
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.init = function init() {
+    Cursor.prototype.init = function init() {
         /* VR session cache, in case in VR */
         this.session = null;
         this.collisionMask = (1 << this.collisionGroup);
@@ -18,13 +23,13 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this.visible = false;
 
         const sceneLoaded = this.onDestroy.bind(this);
-        WL.onSceneLoaded.push(sceneLoaded);
+        this.engine.onSceneLoaded.push(sceneLoaded);
         this.onDestroyCallbacks = [() => {
-            const index = WL.onSceneLoaded.indexOf(sceneLoaded);
-            if (index >= 0) WL.onSceneLoaded.splice(index, 1);
+            const index = this.engine.onSceneLoaded.indexOf(sceneLoaded);
+            if (index >= 0) this.engine.onSceneLoaded.splice(index, 1);
         }];
 
-        this.prevHitLocationLocalToTarget = PP.vec3_create();
+        this.prevHitLocationLocalToTarget = vec3_create();
 
         this.pointerId = null;
 
@@ -34,9 +39,9 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this.lastHeight = null;
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.start = function start() {
+    Cursor.prototype.start = function start() {
         if (this.handedness == 0) {
-            const inputComp = this.object.getComponent('input');
+            const inputComp = this.object.getComponent(InputComponent);
             if (!inputComp) {
                 console.warn('cursor component on object', this.object.name,
                     'was configured with handedness "input component", ' +
@@ -49,16 +54,16 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
             this.handedness = ['left', 'right'][this.handedness - 1];
         }
 
-        this.globalTarget = this.object.addComponent('cursor-target');
+        this.globalTarget = this.object.addComponent(CursorTarget);
 
-        this.transformQuat = PP.quat2_create();
-        this.rotationQuat = PP.quat_create();
-        this.transformMatrix = PP.mat4_create();
-        this.origin = PP.vec3_create();
-        this.cursorObjScale = PP.vec3_create();
-        this.direction = PP.vec3_create();
-        this.tempQuat = PP.quat_create();
-        this.setViewComponent(this.object.getComponent("view"));
+        this.transformQuat = quat2_create();
+        this.rotationQuat = quat_create();
+        this.transformMatrix = mat4_create();
+        this.origin = vec3_create();
+        this.cursorObjScale = vec3_create();
+        this.direction = vec3_create();
+        this.tempQuat = quat_create();
+        this.setViewComponent(this.object.getComponent(ViewComponent));
         this.isHovering = false;
         this.visible = true;
         this.isDown = false;
@@ -66,23 +71,23 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this.isUpWithNoDown = false;
         this.isRealDown = false;
 
-        this.cursorPos = PP.vec3_create();
+        this.cursorPos = vec3_create();
         this.hoveringObject = null;
 
         const onXRSessionStart = this.setupVREvents.bind(this);
-        WL.onXRSessionStart.push(onXRSessionStart);
+        this.engine.onXRSessionStart.push(onXRSessionStart);
 
         this.onDestroyCallbacks.push(() => {
-            const index = WL.onXRSessionStart.indexOf(onXRSessionStart);
-            if (index >= 0) WL.onXRSessionStart.splice(index, 1);
+            const index = this.engine.onXRSessionStart.indexOf(onXRSessionStart);
+            if (index >= 0) this.engine.onXRSessionStart.splice(index, 1);
         });
 
         this.showRay = true;
         if (this.cursorRayObject) {
             this.cursorRayObject.pp_setActive(true);
             this.showRay = false;
-            this.cursorRayOrigin = PP.vec3_create();
-            this.cursorRayScale = PP.vec3_create();
+            this.cursorRayOrigin = vec3_create();
+            this.cursorRayScale = vec3_create();
             this.cursorRayScale.set(this.cursorRayObject.scalingLocal);
 
             /* Set ray to a good default distance of the cursor of 1m */
@@ -92,46 +97,14 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this._setCursorVisibility(false);
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.setViewComponent = function setViewComponent(viewComponent) {
-        this.viewComponent = viewComponent;
-        /* If this object also has a view component, we will enable inverse-projected mouse clicks,
-         * otherwise just use the objects transformation */
-        if (this.viewComponent != null) {
-            const onClick = this.onClick.bind(this);
-            this.engine.canvas.addEventListener("click", onClick);
-            const onPointerDown = this.onPointerDown.bind(this);
-            this.engine.canvas.addEventListener("pointerdown", onPointerDown);
-            const onPointerMove = this.onPointerMove.bind(this);
-            this.engine.canvas.addEventListener("pointermove", onPointerMove);
-            const onPointerUp = this.onPointerUp.bind(this);
-            this.engine.canvas.addEventListener("pointerup", onPointerUp);
-            const onPointerLeave = this.onPointerLeave.bind(this);
-            this.engine.canvas.addEventListener("pointerleave", onPointerLeave);
-
-            this.projectionMatrix = PP.mat4_create();
-            mat4.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
-            const onViewportResize = this.onViewportResize.bind(this);
-            window.addEventListener("resize", onViewportResize);
-
-            this.onDestroyCallbacks.push(() => {
-                this.engine.canvas.removeEventListener("click", onClick);
-                this.engine.canvas.removeEventListener("pointerdown", onPointerDown);
-                this.engine.canvas.removeEventListener("pointermove", onPointerMove);
-                this.engine.canvas.removeEventListener("pointerup", onPointerUp);
-                this.engine.canvas.removeEventListener("pointerleave", onPointerLeave);
-                window.removeEventListener("resize", onViewportResize);
-            });
-        }
-    };
-
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onViewportResize = function onViewportResize() {
+    Cursor.prototype.onViewportResize = function onViewportResize() {
         if (!this.viewComponent) return;
         /* Projection matrix will change if the viewport is resized, which will affect the
          * projection matrix because of the aspect ratio. */
         mat4.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype._setCursorRayTransform = function _setCursorRayTransform(hitPosition) {
+    Cursor.prototype._setCursorRayTransform = function _setCursorRayTransform(hitPosition) {
         if (!this.cursorRayObject) return;
         if (this.cursorRayScalingAxis != 4) {
             this.cursorRayObject.resetScaling();
@@ -145,14 +118,14 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype._setCursorVisibility = function _setCursorVisibility(visible) {
+    Cursor.prototype._setCursorVisibility = function _setCursorVisibility(visible) {
         this.visible = visible;
         if (!this.cursorObject) return;
 
         this.cursorObject.pp_setActive(visible);
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.update = function update(dt) {
+    Cursor.prototype.update = function update(dt) {
         if (this.doubleClickTimer > 0) {
             this.doubleClickTimer -= dt;
         }
@@ -164,7 +137,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this.doUpdate(false);
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.doUpdate = function doUpdate(doClick) {
+    Cursor.prototype.doUpdate = function doUpdate(doClick) {
         /* If in VR, set the cursor ray based on object transform */
         if (this.session) {
             /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
@@ -219,13 +192,13 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.hoverBehaviour = function hoverBehaviour(rayHit, doClick, forceUnhover = false) {
+    Cursor.prototype.hoverBehaviour = function hoverBehaviour(rayHit, doClick, forceUnhover = false) {
         if (!forceUnhover && rayHit.hitCount > 0) {
             let hoveringObjectChanged = false;
             if (!this.hoveringObject || !this.hoveringObject.equals(rayHit.objects[0])) {
                 /* Unhover previous, if exists */
                 if (this.hoveringObject) {
-                    let cursorTarget = this.hoveringObject.getComponent("cursor-target");
+                    let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
                     if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
                     this.globalTarget.onUnhover(this.hoveringObject, this);
                 }
@@ -236,7 +209,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
                 this.hoveringObject = rayHit.objects[0];
                 if (this.styleCursor) document.body.style.cursor = "pointer";
 
-                let cursorTarget = this.hoveringObject.getComponent("cursor-target");
+                let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
                 if (cursorTarget) {
                     cursorTarget.onHover(this.hoveringObject, this);
                 }
@@ -252,7 +225,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
                 }
             }
 
-            let cursorTarget = this.hoveringObject.getComponent("cursor-target");
+            let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
 
             if (!hoveringObjectChanged && this._isMoving(rayHit.locations[0])) {
                 if (cursorTarget) cursorTarget.onMove(this.hoveringObject, this);
@@ -297,7 +270,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
 
             this.prevHitLocationLocalToTarget = this.hoveringObject.pp_convertPositionWorldToLocal(rayHit.locations[0], this.prevHitLocationLocalToTarget);
         } else if (this.hoveringObject && (forceUnhover || rayHit.hitCount == 0)) {
-            let cursorTarget = this.hoveringObject.getComponent("cursor-target");
+            let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
             if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
             this.globalTarget.onUnhover(this.hoveringObject, this);
 
@@ -315,7 +288,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this.isUpWithNoDown = false;
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.setupVREvents = function setupVREvents(s) {
+    Cursor.prototype.setupVREvents = function setupVREvents(s) {
         /* If in VR, one-time bind the listener */
         this.session = s;
         const onSessionEnd = function (e) {
@@ -344,10 +317,10 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this.onViewportResize();
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onSelect = function onSelect(e) {
+    Cursor.prototype.onSelect = function onSelect(e) {
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onSelectStart = function onSelectStart(e) {
+    Cursor.prototype.onSelectStart = function onSelectStart(e) {
         if (this.active) {
             this.arTouchDown = true;
             if (e.inputSource.handedness == this.handedness) {
@@ -360,7 +333,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onSelectEnd = function onSelectEnd(e) {
+    Cursor.prototype.onSelectEnd = function onSelectEnd(e) {
         if (this.active) {
             this.arTouchDown = false;
             if (e.inputSource.handedness == this.handedness) {
@@ -376,7 +349,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onPointerMove = function onPointerMove(e) {
+    Cursor.prototype.onPointerMove = function onPointerMove(e) {
         if (this.active) {
             /* Don't care about secondary pointers */
             if (this.pointerId != null && this.pointerId != e.pointerId) return;
@@ -394,10 +367,10 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onClick = function onClick(e) {
+    Cursor.prototype.onClick = function onClick(e) {
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onPointerDown = function onPointerDown(e) {
+    Cursor.prototype.onPointerDown = function onPointerDown(e) {
         /* Don't care about secondary pointers or non-left clicks */
         if ((this.pointerId != null && this.pointerId != e.pointerId) || e.button !== 0) return;
 
@@ -420,7 +393,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onPointerUp = function onPointerUp(e) {
+    Cursor.prototype.onPointerUp = function onPointerUp(e) {
         /* Don't care about secondary pointers or non-left clicks */
         if ((this.pointerId != null && this.pointerId != e.pointerId) || e.button !== 0) return;
 
@@ -447,22 +420,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         }
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onPointerLeave = function onPointerLeave(e) {
-        if (this.pointerId == null || this.pointerId == e.pointerId) {
-            if (this.active) {
-                this.hoverBehaviour(null, false, true); // trigger unhover
-            }
-
-            this.pointerId = null;
-
-            this.lastClientX = null;
-            this.lastClientY = null;
-            this.lastWidth = null;
-            this.lastHeight = null;
-        }
-    };
-
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.updateMousePos = function updateMousePos(clientX, clientY, w, h) {
+    Cursor.prototype.updateMousePos = function updateMousePos(clientX, clientY, w, h) {
         this.lastClientX = clientX;
         this.lastClientY = clientY;
         this.lastWidth = w;
@@ -475,7 +433,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         return this.updateDirection();
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.updateDirection = function updateDirection() {
+    Cursor.prototype.updateDirection = function updateDirection() {
         this.object.getTranslationWorld(this.origin);
 
         /* Reverse-project the direction into view space */
@@ -495,9 +453,9 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         return rayHit;
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onDeactivate = function onDeactivate() {
+    Cursor.prototype.onDeactivate = function onDeactivate() {
         if (this.hoveringObject) {
-            const cursorTarget = this.hoveringObject.getComponent('cursor-target');
+            const cursorTarget = this.hoveringObject.getComponent(CursorTarget);
             if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
             this.globalTarget.onUnhover(this.hoveringObject, this);
         }
@@ -522,7 +480,7 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this.lastHeight = null;
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onActivate = function onActivate() {
+    Cursor.prototype.onActivate = function onActivate() {
         this.showRay = true;
 
         this.isDown = false;
@@ -530,20 +488,69 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         this.isUpWithNoDown = false;
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype.onDestroy = function onDestroy() {
+    Cursor.prototype.onDestroy = function onDestroy() {
         for (const f of this.onDestroyCallbacks) f();
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype._isDown = function _isDown() {
+    // New Functions 
+
+    Cursor.prototype.setViewComponent = function setViewComponent(viewComponent) {
+        this.viewComponent = viewComponent;
+        /* If this object also has a view component, we will enable inverse-projected mouse clicks,
+         * otherwise just use the objects transformation */
+        if (this.viewComponent != null) {
+            const onClick = this.onClick.bind(this);
+            this.engine.canvas.addEventListener("click", onClick);
+            const onPointerDown = this.onPointerDown.bind(this);
+            this.engine.canvas.addEventListener("pointerdown", onPointerDown);
+            const onPointerMove = this.onPointerMove.bind(this);
+            this.engine.canvas.addEventListener("pointermove", onPointerMove);
+            const onPointerUp = this.onPointerUp.bind(this);
+            this.engine.canvas.addEventListener("pointerup", onPointerUp);
+            const onPointerLeave = this.onPointerLeave.bind(this);
+            this.engine.canvas.addEventListener("pointerleave", onPointerLeave);
+
+            this.projectionMatrix = mat4_create();
+            mat4.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
+            const onViewportResize = this.onViewportResize.bind(this);
+            window.addEventListener("resize", onViewportResize);
+
+            this.onDestroyCallbacks.push(() => {
+                this.engine.canvas.removeEventListener("click", onClick);
+                this.engine.canvas.removeEventListener("pointerdown", onPointerDown);
+                this.engine.canvas.removeEventListener("pointermove", onPointerMove);
+                this.engine.canvas.removeEventListener("pointerup", onPointerUp);
+                this.engine.canvas.removeEventListener("pointerleave", onPointerLeave);
+                window.removeEventListener("resize", onViewportResize);
+            });
+        }
+    };
+
+    Cursor.prototype.onPointerLeave = function onPointerLeave(e) {
+        if (this.pointerId == null || this.pointerId == e.pointerId) {
+            if (this.active) {
+                this.hoverBehaviour(null, false, true); // trigger unhover
+            }
+
+            this.pointerId = null;
+
+            this.lastClientX = null;
+            this.lastClientY = null;
+            this.lastWidth = null;
+            this.lastHeight = null;
+        }
+    };
+
+    Cursor.prototype._isDown = function _isDown() {
         return this.isDown !== this.lastIsDown && this.isDown;
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype._isUp = function _isUp() {
+    Cursor.prototype._isUp = function _isUp() {
         return this.isDown !== this.lastIsDown && !this.isDown;
     };
 
-    window.WL.wasm._componentTypes[window.WL.wasm._componentTypeIndices["cursor"]].prototype._isMoving = function () {
-        let hitLocationLocalToTarget = PP.vec3_create();
+    Cursor.prototype._isMoving = function () {
+        let hitLocationLocalToTarget = vec3_create();
         return function _isMoving(hitLocation) {
             let isMoving = false;
 
@@ -557,6 +564,11 @@ if (window.WL && window.WL.wasm && window.WL.wasm._componentTypes && window.WL.w
         };
     }();
 
-} else {
-    console.error("Wonderland Engine \"cursor\" component not found.\n Add the component to your project to avoid any issue with the PP bundle.");
+
+
+    Object.defineProperty(Cursor.prototype, "setViewComponent", { enumerable: false });
+    Object.defineProperty(Cursor.prototype, "onPointerLeave", { enumerable: false });
+    Object.defineProperty(Cursor.prototype, "_isDown", { enumerable: false });
+    Object.defineProperty(Cursor.prototype, "_isMoving", { enumerable: false });
+    Object.defineProperty(Cursor.prototype, "_isUp", { enumerable: false });
 }

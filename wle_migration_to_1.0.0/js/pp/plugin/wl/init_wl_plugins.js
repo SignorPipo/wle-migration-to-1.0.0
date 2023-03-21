@@ -3,5 +3,5 @@ import { initWLMods } from "./mods/init_wl_mods";
 
 export function initWLPlugins(engine) {
     initWLExtensions(engine);
-    initWLMods(engine);
+    initWLMods();
 }

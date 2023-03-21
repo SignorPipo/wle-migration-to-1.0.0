@@ -15,14 +15,16 @@ import { loadRuntime } from '@wonderlandengine/api';
 import * as API from '@wonderlandengine/api'; // Deprecated: Backward compatibility.
 
 /* wle:auto-imports:start */
-import { ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent } from '@wonderlandengine/components';
+import {ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent} from '@wonderlandengine/components';
 import './bundle.js';
 import './pp/bundle.js';
 import './pp/plugin/init_plugins.js';
 import './pp/pp/init_pp.js';
-import { GatewayComponent } from './pp/pp/components/pp_gateway_component.js';
-import './pp/plugin/wl/extensions/scene_extension.js';
+import {GatewayComponent} from './pp/pp/components/pp_gateway_component.js';
+import './pp/plugin/wl/mods/components/cursor_component_mod.js';
 /* wle:auto-imports:end */
+
+import { initPP } from "./pp/pp/init_pp"
 
 /* wle:auto-constants:start */
 const ProjectName = 'wle_migration_to_1.0.0';
@@ -40,9 +42,6 @@ const engine = await loadRuntime(RuntimeBaseName, {
 
 API.Object.prototype.engine = function () { return this._engine; }
 API.Scene.prototype.engine = function () { return this._engine; }
-
-import { initPP } from "./pp/pp/init_pp"
-initPP(engine);
 
 engine.onSceneLoaded.push(() => {
     const el = document.getElementById('version');
@@ -62,6 +61,8 @@ if (vrButton) {
 engine.registerComponent(ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent);
 engine.registerComponent(GatewayComponent);
 /* wle:auto-register:end */
+
+initPP(engine);
 
 engine.scene.load(`${ProjectName}.bin`);
 
