@@ -17,7 +17,7 @@ require("./plugin/wl/extensions/object_extension");
 require("./plugin/wl/extensions/scene_extension");
 require("./plugin/wl/mods/init_wl_mods");
 require("./plugin/wl/mods/components/init_component_mods");
-require("./plugin/wl/mods/components/clone_component_mod");
+require("./plugin/wl/mods/components/component_clone_mod");
 require("./plugin/wl/mods/components/cursor_component_mod");
 require("./plugin/wl/mods/components/cursor_target_component_mod");
 require("./plugin/wl/mods/components/mouse_look_component_mod");

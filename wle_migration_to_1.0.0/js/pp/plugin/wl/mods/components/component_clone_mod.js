@@ -1,6 +1,9 @@
-if (window.WL && window.WL.Object) {
+import { MeshComponent, CollisionComponent, TextComponent, PhysXComponent } from "@wonderlandengine/api";
+import { DeepCloneParams } from "../../extensions/object_extension";
 
-    window.WL.MeshComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
+export function initComponentCloneMod() {
+
+    MeshComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customParamsMap = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -11,7 +14,7 @@ if (window.WL && window.WL.Object) {
         }
 
         if (deepCloneParams.isDeepCloneComponentVariable("mesh", "mesh")) {
-            clonedComponent.mesh = PP.MeshUtils.cloneMesh(this.mesh);
+            clonedComponent.mesh = MeshUtils.cloneMesh(this.mesh);
         } else {
             clonedComponent.mesh = this.mesh;
         }
@@ -21,7 +24,7 @@ if (window.WL && window.WL.Object) {
         return clonedComponent;
     };
 
-    window.WL.CollisionComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
+    CollisionComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customParamsMap = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -32,7 +35,7 @@ if (window.WL && window.WL.Object) {
         return clonedComponent;
     };
 
-    window.WL.TextComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
+    TextComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customParamsMap = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -55,7 +58,7 @@ if (window.WL && window.WL.Object) {
     };
 
     // #TODO not completed, missing flags like gravity or groups
-    window.WL.PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new PP.DeepCloneParams(), customParamsMap = null) {
+    PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customParamsMap = null) {
         let componentParams = {
             "static": this.static,
             "simulate": this.simulate,
@@ -89,9 +92,9 @@ if (window.WL && window.WL.Object) {
 
 
 
-    Object.defineProperty(window.WL.MeshComponent.prototype, "pp_clone", { enumerable: false });
-    Object.defineProperty(window.WL.CollisionComponent.prototype, "pp_clone", { enumerable: false });
-    Object.defineProperty(window.WL.TextComponent.prototype, "pp_clone", { enumerable: false });
-    Object.defineProperty(window.WL.PhysXComponent.prototype, "pp_clone", { enumerable: false });
+    Object.defineProperty(MeshComponent.prototype, "pp_clone", { enumerable: false });
+    Object.defineProperty(CollisionComponent.prototype, "pp_clone", { enumerable: false });
+    Object.defineProperty(TextComponent.prototype, "pp_clone", { enumerable: false });
+    Object.defineProperty(PhysXComponent.prototype, "pp_clone", { enumerable: false });
 
 }
