@@ -754,7 +754,7 @@ export function initArrayExtensionProtoype() {
         let max = Math.max(fixedStart, fixedEnd);
 
         for (let i = 0; i < out.length; i++) {
-            out[i] = Math.min(Math.max(out[i], min), max);
+            out[i] = Math.pp_clamp(out[i], min, max);
         }
 
         return out;
@@ -833,7 +833,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.vec3_angleDegrees = function vec3_angleDegrees(vector) {
-        return this.vec3_angleRadians(vector) * (180 / Math.PI);
+        return Math.pp_toDegrees(this.vec3_angleRadians(vector));
     };
 
     arrayExtension.vec3_angleRadians = function vec3_angleRadians(vector) {
@@ -854,8 +854,8 @@ export function initArrayExtensionProtoype() {
         if (lengthSquared > Math.PP_EPSILON_NUMBER_SQUARED) {
             let length = Math.sqrt(lengthSquared);
 
-            let cosine = this.vec3_dot(vector) / length;
-            angle = Math.acos(Math.min(Math.max(cosine, -1), 1));
+            let cos = this.vec3_dot(vector) / length;
+            angle = Math.acos(Math.pp_clamp(cos, -1, 1));
         }
 
         return angle;
@@ -959,7 +959,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.vec3_angleSignedDegrees = function vec3_angleSignedDegrees(vector, upAxis) {
-        return this.vec3_angleSignedRadians(vector, upAxis) * (180 / Math.PI);
+        return Math.pp_toDegrees(this.vec3_angleSignedRadians(vector, upAxis));
     };
 
     arrayExtension.vec3_angleSignedRadians = function () {
@@ -981,7 +981,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.vec3_toDegrees = function vec3_toDegrees(out = vec3_create()) {
-        glMatrix.vec3.set(out, this[0] * (180 / Math.PI), this[1] * (180 / Math.PI), this[2] * (180 / Math.PI));
+        glMatrix.vec3.set(out, Math.pp_toDegrees(this[0]), Math.pp_toDegrees(this[1]), Math.pp_toDegrees(this[2]));
         return out;
     };
 
@@ -1614,7 +1614,7 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.quat_getAngleDegrees = function quat_getAngleDegrees() {
         let angle = this.quat_getAngleRadians();
-        return angle * (180 / Math.PI);
+        return Math.pp_toDegrees(angle);
     };
 
     arrayExtension.quat_getAngleRadians = function () {
