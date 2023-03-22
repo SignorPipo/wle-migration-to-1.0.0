@@ -1,39 +1,39 @@
-let myMainEngine = null;
-let myEngines = [];
+let _myMainEngine = null;
+let _myEngines = [];
 
 export function initEngineExtension(engine) {
     initEngineExtensionGlobal(engine);
 }
 
 export function getMainEngine() {
-    return myMainEngine;
+    return _myMainEngine;
 }
 
 export function setMainEngine(engine) {
     if (hasEngine(engine)) {
-        myMainEngine = engine;
+        _myMainEngine = engine;
     }
 }
 
 export function getEngines() {
-    return myEngines;
+    return _myEngines;
 }
 
 export function addEngine(engine) {
     removeEngine(engine);
-    myEngines.push(engine);
+    _myEngines.push(engine);
 }
 
 export function removeEngine(engine) {
-    let index = myEngines.indexOf(engine);
+    let index = _myEngines.indexOf(engine);
 
     if (index >= 0) {
-        myEngines.splice(index, 1);
+        _myEngines.splice(index, 1);
     }
 }
 
 export function hasEngine(engine) {
-    return myEngines.indexOf(engine) >= 0;
+    return _myEngines.indexOf(engine) >= 0;
 }
 
 export function initEngineExtensionGlobal(engine) {
