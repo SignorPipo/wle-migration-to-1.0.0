@@ -43,9 +43,9 @@ export function initMathExtensionStatic() {
 
     let mathExtension = {};
 
-    mathExtension.PP_EPSILON_NUMBER = 0.00001;
+    mathExtension.PP_EPSILON_NUMBER = 0.000001;
     mathExtension.PP_EPSILON_NUMBER_SQUARED = mathExtension.PP_EPSILON_NUMBER * mathExtension.PP_EPSILON_NUMBER;
-    mathExtension.PP_EPSILON_DEGREES = 0.0001;
+    mathExtension.PP_EPSILON_DEGREES = 0.00001;
 
     mathExtension.pp_clamp = function pp_clamp(value, start, end) {
         let fixedStart = (start != null) ? start : -Number.MAX_VALUE;

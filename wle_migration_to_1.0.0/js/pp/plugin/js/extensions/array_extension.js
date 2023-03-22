@@ -479,7 +479,7 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.pp_findAllEqual = function pp_findAllEqual(elementToFind, elementsEqualCallback = null) {
         if (elementsEqualCallback == null) {
-            return this._pp_findAllEqualOptimized(elementToFind, false);
+            return _findAllEqualOptimized(this, elementToFind, false);
         }
 
         let elementsFound = [];
@@ -510,7 +510,7 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.pp_findAllIndexesEqual = function pp_findAllIndexesEqual(elementToFind, elementsEqualCallback = null) {
         if (elementsEqualCallback == null) {
-            return this._pp_findAllEqualOptimized(elementToFind, true);
+            return _findAllEqualOptimized(this, elementToFind, true);
         }
 
         let indexesFound = [];
@@ -686,27 +686,27 @@ export function initArrayExtensionProtoype() {
     //New Functions
 
     arrayExtension.vec_toString = function vec_toString(decimalPlaces = null) {
-        let message = this._vec_buildConsoleMessage(decimalPlaces);
+        let message = _vec_buildConsoleMessage(this, decimalPlaces);
         return message;
     };
 
     arrayExtension.vec_log = function vec_log(decimalPlaces = 4) {
-        let message = this._vec_buildConsoleMessage(decimalPlaces);
+        let message = _vec_buildConsoleMessage(this, decimalPlaces);
         console.log(message);
     };
 
     arrayExtension.vec_error = function vec_error(decimalPlaces = 4) {
-        let message = this._vec_buildConsoleMessage(decimalPlaces);
+        let message = _vec_buildConsoleMessage(this, decimalPlaces);
         console.error(message);
     };
 
     arrayExtension.vec_warn = function vec_warn(decimalPlaces = 4) {
-        let message = this._vec_buildConsoleMessage(decimalPlaces);
+        let message = _vec_buildConsoleMessage(this, decimalPlaces);
         console.warn(message);
     };
 
     arrayExtension.vec_scale = function vec_scale(value, out = null) {
-        out = this._vec_prepareOut(out);
+        out = _vec_prepareOut(this, out);
 
         for (let i = 0; i < out.length; i++) {
             out[i] = out[i] * value;
@@ -716,7 +716,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.vec_round = function vec_round(out = null) {
-        out = this._vec_prepareOut(out);
+        out = _vec_prepareOut(this, out);
 
         for (let i = 0; i < out.length; i++) {
             out[i] = Math.round(out[i]);
@@ -726,7 +726,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.vec_floor = function vec_floor(out = null) {
-        out = this._vec_prepareOut(out);
+        out = _vec_prepareOut(this, out);
 
         for (let i = 0; i < out.length; i++) {
             out[i] = Math.floor(out[i]);
@@ -736,7 +736,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.vec_ceil = function vec_ceil(out = null) {
-        out = this._vec_prepareOut(out);
+        out = _vec_prepareOut(this, out);
 
         for (let i = 0; i < out.length; i++) {
             out[i] = Math.ceil(out[i]);
@@ -746,7 +746,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.vec_clamp = function vec_clamp(start, end, out = null) {
-        out = this._vec_prepareOut(out);
+        out = _vec_prepareOut(this, out);
 
         let fixedStart = (start != null) ? start : -Number.MAX_VALUE;
         let fixedEnd = (end != null) ? end : Number.MAX_VALUE;
@@ -851,7 +851,7 @@ export function initArrayExtensionProtoype() {
         let lengthSquared = thisLengthSquared * vectorLengthSquared;
 
         let angle = 0;
-        if (lengthSquared > this._pp_epsilonSquared) {
+        if (lengthSquared > Math.PP_EPSILON_NUMBER_SQUARED) {
             let length = Math.sqrt(lengthSquared);
 
             let cosine = this.vec3_dot(vector) / length;
@@ -999,7 +999,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    arrayExtension.vec3_isNormalized = function vec3_isNormalized(epsilon = this._pp_normalizedEpsilon) {
+    arrayExtension.vec3_isNormalized = function vec3_isNormalized(epsilon = Math.PP_EPSILON_NUMBER) {
         return Math.abs(this.vec3_lengthSquared() - 1) < epsilon;
     };
 
@@ -1151,12 +1151,12 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.vec3_isOnAxis = function vec3_isOnAxis(axis) {
         let angle = this.vec3_angle(axis);
-        return Math.abs(angle) < this._pp_degreesEpsilon || Math.abs(angle - 180) < this._pp_degreesEpsilon;
+        return Math.abs(angle) < Math.PP_EPSILON_DEGREES || Math.abs(angle - 180) < Math.PP_EPSILON_DEGREES;
     };
 
     arrayExtension.vec3_isOnPlane = function vec3_isOnPlane(planeNormal) {
         let angle = this.vec3_angle(planeNormal);
-        return Math.abs(angle - 90) < this._pp_degreesEpsilon;
+        return Math.abs(angle - 90) < Math.PP_EPSILON_DEGREES;
     };
 
     arrayExtension.vec3_rotate = function vec3_rotate(rotation, out) {
@@ -1600,7 +1600,7 @@ export function initArrayExtensionProtoype() {
         let zero = vec3_create(0, 0, 0);
         return function quat_getAxis(out = vec3_create()) {
             let angle = glMatrix.quat.getAxisAngle(out, this);
-            if (angle <= this._pp_epsilon) {
+            if (angle <= Math.PP_EPSILON_NUMBER) {
                 out.vec3_copy(zero);
             }
             return out;
@@ -1641,7 +1641,7 @@ export function initArrayExtensionProtoype() {
         return function quat_getAxisScaledRadians(out = vec3_create()) {
             this.quat_getAxis(out);
             let angle = this.quat_getAngleRadians();
-            if (angle <= this._pp_epsilon) {
+            if (angle <= Math.PP_EPSILON_NUMBER) {
                 out.vec3_copy(zero);
             } else {
                 out.vec3_scale(angle, out);
@@ -1723,38 +1723,38 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.quat_setForward = function quat_setForward(forward, up = null, left = null) {
-        return this._quat_setAxes([left, up, forward], [2, 1, 0]);
+        return _quat_setAxes(this, [left, up, forward], [2, 1, 0]);
     };
 
     arrayExtension.quat_setBackward = function () {
         let forward = vec3_create();
         return function quat_setBackward(backward, up = null, left = null) {
             backward.vec3_negate(forward);
-            return this._quat_setAxes([left, up, forward], [2, 1, 0]);
+            return _quat_setAxes(this, [left, up, forward], [2, 1, 0]);
         };
     }();
 
     arrayExtension.quat_setUp = function quat_setUp(up, forward = null, left = null) {
-        return this._quat_setAxes([left, up, forward], [1, 2, 0]);
+        return _quat_setAxes(this, [left, up, forward], [1, 2, 0]);
     };
 
     arrayExtension.quat_setDown = function () {
         let up = vec3_create();
         return function quat_setDown(down, forward = null, left = null) {
             down.vec3_negate(up);
-            return this._quat_setAxes([left, up, forward], [1, 2, 0]);
+            return _quat_setAxes(this, [left, up, forward], [1, 2, 0]);
         };
     }();
 
     arrayExtension.quat_setLeft = function quat_setLeft(left, up = null, forward = null) {
-        return this._quat_setAxes([left, up, forward], [0, 1, 2]);
+        return _quat_setAxes(this, [left, up, forward], [0, 1, 2]);
     };
 
     arrayExtension.quat_setRight = function () {
         let left = vec3_create();
         return function quat_setRight(right, up = null, forward = null) {
             right.vec3_negate(left);
-            return this._quat_setAxes([left, up, forward], [0, 1, 2]);
+            return _quat_setAxes(this, [left, up, forward], [0, 1, 2]);
         };
     }();
 
@@ -1815,9 +1815,9 @@ export function initArrayExtensionProtoype() {
             glMatrix.mat3.fromQuat(mat3, this);
 
             //Rotation order is ZYX 
-            out[1] = Math.asin(-this._pp_clamp(mat3[2], -1, 1));
+            out[1] = Math.asin(-Math.pp_clamp(mat3[2], -1, 1));
 
-            if (Math.abs(mat3[2]) < (1 - this._pp_epsilon)) {
+            if (Math.abs(mat3[2]) < (1 - Math.PP_EPSILON_NUMBER)) {
                 out[0] = Math.atan2(mat3[5], mat3[8]);
                 out[2] = Math.atan2(mat3[1], mat3[0]);
             } else {
@@ -1835,7 +1835,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    arrayExtension.quat_isNormalized = function quat_isNormalized(epsilon = this._pp_normalizedEpsilon) {
+    arrayExtension.quat_isNormalized = function quat_isNormalized(epsilon = Math.PP_EPSILON_NUMBER) {
         return Math.abs(this.quat_lengthSquared() - 1) < epsilon;
     };
 
@@ -2184,7 +2184,7 @@ export function initArrayExtensionProtoype() {
 
     // New Functions
 
-    arrayExtension.quat2_isNormalized = function quat2_isNormalized(epsilon = this._pp_normalizedEpsilon) {
+    arrayExtension.quat2_isNormalized = function quat2_isNormalized(epsilon = Math.PP_EPSILON_NUMBER) {
         return Math.abs(this.quat2_lengthSquared() - 1) < epsilon;
     };
 
@@ -2656,7 +2656,7 @@ export function initArrayExtensionProtoype() {
         let scale = vec3_create();
         return function mat4_hasUniformScale() {
             glMatrix.mat4.getScaling(scale, this);
-            return Math.abs(scale[0] - scale[1]) < this._pp_epsilon && Math.abs(scale[1] - scale[2]) < this._pp_epsilon && Math.abs(scale[0] - scale[2]) < this._pp_epsilon;
+            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON_NUMBER;
         };
     }();
 
@@ -2676,166 +2676,157 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    //UTILS
-
-    arrayExtension._pp_epsilon = 0.000001;
-    arrayExtension._pp_epsilonSquared = arrayExtension._pp_epsilon * arrayExtension._pp_epsilon;
-    arrayExtension._pp_degreesEpsilon = 0.00001;
-    arrayExtension._pp_normalizedEpsilon = 0.000001;
-
-    arrayExtension._pp_clamp = function _pp_clamp(value, min, max) {
-        return Math.min(Math.max(value, min), max);
-    };
-
-    arrayExtension._vec_buildConsoleMessage = function _vec_buildConsoleMessage(decimalPlaces) {
-        let message = "[";
-
-        for (let i = 0; i < this.length; i++) {
-            if (i != 0) {
-                message = message.concat(", ");
-            }
-
-            if (decimalPlaces != null) {
-                message = message.concat(this[i].toFixed(decimalPlaces));
-            } else {
-                message = message.concat(this[i].toString());
-            }
-        }
-
-        message = message.concat("]");
-        return message;
-    };
-
-    arrayExtension._vec_prepareOut = function _vec_prepareOut(out) {
-        if (out == null) {
-            out = this.pp_clone();
-        } else if (out != this) {
-            out.pp_copy(this);
-        }
-
-        return out;
-    };
-
-    arrayExtension._pp_findAllEqualOptimized = function _pp_findAllEqualOptimized(elementToFind, getIndexes) {
-        // adapted from: https://stackoverflow.com/a/20798567
-
-        let elementsFound = [];
-        let index = -1;
-        while ((index = this.indexOf(elementToFind, index + 1)) >= 0) {
-            elementsFound.push(getIndexes ? index : this[index]);
-        }
-
-        return elementsFound;
-    };
-
-    arrayExtension._quat_setAxes = function () {
-        let fixedAxes = [vec3_create(), vec3_create(), vec3_create()];
-
-        let fixedAxesFixSignMap = [
-            [1, -1, 1],
-            [1, 1, -1],
-            [-1, 1, -1]
-        ];
-
-        let fixedLeft = vec3_create();
-        let fixedUp = vec3_create();
-        let fixedForward = vec3_create();
-
-        let currentAxis = vec3_create();
-
-        let rotationAxis = vec3_create();
-        let rotationMat = mat3_create();
-        let rotationQuat = quat_create();
-        return function _quat_setAxes(axes, priority) {
-            let firstAxis = axes[priority[0]];
-            let secondAxis = axes[priority[1]];
-            let thirdAxis = axes[priority[2]];
-
-            if (firstAxis == null || firstAxis.vec3_isZero(this._pp_epsilon)) {
-                return;
-            }
-
-            let secondAxisValid = false;
-            if (secondAxis != null) {
-                let angleBetween = firstAxis.vec3_angleRadians(secondAxis);
-                if (angleBetween > this._pp_epsilon) {
-                    secondAxisValid = true;
-                }
-            }
-
-            let thirdAxisValid = false;
-            if (thirdAxis != null) {
-                let angleBetween = firstAxis.vec3_angleRadians(thirdAxis);
-                if (angleBetween > this._pp_epsilon) {
-                    thirdAxisValid = true;
-                }
-            }
-
-            if (secondAxisValid || thirdAxisValid) {
-                let crossAxis = null;
-                let secondAxisIndex = null;
-                let thirdAxisIndex = null;
-                if (secondAxisValid) {
-                    crossAxis = secondAxis;
-                    secondAxisIndex = 1;
-                    thirdAxisIndex = 2;
-                } else {
-                    crossAxis = thirdAxis;
-                    secondAxisIndex = 2;
-                    thirdAxisIndex = 1;
-                }
-
-                let fixSignMap = fixedAxesFixSignMap[priority[0]];
-
-                glMatrix.vec3.cross(fixedAxes[thirdAxisIndex], firstAxis, crossAxis);
-                glMatrix.vec3.scale(fixedAxes[thirdAxisIndex], fixedAxes[thirdAxisIndex], fixSignMap[priority[thirdAxisIndex]]);
-
-                glMatrix.vec3.cross(fixedAxes[secondAxisIndex], firstAxis, fixedAxes[thirdAxisIndex]);
-                glMatrix.vec3.scale(fixedAxes[secondAxisIndex], fixedAxes[secondAxisIndex], fixSignMap[priority[secondAxisIndex]]);
-
-                glMatrix.vec3.cross(fixedAxes[0], fixedAxes[1], fixedAxes[2]);
-                glMatrix.vec3.scale(fixedAxes[0], fixedAxes[0], fixSignMap[priority[0]]);
-
-                glMatrix.vec3.normalize(fixedLeft, fixedAxes[priority.pp_findIndexEqual(0)]);
-                glMatrix.vec3.normalize(fixedUp, fixedAxes[priority.pp_findIndexEqual(1)]);
-                glMatrix.vec3.normalize(fixedForward, fixedAxes[priority.pp_findIndexEqual(2)]);
-
-                glMatrix.mat3.set(rotationMat,
-                    fixedLeft[0], fixedLeft[1], fixedLeft[2],
-                    fixedUp[0], fixedUp[1], fixedUp[2],
-                    fixedForward[0], fixedForward[1], fixedForward[2]
-                );
-
-                glMatrix.quat.fromMat3(rotationQuat, rotationMat);
-                glMatrix.quat.normalize(rotationQuat, rotationQuat);
-
-                this.quat_copy(rotationQuat);
-            } else {
-                if (priority[0] == 0) {
-                    this.quat_getLeft(currentAxis);
-                } else if (priority[0] == 1) {
-                    this.quat_getUp(currentAxis);
-                } else {
-                    this.quat_getForward(currentAxis);
-                }
-
-                let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
-                if (angleBetween > this._pp_epsilon) {
-                    glMatrix.vec3.cross(rotationAxis, currentAxis, firstAxis);
-                    glMatrix.vec3.normalize(rotationAxis, rotationAxis);
-                    glMatrix.quat.setAxisAngle(rotationQuat, rotationAxis, angleBetween);
-
-                    this.quat_rotateQuat(rotationQuat, this);
-                }
-            }
-
-            return this;
-        };
-    }();
-
 
 
     for (let arrayPrototypeToExtend of arrayPrototypesToExtend) {
         ExtensionUtils.assignProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
     }
 }
+
+
+
+function _vec_buildConsoleMessage(vector, decimalPlaces) {
+    let message = "[";
+
+    for (let i = 0; i < vector.length; i++) {
+        if (i != 0) {
+            message = message.concat(", ");
+        }
+
+        if (decimalPlaces != null) {
+            message = message.concat(vector[i].toFixed(decimalPlaces));
+        } else {
+            message = message.concat(vector[i].toString());
+        }
+    }
+
+    message = message.concat("]");
+    return message;
+};
+
+function _vec_prepareOut(vector, out) {
+    if (out == null) {
+        out = vector.pp_clone();
+    } else if (out != vector) {
+        out.pp_copy(vector);
+    }
+
+    return out;
+};
+
+function _findAllEqualOptimized(array, elementToFind, getIndexes) {
+    // adapted from: https://stackoverflow.com/a/20798567
+
+    let elementsFound = [];
+    let index = -1;
+    while ((index = array.indexOf(elementToFind, index + 1)) >= 0) {
+        elementsFound.push(getIndexes ? index : array[index]);
+    }
+
+    return elementsFound;
+};
+
+let _quat_setAxes = function () {
+    let fixedAxes = [vec3_create(), vec3_create(), vec3_create()];
+
+    let fixedAxesFixSignMap = [
+        [1, -1, 1],
+        [1, 1, -1],
+        [-1, 1, -1]
+    ];
+
+    let fixedLeft = vec3_create();
+    let fixedUp = vec3_create();
+    let fixedForward = vec3_create();
+
+    let currentAxis = vec3_create();
+
+    let rotationAxis = vec3_create();
+    let rotationMat = mat3_create();
+    let rotationQuat = quat_create();
+    return function _quat_setAxes(vector, axes, priority) {
+        let firstAxis = axes[priority[0]];
+        let secondAxis = axes[priority[1]];
+        let thirdAxis = axes[priority[2]];
+
+        if (firstAxis == null || firstAxis.vec3_isZero(Math.PP_EPSILON_NUMBER)) {
+            return;
+        }
+
+        let secondAxisValid = false;
+        if (secondAxis != null) {
+            let angleBetween = firstAxis.vec3_angleRadians(secondAxis);
+            if (angleBetween > Math.PP_EPSILON_NUMBER) {
+                secondAxisValid = true;
+            }
+        }
+
+        let thirdAxisValid = false;
+        if (thirdAxis != null) {
+            let angleBetween = firstAxis.vec3_angleRadians(thirdAxis);
+            if (angleBetween > Math.PP_EPSILON_NUMBER) {
+                thirdAxisValid = true;
+            }
+        }
+
+        if (secondAxisValid || thirdAxisValid) {
+            let crossAxis = null;
+            let secondAxisIndex = null;
+            let thirdAxisIndex = null;
+            if (secondAxisValid) {
+                crossAxis = secondAxis;
+                secondAxisIndex = 1;
+                thirdAxisIndex = 2;
+            } else {
+                crossAxis = thirdAxis;
+                secondAxisIndex = 2;
+                thirdAxisIndex = 1;
+            }
+
+            let fixSignMap = fixedAxesFixSignMap[priority[0]];
+
+            glMatrix.vec3.cross(fixedAxes[thirdAxisIndex], firstAxis, crossAxis);
+            glMatrix.vec3.scale(fixedAxes[thirdAxisIndex], fixedAxes[thirdAxisIndex], fixSignMap[priority[thirdAxisIndex]]);
+
+            glMatrix.vec3.cross(fixedAxes[secondAxisIndex], firstAxis, fixedAxes[thirdAxisIndex]);
+            glMatrix.vec3.scale(fixedAxes[secondAxisIndex], fixedAxes[secondAxisIndex], fixSignMap[priority[secondAxisIndex]]);
+
+            glMatrix.vec3.cross(fixedAxes[0], fixedAxes[1], fixedAxes[2]);
+            glMatrix.vec3.scale(fixedAxes[0], fixedAxes[0], fixSignMap[priority[0]]);
+
+            glMatrix.vec3.normalize(fixedLeft, fixedAxes[priority.pp_findIndexEqual(0)]);
+            glMatrix.vec3.normalize(fixedUp, fixedAxes[priority.pp_findIndexEqual(1)]);
+            glMatrix.vec3.normalize(fixedForward, fixedAxes[priority.pp_findIndexEqual(2)]);
+
+            glMatrix.mat3.set(rotationMat,
+                fixedLeft[0], fixedLeft[1], fixedLeft[2],
+                fixedUp[0], fixedUp[1], fixedUp[2],
+                fixedForward[0], fixedForward[1], fixedForward[2]
+            );
+
+            glMatrix.quat.fromMat3(rotationQuat, rotationMat);
+            glMatrix.quat.normalize(rotationQuat, rotationQuat);
+
+            vector.quat_copy(rotationQuat);
+        } else {
+            if (priority[0] == 0) {
+                vector.quat_getLeft(currentAxis);
+            } else if (priority[0] == 1) {
+                vector.quat_getUp(currentAxis);
+            } else {
+                vector.quat_getForward(currentAxis);
+            }
+
+            let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
+            if (angleBetween > Math.PP_EPSILON_NUMBER) {
+                glMatrix.vec3.cross(rotationAxis, currentAxis, firstAxis);
+                glMatrix.vec3.normalize(rotationAxis, rotationAxis);
+                glMatrix.quat.setAxisAngle(rotationQuat, rotationAxis, angleBetween);
+
+                vector.quat_rotateQuat(rotationQuat, vector);
+            }
+        }
+
+        return vector;
+    };
+}();
