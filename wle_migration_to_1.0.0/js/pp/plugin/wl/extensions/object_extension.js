@@ -300,7 +300,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_getRotationWorldDegrees = function pp_getRotationWorldDegrees(rotation) {
         rotation = this.pp_getRotationWorldRadians(rotation);
         rotation.forEach(function (value, index, array) {
-            array[index] = this._pp_toDegrees(value);
+            array[index] = Math.pp_toDegrees(value);
         }.bind(this));
         return rotation;
     };
@@ -309,7 +309,7 @@ export function initObjectExtensionProtoype() {
         let quat = quat_create();
         return function pp_getRotationWorldRadians(rotation = vec3_create()) {
             this.pp_getRotationWorldQuat(quat);
-            this._pp_quaternionToRadians(quat, rotation);
+            quat.quat_toRadians(rotation);
             return rotation;
         };
     }();
@@ -337,7 +337,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_getRotationLocalDegrees = function pp_getRotationLocalDegrees(rotation) {
         rotation = this.pp_getRotationLocalRadians(rotation);
         rotation.forEach(function (value, index, array) {
-            array[index] = this._pp_toDegrees(value);
+            array[index] = Math.pp_toDegrees(value);
         }.bind(this));
         return rotation;
     };
@@ -346,7 +346,7 @@ export function initObjectExtensionProtoype() {
         let quat = quat_create();
         return function pp_getRotationLocalRadians(rotation = vec3_create()) {
             this.pp_getRotationLocalQuat(quat);
-            this._pp_quaternionToRadians(quat, rotation);
+            quat.quat_toRadians(rotation);
             return rotation;
         };
     }();
@@ -675,7 +675,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_setRotationWorldDegrees = function () {
         let quat = quat_create();
         return function pp_setRotationWorldDegrees(rotation) {
-            this._pp_degreesToQuaternion(rotation, quat);
+            rotation.vec3_degreesToQuat(quat);
             this.pp_setRotationWorldQuat(quat);
         };
     }();
@@ -684,7 +684,7 @@ export function initObjectExtensionProtoype() {
         let degreesRotation = vec3_create();
         return function pp_setRotationWorldRadians(rotation) {
             rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = this._pp_toDegrees(value);
+                degreesRotation[index] = Math.pp_toDegrees(value);
             }.bind(this));
             this.pp_setRotationWorldDegrees(degreesRotation);
         };
@@ -711,7 +711,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_setRotationLocalDegrees = function () {
         let quat = quat_create();
         return function pp_setRotationLocalDegrees(rotation) {
-            this._pp_degreesToQuaternion(rotation, quat);
+            rotation.vec3_degreesToQuat(quat);
             this.pp_setRotationLocalQuat(quat);
         };
     }();
@@ -720,7 +720,7 @@ export function initObjectExtensionProtoype() {
         let degreesRotation = vec3_create();
         return function pp_setRotationLocalRadians(rotation) {
             rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = this._pp_toDegrees(value);
+                degreesRotation[index] = Math.pp_toDegrees(value);
             }.bind(this));
             this.pp_setRotationLocalDegrees(degreesRotation);
         };
@@ -800,13 +800,23 @@ export function initObjectExtensionProtoype() {
         this.pp_setForwardWorld(forward, up, left);
     };
 
-    objectExtension.pp_setForwardWorld = function pp_setForwardWorld(forward, up = null, left = null) {
-        this._pp_setAxes([left, up, forward], [2, 1, 0], false);
-    };
+    objectExtension.pp_setForwardWorld = function () {
+        let quat = quat_create();
+        return function pp_setForwardWorld(forward, up = null, left = null) {
+            this.pp_getRotationWorldQuat(quat);
+            quat.quat_setForward(forward, up, left);
+            this.pp_setRotationWorldQuat(quat);
+        };
+    }();
 
-    objectExtension.pp_setForwardLocal = function pp_setForwardLocal(forward, up = null, left = null) {
-        this._pp_setAxes([left, up, forward], [2, 1, 0], true);
-    };
+    objectExtension.pp_setForwardLocal = function () {
+        let quat = quat_create();
+        return function pp_setForwardLocal(forward, up = null, left = null) {
+            this.pp_getRotationLocalQuat(quat);
+            quat.quat_setForward(forward, up, left);
+            this.pp_setRotationLocalQuat(quat);
+        };
+    }();
 
     //Backward
 
@@ -815,18 +825,20 @@ export function initObjectExtensionProtoype() {
     };
 
     objectExtension.pp_setBackwardWorld = function () {
-        let forward = vec3_create();
+        let quat = quat_create();
         return function pp_setBackwardWorld(backward, up = null, left = null) {
-            backward.vec3_negate(forward);
-            this._pp_setAxes([left, up, forward], [2, 1, 0], false);
+            this.pp_getRotationWorldQuat(quat);
+            quat.quat_setBackward(backward, up, left);
+            this.pp_setRotationWorldQuat(quat);
         };
     }();
 
     objectExtension.pp_setBackwardLocal = function () {
-        let forward = vec3_create();
+        let quat = quat_create();
         return function pp_setBackwardLocal(backward, up = null, left = null) {
-            backward.vec3_negate(forward);
-            this._pp_setAxes([left, up, forward], [2, 1, 0], true);
+            this.pp_getRotationLocalQuat(quat);
+            quat.quat_setBackward(backward, up, left);
+            this.pp_setRotationLocalQuat(quat);
         };
     }();
 
@@ -836,13 +848,23 @@ export function initObjectExtensionProtoype() {
         this.pp_setUpWorld(up, forward, left);
     };
 
-    objectExtension.pp_setUpWorld = function pp_setUpWorld(up, forward = null, left = null) {
-        this._pp_setAxes([left, up, forward], [1, 2, 0], false);
-    };
+    objectExtension.pp_setUpWorld = function () {
+        let quat = quat_create();
+        return function pp_setUpWorld(up, forward = null, left = null) {
+            this.pp_getRotationWorldQuat(quat);
+            quat.quat_setUp(up, forward, left);
+            this.pp_setRotationWorldQuat(quat);
+        };
+    }();
 
-    objectExtension.pp_setUpLocal = function pp_setUpLocal(up, forward = null, left = null) {
-        this._pp_setAxes([left, up, forward], [1, 2, 0], true);
-    };
+    objectExtension.pp_setUpLocal = function () {
+        let quat = quat_create();
+        return function pp_setUpLocal(up, forward = null, left = null) {
+            this.pp_getRotationLocalQuat(quat);
+            quat.quat_setUp(up, forward, left);
+            this.pp_setRotationLocalQuat(quat);
+        };
+    }();
 
     //Down
 
@@ -851,18 +873,20 @@ export function initObjectExtensionProtoype() {
     };
 
     objectExtension.pp_setDownWorld = function () {
-        let up = vec3_create();
+        let quat = quat_create();
         return function pp_setDownWorld(down, forward = null, left = null) {
-            down.vec3_negate(up);
-            this._pp_setAxes([left, up, forward], [1, 2, 0], false);
+            this.pp_getRotationWorldQuat(quat);
+            quat.quat_setDown(down, forward, left);
+            this.pp_setRotationWorldQuat(quat);
         };
     }();
 
     objectExtension.pp_setDownLocal = function () {
-        let up = vec3_create();
+        let quat = quat_create();
         return function pp_setDownLocal(down, forward = null, left = null) {
-            down.vec3_negate(up);
-            this._pp_setAxes([left, up, forward], [1, 2, 0], true);
+            this.pp_getRotationLocalQuat(quat);
+            quat.quat_setDown(down, forward, left);
+            this.pp_setRotationLocalQuat(quat);
         };
     }();
 
@@ -872,13 +896,23 @@ export function initObjectExtensionProtoype() {
         this.pp_setLeftWorld(left, up, forward);
     };
 
-    objectExtension.pp_setLeftWorld = function pp_setLeftWorld(left, up = null, forward = null) {
-        this._pp_setAxes([left, up, forward], [0, 1, 2], false);
-    };
+    objectExtension.pp_setLeftWorld = function () {
+        let quat = quat_create();
+        return function pp_setLeftWorld(left, up = null, forward = null) {
+            this.pp_getRotationWorldQuat(quat);
+            quat.quat_setLeft(left, up, forward);
+            this.pp_setRotationWorldQuat(quat);
+        };
+    }();
 
-    objectExtension.pp_setLeftLocal = function pp_setLeftLocal(left, up = null, forward = null) {
-        this._pp_setAxes([left, up, forward], [0, 1, 2], true);
-    };
+    objectExtension.pp_setLeftLocal = function () {
+        let quat = quat_create();
+        return function pp_setLeftLocal(left, up = null, forward = null) {
+            this.pp_getRotationLocalQuat(quat);
+            quat.quat_setLeft(left, up, forward);
+            this.pp_setRotationLocalQuat(quat);
+        };
+    }();
 
     //Right
 
@@ -887,18 +921,20 @@ export function initObjectExtensionProtoype() {
     };
 
     objectExtension.pp_setRightWorld = function () {
-        let left = vec3_create();
+        let quat = quat_create();
         return function pp_setRightWorld(right, up = null, forward = null) {
-            right.vec3_negate(left);
-            this._pp_setAxes([left, up, forward], [0, 1, 2], false);
+            this.pp_getRotationWorldQuat(quat);
+            quat.quat_setRight(right, up, forward);
+            this.pp_setRotationWorldQuat(quat);
         };
     }();
 
     objectExtension.pp_setRightLocal = function () {
-        let left = vec3_create();
+        let quat = quat_create();
         return function pp_setRightLocal(right, up = null, forward = null) {
-            right.vec3_negate(left);
-            this._pp_setAxes([left, up, forward], [0, 1, 2], true);
+            this.pp_getRotationLocalQuat(quat);
+            quat.quat_setRight(right, up, forward);
+            this.pp_setRotationLocalQuat(quat);
         };
     }();
 
@@ -1137,7 +1173,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateWorldDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateWorldDegrees(rotation) {
-            this._pp_degreesToQuaternion(rotation, rotationQuat);
+            rotation.vec3_degreesToQuat(rotationQuat);
             this.pp_rotateWorldQuat(rotationQuat);
         };
     }();
@@ -1146,7 +1182,7 @@ export function initObjectExtensionProtoype() {
         let degreesRotation = vec3_create();
         return function pp_rotateWorldRadians(rotation) {
             rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = this._pp_toDegrees(value);
+                degreesRotation[index] = Math.pp_toDegrees(value);
             }.bind(this));
             this.pp_rotateWorldDegrees(degreesRotation);
         };
@@ -1180,7 +1216,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateLocalDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateLocalDegrees(rotation) {
-            this._pp_degreesToQuaternion(rotation, rotationQuat);
+            rotation.vec3_degreesToQuat(rotationQuat);
             this.pp_rotateLocalQuat(rotationQuat);
         };
     }();
@@ -1189,7 +1225,7 @@ export function initObjectExtensionProtoype() {
         let degreesRotation = vec3_create();
         return function pp_rotateLocalRadians(rotation) {
             rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = this._pp_toDegrees(value);
+                degreesRotation[index] = Math.pp_toDegrees(value);
             }.bind(this));
             this.pp_rotateLocalDegrees(degreesRotation);
         };
@@ -1223,7 +1259,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateObjectDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateObjectDegrees(rotation) {
-            this._pp_degreesToQuaternion(rotation, rotationQuat);
+            rotation.vec3_degreesToQuat(rotationQuat);
             this.pp_rotateObjectQuat(rotationQuat);
         };
     }();
@@ -1232,7 +1268,7 @@ export function initObjectExtensionProtoype() {
         let degreesRotation = vec3_create();
         return function pp_rotateObjectRadians(rotation) {
             rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = this._pp_toDegrees(value);
+                degreesRotation[index] = Math.pp_toDegrees(value);
             }.bind(this));
             this.pp_rotateObjectDegrees(degreesRotation);
         };
@@ -1350,7 +1386,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateAroundWorldDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundWorldDegrees(rotation, origin) {
-            this._pp_degreesToQuaternion(rotation, rotationQuat);
+            rotation.vec3_degreesToQuat(rotationQuat);
             this.pp_rotateAroundWorldQuat(rotationQuat, origin);
         };
     }();
@@ -1359,7 +1395,7 @@ export function initObjectExtensionProtoype() {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundWorldRadians(rotation, origin) {
             rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = this._pp_toDegrees(value);
+                degreesRotation[index] = Math.pp_toDegrees(value);
             }.bind(this));
             this.pp_rotateAroundWorldDegrees(degreesRotation, origin);
         };
@@ -1392,7 +1428,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateAroundLocalDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundLocalDegrees(rotation, origin) {
-            this._pp_degreesToQuaternion(rotation, rotationQuat);
+            rotation.vec3_degreesToQuat(rotationQuat);
             this.pp_rotateAroundLocalQuat(rotationQuat, origin);
         };
     }();
@@ -1401,7 +1437,7 @@ export function initObjectExtensionProtoype() {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundLocalRadians(rotation, origin) {
             rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = this._pp_toDegrees(value);
+                degreesRotation[index] = Math.pp_toDegrees(value);
             }.bind(this));
             this.pp_rotateAroundLocalDegrees(degreesRotation, origin);
         };
@@ -1434,7 +1470,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateAroundObjectDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundObjectDegrees(rotation, origin) {
-            this._pp_degreesToQuaternion(rotation, rotationQuat);
+            rotation.vec3_degreesToQuat(rotationQuat);
             this.pp_rotateAroundObjectQuat(rotationQuat, origin);
         };
     }();
@@ -1443,7 +1479,7 @@ export function initObjectExtensionProtoype() {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundObjectRadians(rotation, origin) {
             rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = this._pp_toDegrees(value);
+                degreesRotation[index] = Math.pp_toDegrees(value);
             }.bind(this));
             this.pp_rotateAroundObjectDegrees(degreesRotation, origin);
         };
@@ -2081,7 +2117,7 @@ export function initObjectExtensionProtoype() {
         let scale = vec3_create();
         return function pp_hasUniformScaleWorld() {
             this.pp_getScaleWorld(scale);
-            return Math.abs(scale[0] - scale[1]) < this._pp_epsilon && Math.abs(scale[1] - scale[2]) < this._pp_epsilon && Math.abs(scale[0] - scale[2]) < this._pp_epsilon;
+            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON_NUMBER;
         };
     }();
 
@@ -2089,7 +2125,7 @@ export function initObjectExtensionProtoype() {
         let scale = vec3_create();
         return function pp_hasUniformScaleLocal() {
             this.pp_getScaleLocal(scale);
-            return Math.abs(scale[0] - scale[1]) < this._pp_epsilon && Math.abs(scale[1] - scale[2]) < this._pp_epsilon && Math.abs(scale[0] - scale[2]) < this._pp_epsilon;
+            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON_NUMBER;
         };
     }();
 
@@ -2582,22 +2618,22 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_reserveObjectsSelf = function pp_reserveObjectsSelf(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapSelf();
-        this._pp_reserveObjects(count, componentsAmountMap);
+        _reserveObjects(count, componentsAmountMap, this.engine.scene);
     };
 
     objectExtension.pp_reserveObjectsHierarchy = function pp_reserveObjectsHierarchy(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapHierarchy();
-        this._pp_reserveObjects(count, componentsAmountMap);
+        _reserveObjects(count, componentsAmountMap, this.engine.scene);
     };
 
     objectExtension.pp_reserveObjectsDescendants = function pp_reserveObjectsDescendants(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapDescendants();
-        this._pp_reserveObjects(count, componentsAmountMap);
+        _reserveObjects(count, componentsAmountMap, this.engine.scene);
     };
 
     objectExtension.pp_reserveObjectsChildren = function pp_reserveObjectsChildren(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapChildren();
-        this._pp_reserveObjects(count, componentsAmountMap);
+        _reserveObjects(count, componentsAmountMap, this.engine.scene);
     };
 
     objectExtension.pp_getComponentsAmountMap = function pp_getComponentsAmountMap(amountMap = new Map()) {
@@ -2656,184 +2692,22 @@ export function initObjectExtensionProtoype() {
         return amountMap;
     };
 
-    //Private Utils
-
-    objectExtension._pp_epsilon = 0.000001;
-
-    objectExtension._pp_quaternionToRadians = function () {
-        let mat3 = mat3_create();
-        return function _pp_quaternionToRadians(quatRotation, radiansRotation = vec3_create()) {
-            quatRotation.quat_toMatrix(mat3);
-
-            //Rotation order is ZYX
-            radiansRotation[1] = Math.asin(-this._pp_clamp(mat3[2], -1, 1));
-
-            if (Math.abs(mat3[2]) < 0.9999999) {
-
-                radiansRotation[0] = Math.atan2(mat3[5], mat3[8]);
-                radiansRotation[2] = Math.atan2(mat3[1], mat3[0]);
-
-            } else {
-
-                radiansRotation[0] = 0;
-                radiansRotation[2] = Math.atan2(-mat3[3], mat3[4]);
-            }
-
-            return radiansRotation;
-        };
-    }();
-
-    objectExtension._pp_degreesToQuaternion = function _pp_degreesToQuaternion(degreesRotation, quatRotation = quat_create()) {
-        quatRotation.quat_fromDegrees(degreesRotation);
-        return quatRotation;
-    };
-
-    objectExtension._pp_toDegrees = function _pp_toDegrees(angle) {
-        return angle * (180 / Math.PI);
-    };
-
-    objectExtension._pp_clamp = function _pp_clamp(value, min, max) {
-        return Math.min(Math.max(value, min), max);
-    };
-
-    objectExtension._pp_reserveObjects = function _pp_reserveObjects(count, componentsAmountMap) {
-        let objectsToReserve = componentsAmountMap.get("object") * count;
-        componentsAmountMap.delete("object");
-
-        let componentsToReserve = {};
-        for (let [componentName, componentCount] of componentsAmountMap.entries()) {
-            componentsToReserve[componentName] = componentCount * count;
-        }
-
-        this.engine.scene.reserveObjects(objectsToReserve, componentsToReserve);
-    };
-
-    objectExtension._pp_setAxes = function () {
-        let fixedAxes = [vec3_create(), vec3_create(), vec3_create()];
-
-        let fixedAxesFixSignMap = [
-            [1, -1, 1],
-            [1, 1, -1],
-            [-1, 1, -1]
-        ];
-
-        let fixedLeft = vec3_create();
-        let fixedUp = vec3_create();
-        let fixedForward = vec3_create();
-
-        let currentAxis = vec3_create();
-
-        let rotationAxis = vec3_create();
-        let rotationMat = mat3_create();
-        let rotationQuat = quat_create();
-        return function _pp_setAxes(axes, priority, isLocal) {
-            let firstAxis = axes[priority[0]];
-            let secondAxis = axes[priority[1]];
-            let thirdAxis = axes[priority[2]];
-
-            if (firstAxis == null || firstAxis.vec3_length() <= this._pp_epsilon) {
-                return;
-            }
-
-            let secondAxisValid = false;
-            if (secondAxis != null) {
-                let angleBetween = firstAxis.vec3_angleRadians(secondAxis);
-                if (angleBetween > this._pp_epsilon) {
-                    secondAxisValid = true;
-                }
-            }
-
-            let thirdAxisValid = false;
-            if (thirdAxis != null) {
-                let angleBetween = firstAxis.vec3_angleRadians(thirdAxis);
-                if (angleBetween > this._pp_epsilon) {
-                    thirdAxisValid = true;
-                }
-            }
-
-            if (secondAxisValid || thirdAxisValid) {
-
-                let crossAxis = null;
-                let secondAxisIndex = null;
-                let thirdAxisIndex = null;
-                if (secondAxisValid) {
-                    crossAxis = secondAxis;
-                    secondAxisIndex = 1;
-                    thirdAxisIndex = 2;
-                } else {
-                    crossAxis = thirdAxis;
-                    secondAxisIndex = 2;
-                    thirdAxisIndex = 1;
-                }
-
-                let fixSignMap = fixedAxesFixSignMap[priority[0]];
-
-                firstAxis.vec3_cross(crossAxis, fixedAxes[thirdAxisIndex]);
-                fixedAxes[thirdAxisIndex].vec3_scale(fixSignMap[priority[thirdAxisIndex]], fixedAxes[thirdAxisIndex]);
-
-                firstAxis.vec3_cross(fixedAxes[thirdAxisIndex], fixedAxes[secondAxisIndex]);
-                fixedAxes[secondAxisIndex].vec3_scale(fixSignMap[priority[secondAxisIndex]], fixedAxes[secondAxisIndex]);
-
-                fixedAxes[1].vec3_cross(fixedAxes[2], fixedAxes[0]);
-                fixedAxes[0].vec3_scale(fixSignMap[priority[0]], fixedAxes[0]);
-
-                fixedAxes[priority.pp_findIndexEqual(0)].vec3_normalize(fixedLeft);
-                fixedAxes[priority.pp_findIndexEqual(1)].vec3_normalize(fixedUp);
-                fixedAxes[priority.pp_findIndexEqual(2)].vec3_normalize(fixedForward);
-
-                rotationMat.mat3_set(
-                    fixedLeft[0], fixedLeft[1], fixedLeft[2],
-                    fixedUp[0], fixedUp[1], fixedUp[2],
-                    fixedForward[0], fixedForward[1], fixedForward[2]
-                );
-
-                rotationMat.mat3_toQuat(rotationQuat);
-                rotationQuat.quat_normalize(rotationQuat);
-
-                if (isLocal) {
-                    this.pp_setRotationLocalQuat(rotationQuat);
-                } else {
-                    this.pp_setRotationWorldQuat(rotationQuat);
-                }
-            } else {
-                if (priority[0] == 0) {
-                    if (isLocal) {
-                        this.pp_getLeftLocal(currentAxis);
-                    } else {
-                        this.pp_getLeftWorld(currentAxis);
-                    }
-                } else if (priority[0] == 1) {
-                    if (isLocal) {
-                        this.pp_getUpLocal(currentAxis);
-                    } else {
-                        this.pp_getUpWorld(currentAxis);
-                    }
-                } else {
-                    if (isLocal) {
-                        this.pp_getForwardLocal(currentAxis);
-                    } else {
-                        this.pp_getForwardWorld(currentAxis);
-                    }
-                }
-
-                let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
-                if (angleBetween != 0) {
-                    currentAxis.vec3_cross(firstAxis, rotationAxis);
-                    rotationAxis.vec3_normalize(rotationAxis);
-                    rotationQuat.quat_fromAxisRadians(angleBetween, rotationAxis);
-
-                    if (isLocal) {
-                        this.pp_rotateLocalQuat(rotationQuat);
-                    } else {
-                        this.pp_rotateWorldQuat(rotationQuat);
-                    }
-                }
-            }
-        };
-    }();
-
 
 
     ExtensionUtils.assignProperties(objectExtension, WLObject.prototype, false, true, true);
 
 }
+
+
+
+function _reserveObjects(count, componentsAmountMap, scene) {
+    let objectsToReserve = componentsAmountMap.get("object") * count;
+    componentsAmountMap.delete("object");
+
+    let componentsToReserve = {};
+    for (let [componentName, componentCount] of componentsAmountMap.entries()) {
+        componentsToReserve[componentName] = componentCount * count;
+    }
+
+    scene.reserveObjects(objectsToReserve, componentsToReserve);
+};
