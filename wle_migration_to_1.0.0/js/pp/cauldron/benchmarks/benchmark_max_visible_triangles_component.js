@@ -1,4 +1,9 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, MeshComponent, TextComponent, Type } from "@wonderlandengine/api";
+import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
+import { CloneParams } from "../../plugin/wl/extensions/object_extension";
+import { Timer } from "../cauldron/timer";
+import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParams, MeshUtils } from "../utils/mesh_utils";
+import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
 
 export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     static TypeName = "pp-benchmark-max-visible-triangles";
@@ -23,9 +28,9 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myBackgroundSize = 4;
         this._myBackgroundObject.pp_setActive(true);
         this._myBackgroundObject.pp_setScale(this._myBackgroundSize + 0.1);
-        this._myBackgroundObject.pp_translate(PP.vec3_create(0, 0, -0.001));
+        this._myBackgroundObject.pp_translate(vec3_create(0, 0, -0.001));
 
-        this._myDoubleTimer = new PP.Timer(this._mySecondsBeforeDoubling);
+        this._myDoubleTimer = new Timer(this._mySecondsBeforeDoubling);
         this._myIsDone = false;
 
         this._myCurrentPlanes = this._myStartPlaneCount;
@@ -123,6 +128,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                             reset = true;
 
                             if (this._myEnableLog) {
+                                // reset
                                 console.log("Rst - Triangles:", this._myCurrentPlanes * this._myRealTrianglesAmount, "- Planes:", this._myCurrentPlanes, "- Frame Rate:", frameRate);
                             }
                         } else {
@@ -226,8 +232,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     }
 
     start() {
-        this._myLagColor = PP.vec4_create(0.5, 0, 0, 1);
-        this._myNormalColor = PP.vec4_create(0, 0, 0, 1);
+        this._myLagColor = vec4_create(0.5, 0, 0, 1);
+        this._myNormalColor = vec4_create(0, 0, 0, 1);
 
         this._myRealTrianglesAmount = 0;
 
@@ -235,20 +241,20 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         this._myBackgroundObject = this.engine.scene.addObject(this._myTrianglesObject);
         {
-            let meshComponent = this._myBackgroundObject.addComponent("mesh");
-            meshComponent.mesh = PP.MeshUtils.createPlaneMesh();
+            let meshComponent = this._myBackgroundObject.pp_addComponent(MeshComponent);
+            meshComponent.mesh = MeshUtils.createPlaneMesh();
             meshComponent.material = this._myBackgroundMaterial.clone();
         }
 
         this._myPlaneObject = this.engine.scene.addObject(this._myTrianglesObject);
         {
-            let meshComponent = this._myPlaneObject.addComponent("mesh");
+            let meshComponent = this._myPlaneObject.pp_addComponent(MeshComponent);
             meshComponent.mesh = this._createPlaneMesh(this._myPlaneTriangles);
             this._myRealTrianglesAmount = meshComponent.mesh.indexData.length / 3;
             meshComponent.material = this._myPlaneMaterial.clone();
         }
 
-        let poolParams = new PP.ObjectPoolParams();
+        let poolParams = new ObjectPoolParams();
         if (!this._myCloneMesh) {
             poolParams.myInitialPoolSize = 30000;
         } else {
@@ -264,15 +270,15 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         }
         poolParams.myPercentageToAddWhenEmpty = 0;
         poolParams.myAmountToAddWhenEmpty = 10000;
-        poolParams.myCloneParams = new PP.CloneParams();
+        poolParams.myCloneParams = new CloneParams();
         poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable("mesh", "material", this._myCloneMaterial);
         poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable("mesh", "mesh", this._myCloneMesh);
-        this._myPlanePool = new PP.ObjectPool(this._myPlaneObject, poolParams);
+        this._myPlanePool = new ObjectPool(this._myPlaneObject, poolParams);
 
         this._myBackgroundObject.pp_setActive(false);
         this._myPlaneObject.pp_setActive(false);
 
-        this._myStartTimer = new PP.Timer(this._mySecondsBeforeDoubling * 2);
+        this._myStartTimer = new Timer(1);
         this._mySessionStarted = false;
 
         this._myTextsObject = this.engine.scene.addObject(this._myTrianglesObject);
@@ -281,7 +287,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myTriangleTextObject = this.engine.scene.addObject(this._myTextsObject);
         //this._myTriangleTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
-        this._myTriangleTextComponent = this._myTriangleTextObject.addComponent("text");
+        this._myTriangleTextComponent = this._myTriangleTextObject.pp_addComponent(TextComponent);
 
         this._myTriangleTextComponent.alignment = this.engine.Alignment.Left;
         this._myTriangleTextComponent.justification = this.engine.Justification.Line;
@@ -292,7 +298,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         this._myPlaneTextObject = this.engine.scene.addObject(this._myTextsObject);
 
-        this._myPlaneTextComponent = this._myPlaneTextObject.addComponent("text");
+        this._myPlaneTextComponent = this._myPlaneTextObject.pp_addComponent(TextComponent);
         //this._myPlaneTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
         this._myPlaneTextComponent.alignment = this.engine.Alignment.Left;
@@ -304,7 +310,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         this._myFPSTextObject = this.engine.scene.addObject(this._myTextsObject);
 
-        this._myFPSTextComponent = this._myFPSTextObject.addComponent("text");
+        this._myFPSTextComponent = this._myFPSTextObject.pp_addComponent(TextComponent);
         //this._myFPSTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
         this._myFPSTextComponent.alignment = this.engine.Alignment.Left;
@@ -316,7 +322,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         this._myDoneTextObject = this.engine.scene.addObject(this._myTrianglesObject);
 
-        this._myDoneTextComponent = this._myDoneTextObject.addComponent("text");
+        this._myDoneTextComponent = this._myDoneTextObject.pp_addComponent(TextComponent);
         //this._myDoneTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
 
         this._myDoneTextComponent.alignment = this.engine.Alignment.Center;
@@ -326,13 +332,13 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myDoneTextComponent.text = " ";
         //this._myDoneTextComponent.text = "End";
 
-        this._myTextsObject.pp_setPositionLocal(PP.vec3_create(0, 4.3, 0));
+        this._myTextsObject.pp_setPositionLocal(vec3_create(0, 4.3, 0));
         this._myTextsObject.pp_setScale(2.75);
 
-        this._myTriangleTextObject.pp_setPositionLocal(PP.vec3_create(-1.4, 0, 0));
-        this._myPlaneTextObject.pp_setPositionLocal(PP.vec3_create(0.55, 0, 0));
-        this._myFPSTextObject.pp_setPositionLocal(PP.vec3_create(-0.315, 0, 0));
-        this._myDoneTextObject.pp_setPositionLocal(PP.vec3_create(0, -4.6, 0));
+        this._myTriangleTextObject.pp_setPositionLocal(vec3_create(-1.4, 0, 0));
+        this._myPlaneTextObject.pp_setPositionLocal(vec3_create(0.55, 0, 0));
+        this._myFPSTextObject.pp_setPositionLocal(vec3_create(-0.315, 0, 0));
+        this._myDoneTextObject.pp_setPositionLocal(vec3_create(0, -4.6, 0));
         this._myDoneTextObject.pp_setScale(4);
 
         this._myDTHistory = [];
@@ -405,7 +411,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             row--;
         }
 
-        let meshParams = new PP.MeshCreationParams();
+        let meshParams = new MeshCreationParams();
+        meshParams.myEngine = this.engine;
 
         for (let i = 0; i < row + 1; i++) {
             for (let j = 0; j < column + 1; j++) {
@@ -413,18 +420,18 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                 let x = (2 / column) * j;
                 let y = (2 / row) * i;
 
-                let vertexParams = new PP.MeshCreationVertexParams();
+                let vertexParams = new MeshCreationVertexParams();
 
-                vertexParams.myPosition = new PP.vec3_create();
+                vertexParams.myPosition = vec3_create();
                 vertexParams.myPosition[0] = x - 1;
                 vertexParams.myPosition[1] = y - 1;
                 vertexParams.myPosition[2] = 0;
 
-                vertexParams.myTextureCoordinates = new PP.vec2_create();
+                vertexParams.myTextureCoordinates = vec2_create();
                 vertexParams.myTextureCoordinates[0] = x / 2;
                 vertexParams.myTextureCoordinates[1] = y / 2;
 
-                vertexParams.myNormal = new PP.vec3_create();
+                vertexParams.myNormal = vec3_create();
                 vertexParams.myNormal[0] = 0;
                 vertexParams.myNormal[1] = 0;
                 vertexParams.myNormal[2] = 1;
@@ -435,12 +442,12 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         for (let i = 0; i < row; i++) {
             for (let j = 0; j < column; j++) {
-                let firstTriangle = new PP.MeshCreationTriangleParams();
+                let firstTriangle = new MeshCreationTriangleParams();
                 firstTriangle.myIndexes[0] = (i * (column + 1)) + j;
                 firstTriangle.myIndexes[1] = (i * (column + 1)) + j + 1;
                 firstTriangle.myIndexes[2] = ((i + 1) * (column + 1)) + j;
 
-                let secondTriangle = new PP.MeshCreationTriangleParams();
+                let secondTriangle = new MeshCreationTriangleParams();
                 secondTriangle.myIndexes[0] = ((i + 1) * (column + 1)) + j;
                 secondTriangle.myIndexes[1] = (i * (column + 1)) + j + 1;
                 secondTriangle.myIndexes[2] = ((i + 1) * (column + 1)) + j + 1;
@@ -450,7 +457,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             }
         }
 
-        let mesh = PP.MeshUtils.createMesh(meshParams);
+        let mesh = MeshUtils.createMesh(meshParams);
 
         return mesh;
     }

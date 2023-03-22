@@ -54,10 +54,15 @@ import {MuteEverythingComponent} from './pp/audio/components/mute_everything_com
 import {SpatialAudioListenerComponent} from './pp/audio/components/spatial_audio_listener_component.js';
 import {BenchmarkMaxPhysXComponent} from './pp/cauldron/benchmarks/benchmark_max_physx_component.js';
 import {BenchmarkMaxVisibleTrianglesComponent} from './pp/cauldron/benchmarks/benchmark_max_visible_triangles_component.js';
+import './pp/cauldron/cauldron/object_pool.js';
+import './pp/cauldron/cauldron/object_pools_manager.js';
+import './pp/cauldron/cauldron/save_manager.js';
+import './pp/cauldron/cauldron/timer.js';
 import './pp/cauldron/physics/physics_collision_collector.js';
 import './pp/cauldron/physics/physics_layer_flags.js';
 import './pp/cauldron/physics/physics_raycast_data.js';
 import './pp/cauldron/physics/physics_utils.js';
+import './pp/cauldron/utils/mesh_utils.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -76,8 +81,15 @@ const engine = await loadRuntime(RuntimeBaseName, {
 Object.assign(engine, API); // Deprecated: Backward compatibility.
 window.WL = engine; // Deprecated: Backward compatibility.
 
-API.Object.prototype.engine = function () { return this._engine; }
-API.Scene.prototype.engine = function () { return this._engine; }
+Object.defineProperty(API.Object.prototype, "engine", {
+    get: function () { return this._engine; }
+});
+Object.defineProperty(API.Scene.prototype, "engine", {
+    get: function () { return this._engine; }
+});
+Object.defineProperty(API.Mesh.prototype, "engine", {
+    get: function () { return this._engine; }
+});
 
 engine.onSceneLoaded.push(() => {
     const el = document.getElementById('version');

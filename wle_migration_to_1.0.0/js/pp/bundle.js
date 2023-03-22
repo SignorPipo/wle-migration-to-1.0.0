@@ -43,12 +43,12 @@ require("./audio/components/spatial_audio_listener_component");
 
 //	CAULDRON
 require("./cauldron/benchmarks/benchmark_max_physx_component");
-//require("./cauldron/benchmarks/benchmark_max_visible_triangles_component");
+require("./cauldron/benchmarks/benchmark_max_visible_triangles_component");
 
-//require("./cauldron/cauldron/object_pool");
-//require("./cauldron/cauldron/object_pools_manager");
+require("./cauldron/cauldron/object_pool");
+require("./cauldron/cauldron/object_pools_manager");
 //require("./cauldron/cauldron/save_manager");
-//require("./cauldron/cauldron/timer");
+require("./cauldron/cauldron/timer");
 
 //require("./cauldron/components/clear_console_on_xr_session_start_component");
 //require("./cauldron/components/set_active_component");

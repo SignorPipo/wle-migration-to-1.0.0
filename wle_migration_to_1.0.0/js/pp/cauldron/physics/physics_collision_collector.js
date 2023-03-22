@@ -1,4 +1,4 @@
-import { PhysXComponent } from "@wonderlandengine/api";
+import { CollisionEventType, PhysXComponent } from "@wonderlandengine/api";
 import { Timer } from "../cauldron/timer";
 
 export class PhysicsCollisionCollector {
@@ -127,9 +127,9 @@ export class PhysicsCollisionCollector {
     }
 
     _onCollision(type, physXComponent) {
-        if (type == WL.CollisionEventType.Touch || type == WL.CollisionEventType.TriggerTouch) {
+        if (type == CollisionEventType.Touch || type == CollisionEventType.TriggerTouch) {
             this._onCollisionStart(physXComponent);
-        } else if (type == WL.CollisionEventType.TouchLost || type == WL.CollisionEventType.TriggerTouchLost) {
+        } else if (type == CollisionEventType.TouchLost || type == CollisionEventType.TriggerTouchLost) {
             this._onCollisionEnd(physXComponent);
         }
 

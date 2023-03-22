@@ -1029,6 +1029,7 @@
                 "js/pp/audio/components",
                 "js/pp/cauldron",
                 "js/pp/cauldron/benchmarks",
+                "js/pp/cauldron/cauldron",
                 "js/pp/cauldron/physics"
             ],
             "libraryPaths": [

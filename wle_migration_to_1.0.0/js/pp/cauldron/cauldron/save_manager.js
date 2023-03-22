@@ -1,4 +1,4 @@
-PP.SaveManager = class SaveManager {
+export class SaveManager {
     constructor() {
         this._mySaveCache = new Map();
         this._myCacheEnabled = true;

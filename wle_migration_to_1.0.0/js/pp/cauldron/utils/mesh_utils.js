@@ -1,4 +1,6 @@
+import { Mesh, MeshAttribute, MeshIndexType } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 
 export class MeshCreationVertexParams {
     constructor() {
@@ -19,6 +21,7 @@ export class MeshCreationParams {
     constructor() {
         this.myVertexes = [];
         this.myTriangles = [];
+        this.myEngine = getMainEngine();
     }
 };
 
@@ -77,10 +80,10 @@ export function createMesh(meshCreationParams) {
     indexDataUnsignedInt.pp_copy(indexData);
 
     let vertexCount = meshCreationParams.myVertexes.length;
-    let mesh = new WL.Mesh({
+    let mesh = new Mesh(meshCreationParams.myEngine, {
         vertexCount: vertexCount,
         indexData: indexDataUnsignedInt,
-        indexType: WL.MeshIndexType.UnsignedInt,
+        indexType: MeshIndexType.UnsignedInt,
     });
 
     let positionAttribute = null;
@@ -89,25 +92,25 @@ export function createMesh(meshCreationParams) {
     let colorAttribute = null;
 
     try {
-        positionAttribute = mesh.attribute(WL.MeshAttribute.Position);
+        positionAttribute = mesh.attribute(MeshAttribute.Position);
     } catch (error) {
         positionAttribute = null;
     }
 
     try {
-        textureCoordinatesAttribute = mesh.attribute(WL.MeshAttribute.TextureCoordinate);
+        textureCoordinatesAttribute = mesh.attribute(MeshAttribute.TextureCoordinate);
     } catch (error) {
         textureCoordinatesAttribute = null;
     }
 
     try {
-        normalAttribute = mesh.attribute(WL.MeshAttribute.Normal);
+        normalAttribute = mesh.attribute(MeshAttribute.Normal);
     } catch (error) {
         normalAttribute = null;
     }
 
     try {
-        colorAttribute = mesh.attribute(WL.MeshAttribute.Color);
+        colorAttribute = mesh.attribute(MeshAttribute.Color);
     } catch (error) {
         colorAttribute = null;
     }
@@ -147,10 +150,10 @@ export let cloneMesh = function () {
             clonedIndexData[i] = mesh.indexData[i];
         }
 
-        let clonedMesh = new WL.Mesh({
+        let clonedMesh = new Mesh(mesh.engine, {
             vertexCount: mesh.vertexCount,
             indexData: clonedIndexData,
-            indexType: WL.MeshIndexType.UnsignedInt,
+            indexType: MeshIndexType.UnsignedInt,
         });
 
         let positionAttribute = null;
@@ -165,32 +168,32 @@ export let cloneMesh = function () {
 
 
         try {
-            positionAttribute = mesh.attribute(WL.MeshAttribute.Position);
-            clonedPositionAttribute = clonedMesh.attribute(WL.MeshAttribute.Position);
+            positionAttribute = mesh.attribute(MeshAttribute.Position);
+            clonedPositionAttribute = clonedMesh.attribute(MeshAttribute.Position);
         } catch (error) {
             positionAttribute = null;
             clonedPositionAttribute = null;
         }
 
         try {
-            textureCoordinatesAttribute = mesh.attribute(WL.MeshAttribute.TextureCoordinate);
-            clonedTextureCoordinatesAttribute = clonedMesh.attribute(WL.MeshAttribute.TextureCoordinate);
+            textureCoordinatesAttribute = mesh.attribute(MeshAttribute.TextureCoordinate);
+            clonedTextureCoordinatesAttribute = clonedMesh.attribute(MeshAttribute.TextureCoordinate);
         } catch (error) {
             textureCoordinatesAttribute = null;
             clonedTextureCoordinatesAttribute = null;
         }
 
         try {
-            normalAttribute = mesh.attribute(WL.MeshAttribute.Normal);
-            clonedNormalAttribute = clonedMesh.attribute(WL.MeshAttribute.Normal);
+            normalAttribute = mesh.attribute(MeshAttribute.Normal);
+            clonedNormalAttribute = clonedMesh.attribute(MeshAttribute.Normal);
         } catch (error) {
             normalAttribute = null;
             clonedNormalAttribute = null;
         }
 
         try {
-            colorAttribute = mesh.attribute(WL.MeshAttribute.Color);
-            clonedColorAttribute = clonedMesh.attribute(WL.MeshAttribute.Color);
+            colorAttribute = mesh.attribute(MeshAttribute.Color);
+            clonedColorAttribute = clonedMesh.attribute(MeshAttribute.Color);
         } catch (error) {
             colorAttribute = null;
             clonedColorAttribute = null;
@@ -233,10 +236,10 @@ export let invertMesh = function () {
             invertedIndexData[i * 3 + 2] = mesh.indexData[i * 3 + 0];
         }
 
-        let invertedMesh = new WL.Mesh({
+        let invertedMesh = new Mesh(mesh.engine, {
             vertexCount: mesh.vertexCount,
             indexData: invertedIndexData,
-            indexType: WL.MeshIndexType.UnsignedInt,
+            indexType: MeshIndexType.UnsignedInt,
         });
 
         let positionAttribute = null;
@@ -251,32 +254,32 @@ export let invertMesh = function () {
 
 
         try {
-            positionAttribute = mesh.attribute(WL.MeshAttribute.Position);
-            invertedPositionAttribute = invertedMesh.attribute(WL.MeshAttribute.Position);
+            positionAttribute = mesh.attribute(MeshAttribute.Position);
+            invertedPositionAttribute = invertedMesh.attribute(MeshAttribute.Position);
         } catch (error) {
             positionAttribute = null;
             invertedPositionAttribute = null;
         }
 
         try {
-            textureCoordinatesAttribute = mesh.attribute(WL.MeshAttribute.TextureCoordinate);
-            invertedTextureCoordinatesAttribute = invertedMesh.attribute(WL.MeshAttribute.TextureCoordinate);
+            textureCoordinatesAttribute = mesh.attribute(MeshAttribute.TextureCoordinate);
+            invertedTextureCoordinatesAttribute = invertedMesh.attribute(MeshAttribute.TextureCoordinate);
         } catch (error) {
             textureCoordinatesAttribute = null;
             invertedTextureCoordinatesAttribute = null;
         }
 
         try {
-            normalAttribute = mesh.attribute(WL.MeshAttribute.Normal);
-            invertedNormalAttribute = invertedMesh.attribute(WL.MeshAttribute.Normal);
+            normalAttribute = mesh.attribute(MeshAttribute.Normal);
+            invertedNormalAttribute = invertedMesh.attribute(MeshAttribute.Normal);
         } catch (error) {
             normalAttribute = null;
             invertedNormalAttribute = null;
         }
 
         try {
-            colorAttribute = mesh.attribute(WL.MeshAttribute.Color);
-            invertedColorAttribute = invertedMesh.attribute(WL.MeshAttribute.Color);
+            colorAttribute = mesh.attribute(MeshAttribute.Color);
+            invertedColorAttribute = invertedMesh.attribute(MeshAttribute.Color);
         } catch (error) {
             colorAttribute = null;
             invertedColorAttribute = null;
