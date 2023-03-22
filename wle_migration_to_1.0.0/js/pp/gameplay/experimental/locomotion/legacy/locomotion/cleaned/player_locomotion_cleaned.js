@@ -148,7 +148,7 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
             params.mySnapTurnOnlyVR = this._myParams.mySnapTurnOnlyVR;
             params.mySnapTurnAngle = this._myParams.mySnapTurnAngle;
 
-            if (this._myParams.mySnapTurnSpeedDegrees > PP.LocomotionUtils.EPSILON_NUMBER) {
+            if (this._myParams.mySnapTurnSpeedDegrees > PP.LocomotionUtils.EPSILON) {
                 params.mySmoothSnapActive = true;
                 params.mySmoothSnapSpeedDegrees = this._myParams.mySnapTurnSpeedDegrees;
             } else {

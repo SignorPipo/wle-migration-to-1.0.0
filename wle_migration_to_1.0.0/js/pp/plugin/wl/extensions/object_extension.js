@@ -2117,7 +2117,7 @@ export function initObjectExtensionProtoype() {
         let scale = vec3_create();
         return function pp_hasUniformScaleWorld() {
             this.pp_getScaleWorld(scale);
-            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON_NUMBER;
+            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON;
         };
     }();
 
@@ -2125,7 +2125,7 @@ export function initObjectExtensionProtoype() {
         let scale = vec3_create();
         return function pp_hasUniformScaleLocal() {
             this.pp_getScaleLocal(scale);
-            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON_NUMBER;
+            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON;
         };
     }();
 

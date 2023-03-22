@@ -1,5 +1,5 @@
 PP.LocomotionUtils = {
-    EPSILON_NUMBER: Math.PP_EPSILON_NUMBER,
+    EPSILON: Math.PP_EPSILON,
     EPSILON_DEGREES: Math.PP_EPSILON_DEGREES,
 
     computeSurfacePerceivedAngle: function () {

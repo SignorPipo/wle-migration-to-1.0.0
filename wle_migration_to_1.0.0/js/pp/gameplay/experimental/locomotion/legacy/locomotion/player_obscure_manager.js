@@ -132,13 +132,13 @@ PP.PlayerObscureManager = class PlayerObscureManager {
     }
 
     _idleUpdate(dt) {
-        if (Math.abs(this._myTargetObscureLevel - this._myCurrentObscureLevel) > Math.PP_EPSILON_NUMBER) {
+        if (Math.abs(this._myTargetObscureLevel - this._myCurrentObscureLevel) > Math.PP_EPSILON) {
             this._myFSM.perform("fade");
         }
     }
 
     _fadingUpdate(dt) {
-        if (Math.abs(this._myTargetObscureLevel - this._myCurrentObscureLevel) <= Math.PP_EPSILON_NUMBER) {
+        if (Math.abs(this._myTargetObscureLevel - this._myCurrentObscureLevel) <= Math.PP_EPSILON) {
             this._myFSM.perform("done");
             return;
         }
@@ -163,7 +163,7 @@ PP.PlayerObscureManager = class PlayerObscureManager {
         this._setObscureAlpha(newObscureLevel);
         this._myCurrentObscureLevel = newObscureLevel;
 
-        if (Math.abs(this._myTargetObscureLevel - this._myCurrentObscureLevel) <= Math.PP_EPSILON_NUMBER || this._myFadeTimer.isDone()) {
+        if (Math.abs(this._myTargetObscureLevel - this._myCurrentObscureLevel) <= Math.PP_EPSILON || this._myFadeTimer.isDone()) {
             this._myFSM.perform("done");
         }
     }

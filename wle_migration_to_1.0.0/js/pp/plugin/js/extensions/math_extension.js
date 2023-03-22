@@ -8,7 +8,7 @@
         - pp_isInsideAngleRangeRadians
         
     List of constants:
-        - PP_EPSILON_NUMBER / PP_EPSILON_NUMBER_SQUARED / PP_EPSILON_DEGREES
+        - PP_EPSILON / PP_EPSILON_SQUARED / PP_EPSILON_DEGREES
 
     List of functions:
         Notes:
@@ -43,8 +43,8 @@ export function initMathExtensionStatic() {
 
     let mathExtension = {};
 
-    mathExtension.PP_EPSILON_NUMBER = 0.000001;
-    mathExtension.PP_EPSILON_NUMBER_SQUARED = mathExtension.PP_EPSILON_NUMBER * mathExtension.PP_EPSILON_NUMBER;
+    mathExtension.PP_EPSILON = 0.000001;
+    mathExtension.PP_EPSILON_SQUARED = mathExtension.PP_EPSILON * mathExtension.PP_EPSILON;
     mathExtension.PP_EPSILON_DEGREES = 0.00001;
 
     mathExtension.pp_clamp = function pp_clamp(value, start, end) {

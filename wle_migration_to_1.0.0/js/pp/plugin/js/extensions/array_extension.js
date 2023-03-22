@@ -851,7 +851,7 @@ export function initArrayExtensionProtoype() {
         let lengthSquared = thisLengthSquared * vectorLengthSquared;
 
         let angle = 0;
-        if (lengthSquared > Math.PP_EPSILON_NUMBER_SQUARED) {
+        if (lengthSquared > Math.PP_EPSILON_SQUARED) {
             let length = Math.sqrt(lengthSquared);
 
             let cos = this.vec3_dot(vector) / length;
@@ -999,7 +999,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    arrayExtension.vec3_isNormalized = function vec3_isNormalized(epsilon = Math.PP_EPSILON_NUMBER) {
+    arrayExtension.vec3_isNormalized = function vec3_isNormalized(epsilon = Math.PP_EPSILON) {
         return Math.abs(this.vec3_lengthSquared() - 1) < epsilon;
     };
 
@@ -1600,7 +1600,7 @@ export function initArrayExtensionProtoype() {
         let zero = vec3_create(0, 0, 0);
         return function quat_getAxis(out = vec3_create()) {
             let angle = glMatrix.quat.getAxisAngle(out, this);
-            if (angle <= Math.PP_EPSILON_NUMBER) {
+            if (angle <= Math.PP_EPSILON) {
                 out.vec3_copy(zero);
             }
             return out;
@@ -1641,7 +1641,7 @@ export function initArrayExtensionProtoype() {
         return function quat_getAxisScaledRadians(out = vec3_create()) {
             this.quat_getAxis(out);
             let angle = this.quat_getAngleRadians();
-            if (angle <= Math.PP_EPSILON_NUMBER) {
+            if (angle <= Math.PP_EPSILON) {
                 out.vec3_copy(zero);
             } else {
                 out.vec3_scale(angle, out);
@@ -1817,7 +1817,7 @@ export function initArrayExtensionProtoype() {
             //Rotation order is ZYX 
             out[1] = Math.asin(-Math.pp_clamp(mat3[2], -1, 1));
 
-            if (Math.abs(mat3[2]) < (1 - Math.PP_EPSILON_NUMBER)) {
+            if (Math.abs(mat3[2]) < (1 - Math.PP_EPSILON)) {
                 out[0] = Math.atan2(mat3[5], mat3[8]);
                 out[2] = Math.atan2(mat3[1], mat3[0]);
             } else {
@@ -1835,7 +1835,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    arrayExtension.quat_isNormalized = function quat_isNormalized(epsilon = Math.PP_EPSILON_NUMBER) {
+    arrayExtension.quat_isNormalized = function quat_isNormalized(epsilon = Math.PP_EPSILON) {
         return Math.abs(this.quat_lengthSquared() - 1) < epsilon;
     };
 
@@ -2184,7 +2184,7 @@ export function initArrayExtensionProtoype() {
 
     // New Functions
 
-    arrayExtension.quat2_isNormalized = function quat2_isNormalized(epsilon = Math.PP_EPSILON_NUMBER) {
+    arrayExtension.quat2_isNormalized = function quat2_isNormalized(epsilon = Math.PP_EPSILON) {
         return Math.abs(this.quat2_lengthSquared() - 1) < epsilon;
     };
 
@@ -2656,7 +2656,7 @@ export function initArrayExtensionProtoype() {
         let scale = vec3_create();
         return function mat4_hasUniformScale() {
             glMatrix.mat4.getScaling(scale, this);
-            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON_NUMBER && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON_NUMBER;
+            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON;
         };
     }();
 
@@ -2749,14 +2749,14 @@ let _quat_setAxes = function () {
         let secondAxis = axes[priority[1]];
         let thirdAxis = axes[priority[2]];
 
-        if (firstAxis == null || firstAxis.vec3_isZero(Math.PP_EPSILON_NUMBER)) {
+        if (firstAxis == null || firstAxis.vec3_isZero(Math.PP_EPSILON)) {
             return;
         }
 
         let secondAxisValid = false;
         if (secondAxis != null) {
             let angleBetween = firstAxis.vec3_angleRadians(secondAxis);
-            if (angleBetween > Math.PP_EPSILON_NUMBER) {
+            if (angleBetween > Math.PP_EPSILON) {
                 secondAxisValid = true;
             }
         }
@@ -2764,7 +2764,7 @@ let _quat_setAxes = function () {
         let thirdAxisValid = false;
         if (thirdAxis != null) {
             let angleBetween = firstAxis.vec3_angleRadians(thirdAxis);
-            if (angleBetween > Math.PP_EPSILON_NUMBER) {
+            if (angleBetween > Math.PP_EPSILON) {
                 thirdAxisValid = true;
             }
         }
@@ -2818,7 +2818,7 @@ let _quat_setAxes = function () {
             }
 
             let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
-            if (angleBetween > Math.PP_EPSILON_NUMBER) {
+            if (angleBetween > Math.PP_EPSILON) {
                 glMatrix.vec3.cross(rotationAxis, currentAxis, firstAxis);
                 glMatrix.vec3.normalize(rotationAxis, rotationAxis);
                 glMatrix.quat.setAxisAngle(rotationQuat, rotationAxis, angleBetween);

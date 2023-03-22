@@ -97,14 +97,14 @@ PP.PlayerLocomotionRotate.prototype._rotateHeadHorizontally = function () {
 
         if (this._mySmoothSnapHorizontalRunning) {
             let angleToRotate = Math.pp_sign(this._mySmoothSnapHorizontalAngleToPerform) * (this._myParams.mySmoothSnapSpeedDegrees * dt);
-            if (Math.abs(angleToRotate) > Math.abs(this._mySmoothSnapHorizontalAngleToPerform) - PP.LocomotionUtils.EPSILON_NUMBER) {
+            if (Math.abs(angleToRotate) > Math.abs(this._mySmoothSnapHorizontalAngleToPerform) - PP.LocomotionUtils.EPSILON) {
                 angleToRotate = this._mySmoothSnapHorizontalAngleToPerform;
             }
 
             headRotation.quat_fromAxis(angleToRotate, playerUp);
             this._mySmoothSnapHorizontalAngleToPerform -= angleToRotate;
 
-            if (Math.abs(this._mySmoothSnapHorizontalAngleToPerform) < PP.LocomotionUtils.EPSILON_NUMBER) {
+            if (Math.abs(this._mySmoothSnapHorizontalAngleToPerform) < PP.LocomotionUtils.EPSILON) {
                 this._mySmoothSnapHorizontalRunning = false;
                 this._mySmoothSnapHorizontalAngleToPerform = 0;
             }
@@ -192,13 +192,13 @@ PP.PlayerLocomotionRotate.prototype._rotateHeadVertically = function () {
 
         if (this._mySmoothSnapVerticalRunning) {
             angleToRotate = Math.pp_sign(this._mySmoothSnapVerticalAngleToPerform) * (this._myParams.mySmoothSnapSpeedDegrees * dt);
-            if (Math.abs(angleToRotate) > Math.abs(this._mySmoothSnapVerticalAngleToPerform) - PP.LocomotionUtils.EPSILON_NUMBER) {
+            if (Math.abs(angleToRotate) > Math.abs(this._mySmoothSnapVerticalAngleToPerform) - PP.LocomotionUtils.EPSILON) {
                 angleToRotate = this._mySmoothSnapVerticalAngleToPerform;
             }
 
             this._mySmoothSnapVerticalAngleToPerform -= angleToRotate;
 
-            if (Math.abs(this._mySmoothSnapVerticalAngleToPerform) < PP.LocomotionUtils.EPSILON_NUMBER) {
+            if (Math.abs(this._mySmoothSnapVerticalAngleToPerform) < PP.LocomotionUtils.EPSILON) {
                 this._mySmoothSnapVerticalRunning = false;
                 this._mySmoothSnapVerticalAngleToPerform = 0;
             }

@@ -59,7 +59,7 @@ PP.PhysicsUtils = {
                             locations = internalRaycastResults.locations;
                         }
 
-                        isHitInsideCollision &&= raycastSetup.myOrigin.vec3_sub(locations[i], isInsideSubVector).vec3_isZero(Math.PP_EPSILON_NUMBER);
+                        isHitInsideCollision &&= raycastSetup.myOrigin.vec3_sub(locations[i], isInsideSubVector).vec3_isZero(Math.PP_EPSILON);
 
                         if (isHitInsideCollision) {
                             if (!normals) {
