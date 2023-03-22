@@ -162,8 +162,8 @@ PP.JSUtils = {
                     Object.defineProperty(overwriteTarget, propertyName, {
                         value: newProperty,
                         enumerable: originalPropertyDescriptor.enumerable,
-                        configurable: originalPropertyDescriptor.configurable,
                         writable: originalPropertyDescriptor.writable,
+                        configurable: originalPropertyDescriptor.configurable
                     });
 
                     success = true;
@@ -205,8 +205,8 @@ PP.JSUtils = {
                     Object.defineProperty(toReference, fromReferencePropertyName, {
                         value: fromReferencePropertyDescriptor.value,
                         enumerable: fromReferencePropertyDescriptor.enumerable,
-                        configurable: fromReferencePropertyDescriptor.configurable,
-                        writable: fromReferencePropertyDescriptor.writable
+                        writable: fromReferencePropertyDescriptor.writable,
+                        configurable: fromReferencePropertyDescriptor.configurable
                     });
                 } catch (error) {
                     if (debugLogActive) {

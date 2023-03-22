@@ -164,6 +164,7 @@
 */
 
 import * as glMatrix from 'gl-matrix';
+import { ExtensionUtils } from '../../utils/extension_utils';
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -307,33 +308,15 @@ export function mat4_fromPositionRotationQuatScale(position, rotation, scale) {
 
 export function initArrayExtensionProtoype() {
 
-    Array.prototype._pp_syncPrototypesProperties = function _pp_syncPrototypesProperties() {
-        let prototypes = [
-            Array.prototype, Uint8ClampedArray.prototype, Uint8Array.prototype, Uint16Array.prototype, Uint32Array.prototype, Int8Array.prototype,
-            Int16Array.prototype, Int32Array.prototype, Float32Array.prototype, Float64Array.prototype];
-        let prefixes = ["pp_", "vec_", "vec2_", "vec3_", "vec4_", "quat_", "quat2_", "mat3_", "mat4_", "_pp_", "_vec_", "_quat_"];
+    let arrayPrototypesToExtend = [
+        Array.prototype, Uint8ClampedArray.prototype, Uint8Array.prototype, Uint16Array.prototype, Uint32Array.prototype, Int8Array.prototype,
+        Int16Array.prototype, Int32Array.prototype, Float32Array.prototype, Float64Array.prototype];
 
-        for (let key in Array.prototype) {
-            let found = false;
-            for (let prefix of prefixes) {
-                if (key.startsWith(prefix)) {
-                    found = true;
-                    break;
-                }
-            }
+    //SETTER
 
-            if (found) {
-                for (let prototype of prototypes) {
-                    prototype[key] = Array.prototype[key];
-                    Object.defineProperty(prototype, key, { enumerable: false });
-                }
-            }
-        }
-    };
+    let arraySetterExtension = {};
 
-    //CREATION
-
-    Array.prototype.vec2_set = function vec2_set(x, y) {
+    arraySetterExtension.vec2_set = function vec2_set(x, y) {
         if (y === undefined) {
             glMatrix.vec2.set(this, x, x);
         } else {
@@ -342,7 +325,7 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    Array.prototype.vec3_set = function vec3_set(x, y, z) {
+    arraySetterExtension.vec3_set = function vec3_set(x, y, z) {
         if (y === undefined) {
             glMatrix.vec3.set(this, x, x, x);
         } else {
@@ -351,7 +334,7 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    Array.prototype.vec4_set = function vec4_set(x, y, z, w) {
+    arraySetterExtension.vec4_set = function vec4_set(x, y, z, w) {
         if (y === undefined) {
             glMatrix.vec4.set(this, x, x, x, x);
         } else {
@@ -360,7 +343,7 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    Array.prototype.quat_set = function quat_set(x, y, z, w) {
+    arraySetterExtension.quat_set = function quat_set(x, y, z, w) {
         if (y === undefined) {
             glMatrix.quat.set(this, x, x, x, x);
         } else {
@@ -369,7 +352,7 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    Array.prototype.quat2_set = function quat2_set(x1, y1, z1, w1, x2, y2, z2, w2) {
+    arraySetterExtension.quat2_set = function quat2_set(x1, y1, z1, w1, x2, y2, z2, w2) {
         if (y1 === undefined) {
             glMatrix.quat2.set(this, x1, x1, x1, x1, x1, x1, x1, x1);
         } else {
@@ -378,7 +361,7 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    Array.prototype.mat3_set = function mat3_set(
+    arraySetterExtension.mat3_set = function mat3_set(
         m00, m01, m02,
         m10, m11, m12,
         m20, m21, m22) {
@@ -396,7 +379,7 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    Array.prototype.mat4_set = function mat4_set(
+    arraySetterExtension.mat4_set = function mat4_set(
         m00, m01, m02, m03,
         m10, m11, m12, m13,
         m20, m21, m22, m23,
@@ -417,29 +400,35 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    Array.prototype._pp_syncPrototypesProperties();
+
+
+    for (let arrayPrototypeToExtend of arrayPrototypesToExtend) {
+        ExtensionUtils.assignProperties(arraySetterExtension, arrayPrototypeToExtend, false, true, true);
+    }
 
     //ARRAY
 
+    let arrayExtension = {};
+
     //New Functions
 
-    Array.prototype.pp_first = function pp_first() {
+    arrayExtension.pp_first = function pp_first() {
         return this.length > 0 ? this[0] : undefined;
     };
 
-    Array.prototype.pp_last = function pp_last() {
+    arrayExtension.pp_last = function pp_last() {
         return this.length > 0 ? this[this.length - 1] : undefined;
     };
 
-    Array.prototype.pp_has = function pp_has(callback) {
+    arrayExtension.pp_has = function pp_has(callback) {
         return this.pp_find(callback) != undefined;
     };
 
-    Array.prototype.pp_hasEqual = function pp_hasEqual(elementToFind, elementsEqualCallback = null) {
+    arrayExtension.pp_hasEqual = function pp_hasEqual(elementToFind, elementsEqualCallback = null) {
         return this.pp_findEqual(elementToFind, elementsEqualCallback) != undefined;
     };
 
-    Array.prototype.pp_find = function pp_find(callback) {
+    arrayExtension.pp_find = function pp_find(callback) {
         let elementFound = undefined;
 
         let index = this.findIndex(callback);
@@ -450,17 +439,17 @@ export function initArrayExtensionProtoype() {
         return elementFound;
     };
 
-    Array.prototype.pp_findIndex = function pp_findIndex(callback) {
+    arrayExtension.pp_findIndex = function pp_findIndex(callback) {
         return this.findIndex(callback);
     };
 
-    Array.prototype.pp_findAll = function pp_findAll(callback) {
+    arrayExtension.pp_findAll = function pp_findAll(callback) {
         let elementsFound = this.filter(callback);
 
         return elementsFound;
     };
 
-    Array.prototype.pp_findAllIndexes = function pp_findAllIndexes(callback) {
+    arrayExtension.pp_findAllIndexes = function pp_findAllIndexes(callback) {
         let indexes = [];
         for (let i = 0; i < this.length; i++) {
             let element = this[i];
@@ -471,7 +460,7 @@ export function initArrayExtensionProtoype() {
         return indexes;
     };
 
-    Array.prototype.pp_findEqual = function pp_findEqual(elementToFind, elementsEqualCallback = null) {
+    arrayExtension.pp_findEqual = function pp_findEqual(elementToFind, elementsEqualCallback = null) {
         if (elementsEqualCallback == null) {
             let index = this.pp_findIndexEqual(elementToFind);
             return index < 0 ? undefined : this[index];
@@ -488,7 +477,7 @@ export function initArrayExtensionProtoype() {
         return elementFound;
     };
 
-    Array.prototype.pp_findAllEqual = function pp_findAllEqual(elementToFind, elementsEqualCallback = null) {
+    arrayExtension.pp_findAllEqual = function pp_findAllEqual(elementToFind, elementsEqualCallback = null) {
         if (elementsEqualCallback == null) {
             return this._pp_findAllEqualOptimized(elementToFind, false);
         }
@@ -503,7 +492,7 @@ export function initArrayExtensionProtoype() {
         return elementsFound;
     };
 
-    Array.prototype.pp_findIndexEqual = function pp_findIndexEqual(elementToFind, elementsEqualCallback = null) {
+    arrayExtension.pp_findIndexEqual = function pp_findIndexEqual(elementToFind, elementsEqualCallback = null) {
         if (elementsEqualCallback == null) {
             return this.indexOf(elementToFind);
         }
@@ -519,7 +508,7 @@ export function initArrayExtensionProtoype() {
         return indexFound;
     };
 
-    Array.prototype.pp_findAllIndexesEqual = function pp_findAllIndexesEqual(elementToFind, elementsEqualCallback = null) {
+    arrayExtension.pp_findAllIndexesEqual = function pp_findAllIndexesEqual(elementToFind, elementsEqualCallback = null) {
         if (elementsEqualCallback == null) {
             return this._pp_findAllEqualOptimized(elementToFind, true);
         }
@@ -534,7 +523,7 @@ export function initArrayExtensionProtoype() {
         return indexesFound;
     };
 
-    Array.prototype.pp_removeIndex = function pp_removeIndex(index) {
+    arrayExtension.pp_removeIndex = function pp_removeIndex(index) {
         let elementRemoved = undefined;
 
         if (index >= 0 && index < this.length) {
@@ -547,7 +536,7 @@ export function initArrayExtensionProtoype() {
         return elementRemoved;
     };
 
-    Array.prototype.pp_removeAllIndexes = function pp_removeAllIndexes(indexes) {
+    arrayExtension.pp_removeAllIndexes = function pp_removeAllIndexes(indexes) {
         let elementsRemoved = [];
 
         for (let index of indexes) {
@@ -560,7 +549,7 @@ export function initArrayExtensionProtoype() {
         return elementsRemoved;
     };
 
-    Array.prototype.pp_remove = function pp_remove(callback) {
+    arrayExtension.pp_remove = function pp_remove(callback) {
         let elementRemoved = undefined;
 
         let index = this.findIndex(callback);
@@ -571,7 +560,7 @@ export function initArrayExtensionProtoype() {
         return elementRemoved;
     };
 
-    Array.prototype.pp_removeAll = function pp_removeAll(callback) {
+    arrayExtension.pp_removeAll = function pp_removeAll(callback) {
         let elementsRemoved = [];
 
         let currentElement = undefined;
@@ -585,15 +574,15 @@ export function initArrayExtensionProtoype() {
         return elementsRemoved;
     };
 
-    Array.prototype.pp_removeEqual = function pp_removeEqual(elementToRemove, elementsEqualCallback = null) {
+    arrayExtension.pp_removeEqual = function pp_removeEqual(elementToRemove, elementsEqualCallback = null) {
         return this.pp_removeIndex(this.pp_findIndexEqual(elementToRemove, elementsEqualCallback));
     };
 
-    Array.prototype.pp_removeAllEqual = function pp_removeAllEqual(elementToRemove, elementsEqualCallback = null) {
+    arrayExtension.pp_removeAllEqual = function pp_removeAllEqual(elementToRemove, elementsEqualCallback = null) {
         return this.pp_removeAllIndexes(this.pp_findAllIndexesEqual(elementToRemove, elementsEqualCallback));
     };
 
-    Array.prototype.pp_pushUnique = function pp_pushUnique(element, elementsEqualCallback = null) {
+    arrayExtension.pp_pushUnique = function pp_pushUnique(element, elementsEqualCallback = null) {
         let length = this.length;
 
         let hasElement = this.pp_hasEqual(element, elementsEqualCallback);
@@ -605,7 +594,7 @@ export function initArrayExtensionProtoype() {
         return length;
     };
 
-    Array.prototype.pp_unshiftUnique = function pp_unshiftUnique(element, elementsEqualCallback = null) {
+    arrayExtension.pp_unshiftUnique = function pp_unshiftUnique(element, elementsEqualCallback = null) {
         let length = this.length;
 
         let hasElement = this.pp_hasEqual(element, elementsEqualCallback);
@@ -617,7 +606,7 @@ export function initArrayExtensionProtoype() {
         return length;
     };
 
-    Array.prototype.pp_copy = function pp_copy(array, copyCallback = null) {
+    arrayExtension.pp_copy = function pp_copy(array, copyCallback = null) {
         while (this.length > array.length) {
             this.pop();
         }
@@ -633,7 +622,7 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    Array.prototype.pp_clone = function pp_clone(cloneCallback = null) {
+    arrayExtension.pp_clone = function pp_clone(cloneCallback = null) {
         if (cloneCallback == null) {
             return this.slice(0);
         }
@@ -668,7 +657,7 @@ export function initArrayExtensionProtoype() {
         return clone;
     };
 
-    Array.prototype.pp_equals = function pp_equals(array, elementsEqualCallback = null) {
+    arrayExtension.pp_equals = function pp_equals(array, elementsEqualCallback = null) {
         let equals = true;
 
         if (array != null && this.length == array.length) {
@@ -686,7 +675,7 @@ export function initArrayExtensionProtoype() {
         return equals;
     };
 
-    Array.prototype.pp_clear = function pp_clear() {
+    arrayExtension.pp_clear = function pp_clear() {
         this.length = 0;
 
         return this;
@@ -696,27 +685,27 @@ export function initArrayExtensionProtoype() {
 
     //New Functions
 
-    Array.prototype.vec_toString = function vec_toString(decimalPlaces = null) {
+    arrayExtension.vec_toString = function vec_toString(decimalPlaces = null) {
         let message = this._vec_buildConsoleMessage(decimalPlaces);
         return message;
     };
 
-    Array.prototype.vec_log = function vec_log(decimalPlaces = 4) {
+    arrayExtension.vec_log = function vec_log(decimalPlaces = 4) {
         let message = this._vec_buildConsoleMessage(decimalPlaces);
         console.log(message);
     };
 
-    Array.prototype.vec_error = function vec_error(decimalPlaces = 4) {
+    arrayExtension.vec_error = function vec_error(decimalPlaces = 4) {
         let message = this._vec_buildConsoleMessage(decimalPlaces);
         console.error(message);
     };
 
-    Array.prototype.vec_warn = function vec_warn(decimalPlaces = 4) {
+    arrayExtension.vec_warn = function vec_warn(decimalPlaces = 4) {
         let message = this._vec_buildConsoleMessage(decimalPlaces);
         console.warn(message);
     };
 
-    Array.prototype.vec_scale = function vec_scale(value, out = null) {
+    arrayExtension.vec_scale = function vec_scale(value, out = null) {
         out = this._vec_prepareOut(out);
 
         for (let i = 0; i < out.length; i++) {
@@ -726,7 +715,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.vec_round = function vec_round(out = null) {
+    arrayExtension.vec_round = function vec_round(out = null) {
         out = this._vec_prepareOut(out);
 
         for (let i = 0; i < out.length; i++) {
@@ -736,7 +725,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.vec_floor = function vec_floor(out = null) {
+    arrayExtension.vec_floor = function vec_floor(out = null) {
         out = this._vec_prepareOut(out);
 
         for (let i = 0; i < out.length; i++) {
@@ -746,7 +735,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.vec_ceil = function vec_ceil(out = null) {
+    arrayExtension.vec_ceil = function vec_ceil(out = null) {
         out = this._vec_prepareOut(out);
 
         for (let i = 0; i < out.length; i++) {
@@ -756,7 +745,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.vec_clamp = function vec_clamp(start, end, out = null) {
+    arrayExtension.vec_clamp = function vec_clamp(start, end, out = null) {
         out = this._vec_prepareOut(out);
 
         let fixedStart = (start != null) ? start : -Number.MAX_VALUE;
@@ -771,7 +760,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.vec_equals = function vec_equals(vector, epsilon = 0) {
+    arrayExtension.vec_equals = function vec_equals(vector, epsilon = 0) {
         let equals = this.length == vector.length;
 
         for (let i = 0; i < this.length && equals; i++) {
@@ -785,33 +774,33 @@ export function initArrayExtensionProtoype() {
 
     // glMatrix Bridge
 
-    Array.prototype.vec2_length = function vec2_length() {
+    arrayExtension.vec2_length = function vec2_length() {
         return glMatrix.vec2.length(this);
     };
 
-    Array.prototype.vec2_normalize = function vec2_normalize(out = vec2_create()) {
+    arrayExtension.vec2_normalize = function vec2_normalize(out = vec2_create()) {
         glMatrix.vec2.normalize(out, this);
         return out;
     };
 
-    Array.prototype.vec2_copy = function vec2_copy(vector) {
+    arrayExtension.vec2_copy = function vec2_copy(vector) {
         glMatrix.vec2.copy(this, vector);
         return this;
     };
 
-    Array.prototype.vec2_clone = function vec2_clone(out = vec2_create()) {
+    arrayExtension.vec2_clone = function vec2_clone(out = vec2_create()) {
         glMatrix.vec2.copy(out, this);
         return out;
     };
 
-    Array.prototype.vec2_zero = function vec2_zero() {
+    arrayExtension.vec2_zero = function vec2_zero() {
         glMatrix.vec2.zero(this);
         return this;
     };
 
     // New Functions
 
-    Array.prototype.vec2_isZero = function vec2_isZero(epsilon = 0) {
+    arrayExtension.vec2_isZero = function vec2_isZero(epsilon = 0) {
         return this.vec2_length() <= epsilon;
     };
 
@@ -819,35 +808,35 @@ export function initArrayExtensionProtoype() {
 
     // glMatrix Bridge
 
-    Array.prototype.vec3_normalize = function vec3_normalize(out = vec3_create()) {
+    arrayExtension.vec3_normalize = function vec3_normalize(out = vec3_create()) {
         glMatrix.vec3.normalize(out, this);
         return out;
     };
 
-    Array.prototype.vec3_copy = function vec3_copy(vector) {
+    arrayExtension.vec3_copy = function vec3_copy(vector) {
         glMatrix.vec3.copy(this, vector);
         return this;
     };
 
-    Array.prototype.vec3_clone = function vec3_clone(out = vec3_create()) {
+    arrayExtension.vec3_clone = function vec3_clone(out = vec3_create()) {
         glMatrix.vec3.copy(out, this);
         return out;
     };
 
-    Array.prototype.vec3_zero = function vec3_zero() {
+    arrayExtension.vec3_zero = function vec3_zero() {
         glMatrix.vec3.zero(this);
         return this;
     };
 
-    Array.prototype.vec3_angle = function vec3_angle(vector) {
+    arrayExtension.vec3_angle = function vec3_angle(vector) {
         return this.vec3_angleDegrees(vector);
     };
 
-    Array.prototype.vec3_angleDegrees = function vec3_angleDegrees(vector) {
+    arrayExtension.vec3_angleDegrees = function vec3_angleDegrees(vector) {
         return this.vec3_angleRadians(vector) * (180 / Math.PI);
     };
 
-    Array.prototype.vec3_angleRadians = function vec3_angleRadians(vector) {
+    arrayExtension.vec3_angleRadians = function vec3_angleRadians(vector) {
         let thisX = this[0];
         let thisY = this[1];
         let thisZ = this[2];
@@ -872,7 +861,7 @@ export function initArrayExtensionProtoype() {
         return angle;
     };
 
-    Array.prototype.vec3_equals = function vec3_equals(vector, epsilon = 0) {
+    arrayExtension.vec3_equals = function vec3_equals(vector, epsilon = 0) {
         let equals = this.length == vector.length;
 
         if (equals) {
@@ -884,79 +873,79 @@ export function initArrayExtensionProtoype() {
         return equals;
     };
 
-    Array.prototype.vec3_length = function vec3_length() {
+    arrayExtension.vec3_length = function vec3_length() {
         return glMatrix.vec3.length(this);
     };
 
-    Array.prototype.vec3_lengthSquared = function vec3_lengthSquared() {
+    arrayExtension.vec3_lengthSquared = function vec3_lengthSquared() {
         return glMatrix.vec3.squaredLength(this);
     };
 
-    Array.prototype.vec3_distance = function vec3_distance(vector) {
+    arrayExtension.vec3_distance = function vec3_distance(vector) {
         return glMatrix.vec3.dist(this, vector);
     };
 
-    Array.prototype.vec3_distanceSquared = function vec3_distanceSquared(vector) {
+    arrayExtension.vec3_distanceSquared = function vec3_distanceSquared(vector) {
         return glMatrix.vec3.squaredDistance(this, vector);
     };
 
-    Array.prototype.vec3_add = function vec3_add(vector, out = vec3_create()) {
+    arrayExtension.vec3_add = function vec3_add(vector, out = vec3_create()) {
         glMatrix.vec3.add(out, this, vector);
         return out;
     };
 
-    Array.prototype.vec3_sub = function vec3_sub(vector, out = vec3_create()) {
+    arrayExtension.vec3_sub = function vec3_sub(vector, out = vec3_create()) {
         glMatrix.vec3.sub(out, this, vector);
         return out;
     };
 
-    Array.prototype.vec3_mul = function vec3_mul(vector, out = vec3_create()) {
+    arrayExtension.vec3_mul = function vec3_mul(vector, out = vec3_create()) {
         glMatrix.vec3.mul(out, this, vector);
         return out;
     };
 
-    Array.prototype.vec3_div = function vec3_div(vector, out = vec3_create()) {
+    arrayExtension.vec3_div = function vec3_div(vector, out = vec3_create()) {
         glMatrix.vec3.div(out, this, vector);
         return out;
     };
 
-    Array.prototype.vec3_scale = function vec3_scale(value, out = vec3_create()) {
+    arrayExtension.vec3_scale = function vec3_scale(value, out = vec3_create()) {
         glMatrix.vec3.scale(out, this, value);
         return out;
     };
 
-    Array.prototype.vec3_dot = function vec3_dot(vector) {
+    arrayExtension.vec3_dot = function vec3_dot(vector) {
         return glMatrix.vec3.dot(this, vector);
     };
 
-    Array.prototype.vec3_negate = function vec3_negate(out = vec3_create()) {
+    arrayExtension.vec3_negate = function vec3_negate(out = vec3_create()) {
         glMatrix.vec3.negate(out, this);
         return out;
     };
 
-    Array.prototype.vec3_cross = function vec3_cross(vector, out = vec3_create()) {
+    arrayExtension.vec3_cross = function vec3_cross(vector, out = vec3_create()) {
         glMatrix.vec3.cross(out, this, vector);
         return out;
     };
 
-    Array.prototype.vec3_transformQuat = function vec3_transformQuat(quat, out = vec3_create()) {
+    arrayExtension.vec3_transformQuat = function vec3_transformQuat(quat, out = vec3_create()) {
         glMatrix.vec3.transformQuat(out, this, quat);
         return out;
     };
 
-    Array.prototype.vec3_transformMat3 = function vec3_transformMat3(mat3, out = vec3_create()) {
+    arrayExtension.vec3_transformMat3 = function vec3_transformMat3(mat3, out = vec3_create()) {
         glMatrix.vec3.transformMat3(out, this, mat3);
         return out;
     };
 
-    Array.prototype.vec3_transformMat4 = function vec3_transformMat4(mat4, out = vec3_create()) {
+    arrayExtension.vec3_transformMat4 = function vec3_transformMat4(mat4, out = vec3_create()) {
         glMatrix.vec3.transformMat4(out, this, mat4);
         return out;
     };
 
     // New Functions
 
-    Array.prototype.vec3_lengthSigned = function vec3_lengthSigned(positiveDirection) {
+    arrayExtension.vec3_lengthSigned = function vec3_lengthSigned(positiveDirection) {
         let signedLength = this.vec3_length();
         if (!this.vec3_isConcordant(positiveDirection)) {
             signedLength *= -1;
@@ -965,15 +954,15 @@ export function initArrayExtensionProtoype() {
         return signedLength;
     };
 
-    Array.prototype.vec3_angleSigned = function vec3_angleSigned(vector, upAxis) {
+    arrayExtension.vec3_angleSigned = function vec3_angleSigned(vector, upAxis) {
         return this.vec3_angleSignedDegrees(vector, upAxis);
     };
 
-    Array.prototype.vec3_angleSignedDegrees = function vec3_angleSignedDegrees(vector, upAxis) {
+    arrayExtension.vec3_angleSignedDegrees = function vec3_angleSignedDegrees(vector, upAxis) {
         return this.vec3_angleSignedRadians(vector, upAxis) * (180 / Math.PI);
     };
 
-    Array.prototype.vec3_angleSignedRadians = function () {
+    arrayExtension.vec3_angleSignedRadians = function () {
         let crossAxis = vec3_create();
         return function vec3_angleSignedRadians(vector, upAxis) {
             this.vec3_cross(vector, crossAxis);
@@ -986,39 +975,39 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_toRadians = function vec3_toRadians(out = vec3_create()) {
+    arrayExtension.vec3_toRadians = function vec3_toRadians(out = vec3_create()) {
         glMatrix.vec3.set(out, glMatrix.glMatrix.toRadian(this[0]), glMatrix.glMatrix.toRadian(this[1]), glMatrix.glMatrix.toRadian(this[2]));
         return out;
     };
 
-    Array.prototype.vec3_toDegrees = function vec3_toDegrees(out = vec3_create()) {
+    arrayExtension.vec3_toDegrees = function vec3_toDegrees(out = vec3_create()) {
         glMatrix.vec3.set(out, this[0] * (180 / Math.PI), this[1] * (180 / Math.PI), this[2] * (180 / Math.PI));
         return out;
     };
 
-    Array.prototype.vec3_toQuat = function vec3_toQuat(out) {
+    arrayExtension.vec3_toQuat = function vec3_toQuat(out) {
         return this.vec3_degreesToQuat(out);
     };
 
-    Array.prototype.vec3_radiansToQuat = function vec3_radiansToQuat(out = quat_create()) {
+    arrayExtension.vec3_radiansToQuat = function vec3_radiansToQuat(out = quat_create()) {
         out.quat_fromRadians(this);
         return out;
     };
 
-    Array.prototype.vec3_degreesToQuat = function vec3_degreesToQuat(out = quat_create()) {
+    arrayExtension.vec3_degreesToQuat = function vec3_degreesToQuat(out = quat_create()) {
         out.quat_fromDegrees(this);
         return out;
     };
 
-    Array.prototype.vec3_isNormalized = function vec3_isNormalized(epsilon = this._pp_normalizedEpsilon) {
+    arrayExtension.vec3_isNormalized = function vec3_isNormalized(epsilon = this._pp_normalizedEpsilon) {
         return Math.abs(this.vec3_lengthSquared() - 1) < epsilon;
     };
 
-    Array.prototype.vec3_isZero = function vec3_isZero(epsilon = 0) {
+    arrayExtension.vec3_isZero = function vec3_isZero(epsilon = 0) {
         return this.vec3_lengthSquared() <= (epsilon * epsilon);
     };
 
-    Array.prototype.vec3_componentAlongAxis = function vec3_componentAlongAxis(axis, out = vec3_create()) {
+    arrayExtension.vec3_componentAlongAxis = function vec3_componentAlongAxis(axis, out = vec3_create()) {
         let componentAlongAxisLength = this.vec3_dot(axis);
 
         glMatrix.vec3.copy(out, axis);
@@ -1026,12 +1015,12 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.vec3_valueAlongAxis = function vec3_valueAlongAxis(axis) {
+    arrayExtension.vec3_valueAlongAxis = function vec3_valueAlongAxis(axis) {
         let valueAlongAxis = this.vec3_dot(axis);
         return valueAlongAxis;
     };
 
-    Array.prototype.vec3_removeComponentAlongAxis = function () {
+    arrayExtension.vec3_removeComponentAlongAxis = function () {
         let componentAlong = vec3_create();
         return function vec3_removeComponentAlongAxis(axis, out = vec3_create()) {
             this.vec3_componentAlongAxis(axis, componentAlong);
@@ -1040,7 +1029,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_copyComponentAlongAxis = function () {
+    arrayExtension.vec3_copyComponentAlongAxis = function () {
         let componentAlong = vec3_create();
         return function vec3_copyComponentAlongAxis(vector, axis, out = vec3_create()) {
             this.vec3_removeComponentAlongAxis(axis, out);
@@ -1051,19 +1040,19 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_isConcordant = function vec3_isConcordant(vector) {
+    arrayExtension.vec3_isConcordant = function vec3_isConcordant(vector) {
         return this.vec3_dot(vector) >= 0;
     };
 
-    Array.prototype.vec3_isFartherAlongAxis = function vec3_isFartherAlongAxis(vector, axis) {
+    arrayExtension.vec3_isFartherAlongAxis = function vec3_isFartherAlongAxis(vector, axis) {
         return this.vec3_valueAlongAxis(axis) > vector.vec3_valueAlongAxis(axis);
     };
 
-    Array.prototype.vec3_isToTheRight = function vec3_isToTheRight(vector, upAxis) {
+    arrayExtension.vec3_isToTheRight = function vec3_isToTheRight(vector, upAxis) {
         return this.vec3_signTo(vector, upAxis) >= 0;
     };
 
-    Array.prototype.vec3_signTo = function () {
+    arrayExtension.vec3_signTo = function () {
         let componentAlongThis = vec3_create();
         let componentAlongVector = vec3_create();
         return function vec3_signTo(vector, upAxis, zeroSign = 1) {
@@ -1075,13 +1064,13 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_projectOnAxis = function vec3_projectOnAxis(axis, out = vec3_create()) {
+    arrayExtension.vec3_projectOnAxis = function vec3_projectOnAxis(axis, out = vec3_create()) {
         this.vec3_componentAlongAxis(axis, out);
         return out;
     };
 
     // the result can easily be not 100% exact due to precision errors
-    Array.prototype.vec3_projectOnAxisAlongAxis = function () {
+    arrayExtension.vec3_projectOnAxisAlongAxis = function () {
         let up = vec3_create();
 
         let thisToAxis = vec3_create();
@@ -1121,13 +1110,13 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_projectOnPlane = function vec3_projectOnPlane(planeNormal, out = vec3_create()) {
+    arrayExtension.vec3_projectOnPlane = function vec3_projectOnPlane(planeNormal, out = vec3_create()) {
         this.vec3_removeComponentAlongAxis(planeNormal, out);
         return out;
     };
 
     // the result can easily be not 100% exact due to precision errors
-    Array.prototype.vec3_projectOnPlaneAlongAxis = function () {
+    arrayExtension.vec3_projectOnPlaneAlongAxis = function () {
         let thisToPlane = vec3_create();
 
         let fixedProjectAlongAxis = vec3_create();
@@ -1160,64 +1149,64 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_isOnAxis = function vec3_isOnAxis(axis) {
+    arrayExtension.vec3_isOnAxis = function vec3_isOnAxis(axis) {
         let angle = this.vec3_angle(axis);
         return Math.abs(angle) < this._pp_degreesEpsilon || Math.abs(angle - 180) < this._pp_degreesEpsilon;
     };
 
-    Array.prototype.vec3_isOnPlane = function vec3_isOnPlane(planeNormal) {
+    arrayExtension.vec3_isOnPlane = function vec3_isOnPlane(planeNormal) {
         let angle = this.vec3_angle(planeNormal);
         return Math.abs(angle - 90) < this._pp_degreesEpsilon;
     };
 
-    Array.prototype.vec3_rotate = function vec3_rotate(rotation, out) {
+    arrayExtension.vec3_rotate = function vec3_rotate(rotation, out) {
         return this.vec3_rotateDegrees(rotation, out);
     };
 
-    Array.prototype.vec3_rotateDegrees = function () {
+    arrayExtension.vec3_rotateDegrees = function () {
         let zero = vec3_create();
         return function vec3_rotateDegrees(rotation, out) {
             return this.vec3_rotateAroundDegrees(rotation, zero, out);
         };
     }();
 
-    Array.prototype.vec3_rotateRadians = function () {
+    arrayExtension.vec3_rotateRadians = function () {
         let zero = vec3_create();
         return function vec3_rotateRadians(rotation, out) {
             return this.vec3_rotateAroundRadians(rotation, zero, out);
         };
     }();
 
-    Array.prototype.vec3_rotateQuat = function () {
+    arrayExtension.vec3_rotateQuat = function () {
         let zero = vec3_create();
         return function vec3_rotateQuat(rotation, out) {
             return this.vec3_rotateAroundQuat(rotation, zero, out);
         };
     }();
 
-    Array.prototype.vec3_rotateAxis = function vec3_rotateAxis(angle, axis, out) {
+    arrayExtension.vec3_rotateAxis = function vec3_rotateAxis(angle, axis, out) {
         return this.vec3_rotateAxisDegrees(angle, axis, out);
     };
 
-    Array.prototype.vec3_rotateAxisDegrees = function () {
+    arrayExtension.vec3_rotateAxisDegrees = function () {
         let zero = vec3_create();
         return function vec3_rotateAxisDegrees(angle, axis, out) {
             return this.vec3_rotateAroundAxisDegrees(angle, axis, zero, out);
         };
     }();
 
-    Array.prototype.vec3_rotateAxisRadians = function () {
+    arrayExtension.vec3_rotateAxisRadians = function () {
         let zero = vec3_create();
         return function vec3_rotateAxisRadians(angle, axis, out) {
             return this.vec3_rotateAroundAxisRadians(angle, axis, zero, out);
         };
     }();
 
-    Array.prototype.vec3_rotateAround = function vec3_rotateAround(rotation, origin, out) {
+    arrayExtension.vec3_rotateAround = function vec3_rotateAround(rotation, origin, out) {
         return this.vec3_rotateAroundDegrees(rotation, origin, out);
     };
 
-    Array.prototype.vec3_rotateAroundDegrees = function () {
+    arrayExtension.vec3_rotateAroundDegrees = function () {
         let quat = quat_create();
         return function vec3_rotateAroundDegrees(rotation, origin, out = vec3_create()) {
             rotation.vec3_degreesToQuat(quat);
@@ -1225,7 +1214,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_rotateAroundRadians = function () {
+    arrayExtension.vec3_rotateAroundRadians = function () {
         let quat = quat_create();
         return function vec3_rotateAroundRadians(rotation, origin, out = vec3_create()) {
             rotation.vec3_radiansToQuat(quat);
@@ -1233,22 +1222,22 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_rotateAroundQuat = function vec3_rotateAroundQuat(rotation, origin, out = vec3_create()) {
+    arrayExtension.vec3_rotateAroundQuat = function vec3_rotateAroundQuat(rotation, origin, out = vec3_create()) {
         glMatrix.vec3.sub(out, this, origin);
         glMatrix.vec3.transformQuat(out, out, rotation);
         glMatrix.vec3.add(out, out, origin);
         return out;
     };
 
-    Array.prototype.vec3_rotateAroundAxis = function vec3_rotateAroundAxis(angle, axis, origin, out) {
+    arrayExtension.vec3_rotateAroundAxis = function vec3_rotateAroundAxis(angle, axis, origin, out) {
         return this.vec3_rotateAroundAxisDegrees(angle, axis, origin, out);
     };
 
-    Array.prototype.vec3_rotateAroundAxisDegrees = function vec3_rotateAroundAxisDegrees(angle, axis, origin, out) {
+    arrayExtension.vec3_rotateAroundAxisDegrees = function vec3_rotateAroundAxisDegrees(angle, axis, origin, out) {
         return this.vec3_rotateAroundAxisRadians(glMatrix.glMatrix.toRadian(angle), axis, origin, out);
     };
 
-    Array.prototype.vec3_rotateAroundAxisRadians = function () {
+    arrayExtension.vec3_rotateAroundAxisRadians = function () {
         let quat = quat_create();
         return function vec3_rotateAroundAxisRadians(angle, axis, origin, out = vec3_create()) {
             glMatrix.quat.setAxisAngle(quat, axis, angle);
@@ -1256,20 +1245,20 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_convertPositionToWorld = function vec3_convertPositionToWorld(parentTransform, out) {
+    arrayExtension.vec3_convertPositionToWorld = function vec3_convertPositionToWorld(parentTransform, out) {
         return this.vec3_convertPositionToWorldMatrix(parentTransform, out);
     };
 
-    Array.prototype.vec3_convertPositionToLocal = function vec3_convertPositionToLocal(parentTransform, out) {
+    arrayExtension.vec3_convertPositionToLocal = function vec3_convertPositionToLocal(parentTransform, out) {
         return this.vec3_convertPositionToLocalMatrix(parentTransform, out);
     };
 
-    Array.prototype.vec3_convertPositionToWorldMatrix = function vec3_convertPositionToWorldMatrix(parentTransform, out = vec3_create()) {
+    arrayExtension.vec3_convertPositionToWorldMatrix = function vec3_convertPositionToWorldMatrix(parentTransform, out = vec3_create()) {
         glMatrix.vec3.transformMat4(out, this, parentTransform);
         return out;
     };
 
-    Array.prototype.vec3_convertPositionToLocalMatrix = function () {
+    arrayExtension.vec3_convertPositionToLocalMatrix = function () {
         let inverse = mat4_create();
         return function vec3_convertPositionToLocalMatrix(parentTransform, out = vec3_create()) {
             glMatrix.mat4.invert(inverse, parentTransform);
@@ -1278,7 +1267,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_convertPositionToWorldQuat = function () {
+    arrayExtension.vec3_convertPositionToWorldQuat = function () {
         let parentTransformMatrix = mat4_create();
         let position = vec3_create();
         let rotation = quat_create();
@@ -1292,7 +1281,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_convertPositionToLocalQuat = function () {
+    arrayExtension.vec3_convertPositionToLocalQuat = function () {
         let parentTransformMatrix = mat4_create();
         let position = vec3_create();
         let rotation = quat_create();
@@ -1306,15 +1295,15 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_convertDirectionToWorld = function vec3_convertDirectionToWorld(parentTransform, out) {
+    arrayExtension.vec3_convertDirectionToWorld = function vec3_convertDirectionToWorld(parentTransform, out) {
         return this.vec3_convertDirectionToWorldMatrix(parentTransform, out);
     };
 
-    Array.prototype.vec3_convertDirectionToLocal = function vec3_convertDirectionToLocal(parentTransform, out) {
+    arrayExtension.vec3_convertDirectionToLocal = function vec3_convertDirectionToLocal(parentTransform, out) {
         return this.vec3_convertDirectionToLocalMatrix(parentTransform, out);
     };
 
-    Array.prototype.vec3_convertDirectionToWorldMatrix = function () {
+    arrayExtension.vec3_convertDirectionToWorldMatrix = function () {
         let rotation = quat_create();
         return function vec3_convertDirectionToWorldMatrix(parentTransform, out = vec3_create()) {
             parentTransform.mat4_getRotationQuat(rotation);
@@ -1323,7 +1312,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_convertDirectionToLocalMatrix = function () {
+    arrayExtension.vec3_convertDirectionToLocalMatrix = function () {
         let rotation = quat_create();
         return function vec3_convertDirectionToLocalMatrix(parentTransform, out = vec3_create()) {
             parentTransform.mat4_getRotationQuat(rotation);
@@ -1334,7 +1323,7 @@ export function initArrayExtensionProtoype() {
     }();
 
 
-    Array.prototype.vec3_convertDirectionToWorldQuat = function () {
+    arrayExtension.vec3_convertDirectionToWorldQuat = function () {
         let rotation = quat_create();
         return function vec3_convertDirectionToWorldQuat(parentTransform, out = vec3_create()) {
             parentTransform.quat2_getRotationQuat(rotation);
@@ -1343,7 +1332,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_convertDirectionToLocalQuat = function () {
+    arrayExtension.vec3_convertDirectionToLocalQuat = function () {
         let rotation = quat_create();
         return function vec3_convertDirectionToLocalQuat(parentTransform, out = vec3_create()) {
             parentTransform.quat2_getRotationQuat(rotation);
@@ -1353,39 +1342,39 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_log = function vec3_log(decimalPlaces = 4) {
+    arrayExtension.vec3_log = function vec3_log(decimalPlaces = 4) {
         this.vec_log(decimalPlaces);
     };
 
-    Array.prototype.vec3_error = function vec3_error(decimalPlaces = 4) {
+    arrayExtension.vec3_error = function vec3_error(decimalPlaces = 4) {
         this.vec_error(decimalPlaces);
     };
 
-    Array.prototype.vec3_warn = function vec3_warn(decimalPlaces = 4) {
+    arrayExtension.vec3_warn = function vec3_warn(decimalPlaces = 4) {
         this.vec_warn(decimalPlaces);
     };
 
-    Array.prototype.vec3_addRotation = function vec3_addRotation(rotation, out) {
+    arrayExtension.vec3_addRotation = function vec3_addRotation(rotation, out) {
         return this.vec3_degreesAddRotation(rotation, out);
     };
 
-    Array.prototype.vec3_addRotationDegrees = function vec3_addRotationDegrees(rotation, out) {
+    arrayExtension.vec3_addRotationDegrees = function vec3_addRotationDegrees(rotation, out) {
         return quat.vec3_degreesAddRotationDegrees(rotation, out);
     };
 
-    Array.prototype.vec3_addRotationRadians = function vec3_addRotationRadians(rotation, out) {
+    arrayExtension.vec3_addRotationRadians = function vec3_addRotationRadians(rotation, out) {
         return quat.vec3_degreesAddRotationRadians(rotation, out);
     };
 
-    Array.prototype.vec3_addRotationQuat = function vec3_addRotationQuat(rotation, out) {
+    arrayExtension.vec3_addRotationQuat = function vec3_addRotationQuat(rotation, out) {
         return quat.vec3_degreesAddRotationQuat(rotation, out);
     };
 
-    Array.prototype.vec3_degreesAddRotation = function vec3_degreesAddRotation(rotation, out) {
+    arrayExtension.vec3_degreesAddRotation = function vec3_degreesAddRotation(rotation, out) {
         return this.vec3_degreesAddRotationDegrees(rotation, out);
     };
 
-    Array.prototype.vec3_degreesAddRotationDegrees = function () {
+    arrayExtension.vec3_degreesAddRotationDegrees = function () {
         let quat = quat_create();
         return function vec3_degreesAddRotationDegrees(rotation, out = vec3_create()) {
             this.vec3_degreesToQuat(quat);
@@ -1393,7 +1382,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_degreesAddRotationRadians = function () {
+    arrayExtension.vec3_degreesAddRotationRadians = function () {
         let quat = quat_create();
         return function vec3_degreesAddRotationRadians(rotation, out = vec3_create()) {
             this.vec3_degreesToQuat(quat);
@@ -1401,7 +1390,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_degreesAddRotationQuat = function () {
+    arrayExtension.vec3_degreesAddRotationQuat = function () {
         let quat = quat_create();
         return function vec3_degreesAddRotationQuat(rotation, out = vec3_create()) {
             this.vec3_degreesToQuat(quat);
@@ -1409,11 +1398,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_radiansAddRotation = function vec3_radiansAddRotation(rotation, out) {
+    arrayExtension.vec3_radiansAddRotation = function vec3_radiansAddRotation(rotation, out) {
         return this.vec3_radiansAddRotationDegrees(rotation, out);
     };
 
-    Array.prototype.vec3_radiansAddRotationDegrees = function () {
+    arrayExtension.vec3_radiansAddRotationDegrees = function () {
         let quat = quat_create();
         return function vec3_radiansAddRotationDegrees(rotation, out = vec3_create()) {
             this.vec3_radiansToQuat(quat);
@@ -1421,7 +1410,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_radiansAddRotationRadians = function () {
+    arrayExtension.vec3_radiansAddRotationRadians = function () {
         let quat = quat_create();
         return function vec3_radiansAddRotationRadians(rotation, out = vec3_create()) {
             this.vec3_radiansToQuat(quat);
@@ -1429,7 +1418,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_radiansAddRotationQuat = function () {
+    arrayExtension.vec3_radiansAddRotationQuat = function () {
         let quat = quat_create();
         return function vec3_radiansAddRotationQuat(rotation, out = vec3_create()) {
             this.vec3_radiansToQuat(quat);
@@ -1437,11 +1426,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_toMatrix = function vec3_toMatrix(out = mat3_create()) {
+    arrayExtension.vec3_toMatrix = function vec3_toMatrix(out = mat3_create()) {
         return this.vec3_degreesToMatrix(out);
     };
 
-    Array.prototype.vec3_degreesToMatrix = function () {
+    arrayExtension.vec3_degreesToMatrix = function () {
         let quat = quat_create();
         return function vec3_degreesToMatrix(out = mat3_create()) {
             this.vec3_degreesToQuat(quat);
@@ -1449,7 +1438,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_radiansToMatrix = function () {
+    arrayExtension.vec3_radiansToMatrix = function () {
         let quat = quat_create();
         return function vec3_radiansToMatrix(out = mat3_create()) {
             this.vec3_radiansToQuat(quat);
@@ -1457,11 +1446,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_rotationTo = function vec3_rotationTo(direction, out) {
+    arrayExtension.vec3_rotationTo = function vec3_rotationTo(direction, out) {
         return this.vec3_rotationToDegrees(direction, out);
     };
 
-    Array.prototype.vec3_rotationToDegrees = function () {
+    arrayExtension.vec3_rotationToDegrees = function () {
         let rotationQuat = quat_create();
         return function vec3_rotationToDegrees(direction, out = vec3_create()) {
             this.vec3_rotationToQuat(direction, rotationQuat);
@@ -1470,7 +1459,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_rotationToRadians = function () {
+    arrayExtension.vec3_rotationToRadians = function () {
         let rotationQuat = quat_create();
         return function vec3_rotationToRadians(direction, out = vec3_create()) {
             this.vec3_rotationToQuat(direction, rotationQuat);
@@ -1479,7 +1468,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_rotationToQuat = function () {
+    arrayExtension.vec3_rotationToQuat = function () {
         let rotationAxis = vec3_create();
         return function vec3_rotationToQuat(direction, out = quat_create()) {
             this.vec3_cross(direction, rotationAxis);
@@ -1490,11 +1479,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_rotationToPivoted = function vec3_rotationToPivoted(direction, pivotAxis, out) {
+    arrayExtension.vec3_rotationToPivoted = function vec3_rotationToPivoted(direction, pivotAxis, out) {
         return this.vec3_rotationToPivotedDegrees(direction, pivotAxis, out);
     };
 
-    Array.prototype.vec3_rotationToPivotedDegrees = function () {
+    arrayExtension.vec3_rotationToPivotedDegrees = function () {
         let rotationQuat = quat_create();
         return function vec3_rotationToPivotedDegrees(direction, pivotAxis, out = vec3_create()) {
             this.vec3_rotationToPivotedQuat(direction, pivotAxis, rotationQuat);
@@ -1503,7 +1492,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_rotationToPivotedRadians = function () {
+    arrayExtension.vec3_rotationToPivotedRadians = function () {
         let rotationQuat = quat_create();
         return function vec3_rotationToPivotedRadians(direction, pivotAxis, out = vec3_create()) {
             this.vec3_rotationToPivotedQuat(direction, pivotAxis, rotationQuat);
@@ -1512,7 +1501,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_rotationToPivotedQuat = function () {
+    arrayExtension.vec3_rotationToPivotedQuat = function () {
         let thisFlat = vec3_create();
         let directionFlat = vec3_create();
         let rotationAxis = vec3_create();
@@ -1528,7 +1517,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.vec3_lerp = function vec3_lerp(to, interpolationValue, out = vec3_create()) {
+    arrayExtension.vec3_lerp = function vec3_lerp(to, interpolationValue, out = vec3_create()) {
         if (interpolationValue <= 0) {
             out.vec3_copy(this);
             return out;
@@ -1541,7 +1530,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.vec3_interpolate = function vec3_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = vec3_create()) {
+    arrayExtension.vec3_interpolate = function vec3_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = vec3_create()) {
         let lerpValue = easingFunction(interpolationValue);
         return this.vec3_lerp(to, lerpValue, out);
     };
@@ -1550,12 +1539,12 @@ export function initArrayExtensionProtoype() {
 
     // glMatrix Bridge
 
-    Array.prototype.vec4_copy = function vec4_copy(vector) {
+    arrayExtension.vec4_copy = function vec4_copy(vector) {
         glMatrix.vec4.copy(this, vector);
         return this;
     };
 
-    Array.prototype.vec4_clone = function vec4_clone(out = vec4_create()) {
+    arrayExtension.vec4_clone = function vec4_clone(out = vec4_create()) {
         glMatrix.vec4.copy(out, this);
         return out;
     };
@@ -1564,50 +1553,50 @@ export function initArrayExtensionProtoype() {
 
     // glMatrix Bridge
 
-    Array.prototype.quat_normalize = function quat_normalize(out = quat_create()) {
+    arrayExtension.quat_normalize = function quat_normalize(out = quat_create()) {
         glMatrix.quat.normalize(out, this);
         return out;
     };
 
-    Array.prototype.quat_copy = function quat_copy(quat) {
+    arrayExtension.quat_copy = function quat_copy(quat) {
         glMatrix.quat.copy(this, quat);
         return this;
     };
 
-    Array.prototype.quat_clone = function quat_clone(out = quat_create()) {
+    arrayExtension.quat_clone = function quat_clone(out = quat_create()) {
         glMatrix.quat.copy(out, this);
         return out;
     };
 
-    Array.prototype.quat_identity = function quat_identity() {
+    arrayExtension.quat_identity = function quat_identity() {
         glMatrix.quat.identity(this);
         return this;
     };
 
-    Array.prototype.quat_length = function quat_length() {
+    arrayExtension.quat_length = function quat_length() {
         return glMatrix.quat.length(this);
     };
 
-    Array.prototype.quat_lengthSquared = function quat_lengthSquared() {
+    arrayExtension.quat_lengthSquared = function quat_lengthSquared() {
         return glMatrix.quat.squaredLength(this);
     };
 
-    Array.prototype.quat_invert = function quat_invert(out = quat_create()) {
+    arrayExtension.quat_invert = function quat_invert(out = quat_create()) {
         glMatrix.quat.invert(out, this);
         return out;
     };
 
-    Array.prototype.quat_conjugate = function quat_conjugate(out = quat_create()) {
+    arrayExtension.quat_conjugate = function quat_conjugate(out = quat_create()) {
         glMatrix.quat.conjugate(out, this);
         return out;
     };
 
-    Array.prototype.quat_mul = function quat_mul(rotation, out = quat_create()) {
+    arrayExtension.quat_mul = function quat_mul(rotation, out = quat_create()) {
         glMatrix.quat.mul(out, this, rotation);
         return out;
     };
 
-    Array.prototype.quat_getAxis = function () {
+    arrayExtension.quat_getAxis = function () {
         let zero = vec3_create(0, 0, 0);
         return function quat_getAxis(out = vec3_create()) {
             let angle = glMatrix.quat.getAxisAngle(out, this);
@@ -1618,17 +1607,17 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_getAngle = function quat_getAngle() {
+    arrayExtension.quat_getAngle = function quat_getAngle() {
         return this.quat_getAngleDegrees();
     };
 
 
-    Array.prototype.quat_getAngleDegrees = function quat_getAngleDegrees() {
+    arrayExtension.quat_getAngleDegrees = function quat_getAngleDegrees() {
         let angle = this.quat_getAngleRadians();
         return angle * (180 / Math.PI);
     };
 
-    Array.prototype.quat_getAngleRadians = function () {
+    arrayExtension.quat_getAngleRadians = function () {
         let vector = vec3_create();
         return function quat_getAngleRadians() {
             let angle = glMatrix.quat.getAxisAngle(vector, this);
@@ -1636,18 +1625,18 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_getAxisScaled = function quat_getAxisScaled(out = vec3_create()) {
+    arrayExtension.quat_getAxisScaled = function quat_getAxisScaled(out = vec3_create()) {
         return this.quat_getAxisScaledDegrees(out);
     };
 
-    Array.prototype.quat_getAxisScaledDegrees = function quat_getAxisScaledDegrees(out = vec3_create()) {
+    arrayExtension.quat_getAxisScaledDegrees = function quat_getAxisScaledDegrees(out = vec3_create()) {
         this.quat_getAxis(out);
         let angle = this.quat_getAngleDegrees();
         out.vec3_scale(angle, out);
         return out;
     };
 
-    Array.prototype.quat_getAxisScaledRadians = function () {
+    arrayExtension.quat_getAxisScaledRadians = function () {
         let zero = vec3_create(0, 0, 0);
         return function quat_getAxisScaledRadians(out = vec3_create()) {
             this.quat_getAxis(out);
@@ -1661,7 +1650,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_getAxes = function quat_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
+    arrayExtension.quat_getAxes = function quat_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
         this.quat_getLeft(out[0]);
         this.quat_getUp(out[1]);
         this.quat_getForward(out[2]);
@@ -1669,7 +1658,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.quat_getForward = function () {
+    arrayExtension.quat_getForward = function () {
         let rotationMatrix = mat3_create();
         return function quat_getForward(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
@@ -1681,13 +1670,13 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_getBackward = function quat_getBackward(out) {
+    arrayExtension.quat_getBackward = function quat_getBackward(out) {
         out = this.quat_getForward(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.quat_getLeft = function () {
+    arrayExtension.quat_getLeft = function () {
         let rotationMatrix = mat3_create();
         return function quat_getLeft(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
@@ -1699,13 +1688,13 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_getRight = function quat_getRight(out) {
+    arrayExtension.quat_getRight = function quat_getRight(out) {
         out = this.quat_getLeft(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.quat_getUp = function () {
+    arrayExtension.quat_getUp = function () {
         let rotationMatrix = mat3_create();
         return function quat_getUp(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
@@ -1717,13 +1706,13 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_getDown = function quat_getDown(out) {
+    arrayExtension.quat_getDown = function quat_getDown(out) {
         out = this.quat_getUp(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.quat_setAxes = function quat_setAxes(left, up, forward) {
+    arrayExtension.quat_setAxes = function quat_setAxes(left, up, forward) {
         if (forward != null) {
             return this.quat_setForward(forward, up, left);
         } else if (up != null) {
@@ -1733,11 +1722,11 @@ export function initArrayExtensionProtoype() {
         }
     };
 
-    Array.prototype.quat_setForward = function quat_setForward(forward, up = null, left = null) {
+    arrayExtension.quat_setForward = function quat_setForward(forward, up = null, left = null) {
         return this._quat_setAxes([left, up, forward], [2, 1, 0]);
     };
 
-    Array.prototype.quat_setBackward = function () {
+    arrayExtension.quat_setBackward = function () {
         let forward = vec3_create();
         return function quat_setBackward(backward, up = null, left = null) {
             backward.vec3_negate(forward);
@@ -1745,11 +1734,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_setUp = function quat_setUp(up, forward = null, left = null) {
+    arrayExtension.quat_setUp = function quat_setUp(up, forward = null, left = null) {
         return this._quat_setAxes([left, up, forward], [1, 2, 0]);
     };
 
-    Array.prototype.quat_setDown = function () {
+    arrayExtension.quat_setDown = function () {
         let up = vec3_create();
         return function quat_setDown(down, forward = null, left = null) {
             down.vec3_negate(up);
@@ -1757,11 +1746,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_setLeft = function quat_setLeft(left, up = null, forward = null) {
+    arrayExtension.quat_setLeft = function quat_setLeft(left, up = null, forward = null) {
         return this._quat_setAxes([left, up, forward], [0, 1, 2]);
     };
 
-    Array.prototype.quat_setRight = function () {
+    arrayExtension.quat_setRight = function () {
         let left = vec3_create();
         return function quat_setRight(right, up = null, forward = null) {
             right.vec3_negate(left);
@@ -1769,12 +1758,12 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_toWorld = function quat_toWorld(parentQuat, out = quat_create()) {
+    arrayExtension.quat_toWorld = function quat_toWorld(parentQuat, out = quat_create()) {
         glMatrix.quat.mul(out, parentQuat, this);
         return out;
     };
 
-    Array.prototype.quat_toLocal = function () {
+    arrayExtension.quat_toLocal = function () {
         let invertQuat = quat_create();
         return function quat_toLocal(parentQuat, out = quat_create()) {
             glMatrix.quat.conjugate(invertQuat, parentQuat);
@@ -1783,21 +1772,21 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_fromAxis = function quat_fromAxis(angle, axis) {
+    arrayExtension.quat_fromAxis = function quat_fromAxis(angle, axis) {
         return this.quat_fromAxisDegrees(angle, axis);
     };
 
-    Array.prototype.quat_fromAxisDegrees = function quat_fromAxisDegrees(angle, axis) {
+    arrayExtension.quat_fromAxisDegrees = function quat_fromAxisDegrees(angle, axis) {
         glMatrix.quat.setAxisAngle(this, axis, glMatrix.glMatrix.toRadian(angle));
         return this;
     };
 
-    Array.prototype.quat_fromAxisRadians = function quat_fromAxisRadians(angle, axis) {
+    arrayExtension.quat_fromAxisRadians = function quat_fromAxisRadians(angle, axis) {
         glMatrix.quat.setAxisAngle(this, axis, angle);
         return this;
     };
 
-    Array.prototype.quat_fromAxes = function () {
+    arrayExtension.quat_fromAxes = function () {
         let mat3 = mat3_create();
         return function quat_fromAxes(leftAxis, upAxis, forwardAxis) {
             mat3.mat3_fromAxes(leftAxis, upAxis, forwardAxis);
@@ -1807,7 +1796,7 @@ export function initArrayExtensionProtoype() {
 
     // New Functions
 
-    Array.prototype.quat_fromRadians = function () {
+    arrayExtension.quat_fromRadians = function () {
         let vector = vec3_create();
         return function quat_fromRadians(radiansRotation) {
             radiansRotation.vec3_toDegrees(vector);
@@ -1815,12 +1804,12 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_fromDegrees = function quat_fromDegrees(degreesRotation) {
+    arrayExtension.quat_fromDegrees = function quat_fromDegrees(degreesRotation) {
         glMatrix.quat.fromEuler(this, degreesRotation[0], degreesRotation[1], degreesRotation[2]);
         return this;
     };
 
-    Array.prototype.quat_toRadians = function () {
+    arrayExtension.quat_toRadians = function () {
         let mat3 = mat3_create();
         return function quat_toRadians(out = vec3_create()) {
             glMatrix.mat3.fromQuat(mat3, this);
@@ -1840,21 +1829,21 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_toDegrees = function quat_toDegrees(out = vec3_create()) {
+    arrayExtension.quat_toDegrees = function quat_toDegrees(out = vec3_create()) {
         this.quat_toRadians(out);
         out.vec3_toDegrees(out);
         return out;
     };
 
-    Array.prototype.quat_isNormalized = function quat_isNormalized(epsilon = this._pp_normalizedEpsilon) {
+    arrayExtension.quat_isNormalized = function quat_isNormalized(epsilon = this._pp_normalizedEpsilon) {
         return Math.abs(this.quat_lengthSquared() - 1) < epsilon;
     };
 
-    Array.prototype.quat_addRotation = function quat_addRotation(rotation, out) {
+    arrayExtension.quat_addRotation = function quat_addRotation(rotation, out) {
         return this.quat_addRotationDegrees(rotation, out);
     };
 
-    Array.prototype.quat_addRotationDegrees = function () {
+    arrayExtension.quat_addRotationDegrees = function () {
         let quat = quat_create();
         return function quat_addRotationDegrees(rotation, out) {
             rotation.vec3_degreesToQuat(quat);
@@ -1862,7 +1851,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_addRotationRadians = function () {
+    arrayExtension.quat_addRotationRadians = function () {
         let quat = quat_create();
         return function quat_addRotationRadians(rotation, out) {
             rotation.vec3_radiansToQuat(quat);
@@ -1870,16 +1859,16 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_addRotationQuat = function quat_addRotationQuat(rotation, out = quat_create()) {
+    arrayExtension.quat_addRotationQuat = function quat_addRotationQuat(rotation, out = quat_create()) {
         rotation.quat_mul(this, out);
         return out;
     };
 
-    Array.prototype.quat_subRotation = function quat_subRotation(rotation, out) {
+    arrayExtension.quat_subRotation = function quat_subRotation(rotation, out) {
         return this.quat_subRotationDegrees(rotation, out);
     };
 
-    Array.prototype.quat_subRotationDegrees = function () {
+    arrayExtension.quat_subRotationDegrees = function () {
         let quat = quat_create();
         return function quat_subRotationDegrees(rotation, out) {
             rotation.vec3_degreesToQuat(quat);
@@ -1887,7 +1876,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_subRotationRadians = function () {
+    arrayExtension.quat_subRotationRadians = function () {
         let quat = quat_create();
         return function quat_subRotationRadians(rotation, out) {
             rotation.vec3_radiansToQuat(quat);
@@ -1895,7 +1884,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_subRotationQuat = function () {
+    arrayExtension.quat_subRotationQuat = function () {
         let inverse = quat_create();
         return function quat_subRotationQuat(rotation, out = quat_create()) {
             rotation.quat_invert(inverse);
@@ -1912,11 +1901,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_rotationTo = function quat_rotationTo(rotation, out) {
+    arrayExtension.quat_rotationTo = function quat_rotationTo(rotation, out) {
         return this.quat_rotationToDegrees(rotation, out);
     };
 
-    Array.prototype.quat_rotationToDegrees = function () {
+    arrayExtension.quat_rotationToDegrees = function () {
         let rotationQuat = quat_create();
         return function quat_rotationToDegrees(rotation, out) {
             rotation.vec3_degreesToQuat(rotationQuat);
@@ -1924,7 +1913,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_rotationToRadians = function () {
+    arrayExtension.quat_rotationToRadians = function () {
         let rotationQuat = quat_create();
         return function quat_rotationToRadians(rotation, out) {
             rotation.vec3_radiansToQuat(rotationQuat);
@@ -1932,11 +1921,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_rotationToQuat = function quat_rotationToQuat(rotation, out) {
+    arrayExtension.quat_rotationToQuat = function quat_rotationToQuat(rotation, out) {
         return rotation.quat_subRotationQuat(this, out);
     };
 
-    Array.prototype.quat_getTwist = function () {
+    arrayExtension.quat_getTwist = function () {
         let rotationAxis = vec3_create();
         let projection = vec3_create();
         let rotationAlongAxis = quat_create();
@@ -1963,7 +1952,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_getSwing = function () {
+    arrayExtension.quat_getSwing = function () {
         let twist = quat_create();
         return function quat_getSwing(axis, out = quat_create()) {
             this.quat_getTwist(axis, twist);
@@ -1972,11 +1961,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_getSwingFromTwist = function quat_getSwingFromTwist(twist, out = quat_create()) {
+    arrayExtension.quat_getSwingFromTwist = function quat_getSwingFromTwist(twist, out = quat_create()) {
         return this.quat_subRotationQuat(twist, out);
     };
 
-    Array.prototype.quat_getTwistFromSwing = function () {
+    arrayExtension.quat_getTwistFromSwing = function () {
         let inverse = quat_create();
         return function quat_getTwistFromSwing(swing, out = quat_create()) {
             swing.quat_invert(inverse);
@@ -1985,36 +1974,36 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_fromTwistSwing = function quat_fromTwistSwing(twist, swing) {
+    arrayExtension.quat_fromTwistSwing = function quat_fromTwistSwing(twist, swing) {
         return twist.quat_addRotationQuat(swing, this);
     };
 
-    Array.prototype.quat_toMatrix = function quat_toMatrix(out = mat3_create()) {
+    arrayExtension.quat_toMatrix = function quat_toMatrix(out = mat3_create()) {
         glMatrix.mat3.fromQuat(out, this);
         return out;
     };
 
-    Array.prototype.quat_rotate = function quat_rotate(rotation, out) {
+    arrayExtension.quat_rotate = function quat_rotate(rotation, out) {
         return this.quat_rotateDegrees(rotation, out);
     };
 
-    Array.prototype.quat_rotateDegrees = function quat_rotateDegrees(rotation, out) {
+    arrayExtension.quat_rotateDegrees = function quat_rotateDegrees(rotation, out) {
         return this.quat_addRotationDegrees(rotation, out);
     };
 
-    Array.prototype.quat_rotateRadians = function quat_rotateRadians(rotation, out) {
+    arrayExtension.quat_rotateRadians = function quat_rotateRadians(rotation, out) {
         return this.quat_addRotationRadians(rotation, out);
     };
 
-    Array.prototype.quat_rotateQuat = function quat_rotateQuat(rotation, out) {
+    arrayExtension.quat_rotateQuat = function quat_rotateQuat(rotation, out) {
         return this.quat_addRotationQuat(rotation, out);
     };
 
-    Array.prototype.quat_rotateAxis = function quat_rotateAxis(angle, axis, out) {
+    arrayExtension.quat_rotateAxis = function quat_rotateAxis(angle, axis, out) {
         return this.quat_rotateAxisDegrees(angle, axis, out);
     };
 
-    Array.prototype.quat_rotateAxisDegrees = function () {
+    arrayExtension.quat_rotateAxisDegrees = function () {
         let rotationQuat = quat_create();
         return function quat_rotateAxisDegrees(angle, axis, out) {
             rotationQuat.quat_fromAxisDegrees(angle, axis);
@@ -2022,7 +2011,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_rotateAxisRadians = function () {
+    arrayExtension.quat_rotateAxisRadians = function () {
         let rotationQuat = quat_create();
         return function quat_rotateAxisRadians(angle, axis, out) {
             rotationQuat.quat_fromAxisRadians(angle, axis);
@@ -2030,7 +2019,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat_lerp = function quat_lerp(to, interpolationValue, out = quat_create()) {
+    arrayExtension.quat_lerp = function quat_lerp(to, interpolationValue, out = quat_create()) {
         if (interpolationValue <= 0) {
             out.quat_copy(this);
             return out;
@@ -2043,12 +2032,12 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.quat_interpolate = function quat_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat_create()) {
+    arrayExtension.quat_interpolate = function quat_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat_create()) {
         let lerpValue = easingFunction(interpolationValue);
         return this.quat_lerp(to, lerpValue, out);
     };
 
-    Array.prototype.quat_slerp = function quat_slerp(to, interpolationValue, out = quat_create()) {
+    arrayExtension.quat_slerp = function quat_slerp(to, interpolationValue, out = quat_create()) {
         if (interpolationValue <= 0) {
             out.quat_copy(this);
             return out;
@@ -2061,7 +2050,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.quat_sinterpolate = function quat_sinterpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat_create()) {
+    arrayExtension.quat_sinterpolate = function quat_sinterpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat_create()) {
         let lerpValue = easingFunction(interpolationValue);
         return this.quat_slerp(to, lerpValue, out);
     };
@@ -2070,40 +2059,40 @@ export function initArrayExtensionProtoype() {
 
     // glMatrix Bridge
 
-    Array.prototype.quat2_normalize = function quat2_normalize(out = quat2_create()) {
+    arrayExtension.quat2_normalize = function quat2_normalize(out = quat2_create()) {
         glMatrix.quat2.normalize(out, this);
         return out;
     };
 
-    Array.prototype.quat2_invert = function quat2_invert(out = quat2_create()) {
+    arrayExtension.quat2_invert = function quat2_invert(out = quat2_create()) {
         glMatrix.quat2.invert(out, this);
         return out;
     };
 
-    Array.prototype.quat2_conjugate = function quat2_conjugate(out = quat2_create()) {
+    arrayExtension.quat2_conjugate = function quat2_conjugate(out = quat2_create()) {
         glMatrix.quat2.conjugate(out, this);
         return out;
     };
 
-    Array.prototype.quat2_copy = function quat2_copy(quat2) {
+    arrayExtension.quat2_copy = function quat2_copy(quat2) {
         glMatrix.quat2.copy(this, quat2);
         return this;
     };
 
-    Array.prototype.quat2_identity = function quat2_identity() {
+    arrayExtension.quat2_identity = function quat2_identity() {
         glMatrix.quat2.identity(this);
         return this;
     };
 
-    Array.prototype.quat2_getPosition = function quat2_getPosition(out = vec3_create()) {
+    arrayExtension.quat2_getPosition = function quat2_getPosition(out = vec3_create()) {
         glMatrix.quat2.getTranslation(out, this);
         return out;
     };
 
-    Array.prototype.quat2_getRotation = function quat2_getRotation(out) {
+    arrayExtension.quat2_getRotation = function quat2_getRotation(out) {
         return this.quat2_getRotationDegrees(out);
     };
-    Array.prototype.quat2_getRotationDegrees = function () {
+    arrayExtension.quat2_getRotationDegrees = function () {
         let rotationQuat = quat_create();
         return function quat2_getRotationDegrees(out = vec3_create()) {
             this.quat2_getRotationQuat(rotationQuat).quat_toDegrees(out);
@@ -2111,7 +2100,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_getRotationRadians = function () {
+    arrayExtension.quat2_getRotationRadians = function () {
         let rotationQuat = quat_create();
         return function quat2_getRotationRadians(out = vec3_create()) {
             this.quat2_getRotationQuat(rotationQuat).quat_toRadians(out);
@@ -2119,12 +2108,12 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_getRotationQuat = function quat2_getRotationQuat(out = quat_create()) {
+    arrayExtension.quat2_getRotationQuat = function quat2_getRotationQuat(out = quat_create()) {
         glMatrix.quat.copy(out, this);
         return out;
     };
 
-    Array.prototype.quat2_setPosition = function () {
+    arrayExtension.quat2_setPosition = function () {
         let rotationQuat = quat_create();
         return function quat2_setPosition(position) {
             this.quat2_getRotationQuat(rotationQuat);
@@ -2133,11 +2122,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_setRotation = function quat2_setRotation(rotation) {
+    arrayExtension.quat2_setRotation = function quat2_setRotation(rotation) {
         return this.quat2_setRotationDegrees(rotation);
     };
 
-    Array.prototype.quat2_setRotationDegrees = function () {
+    arrayExtension.quat2_setRotationDegrees = function () {
         let position = vec3_create();
         return function quat2_setRotationDegrees(rotation) {
             this.quat2_getPosition(position);
@@ -2146,7 +2135,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_setRotationRadians = function () {
+    arrayExtension.quat2_setRotationRadians = function () {
         let position = vec3_create();
         return function quat2_setRotationRadians(rotation) {
             this.quat2_getPosition(position);
@@ -2155,7 +2144,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_setRotationQuat = function () {
+    arrayExtension.quat2_setRotationQuat = function () {
         let position = vec3_create();
         return function quat2_setRotationQuat(rotation) {
             this.quat2_getPosition(position);
@@ -2164,11 +2153,11 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_setPositionRotation = function quat2_setPositionRotation(position, rotation) {
+    arrayExtension.quat2_setPositionRotation = function quat2_setPositionRotation(position, rotation) {
         return this.quat2_setPositionRotationDegrees(position, rotation);
     };
 
-    Array.prototype.quat2_setPositionRotationDegrees = function () {
+    arrayExtension.quat2_setPositionRotationDegrees = function () {
         let rotationQuat = quat_create();
         return function quat2_setPositionRotationDegrees(position, rotation) {
             rotation.vec3_degreesToQuat(rotationQuat);
@@ -2178,7 +2167,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_setPositionRotationRadians = function () {
+    arrayExtension.quat2_setPositionRotationRadians = function () {
         let rotationQuat = quat_create();
         return function quat2_setPositionRotationRadians(position, rotation) {
             rotation.vec3_radiansToQuat(rotationQuat);
@@ -2188,31 +2177,31 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_setPositionRotationQuat = function quat2_setPositionRotationQuat(position, rotation) {
+    arrayExtension.quat2_setPositionRotationQuat = function quat2_setPositionRotationQuat(position, rotation) {
         glMatrix.quat2.fromRotationTranslation(this, rotation, position);
         return this;
     };
 
     // New Functions
 
-    Array.prototype.quat2_isNormalized = function quat2_isNormalized(epsilon = this._pp_normalizedEpsilon) {
+    arrayExtension.quat2_isNormalized = function quat2_isNormalized(epsilon = this._pp_normalizedEpsilon) {
         return Math.abs(this.quat2_lengthSquared() - 1) < epsilon;
     };
 
-    Array.prototype.quat2_length = function quat2_length() {
+    arrayExtension.quat2_length = function quat2_length() {
         return glMatrix.quat2.length(this);
     };
 
-    Array.prototype.quat2_lengthSquared = function quat2_lengthSquared() {
+    arrayExtension.quat2_lengthSquared = function quat2_lengthSquared() {
         return glMatrix.quat2.squaredLength(this);
     };
 
-    Array.prototype.quat2_mul = function quat2_mul(quat2, out = quat2_create()) {
+    arrayExtension.quat2_mul = function quat2_mul(quat2, out = quat2_create()) {
         glMatrix.quat2.mul(out, this, quat2);
         return out;
     };
 
-    Array.prototype.quat2_getAxes = function quat2_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
+    arrayExtension.quat2_getAxes = function quat2_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
         this.quat2_getLeft(out[0]);
         this.quat2_getUp(out[1]);
         this.quat2_getForward(out[2]);
@@ -2220,7 +2209,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.quat2_getForward = function () {
+    arrayExtension.quat2_getForward = function () {
         let rotationMatrix = mat3_create();
         return function quat2_getForward(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
@@ -2232,13 +2221,13 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_getBackward = function quat2_getBackward(out) {
+    arrayExtension.quat2_getBackward = function quat2_getBackward(out) {
         out = this.quat2_getForward(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.quat2_getLeft = function () {
+    arrayExtension.quat2_getLeft = function () {
         let rotationMatrix = mat3_create();
         return function quat2_getLeft(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
@@ -2250,13 +2239,13 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_getRight = function quat2_getRight(out) {
+    arrayExtension.quat2_getRight = function quat2_getRight(out) {
         out = this.quat2_getLeft(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.quat2_getUp = function () {
+    arrayExtension.quat2_getUp = function () {
         let rotationMatrix = mat3_create();
         return function quat2_getUp(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
@@ -2268,18 +2257,18 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_getDown = function quat2_getDown(out) {
+    arrayExtension.quat2_getDown = function quat2_getDown(out) {
         out = this.quat2_getUp(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.quat2_toWorld = function quat2_toWorld(parentTransformQuat, out = quat2_create()) {
+    arrayExtension.quat2_toWorld = function quat2_toWorld(parentTransformQuat, out = quat2_create()) {
         glMatrix.quat2.mul(out, parentTransformQuat, this);
         return out;
     };
 
-    Array.prototype.quat2_toLocal = function () {
+    arrayExtension.quat2_toLocal = function () {
         let invertQuat = quat2_create();
         return function quat2_toLocal(parentTransformQuat, out = quat2_create()) {
             glMatrix.quat2.conjugate(invertQuat, parentTransformQuat);
@@ -2288,15 +2277,15 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_rotateAxis = function quat2_rotateAxis(angle, axis, out) {
+    arrayExtension.quat2_rotateAxis = function quat2_rotateAxis(angle, axis, out) {
         return this.quat2_rotateAxisDegrees(angle, axis, out);
     };
 
-    Array.prototype.quat2_rotateAxisDegrees = function quat2_rotateAxisDegrees(angle, axis, out) {
+    arrayExtension.quat2_rotateAxisDegrees = function quat2_rotateAxisDegrees(angle, axis, out) {
         return this.quat2_rotateAxisRadians(glMatrix.glMatrix.toRadian(angle), axis, out);
     };
 
-    Array.prototype.quat2_rotateAxisRadians = function () {
+    arrayExtension.quat2_rotateAxisRadians = function () {
         let rotationQuat = quat_create();
         return function quat2_rotateAxisRadians(angle, axis, out) {
             this.quat2_getRotationQuat(rotationQuat);
@@ -2307,17 +2296,17 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.quat2_toMatrix = function quat2_toMatrix(out = mat4_create()) {
+    arrayExtension.quat2_toMatrix = function quat2_toMatrix(out = mat4_create()) {
         glMatrix.mat4.fromQuat2(out, this);
         return out;
     };
 
-    Array.prototype.quat2_fromMatrix = function quat2_fromMatrix(mat4) {
+    arrayExtension.quat2_fromMatrix = function quat2_fromMatrix(mat4) {
         mat4.mat4_toQuat(this);
         return this;
     };
 
-    Array.prototype.quat2_lerp = function quat2_lerp(to, interpolationValue, out = quat2_create()) {
+    arrayExtension.quat2_lerp = function quat2_lerp(to, interpolationValue, out = quat2_create()) {
         if (interpolationValue <= 0) {
             out.quat2_copy(this);
             return out;
@@ -2330,7 +2319,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.quat2_interpolate = function quat2_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat2_create()) {
+    arrayExtension.quat2_interpolate = function quat2_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat2_create()) {
         let lerpValue = easingFunction(interpolationValue);
         return this.quat2_lerp(to, lerpValue, out);
     };
@@ -2341,7 +2330,7 @@ export function initArrayExtensionProtoype() {
 
     // New Functions
 
-    Array.prototype.mat3_toDegrees = function () {
+    arrayExtension.mat3_toDegrees = function () {
         let quat = quat_create();
         return function mat3_toDegrees(out = vec3_create()) {
             this.mat3_toQuat(quat);
@@ -2350,7 +2339,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat3_toRadians = function () {
+    arrayExtension.mat3_toRadians = function () {
         let quat = quat_create();
         return function mat3_toRadians(out = vec3_create()) {
             this.mat3_toQuat(quat);
@@ -2359,12 +2348,12 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat3_toQuat = function mat3_toQuat(out = quat_create()) {
+    arrayExtension.mat3_toQuat = function mat3_toQuat(out = quat_create()) {
         glMatrix.quat.fromMat3(out, this);
         return out;
     };
 
-    Array.prototype.mat3_fromAxes = function mat3_fromAxes(leftAxis, upAxis, forwardAxis) {
+    arrayExtension.mat3_fromAxes = function mat3_fromAxes(leftAxis, upAxis, forwardAxis) {
         glMatrix.mat3.set(this,
             leftAxis[0], leftAxis[1], leftAxis[2],
             upAxis[0], upAxis[1], upAxis[2],
@@ -2376,46 +2365,46 @@ export function initArrayExtensionProtoype() {
 
     // glMatrix Bridge
 
-    Array.prototype.mat4_copy = function mat4_copy(mat4) {
+    arrayExtension.mat4_copy = function mat4_copy(mat4) {
         glMatrix.mat4.copy(this, mat4);
         return this;
     };
 
-    Array.prototype.mat4_identity = function mat4_identity() {
+    arrayExtension.mat4_identity = function mat4_identity() {
         glMatrix.mat4.identity(this);
         return this;
     };
 
-    Array.prototype.mat4_invert = function mat4_invert(out = mat4_create()) {
+    arrayExtension.mat4_invert = function mat4_invert(out = mat4_create()) {
         glMatrix.mat4.invert(out, this);
         return out;
     };
 
-    Array.prototype.mat4_mul = function mat4_mul(mat4, out = mat4_create()) {
+    arrayExtension.mat4_mul = function mat4_mul(mat4, out = mat4_create()) {
         glMatrix.mat4.mul(out, this, mat4);
         return out;
     };
 
-    Array.prototype.mat4_scale = function mat4_scale(vector, out = mat4_create()) {
+    arrayExtension.mat4_scale = function mat4_scale(vector, out = mat4_create()) {
         glMatrix.mat4.scale(out, this, vector);
         return out;
     };
 
-    Array.prototype.mat4_clone = function mat4_clone(out = mat4_create()) {
+    arrayExtension.mat4_clone = function mat4_clone(out = mat4_create()) {
         glMatrix.mat4.copy(out, this);
         return out;
     };
 
-    Array.prototype.mat4_getPosition = function mat4_getPosition(out = vec3_create()) {
+    arrayExtension.mat4_getPosition = function mat4_getPosition(out = vec3_create()) {
         glMatrix.mat4.getTranslation(out, this);
         return out;
     };
 
-    Array.prototype.mat4_getRotation = function mat4_getRotation(out = vec3_create()) {
+    arrayExtension.mat4_getRotation = function mat4_getRotation(out = vec3_create()) {
         return this.mat4_getRotationDegrees(out);
     };
 
-    Array.prototype.mat4_getRotationDegrees = function () {
+    arrayExtension.mat4_getRotationDegrees = function () {
         let quat = quat_create();
         return function mat4_getRotationDegrees(out = vec3_create()) {
             this.mat4_getRotationQuat(quat);
@@ -2424,7 +2413,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_getRotationRadians = function () {
+    arrayExtension.mat4_getRotationRadians = function () {
         let quat = quat_create();
         return function mat4_getRotationRadians(out = vec3_create()) {
             this.mat4_getRotationQuat(quat);
@@ -2433,7 +2422,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_getRotationQuat = function () {
+    arrayExtension.mat4_getRotationQuat = function () {
         let scale = vec3_create();
         let transformMatrixNoScale = mat4_create();
         let inverseScale = vec3_create();
@@ -2449,26 +2438,26 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_getScale = function mat4_getScale(out = vec3_create()) {
+    arrayExtension.mat4_getScale = function mat4_getScale(out = vec3_create()) {
         glMatrix.mat4.getScaling(out, this);
         return out;
     };
 
     // New Functions
 
-    Array.prototype.mat4_setPosition = function mat4_setPosition(position) {
+    arrayExtension.mat4_setPosition = function mat4_setPosition(position) {
         this[12] = position[0];
         this[13] = position[1];
         this[14] = position[2];
         return this;
     };
 
-    Array.prototype.mat4_setRotation = function mat4_setRotation(rotation) {
+    arrayExtension.mat4_setRotation = function mat4_setRotation(rotation) {
         this.mat4_setRotationDegrees(rotation);
         return this;
     };
 
-    Array.prototype.mat4_setRotationDegrees = function () {
+    arrayExtension.mat4_setRotationDegrees = function () {
         let quat = quat_create();
         return function mat4_setRotationDegrees(rotation) {
             this.mat4_setRotationQuat(rotation.vec3_degreesToQuat(quat));
@@ -2476,7 +2465,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_setRotationRadians = function () {
+    arrayExtension.mat4_setRotationRadians = function () {
         let vector = vec3_create();
         return function mat4_setRotationRadians(rotation) {
             this.mat4_setRotationDegrees(rotation.vec3_toDegrees(vector));
@@ -2484,7 +2473,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_setRotationQuat = function () {
+    arrayExtension.mat4_setRotationQuat = function () {
         let position = vec3_create();
         let scale = vec3_create();
         return function mat4_setRotationQuat(rotation) {
@@ -2495,7 +2484,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_setScale = function () {
+    arrayExtension.mat4_setScale = function () {
         let tempScale = vec3_create();
         return function mat4_setScale(scale) {
             glMatrix.mat4.getScaling(tempScale, this);
@@ -2505,12 +2494,12 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_setPositionRotationScale = function mat4_setPositionRotationScale(position, rotation, scale) {
+    arrayExtension.mat4_setPositionRotationScale = function mat4_setPositionRotationScale(position, rotation, scale) {
         this.mat4_setPositionRotationDegreesScale(position, rotation, scale);
         return this;
     };
 
-    Array.prototype.mat4_setPositionRotationDegreesScale = function () {
+    arrayExtension.mat4_setPositionRotationDegreesScale = function () {
         let quat = quat_create();
         return function mat4_setPositionRotationDegreesScale(position, rotation, scale) {
             this.mat4_setPositionRotationQuatScale(position, rotation.vec3_degreesToQuat(quat), scale);
@@ -2518,7 +2507,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_setPositionRotationRadiansScale = function () {
+    arrayExtension.mat4_setPositionRotationRadiansScale = function () {
         let vector = vec3_create();
         return function mat4_setPositionRotationRadiansScale(position, rotation, scale) {
             this.mat4_setPositionRotationDegreesScale(position, rotation.vec3_toDegrees(vector), scale);
@@ -2526,17 +2515,17 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_setPositionRotationQuatScale = function mat4_setPositionRotationQuatScale(position, rotation, scale) {
+    arrayExtension.mat4_setPositionRotationQuatScale = function mat4_setPositionRotationQuatScale(position, rotation, scale) {
         glMatrix.mat4.fromRotationTranslationScale(this, rotation, position, scale);
         return this;
     };
 
-    Array.prototype.mat4_setPositionRotation = function mat4_setPositionRotation(position, rotation) {
+    arrayExtension.mat4_setPositionRotation = function mat4_setPositionRotation(position, rotation) {
         this.mat4_setPositionRotationDegrees(position, rotation);
         return this;
     };
 
-    Array.prototype.mat4_setPositionRotationDegrees = function () {
+    arrayExtension.mat4_setPositionRotationDegrees = function () {
         let quat = quat_create();
         return function mat4_setPositionRotationDegrees(position, rotation) {
             this.mat4_setPositionRotationQuat(position, rotation.vec3_degreesToQuat(quat));
@@ -2544,7 +2533,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_setPositionRotationRadians = function () {
+    arrayExtension.mat4_setPositionRotationRadians = function () {
         let vector = vec3_create();
         return function mat4_setPositionRotationRadians(position, rotation) {
             this.mat4_setPositionRotationDegrees(position, rotation.vec3_toDegrees(vector));
@@ -2552,12 +2541,12 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_setPositionRotationQuat = function mat4_setPositionRotationQuat(position, rotation) {
+    arrayExtension.mat4_setPositionRotationQuat = function mat4_setPositionRotationQuat(position, rotation) {
         glMatrix.mat4.fromRotationTranslation(this, rotation, position);
         return this;
     };
 
-    Array.prototype.mat4_getAxes = function mat4_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
+    arrayExtension.mat4_getAxes = function mat4_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
         this.mat4_getLeft(out[0]);
         this.mat4_getUp(out[1]);
         this.mat4_getForward(out[2]);
@@ -2565,43 +2554,43 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype.mat4_getForward = function mat4_getForward(out = vec3_create()) {
+    arrayExtension.mat4_getForward = function mat4_getForward(out = vec3_create()) {
         glMatrix.vec3.set(out, this[8], this[9], this[10]);
         glMatrix.vec3.normalize(out, out);
         return out;
     };
 
-    Array.prototype.mat4_getBackward = function mat4_getBackward(out) {
+    arrayExtension.mat4_getBackward = function mat4_getBackward(out) {
         out = this.mat4_getForward(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.mat4_getLeft = function mat4_getLeft(out = vec3_create()) {
+    arrayExtension.mat4_getLeft = function mat4_getLeft(out = vec3_create()) {
         glMatrix.vec3.set(out, this[0], this[1], this[2]);
         glMatrix.vec3.normalize(out, out);
         return out;
     };
 
-    Array.prototype.mat4_getRight = function mat4_getRight(out) {
+    arrayExtension.mat4_getRight = function mat4_getRight(out) {
         out = this.mat4_getLeft(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.mat4_getUp = function mat4_getUp(out = vec3_create()) {
+    arrayExtension.mat4_getUp = function mat4_getUp(out = vec3_create()) {
         glMatrix.vec3.set(out, this[4], this[5], this[6]);
         glMatrix.vec3.normalize(out, out);
         return out;
     };
 
-    Array.prototype.mat4_getDown = function mat4_getDown(out) {
+    arrayExtension.mat4_getDown = function mat4_getDown(out) {
         out = this.mat4_getUp(out);
         out.vec3_negate(out);
         return out;
     };
 
-    Array.prototype.mat4_toWorld = function () {
+    arrayExtension.mat4_toWorld = function () {
         let convertTransform = mat4_create();
         let position = vec3_create();
         let scale = vec3_create();
@@ -2631,7 +2620,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_toLocal = function () {
+    arrayExtension.mat4_toLocal = function () {
         let convertTransform = mat4_create();
         let position = vec3_create();
         let scale = vec3_create();
@@ -2663,7 +2652,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_hasUniformScale = function () {
+    arrayExtension.mat4_hasUniformScale = function () {
         let scale = vec3_create();
         return function mat4_hasUniformScale() {
             glMatrix.mat4.getScaling(scale, this);
@@ -2671,7 +2660,7 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_toQuat = function () {
+    arrayExtension.mat4_toQuat = function () {
         let position = vec3_create();
         let rotation = quat_create();
         return function mat4_toQuat(out = quat2_create()) {
@@ -2682,23 +2671,23 @@ export function initArrayExtensionProtoype() {
         };
     }();
 
-    Array.prototype.mat4_fromQuat = function mat4_fromQuat(quat2) {
+    arrayExtension.mat4_fromQuat = function mat4_fromQuat(quat2) {
         quat2.quat2_toMatrix(this);
         return this;
     };
 
     //UTILS
 
-    Array.prototype._pp_epsilon = 0.000001;
-    Array.prototype._pp_epsilonSquared = Array.prototype._pp_epsilon * Array.prototype._pp_epsilon;
-    Array.prototype._pp_degreesEpsilon = 0.00001;
-    Array.prototype._pp_normalizedEpsilon = 0.000001;
+    arrayExtension._pp_epsilon = 0.000001;
+    arrayExtension._pp_epsilonSquared = arrayExtension._pp_epsilon * arrayExtension._pp_epsilon;
+    arrayExtension._pp_degreesEpsilon = 0.00001;
+    arrayExtension._pp_normalizedEpsilon = 0.000001;
 
-    Array.prototype._pp_clamp = function _pp_clamp(value, min, max) {
+    arrayExtension._pp_clamp = function _pp_clamp(value, min, max) {
         return Math.min(Math.max(value, min), max);
     };
 
-    Array.prototype._vec_buildConsoleMessage = function _vec_buildConsoleMessage(decimalPlaces) {
+    arrayExtension._vec_buildConsoleMessage = function _vec_buildConsoleMessage(decimalPlaces) {
         let message = "[";
 
         for (let i = 0; i < this.length; i++) {
@@ -2717,7 +2706,7 @@ export function initArrayExtensionProtoype() {
         return message;
     };
 
-    Array.prototype._vec_prepareOut = function _vec_prepareOut(out) {
+    arrayExtension._vec_prepareOut = function _vec_prepareOut(out) {
         if (out == null) {
             out = this.pp_clone();
         } else if (out != this) {
@@ -2727,7 +2716,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    Array.prototype._pp_findAllEqualOptimized = function _pp_findAllEqualOptimized(elementToFind, getIndexes) {
+    arrayExtension._pp_findAllEqualOptimized = function _pp_findAllEqualOptimized(elementToFind, getIndexes) {
         // adapted from: https://stackoverflow.com/a/20798567
 
         let elementsFound = [];
@@ -2739,7 +2728,7 @@ export function initArrayExtensionProtoype() {
         return elementsFound;
     };
 
-    Array.prototype._quat_setAxes = function () {
+    arrayExtension._quat_setAxes = function () {
         let fixedAxes = [vec3_create(), vec3_create(), vec3_create()];
 
         let fixedAxesFixSignMap = [
@@ -2846,5 +2835,7 @@ export function initArrayExtensionProtoype() {
 
 
 
-    Array.prototype._pp_syncPrototypesProperties();
+    for (let arrayPrototypeToExtend of arrayPrototypesToExtend) {
+        ExtensionUtils.assignProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
+    }
 }

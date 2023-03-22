@@ -7,6 +7,8 @@ require("./pp/components/pp_gateway_component");
 //require("./pp/components/get_default_resources_component");
 
 //	PLUGIN
+require("./plugin/utils/extension_utils");
+
 require("./plugin/js/extensions/array_extension");
 require("./plugin/js/extensions/math_extension");
 

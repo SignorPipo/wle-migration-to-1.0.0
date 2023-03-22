@@ -112,6 +112,7 @@
 */
 
 import { Object as WLObject } from "@wonderlandengine/api";
+import { ExtensionUtils } from "../../utils/extension_utils";
 import { vec3_create, quat_create, quat2_create, mat3_create, mat4_create } from "../../js/extensions/array_extension";
 
 export function initObjectExtension() {
@@ -248,52 +249,55 @@ export class DeepCloneParams {
 }
 
 export function initObjectExtensionProtoype() {
+
+    let objectExtension = {};
+
     //GETTER
 
     //Position
 
-    WLObject.prototype.pp_getPosition = function pp_getPosition(position) {
+    objectExtension.pp_getPosition = function pp_getPosition(position) {
         return this.pp_getPositionWorld(position);
     };
 
-    WLObject.prototype.pp_getPositionWorld = function pp_getPositionWorld(position = vec3_create()) {
+    objectExtension.pp_getPositionWorld = function pp_getPositionWorld(position = vec3_create()) {
         this.getTranslationWorld(position);
         return position;
     };
 
-    WLObject.prototype.pp_getPositionLocal = function pp_getPositionLocal(position = vec3_create()) {
+    objectExtension.pp_getPositionLocal = function pp_getPositionLocal(position = vec3_create()) {
         this.getTranslationLocal(position);
         return position;
     };
 
     //Rotation
 
-    WLObject.prototype.pp_getRotation = function pp_getRotation(rotation) {
+    objectExtension.pp_getRotation = function pp_getRotation(rotation) {
         return this.pp_getRotationWorld(rotation);
     };
-    WLObject.prototype.pp_getRotationDegrees = function pp_getRotationDegrees(rotation) {
+    objectExtension.pp_getRotationDegrees = function pp_getRotationDegrees(rotation) {
         return this.pp_getRotationWorldDegrees(rotation);
     };
 
-    WLObject.prototype.pp_getRotationRadians = function pp_getRotationRadians(rotation) {
+    objectExtension.pp_getRotationRadians = function pp_getRotationRadians(rotation) {
         return this.pp_getRotationWorldRadians(rotation);
     };
 
-    WLObject.prototype.pp_getRotationMatrix = function pp_getRotationMatrix(rotation) {
+    objectExtension.pp_getRotationMatrix = function pp_getRotationMatrix(rotation) {
         return this.pp_getRotationWorldMatrix(rotation);
     };
 
-    WLObject.prototype.pp_getRotationQuat = function pp_getRotationQuat(rotation) {
+    objectExtension.pp_getRotationQuat = function pp_getRotationQuat(rotation) {
         return this.pp_getRotationWorldQuat(rotation);
     };
 
     //Rotation World
 
-    WLObject.prototype.pp_getRotationWorld = function pp_getRotationWorld(rotation) {
+    objectExtension.pp_getRotationWorld = function pp_getRotationWorld(rotation) {
         return this.pp_getRotationWorldDegrees(rotation);
     };
 
-    WLObject.prototype.pp_getRotationWorldDegrees = function pp_getRotationWorldDegrees(rotation) {
+    objectExtension.pp_getRotationWorldDegrees = function pp_getRotationWorldDegrees(rotation) {
         rotation = this.pp_getRotationWorldRadians(rotation);
         rotation.forEach(function (value, index, array) {
             array[index] = this._pp_toDegrees(value);
@@ -301,7 +305,7 @@ export function initObjectExtensionProtoype() {
         return rotation;
     };
 
-    WLObject.prototype.pp_getRotationWorldRadians = function () {
+    objectExtension.pp_getRotationWorldRadians = function () {
         let quat = quat_create();
         return function pp_getRotationWorldRadians(rotation = vec3_create()) {
             this.pp_getRotationWorldQuat(quat);
@@ -310,7 +314,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getRotationWorldMatrix = function () {
+    objectExtension.pp_getRotationWorldMatrix = function () {
         let quat = quat_create();
         return function pp_getRotationWorldMatrix(rotation = mat3_create()) {
             this.pp_getRotationWorldQuat(quat);
@@ -319,18 +323,18 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getRotationWorldQuat = function pp_getRotationWorldQuat(rotation = quat_create()) {
+    objectExtension.pp_getRotationWorldQuat = function pp_getRotationWorldQuat(rotation = quat_create()) {
         rotation.quat_copy(this.rotationWorld);
         return rotation;
     };
 
     //Rotation Local
 
-    WLObject.prototype.pp_getRotationLocal = function pp_getRotationLocal(rotation) {
+    objectExtension.pp_getRotationLocal = function pp_getRotationLocal(rotation) {
         return this.pp_getRotationLocalDegrees(rotation);
     };
 
-    WLObject.prototype.pp_getRotationLocalDegrees = function pp_getRotationLocalDegrees(rotation) {
+    objectExtension.pp_getRotationLocalDegrees = function pp_getRotationLocalDegrees(rotation) {
         rotation = this.pp_getRotationLocalRadians(rotation);
         rotation.forEach(function (value, index, array) {
             array[index] = this._pp_toDegrees(value);
@@ -338,7 +342,7 @@ export function initObjectExtensionProtoype() {
         return rotation;
     };
 
-    WLObject.prototype.pp_getRotationLocalRadians = function () {
+    objectExtension.pp_getRotationLocalRadians = function () {
         let quat = quat_create();
         return function pp_getRotationLocalRadians(rotation = vec3_create()) {
             this.pp_getRotationLocalQuat(quat);
@@ -347,7 +351,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getRotationLocalMatrix = function () {
+    objectExtension.pp_getRotationLocalMatrix = function () {
         let quat = quat_create();
         return function pp_getRotationLocalMatrix(rotation = mat3_create()) {
             this.pp_getRotationLocalQuat(quat);
@@ -356,48 +360,48 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getRotationLocalQuat = function pp_getRotationLocalQuat(rotation = quat_create()) {
+    objectExtension.pp_getRotationLocalQuat = function pp_getRotationLocalQuat(rotation = quat_create()) {
         rotation.quat_copy(this.rotationLocal);
         return rotation;
     };
 
     //Scale
 
-    WLObject.prototype.pp_getScale = function pp_getScale(scale) {
+    objectExtension.pp_getScale = function pp_getScale(scale) {
         return this.pp_getScaleWorld(scale);
     };
 
-    WLObject.prototype.pp_getScaleWorld = function pp_getScaleWorld(scale = vec3_create()) {
+    objectExtension.pp_getScaleWorld = function pp_getScaleWorld(scale = vec3_create()) {
         scale.vec3_copy(this.scalingWorld);
         return scale;
     };
 
-    WLObject.prototype.pp_getScaleLocal = function pp_getScaleLocal(scale = vec3_create()) {
+    objectExtension.pp_getScaleLocal = function pp_getScaleLocal(scale = vec3_create()) {
         scale.vec3_copy(this.scalingLocal);
         return scale;
     };
 
     //Transform
 
-    WLObject.prototype.pp_getTransform = function pp_getTransform(transform) {
+    objectExtension.pp_getTransform = function pp_getTransform(transform) {
         return this.pp_getTransformWorld(transform);
     };
 
-    WLObject.prototype.pp_getTransformMatrix = function pp_getTransformMatrix(transform) {
+    objectExtension.pp_getTransformMatrix = function pp_getTransformMatrix(transform) {
         return this.pp_getTransformWorldMatrix(transform);
     };
 
-    WLObject.prototype.pp_getTransformQuat = function pp_getTransformQuat(transform) {
+    objectExtension.pp_getTransformQuat = function pp_getTransformQuat(transform) {
         return this.pp_getTransformWorldQuat(transform);
     };
 
     //Transform World
 
-    WLObject.prototype.pp_getTransformWorld = function pp_getTransformWorld(transform) {
+    objectExtension.pp_getTransformWorld = function pp_getTransformWorld(transform) {
         return this.pp_getTransformWorldMatrix(transform);
     };
 
-    WLObject.prototype.pp_getTransformWorldMatrix = function () {
+    objectExtension.pp_getTransformWorldMatrix = function () {
         let transformQuat = quat2_create();
         let scale = vec3_create();
         return function pp_getTransformWorldMatrix(transform = mat4_create()) {
@@ -409,18 +413,18 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getTransformWorldQuat = function pp_getTransformWorldQuat(transform = quat2_create()) {
+    objectExtension.pp_getTransformWorldQuat = function pp_getTransformWorldQuat(transform = quat2_create()) {
         transform.quat2_copy(this.transformWorld);
         return transform;
     };
 
     //Transform Local
 
-    WLObject.prototype.pp_getTransformLocal = function (transform) {
+    objectExtension.pp_getTransformLocal = function (transform) {
         return this.pp_getTransformLocalMatrix(transform);
     };
 
-    WLObject.prototype.pp_getTransformLocalMatrix = function pp_getTransformLocalMatrix() {
+    objectExtension.pp_getTransformLocalMatrix = function pp_getTransformLocalMatrix() {
         let transformQuat = quat2_create();
         let scale = vec3_create();
         return function pp_getTransformLocal(transform = mat4_create()) {
@@ -432,25 +436,25 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getTransformLocalQuat = function pp_getTransformLocalQuat(transform = quat2_create()) {
+    objectExtension.pp_getTransformLocalQuat = function pp_getTransformLocalQuat(transform = quat2_create()) {
         transform.quat2_copy(this.transformLocal);
         return transform;
     };
 
     //Axes
 
-    WLObject.prototype.pp_getAxes = function pp_getAxes(axes) {
+    objectExtension.pp_getAxes = function pp_getAxes(axes) {
         return this.pp_getAxesWorld(axes);
     };
 
-    WLObject.prototype.pp_getAxesWorld = function pp_getAxesWorld(axes = [vec3_create(), vec3_create(), vec3_create()]) {
+    objectExtension.pp_getAxesWorld = function pp_getAxesWorld(axes = [vec3_create(), vec3_create(), vec3_create()]) {
         this.pp_getLeftWorld(axes[0]);
         this.pp_getUpWorld(axes[1]);
         this.pp_getForwardWorld(axes[2]);
         return axes;
     };
 
-    WLObject.prototype.pp_getAxesLocal = function pp_getAxesLocal(axes = [vec3_create(), vec3_create(), vec3_create()]) {
+    objectExtension.pp_getAxesLocal = function pp_getAxesLocal(axes = [vec3_create(), vec3_create(), vec3_create()]) {
         this.pp_getLeftLocal(axes[0]);
         this.pp_getUpLocal(axes[1]);
         this.pp_getForwardLocal(axes[2]);
@@ -459,11 +463,11 @@ export function initObjectExtensionProtoype() {
 
     //Forward
 
-    WLObject.prototype.pp_getForward = function pp_getForward(forward) {
+    objectExtension.pp_getForward = function pp_getForward(forward) {
         return this.pp_getForwardWorld(forward);
     };
 
-    WLObject.prototype.pp_getForwardWorld = function () {
+    objectExtension.pp_getForwardWorld = function () {
         let rotation = mat3_create();
         return function pp_getForwardWorld(forward = vec3_create()) {
             this.pp_getRotationWorldMatrix(rotation);
@@ -474,7 +478,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getForwardLocal = function () {
+    objectExtension.pp_getForwardLocal = function () {
         let rotation = mat3_create();
         return function pp_getForwardLocal(forward = vec3_create()) {
             this.pp_getRotationLocalMatrix(rotation);
@@ -487,11 +491,11 @@ export function initObjectExtensionProtoype() {
 
     //Backward
 
-    WLObject.prototype.pp_getBackward = function pp_getBackward(backward) {
+    objectExtension.pp_getBackward = function pp_getBackward(backward) {
         return this.pp_getBackwardWorld(backward);
     };
 
-    WLObject.prototype.pp_getBackwardWorld = function () {
+    objectExtension.pp_getBackwardWorld = function () {
         let rotation = mat3_create();
         return function pp_getBackwardWorld(backward = vec3_create()) {
             this.pp_getRotationWorldMatrix(rotation);
@@ -502,7 +506,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getBackwardLocal = function () {
+    objectExtension.pp_getBackwardLocal = function () {
         let rotation = mat3_create();
         return function pp_getBackwardLocal(backward = vec3_create()) {
             this.pp_getRotationLocalMatrix(rotation);
@@ -515,11 +519,11 @@ export function initObjectExtensionProtoype() {
 
     //Up
 
-    WLObject.prototype.pp_getUp = function pp_getUp(up) {
+    objectExtension.pp_getUp = function pp_getUp(up) {
         return this.pp_getUpWorld(up);
     };
 
-    WLObject.prototype.pp_getUpWorld = function () {
+    objectExtension.pp_getUpWorld = function () {
         let rotation = mat3_create();
         return function pp_getUpWorld(up = vec3_create()) {
             this.pp_getRotationWorldMatrix(rotation);
@@ -530,7 +534,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getUpLocal = function () {
+    objectExtension.pp_getUpLocal = function () {
         let rotation = mat3_create();
         return function pp_getUpLocal(up = vec3_create()) {
             this.pp_getRotationLocalMatrix(rotation);
@@ -543,11 +547,11 @@ export function initObjectExtensionProtoype() {
 
     //Down
 
-    WLObject.prototype.pp_getDown = function pp_getDown(down) {
+    objectExtension.pp_getDown = function pp_getDown(down) {
         return this.pp_getDownWorld(down);
     };
 
-    WLObject.prototype.pp_getDownWorld = function () {
+    objectExtension.pp_getDownWorld = function () {
         let rotation = mat3_create();
         return function pp_getDownWorld(down = vec3_create()) {
             this.pp_getRotationWorldMatrix(rotation);
@@ -558,7 +562,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getDownLocal = function () {
+    objectExtension.pp_getDownLocal = function () {
         let rotation = mat3_create();
         return function pp_getDownLocal(down = vec3_create()) {
             this.pp_getRotationLocalMatrix(rotation);
@@ -571,11 +575,11 @@ export function initObjectExtensionProtoype() {
 
     //Left
 
-    WLObject.prototype.pp_getLeft = function pp_getLeft(left) {
+    objectExtension.pp_getLeft = function pp_getLeft(left) {
         return this.pp_getLeftWorld(left);
     };
 
-    WLObject.prototype.pp_getLeftWorld = function () {
+    objectExtension.pp_getLeftWorld = function () {
         let rotation = mat3_create();
         return function pp_getLeftWorld(left = vec3_create()) {
             this.pp_getRotationWorldMatrix(rotation);
@@ -586,7 +590,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getLeftLocal = function () {
+    objectExtension.pp_getLeftLocal = function () {
         let rotation = mat3_create();
         return function pp_getLeftLocal(left = vec3_create()) {
             this.pp_getRotationLocalMatrix(rotation);
@@ -599,11 +603,11 @@ export function initObjectExtensionProtoype() {
 
     //Right
 
-    WLObject.prototype.pp_getRight = function pp_getRight(right) {
+    objectExtension.pp_getRight = function pp_getRight(right) {
         return this.pp_getRightWorld(right);
     };
 
-    WLObject.prototype.pp_getRightWorld = function () {
+    objectExtension.pp_getRightWorld = function () {
         let rotation = mat3_create();
         return function pp_getRightWorld(right = vec3_create()) {
             this.pp_getRotationWorldMatrix(rotation);
@@ -614,7 +618,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getRightLocal = function () {
+    objectExtension.pp_getRightLocal = function () {
         let rotation = mat3_create();
         return function pp_getRightLocal(right = vec3_create()) {
             this.pp_getRotationLocalMatrix(rotation);
@@ -629,46 +633,46 @@ export function initObjectExtensionProtoype() {
 
     //Position
 
-    WLObject.prototype.pp_setPosition = function pp_setPosition(position) {
+    objectExtension.pp_setPosition = function pp_setPosition(position) {
         this.pp_setPositionWorld(position);
     };
 
-    WLObject.prototype.pp_setPositionWorld = function pp_setPositionWorld(position) {
+    objectExtension.pp_setPositionWorld = function pp_setPositionWorld(position) {
         this.setTranslationWorld(position);
     };
 
-    WLObject.prototype.pp_setPositionLocal = function pp_setPositionLocal(position) {
+    objectExtension.pp_setPositionLocal = function pp_setPositionLocal(position) {
         this.setTranslationLocal(position);
     };
 
     //Rotation
 
-    WLObject.prototype.pp_setRotation = function pp_setRotation(rotation) {
+    objectExtension.pp_setRotation = function pp_setRotation(rotation) {
         this.pp_setRotationWorld(rotation);
     };
-    WLObject.prototype.pp_setRotationDegrees = function pp_setRotationDegrees(rotation) {
+    objectExtension.pp_setRotationDegrees = function pp_setRotationDegrees(rotation) {
         this.pp_setRotationWorldDegrees(rotation);
     };
 
-    WLObject.prototype.pp_setRotationRadians = function pp_setRotationRadians(rotation) {
+    objectExtension.pp_setRotationRadians = function pp_setRotationRadians(rotation) {
         this.pp_setRotationWorldRadians(rotation);
     };
 
-    WLObject.prototype.pp_setRotationMatrix = function pp_setRotationMatrix(rotation) {
+    objectExtension.pp_setRotationMatrix = function pp_setRotationMatrix(rotation) {
         this.pp_setRotationWorldMatrix(rotation);
     };
 
-    WLObject.prototype.pp_setRotationQuat = function pp_setRotationQuat(rotation) {
+    objectExtension.pp_setRotationQuat = function pp_setRotationQuat(rotation) {
         this.pp_setRotationWorldQuat(rotation);
     };
 
     //Rotation World
 
-    WLObject.prototype.pp_setRotationWorld = function pp_setRotationWorld(rotation) {
+    objectExtension.pp_setRotationWorld = function pp_setRotationWorld(rotation) {
         this.pp_setRotationWorldDegrees(rotation);
     };
 
-    WLObject.prototype.pp_setRotationWorldDegrees = function () {
+    objectExtension.pp_setRotationWorldDegrees = function () {
         let quat = quat_create();
         return function pp_setRotationWorldDegrees(rotation) {
             this._pp_degreesToQuaternion(rotation, quat);
@@ -676,7 +680,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setRotationWorldRadians = function () {
+    objectExtension.pp_setRotationWorldRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_setRotationWorldRadians(rotation) {
             rotation.forEach(function (value, index, array) {
@@ -686,7 +690,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setRotationWorldMatrix = function () {
+    objectExtension.pp_setRotationWorldMatrix = function () {
         let quat = quat_create();
         return function pp_setRotationWorldMatrix(rotation) {
             rotation.mat3_toQuat(quat);
@@ -694,17 +698,17 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setRotationWorldQuat = function pp_setRotationWorldQuat(rotation) {
+    objectExtension.pp_setRotationWorldQuat = function pp_setRotationWorldQuat(rotation) {
         this.rotationWorld = rotation;
     };
 
     //Rotation Local
 
-    WLObject.prototype.pp_setRotationLocal = function pp_setRotationLocal(rotation) {
+    objectExtension.pp_setRotationLocal = function pp_setRotationLocal(rotation) {
         this.pp_setRotationLocalDegrees(rotation);
     };
 
-    WLObject.prototype.pp_setRotationLocalDegrees = function () {
+    objectExtension.pp_setRotationLocalDegrees = function () {
         let quat = quat_create();
         return function pp_setRotationLocalDegrees(rotation) {
             this._pp_degreesToQuaternion(rotation, quat);
@@ -712,7 +716,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setRotationLocalRadians = function () {
+    objectExtension.pp_setRotationLocalRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_setRotationLocalRadians(rotation) {
             rotation.forEach(function (value, index, array) {
@@ -722,7 +726,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setRotationLocalMatrix = function () {
+    objectExtension.pp_setRotationLocalMatrix = function () {
         let quat = quat_create();
         return function pp_setRotationLocalMatrix(rotation) {
             rotation.mat3_toQuat(quat);
@@ -730,17 +734,17 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setRotationLocalQuat = function pp_setRotationLocalQuat(rotation) {
+    objectExtension.pp_setRotationLocalQuat = function pp_setRotationLocalQuat(rotation) {
         this.rotationLocal = rotation;
     };
 
     //Scale
 
-    WLObject.prototype.pp_setScale = function pp_setScale(scale) {
+    objectExtension.pp_setScale = function pp_setScale(scale) {
         this.pp_setScaleWorld(scale);
     };
 
-    WLObject.prototype.pp_setScaleWorld = function () {
+    objectExtension.pp_setScaleWorld = function () {
         let vector = vec3_create();
         return function pp_setScaleWorld(scale) {
             if (isNaN(scale)) {
@@ -752,7 +756,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setScaleLocal = function () {
+    objectExtension.pp_setScaleLocal = function () {
         let vector = vec3_create();
         return function pp_setScaleLocal(scale) {
             if (isNaN(scale)) {
@@ -766,11 +770,11 @@ export function initObjectExtensionProtoype() {
 
     //Axes    
 
-    WLObject.prototype.pp_setAxes = function pp_setAxes(left, up, forward) {
+    objectExtension.pp_setAxes = function pp_setAxes(left, up, forward) {
         this.pp_setAxesWorld(left, up, forward);
     };
 
-    WLObject.prototype.pp_setAxesWorld = function pp_setAxesWorld(left, up, forward) {
+    objectExtension.pp_setAxesWorld = function pp_setAxesWorld(left, up, forward) {
         if (forward != null) {
             this.pp_setForwardWorld(forward, up, left);
         } else if (up != null) {
@@ -780,7 +784,7 @@ export function initObjectExtensionProtoype() {
         }
     };
 
-    WLObject.prototype.pp_setAxesLocal = function pp_setAxesLocal(left, up, forward) {
+    objectExtension.pp_setAxesLocal = function pp_setAxesLocal(left, up, forward) {
         if (forward != null) {
             this.pp_setForwardLocal(forward, up, left);
         } else if (up != null) {
@@ -792,25 +796,25 @@ export function initObjectExtensionProtoype() {
 
     //Forward
 
-    WLObject.prototype.pp_setForward = function pp_setForward(forward, up, left) {
+    objectExtension.pp_setForward = function pp_setForward(forward, up, left) {
         this.pp_setForwardWorld(forward, up, left);
     };
 
-    WLObject.prototype.pp_setForwardWorld = function pp_setForwardWorld(forward, up = null, left = null) {
+    objectExtension.pp_setForwardWorld = function pp_setForwardWorld(forward, up = null, left = null) {
         this._pp_setAxes([left, up, forward], [2, 1, 0], false);
     };
 
-    WLObject.prototype.pp_setForwardLocal = function pp_setForwardLocal(forward, up = null, left = null) {
+    objectExtension.pp_setForwardLocal = function pp_setForwardLocal(forward, up = null, left = null) {
         this._pp_setAxes([left, up, forward], [2, 1, 0], true);
     };
 
     //Backward
 
-    WLObject.prototype.pp_setBackward = function pp_setBackward(backward, up, left) {
+    objectExtension.pp_setBackward = function pp_setBackward(backward, up, left) {
         this.pp_setBackwardWorld(backward, up, left);
     };
 
-    WLObject.prototype.pp_setBackwardWorld = function () {
+    objectExtension.pp_setBackwardWorld = function () {
         let forward = vec3_create();
         return function pp_setBackwardWorld(backward, up = null, left = null) {
             backward.vec3_negate(forward);
@@ -818,7 +822,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setBackwardLocal = function () {
+    objectExtension.pp_setBackwardLocal = function () {
         let forward = vec3_create();
         return function pp_setBackwardLocal(backward, up = null, left = null) {
             backward.vec3_negate(forward);
@@ -828,25 +832,25 @@ export function initObjectExtensionProtoype() {
 
     //Up
 
-    WLObject.prototype.pp_setUp = function pp_setUp(up, forward, left) {
+    objectExtension.pp_setUp = function pp_setUp(up, forward, left) {
         this.pp_setUpWorld(up, forward, left);
     };
 
-    WLObject.prototype.pp_setUpWorld = function pp_setUpWorld(up, forward = null, left = null) {
+    objectExtension.pp_setUpWorld = function pp_setUpWorld(up, forward = null, left = null) {
         this._pp_setAxes([left, up, forward], [1, 2, 0], false);
     };
 
-    WLObject.prototype.pp_setUpLocal = function pp_setUpLocal(up, forward = null, left = null) {
+    objectExtension.pp_setUpLocal = function pp_setUpLocal(up, forward = null, left = null) {
         this._pp_setAxes([left, up, forward], [1, 2, 0], true);
     };
 
     //Down
 
-    WLObject.prototype.pp_setDown = function pp_setDown(down, forward, left) {
+    objectExtension.pp_setDown = function pp_setDown(down, forward, left) {
         this.pp_setDownWorld(down, forward, left);
     };
 
-    WLObject.prototype.pp_setDownWorld = function () {
+    objectExtension.pp_setDownWorld = function () {
         let up = vec3_create();
         return function pp_setDownWorld(down, forward = null, left = null) {
             down.vec3_negate(up);
@@ -854,7 +858,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setDownLocal = function () {
+    objectExtension.pp_setDownLocal = function () {
         let up = vec3_create();
         return function pp_setDownLocal(down, forward = null, left = null) {
             down.vec3_negate(up);
@@ -864,25 +868,25 @@ export function initObjectExtensionProtoype() {
 
     //Left
 
-    WLObject.prototype.pp_setLeft = function pp_setLeft(left, up, forward) {
+    objectExtension.pp_setLeft = function pp_setLeft(left, up, forward) {
         this.pp_setLeftWorld(left, up, forward);
     };
 
-    WLObject.prototype.pp_setLeftWorld = function pp_setLeftWorld(left, up = null, forward = null) {
+    objectExtension.pp_setLeftWorld = function pp_setLeftWorld(left, up = null, forward = null) {
         this._pp_setAxes([left, up, forward], [0, 1, 2], false);
     };
 
-    WLObject.prototype.pp_setLeftLocal = function pp_setLeftLocal(left, up = null, forward = null) {
+    objectExtension.pp_setLeftLocal = function pp_setLeftLocal(left, up = null, forward = null) {
         this._pp_setAxes([left, up, forward], [0, 1, 2], true);
     };
 
     //Right
 
-    WLObject.prototype.pp_setRight = function pp_setRight(right, up, forward) {
+    objectExtension.pp_setRight = function pp_setRight(right, up, forward) {
         this.pp_setRightWorld(right, up, forward);
     };
 
-    WLObject.prototype.pp_setRightWorld = function () {
+    objectExtension.pp_setRightWorld = function () {
         let left = vec3_create();
         return function pp_setRightWorld(right, up = null, forward = null) {
             right.vec3_negate(left);
@@ -890,7 +894,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setRightLocal = function () {
+    objectExtension.pp_setRightLocal = function () {
         let left = vec3_create();
         return function pp_setRightLocal(right, up = null, forward = null) {
             right.vec3_negate(left);
@@ -900,25 +904,25 @@ export function initObjectExtensionProtoype() {
 
     //Transform
 
-    WLObject.prototype.pp_setTransform = function pp_setTransform(transform) {
+    objectExtension.pp_setTransform = function pp_setTransform(transform) {
         this.pp_setTransformWorld(transform);
     };
 
-    WLObject.prototype.pp_setTransformMatrix = function pp_setTransformMatrix(transform) {
+    objectExtension.pp_setTransformMatrix = function pp_setTransformMatrix(transform) {
         this.pp_setTransformWorldMatrix(transform);
     };
 
-    WLObject.prototype.pp_setTransformQuat = function pp_setTransformQuat(transform) {
+    objectExtension.pp_setTransformQuat = function pp_setTransformQuat(transform) {
         this.pp_setTransformWorldQuat(transform);
     };
 
     //Transform World
 
-    WLObject.prototype.pp_setTransformWorld = function pp_setTransformWorld(transform) {
+    objectExtension.pp_setTransformWorld = function pp_setTransformWorld(transform) {
         return this.pp_setTransformWorldMatrix(transform);
     };
 
-    WLObject.prototype.pp_setTransformWorldMatrix = function () {
+    objectExtension.pp_setTransformWorldMatrix = function () {
         let position = vec3_create();
         let rotation = quat_create();
         let scale = vec3_create();
@@ -938,17 +942,17 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setTransformWorldQuat = function pp_setTransformWorldQuat(transform) {
+    objectExtension.pp_setTransformWorldQuat = function pp_setTransformWorldQuat(transform) {
         this.transformWorld = transform;
     };
 
     //Transform Local
 
-    WLObject.prototype.pp_setTransformLocal = function pp_setTransformLocal(transform) {
+    objectExtension.pp_setTransformLocal = function pp_setTransformLocal(transform) {
         return this.pp_setTransformLocalMatrix(transform);
     };
 
-    WLObject.prototype.pp_setTransformLocalMatrix = function () {
+    objectExtension.pp_setTransformLocalMatrix = function () {
         let position = vec3_create();
         let rotation = quat_create();
         let scale = vec3_create();
@@ -968,7 +972,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_setTransformLocalQuat = function pp_setTransformLocalQuat(transform) {
+    objectExtension.pp_setTransformLocalQuat = function pp_setTransformLocalQuat(transform) {
         this.transformLocal = transform;
     };
 
@@ -976,18 +980,18 @@ export function initObjectExtensionProtoype() {
 
     //Position
 
-    WLObject.prototype.pp_resetPosition = function pp_resetPosition() {
+    objectExtension.pp_resetPosition = function pp_resetPosition() {
         this.pp_resetPositionWorld();
     };
 
-    WLObject.prototype.pp_resetPositionWorld = function () {
+    objectExtension.pp_resetPositionWorld = function () {
         let zero = vec3_create();
         return function pp_resetPositionWorld() {
             this.pp_setPositionWorld(zero);
         };
     }();
 
-    WLObject.prototype.pp_resetPositionLocal = function () {
+    objectExtension.pp_resetPositionLocal = function () {
         let zero = vec3_create();
         return function pp_resetPositionLocal() {
             this.pp_setPositionLocal(zero);
@@ -996,18 +1000,18 @@ export function initObjectExtensionProtoype() {
 
     //Rotation
 
-    WLObject.prototype.pp_resetRotation = function pp_resetRotation() {
+    objectExtension.pp_resetRotation = function pp_resetRotation() {
         this.pp_resetRotationWorld();
     };
 
-    WLObject.prototype.pp_resetRotationWorld = function () {
+    objectExtension.pp_resetRotationWorld = function () {
         let identity = quat_create();
         return function pp_resetRotationWorld() {
             this.pp_setRotationWorldQuat(identity);
         };
     }();
 
-    WLObject.prototype.pp_resetRotationLocal = function () {
+    objectExtension.pp_resetRotationLocal = function () {
         let identity = quat_create();
         return function pp_resetRotationLocal() {
             this.pp_setRotationLocalQuat(identity);
@@ -1016,18 +1020,18 @@ export function initObjectExtensionProtoype() {
 
     //Scale
 
-    WLObject.prototype.pp_resetScale = function pp_resetScale() {
+    objectExtension.pp_resetScale = function pp_resetScale() {
         this.pp_resetScaleWorld();
     };
 
-    WLObject.prototype.pp_resetScaleWorld = function () {
+    objectExtension.pp_resetScaleWorld = function () {
         let one = vec3_create(1);
         return function pp_resetScaleWorld() {
             this.pp_setScaleWorld(one);
         };
     }();
 
-    WLObject.prototype.pp_resetScaleLocal = function () {
+    objectExtension.pp_resetScaleLocal = function () {
         let one = vec3_create(1);
         return function pp_resetScaleLocal() {
             this.pp_setScaleLocal(one);
@@ -1036,17 +1040,17 @@ export function initObjectExtensionProtoype() {
 
     //Transform
 
-    WLObject.prototype.pp_resetTransform = function pp_resetTransform() {
+    objectExtension.pp_resetTransform = function pp_resetTransform() {
         this.pp_resetTransformWorld();
     };
 
-    WLObject.prototype.pp_resetTransformWorld = function pp_resetTransformWorld() {
+    objectExtension.pp_resetTransformWorld = function pp_resetTransformWorld() {
         this.pp_resetScaleWorld();
         this.pp_resetRotationWorld();
         this.pp_resetPositionWorld();
     };
 
-    WLObject.prototype.pp_resetTransformLocal = function pp_resetTransformLocal() {
+    objectExtension.pp_resetTransformLocal = function pp_resetTransformLocal() {
         this.pp_resetScaleLocal();
         this.pp_resetRotationLocal();
         this.pp_resetPositionLocal();
@@ -1056,29 +1060,29 @@ export function initObjectExtensionProtoype() {
 
     //Translate
 
-    WLObject.prototype.pp_translate = function pp_translate(translation) {
+    objectExtension.pp_translate = function pp_translate(translation) {
         this.pp_translateWorld(translation);
     };
 
-    WLObject.prototype.pp_translateWorld = function pp_translateWorld(translation) {
+    objectExtension.pp_translateWorld = function pp_translateWorld(translation) {
         this.translateWorld(translation);
     };
 
-    WLObject.prototype.pp_translateLocal = function pp_translateLocal(translation) {
+    objectExtension.pp_translateLocal = function pp_translateLocal(translation) {
         this.translate(translation);
     };
 
-    WLObject.prototype.pp_translateObject = function pp_translateObject(translation) {
+    objectExtension.pp_translateObject = function pp_translateObject(translation) {
         this.translateObject(translation);
     };
 
     //Translate Axis
 
-    WLObject.prototype.pp_translateAxis = function pp_translateAxis(amount, direction) {
+    objectExtension.pp_translateAxis = function pp_translateAxis(amount, direction) {
         this.pp_translateAxisWorld(amount, direction);
     };
 
-    WLObject.prototype.pp_translateAxisWorld = function () {
+    objectExtension.pp_translateAxisWorld = function () {
         let translation = vec3_create();
         return function pp_translateAxisWorld(amount, direction) {
             direction.vec3_scale(amount, translation);
@@ -1086,7 +1090,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_translateAxisLocal = function () {
+    objectExtension.pp_translateAxisLocal = function () {
         let translation = vec3_create();
         return function pp_translateAxisLocal(amount, direction) {
             direction.vec3_scale(amount, translation);
@@ -1094,7 +1098,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_translateAxisObject = function () {
+    objectExtension.pp_translateAxisObject = function () {
         let translation = vec3_create();
         return function pp_translateAxisObject(amount, direction) {
             direction.vec3_scale(amount, translation);
@@ -1104,33 +1108,33 @@ export function initObjectExtensionProtoype() {
 
     //Rotate
 
-    WLObject.prototype.pp_rotate = function pp_rotate(rotation) {
+    objectExtension.pp_rotate = function pp_rotate(rotation) {
         this.pp_rotateWorld(rotation);
     };
 
-    WLObject.prototype.pp_rotateDegrees = function pp_rotateDegrees(rotation) {
+    objectExtension.pp_rotateDegrees = function pp_rotateDegrees(rotation) {
         this.pp_rotateWorldDegrees(rotation);
     };
 
-    WLObject.prototype.pp_rotateRadians = function pp_rotateRadians(rotation) {
+    objectExtension.pp_rotateRadians = function pp_rotateRadians(rotation) {
         this.pp_rotateWorldRadians(rotation);
     };
 
-    WLObject.prototype.pp_rotateMatrix = function pp_rotateMatrix(rotation) {
+    objectExtension.pp_rotateMatrix = function pp_rotateMatrix(rotation) {
         this.pp_rotateWorldMatrix(rotation);
     };
 
-    WLObject.prototype.pp_rotateQuat = function pp_rotateQuat(rotation) {
+    objectExtension.pp_rotateQuat = function pp_rotateQuat(rotation) {
         this.pp_rotateWorldQuat(rotation);
     };
 
     //Rotate World
 
-    WLObject.prototype.pp_rotateWorld = function pp_rotateWorld(rotation) {
+    objectExtension.pp_rotateWorld = function pp_rotateWorld(rotation) {
         this.pp_rotateWorldDegrees(rotation);
     };
 
-    WLObject.prototype.pp_rotateWorldDegrees = function () {
+    objectExtension.pp_rotateWorldDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateWorldDegrees(rotation) {
             this._pp_degreesToQuaternion(rotation, rotationQuat);
@@ -1138,7 +1142,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateWorldRadians = function () {
+    objectExtension.pp_rotateWorldRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateWorldRadians(rotation) {
             rotation.forEach(function (value, index, array) {
@@ -1148,7 +1152,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateWorldMatrix = function () {
+    objectExtension.pp_rotateWorldMatrix = function () {
         let rotationQuat = quat_create();
         return function pp_rotateWorldMatrix(rotation) {
             rotation.mat3_toQuat(rotationQuat);
@@ -1157,7 +1161,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateWorldQuat = function () {
+    objectExtension.pp_rotateWorldQuat = function () {
         let currentRotationQuat = quat_create();
         return function pp_rotateWorldQuat(rotation) {
             this.pp_getRotationWorldQuat(currentRotationQuat);
@@ -1169,11 +1173,11 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Local
 
-    WLObject.prototype.pp_rotateLocal = function pp_rotateLocal(rotation) {
+    objectExtension.pp_rotateLocal = function pp_rotateLocal(rotation) {
         this.pp_rotateLocalDegrees(rotation);
     };
 
-    WLObject.prototype.pp_rotateLocalDegrees = function () {
+    objectExtension.pp_rotateLocalDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateLocalDegrees(rotation) {
             this._pp_degreesToQuaternion(rotation, rotationQuat);
@@ -1181,7 +1185,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateLocalRadians = function () {
+    objectExtension.pp_rotateLocalRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateLocalRadians(rotation) {
             rotation.forEach(function (value, index, array) {
@@ -1191,7 +1195,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateLocalMatrix = function () {
+    objectExtension.pp_rotateLocalMatrix = function () {
         let rotationQuat = quat_create();
         return function pp_rotateLocalMatrix(rotation) {
             rotation.mat3_toQuat(rotationQuat);
@@ -1200,7 +1204,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateLocalQuat = function () {
+    objectExtension.pp_rotateLocalQuat = function () {
         let currentRotationQuat = quat_create();
         return function pp_rotateLocalQuat(rotation) {
             this.pp_getRotationLocalQuat(currentRotationQuat);
@@ -1212,11 +1216,11 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Object
 
-    WLObject.prototype.pp_rotateObject = function pp_rotateObject(rotation) {
+    objectExtension.pp_rotateObject = function pp_rotateObject(rotation) {
         this.pp_rotateObjectDegrees(rotation);
     };
 
-    WLObject.prototype.pp_rotateObjectDegrees = function () {
+    objectExtension.pp_rotateObjectDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateObjectDegrees(rotation) {
             this._pp_degreesToQuaternion(rotation, rotationQuat);
@@ -1224,7 +1228,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateObjectRadians = function () {
+    objectExtension.pp_rotateObjectRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateObjectRadians(rotation) {
             rotation.forEach(function (value, index, array) {
@@ -1234,7 +1238,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateObjectMatrix = function () {
+    objectExtension.pp_rotateObjectMatrix = function () {
         let rotationQuat = quat_create();
         return function pp_rotateObjectMatrix(rotation) {
             rotation.mat3_toQuat(rotationQuat);
@@ -1243,35 +1247,35 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateObjectQuat = function pp_rotateObjectQuat(rotation) {
+    objectExtension.pp_rotateObjectQuat = function pp_rotateObjectQuat(rotation) {
         this.rotateObject(rotation);
     };
 
     //Rotate Axis
 
-    WLObject.prototype.pp_rotateAxis = function pp_rotateAxis(angle, axis) {
+    objectExtension.pp_rotateAxis = function pp_rotateAxis(angle, axis) {
         this.pp_rotateAxisWorld(angle, axis);
     };
 
-    WLObject.prototype.pp_rotateAxisDegrees = function pp_rotateAxisDegrees(angle, axis) {
+    objectExtension.pp_rotateAxisDegrees = function pp_rotateAxisDegrees(angle, axis) {
         this.pp_rotateAxisWorldDegrees(angle, axis);
     };
 
-    WLObject.prototype.pp_rotateAxisRadians = function pp_rotateAxisRadians(angle, axis) {
+    objectExtension.pp_rotateAxisRadians = function pp_rotateAxisRadians(angle, axis) {
         this.pp_rotateAxisWorldRadians(angle, axis);
     };
 
     //Rotate Axis World
 
-    WLObject.prototype.pp_rotateAxisWorld = function pp_rotateAxisWorld(angle, axis) {
+    objectExtension.pp_rotateAxisWorld = function pp_rotateAxisWorld(angle, axis) {
         this.pp_rotateAxisWorldDegrees(angle, axis);
     };
 
-    WLObject.prototype.pp_rotateAxisWorldDegrees = function pp_rotateAxisWorldDegrees(angle, axis) {
+    objectExtension.pp_rotateAxisWorldDegrees = function pp_rotateAxisWorldDegrees(angle, axis) {
         this.pp_rotateAxisWorldRadians(Math.pp_toRadians(angle), axis);
     };
 
-    WLObject.prototype.pp_rotateAxisWorldRadians = function () {
+    objectExtension.pp_rotateAxisWorldRadians = function () {
         let rotation = quat_create();
         return function pp_rotateAxisWorldRadians(angle, axis) {
             rotation.quat_fromAxisRadians(angle, axis);
@@ -1281,15 +1285,15 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Axis Local
 
-    WLObject.prototype.pp_rotateAxisLocal = function pp_rotateAxisLocal(angle, axis) {
+    objectExtension.pp_rotateAxisLocal = function pp_rotateAxisLocal(angle, axis) {
         this.pp_rotateAxisLocalDegrees(angle, axis);
     };
 
-    WLObject.prototype.pp_rotateAxisLocalDegrees = function pp_rotateAxisLocalDegrees(angle, axis) {
+    objectExtension.pp_rotateAxisLocalDegrees = function pp_rotateAxisLocalDegrees(angle, axis) {
         this.pp_rotateAxisLocalRadians(Math.pp_toRadians(angle), axis);
     };
 
-    WLObject.prototype.pp_rotateAxisLocalRadians = function () {
+    objectExtension.pp_rotateAxisLocalRadians = function () {
         let rotation = quat_create();
         return function pp_rotateAxisLocalRadians(angle, axis) {
             rotation.quat_fromAxisRadians(angle, axis);
@@ -1299,15 +1303,15 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Axis Object
 
-    WLObject.prototype.pp_rotateAxisObject = function pp_rotateAxisObject(angle, axis) {
+    objectExtension.pp_rotateAxisObject = function pp_rotateAxisObject(angle, axis) {
         this.pp_rotateAxisObjectDegrees(angle, axis);
     };
 
-    WLObject.prototype.pp_rotateAxisObjectDegrees = function pp_rotateAxisObjectDegrees(angle, axis) {
+    objectExtension.pp_rotateAxisObjectDegrees = function pp_rotateAxisObjectDegrees(angle, axis) {
         this.pp_rotateAxisObjectRadians(Math.pp_toRadians(angle), axis);
     };
 
-    WLObject.prototype.pp_rotateAxisObjectRadians = function () {
+    objectExtension.pp_rotateAxisObjectRadians = function () {
         let rotation = quat_create();
         return function pp_rotateAxisObjectRadians(angle, axis) {
             rotation.quat_fromAxisRadians(angle, axis);
@@ -1317,33 +1321,33 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Around
 
-    WLObject.prototype.pp_rotateAround = function pp_rotateAround(rotation, origin) {
+    objectExtension.pp_rotateAround = function pp_rotateAround(rotation, origin) {
         this.pp_rotateAroundWorld(rotation, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundDegrees = function pp_rotateAroundDegrees(rotation, origin) {
+    objectExtension.pp_rotateAroundDegrees = function pp_rotateAroundDegrees(rotation, origin) {
         this.pp_rotateAroundWorldDegrees(rotation, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundRadians = function pp_rotateAroundRadians(rotation, origin) {
+    objectExtension.pp_rotateAroundRadians = function pp_rotateAroundRadians(rotation, origin) {
         this.pp_rotateAroundWorldRadians(rotation, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundMatrix = function pp_rotateAroundMatrix(rotation, origin) {
+    objectExtension.pp_rotateAroundMatrix = function pp_rotateAroundMatrix(rotation, origin) {
         this.pp_rotateAroundWorldMatrix(rotation, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundQuat = function pp_rotateAroundQuat(rotation, origin) {
+    objectExtension.pp_rotateAroundQuat = function pp_rotateAroundQuat(rotation, origin) {
         this.pp_rotateAroundWorldQuat(rotation, origin);
     };
 
     //Rotate Around World
 
-    WLObject.prototype.pp_rotateAroundWorld = function pp_rotateAroundWorld(rotation, origin) {
+    objectExtension.pp_rotateAroundWorld = function pp_rotateAroundWorld(rotation, origin) {
         this.pp_rotateAroundWorldDegrees(rotation, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundWorldDegrees = function () {
+    objectExtension.pp_rotateAroundWorldDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundWorldDegrees(rotation, origin) {
             this._pp_degreesToQuaternion(rotation, rotationQuat);
@@ -1351,7 +1355,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundWorldRadians = function () {
+    objectExtension.pp_rotateAroundWorldRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundWorldRadians(rotation, origin) {
             rotation.forEach(function (value, index, array) {
@@ -1361,7 +1365,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundWorldMatrix = function () {
+    objectExtension.pp_rotateAroundWorldMatrix = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundWorldMatrix(rotation, origin) {
             rotation.mat3_toQuat(rotationQuat);
@@ -1370,7 +1374,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundWorldQuat = function () {
+    objectExtension.pp_rotateAroundWorldQuat = function () {
         let axis = vec3_create();
         return function pp_rotateAroundWorldQuat(rotation, origin) {
             rotation.quat_getAxis(axis);
@@ -1381,11 +1385,11 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Around Local
 
-    WLObject.prototype.pp_rotateAroundLocal = function pp_rotateAroundLocal(rotation, origin) {
+    objectExtension.pp_rotateAroundLocal = function pp_rotateAroundLocal(rotation, origin) {
         this.pp_rotateAroundLocalDegrees(rotation, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundLocalDegrees = function () {
+    objectExtension.pp_rotateAroundLocalDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundLocalDegrees(rotation, origin) {
             this._pp_degreesToQuaternion(rotation, rotationQuat);
@@ -1393,7 +1397,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundLocalRadians = function () {
+    objectExtension.pp_rotateAroundLocalRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundLocalRadians(rotation, origin) {
             rotation.forEach(function (value, index, array) {
@@ -1403,7 +1407,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundLocalMatrix = function () {
+    objectExtension.pp_rotateAroundLocalMatrix = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundLocalMatrix(rotation, origin) {
             rotation.mat3_toQuat(rotationQuat);
@@ -1412,7 +1416,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundLocalQuat = function () {
+    objectExtension.pp_rotateAroundLocalQuat = function () {
         let axis = vec3_create();
         return function pp_rotateAroundLocalQuat(rotation, origin) {
             rotation.quat_getAxis(axis);
@@ -1423,11 +1427,11 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Around Object
 
-    WLObject.prototype.pp_rotateAroundObject = function pp_rotateAroundObject(rotation, origin) {
+    objectExtension.pp_rotateAroundObject = function pp_rotateAroundObject(rotation, origin) {
         this.pp_rotateAroundObjectDegrees(rotation, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundObjectDegrees = function () {
+    objectExtension.pp_rotateAroundObjectDegrees = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundObjectDegrees(rotation, origin) {
             this._pp_degreesToQuaternion(rotation, rotationQuat);
@@ -1435,7 +1439,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundObjectRadians = function () {
+    objectExtension.pp_rotateAroundObjectRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundObjectRadians(rotation, origin) {
             rotation.forEach(function (value, index, array) {
@@ -1445,7 +1449,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundObjectMatrix = function () {
+    objectExtension.pp_rotateAroundObjectMatrix = function () {
         let rotationQuat = quat_create();
         return function pp_rotateAroundObjectMatrix(rotation, origin) {
             rotation.mat3_toQuat(rotationQuat);
@@ -1454,7 +1458,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_rotateAroundObjectQuat = function () {
+    objectExtension.pp_rotateAroundObjectQuat = function () {
         let axis = vec3_create();
         return function pp_rotateAroundObjectQuat(rotation, origin) {
             rotation.quat_getAxis(axis);
@@ -1465,29 +1469,29 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Around Axis
 
-    WLObject.prototype.pp_rotateAroundAxis = function pp_rotateAroundAxis(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxis = function pp_rotateAroundAxis(angle, axis, origin) {
         this.pp_rotateAroundAxisWorld(angle, axis, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundAxisDegrees = function pp_rotateAroundAxisDegrees(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxisDegrees = function pp_rotateAroundAxisDegrees(angle, axis, origin) {
         this.pp_rotateAroundAxisWorldDegrees(angle, axis, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundAxisRadians = function pp_rotateAroundAxisRadians(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxisRadians = function pp_rotateAroundAxisRadians(angle, axis, origin) {
         this.pp_rotateAroundAxisWorldRadians(angle, axis, origin);
     };
 
     //Rotate Around Axis World
 
-    WLObject.prototype.pp_rotateAroundAxisWorld = function pp_rotateAroundAxisWorld(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxisWorld = function pp_rotateAroundAxisWorld(angle, axis, origin) {
         this.pp_rotateAroundAxisWorldDegrees(angle, axis, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundAxisWorldDegrees = function pp_rotateAroundAxisWorldDegrees(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxisWorldDegrees = function pp_rotateAroundAxisWorldDegrees(angle, axis, origin) {
         this.pp_rotateAroundAxisWorldRadians(Math.pp_toRadians(angle), axis, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundAxisWorldRadians = function () {
+    objectExtension.pp_rotateAroundAxisWorldRadians = function () {
         let transformToRotate = quat2_create();
         let transformToRotateConjugate = quat2_create();
         let transformQuat = quat2_create();
@@ -1505,15 +1509,15 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Around Axis Local
 
-    WLObject.prototype.pp_rotateAroundAxisLocal = function pp_rotateAroundAxisLocal(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxisLocal = function pp_rotateAroundAxisLocal(angle, axis, origin) {
         this.pp_rotateAroundAxisLocalDegrees(angle, axis, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundAxisLocalDegrees = function pp_rotateAroundAxisLocalDegrees(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxisLocalDegrees = function pp_rotateAroundAxisLocalDegrees(angle, axis, origin) {
         this.pp_rotateAroundAxisLocalRadians(Math.pp_toRadians(angle), axis, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundAxisLocalRadians = function () {
+    objectExtension.pp_rotateAroundAxisLocalRadians = function () {
         let convertedPosition = vec3_create();
         let convertedAxis = vec3_create();
         return function pp_rotateAroundAxisLocalRadians(angle, axis, origin) {
@@ -1525,15 +1529,15 @@ export function initObjectExtensionProtoype() {
 
     //Rotate Around Axis Object
 
-    WLObject.prototype.pp_rotateAroundAxisObject = function pp_rotateAroundAxisObject(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxisObject = function pp_rotateAroundAxisObject(angle, axis, origin) {
         this.pp_rotateAroundAxisObjectDegrees(angle, axis, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundAxisObjectDegrees = function pp_rotateAroundAxisObjectDegrees(angle, axis, origin) {
+    objectExtension.pp_rotateAroundAxisObjectDegrees = function pp_rotateAroundAxisObjectDegrees(angle, axis, origin) {
         this.pp_rotateAroundAxisObjectRadians(Math.pp_toRadians(angle), axis, origin);
     };
 
-    WLObject.prototype.pp_rotateAroundAxisObjectRadians = function () {
+    objectExtension.pp_rotateAroundAxisObjectRadians = function () {
         let convertedPosition = vec3_create();
         let convertedAxis = vec3_create();
         return function pp_rotateAroundAxisObjectRadians(angle, axis, origin) {
@@ -1548,7 +1552,7 @@ export function initObjectExtensionProtoype() {
     //For now it does not really make sense in wle to scale in world space or parent space
     //so there is no pp_scale default function
 
-    WLObject.prototype.pp_scaleObject = function () {
+    objectExtension.pp_scaleObject = function () {
         let vector = vec3_create();
         return function pp_scaleObject(scale) {
             if (isNaN(scale)) {
@@ -1562,11 +1566,11 @@ export function initObjectExtensionProtoype() {
 
     //Look At
 
-    WLObject.prototype.pp_lookAt = function pp_lookAt(position, up) {
+    objectExtension.pp_lookAt = function pp_lookAt(position, up) {
         this.pp_lookAtWorld(position, up);
     };
 
-    WLObject.prototype.pp_lookAtWorld = function () {
+    objectExtension.pp_lookAtWorld = function () {
         let direction = vec3_create();
         return function pp_lookAtWorld(position, up) {
             this.pp_getPositionWorld(direction);
@@ -1575,7 +1579,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_lookAtLocal = function () {
+    objectExtension.pp_lookAtLocal = function () {
         let direction = vec3_create();
         return function pp_lookAtLocal(position, up) {
             this.pp_getPositionLocal(direction);
@@ -1584,18 +1588,18 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_lookTo = function pp_lookTo(direction, up) {
+    objectExtension.pp_lookTo = function pp_lookTo(direction, up) {
         this.pp_lookToWorld(direction, up);
     };
 
-    WLObject.prototype.pp_lookToWorld = function () {
+    objectExtension.pp_lookToWorld = function () {
         let internalUp = vec3_create();
         return function pp_lookToWorld(direction, up = this.pp_getUpWorld(internalUp)) {
             this.pp_setForwardWorld(direction, up);
         };
     }();
 
-    WLObject.prototype.pp_lookToLocal = function () {
+    objectExtension.pp_lookToLocal = function () {
         let internalUp = vec3_create();
         return function pp_lookToLocal(direction, up = this.pp_getUpLocal(internalUp)) {
             this.pp_setForwardLocal(direction, up);
@@ -1606,7 +1610,7 @@ export function initObjectExtensionProtoype() {
 
     //Parent
 
-    WLObject.prototype.pp_setParent = function () {
+    objectExtension.pp_setParent = function () {
         let position = vec3_create();
         let rotation = quat_create();
         let scale = vec3_create();
@@ -1625,13 +1629,13 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_getParent = function pp_getParent() {
+    objectExtension.pp_getParent = function pp_getParent() {
         return this.parent;
     };
 
     //Convert Vector Object World
 
-    WLObject.prototype.pp_convertPositionObjectToWorld = function () {
+    objectExtension.pp_convertPositionObjectToWorld = function () {
         let matrix = mat4_create();
         return function pp_convertPositionObjectToWorld(position, resultPosition = vec3_create()) {
             this.pp_getTransformWorldMatrix(matrix);
@@ -1640,7 +1644,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_convertDirectionObjectToWorld = function () {
+    objectExtension.pp_convertDirectionObjectToWorld = function () {
         let rotation = quat_create();
         return function pp_convertDirectionObjectToWorld(direction, resultDirection = vec3_create()) {
             this.pp_getRotationWorldQuat(rotation);
@@ -1649,7 +1653,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_convertPositionWorldToObject = function () {
+    objectExtension.pp_convertPositionWorldToObject = function () {
         let matrix = mat4_create();
         return function pp_convertPositionWorldToObject(position, resultPosition = vec3_create()) {
             this.pp_getTransformWorldMatrix(matrix);
@@ -1659,7 +1663,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_convertDirectionWorldToObject = function () {
+    objectExtension.pp_convertDirectionWorldToObject = function () {
         let rotation = quat_create();
         return function pp_convertDirectionWorldToObject(direction, resultDirection = vec3_create()) {
             this.pp_getRotationWorldQuat(rotation);
@@ -1671,7 +1675,7 @@ export function initObjectExtensionProtoype() {
 
     //Convert Vector Local World
 
-    WLObject.prototype.pp_convertPositionLocalToWorld = function pp_convertPositionLocalToWorld(position, resultPosition = vec3_create()) {
+    objectExtension.pp_convertPositionLocalToWorld = function pp_convertPositionLocalToWorld(position, resultPosition = vec3_create()) {
         if (this.pp_getParent()) {
             this.pp_getParent().pp_convertPositionObjectToWorld(position, resultPosition);
         } else {
@@ -1680,7 +1684,7 @@ export function initObjectExtensionProtoype() {
         return resultPosition;
     };
 
-    WLObject.prototype.pp_convertDirectionLocalToWorld = function pp_convertDirectionLocalToWorld(direction, resultDirection = vec3_create()) {
+    objectExtension.pp_convertDirectionLocalToWorld = function pp_convertDirectionLocalToWorld(direction, resultDirection = vec3_create()) {
         if (this.pp_getParent()) {
             this.pp_getParent().pp_convertDirectionObjectToWorld(direction, resultDirection);
         } else {
@@ -1689,7 +1693,7 @@ export function initObjectExtensionProtoype() {
         return resultDirection;
     };
 
-    WLObject.prototype.pp_convertPositionWorldToLocal = function pp_convertPositionWorldToLocal(position, resultPosition = vec3_create()) {
+    objectExtension.pp_convertPositionWorldToLocal = function pp_convertPositionWorldToLocal(position, resultPosition = vec3_create()) {
         if (this.pp_getParent()) {
             this.pp_getParent().pp_convertPositionWorldToObject(position, resultPosition);
         } else {
@@ -1698,7 +1702,7 @@ export function initObjectExtensionProtoype() {
         return resultPosition;
     };
 
-    WLObject.prototype.pp_convertDirectionWorldToLocal = function pp_convertDirectionWorldToLocal(direction, resultDirection = vec3_create()) {
+    objectExtension.pp_convertDirectionWorldToLocal = function pp_convertDirectionWorldToLocal(direction, resultDirection = vec3_create()) {
         if (this.pp_getParent()) {
             this.pp_getParent().pp_convertDirectionWorldToObject(direction, resultDirection);
         } else {
@@ -1711,25 +1715,25 @@ export function initObjectExtensionProtoype() {
 
     //I need to use the converson to world and then local also use the parent scale that changes the position in local space
 
-    WLObject.prototype.pp_convertPositionObjectToLocal = function pp_convertPositionObjectToLocal(position, resultPosition = vec3_create()) {
+    objectExtension.pp_convertPositionObjectToLocal = function pp_convertPositionObjectToLocal(position, resultPosition = vec3_create()) {
         this.pp_convertPositionObjectToWorld(position, resultPosition);
         this.pp_convertPositionWorldToLocal(resultPosition, resultPosition);
         return resultPosition;
     };
 
-    WLObject.prototype.pp_convertDirectionObjectToLocal = function pp_convertDirectionObjectToLocal(direction, resultDirection = vec3_create()) {
+    objectExtension.pp_convertDirectionObjectToLocal = function pp_convertDirectionObjectToLocal(direction, resultDirection = vec3_create()) {
         this.pp_convertDirectionObjectToWorld(direction, resultDirection);
         this.pp_convertDirectionWorldToLocal(resultDirection, resultDirection);
         return resultDirection;
     };
 
-    WLObject.prototype.pp_convertPositionLocalToObject = function pp_convertPositionLocalToObject(position, resultPosition = vec3_create()) {
+    objectExtension.pp_convertPositionLocalToObject = function pp_convertPositionLocalToObject(position, resultPosition = vec3_create()) {
         this.pp_convertPositionLocalToWorld(position, resultPosition);
         this.pp_convertPositionWorldToObject(resultPosition, resultPosition);
         return resultPosition;
     };
 
-    WLObject.prototype.pp_convertDirectionLocalToObject = function pp_convertDirectionLocalToObject(direction, resultDirection = vec3_create()) {
+    objectExtension.pp_convertDirectionLocalToObject = function pp_convertDirectionLocalToObject(direction, resultDirection = vec3_create()) {
         this.pp_convertDirectionLocalToWorld(direction, resultDirection);
         this.pp_convertDirectionWorldToObject(resultDirection, resultDirection);
         return resultDirection;
@@ -1737,11 +1741,11 @@ export function initObjectExtensionProtoype() {
 
     //Convert Transform Object World
 
-    WLObject.prototype.pp_convertTransformObjectToWorld = function pp_convertTransformObjectToWorld(transform, resultTransform) {
+    objectExtension.pp_convertTransformObjectToWorld = function pp_convertTransformObjectToWorld(transform, resultTransform) {
         return this.pp_convertTransformObjectToWorldMatrix(transform, resultTransform);
     };
 
-    WLObject.prototype.pp_convertTransformObjectToWorldMatrix = function () {
+    objectExtension.pp_convertTransformObjectToWorldMatrix = function () {
         let convertTransform = mat4_create();
         let position = vec3_create();
         let scale = vec3_create();
@@ -1771,7 +1775,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_convertTransformObjectToWorldQuat = function () {
+    objectExtension.pp_convertTransformObjectToWorldQuat = function () {
         let position = vec3_create();
         let rotation = quat_create();
         return function pp_convertTransformObjectToWorldQuat(transform, resultTransform = quat2_create()) {
@@ -1784,11 +1788,11 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_convertTransformWorldToObject = function pp_convertTransformWorldToObject(transform, resultTransform) {
+    objectExtension.pp_convertTransformWorldToObject = function pp_convertTransformWorldToObject(transform, resultTransform) {
         return this.pp_convertTransformWorldToObjectMatrix(transform, resultTransform);
     };
 
-    WLObject.prototype.pp_convertTransformWorldToObjectMatrix = function () {
+    objectExtension.pp_convertTransformWorldToObjectMatrix = function () {
         let convertTransform = mat4_create();
         let position = vec3_create();
         let scale = vec3_create();
@@ -1820,7 +1824,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_convertTransformWorldToObjectQuat = function () {
+    objectExtension.pp_convertTransformWorldToObjectQuat = function () {
         let position = vec3_create();
         let rotation = quat_create();
         return function pp_convertTransformWorldToObjectQuat(transform, resultTransform = quat2_create()) {
@@ -1836,11 +1840,11 @@ export function initObjectExtensionProtoype() {
 
     //Convert Transform Local World
 
-    WLObject.prototype.pp_convertTransformLocalToWorld = function pp_convertTransformLocalToWorld(transform, resultTransform) {
+    objectExtension.pp_convertTransformLocalToWorld = function pp_convertTransformLocalToWorld(transform, resultTransform) {
         return this.pp_convertTransformLocalToWorldMatrix(transform, resultTransform);
     };
 
-    WLObject.prototype.pp_convertTransformLocalToWorldMatrix = function pp_convertTransformLocalToWorldMatrix(transform, resultTransform = mat4_create()) {
+    objectExtension.pp_convertTransformLocalToWorldMatrix = function pp_convertTransformLocalToWorldMatrix(transform, resultTransform = mat4_create()) {
         if (this.pp_getParent()) {
             this.pp_getParent().pp_convertTransformObjectToWorldMatrix(transform, resultTransform);
         } else {
@@ -1849,7 +1853,7 @@ export function initObjectExtensionProtoype() {
         return resultTransform;
     };
 
-    WLObject.prototype.pp_convertTransformLocalToWorldQuat = function pp_convertTransformLocalToWorldQuat(transform, resultTransform = quat2_create()) {
+    objectExtension.pp_convertTransformLocalToWorldQuat = function pp_convertTransformLocalToWorldQuat(transform, resultTransform = quat2_create()) {
         if (this.pp_getParent()) {
             this.pp_getParent().pp_convertTransformObjectToWorldQuat(transform, resultTransform);
         } else {
@@ -1858,11 +1862,11 @@ export function initObjectExtensionProtoype() {
         return resultTransform;
     };
 
-    WLObject.prototype.pp_convertTransformWorldToLocal = function pp_convertTransformWorldToLocal(transform, resultTransform) {
+    objectExtension.pp_convertTransformWorldToLocal = function pp_convertTransformWorldToLocal(transform, resultTransform) {
         return this.pp_convertTransformWorldToLocalMatrix(transform, resultTransform);
     };
 
-    WLObject.prototype.pp_convertTransformWorldToLocalMatrix = function pp_convertTransformWorldToLocalMatrix(transform, resultTransform = mat4_create()) {
+    objectExtension.pp_convertTransformWorldToLocalMatrix = function pp_convertTransformWorldToLocalMatrix(transform, resultTransform = mat4_create()) {
         if (this.pp_getParent()) {
             this.pp_getParent().pp_convertTransformWorldToObjectMatrix(transform, resultTransform);
         } else {
@@ -1871,7 +1875,7 @@ export function initObjectExtensionProtoype() {
         return resultTransform;
     };
 
-    WLObject.prototype.pp_convertTransformWorldToLocalQuat = function pp_convertTransformWorldToLocalQuat(transform, resultTransform = quat2_create()) {
+    objectExtension.pp_convertTransformWorldToLocalQuat = function pp_convertTransformWorldToLocalQuat(transform, resultTransform = quat2_create()) {
         if (this.pp_getParent()) {
             this.pp_getParent().pp_convertTransformWorldToObjectQuat(transform, resultTransform);
         } else {
@@ -1884,33 +1888,33 @@ export function initObjectExtensionProtoype() {
 
     //I need to use the converson to world and then local also use the parent scale that changes the position in local space
 
-    WLObject.prototype.pp_convertTransformObjectToLocal = function pp_convertTransformObjectToLocal(transform, resultTransform) {
+    objectExtension.pp_convertTransformObjectToLocal = function pp_convertTransformObjectToLocal(transform, resultTransform) {
         return this.pp_convertTransformObjectToLocalMatrix(transform, resultTransform);
     };
 
-    WLObject.prototype.pp_convertTransformObjectToLocalMatrix = function pp_convertTransformObjectToLocalMatrix(transform, resultTransform = mat4_create()) {
+    objectExtension.pp_convertTransformObjectToLocalMatrix = function pp_convertTransformObjectToLocalMatrix(transform, resultTransform = mat4_create()) {
         this.pp_convertTransformObjectToWorldMatrix(transform, resultTransform);
         this.pp_convertTransformWorldToLocalMatrix(resultTransform, resultTransform);
         return resultTransform;
     };
 
-    WLObject.prototype.pp_convertTransformObjectToLocalQuat = function pp_convertTransformObjectToLocalQuat(transform, resultTransform = quat2_create()) {
+    objectExtension.pp_convertTransformObjectToLocalQuat = function pp_convertTransformObjectToLocalQuat(transform, resultTransform = quat2_create()) {
         this.pp_convertTransformObjectToWorldQuat(transform, resultTransform);
         this.pp_convertTransformWorldToLocalQuat(resultTransform, resultTransform);
         return resultTransform;
     };
 
-    WLObject.prototype.pp_convertTransformLocalToObject = function pp_convertTransformLocalToObject(transform, resultTransform) {
+    objectExtension.pp_convertTransformLocalToObject = function pp_convertTransformLocalToObject(transform, resultTransform) {
         return this.pp_convertTransformLocalToObjectMatrix(transform, resultTransform);
     };
 
-    WLObject.prototype.pp_convertTransformLocalToObjectMatrix = function pp_convertTransformLocalToObjectMatrix(transform, resultTransform = mat4_create()) {
+    objectExtension.pp_convertTransformLocalToObjectMatrix = function pp_convertTransformLocalToObjectMatrix(transform, resultTransform = mat4_create()) {
         this.pp_convertTransformLocalToWorldMatrix(transform, resultTransform);
         this.pp_convertTransformWorldToObjectMatrix(resultTransform, resultTransform);
         return resultTransform;
     };
 
-    WLObject.prototype.pp_convertTransformLocalToObjectQuat = function pp_convertTransformLocalToObjectQuat(transform, resultTransform = quat2_create()) {
+    objectExtension.pp_convertTransformLocalToObjectQuat = function pp_convertTransformLocalToObjectQuat(transform, resultTransform = quat2_create()) {
         this.pp_convertTransformLocalToWorldQuat(transform, resultTransform);
         this.pp_convertTransformWorldToObjectQuat(resultTransform, resultTransform);
         return resultTransform;
@@ -1918,7 +1922,7 @@ export function initObjectExtensionProtoype() {
 
     //Component
 
-    WLObject.prototype.pp_addComponent = function pp_addComponent(type, paramsOrActive, active = null) {
+    objectExtension.pp_addComponent = function pp_addComponent(type, paramsOrActive, active = null) {
         let params = null;
 
         if (typeof paramsOrActive == "boolean") {
@@ -1938,91 +1942,91 @@ export function initObjectExtensionProtoype() {
         return this.addComponent(type, params);
     };
 
-    WLObject.prototype.pp_getComponent = function pp_getComponent(type, index = 0) {
+    objectExtension.pp_getComponent = function pp_getComponent(type, index = 0) {
         return this.pp_getComponentHierarchy(type, index);
     };
 
-    WLObject.prototype.pp_getComponentSelf = function pp_getComponentSelf(type, index = 0) {
+    objectExtension.pp_getComponentSelf = function pp_getComponentSelf(type, index = 0) {
         return this.getComponent(type, index);
     };
 
-    WLObject.prototype.pp_getComponentHierarchy = function pp_getComponentHierarchy(type, index = 0) {
+    objectExtension.pp_getComponentHierarchy = function pp_getComponentHierarchy(type, index = 0) {
         return this.pp_getComponentHierarchyBreadth(type, index);
     };
 
-    WLObject.prototype.pp_getComponentHierarchyBreadth = function pp_getComponentHierarchyBreadth(type, index = 0) {
+    objectExtension.pp_getComponentHierarchyBreadth = function pp_getComponentHierarchyBreadth(type, index = 0) {
         let objects = this.pp_getHierarchyBreadth();
         return getComponentObjects(objects, type, index);
     };
 
-    WLObject.prototype.pp_getComponentHierarchyDepth = function pp_getComponentHierarchyDepth(type, index = 0) {
+    objectExtension.pp_getComponentHierarchyDepth = function pp_getComponentHierarchyDepth(type, index = 0) {
         let objects = this.pp_getHierarchyDepth();
         return getComponentObjects(objects, type, index);
     };
 
-    WLObject.prototype.pp_getComponentDescendants = function pp_getComponentDescendants(type, index = 0) {
+    objectExtension.pp_getComponentDescendants = function pp_getComponentDescendants(type, index = 0) {
         return this.pp_getComponentDescendantsBreadth(type, index);
     };
 
-    WLObject.prototype.pp_getComponentDescendantsBreadth = function pp_getComponentDescendantsBreadth(type, index = 0) {
+    objectExtension.pp_getComponentDescendantsBreadth = function pp_getComponentDescendantsBreadth(type, index = 0) {
         let objects = this.pp_getDescendantsBreadth();
         return getComponentObjects(objects, type, index);
     };
 
-    WLObject.prototype.pp_getComponentDescendantsDepth = function pp_getComponentDescendantsDepth(type, index = 0) {
+    objectExtension.pp_getComponentDescendantsDepth = function pp_getComponentDescendantsDepth(type, index = 0) {
         let objects = this.pp_getDescendantsDepth();
         return getComponentObjects(objects, type, index);
     };
 
-    WLObject.prototype.pp_getComponentChildren = function pp_getComponentChildren(type, index = 0) {
+    objectExtension.pp_getComponentChildren = function pp_getComponentChildren(type, index = 0) {
         let objects = this.pp_getChildren();
         return getComponentObjects(objects, type, index);
     };
 
-    WLObject.prototype.pp_getComponents = function pp_getComponents(type) {
+    objectExtension.pp_getComponents = function pp_getComponents(type) {
         return this.pp_getComponentsHierarchy(type);
     };
 
-    WLObject.prototype.pp_getComponentsSelf = function pp_getComponentsSelf(type) {
+    objectExtension.pp_getComponentsSelf = function pp_getComponentsSelf(type) {
         return this.getComponents(type);
     };
 
-    WLObject.prototype.pp_getComponentsHierarchy = function pp_getComponentsHierarchy(type) {
+    objectExtension.pp_getComponentsHierarchy = function pp_getComponentsHierarchy(type) {
         return this.pp_getComponentsHierarchyBreadth(type);
     };
 
-    WLObject.prototype.pp_getComponentsHierarchyBreadth = function pp_getComponentsHierarchyBreadth(type) {
+    objectExtension.pp_getComponentsHierarchyBreadth = function pp_getComponentsHierarchyBreadth(type) {
         let objects = this.pp_getHierarchyBreadth();
         return getComponentsObjects(objects, type);
     };
 
-    WLObject.prototype.pp_getComponentsHierarchyDepth = function pp_getComponentsHierarchyDepth(type) {
+    objectExtension.pp_getComponentsHierarchyDepth = function pp_getComponentsHierarchyDepth(type) {
         let objects = this.pp_getHierarchyDepth();
         return getComponentsObjects(objects, type);
     };
 
-    WLObject.prototype.pp_getComponentsDescendants = function pp_getComponentsDescendants(type) {
+    objectExtension.pp_getComponentsDescendants = function pp_getComponentsDescendants(type) {
         return this.pp_getComponentsDescendantsBreadth(type);
     };
 
-    WLObject.prototype.pp_getComponentsDescendantsBreadth = function pp_getComponentsDescendantsBreadth(type) {
+    objectExtension.pp_getComponentsDescendantsBreadth = function pp_getComponentsDescendantsBreadth(type) {
         let objects = this.pp_getDescendantsBreadth();
         return getComponentsObjects(objects, type);
     };
 
-    WLObject.prototype.pp_getComponentsDescendantsDepth = function pp_getComponentsDescendantsDepth(type) {
+    objectExtension.pp_getComponentsDescendantsDepth = function pp_getComponentsDescendantsDepth(type) {
         let objects = this.pp_getDescendantsDepth();
         return getComponentsObjects(objects, type);
     };
 
-    WLObject.prototype.pp_getComponentsChildren = function pp_getComponentsChildren(type) {
+    objectExtension.pp_getComponentsChildren = function pp_getComponentsChildren(type) {
         let objects = this.pp_getChildren();
         return getComponentsObjects(objects, type);
     };
 
     //Active
 
-    WLObject.prototype.pp_setActive = function pp_setActive(active, applyToHierarchy = true) {
+    objectExtension.pp_setActive = function pp_setActive(active, applyToHierarchy = true) {
         if (applyToHierarchy) {
             this.pp_setActiveHierarchy(active);
         } else {
@@ -2030,50 +2034,50 @@ export function initObjectExtensionProtoype() {
         }
     };
 
-    WLObject.prototype.pp_setActiveSelf = function pp_setActiveSelf(active) {
+    objectExtension.pp_setActiveSelf = function pp_setActiveSelf(active) {
         this.pp_setActive(active, false);
     };
 
-    WLObject.prototype.pp_setActiveHierarchy = function pp_setActiveHierarchy(active) {
+    objectExtension.pp_setActiveHierarchy = function pp_setActiveHierarchy(active) {
         this.pp_setActiveHierarchyBreadth(active);
     };
 
-    WLObject.prototype.pp_setActiveHierarchyBreadth = function pp_setActiveHierarchyBreadth(active) {
+    objectExtension.pp_setActiveHierarchyBreadth = function pp_setActiveHierarchyBreadth(active) {
         let objects = this.pp_getHierarchyBreadth();
         return setActiveObjects(objects, active);
     };
 
-    WLObject.prototype.pp_setActiveHierarchyDepth = function pp_setActiveHierarchyDepth(active) {
+    objectExtension.pp_setActiveHierarchyDepth = function pp_setActiveHierarchyDepth(active) {
         let objects = this.pp_getHierarchyDepth();
         return setActiveObjects(objects, active);
     };
 
-    WLObject.prototype.pp_setActiveDescendants = function pp_setActiveDescendants(active) {
+    objectExtension.pp_setActiveDescendants = function pp_setActiveDescendants(active) {
         this.pp_setActiveDescendantsBreadth(active);
     };
 
-    WLObject.prototype.pp_setActiveDescendantsBreadth = function pp_setActiveDescendantsBreadth(active) {
+    objectExtension.pp_setActiveDescendantsBreadth = function pp_setActiveDescendantsBreadth(active) {
         let objects = this.pp_getDescendantsBreadth();
         return setActiveObjects(objects, active);
     };
 
-    WLObject.prototype.pp_setActiveDescendantsDepth = function pp_setActiveDescendantsDepth(active) {
+    objectExtension.pp_setActiveDescendantsDepth = function pp_setActiveDescendantsDepth(active) {
         let objects = this.pp_getDescendantsDepth();
         return setActiveObjects(objects, active);
     };
 
-    WLObject.prototype.pp_setActiveChildren = function pp_setActiveChildren(active) {
+    objectExtension.pp_setActiveChildren = function pp_setActiveChildren(active) {
         let objects = this.pp_getChildren();
         return setActiveObjects(objects, active);
     };
 
     //Uniform Scale
 
-    WLObject.prototype.pp_hasUniformScale = function pp_hasUniformScale() {
+    objectExtension.pp_hasUniformScale = function pp_hasUniformScale() {
         return this.pp_hasUniformScaleWorld();
     };
 
-    WLObject.prototype.pp_hasUniformScaleWorld = function () {
+    objectExtension.pp_hasUniformScaleWorld = function () {
         let scale = vec3_create();
         return function pp_hasUniformScaleWorld() {
             this.pp_getScaleWorld(scale);
@@ -2081,7 +2085,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_hasUniformScaleLocal = function () {
+    objectExtension.pp_hasUniformScaleLocal = function () {
         let scale = vec3_create();
         return function pp_hasUniformScaleLocal() {
             this.pp_getScaleLocal(scale);
@@ -2091,7 +2095,7 @@ export function initObjectExtensionProtoype() {
 
     //Clone
 
-    WLObject.prototype.pp_clone = function () {
+    objectExtension.pp_clone = function () {
         let scale = vec3_create();
         let transformQuat = quat2_create();
         return function pp_clone(params = new CloneParams()) {
@@ -2198,7 +2202,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_isCloneable = function pp_isCloneable(params = new CloneParams()) {
+    objectExtension.pp_isCloneable = function pp_isCloneable(params = new CloneParams()) {
         if (params.myIgnoreNonCloneable || params.myIgnoreComponents) {
             return true;
         }
@@ -2255,11 +2259,11 @@ export function initObjectExtensionProtoype() {
 
     //To String
 
-    WLObject.prototype.pp_toString = function pp_toString() {
+    objectExtension.pp_toString = function pp_toString() {
         return this.pp_toStringCompact();
     }
 
-    WLObject.prototype.pp_toStringExtended = function () {
+    objectExtension.pp_toStringExtended = function () {
         let tab = "    ";
         let newLine = "\n";
         let startObject = "{";
@@ -2346,7 +2350,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype.pp_toStringCompact = function () {
+    objectExtension.pp_toStringCompact = function () {
         let tab = "    ";
         let newLine = "\n";
         let emptyName = "<none>";
@@ -2401,87 +2405,87 @@ export function initObjectExtensionProtoype() {
 
     //Get By Name
 
-    WLObject.prototype.pp_getObjectByName = function pp_getObjectByName(name) {
+    objectExtension.pp_getObjectByName = function pp_getObjectByName(name) {
         return this.pp_getObjectByNameHierarchy(name);
     }
 
-    WLObject.prototype.pp_getObjectByNameHierarchy = function pp_getObjectByNameHierarchy(name) {
+    objectExtension.pp_getObjectByNameHierarchy = function pp_getObjectByNameHierarchy(name) {
         return this.pp_getObjectByNameHierarchyBreadth(name);
     }
 
-    WLObject.prototype.pp_getObjectByNameHierarchyBreadth = function pp_getObjectByNameHierarchyBreadth(name) {
+    objectExtension.pp_getObjectByNameHierarchyBreadth = function pp_getObjectByNameHierarchyBreadth(name) {
         let objects = this.pp_getHierarchyBreadth();
         return getObjectByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectByNameHierarchyDepth = function pp_getObjectByNameHierarchyDepth(name) {
+    objectExtension.pp_getObjectByNameHierarchyDepth = function pp_getObjectByNameHierarchyDepth(name) {
         let objects = this.pp_getHierarchyDepth();
         return getObjectByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectByNameDescendants = function pp_getObjectByNameDescendants(name) {
+    objectExtension.pp_getObjectByNameDescendants = function pp_getObjectByNameDescendants(name) {
         return this.pp_getObjectByNameDescendantsBreadth(name);
     }
 
-    WLObject.prototype.pp_getObjectByNameDescendantsBreadth = function pp_getObjectByNameDescendantsBreadth(name) {
+    objectExtension.pp_getObjectByNameDescendantsBreadth = function pp_getObjectByNameDescendantsBreadth(name) {
         let objects = this.pp_getDescendantsBreadth();
         return getObjectByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectByNameDescendantsDepth = function pp_getObjectByNameDescendantsDepth(name) {
+    objectExtension.pp_getObjectByNameDescendantsDepth = function pp_getObjectByNameDescendantsDepth(name) {
         let objects = this.pp_getDescendantsDepth();
         return getObjectByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectByNameChildren = function pp_getObjectByNameChildren(name) {
+    objectExtension.pp_getObjectByNameChildren = function pp_getObjectByNameChildren(name) {
         let objects = this.pp_getChildren();
         return getObjectByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectsByName = function pp_getObjectsByName(name) {
+    objectExtension.pp_getObjectsByName = function pp_getObjectsByName(name) {
         return this.pp_getObjectsByNameHierarchy(name);
     }
 
-    WLObject.prototype.pp_getObjectsByNameHierarchy = function pp_getObjectsByNameHierarchy(name) {
+    objectExtension.pp_getObjectsByNameHierarchy = function pp_getObjectsByNameHierarchy(name) {
         return this.pp_getObjectsByNameHierarchyBreadth(name);
     }
 
-    WLObject.prototype.pp_getObjectsByNameHierarchyBreadth = function pp_getObjectsByNameHierarchyBreadth(name) {
+    objectExtension.pp_getObjectsByNameHierarchyBreadth = function pp_getObjectsByNameHierarchyBreadth(name) {
         let objects = this.pp_getHierarchyBreadth();
         return getObjectsByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectsByNameHierarchyDepth = function pp_getObjectsByNameHierarchyDepth(name) {
+    objectExtension.pp_getObjectsByNameHierarchyDepth = function pp_getObjectsByNameHierarchyDepth(name) {
         let objects = this.pp_getHierarchyDepth();
         return getObjectsByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectsByNameDescendants = function pp_getObjectsByNameDescendants(name) {
+    objectExtension.pp_getObjectsByNameDescendants = function pp_getObjectsByNameDescendants(name) {
         return this.pp_getObjectsByNameDescendantsBreadth(name);
     }
 
-    WLObject.prototype.pp_getObjectsByNameDescendantsBreadth = function pp_getObjectsByNameDescendantsBreadth(name) {
+    objectExtension.pp_getObjectsByNameDescendantsBreadth = function pp_getObjectsByNameDescendantsBreadth(name) {
         let objects = this.pp_getDescendantsBreadth();
         return getObjectsByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectsByNameDescendantsDepth = function pp_getObjectsByNameDescendantsDepth(name) {
+    objectExtension.pp_getObjectsByNameDescendantsDepth = function pp_getObjectsByNameDescendantsDepth(name) {
         let objects = this.pp_getDescendantsDepth();
         return getObjectsByNameObjects(objects, name);
     }
 
-    WLObject.prototype.pp_getObjectsByNameChildren = function pp_getObjectsByNameChildren(name) {
+    objectExtension.pp_getObjectsByNameChildren = function pp_getObjectsByNameChildren(name) {
         let objects = this.pp_getChildren();
         return getObjectsByNameObjects(objects, name);
     }
 
     //Get Hierarchy
 
-    WLObject.prototype.pp_getHierarchy = function pp_getHierarchy() {
+    objectExtension.pp_getHierarchy = function pp_getHierarchy() {
         return this.pp_getHierarchyBreadth();
     };
 
-    WLObject.prototype.pp_getHierarchyBreadth = function pp_getHierarchyBreadth() {
+    objectExtension.pp_getHierarchyBreadth = function pp_getHierarchyBreadth() {
         let hierarchy = this.pp_getDescendantsBreadth();
 
         hierarchy.unshift(this);
@@ -2489,7 +2493,7 @@ export function initObjectExtensionProtoype() {
         return hierarchy;
     };
 
-    WLObject.prototype.pp_getHierarchyDepth = function pp_getHierarchyDepth() {
+    objectExtension.pp_getHierarchyDepth = function pp_getHierarchyDepth() {
         let hierarchy = this.pp_getDescendantsDepth();
 
         hierarchy.unshift(this);
@@ -2497,11 +2501,11 @@ export function initObjectExtensionProtoype() {
         return hierarchy;
     };
 
-    WLObject.prototype.pp_getDescendants = function pp_getDescendants() {
+    objectExtension.pp_getDescendants = function pp_getDescendants() {
         return this.pp_getDescendantsBreadth();
     };
 
-    WLObject.prototype.pp_getDescendantsBreadth = function pp_getDescendantsBreadth() {
+    objectExtension.pp_getDescendantsBreadth = function pp_getDescendantsBreadth() {
         let descendants = [];
 
         let descendantsQueue = this.children;
@@ -2517,7 +2521,7 @@ export function initObjectExtensionProtoype() {
         return descendants;
     };
 
-    WLObject.prototype.pp_getDescendantsDepth = function pp_getDescendantsDepth() {
+    objectExtension.pp_getDescendantsDepth = function pp_getDescendantsDepth() {
         let descendants = [];
 
         let children = this.pp_getChildren();
@@ -2534,73 +2538,73 @@ export function initObjectExtensionProtoype() {
         return descendants;
     };
 
-    WLObject.prototype.pp_getChildren = function pp_getChildren() {
+    objectExtension.pp_getChildren = function pp_getChildren() {
         return this.children;
     };
 
-    WLObject.prototype.pp_getSelf = function pp_getSelf() {
+    objectExtension.pp_getSelf = function pp_getSelf() {
         return this;
     };
 
     //Cauldron
 
-    WLObject.prototype.pp_addObject = function pp_addObject() { // #ENGINE
+    objectExtension.pp_addObject = function pp_addObject() { // #ENGINE
         return this.engine.scene.addObject(this);
     };
 
-    WLObject.prototype.pp_getName = function pp_getName() {
+    objectExtension.pp_getName = function pp_getName() {
         return this.name;
     };
 
-    WLObject.prototype.pp_setName = function pp_setName(name) {
+    objectExtension.pp_setName = function pp_setName(name) {
         this.name = name;
     };
 
-    WLObject.prototype.pp_getID = function pp_getID() {
+    objectExtension.pp_getID = function pp_getID() {
         return this.objectId;
     };
 
-    WLObject.prototype.pp_markDirty = function pp_markDirty() {
+    objectExtension.pp_markDirty = function pp_markDirty() {
         return this.setDirty();
     };
 
-    WLObject.prototype.pp_equals = function pp_equals(otherObject) {
+    objectExtension.pp_equals = function pp_equals(otherObject) {
         return this.equals(otherObject);
     };
 
-    WLObject.prototype.pp_destroy = function pp_destroy() {
+    objectExtension.pp_destroy = function pp_destroy() {
         return this.destroy();
     };
 
-    WLObject.prototype.pp_reserveObjects = function pp_reserveObjects(count) {
+    objectExtension.pp_reserveObjects = function pp_reserveObjects(count) {
         this.pp_reserveObjectsHierarchy(count);
     };
 
-    WLObject.prototype.pp_reserveObjectsSelf = function pp_reserveObjectsSelf(count) {
+    objectExtension.pp_reserveObjectsSelf = function pp_reserveObjectsSelf(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapSelf();
         this._pp_reserveObjects(count, componentsAmountMap);
     };
 
-    WLObject.prototype.pp_reserveObjectsHierarchy = function pp_reserveObjectsHierarchy(count) {
+    objectExtension.pp_reserveObjectsHierarchy = function pp_reserveObjectsHierarchy(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapHierarchy();
         this._pp_reserveObjects(count, componentsAmountMap);
     };
 
-    WLObject.prototype.pp_reserveObjectsDescendants = function pp_reserveObjectsDescendants(count) {
+    objectExtension.pp_reserveObjectsDescendants = function pp_reserveObjectsDescendants(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapDescendants();
         this._pp_reserveObjects(count, componentsAmountMap);
     };
 
-    WLObject.prototype.pp_reserveObjectsChildren = function pp_reserveObjectsChildren(count) {
+    objectExtension.pp_reserveObjectsChildren = function pp_reserveObjectsChildren(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapChildren();
         this._pp_reserveObjects(count, componentsAmountMap);
     };
 
-    WLObject.prototype.pp_getComponentsAmountMap = function pp_getComponentsAmountMap(amountMap = new Map()) {
+    objectExtension.pp_getComponentsAmountMap = function pp_getComponentsAmountMap(amountMap = new Map()) {
         return this.pp_getComponentsAmountMapHierarchy(amountMap);
     };
 
-    WLObject.prototype.pp_getComponentsAmountMapSelf = function pp_getComponentsAmountMapSelf(amountMap = new Map()) {
+    objectExtension.pp_getComponentsAmountMapSelf = function pp_getComponentsAmountMapSelf(amountMap = new Map()) {
         let objectsAmount = amountMap.get("object");
         if (objectsAmount == null) {
             objectsAmount = 0;
@@ -2622,7 +2626,7 @@ export function initObjectExtensionProtoype() {
         return amountMap;
     };
 
-    WLObject.prototype.pp_getComponentsAmountMapHierarchy = function pp_getComponentsAmountMapHierarchy(amountMap = new Map()) {
+    objectExtension.pp_getComponentsAmountMapHierarchy = function pp_getComponentsAmountMapHierarchy(amountMap = new Map()) {
         let hierarchy = this.pp_getHierarchy();
 
         for (let object of hierarchy) {
@@ -2632,7 +2636,7 @@ export function initObjectExtensionProtoype() {
         return amountMap;
     };
 
-    WLObject.prototype.pp_getComponentsAmountMapDescendants = function pp_getComponentsAmountMapDescendants(amountMap = new Map()) {
+    objectExtension.pp_getComponentsAmountMapDescendants = function pp_getComponentsAmountMapDescendants(amountMap = new Map()) {
         let descendants = this.pp_getDescendants();
 
         for (let object of descendants) {
@@ -2642,7 +2646,7 @@ export function initObjectExtensionProtoype() {
         return amountMap;
     };
 
-    WLObject.prototype.pp_getComponentsAmountMapChildren = function pp_getComponentsAmountMapChildren(amountMap = new Map()) {
+    objectExtension.pp_getComponentsAmountMapChildren = function pp_getComponentsAmountMapChildren(amountMap = new Map()) {
         let children = this.pp_getChildren();
 
         for (let object of children) {
@@ -2654,9 +2658,9 @@ export function initObjectExtensionProtoype() {
 
     //Private Utils
 
-    WLObject.prototype._pp_epsilon = 0.000001;
+    objectExtension._pp_epsilon = 0.000001;
 
-    WLObject.prototype._pp_quaternionToRadians = function () {
+    objectExtension._pp_quaternionToRadians = function () {
         let mat3 = mat3_create();
         return function _pp_quaternionToRadians(quatRotation, radiansRotation = vec3_create()) {
             quatRotation.quat_toMatrix(mat3);
@@ -2679,20 +2683,20 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    WLObject.prototype._pp_degreesToQuaternion = function _pp_degreesToQuaternion(degreesRotation, quatRotation = quat_create()) {
+    objectExtension._pp_degreesToQuaternion = function _pp_degreesToQuaternion(degreesRotation, quatRotation = quat_create()) {
         quatRotation.quat_fromDegrees(degreesRotation);
         return quatRotation;
     };
 
-    WLObject.prototype._pp_toDegrees = function _pp_toDegrees(angle) {
+    objectExtension._pp_toDegrees = function _pp_toDegrees(angle) {
         return angle * (180 / Math.PI);
     };
 
-    WLObject.prototype._pp_clamp = function _pp_clamp(value, min, max) {
+    objectExtension._pp_clamp = function _pp_clamp(value, min, max) {
         return Math.min(Math.max(value, min), max);
     };
 
-    WLObject.prototype._pp_reserveObjects = function _pp_reserveObjects(count, componentsAmountMap) {
+    objectExtension._pp_reserveObjects = function _pp_reserveObjects(count, componentsAmountMap) {
         let objectsToReserve = componentsAmountMap.get("object") * count;
         componentsAmountMap.delete("object");
 
@@ -2704,7 +2708,7 @@ export function initObjectExtensionProtoype() {
         this.engine.scene.reserveObjects(objectsToReserve, componentsToReserve);
     };
 
-    WLObject.prototype._pp_setAxes = function () {
+    objectExtension._pp_setAxes = function () {
         let fixedAxes = [vec3_create(), vec3_create(), vec3_create()];
 
         let fixedAxesFixSignMap = [
@@ -2830,20 +2834,6 @@ export function initObjectExtensionProtoype() {
 
 
 
-    for (let key in WLObject.prototype) {
-        let prefixes = ["pp_", "_pp_"];
-
-        let found = false;
-        for (let prefix of prefixes) {
-            if (key.startsWith(prefix)) {
-                found = true;
-                break;
-            }
-        }
-
-        if (found) {
-            Object.defineProperty(WLObject.prototype, key, { enumerable: false });
-        }
-    }
+    ExtensionUtils.assignProperties(objectExtension, WLObject.prototype, false, true, true);
 
 }
