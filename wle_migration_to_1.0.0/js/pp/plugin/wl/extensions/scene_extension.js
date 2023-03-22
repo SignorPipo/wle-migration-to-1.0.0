@@ -25,14 +25,42 @@
 */
 
 import { Scene } from "@wonderlandengine/api";
-import { getMainEngine } from "./engine_extension";
 
-export function initSceneExtension() {
+let myMainScene = null;
+let myScenes = [];
+
+export function initSceneExtension(engine) {
+    if (engine != null) {
+        engine.onSceneLoaded.push(() => {
+            let newScene = engine.scene;
+            if (!hasScene(newScene)) {
+                myScenes.push(newScene);
+                if (getMainScene() == null) {
+                    setMainScene(newScene);
+                }
+            }
+        });
+    }
+
     initSceneExtensionPrototype();
 }
 
-export function getScene(engine = getMainEngine()) {
-    return engine.scene;
+export function getMainScene() {
+    return myMainScene;
+}
+
+export function setMainScene(scene) {
+    if (hasScene(scene)) {
+        myMainScene = scene;
+    }
+}
+
+export function getScenes() {
+    return myScenes;
+}
+
+export function hasScene(scene) {
+    return myScenes.indexOf(scene) >= 0;
 }
 
 export function initSceneExtensionPrototype() {

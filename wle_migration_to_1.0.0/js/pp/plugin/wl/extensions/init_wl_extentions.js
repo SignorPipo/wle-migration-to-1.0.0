@@ -5,5 +5,5 @@ import { initSceneExtension } from "./scene_extension";
 export function initWLExtensions(engine) {
     initEngineExtension(engine);
     initObjectExtension();
-    initSceneExtension();
+    initSceneExtension(engine);
 }

@@ -5,21 +5,14 @@ export function initEngineExtension(engine) {
     initEngineExtensionGlobal(engine);
 }
 
-export function initEngineExtensionGlobal(engine) {
-    if (engine != null) {
-        addEngine(engine);
-        if (getMainEngine() == null) {
-            setMainEngine(engine);
-        }
-    }
-}
-
 export function getMainEngine() {
     return myMainEngine;
 }
 
 export function setMainEngine(engine) {
-    myMainEngine = engine;
+    if (hasEngine(engine)) {
+        myMainEngine = engine;
+    }
 }
 
 export function getEngines() {
@@ -36,5 +29,18 @@ export function removeEngine(engine) {
 
     if (index >= 0) {
         myEngines.splice(index, 1);
+    }
+}
+
+export function hasEngine(engine) {
+    return myEngines.indexOf(engine) >= 0;
+}
+
+export function initEngineExtensionGlobal(engine) {
+    if (engine != null) {
+        addEngine(engine);
+        if (getMainEngine() == null) {
+            setMainEngine(engine);
+        }
     }
 }
