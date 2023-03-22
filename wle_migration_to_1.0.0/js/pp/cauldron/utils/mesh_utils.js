@@ -1,4 +1,4 @@
-import { vec3_create, vec4_create } from "../../js/extensions/array_extension";
+import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 
 export class MeshCreationVertexParams {
     constructor() {
@@ -27,7 +27,6 @@ export let MeshUtils = {
     createMesh,
     cloneMesh,
     invertMesh
-
 };
 
 export function createPlaneMesh() {

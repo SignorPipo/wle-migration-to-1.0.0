@@ -1013,9 +1013,12 @@
                 "js/index.js",
                 "js/bundle.js",
                 "js/pp",
-                "js/pp/plugin",
                 "js/pp/pp",
-                "js/pp/pp/components/pp_gateway_component.js"
+                "js/pp/pp/components/pp_gateway_component.js",
+                "js/pp/plugin",
+                "js/pp/audio",
+                "js/pp/audio/howler",
+                "js/pp/audio/components"
             ],
             "libraryPaths": [
                 "/js/lib/"

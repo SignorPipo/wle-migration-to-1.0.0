@@ -18,9 +18,18 @@ import * as API from '@wonderlandengine/api'; // Deprecated: Backward compatibil
 import {ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent} from '@wonderlandengine/components';
 import './bundle.js';
 import './pp/bundle.js';
-import './pp/plugin/init_plugins.js';
 import './pp/pp/init_pp.js';
 import {GatewayComponent} from './pp/pp/components/pp_gateway_component.js';
+import './pp/plugin/init_plugins.js';
+import './pp/audio/audio_manager.js';
+import './pp/audio/audio_manager_global.js';
+import './pp/audio/audio_player.js';
+import './pp/audio/audio_setup.js';
+import './pp/audio/audio_utils.js';
+import './pp/audio/howler/howler_audio_player.js';
+import {AudioManagerComponent} from './pp/audio/components/audio_manager_component.js';
+import {MuteEverythingComponent} from './pp/audio/components/mute_everything_component.js';
+import {SpatialAudioListenerComponent} from './pp/audio/components/spatial_audio_listener_component.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -59,6 +68,9 @@ if (vrButton) {
 /* wle:auto-register:start */
 engine.registerComponent(ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent);
 engine.registerComponent(GatewayComponent);
+engine.registerComponent(AudioManagerComponent);
+engine.registerComponent(MuteEverythingComponent);
+engine.registerComponent(SpatialAudioListenerComponent);
 /* wle:auto-register:end */
 
 initPP(engine);
