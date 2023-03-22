@@ -1,9 +1,5 @@
 import { Howler } from "howler";
 
-export let AudioUtils = {
-    isAudioPlaybackBlocked
-};
-
 export function isAudioPlaybackBlocked() {
     let isBlocked = false;
 
@@ -13,3 +9,7 @@ export function isAudioPlaybackBlocked() {
 
     return isBlocked;
 }
+
+export let AudioUtils = {
+    isAudioPlaybackBlocked
+};

@@ -1,10 +1,14 @@
 //PP
 
 require("./pp/init_pp");
+require("./pp/player_objects");
+require("./pp/player_objects_global");
+require("./pp/default_resources");
+require("./pp/default_resources_global");
 
 require("./pp/components/pp_gateway_component");
-//require("./pp/components/get_player_objects_component");
-//require("./pp/components/get_default_resources_component");
+require("./pp/components/get_player_objects_component");
+require("./pp/components/get_default_resources_component");
 
 //	PLUGIN
 require("./plugin/utils/extension_utils");

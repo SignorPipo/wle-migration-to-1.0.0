@@ -22,13 +22,6 @@ export class MeshCreationParams {
     }
 };
 
-export let MeshUtils = {
-    createPlaneMesh,
-    createMesh,
-    cloneMesh,
-    invertMesh
-};
-
 export function createPlaneMesh() {
     let vertexCount = 4;
 
@@ -309,3 +302,10 @@ export let invertMesh = function () {
         return invertedMesh;
     };
 }();
+
+export let MeshUtils = {
+    createPlaneMesh,
+    createMesh,
+    cloneMesh,
+    invertMesh
+};

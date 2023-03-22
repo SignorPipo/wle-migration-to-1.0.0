@@ -1,7 +1,3 @@
-export let ExtensionUtils = {
-    assignProperties
-};
-
 export function assignProperties(fromReference, toReference, enumerable = false, writable = true, configurable = true) {
     let ownPropertyNames = Object.getOwnPropertyNames(fromReference);
     for (let ownPropertyName of ownPropertyNames) {
@@ -13,3 +9,7 @@ export function assignProperties(fromReference, toReference, enumerable = false,
         });
     }
 }
+
+export let ExtensionUtils = {
+    assignProperties
+};

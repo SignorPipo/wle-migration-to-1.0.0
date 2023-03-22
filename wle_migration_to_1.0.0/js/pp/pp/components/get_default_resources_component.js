@@ -1,26 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
-
-PP.myDefaultResources = {
-    myMeshes: {
-        myPlane: null,
-        myCube: null,
-        mySphere: null,
-        myCone: null,
-        myCylinder: null,
-        myCircle: null,
-
-        myInvertedCube: null,
-        myInvertedSphere: null,
-        myInvertedCone: null,
-        myInvertedCylinder: null
-    },
-    myMaterials: {
-        myFlatOpaque: null,
-        myFlatTransparentNoDepth: null, // for now the pipeline needs to be the last one to make this work properly
-        myPhongOpaque: null,
-        myText: null,
-    }
-};
+import { MeshUtils } from "../../cauldron/utils/mesh_utils";
+import { DefaultResources } from "../default_resources";
+import { hasDefaultResources, removeDefaultResources, setDefaultResources } from "../default_resources_global";
 
 export class GetDefaultResourcesComponent extends Component {
     static TypeName = "pp-get-default-resources";
@@ -39,32 +20,47 @@ export class GetDefaultResourcesComponent extends Component {
     };
 
     init() {
-        PP.myDefaultResources.myMeshes.myPlane = PP.MeshUtils.cloneMesh(this._myPlane);
-        PP.myDefaultResources.myMeshes.myCube = PP.MeshUtils.cloneMesh(this._myCube);
-        PP.myDefaultResources.myMeshes.mySphere = PP.MeshUtils.cloneMesh(this._mySphere);
-        PP.myDefaultResources.myMeshes.myCone = PP.MeshUtils.cloneMesh(this._myCone);
-        PP.myDefaultResources.myMeshes.myCylinder = PP.MeshUtils.cloneMesh(this._myCylinder);
-        PP.myDefaultResources.myMeshes.myCircle = PP.MeshUtils.cloneMesh(this._myCircle);
+        this._myEnabled = false;
 
-        PP.myDefaultResources.myMeshes.myInvertedCube = PP.MeshUtils.invertMesh(this._myCube);
-        PP.myDefaultResources.myMeshes.myInvertedSphere = PP.MeshUtils.invertMesh(this._mySphere);
-        PP.myDefaultResources.myMeshes.myInvertedCone = PP.MeshUtils.invertMesh(this._myCone);
-        PP.myDefaultResources.myMeshes.myInvertedCylinder = PP.MeshUtils.invertMesh(this._myCylinder);
+        // prevents double managers from same engine
+        if (!hasDefaultResources(this.engine)) {
+            let defaultResources = new DefaultResources();
+            defaultResources.myMeshes.myPlane = MeshUtils.cloneMesh(this._myPlane);
+            defaultResources.myMeshes.myCube = MeshUtils.cloneMesh(this._myCube);
+            defaultResources.myMeshes.mySphere = MeshUtils.cloneMesh(this._mySphere);
+            defaultResources.myMeshes.myCone = MeshUtils.cloneMesh(this._myCone);
+            defaultResources.myMeshes.myCylinder = MeshUtils.cloneMesh(this._myCylinder);
+            defaultResources.myMeshes.myCircle = MeshUtils.cloneMesh(this._myCircle);
 
-        if (this._myFlatOpaque != null) {
-            PP.myDefaultResources.myMaterials.myFlatOpaque = this._myFlatOpaque.clone();
+            defaultResources.myMeshes.myInvertedCube = MeshUtils.invertMesh(this._myCube);
+            defaultResources.myMeshes.myInvertedSphere = MeshUtils.invertMesh(this._mySphere);
+            defaultResources.myMeshes.myInvertedCone = MeshUtils.invertMesh(this._myCone);
+            defaultResources.myMeshes.myInvertedCylinder = MeshUtils.invertMesh(this._myCylinder);
+
+            if (this._myFlatOpaque != null) {
+                defaultResources.myMaterials.myFlatOpaque = this._myFlatOpaque.clone();
+            }
+
+            if (this._myFlatTransparentNoDepth != null) {
+                defaultResources.myMaterials.myFlatTransparentNoDepth = this._myFlatTransparentNoDepth.clone();
+            }
+
+            if (this._myPhongOpaque != null) {
+                defaultResources.myMaterials.myPhongOpaque = this._myPhongOpaque.clone();
+            }
+
+            if (this._myText != null) {
+                defaultResources.myMaterials.myText = this._myText.clone();
+            }
+
+            setDefaultResources(defaultResources, this.engine);
+            this._myEnabled = true;
         }
+    }
 
-        if (this._myFlatTransparentNoDepth != null) {
-            PP.myDefaultResources.myMaterials.myFlatTransparentNoDepth = this._myFlatTransparentNoDepth.clone();
-        }
-
-        if (this._myPhongOpaque != null) {
-            PP.myDefaultResources.myMaterials.myPhongOpaque = this._myPhongOpaque.clone();
-        }
-
-        if (this._myText != null) {
-            PP.myDefaultResources.myMaterials.myText = this._myText.clone();
+    onDestroy() {
+        if (this._myEnabled) {
+            removeDefaultResources(this.engine);
         }
     }
 };

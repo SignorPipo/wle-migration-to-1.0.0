@@ -18,9 +18,31 @@ import * as API from '@wonderlandengine/api'; // Deprecated: Backward compatibil
 import {ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent} from '@wonderlandengine/components';
 import './bundle.js';
 import './pp/bundle.js';
+import './pp/pp/default_resources.js';
+import './pp/pp/default_resources_global.js';
 import './pp/pp/init_pp.js';
+import './pp/pp/player_objects.js';
+import './pp/pp/player_objects_global.js';
+import {GetDefaultResourcesComponent} from './pp/pp/components/get_default_resources_component.js';
+import {GetPlayerObjectsComponent} from './pp/pp/components/get_player_objects_component.js';
 import {GatewayComponent} from './pp/pp/components/pp_gateway_component.js';
 import './pp/plugin/init_plugins.js';
+import './pp/plugin/utils/extension_utils.js';
+import './pp/plugin/js/init_js_plugins.js';
+import './pp/plugin/js/extensions/array_extension.js';
+import './pp/plugin/js/extensions/init_js_extentions.js';
+import './pp/plugin/js/extensions/math_extension.js';
+import './pp/plugin/wl/init_wl_plugins.js';
+import './pp/plugin/wl/extensions/engine_extension.js';
+import './pp/plugin/wl/extensions/init_wl_extentions.js';
+import './pp/plugin/wl/extensions/object_extension.js';
+import './pp/plugin/wl/extensions/scene_extension.js';
+import './pp/plugin/wl/mods/init_wl_mods.js';
+import './pp/plugin/wl/mods/components/component_clone_mod.js';
+import './pp/plugin/wl/mods/components/cursor_component_mod.js';
+import './pp/plugin/wl/mods/components/cursor_target_component_mod.js';
+import './pp/plugin/wl/mods/components/init_component_mods.js';
+import './pp/plugin/wl/mods/components/mouse_look_component_mod.js';
 import './pp/audio/audio_manager.js';
 import './pp/audio/audio_manager_global.js';
 import './pp/audio/audio_player.js';
@@ -30,6 +52,8 @@ import './pp/audio/howler/howler_audio_player.js';
 import {AudioManagerComponent} from './pp/audio/components/audio_manager_component.js';
 import {MuteEverythingComponent} from './pp/audio/components/mute_everything_component.js';
 import {SpatialAudioListenerComponent} from './pp/audio/components/spatial_audio_listener_component.js';
+import './pp/cauldron/utils/mesh_utils.js';
+import './pp/input/cauldron/input_types.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -67,6 +91,8 @@ if (vrButton) {
 
 /* wle:auto-register:start */
 engine.registerComponent(ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent);
+engine.registerComponent(GetDefaultResourcesComponent);
+engine.registerComponent(GetPlayerObjectsComponent);
 engine.registerComponent(GatewayComponent);
 engine.registerComponent(AudioManagerComponent);
 engine.registerComponent(MuteEverythingComponent);
