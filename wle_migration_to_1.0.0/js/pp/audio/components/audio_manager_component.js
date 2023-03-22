@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { AudioManager } from "../audio_manager";
-import { hasAudioManager, removeAudioManager, setAudioManager } from "../audio_manager_singleton";
+import { hasAudioManager, removeAudioManager, setAudioManager } from "../audio_manager_global";
 
 export class AudioManagerComponent extends Component {
     static TypeName = "pp-audio-manager";

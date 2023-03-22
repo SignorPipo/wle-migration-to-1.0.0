@@ -1,5 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { Howler } from "howler";
+import { vec3_create } from "../../plugin/js/extensions/array_extension";
 
 export class SpatialAudioListenerComponent extends Component {
     static TypeName = "pp-spatial-audio-listener";
@@ -8,9 +9,9 @@ export class SpatialAudioListenerComponent extends Component {
     };
 
     init() {
-        this._myOrigin = PP.vec3_create();
-        this._myForward = PP.vec3_create();
-        this._myUp = PP.vec3_create();
+        this._myOrigin = vec3_create();
+        this._myForward = vec3_create();
+        this._myUp = vec3_create();
     }
 
     update(dt) {

@@ -1,4 +1,5 @@
 import { Howler } from "howler";
+import { AudioPlayer } from "./audio_player";
 
 export class AudioManager {
     constructor() {
@@ -8,7 +9,7 @@ export class AudioManager {
     createAudioPlayer(audioSetupID) {
         let audioSetup = this.getAudioSetup(audioSetupID);
         if (audioSetup != null) {
-            return new PP.AudioPlayer(this.getAudioSetup(audioSetupID));
+            return new AudioPlayer(this.getAudioSetup(audioSetupID));
         }
 
         return null;

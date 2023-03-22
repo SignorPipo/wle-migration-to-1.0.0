@@ -25,15 +25,17 @@ require("./plugin/wl/mods/components/cursor_target_component_mod");
 require("./plugin/wl/mods/components/mouse_look_component_mod");
 
 //	AUDIO
-//require("./audio/components/spatial_audio_listener_component");
-//require("./audio/components/audio_manager_component");
-//require("./audio/audio_manager");
-//require("./audio/audio_player");
-//require("./audio/audio_setup");
-//require("./audio/components/mute_everything_component");
-//require("./audio/audio_utils");
+require("./audio/audio_manager");
+require("./audio/audio_manager_global");
+require("./audio/audio_player");
+require("./audio/audio_setup");
+require("./audio/audio_utils");
 
-//require("./audio/howler/howler_audio_player");
+require("./audio/howler/howler_audio_player");
+
+require("./audio/components/audio_manager_component");
+require("./audio/components/mute_everything_component");
+require("./audio/components/spatial_audio_listener_component");
 
 //	CAULDRON
 //require("./cauldron/benchmarks/benchmark_max_physx_component");

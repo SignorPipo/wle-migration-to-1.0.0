@@ -36,8 +36,8 @@ const engine = await loadRuntime(RuntimeBaseName, {
     physx: WithPhysX,
     loader: WithLoader
 });
-//Object.assign(engine, API); // Deprecated: Backward compatibility.
-//window.WL = engine; // Deprecated: Backward compatibility.
+Object.assign(engine, API); // Deprecated: Backward compatibility.
+window.WL = engine; // Deprecated: Backward compatibility.
 
 API.Object.prototype.engine = function () { return this._engine; }
 API.Scene.prototype.engine = function () { return this._engine; }
