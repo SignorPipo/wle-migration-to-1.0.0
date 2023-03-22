@@ -1,5 +1,6 @@
 import { MouseLookComponent } from "@wonderlandengine/components";
 import { vec3_create } from "../../../js/extensions/array_extension";
+import { Timer } from "../../../../cauldron/cauldron/timer";
 
 export function initMouseLookComponentMod() {
     initMouseLookComponentModPrototype();
