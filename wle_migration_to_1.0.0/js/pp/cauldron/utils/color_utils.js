@@ -7,7 +7,7 @@ PP.ColorUtils = {
         let g = rgb[1];
         let b = rgb[2];
 
-        var max = Math.max(r, g, b), min = Math.min(r, g, b),
+        let max = Math.max(r, g, b), min = Math.min(r, g, b),
             d = max - min,
             h,
             s = (max === 0 ? 0 : d / max),

@@ -22,10 +22,10 @@ export function initCursorComponentModPrototype() {
 
         this.visible = false;
 
-        const sceneLoaded = this.onDestroy.bind(this);
+        let sceneLoaded = this.onDestroy.bind(this);
         this.engine.onSceneLoaded.push(sceneLoaded);
         this.onDestroyCallbacks = [() => {
-            const index = this.engine.onSceneLoaded.indexOf(sceneLoaded);
+            let index = this.engine.onSceneLoaded.indexOf(sceneLoaded);
             if (index >= 0) this.engine.onSceneLoaded.splice(index, 1);
         }];
 
@@ -41,7 +41,7 @@ export function initCursorComponentModPrototype() {
 
     Cursor.prototype.start = function start() {
         if (this.handedness == 0) {
-            const inputComp = this.object.getComponent(InputComponent);
+            let inputComp = this.object.getComponent(InputComponent);
             if (!inputComp) {
                 console.warn("cursor component on object " + this.object.name + " was configured with handedness \"input component\", " + "but object has no input component.");
             } else {
@@ -72,11 +72,11 @@ export function initCursorComponentModPrototype() {
         this.cursorPos = vec3_create();
         this.hoveringObject = null;
 
-        const onXRSessionStart = this.setupVREvents.bind(this);
+        let onXRSessionStart = this.setupVREvents.bind(this);
         this.engine.onXRSessionStart.push(onXRSessionStart);
 
         this.onDestroyCallbacks.push(() => {
-            const index = this.engine.onXRSessionStart.indexOf(onXRSessionStart);
+            let index = this.engine.onXRSessionStart.indexOf(onXRSessionStart);
             if (index >= 0) this.engine.onXRSessionStart.splice(index, 1);
         });
 
@@ -140,7 +140,7 @@ export function initCursorComponentModPrototype() {
         if (this.session) {
             /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
             if (this.arTouchDown && this.input && this.engine.xrSession.inputSources[0].handedness === "none" && this.engine.xrSession.inputSources[0].gamepad) {
-                const p = this.engine.xrSession.inputSources[0].gamepad.axes;
+                let p = this.engine.xrSession.inputSources[0].gamepad.axes;
                 /* Screenspace Y is inverted */
                 this.direction.vec3_set(p[0], -p[1], -1.0);
                 this.updateDirection();
@@ -148,7 +148,7 @@ export function initCursorComponentModPrototype() {
                 this.object.getTranslationWorld(this.origin);
                 this.object.getForward(this.direction);
             }
-            const rayHit = this.rayHit = (this.rayCastMode == 0) ?
+            let rayHit = this.rayHit = (this.rayCastMode == 0) ?
                 this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
                 this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
@@ -161,7 +161,7 @@ export function initCursorComponentModPrototype() {
             this.hoverBehaviour(rayHit, doClick);
         } else {
             if (this.viewComponent != null && this.lastClientX != null) {
-                const rayHit = this.updateMousePos(this.lastClientX, this.lastClientY, this.lastWidth, this.lastHeight);
+                let rayHit = this.updateMousePos(this.lastClientX, this.lastClientY, this.lastWidth, this.lastHeight);
                 this.hoverBehaviour(rayHit, false);
             }
         }
@@ -289,18 +289,18 @@ export function initCursorComponentModPrototype() {
     Cursor.prototype.setupVREvents = function setupVREvents(s) {
         /* If in VR, one-time bind the listener */
         this.session = s;
-        const onSessionEnd = function (e) {
+        let onSessionEnd = function (e) {
             /* Reset cache once the session ends to rebind select etc, in case
              * it starts again */
             this.session = null;
         }.bind(this);
         s.addEventListener("end", onSessionEnd);
 
-        const onSelect = this.onSelect.bind(this);
+        let onSelect = this.onSelect.bind(this);
         s.addEventListener("select", onSelect);
-        const onSelectStart = this.onSelectStart.bind(this);
+        let onSelectStart = this.onSelectStart.bind(this);
         s.addEventListener("selectstart", onSelectStart);
-        const onSelectEnd = this.onSelectEnd.bind(this);
+        let onSelectEnd = this.onSelectEnd.bind(this);
         s.addEventListener("selectend", onSelectEnd);
 
         this.onDestroyCallbacks.push(() => {
@@ -352,8 +352,8 @@ export function initCursorComponentModPrototype() {
             /* Don't care about secondary pointers */
             if (this.pointerId != null && this.pointerId != e.pointerId) return;
 
-            const bounds = document.body.getBoundingClientRect();
-            const rayHit = this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
+            let bounds = document.body.getBoundingClientRect();
+            let rayHit = this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
 
             this.hoverBehaviour(rayHit, false);
 
@@ -373,7 +373,7 @@ export function initCursorComponentModPrototype() {
         if ((this.pointerId != null && this.pointerId != e.pointerId) || e.button !== 0) return;
 
         if (this.active) {
-            const bounds = document.body.getBoundingClientRect();
+            let bounds = document.body.getBoundingClientRect();
             let rayHit = this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
 
             this.isDown = true;
@@ -396,7 +396,7 @@ export function initCursorComponentModPrototype() {
         if ((this.pointerId != null && this.pointerId != e.pointerId) || e.button !== 0) return;
 
         if (this.active) {
-            const bounds = document.body.getBoundingClientRect();
+            let bounds = document.body.getBoundingClientRect();
             let rayHit = this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
 
             if (!this.isDown) {
@@ -425,8 +425,8 @@ export function initCursorComponentModPrototype() {
         this.lastHeight = h;
 
         /* Get direction in normalized device coordinate space from mouse position */
-        const left = clientX / w;
-        const top = clientY / h;
+        let left = clientX / w;
+        let top = clientY / h;
         this.direction.vec3_set(left * 2 - 1, -top * 2 + 1, -1.0);
         return this.updateDirection();
     };
@@ -438,7 +438,7 @@ export function initCursorComponentModPrototype() {
         vec3.transformMat4(this.direction, this.direction, this.projectionMatrix);
         vec3.normalize(this.direction, this.direction);
         vec3.transformQuat(this.direction, this.direction, this.object.transformWorld);
-        const rayHit = this.rayHit = (this.rayCastMode == 0) ?
+        let rayHit = this.rayHit = (this.rayCastMode == 0) ?
             this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
             this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
@@ -453,7 +453,7 @@ export function initCursorComponentModPrototype() {
 
     Cursor.prototype.onDeactivate = function onDeactivate() {
         if (this.hoveringObject) {
-            const cursorTarget = this.hoveringObject.getComponent(CursorTarget);
+            let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
             if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
             this.globalTarget.onUnhover(this.hoveringObject, this);
         }
@@ -487,7 +487,7 @@ export function initCursorComponentModPrototype() {
     };
 
     Cursor.prototype.onDestroy = function onDestroy() {
-        for (const f of this.onDestroyCallbacks) f();
+        for (let f of this.onDestroyCallbacks) f();
     };
 
     // New Functions 
@@ -497,20 +497,20 @@ export function initCursorComponentModPrototype() {
         /* If this object also has a view component, we will enable inverse-projected mouse clicks,
          * otherwise just use the objects transformation */
         if (this.viewComponent != null) {
-            const onClick = this.onClick.bind(this);
+            let onClick = this.onClick.bind(this);
             this.engine.canvas.addEventListener("click", onClick);
-            const onPointerDown = this.onPointerDown.bind(this);
+            let onPointerDown = this.onPointerDown.bind(this);
             this.engine.canvas.addEventListener("pointerdown", onPointerDown);
-            const onPointerMove = this.onPointerMove.bind(this);
+            let onPointerMove = this.onPointerMove.bind(this);
             this.engine.canvas.addEventListener("pointermove", onPointerMove);
-            const onPointerUp = this.onPointerUp.bind(this);
+            let onPointerUp = this.onPointerUp.bind(this);
             this.engine.canvas.addEventListener("pointerup", onPointerUp);
-            const onPointerLeave = this.onPointerLeave.bind(this);
+            let onPointerLeave = this.onPointerLeave.bind(this);
             this.engine.canvas.addEventListener("pointerleave", onPointerLeave);
 
             this.projectionMatrix = mat4_create();
             mat4.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
-            const onViewportResize = this.onViewportResize.bind(this);
+            let onViewportResize = this.onViewportResize.bind(this);
             window.addEventListener("resize", onViewportResize);
 
             this.onDestroyCallbacks.push(() => {

@@ -1,6 +1,6 @@
-import { Howler } from 'howler';
+import { Howler } from "howler";
 
-PP.AudioManager = class AudioManager {
+export class AudioManager {
     constructor() {
         this._myAudioSetups = new Map();
     }
@@ -40,4 +40,4 @@ PP.AudioManager = class AudioManager {
     stop() {
         Howler.stop();
     }
-};
+}
