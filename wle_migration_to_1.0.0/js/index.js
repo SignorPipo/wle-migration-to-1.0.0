@@ -52,8 +52,12 @@ import './pp/audio/howler/howler_audio_player.js';
 import {AudioManagerComponent} from './pp/audio/components/audio_manager_component.js';
 import {MuteEverythingComponent} from './pp/audio/components/mute_everything_component.js';
 import {SpatialAudioListenerComponent} from './pp/audio/components/spatial_audio_listener_component.js';
-import './pp/cauldron/utils/mesh_utils.js';
-import './pp/input/cauldron/input_types.js';
+import {BenchmarkMaxPhysXComponent} from './pp/cauldron/benchmarks/benchmark_max_physx_component.js';
+import {BenchmarkMaxVisibleTrianglesComponent} from './pp/cauldron/benchmarks/benchmark_max_visible_triangles_component.js';
+import './pp/cauldron/physics/physics_collision_collector.js';
+import './pp/cauldron/physics/physics_layer_flags.js';
+import './pp/cauldron/physics/physics_raycast_data.js';
+import './pp/cauldron/physics/physics_utils.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -61,7 +65,7 @@ import { initPP } from "./pp/pp/init_pp"
 /* wle:auto-constants:start */
 const ProjectName = 'wle_migration_to_1.0.0';
 const RuntimeBaseName = 'WonderlandRuntime';
-const WithPhysX = false;
+const WithPhysX = true;
 const WithLoader = false;
 /* wle:auto-constants:end */
 
@@ -97,6 +101,8 @@ engine.registerComponent(GatewayComponent);
 engine.registerComponent(AudioManagerComponent);
 engine.registerComponent(MuteEverythingComponent);
 engine.registerComponent(SpatialAudioListenerComponent);
+engine.registerComponent(BenchmarkMaxPhysXComponent);
+engine.registerComponent(BenchmarkMaxVisibleTrianglesComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

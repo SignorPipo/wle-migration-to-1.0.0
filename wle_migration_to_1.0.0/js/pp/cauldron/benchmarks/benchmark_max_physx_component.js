@@ -1,4 +1,9 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, PhysXComponent, Type } from "@wonderlandengine/api";
+import { vec3_create } from "../../plugin/js/extensions/array_extension";
+import { Timer } from "../cauldron/timer";
+import { PhysicsCollisionCollector } from "../physics/physics_collision_collector";
+import { RaycastResults, RaycastSetup } from "../physics/physics_raycast_data";
+import { PhysicsUtils } from "../physics/physics_utils";
 
 // adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away
 export class BenchmarkMaxPhysXComponent extends Component {
@@ -24,10 +29,15 @@ export class BenchmarkMaxPhysXComponent extends Component {
     };
 
     start() {
+        this._myStarted = false;
+        this._myPreStartTimer = new Timer(1);
+    }
+
+    _start() {
         this._myRootObject = this.engine.scene.addObject(this.object);
 
-        this._myRaycastSetup = new PP.RaycastSetup();
-        this._myRaycastResults = new PP.RaycastResults();
+        this._myRaycastSetup = new RaycastSetup();
+        this._myRaycastResults = new RaycastResults();
 
         this._myStaticPhysXObjects = [];
         this._myStaticPhysXComponents = [];
@@ -43,10 +53,10 @@ export class BenchmarkMaxPhysXComponent extends Component {
         this._spawnDome(false, false);
         this._spawnDome(false, true);
 
-        this._myStartTimer = new PP.Timer(1);
-        this._myTimer = new PP.Timer(0);
-        this._myDebugTimer = new PP.Timer(this._myVisualizeRaycastDelay);
-        this._myEnableLogTimer = new PP.Timer(1);
+        this._myStartTimer = new Timer(1);
+        this._myTimer = new Timer(0);
+        this._myDebugTimer = new Timer(this._myVisualizeRaycastDelay);
+        this._myEnableLogTimer = new Timer(1);
         this._myFPSHistory = [];
         for (let i = 0; i < 7; i++) {
             this._myFPSHistory.push(0);
@@ -54,89 +64,98 @@ export class BenchmarkMaxPhysXComponent extends Component {
 
         this._myAddVelocityDelay = 10;
 
-        this._myTranslateVec3 = PP.vec3_create();
-        this._myRotateVec3 = PP.vec3_create();
+        this._myTranslateVec3 = vec3_create();
+        this._myRotateVec3 = vec3_create();
+
+        this._myStarted = true;
     }
 
     update(dt) {
-        this._myStartTimer.update(dt);
-        if (this._myStartTimer.isDone()) {
-            this._myTimer.update(dt);
-            this._myDebugTimer.update(dt);
-            this._myEnableLogTimer.update(dt);
-            if (this._myTimer.isDone()) {
-                this._myTimer.start();
+        if (!this._myStarted) {
+            this._myPreStartTimer.update(dt);
+            if (this._myPreStartTimer.isDone()) {
+                this._start();
+            }
+        } else {
+            this._myStartTimer.update(dt);
+            if (this._myStartTimer.isDone()) {
+                this._myTimer.update(dt);
+                this._myDebugTimer.update(dt);
+                this._myEnableLogTimer.update(dt);
+                if (this._myTimer.isDone()) {
+                    this._myTimer.start();
 
-                let debugActive = false;
-                if (this._myDebugTimer.isDone()) {
-                    this._myDebugTimer.start();
-                    debugActive = true;
+                    let debugActive = false;
+                    if (this._myDebugTimer.isDone()) {
+                        this._myDebugTimer.start();
+                        debugActive = true;
+                    }
+
+                    debugActive = debugActive && this._myVisualizeRaycast;
+                    this._raycastTest(debugActive);
                 }
 
-                debugActive = debugActive && this._myVisualizeRaycast;
-                this._raycastTest(debugActive);
-            }
+                this._myFPSHistory.pop();
+                this._myFPSHistory.unshift(Math.round(1 / dt));
 
-            this._myFPSHistory.pop();
-            this._myFPSHistory.unshift(Math.round(1 / dt));
+                if (this._myEnableLog) {
+                    if (this._myEnableLogTimer.isDone()) {
+                        this._myEnableLogTimer.start();
+                        console.clear();
+                        console.log("Static PhysX Dome Size:", this._myStaticPhysXObjects.length);
+                        console.log("Dynamic PhysX Dome Size:", this._myDynamicPhysXObjects.length);
+                        console.log("Kinematic PhysX Dome Size:", this._myKinematicPhysXObjects.length);
 
-            if (this._myEnableLog) {
-                if (this._myEnableLogTimer.isDone()) {
-                    this._myEnableLogTimer.start();
-                    console.clear();
-                    console.log("Static PhysX Dome Size:", this._myStaticPhysXObjects.length);
-                    console.log("Dynamic PhysX Dome Size:", this._myDynamicPhysXObjects.length);
-                    console.log("Kinematic PhysX Dome Size:", this._myKinematicPhysXObjects.length);
+                        let staticCollisions = 0;
+                        for (let collector of this._myStaticPhysXCollectors) {
+                            staticCollisions += collector.getCollisions().length;
+                        }
 
-                    let staticCollisions = 0;
-                    for (let collector of this._myStaticPhysXCollectors) {
-                        staticCollisions += collector.getCollisions().length;
+                        let dynamicCollisions = 0;
+                        for (let collector of this._myDynamicPhysXCollectors) {
+                            dynamicCollisions += collector.getCollisions().length;
+                        }
+
+                        let kinematicCollisions = 0;
+                        for (let collector of this._myKinematicPhysXCollectors) {
+                            kinematicCollisions += collector.getCollisions().length;
+                        }
+
+                        let totalCollisions = (staticCollisions + dynamicCollisions + kinematicCollisions) / 2; //every collision is considered twice since it is caught by 2 physX
+
+                        console.log("Current Collisions Count:", totalCollisions);
+                        console.log("Raycast Count:", this._myRaycastCount);
+                        console.log("FPS History:");
+                        let fpsString = "";
+                        for (let fps of this._myFPSHistory) {
+                            fpsString = fpsString.concat(fps, "\n");
+                        }
+                        console.log(fpsString);
                     }
-
-                    let dynamicCollisions = 0;
-                    for (let collector of this._myDynamicPhysXCollectors) {
-                        dynamicCollisions += collector.getCollisions().length;
-                    }
-
-                    let kinematicCollisions = 0;
-                    for (let collector of this._myKinematicPhysXCollectors) {
-                        kinematicCollisions += collector.getCollisions().length;
-                    }
-
-                    let totalCollisions = (staticCollisions + dynamicCollisions + kinematicCollisions) / 2; //every collision is considered twice since it is caught by 2 physX
-
-                    console.log("Current Collisions Count:", totalCollisions);
-                    console.log("Raycast Count:", this._myRaycastCount);
-                    console.log("FPS History:");
-                    let fpsString = "";
-                    for (let fps of this._myFPSHistory) {
-                        fpsString = fpsString.concat(fps, "\n");
-                    }
-                    console.log(fpsString);
                 }
             }
-        }
 
-        if (this._myAddVelocityDelay > 0) {
-            this._myAddVelocityDelay--;
-            if (this._myAddVelocityDelay == 0) {
-                for (let physX of this._myDynamicPhysXComponents) {
-                    physX.kinematic = false;
-                    let strength = 50;
-                    physX.linearVelocity = [Math.pp_random(-strength, strength), Math.pp_random(-strength, strength), Math.pp_random(-strength, strength)];
-                    physX.angularVelocity = [Math.pp_random(-strength, strength), Math.pp_random(-strength, strength), Math.pp_random(-strength, strength)];
+            if (this._myAddVelocityDelay > 0) {
+                this._myAddVelocityDelay--;
+                if (this._myAddVelocityDelay == 0) {
+                    for (let physX of this._myDynamicPhysXComponents) {
+                        physX.kinematic = false;
+                        let strength = 50;
+                        physX.linearVelocity = [Math.pp_random(-strength, strength), Math.pp_random(-strength, strength), Math.pp_random(-strength, strength)];
+                        physX.angularVelocity = [Math.pp_random(-strength, strength), Math.pp_random(-strength, strength), Math.pp_random(-strength, strength)];
+                    }
                 }
             }
-        }
 
-        for (let physX of this._myKinematicPhysXObjects) {
-            let strength = 5 * dt;
-            this._myTranslateVec3.vec3_set(Math.pp_random(-strength, strength), Math.pp_random(-strength, strength), Math.pp_random(-strength, strength));
-            physX.pp_translate(this._myTranslateVec3);
+            for (let physX of this._myKinematicPhysXObjects) {
+                let strength = 5 * dt;
+                this._myTranslateVec3.vec3_set(Math.pp_random(-strength, strength), Math.pp_random(-strength, strength), Math.pp_random(-strength, strength));
+                physX.pp_translate(this._myTranslateVec3);
 
-            rotateStrength = 50 * dt;
-            this._myRotateVec3.vec3_set(Math.pp_random(-rotateStrength, rotateStrength), Math.pp_random(-rotateStrength, rotateStrength), Math.pp_random(-rotateStrength, rotateStrength));
-            physX.pp_rotate(this._myRotateVec3);
+                let rotateStrength = 50 * dt;
+                this._myRotateVec3.vec3_set(Math.pp_random(-rotateStrength, rotateStrength), Math.pp_random(-rotateStrength, rotateStrength), Math.pp_random(-rotateStrength, rotateStrength));
+                physX.pp_rotate(this._myRotateVec3);
+            }
         }
     }
 
@@ -155,7 +174,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
             this._myRaycastSetup.myDistance = distance;
             this._myRaycastSetup.myBlockLayerFlags.setMask(255);
 
-            let raycastResults = PP.PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResults);
+            let raycastResults = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResults);
 
             if (debugActive) {
                 PP.myDebugVisualManager.drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
@@ -197,13 +216,13 @@ export class BenchmarkMaxPhysXComponent extends Component {
         let minExtraRotation = 0;
         let maxExtraRotation = Math.pp_toRadians(10);
 
-        let upDirection = PP.vec3_create(0, 1, 0);
-        let horizontalDirection = PP.vec3_create(0, 0, -1);
+        let upDirection = vec3_create(0, 1, 0);
+        let horizontalDirection = vec3_create(0, 0, -1);
 
         for (let i = 0; i < cloves / 2; i++) {
-            let verticalDirection = PP.vec3_create(0, 1, 0);
+            let verticalDirection = vec3_create(0, 1, 0);
 
-            let rotationAxis = PP.vec3_create();
+            let rotationAxis = vec3_create();
             horizontalDirection.vec3_cross(verticalDirection, rotationAxis);
             rotationAxis.vec3_normalize(rotationAxis);
 
@@ -258,9 +277,10 @@ export class BenchmarkMaxPhysXComponent extends Component {
         let physX = this.engine.scene.addObject(this._myRootObject);
         physX.pp_setPosition(position);
 
-        let physXComponent = physX.pp_addComponent("physx", {
-            "shape": shape, "shapeData": { index: this._myShapeIndex },
-            "extents": PP.vec3_create(scale, scale, scale),
+        let physXComponent = physX.pp_addComponent(PhysXComponent, {
+            "shape": shape,
+            "shapeData": { index: this._myShapeIndex },
+            "extents": vec3_create(scale, scale, scale),
             "static": isStatic,
             "kinematic": !isDynamic,
             "mass": 1
@@ -269,15 +289,15 @@ export class BenchmarkMaxPhysXComponent extends Component {
         if (isStatic) {
             this._myStaticPhysXObjects.push(physX);
             this._myStaticPhysXComponents.push(physXComponent);
-            this._myStaticPhysXCollectors.push(new PP.PhysicsCollisionCollector(physXComponent));
+            this._myStaticPhysXCollectors.push(new PhysicsCollisionCollector(physXComponent));
         } else if (isDynamic) {
             this._myDynamicPhysXObjects.push(physX);
             this._myDynamicPhysXComponents.push(physXComponent);
-            this._myDynamicPhysXCollectors.push(new PP.PhysicsCollisionCollector(physXComponent));
+            this._myDynamicPhysXCollectors.push(new PhysicsCollisionCollector(physXComponent));
         } else {
             this._myKinematicPhysXObjects.push(physX);
             this._myKinematicPhysXComponents.push(physXComponent);
-            this._myKinematicPhysXCollectors.push(new PP.PhysicsCollisionCollector(physXComponent));
+            this._myKinematicPhysXCollectors.push(new PhysicsCollisionCollector(physXComponent));
         }
     }
 };

@@ -1,4 +1,7 @@
-PP.PhysicsCollisionCollector = class PhysicsCollisionCollector {
+import { PhysXComponent } from "@wonderlandengine/api";
+import { Timer } from "../cauldron/timer";
+
+export class PhysicsCollisionCollector {
     constructor(physXComponent, isTrigger = false) {
         this._myPhysX = physXComponent;
 
@@ -19,7 +22,7 @@ PP.PhysicsCollisionCollector = class PhysicsCollisionCollector {
 
         this._myDebugActive = false;
 
-        this._myTriggerDesyncFixDelay = new PP.Timer(0.1);
+        this._myTriggerDesyncFixDelay = new Timer(0.1);
 
         this._myCollisionCallbacks = new Map();          // Signature: callback(thisPhysX, otherPhysX, collisionType)
         this._myCollisionStartCallbacks = new Map();     // Signature: callback(thisPhysX, otherPhysX, collisionType)
@@ -210,7 +213,7 @@ PP.PhysicsCollisionCollector = class PhysicsCollisionCollector {
             this._myTriggerDesyncFixDelay.start();
 
             let collisionsToEnd = this._myCollisions.pp_findAll(function (element) {
-                let physX = element.pp_getComponentSelf("physx");
+                let physX = element.pp_getComponentSelf(PhysXComponent);
                 return physX == null || !physX.active;
             });
 
@@ -218,7 +221,7 @@ PP.PhysicsCollisionCollector = class PhysicsCollisionCollector {
                 //console.error("DESYNC RESOLVED");
 
                 for (let collision of collisionsToEnd) {
-                    let physX = collision.pp_getComponentSelf("physx");
+                    let physX = collision.pp_getComponentSelf(PhysXComponent);
                     if (physX) {
                         this._onCollisionEnd(physX);
                     } else {

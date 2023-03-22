@@ -42,7 +42,7 @@ require("./audio/components/mute_everything_component");
 require("./audio/components/spatial_audio_listener_component");
 
 //	CAULDRON
-//require("./cauldron/benchmarks/benchmark_max_physx_component");
+require("./cauldron/benchmarks/benchmark_max_physx_component");
 //require("./cauldron/benchmarks/benchmark_max_visible_triangles_component");
 
 //require("./cauldron/cauldron/object_pool");
@@ -69,10 +69,10 @@ require("./audio/components/spatial_audio_listener_component");
 //require("./cauldron/utils/browser_utils");
 //require("./cauldron/utils/js_utils");
 
-//require("./cauldron/physics/physics_utils");
-//require("./cauldron/physics/physics_raycast_data");
-//require("./cauldron/physics/physics_layer_flags");
-//require("./cauldron/physics/physics_collision_collector");
+require("./cauldron/physics/physics_utils");
+require("./cauldron/physics/physics_raycast_data");
+require("./cauldron/physics/physics_layer_flags");
+require("./cauldron/physics/physics_collision_collector");
 
 //require("./cauldron/visual/visual_manager");
 
