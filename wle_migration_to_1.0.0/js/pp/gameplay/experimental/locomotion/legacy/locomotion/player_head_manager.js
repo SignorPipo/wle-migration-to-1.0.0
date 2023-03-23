@@ -1,3 +1,5 @@
+import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
+
 PP.PlayerHeadManagerParams = class PlayerHeadManagerParams {
     constructor() {
         this.mySessionChangeResyncEnabled = false;
@@ -140,7 +142,7 @@ PP.PlayerHeadManager = class PlayerHeadManager {
             if (this._myParams.myHeightOffsetVRWithFloor == null) {
                 this._myParams.myHeightOffsetVRWithFloor = 0;
             }
-            let isFloor = PP.XRUtils.isReferenceSpaceLocalFloor() || PP.XRUtils.isDeviceEmulated();
+            let isFloor = XRUtils.isReferenceSpaceLocalFloor() || XRUtils.isDeviceEmulated();
             if (this._mySessionActive && isFloor) {
                 this._myParams.myHeightOffsetVRWithFloor = this._myParams.myHeightOffsetVRWithFloor + (height - this.getHeight());
             } else if (!this._mySessionActive) {
@@ -736,7 +738,7 @@ PP.PlayerHeadManager.prototype._sessionChangeResync = function () {
                 resyncMovement = flatResyncHeadPosition.vec3_sub(flatCurrentHeadPosition, resyncMovement);
                 this.moveFeet(resyncMovement);
 
-                let isFloor = PP.XRUtils.isReferenceSpaceLocalFloor() || PP.XRUtils.isDeviceEmulated();
+                let isFloor = XRUtils.isReferenceSpaceLocalFloor() || XRUtils.isDeviceEmulated();
                 if (this._myParams.myEnterSessionResyncHeight || this._myParams.myNextEnterSessionResyncHeight) {
                     this._myParams.myNextEnterSessionResyncHeight = false;
                     let resyncHeadHeight = this._getPositionHeight(resyncHeadPosition);
@@ -869,9 +871,9 @@ PP.PlayerHeadManager.prototype._resyncHeadRotationForward = function () {
 PP.PlayerHeadManager.prototype._updateHeightOffset = function () {
     return function _updateHeightOffset() {
         if (this._mySessionActive) {
-            if (PP.XRUtils.isDeviceEmulated()) {
+            if (XRUtils.isDeviceEmulated()) {
                 this._setPlayerPivotHeightOffset(0, 0);
-            } else if (PP.XRUtils.isReferenceSpaceLocalFloor()) {
+            } else if (XRUtils.isReferenceSpaceLocalFloor()) {
                 this._setPlayerPivotHeightOffset(this._myParams.myHeightOffsetVRWithFloor, 0);
             } else {
                 this._setPlayerPivotHeightOffset(this._myParams.myHeightOffsetVRWithoutFloor, this._myParams.myForeheadExtraHeight);

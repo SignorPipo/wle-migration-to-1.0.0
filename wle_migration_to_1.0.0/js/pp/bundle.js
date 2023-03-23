@@ -60,14 +60,14 @@ require("./cauldron/cauldron/timer");
 //require("./cauldron/fsm/transition");
 //require("./cauldron/fsm/states/timer_state");
 
-//require("./cauldron/utils/color_utils");
-//require("./cauldron/utils/material_utils");
-//require("./cauldron/utils/mesh_utils");
-//require("./cauldron/utils/save_utils");
-//require("./cauldron/utils/text_utils");
-//require("./cauldron/utils/xr_utils");
-//require("./cauldron/utils/browser_utils");
-//require("./cauldron/utils/js_utils");
+require("./cauldron/utils/color_utils");
+require("./cauldron/utils/material_utils");
+require("./cauldron/utils/mesh_utils");
+require("./cauldron/utils/save_utils");
+require("./cauldron/utils/text_utils");
+require("./cauldron/utils/xr_utils");
+require("./cauldron/utils/browser_utils");
+require("./cauldron/utils/js_utils");
 
 require("./cauldron/physics/physics_utils");
 require("./cauldron/physics/physics_raycast_data");

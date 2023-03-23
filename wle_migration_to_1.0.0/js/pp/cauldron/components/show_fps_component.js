@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { XRUtils } from "../utils/xr_utils";
 
 export class ShowFPSComponent extends Component {
     static TypeName = "pp-show-fps";
@@ -59,7 +60,7 @@ ShowFPSComponent.prototype.update = function () {
 
             let visualParams = this._myVisualFPS.getParams();
 
-            if (PP.XRUtils.isSessionActive()) {
+            if (XRUtils.isSessionActive(this.engine)) {
                 visualParams.myTransform.mat4_setPositionRotationScale(PP.vec3_create(-0.115, -0.115, 0.35), PP.vec3_create(0, 180, 0), PP.vec3_create(0.3, 0.3, 0.3));
             } else {
                 visualParams.myTransform.mat4_setPositionRotationScale(PP.vec3_create(-0.25, -0.130, 0.35), PP.vec3_create(0, 180, 0), PP.vec3_create(0.3, 0.3, 0.3));

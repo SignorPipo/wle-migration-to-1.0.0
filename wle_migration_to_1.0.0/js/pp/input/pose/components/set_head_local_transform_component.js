@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { XRUtils } from "../../../cauldron/utils/xr_utils";
 
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
@@ -38,7 +39,7 @@ SetHeadLocalTransformComponent.prototype.update = function () {
     let nonVRCameraUp = PP.vec3_create();
     let nonVRCameraPosition = PP.vec3_create();
     return function update(dt) {
-        if (PP.XRUtils.isSessionActive()) {
+        if (XRUtils.isSessionActive(this.engine)) {
             this._myHeadPose.update(dt);
         } else {
             nonVRCameraRotation = this._myNonVRCamera.pp_getRotationLocalQuat(nonVRCameraRotation);
@@ -54,7 +55,7 @@ SetHeadLocalTransformComponent.prototype.update = function () {
 SetHeadLocalTransformComponent.prototype.onPoseUpdated = function () {
     let headPoseTransform = PP.quat2_create();
     return function onPoseUpdated() {
-        if (PP.XRUtils.isSessionActive()) {
+        if (XRUtils.isSessionActive(this.engine)) {
             this.object.pp_setTransformLocalQuat(this._myHeadPose.getTransformQuat(headPoseTransform));
         }
     }

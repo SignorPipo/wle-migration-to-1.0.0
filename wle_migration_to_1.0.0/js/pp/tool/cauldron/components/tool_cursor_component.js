@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { XRUtils } from "../../../cauldron/utils/xr_utils";
 
 export class ToolCursorComponent extends Component {
     static TypeName = "pp-tool-cursor";
@@ -145,7 +146,7 @@ ToolCursorComponent.prototype.update = function () {
             this._myCursorComponentVR.active = false;
             this._myCursorComponentNonVR.active = false;
         } else {
-            if (PP.XRUtils.isSessionActive()) {
+            if (XRUtils.isSessionActive(this.engine)) {
                 this._myCursorComponentVR.active = !isUsingHand;
                 this._myCursorComponentNonVR.active = false;
             } else {

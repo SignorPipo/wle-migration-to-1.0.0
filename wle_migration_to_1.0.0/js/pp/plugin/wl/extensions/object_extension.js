@@ -2584,7 +2584,7 @@ export function initObjectExtensionProtoype() {
 
     //Cauldron
 
-    objectExtension.pp_addObject = function pp_addObject() { // #ENGINE
+    objectExtension.pp_addObject = function pp_addObject() {
         return this.engine.scene.addObject(this);
     };
 

@@ -1,4 +1,5 @@
 import { BrowserUtils } from "../../../cauldron/utils/browser_utils";
+import { XRUtils } from "../../../cauldron/utils/xr_utils";
 
 PP.VirtualGamepad = class VirtualGamepad {
     constructor(params = new PP.VirtualGamepadParams()) {
@@ -96,7 +97,7 @@ PP.VirtualGamepad = class VirtualGamepad {
 
     update(dt) {
         if (this._myParams.myAutoUpdateVisibility) {
-            if (PP.XRUtils.isSessionActive() && WL.vrSupported == 1) {
+            if (XRUtils.isSessionActive() && WL.vrSupported == 1) {
                 this.setVisible(false);
             } else if (this._myParams.myShowOnDesktop && BrowserUtils.isDesktop() && WL.vrSupported == 0) {
                 this.setVisible(true);

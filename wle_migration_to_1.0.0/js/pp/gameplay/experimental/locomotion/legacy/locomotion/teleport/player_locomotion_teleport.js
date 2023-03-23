@@ -1,3 +1,5 @@
+import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
+
 PP.PlayerLocomotionTeleportParams = class PlayerLocomotionTeleportParams {
     constructor() {
         this.myPlayerHeadManager = null;
@@ -112,7 +114,7 @@ PP.PlayerLocomotionTeleport = class PlayerLocomotionTeleport extends PP.PlayerLo
     _startDetecting() {
         let startDetecting = false;
 
-        if (!PP.XRUtils.isSessionActive()) {
+        if (!XRUtils.isSessionActive()) {
             startDetecting = PP.myMouse.isButtonPressStart(PP.MouseButtonID.MIDDLE) && PP.myMouse.isTargetingRenderCanvas();
         } else {
             let axes = PP.myGamepads[this._myTeleportParams.myHandedness].getAxesInfo(PP.GamepadAxesID.THUMBSTICK).getAxes();

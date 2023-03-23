@@ -1,3 +1,5 @@
+import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
+
 PP.CleanedPlayerTransformManager = class CleanedPlayerTransformManager {
     constructor(params) {
         this._myParams = params;
@@ -491,7 +493,7 @@ PP.CleanedPlayerTransformManager.prototype.update = function () {
         if (this._myResetRealOnSynced) {
             if (this.getPlayerHeadManager().isSynced()) {
                 this._myResetRealOnSynced = false;
-                if (PP.XRUtils.isSessionActive()) {
+                if (XRUtils.isSessionActive()) {
                     this.resetReal(
                         !this._myParams.myNeverResetRealPositionVR,
                         !this._myParams.myNeverResetRealRotationVR,
@@ -803,7 +805,7 @@ PP.CleanedPlayerTransformManager.prototype.move = function () {
         // this make reset happens even for gravity, maybe u should do it manually
         if (this._myParams.myResetRealOnMove) {
             if (!this.isSynced()) {
-                if (PP.XRUtils.isSessionActive()) {
+                if (XRUtils.isSessionActive()) {
                     this.resetReal(
                         !this._myParams.myNeverResetRealPositionVR,
                         !this._myParams.myNeverResetRealRotationVR,
@@ -868,7 +870,7 @@ PP.CleanedPlayerTransformManager.prototype.teleportTransformQuat = function () {
 
         if (this._myParams.myResetRealOnTeleport) {
             if (!this.isSynced()) {
-                if (PP.XRUtils.isSessionActive()) {
+                if (XRUtils.isSessionActive()) {
                     this.resetReal(
                         !this._myParams.myNeverResetRealPositionVR,
                         !this._myParams.myNeverResetRealRotationVR,

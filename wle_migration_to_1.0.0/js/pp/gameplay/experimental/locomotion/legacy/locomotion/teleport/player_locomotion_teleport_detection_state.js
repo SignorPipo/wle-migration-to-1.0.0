@@ -1,3 +1,5 @@
+import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
+
 PP.PlayerLocomotionTeleportDetectionParams = class PlayerLocomotionTeleportDetectionParams {
     constructor() {
         this.myMaxDistance = 0;
@@ -106,7 +108,7 @@ PP.PlayerLocomotionTeleportDetectionState = class PlayerLocomotionTeleportDetect
     _confirmTeleport() {
         let confirmTeleport = false;
 
-        if (!PP.XRUtils.isSessionActive()) {
+        if (!XRUtils.isSessionActive()) {
             if (PP.myMouse.isInsideView()) {
                 confirmTeleport = PP.myMouse.isButtonPressEnd(PP.MouseButtonID.MIDDLE);
             }
@@ -123,7 +125,7 @@ PP.PlayerLocomotionTeleportDetectionState = class PlayerLocomotionTeleportDetect
     _cancelTeleport() {
         let cancelTeleport = false;
 
-        if (!PP.XRUtils.isSessionActive()) {
+        if (!XRUtils.isSessionActive()) {
             cancelTeleport = PP.myMouse.isButtonPressEnd(PP.MouseButtonID.RIGHT) || !PP.myMouse.isInsideView();
         } else {
             cancelTeleport = PP.myGamepads[this._myTeleportParams.myHandedness].getButtonInfo(PP.GamepadButtonID.THUMBSTICK).isPressed();
@@ -138,7 +140,7 @@ PP.PlayerLocomotionTeleportDetectionState = class PlayerLocomotionTeleportDetect
         //this._myDetectionRuntimeParams.myParable.setStepLength(PP.myEasyTuneVariables.get("Parable Steps"));
         //this._myTeleportParams.myDetectionParams.myMaxDistance = PP.myEasyTuneVariables.get("Teleport Max Distance");
 
-        if (PP.XRUtils.isSessionActive()) {
+        if (XRUtils.isSessionActive()) {
             this._detectTeleportRotationVR();
             this._detectTeleportPositionVR();
         } else {

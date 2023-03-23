@@ -62,6 +62,14 @@ import './pp/cauldron/physics/physics_collision_collector.js';
 import './pp/cauldron/physics/physics_layer_flags.js';
 import './pp/cauldron/physics/physics_raycast_data.js';
 import './pp/cauldron/physics/physics_utils.js';
+import './pp/cauldron/utils/browser_utils.js';
+import './pp/cauldron/utils/color_utils.js';
+import './pp/cauldron/utils/js_utils.js';
+import './pp/cauldron/utils/material_utils.js';
+import './pp/cauldron/utils/mesh_utils.js';
+import './pp/cauldron/utils/save_utils.js';
+import './pp/cauldron/utils/text_utils.js';
+import './pp/cauldron/utils/xr_utils.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"

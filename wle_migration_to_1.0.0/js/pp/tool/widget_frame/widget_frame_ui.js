@@ -1,3 +1,4 @@
+import { XRUtils } from "../../cauldron/utils/xr_utils";
 
 PP.WidgetFrameUI = class WidgetFrameUI {
 
@@ -51,7 +52,7 @@ PP.WidgetFrameUI = class WidgetFrameUI {
             } else {
                 this.myPivotObject.pp_setParent(this.myFixForwardObject);
 
-                if (!PP.XRUtils.isSessionActive()) {
+                if (!XRUtils.isSessionActive()) {
                     this._setTransformForNonVR();
                 }
 
@@ -65,7 +66,7 @@ PP.WidgetFrameUI = class WidgetFrameUI {
     }
 
     _updateObjectsTransforms(forceRefreshObjectsTransforms) {
-        if (PP.XRUtils.isSessionActive()) {
+        if (XRUtils.isSessionActive()) {
             let inputSourceType = PP.InputUtils.getInputSourceTypeByHandedness(this._myAdditionalSetup.myHandedness);
 
             if (inputSourceType != this._myInputSourceType || forceRefreshObjectsTransforms) {

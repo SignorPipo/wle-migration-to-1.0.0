@@ -85,7 +85,7 @@ export class ObjectPool {
             if (this._myObjectPoolParams.myOptimizeObjectsAllocationCallback) {
                 this._myObjectPoolParams.myOptimizeObjectsAllocationCallback(this._myPrototype, size);
             } else if (this._myPrototype.pp_reserveObjects != null) {
-                this._myPrototype.pp_reserveObjects(size); // #ENGINE
+                this._myPrototype.pp_reserveObjects(size);
             }
         }
 

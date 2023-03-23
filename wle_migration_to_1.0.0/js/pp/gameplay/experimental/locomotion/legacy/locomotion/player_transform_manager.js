@@ -1,3 +1,5 @@
+import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
+
 PP.PlayerTransformManagerSyncFlag = {
     BODY_COLLIDING: 0,
     HEAD_COLLIDING: 1,
@@ -611,7 +613,7 @@ PP.PlayerTransformManager.prototype.update = function () {
         if (this._myResetRealOnSynced) {
             if (this.getPlayerHeadManager().isSynced()) {
                 this._myResetRealOnSynced = false;
-                if (PP.XRUtils.isSessionActive()) {
+                if (XRUtils.isSessionActive()) {
                     this.resetReal(
                         !this._myParams.myNeverResetRealPositionVR,
                         !this._myParams.myNeverResetRealRotationVR,
@@ -880,7 +882,7 @@ PP.PlayerTransformManager.prototype._updateReal = function () {
             }
 
             if (resetRealEnabled) { //no
-                if (PP.XRUtils.isSessionActive()) {
+                if (XRUtils.isSessionActive()) {
                     let resetPosition = (this.isSynced(this._myParams.mySyncPositionFlagMap) || this._myParams.myAlwaysResetRealPositionVR) && !this._myParams.myNeverResetRealPositionVR;
                     let resetRotation = (this.isSynced(this._myParams.mySyncRotationFlagMap) || this._myParams.myAlwaysResetRealRotationVR) && !this._myParams.myNeverResetRealRotationVR;
                     let resetHeight = (this.isSynced(this._myParams.mySyncHeightFlagMap) || this._myParams.myAlwaysResetRealHeightVR) && !this._myParams.myNeverResetRealHeightVR;
@@ -939,7 +941,7 @@ PP.PlayerTransformManager.prototype.move = function () {
         // this make reset happens even for gravity, maybe u should do it manually
         if (this._myParams.myResetRealOnMove) {
             if (!this.isSynced()) {
-                if (PP.XRUtils.isSessionActive()) {
+                if (XRUtils.isSessionActive()) {
                     this.resetReal(
                         !this._myParams.myNeverResetRealPositionVR,
                         !this._myParams.myNeverResetRealRotationVR,
@@ -1004,7 +1006,7 @@ PP.PlayerTransformManager.prototype.teleportTransformQuat = function () {
 
         if (this._myParams.myResetRealOnTeleport) {
             if (!this.isSynced()) {
-                if (PP.XRUtils.isSessionActive()) {
+                if (XRUtils.isSessionActive()) {
                     this.resetReal(
                         !this._myParams.myNeverResetRealPositionVR,
                         !this._myParams.myNeverResetRealRotationVR,

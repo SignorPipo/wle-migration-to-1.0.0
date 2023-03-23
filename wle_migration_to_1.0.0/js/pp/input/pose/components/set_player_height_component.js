@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { XRUtils } from "../../../cauldron/utils/xr_utils";
 
 export class SetPlayerHeightComponent extends Component {
     static TypeName = "pp-set-player-height";
@@ -23,9 +24,9 @@ export class SetPlayerHeightComponent extends Component {
     _onXRSessionStart() {
         if (this.active && (!this._mySetOnlyOnStart || !this._myHeightSetOnce)) {
             let localPosition = this.object.pp_getPositionLocal();
-            if (PP.XRUtils.isReferenceSpaceLocalFloor()) {
+            if (XRUtils.isReferenceSpaceLocalFloor()) {
                 this.object.pp_setPositionLocal(PP.vec3_create(localPosition[0], 0, localPosition[2]));
-            } else if (PP.XRUtils.isDeviceEmulated()) {
+            } else if (XRUtils.isDeviceEmulated()) {
                 this.object.pp_setPositionLocal(PP.vec3_create(localPosition[0], 0, localPosition[2]));
             } else {
                 this.object.pp_setPositionLocal(PP.vec3_create(localPosition[0], this._myEyesHeight, localPosition[2]));
