@@ -70,6 +70,19 @@ import './pp/cauldron/utils/mesh_utils.js';
 import './pp/cauldron/utils/save_utils.js';
 import './pp/cauldron/utils/text_utils.js';
 import './pp/cauldron/utils/xr_utils.js';
+import './pp/cauldron/visual/visual_data.js';
+import './pp/cauldron/visual/visual_globals.js';
+import './pp/cauldron/visual/visual_manager.js';
+import {VisualManagerComponent} from './pp/cauldron/visual/components/visual_manager_component.js';
+import './pp/cauldron/visual/elements/visual_arrow.js';
+import './pp/cauldron/visual/elements/visual_element_types.js';
+import './pp/cauldron/visual/elements/visual_line.js';
+import './pp/cauldron/visual/elements/visual_mesh.js';
+import './pp/cauldron/visual/elements/visual_point.js';
+import './pp/cauldron/visual/elements/visual_raycast.js';
+import './pp/cauldron/visual/elements/visual_text.js';
+import './pp/cauldron/visual/elements/visual_torus.js';
+import './pp/cauldron/visual/elements/visual_transform.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -122,6 +135,7 @@ engine.registerComponent(MuteEverythingComponent);
 engine.registerComponent(SpatialAudioListenerComponent);
 engine.registerComponent(BenchmarkMaxPhysXComponent);
 engine.registerComponent(BenchmarkMaxVisibleTrianglesComponent);
+engine.registerComponent(VisualManagerComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

@@ -1,8 +1,8 @@
-import { getMainEngine } from "../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 
 let _myVisualDatas = new WeakMap();
 
-export function getVisualData(engine = getMainEngine()) {
+export function getVisualData(engine = getMainEngineinEngine()) {
     return _myVisualDatas.get(engine);
 }
 

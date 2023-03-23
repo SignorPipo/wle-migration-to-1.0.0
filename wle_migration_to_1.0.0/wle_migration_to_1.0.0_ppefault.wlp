@@ -1031,7 +1031,10 @@
                 "js/pp/cauldron/benchmarks",
                 "js/pp/cauldron/cauldron",
                 "js/pp/cauldron/physics",
-                "js/pp/cauldron/utils"
+                "js/pp/cauldron/utils",
+                "js/pp/cauldron/visual",
+                "js/pp/cauldron/visual/components",
+                "js/pp/cauldron/visual/elements"
             ],
             "libraryPaths": [
                 "/js/lib/"
