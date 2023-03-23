@@ -1,3 +1,5 @@
+import { BrowserUtils } from "../../../cauldron/utils/browser_utils";
+
 PP.VirtualGamepad = class VirtualGamepad {
     constructor(params = new PP.VirtualGamepadParams()) {
         this._myParams = params;
@@ -96,11 +98,11 @@ PP.VirtualGamepad = class VirtualGamepad {
         if (this._myParams.myAutoUpdateVisibility) {
             if (PP.XRUtils.isSessionActive() && WL.vrSupported == 1) {
                 this.setVisible(false);
-            } else if (this._myParams.myShowOnDesktop && PP.BrowserUtils.isDesktop() && WL.vrSupported == 0) {
+            } else if (this._myParams.myShowOnDesktop && BrowserUtils.isDesktop() && WL.vrSupported == 0) {
                 this.setVisible(true);
-            } else if (this._myParams.myShowOnHeadset && PP.BrowserUtils.isDesktop() && WL.vrSupported == 1) {
+            } else if (this._myParams.myShowOnHeadset && BrowserUtils.isDesktop() && WL.vrSupported == 1) {
                 this.setVisible(true);
-            } else if (this._myParams.myShowOnMobile && PP.BrowserUtils.isMobile()) {
+            } else if (this._myParams.myShowOnMobile && BrowserUtils.isMobile()) {
                 this.setVisible(true);
             } else {
                 this.setVisible(false);
