@@ -64,8 +64,7 @@ export class VisualArrow {
 
         this._myDirty = false;
 
-        let visualLineParams = new VisualLineParams(this._myParams.myParent.engine);
-        this._myVisualLine = new VisualLine(visualLineParams);
+        this._myVisualLine = new VisualLine(new VisualLineParams(this._myParams.myParent.engine));
         this._myVisualLine.setAutoRefresh(false);
 
         this._myArrowRootObject = null;

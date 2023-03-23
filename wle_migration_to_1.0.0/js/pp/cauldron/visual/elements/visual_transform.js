@@ -47,10 +47,9 @@ export class VisualTransform {
 
         this._myDirty = false;
 
-        let visualArrowParams = new VisualArrowParams(this._myParams.myParent.engine);
-        this._myVisualRight = new VisualArrow(visualArrowParams);
-        this._myVisualUp = new VisualArrow(visualArrowParams);
-        this._myVisualForward = new VisualArrow(visualArrowParams);
+        this._myVisualRight = new VisualArrow(new VisualArrowParams(this._myParams.myParent.engine));
+        this._myVisualUp = new VisualArrow(new VisualArrowParams(this._myParams.myParent.engine));
+        this._myVisualForward = new VisualArrow(new VisualArrowParams(this._myParams.myParent.engine));
 
         this._myVisualRight.setAutoRefresh(false);
         this._myVisualUp.setAutoRefresh(false);

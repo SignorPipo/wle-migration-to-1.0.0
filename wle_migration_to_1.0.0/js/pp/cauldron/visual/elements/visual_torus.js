@@ -151,8 +151,7 @@ export class VisualTorus {
 
     _fillSegmentList() {
         while (this._myVisualSegmentList.length < this._myParams.mySegmentsAmount) {
-            let visualSegmentParams = new VisualLineParams(this._myParams.myParent.engine);
-            let visualSegment = new VisualLine(visualSegmentParams);
+            let visualSegment = new VisualLine(new VisualLineParams(this._myParams.myParent.engine));
 
             visualSegment.setAutoRefresh(false);
             visualSegment.setVisible(false);

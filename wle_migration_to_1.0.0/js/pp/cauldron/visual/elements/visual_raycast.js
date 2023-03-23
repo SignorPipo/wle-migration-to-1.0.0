@@ -56,8 +56,7 @@ export class VisualRaycast {
 
         this._myDirty = false;
 
-        let visualRacaystParams = new VisualArrowParams(this._myParams.myParent.engine);
-        this._myVisualRaycast = new VisualArrow(visualRacaystParams);
+        this._myVisualRaycast = new VisualArrow(new VisualArrowParams(this._myParams.myParent.engine));
 
         this._myVisualRaycast.setAutoRefresh(false);
 
@@ -257,8 +256,7 @@ export class VisualRaycast {
     }
 
     _addVisualRaycastHit() {
-        let visualRacaystHitParams = new VisualArrowParams(this._myParams.myParent.engine);
-        let visualRaycastHit = new VisualArrow(visualRacaystHitParams);
+        let visualRaycastHit = new VisualArrow(new VisualArrowParams(this._myParams.myParent.engine));
 
         visualRaycastHit.setAutoRefresh(false);
         visualRaycastHit.setVisible(false);
