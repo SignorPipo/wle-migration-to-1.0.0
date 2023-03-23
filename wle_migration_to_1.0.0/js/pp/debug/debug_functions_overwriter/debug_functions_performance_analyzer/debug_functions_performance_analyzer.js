@@ -1,3 +1,5 @@
+import { JSUtils } from "../../../cauldron/utils/js_utils";
+
 PP.DebugFunctionsPerformanceAnalyzerParams = class DebugFunctionsPerformanceAnalyzerParams extends PP.DebugFunctionsOverwriterParams {
     constructor() {
         super();
@@ -266,7 +268,7 @@ PP.DebugFunctionsPerformanceAnalyzer = class DebugFunctionsPerformanceAnalyzer e
     }
 
     _getOverwrittenFunctionInternal(reference, propertyName, referencePath, isClass, isFunction, isConstructor) {
-        let newFunction = PP.JSUtils.getReferenceProperty(reference, propertyName);
+        let newFunction = JSUtils.getObjectProperty(reference, propertyName);
 
         if (!this._myParams.myFilterDebugFunctionsPerformanceAnalyzerClasses || !this._isPerformanceAnalyzer(reference, propertyName, isClass)) {
             if (propertyName != "_myPerformanceAnalyzerOriginalFunction") {
