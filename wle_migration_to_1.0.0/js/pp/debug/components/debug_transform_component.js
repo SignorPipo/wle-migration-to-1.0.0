@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { VisualTransform, VisualTransformParams } from "../../cauldron/visual/elements/visual_transform";
 
 export class DebugTransformComponent extends Component {
     static TypeName = "pp-debug-transform";
@@ -8,11 +9,11 @@ export class DebugTransformComponent extends Component {
     };
 
     start() {
-        this._myDebugTransformParams = new PP.VisualTransformParams();
+        this._myDebugTransformParams = new VisualTransformParams(this.engine);
         this._myDebugTransformParams.myLength = this._myLength;
         this._myDebugTransformParams.myThickness = this._myThickness;
 
-        this._myDebugVisualTransform = new PP.VisualTransform(this._myDebugTransformParams);
+        this._myDebugVisualTransform = new VisualTransform(this._myDebugTransformParams);
     }
 
     update(dt) {

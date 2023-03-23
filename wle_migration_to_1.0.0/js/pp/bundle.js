@@ -91,11 +91,12 @@ require("./cauldron/visual/elements/visual_torus");
 require("./cauldron/visual/components/visual_manager_component");
 
 //	DEBUG
-//require("./debug/debug_manager");
-//require("./debug/debug_visual_manager");
+require("./debug/debug_manager");
+require("./debug/debug_visual_manager");
+require("./debug/debug_globals");
 
-//require("./debug/components/debug_transform_component");
-//require("./debug/components/debug_manager_component");
+require("./debug/components/debug_transform_component");
+require("./debug/components/debug_manager_component");
 
 //require("./debug/debug_functions_overwriter/debug_functions_overwriter");
 //require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/debug_functions_performance_analyzer");

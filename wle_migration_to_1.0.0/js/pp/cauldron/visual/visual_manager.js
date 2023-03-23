@@ -1,18 +1,21 @@
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 import { ObjectPoolParams } from "../cauldron/object_pool";
 import { ObjectPoolsManager } from "../cauldron/object_pools_manager";
 import { Timer } from "../cauldron/timer";
-import { VisualArrow } from "./elements/visual_arrow";
+import { VisualArrow, VisualArrowParams } from "./elements/visual_arrow";
 import { VisualElementType } from "./elements/visual_element_types";
-import { VisualLine } from "./elements/visual_line";
-import { VisualMesh } from "./elements/visual_mesh"
-import { VisualPoint } from "./elements/visual_point";
-import { VisualRaycast } from "./elements/visual_raycast";
-import { VisualText } from "./elements/visual_text";
-import { VisualTorus } from "./elements/visual_torus";
-import { VisualTransform } from "./elements/visual_transform";
+import { VisualLine, VisualLineParams } from "./elements/visual_line";
+import { VisualMesh, VisualMeshParams } from "./elements/visual_mesh"
+import { VisualPoint, VisualPointParams } from "./elements/visual_point";
+import { VisualRaycast, VisualRaycastParams } from "./elements/visual_raycast";
+import { VisualText, VisualTextParams } from "./elements/visual_text";
+import { VisualTorus, VisualTorusParams } from "./elements/visual_torus";
+import { VisualTransform, VisualTransformParams } from "./elements/visual_transform";
 
 export class VisualManager {
-    constructor() {
+    constructor(engine = getMainEngine()) {
+        this._myEngine = engine;
+
         this._myVisualElementPrototypeCreationCallbacks = new Map();
 
         this._myVisualElementsTypeMap = new Map();
@@ -227,15 +230,14 @@ export class VisualManager {
         }
     }
 
-    // #ENGINE
     _addStandardVisualElementTypes() {
-        this.addVisualElementType(VisualElementType.LINE, () => new VisualLine());
-        this.addVisualElementType(VisualElementType.MESH, () => new VisualMesh());
-        this.addVisualElementType(VisualElementType.POINT, () => new VisualPoint());
-        this.addVisualElementType(VisualElementType.ARROW, () => new VisualArrow());
-        this.addVisualElementType(VisualElementType.TEXT, () => new VisualText());
-        this.addVisualElementType(VisualElementType.TRANSFORM, () => new VisualTransform());
-        this.addVisualElementType(VisualElementType.RAYCAST, () => new VisualRaycast());
-        this.addVisualElementType(VisualElementType.TORUS, () => new VisualTorus());
+        this.addVisualElementType(VisualElementType.LINE, () => new VisualLine(new VisualLineParams(this._myEngine)));
+        this.addVisualElementType(VisualElementType.MESH, () => new VisualMesh(new VisualMeshParams(this._myEngine)));
+        this.addVisualElementType(VisualElementType.POINT, () => new VisualPoint(new VisualPointParams(this._myEngine)));
+        this.addVisualElementType(VisualElementType.ARROW, () => new VisualArrow(new VisualArrowParams(this._myEngine)));
+        this.addVisualElementType(VisualElementType.TEXT, () => new VisualText(new VisualTextParams(this._myEngine)));
+        this.addVisualElementType(VisualElementType.TRANSFORM, () => new VisualTransform(new VisualTransformParams(this._myEngine)));
+        this.addVisualElementType(VisualElementType.RAYCAST, () => new VisualRaycast(new VisualRaycastParams(this._myEngine)));
+        this.addVisualElementType(VisualElementType.TORUS, () => new VisualTorus(new VisualTorusParams(this._myEngine)));
     }
 };

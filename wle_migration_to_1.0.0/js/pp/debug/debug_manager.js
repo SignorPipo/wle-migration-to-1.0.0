@@ -1,6 +1,10 @@
-PP.DebugManager = class DebugManager {
-    constructor() {
-        this._myDebugVisualManager = new PP.DebugVisualManager();
+import { getMainEngine } from "../plugin/wl/extensions/engine_extension";
+import { DebugVisualManager } from "./debug_visual_manager";
+
+export class DebugManager {
+    constructor(engine = getMainEngine()) {
+        this._myEngine = engine;
+        this._myDebugVisualManager = new DebugVisualManager(this._myEngine);
     }
 
     getDebugVisualManager() {

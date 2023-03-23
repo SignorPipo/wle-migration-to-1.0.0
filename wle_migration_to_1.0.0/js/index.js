@@ -83,6 +83,11 @@ import './pp/cauldron/visual/elements/visual_raycast.js';
 import './pp/cauldron/visual/elements/visual_text.js';
 import './pp/cauldron/visual/elements/visual_torus.js';
 import './pp/cauldron/visual/elements/visual_transform.js';
+import './pp/debug/debug_globals.js';
+import './pp/debug/debug_manager.js';
+import './pp/debug/debug_visual_manager.js';
+import {DebugManagerComponent} from './pp/debug/components/debug_manager_component.js';
+import {DebugTransformComponent} from './pp/debug/components/debug_transform_component.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -136,6 +141,8 @@ engine.registerComponent(SpatialAudioListenerComponent);
 engine.registerComponent(BenchmarkMaxPhysXComponent);
 engine.registerComponent(BenchmarkMaxVisibleTrianglesComponent);
 engine.registerComponent(VisualManagerComponent);
+engine.registerComponent(DebugManagerComponent);
+engine.registerComponent(DebugTransformComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

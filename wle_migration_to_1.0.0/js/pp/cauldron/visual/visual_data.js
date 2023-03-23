@@ -7,12 +7,12 @@ export class VisualData {
 
 export class VisualDataMaterials {
     constructor() {
-        myMesh = null;
-        myText = null;
-        myRight = null;
-        myUp = null;
-        myForward = null;
-        myRay = null;
-        myHitNormal = null;
+        this.myMesh = null;
+        this.myText = null;
+        this.myRight = null;
+        this.myUp = null;
+        this.myForward = null;
+        this.myRay = null;
+        this.myHitNormal = null;
     }
 }

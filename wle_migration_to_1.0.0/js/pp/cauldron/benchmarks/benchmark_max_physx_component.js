@@ -1,4 +1,5 @@
 import { Component, PhysXComponent, Type } from "@wonderlandengine/api";
+import { getDebugVisualManager } from "../../debug/debug_globals";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { Timer } from "../cauldron/timer";
 import { PhysicsCollisionCollector } from "../physics/physics_collision_collector";
@@ -25,7 +26,8 @@ export class BenchmarkMaxPhysXComponent extends Component {
         _myShapeIndex: { type: Type.Int, default: 0 },
         _myShapeScaleMultiplier: { type: Type.Float, default: 1 }, // used to adjust the scale of the convex mesh if too big or small based on how u imported it
 
-        _myEnableLog: { type: Type.Bool, default: true }
+        _myEnableLog: { type: Type.Bool, default: true },
+        _myClearConsoleBeforeLog: { type: Type.Bool, default: true }
     };
 
     start() {
@@ -101,7 +103,9 @@ export class BenchmarkMaxPhysXComponent extends Component {
                 if (this._myEnableLog) {
                     if (this._myEnableLogTimer.isDone()) {
                         this._myEnableLogTimer.start();
-                        console.clear();
+                        if (this._myClearConsoleBeforeLog) {
+                            console.clear();
+                        }
                         console.log("Static PhysX Dome Size:", this._myStaticPhysXObjects.length);
                         console.log("Dynamic PhysX Dome Size:", this._myDynamicPhysXObjects.length);
                         console.log("Kinematic PhysX Dome Size:", this._myKinematicPhysXObjects.length);
@@ -172,13 +176,13 @@ export class BenchmarkMaxPhysXComponent extends Component {
             this._myRaycastSetup.myOrigin.vec3_copy(origin);
             this._myRaycastSetup.myDirection.vec3_copy(direction);
             this._myRaycastSetup.myDistance = distance;
-            this._myRaycastSetup.myBlockLayerFlags.setMask(255);
+            this._myRaycastSetup.myBlockLayerFlags.setAllFlagsActive();
             this._myRaycastSetup.myPhysics = this.engine.physics;
 
             let raycastResults = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResults);
 
             if (debugActive) {
-                PP.myDebugVisualManager.drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
+                getDebugVisualManager(this.engine).drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
             }
         }
     }

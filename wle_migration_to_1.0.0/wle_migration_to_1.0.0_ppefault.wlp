@@ -1034,7 +1034,9 @@
                 "js/pp/cauldron/utils",
                 "js/pp/cauldron/visual",
                 "js/pp/cauldron/visual/components",
-                "js/pp/cauldron/visual/elements"
+                "js/pp/cauldron/visual/elements",
+                "js/pp/debug",
+                "js/pp/debug/components"
             ],
             "libraryPaths": [
                 "/js/lib/"

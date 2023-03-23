@@ -1,5 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { AudioManagerComponent } from "../../audio/components/audio_manager_component";
+import { VisualManagerComponent } from "../../cauldron/visual/components/visual_manager_component";
+import { DebugManagerComponent } from "../../debug/components/debug_manager_component";
 
 export class GatewayComponent extends Component {
     static TypeName = "pp-gateway";
@@ -8,14 +10,14 @@ export class GatewayComponent extends Component {
     init() {
         //this._myInputManager = this.object.pp_addComponent("pp-input-manager", false);
         this._myAudioManager = this.object.pp_addComponent(AudioManagerComponent, false);
-        //this._myVisualManager = this.object.pp_addComponent("pp-visual-manager", false);
-        //this._myDebugManager = this.object.pp_addComponent("pp-debug-manager", false);
+        this._myVisualManager = this.object.pp_addComponent(VisualManagerComponent, false);
+        this._myDebugManager = this.object.pp_addComponent(DebugManagerComponent, false);
     }
 
     start() {
         //this._myInputManager.active = true;
         this._myAudioManager.active = true;
-        //this._myVisualManager.active = true;
-        //this._myDebugManager.active = true;
+        this._myVisualManager.active = true;
+        this._myDebugManager.active = true;
     }
 };

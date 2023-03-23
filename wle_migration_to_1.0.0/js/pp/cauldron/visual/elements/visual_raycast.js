@@ -12,6 +12,7 @@ import { RaycastResults } from "../../physics/physics_raycast_data";
 import { getVisualData } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualArrow, VisualArrowParams } from "./visual_arrow";
+import { getMainEngine } from "../../../plugin/wl/extensions/engine_extension";
 
 export class VisualRaycastParams {
 

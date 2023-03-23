@@ -26,7 +26,7 @@ export class RaycastSetup {
         this.myObjectsToIgnore = [];
         this.myIgnoreHitsInsideCollision = false;
 
-        this.myPhysics = getMainEngine().physics;
+        this.myPhysics = (getMainEngine() != null) ? getMainEngine().physics : null;
     }
 
     copy(setup) {

@@ -14,7 +14,7 @@ export class VisualManagerComponent extends Component {
 
         // prevents double global from same engine
         if (!hasVisualManager(this.engine)) {
-            this._myVisualManager = new VisualManager();
+            this._myVisualManager = new VisualManager(this.engine);
 
             setVisualManager(this._myVisualManager, this.engine);
         }
