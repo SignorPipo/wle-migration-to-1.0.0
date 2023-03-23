@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { ColorUtils } from "../../../cauldron/utils/color_utils";
 
 PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
     constructor(colorModel, colorType, object, variableName, setAsDefault, useTuneTarget) {
@@ -36,9 +37,9 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
                 color = meshMaterial[this._myColorVariableNames[this._myColorType]].pp_clone();
 
                 if (this._myColorModel == 0) {
-                    color = PP.ColorUtils.rgbCodeToHuman(color);
+                    color = ColorUtils.rgbCodeToHuman(color);
                 } else {
-                    color = PP.ColorUtils.hsvCodeToHuman(PP.ColorUtils.rgbToHsv(color));
+                    color = ColorUtils.hsvCodeToHuman(ColorUtils.rgbToHsv(color));
                 }
             } else {
                 color = [meshMaterial[this._myColorVariableNames[this._myColorType]]];
@@ -63,9 +64,9 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
 
         if (this._myColorType != 6) {
             if (this._myColorModel == 0) {
-                color = PP.ColorUtils.rgbHumanToCode(color);
+                color = ColorUtils.rgbHumanToCode(color);
             } else {
-                color = PP.ColorUtils.hsvToRgb(PP.ColorUtils.hsvHumanToCode(color));
+                color = ColorUtils.hsvToRgb(ColorUtils.hsvHumanToCode(color));
             }
         }
 
@@ -78,8 +79,8 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
             if ((PP.myRightGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).isPressStart() && PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).myIsPressed) ||
                 (PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).isPressStart() && PP.myRightGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).myIsPressed)) {
 
-                let hsvColor = PP.ColorUtils.color1To255(PP.ColorUtils.rgbToHsv(color));
-                let rgbColor = PP.ColorUtils.color1To255(color);
+                let hsvColor = ColorUtils.color1To255(ColorUtils.rgbToHsv(color));
+                let rgbColor = ColorUtils.color1To255(color);
 
                 console.log("RGB:", rgbColor.vec_toString(0), "- HSV:", hsvColor.vec_toString(0));
             }

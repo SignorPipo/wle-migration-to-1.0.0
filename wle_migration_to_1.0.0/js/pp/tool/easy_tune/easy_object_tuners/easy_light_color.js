@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { ColorUtils } from "../../../cauldron/utils/color_utils";
 
 PP.EasyLightColor = class EasyLightColor extends PP.EasyObjectTuner {
     constructor(colorModel, object, variableName, setAsDefault, useTuneTarget) {
@@ -28,9 +29,9 @@ PP.EasyLightColor = class EasyLightColor extends PP.EasyObjectTuner {
         let lightColor = this._getLightColor(object);
         if (lightColor) {
             if (this._myColorModel == 0) {
-                color = PP.ColorUtils.rgbCodeToHuman(lightColor);
+                color = ColorUtils.rgbCodeToHuman(lightColor);
             } else {
-                color = PP.ColorUtils.hsvCodeToHuman(PP.ColorUtils.rgbToHsv(lightColor));
+                color = ColorUtils.hsvCodeToHuman(ColorUtils.rgbToHsv(lightColor));
             }
         } else {
             color = this._getDefaultValue();
@@ -47,9 +48,9 @@ PP.EasyLightColor = class EasyLightColor extends PP.EasyObjectTuner {
         let color = value;
 
         if (this._myColorModel == 0) {
-            color = PP.ColorUtils.rgbHumanToCode(color);
+            color = ColorUtils.rgbHumanToCode(color);
         } else {
-            color = PP.ColorUtils.hsvToRgb(PP.ColorUtils.hsvHumanToCode(color));
+            color = ColorUtils.hsvToRgb(ColorUtils.hsvHumanToCode(color));
         }
 
         let light = object.pp_getComponent("light");
@@ -63,8 +64,8 @@ PP.EasyLightColor = class EasyLightColor extends PP.EasyObjectTuner {
         if ((PP.myRightGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).isPressStart() && PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).myIsPressed) ||
             (PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).isPressStart() && PP.myRightGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).myIsPressed)) {
 
-            let hsvColor = PP.ColorUtils.color1To255(PP.ColorUtils.rgbToHsv(color));
-            let rgbColor = PP.ColorUtils.color1To255(color);
+            let hsvColor = ColorUtils.color1To255(ColorUtils.rgbToHsv(color));
+            let rgbColor = ColorUtils.color1To255(color);
 
             console.log("RGB:", rgbColor.vec_toString(0), "- HSV:", hsvColor.vec_toString(0));
         }
