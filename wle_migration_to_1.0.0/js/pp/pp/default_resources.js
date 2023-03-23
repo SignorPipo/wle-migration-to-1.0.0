@@ -1,11 +1,11 @@
 export class DefaultResources {
     constructor() {
-        this.myMeshes = new DefaultMeshes();
-        this.myMaterials = new DefaultMaterials();
+        this.myMeshes = new DefaultResourcesMeshes();
+        this.myMaterials = new DefaultResourcesMaterials();
     }
 }
 
-export class DefaultMeshes {
+export class DefaultResourcesMeshes {
     constructor() {
         this.myPlane = null;
         this.myCube = null;
@@ -21,7 +21,7 @@ export class DefaultMeshes {
     }
 }
 
-export class DefaultMaterials {
+export class DefaultResourcesMaterials {
     constructor() {
         this.myFlatOpaque = null;
         this.myFlatTransparentNoDepth = null; // for now the pipeline needs to be the last one to make this work properly

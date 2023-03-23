@@ -6,7 +6,7 @@
     The initState param is of type PP.StateData and can be used to retrieve the stateID and other data
 */
 
-PP.Transition = class Transition {
+export class Transition {
 
     //Called if this is used as an init transition for the fsm
     performInit(fsm, initState, ...args) {

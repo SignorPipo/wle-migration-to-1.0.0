@@ -55,10 +55,10 @@ require("./cauldron/cauldron/timer");
 //require("./cauldron/components/adjust_hierarchy_physx_scale_component");
 //require("./cauldron/components/show_fps_component");
 
-//require("./cauldron/fsm/fsm");
-//require("./cauldron/fsm/state");
-//require("./cauldron/fsm/transition");
-//require("./cauldron/fsm/states/timer_state");
+require("./cauldron/fsm/fsm");
+require("./cauldron/fsm/state");
+require("./cauldron/fsm/transition");
+require("./cauldron/fsm/states/timer_state");
 
 require("./cauldron/utils/color_utils");
 require("./cauldron/utils/material_utils");

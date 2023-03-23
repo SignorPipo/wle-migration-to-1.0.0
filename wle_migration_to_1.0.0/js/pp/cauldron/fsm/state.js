@@ -9,7 +9,7 @@
     The param transition is of type PP.TransitionData and can be used to retrieve the transitionID, the from and to states and other data
 */
 
-PP.State = class State {
+export class State {
 
     //Called every frame if this is the current state
     //You can retrieve this state data by calling fsm.getCurrentState()
@@ -31,4 +31,4 @@ PP.State = class State {
     end(fsm, transition, ...args) {
     }
 
-};
+}

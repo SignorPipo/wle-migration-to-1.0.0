@@ -36,6 +36,10 @@ export function initSceneExtensionPrototype() {
         return this.engine.wrapObject(0);
     }
 
+    sceneExtension.pp_addObject = function pp_addObject() {
+        return this.pp_getRoot().pp_addObject();
+    }
+
     sceneExtension.pp_getObjects = function pp_getObjects() {
         return this.pp_getObjectsBreadth();
     }
