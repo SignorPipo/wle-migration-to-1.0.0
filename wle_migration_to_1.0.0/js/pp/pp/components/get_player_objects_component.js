@@ -1,5 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
-import { hasPlayerObjects, removePlayerObjects, setPlayerObjects } from "../player_objects_global";
+import { getPlayerObjects, hasPlayerObjects, removePlayerObjects, setPlayerObjects } from "../player_objects_global";
 import { PlayerObjects } from "../player_objects";
 import { Handedness } from "../../input/cauldron/input_types";
 
@@ -19,42 +19,41 @@ export class GetPlayerObjectsComponent extends Component {
     };
 
     init() {
-        this._myEnabled = false;
+        this._myPlayerObjects = null;
 
-        // prevents double managers from same engine
+        // prevents double global from same engine
         if (!hasPlayerObjects(this.engine)) {
-            let playerObjects = new PlayerObjects();
+            this._myPlayerObjects = new PlayerObjects();
 
-            playerObjects.myPlayer = this._myPlayer;
-            playerObjects.myPlayerPivot = this._myPlayerPivot;
-            playerObjects.myNonVRCamera = this._myNonVRCamera;
-            playerObjects.myHead = this._myHead;
-            playerObjects.myNonVRHead = this._myNonVRHead;
-            playerObjects.myVRHead = this._myVRHead;
-            playerObjects.myEyeLeft = this._myEyeLeft;
-            playerObjects.myEyeRight = this._myEyeRight;
-            playerObjects.myHandLeft = this._myHandLeft;
-            playerObjects.myHandRight = this._myHandRight;
+            this._myPlayerObjects.myPlayer = this._myPlayer;
+            this._myPlayerObjects.myPlayerPivot = this._myPlayerPivot;
+            this._myPlayerObjects.myNonVRCamera = this._myNonVRCamera;
+            this._myPlayerObjects.myHead = this._myHead;
+            this._myPlayerObjects.myNonVRHead = this._myNonVRHead;
+            this._myPlayerObjects.myVRHead = this._myVRHead;
+            this._myPlayerObjects.myEyeLeft = this._myEyeLeft;
+            this._myPlayerObjects.myEyeRight = this._myEyeRight;
+            this._myPlayerObjects.myHandLeft = this._myHandLeft;
+            this._myPlayerObjects.myHandRight = this._myHandRight;
 
-            playerObjects.myEyes = [];
-            playerObjects.myEyes[Handedness.LEFT] = this._myEyeLeft;
-            playerObjects.myEyes[Handedness.RIGHT] = this._myEyeRight;
+            this._myPlayerObjects.myEyes = [];
+            this._myPlayerObjects.myEyes[Handedness.LEFT] = this._myEyeLeft;
+            this._myPlayerObjects.myEyes[Handedness.RIGHT] = this._myEyeRight;
 
-            playerObjects.myHands = [];
-            playerObjects.myHands[Handedness.LEFT] = this._myHandLeft;
-            playerObjects.myHands[Handedness.RIGHT] = this._myHandRight;
+            this._myPlayerObjects.myHands = [];
+            this._myPlayerObjects.myHands[Handedness.LEFT] = this._myHandLeft;
+            this._myPlayerObjects.myHands[Handedness.RIGHT] = this._myHandRight;
 
-            if (playerObjects.myPlayerPivot == null) {
-                playerObjects.myPlayerPivot = playerObjects.myPlayer;
+            if (this._myPlayerObjects.myPlayerPivot == null) {
+                this._myPlayerObjects.myPlayerPivot = this._myPlayerObjects.myPlayer;
             }
 
-            setPlayerObjects(playerObjects, this.engine);
-            this._myEnabled = true;
+            setPlayerObjects(this._myPlayerObjects, this.engine);
         }
     }
 
     onDestroy() {
-        if (this._myEnabled) {
+        if (this._myPlayerObjects != null && getPlayerObjects(this.engine) == this._myPlayerObjects) {
             removePlayerObjects(this.engine);
         }
     }

@@ -1,50 +1,71 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { vec4_create } from "../../../plugin/js/extensions/array_extension";
+import { getDefaultResources } from "../../../pp/default_resources_global";
+import { VisualData } from "../visual_data";
+import { getVisualData, getVisualManager, hasVisualData, hasVisualManager, removeVisualData, removeVisualManager, setVisualData, setVisualManager } from "../visual_globals";
 
 PP.myVisualManager = null;
-
-PP.myVisualData = {
-    myRootObject: null,
-    myDefaultMaterials: {
-        myDefaultMeshMaterial: null,
-        myDefaultTextMaterial: null,
-        myDefaultRightMaterial: null,
-        myDefaultUpMaterial: null,
-        myDefaultForwardMaterial: null,
-        myDefaultRayMaterial: null,
-        myDefaultHitNormalMaterial: null
-    }
-};
 
 export class VisualManagerComponent extends Component {
     static TypeName = "pp-visual-manager";
     static Properties = {};
 
     init() {
-        PP.myVisualData.myRootObject = this.engine.scene.addObject(null);
-        PP.myVisualManager = new PP.VisualManager();
+        this._myVisualManager = null;
+
+        // prevents double global from same engine
+        if (!hasVisualManager(this.engine)) {
+            this._myVisualManager = new VisualManager();
+
+            setVisualManager(this._myVisualManager, this.engine);
+        }
+
+        // prevents double global from same engine
+        if (!hasVisualData(this.engine)) {
+            this._myVisualData = new VisualData();
+            this._myVisualData.myRootObject = this.engine.scene.pp_addObject();
+
+            setVisualData(this._myVisualData, this.engine);
+        }
     }
 
     start() {
-        PP.myVisualData.myDefaultMaterials.myDefaultMeshMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
+        if (this._myVisualData != null) {
+            this._myVisualData.myDefaultMaterials.myDefaultMeshMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
 
-        PP.myVisualData.myDefaultMaterials.myDefaultTextMaterial = PP.myDefaultResources.myMaterials.myText.clone();
+            this._myVisualData.myDefaultMaterials.myDefaultTextMaterial = getDefaultResources(this.engine).myMaterials.myText.clone();
 
-        PP.myVisualData.myDefaultMaterials.myDefaultRightMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-        PP.myVisualData.myDefaultMaterials.myDefaultRightMaterial.color = PP.vec4_create(1, 0, 0, 1);
-        PP.myVisualData.myDefaultMaterials.myDefaultUpMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-        PP.myVisualData.myDefaultMaterials.myDefaultUpMaterial.color = PP.vec4_create(0, 1, 0, 1);
-        PP.myVisualData.myDefaultMaterials.myDefaultForwardMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-        PP.myVisualData.myDefaultMaterials.myDefaultForwardMaterial.color = PP.vec4_create(0, 0, 1, 1);
+            this._myVisualData.myDefaultMaterials.myDefaultRightMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myDefaultRightMaterial.color = vec4_create(1, 0, 0, 1);
+            this._myVisualData.myDefaultMaterials.myDefaultUpMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myDefaultUpMaterial.color = vec4_create(0, 1, 0, 1);
+            this._myVisualData.myDefaultMaterials.myDefaultForwardMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myDefaultForwardMaterial.color = vec4_create(0, 0, 1, 1);
 
-        PP.myVisualData.myDefaultMaterials.myDefaultRayMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-        PP.myVisualData.myDefaultMaterials.myDefaultRayMaterial.color = PP.vec4_create(0, 1, 0, 1);
-        PP.myVisualData.myDefaultMaterials.myDefaultHitNormalMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-        PP.myVisualData.myDefaultMaterials.myDefaultHitNormalMaterial.color = PP.vec4_create(1, 0, 0, 1);
+            this._myVisualData.myDefaultMaterials.myDefaultRayMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myDefaultRayMaterial.color = vec4_create(0, 1, 0, 1);
+            this._myVisualData.myDefaultMaterials.myDefaultHitNormalMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myDefaultHitNormalMaterial.color = vec4_create(1, 0, 0, 1);
+        }
 
-        PP.myVisualManager.start();
+        if (this.myVisualManager != null) {
+            this.myVisualManager.start();
+        }
     }
 
     update(dt) {
-        PP.myVisualManager.update(dt);
+        if (this.myVisualManager != null) {
+            this.myVisualManager.update(dt);
+        }
+    }
+
+    onDestroy() {
+        if (this._myVisualManager != null && getVisualManager(this.engine) == this._myVisualManager) {
+            removeVisualManager(this.engine);
+        }
+
+        if (this._myVisualData != null && getVisualData(this.engine) == this._myVisualData) {
+            removeVisualData(this.engine);
+        }
     }
 };

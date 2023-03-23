@@ -1,23 +1,24 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { AudioManager } from "../audio_manager";
-import { hasAudioManager, removeAudioManager, setAudioManager } from "../audio_manager_global";
+import { getAudioManager, hasAudioManager, removeAudioManager, setAudioManager } from "../audio_manager_global";
 
 export class AudioManagerComponent extends Component {
     static TypeName = "pp-audio-manager";
     static Properties = {};
 
     init() {
-        this._myEnabled = false;
+        this._myAudioManager = null;
 
-        // prevents double managers from same engine
+        // prevents double global from same engine
         if (!hasAudioManager(this.engine)) {
-            setAudioManager(new AudioManager(), this.engine);
-            this._myEnabled = true;
+            this._myAudioManager = new AudioManager();
+
+            setAudioManager(this._myAudioManager, this.engine);
         }
     }
 
     onDestroy() {
-        if (this._myEnabled) {
+        if (this._myAudioManager != null && getAudioManager(this.engine) == this._myAudioManager) {
             removeAudioManager(this.engine);
         }
     }

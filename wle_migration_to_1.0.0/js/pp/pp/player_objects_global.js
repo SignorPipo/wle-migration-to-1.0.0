@@ -1,19 +1,19 @@
 import { getMainEngine } from "../plugin/wl/extensions/engine_extension";
 
-let _myPlayerObjects = new WeakMap();
+let _myPlayerObjectsContainer = new WeakMap();
 
 export function getPlayerObjects(engine = getMainEngine()) {
-    return _myPlayerObjects.get(engine);
+    return _myPlayerObjectsContainer.get(engine);
 }
 
 export function setPlayerObjects(playerObjects, engine = getMainEngine()) {
-    _myPlayerObjects.set(engine, playerObjects);
+    _myPlayerObjectsContainer.set(engine, playerObjects);
 }
 
 export function removePlayerObjects(engine = getMainEngine()) {
-    _myPlayerObjects.delete(engine);
+    _myPlayerObjectsContainer.delete(engine);
 }
 
 export function hasPlayerObjects(engine = getMainEngine()) {
-    return _myPlayerObjects.has(engine);
+    return _myPlayerObjectsContainer.has(engine);
 }

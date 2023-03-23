@@ -74,7 +74,9 @@ require("./cauldron/physics/physics_raycast_data");
 require("./cauldron/physics/physics_layer_flags");
 require("./cauldron/physics/physics_collision_collector");
 
-//require("./cauldron/visual/visual_manager");
+require("./cauldron/visual/visual_manager");
+require("./cauldron/visual/visual_data");
+require("./cauldron/visual/visual_globals");
 
 //require("./cauldron/visual/elements/visual_element_types");
 //require("./cauldron/visual/elements/visual_line");
