@@ -1,5 +1,9 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, MeshComponent, Type, ViewComponent } from "@wonderlandengine/api";
+import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
+import { quat2_create, vec3_create, vec4_create } from "../../../plugin/js/extensions/array_extension";
+import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getPlayerObjects } from "../../../pp/player_objects_global";
 
 export class ToolCursorComponent extends Component {
     static TypeName = "pp-tool-cursor";
@@ -14,24 +18,24 @@ export class ToolCursorComponent extends Component {
     init() {
         this._myHandednessString = ["left", "right"][this._myHandedness];
 
-        this._myCursorPositionDefaultOffset = PP.vec3_create(0, -0.035, -0.05);
-        this._myCursorRotationDefaultOffset = PP.vec3_create(-30, 0, 0);
+        this._myCursorPositionDefaultOffset = vec3_create(0, -0.035, -0.05);
+        this._myCursorRotationDefaultOffset = vec3_create(-30, 0, 0);
 
-        this._myCursorMeshScale = PP.vec3_create(0.0025, 0.0025, 0.0025);
-        this._myCursorColor = [255 / 255, 255 / 255, 255 / 255, 1];
+        this._myCursorMeshScale = vec3_create(0.0025, 0.0025, 0.0025);
+        this._myCursorColor = vec4_create(255 / 255, 255 / 255, 255 / 255, 1);
 
         this._myCursorTargetCollisionGroup = 7;
     }
 
     start() {
-        this._myToolCursorObject = this.engine.scene.addObject(this.object);
-        this._myFixForwardObject = this.engine.scene.addObject(this._myToolCursorObject);
+        this._myToolCursorObject = this.object.pp_addObject();
+        this._myFixForwardObject = this._myToolCursorObject.pp_addObject();
 
         if (this._myFixForward) {
-            this._myFixForwardObject.pp_rotateObject(PP.vec3_create(0, 180, 0));
+            this._myFixForwardObject.pp_rotateObject(vec3_create(0, 180, 0));
         }
 
-        this._myCursorObjectVR = this.engine.scene.addObject(this._myFixForwardObject);
+        this._myCursorObjectVR = this._myFixForwardObject.pp_addObject();
 
         if (this._myApplyDefaultCursorOffset) {
             this._myCursorObjectVR.pp_setPositionLocal(this._myCursorPositionDefaultOffset);
@@ -39,30 +43,39 @@ export class ToolCursorComponent extends Component {
         }
 
         {
-            this._myCursorMeshobject = this.engine.scene.addObject(this._myCursorObjectVR);
+            this._myCursorMeshobject = this._myCursorObjectVR.pp_addObject();
             this._myCursorMeshobject.pp_setScale(this._myCursorMeshScale);
 
-            let cursorMeshComponent = this._myCursorMeshobject.addComponent("mesh");
-            cursorMeshComponent.mesh = PP.myDefaultResources.myMeshes.mySphere;
-            cursorMeshComponent.material = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
+            let cursorMeshComponent = this._myCursorMeshobject.pp_addComponent(MeshComponent);
+            cursorMeshComponent.mesh = getDefaultResources(this.engine).myMeshes.mySphere;
+            cursorMeshComponent.material = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
             cursorMeshComponent.material.color = this._myCursorColor;
 
-            this._myCursorComponentVR = this._myCursorObjectVR.addComponent("cursor", { "collisionGroup": this._myCursorTargetCollisionGroup, "handedness": this._myHandedness + 1, "cursorObject": this._myCursorMeshobject });
+            this._myCursorComponentVR = this._myCursorObjectVR.pp_addComponent(Cursor, {
+                "collisionGroup": this._myCursorTargetCollisionGroup,
+                "handedness": this._myHandedness + 1,
+                "cursorObject": this._myCursorMeshobject
+            });
+
             this._myCursorComponentVR.rayCastMode = 0; //collision
             if (this._myPulseOnHover) {
                 this._myCursorComponentVR.globalTarget.addHoverFunction(this._pulseOnHover.bind(this));
             }
         }
 
-        this._myCursorObjectNonVR = this.engine.scene.addObject(this._myToolCursorObject);
+        this._myCursorObjectNonVR = this._myToolCursorObject.pp_addObject();
 
         {
-            this._myCursorComponentNonVR = this._myCursorObjectNonVR.addComponent("cursor", { "collisionGroup": this._myCursorTargetCollisionGroup, "handedness": this._myHandedness + 1 });
+            this._myCursorComponentNonVR = this._myCursorObjectNonVR.pp_addComponent(Cursor, {
+                "collisionGroup": this._myCursorTargetCollisionGroup,
+                "handedness": this._myHandedness + 1
+            });
+
             this._myCursorComponentNonVR.rayCastMode = 0; //collision
             if (this._myPulseOnHover) {
                 this._myCursorComponentNonVR.globalTarget.addHoverFunction(this._pulseOnHover.bind(this));
             }
-            this._myCursorComponentNonVR.setViewComponent(PP.myPlayerObjects.myNonVRCamera.getComponent("view"));
+            this._myCursorComponentNonVR.setViewComponent(getPlayerObjects(this.engine).myNonVRCamera.pp_getComponent(ViewComponent));
         }
 
         let fingerCursorMeshObject = null;
@@ -71,16 +84,16 @@ export class ToolCursorComponent extends Component {
         if (this._myShowFingerCursor) {
             fingerCursorMeshObject = this._myToolCursorObject.pp_addObject();
 
-            let meshComponent = fingerCursorMeshObject.addComponent("mesh");
-            meshComponent.mesh = PP.myDefaultResources.myMeshes.mySphere;
-            meshComponent.material = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
+            let meshComponent = fingerCursorMeshObject.pp_addComponent(MeshComponent);
+            meshComponent.mesh = getDefaultResources(this.engine).myMeshes.mySphere;
+            meshComponent.material = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
             meshComponent.material.color = this._myCursorColor;
 
             fingerCursorMeshObject.pp_setScale(fingerCollisionSize);
         }
 
         this._myFingerCursorObject = this.engine.scene.addObject(this._myToolCursorObject);
-        this._myFingerCursorComponent = this._myFingerCursorObject.addComponent("pp-finger-cursor", {
+        this._myFingerCursorComponent = this._myFingerCursorObject.pp_addComponent("pp-finger-cursor", {
             "_myHandedness": this._myHandedness,
             "_myEnableMultipleClicks": true,
             "_myCollisionGroup": this._myCursorTargetCollisionGroup,
@@ -115,7 +128,7 @@ export class ToolCursorComponent extends Component {
     }
 
     _pulseOnHover(object) {
-        let targetComponent = object.getComponent("cursor-target");
+        let targetComponent = object.pp_getComponent(CursorTarget);
 
         if (targetComponent && !targetComponent.isSurface) {
             if (this._myHandedness == 0) {
@@ -136,7 +149,7 @@ export class ToolCursorComponent extends Component {
 // IMPLEMENTATION
 
 ToolCursorComponent.prototype.update = function () {
-    let transformQuat = PP.quat2_create();
+    let transformQuat = quat2_create();
     return function update(dt) {
         let isUsingHand = this._isUsingHand();
 
@@ -153,7 +166,7 @@ ToolCursorComponent.prototype.update = function () {
                 this._myCursorComponentNonVR.active = !isUsingHand;
                 this._myCursorComponentVR.active = false;
 
-                this._myCursorObjectNonVR.pp_setTransformQuat(PP.myPlayerObjects.myNonVRCamera.pp_getTransformQuat(transformQuat));
+                this._myCursorObjectNonVR.pp_setTransformQuat(getPlayerObjects(this.engine).myNonVRCamera.pp_getTransformQuat(transformQuat));
             }
         }
     };
