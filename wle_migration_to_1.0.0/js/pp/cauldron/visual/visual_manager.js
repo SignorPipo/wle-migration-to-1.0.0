@@ -1,10 +1,15 @@
-PP.VisualManager = class VisualManager {
+import { ObjectPoolParams } from "../cauldron/object_pool";
+import { ObjectPoolsManager } from "../cauldron/object_pools_manager";
+import { Timer } from "../cauldron/timer";
+import { VisualElementType } from "./elements/visual_element_types";
+
+export class VisualManager {
     constructor() {
         this._myVisualElementPrototypeCreationCallbacks = new Map();
 
         this._myVisualElementsTypeMap = new Map();
         this._myVisualElementLastID = 0;
-        this._myVisualElementsPool = new PP.ObjectPoolsManager();
+        this._myVisualElementsPool = new ObjectPoolsManager();
         this._myVisualElementsToShow = [];
 
         this._myActive = true;
@@ -73,7 +78,7 @@ PP.VisualManager = class VisualManager {
             elementID = this._myVisualElementLastID + 1;
             this._myVisualElementLastID = elementID;
 
-            visualElements.set(elementID, [visualElement, new PP.Timer(lifetimeSeconds, lifetimeSeconds != null)]);
+            visualElements.set(elementID, [visualElement, new Timer(lifetimeSeconds, lifetimeSeconds != null)]);
         } else {
             elementID = idToReuse;
             let visualElementPair = visualElements.get(elementID);
@@ -190,7 +195,7 @@ PP.VisualManager = class VisualManager {
     }
 
     _addVisualElementTypeToPool(type) {
-        let objectPoolParams = new PP.ObjectPoolParams();
+        let objectPoolParams = new ObjectPoolParams();
         objectPoolParams.myInitialPoolSize = 10;
         objectPoolParams.myAmountToAddWhenEmpty = 0;
         objectPoolParams.myPercentageToAddWhenEmpty = 0.5;
@@ -215,13 +220,13 @@ PP.VisualManager = class VisualManager {
     }
 
     _addStandardVisualElementTypes() {
-        this.addVisualElementType(PP.VisualElementType.LINE, () => new PP.VisualLine());
-        this.addVisualElementType(PP.VisualElementType.MESH, () => new PP.VisualMesh());
-        this.addVisualElementType(PP.VisualElementType.POINT, () => new PP.VisualPoint());
-        this.addVisualElementType(PP.VisualElementType.ARROW, () => new PP.VisualArrow());
-        this.addVisualElementType(PP.VisualElementType.TEXT, () => new PP.VisualText());
-        this.addVisualElementType(PP.VisualElementType.TRANSFORM, () => new PP.VisualTransform());
-        this.addVisualElementType(PP.VisualElementType.RAYCAST, () => new PP.VisualRaycast());
-        this.addVisualElementType(PP.VisualElementType.TORUS, () => new PP.VisualTorus());
+        this.addVisualElementType(VisualElementType.LINE, () => new PP.VisualLine());
+        this.addVisualElementType(VisualElementType.MESH, () => new PP.VisualMesh());
+        this.addVisualElementType(VisualElementType.POINT, () => new PP.VisualPoint());
+        this.addVisualElementType(VisualElementType.ARROW, () => new PP.VisualArrow());
+        this.addVisualElementType(VisualElementType.TEXT, () => new PP.VisualText());
+        this.addVisualElementType(VisualElementType.TRANSFORM, () => new PP.VisualTransform());
+        this.addVisualElementType(VisualElementType.RAYCAST, () => new PP.VisualRaycast());
+        this.addVisualElementType(VisualElementType.TORUS, () => new PP.VisualTorus());
     }
 };

@@ -3,8 +3,7 @@ import { vec4_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { VisualData } from "../visual_data";
 import { getVisualData, getVisualManager, hasVisualData, hasVisualManager, removeVisualData, removeVisualManager, setVisualData, setVisualManager } from "../visual_globals";
-
-PP.myVisualManager = null;
+import { VisualManager } from "../visual_manager";
 
 export class VisualManagerComponent extends Component {
     static TypeName = "pp-visual-manager";
