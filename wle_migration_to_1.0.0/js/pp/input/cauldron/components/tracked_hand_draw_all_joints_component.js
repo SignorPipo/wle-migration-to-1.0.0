@@ -1,4 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { TrackedHandJointID, TrackedHandJointIDIndex } from "../input_types";
+import { TrackedHandDrawJointComponent } from "./tracked_hand_draw_joint_component";
 
 export class TrackedHandDrawAllJointsComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-all-joints";
@@ -19,21 +21,21 @@ export class TrackedHandDrawAllJointsComponent extends Component {
 
         this._myJointMeshObjectList = [];
 
-        for (let jointIDKey in PP.TrackedHandJointID) {
-            let jointID = PP.TrackedHandJointID[jointIDKey];
+        for (let jointIDKey in TrackedHandJointID) {
+            let jointID = TrackedHandJointID[jointIDKey];
             if (!this._myHideMetacarpals ||
-                (jointID != PP.TrackedHandJointID.THUMB_METACARPAL &&
-                    jointID != PP.TrackedHandJointID.INDEX_FINGER_METACARPAL && jointID != PP.TrackedHandJointID.MIDDLE_FINGER_METACARPAL &&
-                    jointID != PP.TrackedHandJointID.RING_FINGER_METACARPAL && jointID != PP.TrackedHandJointID.PINKY_FINGER_METACARPAL)
+                (jointID != TrackedHandJointID.THUMB_METACARPAL &&
+                    jointID != TrackedHandJointID.INDEX_FINGER_METACARPAL && jointID != TrackedHandJointID.MIDDLE_FINGER_METACARPAL &&
+                    jointID != TrackedHandJointID.RING_FINGER_METACARPAL && jointID != TrackedHandJointID.PINKY_FINGER_METACARPAL)
             ) {
                 let jointObject = this._myTrackedHandMeshObject.pp_addObject();
                 this._myJointMeshObjectList[jointID] = jointObject;
 
-                jointObject.pp_addComponent("pp-tracked-hand-draw-joint",
+                jointObject.pp_addComponent(TrackedHandDrawJointComponent,
                     {
                         "_myHandedness": this._myHandedness,
                         "_myFixForward": this._myFixForward,
-                        "_myJointID": PP.TrackedHandJointIDIndex[jointIDKey],
+                        "_myJointID": TrackedHandJointIDIndex[jointIDKey],
                         "_myJointMesh": this._myJointMesh,
                         "_myJointMaterial": this._myJointMaterial,
                     });

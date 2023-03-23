@@ -1,4 +1,5 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, MeshComponent, Type } from "@wonderlandengine/api";
+import { InputUtils } from "../input_utils";
 
 export class TrackedHandDrawJointComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-joint";
@@ -22,8 +23,8 @@ export class TrackedHandDrawJointComponent extends Component {
     };
 
     init() {
-        this._myHandednessInternal = PP.InputUtils.getHandednessByIndex(this._myHandedness);
-        this._myJointIDInternal = PP.InputUtils.getJointIDByIndex(this._myJointID);
+        this._myHandednessInternal = InputUtils.getHandednessByIndex(this._myHandedness);
+        this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
 
         this._myTrackedHandJointPose = new PP.TrackedHandJointPose(this._myHandednessInternal, this._myJointIDInternal);
         this._myTrackedHandJointPose.setFixForward(this._myFixForward);
@@ -44,7 +45,7 @@ export class TrackedHandDrawJointComponent extends Component {
     _buildTrackedHandHierarchy() {
         this._myJointMeshObject = this.object.pp_addObject();
 
-        let mesh = this._myJointMeshObject.pp_addComponent("mesh");
+        let mesh = this._myJointMeshObject.pp_addComponent(MeshComponent);
         mesh.mesh = this._myJointMesh;
         mesh.material = this._myJointMaterial;
 

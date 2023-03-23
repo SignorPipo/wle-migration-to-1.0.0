@@ -1,4 +1,9 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { CollisionComponent, Component, Type } from "@wonderlandengine/api";
+import { CursorTarget } from "@wonderlandengine/components";
+import { vec3_create } from "../../../plugin/js/extensions/array_extension";
+import { getPlayerObjects } from "../../../pp/player_objects_global";
+import { InputSourceType, TrackedHandJointID } from "../input_types";
+import { InputUtils } from "../input_utils";
 
 export class FingerCursorComponent extends Component {
     static TypeName = "pp-finger-cursor";
@@ -23,7 +28,7 @@ export class FingerCursorComponent extends Component {
     }
 
     start() {
-        this._myCursorObjectRoot = this.engine.scene.addObject(this.object);
+        this._myCursorObjectRoot = this.object.pp_addObject();
 
         if (this._myCursorObject == null) {
             this._myCursorObject = this._myCursorObjectRoot.pp_addObject();
@@ -31,10 +36,10 @@ export class FingerCursorComponent extends Component {
             this._myCursorObject.pp_setParent(this._myCursorObjectRoot);
         }
 
-        this._myCollisionComponent = this._myCursorObject.addComponent("collision");
+        this._myCollisionComponent = this._myCursorObject.pp_addComponent(CollisionComponent);
         this._myCollisionComponent.collider = this.engine.Collider.Sphere;
         this._myCollisionComponent.group = 1 << this._myCollisionGroup;
-        this._myCollisionComponent.extents = PP.vec3_create(this._myCollisionSize, this._myCollisionSize, this._myCollisionSize);
+        this._myCollisionComponent.extents = vec3_create(this._myCollisionSize, this._myCollisionSize, this._myCollisionSize);
 
         if (this.engine.xrSession) {
             this._onXRSessionStart(this.engine.xrSession);
@@ -52,7 +57,7 @@ export class FingerCursorComponent extends Component {
             this._myTripleClickTimer -= dt;
         }
 
-        this._myCursorObjectRoot.pp_setTransformQuat(PP.myPlayerObjects.myPlayerPivot.pp_getTransformQuat());
+        this._myCursorObjectRoot.pp_setTransformQuat(getPlayerObjects(this.engine).myPlayerPivot.pp_getTransformQuat());
         this._updateHand();
 
         if (this._myHandInputSource) {
@@ -60,7 +65,7 @@ export class FingerCursorComponent extends Component {
             let overlapTarget = null;
             for (let i = 0; i < overlaps.length; ++i) {
                 let object = overlaps[i].object;
-                let target = object.getComponent("cursor-target");
+                let target = object.pp_getComponent(CursorTarget);
                 if (target && (overlapTarget == null || !target.isSurface)) {
                     overlapTarget = target;
                     if (!target.isSurface) {
@@ -123,10 +128,10 @@ export class FingerCursorComponent extends Component {
     }
 
     _updateHand() {
-        this._myHandInputSource = PP.InputUtils.getInputSource(this._myHandednessString, PP.InputSourceType.TRACKED_HAND);
+        this._myHandInputSource = InputUtils.getInputSource(this._myHandednessString, InputSourceType.TRACKED_HAND, this.engine);
 
         if (this._myHandInputSource) {
-            let tip = Module["webxr_frame"].getJointPose(this._myHandInputSource.hand.get("index-finger-tip"), this._myReferenceSpace);
+            let tip = Module["webxr_frame"].getJointPose(this._myHandInputSource.hand.get(TrackedHandJointID.INDEX_FINGER_TIP), this._myReferenceSpace);
 
             if (tip) {
                 this._myCursorObject.pp_setRotationLocalQuat([
