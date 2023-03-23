@@ -1,19 +1,25 @@
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+import { SaveUtils } from "../utils/save_utils";
+import { Timer } from "./timer";
+
 export class SaveManager {
-    constructor() {
+    constructor(engine = getMainEngine()) {
+        this._myEngine = engine;
+
         this._mySaveCache = new Map();
         this._myCacheEnabled = true;
 
-        this._myCommitSavesDelayTimer = new PP.Timer(0, false);
+        this._myCommitSavesDelayTimer = new Timer(0, false);
         this._myDelaySavesCommit = true;
         this._myIDsToCommit = [];
 
         this._myCacheDefaultValueOnFail = true;
 
-        if (WL.xrSession) {
-            this._onXRSessionStart(WL.xrSession);
+        if (this._myEngine.xrSession) {
+            this._onXRSessionStart(this._myEngine.xrSession);
         }
-        WL.onXRSessionStart.push(this._onXRSessionStart.bind(this));
-        WL.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
+        this._myEngine.onXRSessionStart.push(this._onXRSessionStart.bind(this));
+        this._myEngine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
 
         this._myClearCallbacks = new Map();                 // Signature: callback()
         this._myDeleteCallbacks = new Map();                // Signature: callback(id)
@@ -124,12 +130,12 @@ export class SaveManager {
     }
 
     has(id, overrideCacheEnabled = null) {
-        return (this._mySaveCache.has(id) && this._isCacheEnabled(overrideCacheEnabled)) || PP.SaveUtils.has(id);
+        return (this._mySaveCache.has(id) && this._isCacheEnabled(overrideCacheEnabled)) || SaveUtils.has(id);
     }
 
-    delete(id) {
+    remove(id) {
         this._mySaveCache.delete(id);
-        PP.SaveUtils.delete(id);
+        SaveUtils.remove(id);
 
         if (this._myDeleteCallbacks.size > 0) {
             this._myDeleteCallbacks.forEach(function (callback) { callback(id); });
@@ -145,7 +151,7 @@ export class SaveManager {
 
     clear() {
         this._mySaveCache.clear();
-        PP.SaveUtils.clear();
+        SaveUtils.clear();
 
         if (this._myClearCallbacks.size > 0) {
             this._myClearCallbacks.forEach(function (callback) { callback(); });
@@ -189,7 +195,7 @@ export class SaveManager {
         let failed = false;
 
         try {
-            PP.SaveUtils.save(id, value);
+            SaveUtils.save(id, value);
         } catch (error) {
             failed = true;
         }
@@ -227,7 +233,7 @@ export class SaveManager {
         } else {
             let saveResult = null;
             try {
-                saveResult = PP.SaveUtils[functionName](id, null);
+                saveResult = SaveUtils[functionName](id, null);
             } catch (error) {
                 // Error is managed as if it worked but there was no value
                 saveResult = null;

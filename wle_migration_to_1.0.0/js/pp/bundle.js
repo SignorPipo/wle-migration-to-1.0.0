@@ -47,7 +47,7 @@ require("./cauldron/benchmarks/benchmark_max_visible_triangles_component");
 
 require("./cauldron/cauldron/object_pool");
 require("./cauldron/cauldron/object_pools_manager");
-//require("./cauldron/cauldron/save_manager");
+require("./cauldron/cauldron/save_manager");
 require("./cauldron/cauldron/timer");
 
 //require("./cauldron/components/clear_console_on_xr_session_start_component");
