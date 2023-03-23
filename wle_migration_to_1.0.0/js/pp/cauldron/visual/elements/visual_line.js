@@ -1,15 +1,15 @@
 /*
-let visualParams = new PP.VisualLineParams();
+let visualParams = new VisualLineParams();
 visualParams.myStart.vec3_copy(start);
 visualParams.myDirection.vec3_copy(direction);
 visualParams.myLength = 0.2;
-visualParams.myMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
+visualParams.myMaterial = myDefaultResources.myMaterials.myFlatOpaque.clone();
 visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
-PP.myVisualManager.draw(visualParams);
+getVisualManager().draw(visualParams);
 
 or
 
-let visualLine = new PP.VisualLine(visualParams);
+let visualLine = new VisualLine(visualParams);
 */
 
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
@@ -28,9 +28,9 @@ export class VisualLineParams {
 
         this.myThickness = 0.005;
 
-        this.myMesh = null;         // the mesh is scaled along up axis, null means it will default on PP.myDefaultResources.myMeshes.myCylinder
+        this.myMesh = null;         // the mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCylinder
 
-        this.myMaterial = null;     // null means it will default on PP.myDefaultResources.myMaterials.myFlatOpaque
+        this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // if this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = getVisualData(engine).myRootObject;

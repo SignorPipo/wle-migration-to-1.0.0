@@ -1,7 +1,15 @@
 import { ObjectPoolParams } from "../cauldron/object_pool";
 import { ObjectPoolsManager } from "../cauldron/object_pools_manager";
 import { Timer } from "../cauldron/timer";
+import { VisualArrow } from "./elements/visual_arrow";
 import { VisualElementType } from "./elements/visual_element_types";
+import { VisualLine } from "./elements/visual_line";
+import { VisualMesh } from "./elements/visual_mesh"
+import { VisualPoint } from "./elements/visual_point";
+import { VisualRaycast } from "./elements/visual_raycast";
+import { VisualText } from "./elements/visual_text";
+import { VisualTorus } from "./elements/visual_torus";
+import { VisualTransform } from "./elements/visual_transform";
 
 export class VisualManager {
     constructor() {
@@ -219,14 +227,15 @@ export class VisualManager {
         }
     }
 
+    // #ENGINE
     _addStandardVisualElementTypes() {
-        this.addVisualElementType(VisualElementType.LINE, () => new PP.VisualLine());
-        this.addVisualElementType(VisualElementType.MESH, () => new PP.VisualMesh());
-        this.addVisualElementType(VisualElementType.POINT, () => new PP.VisualPoint());
-        this.addVisualElementType(VisualElementType.ARROW, () => new PP.VisualArrow());
-        this.addVisualElementType(VisualElementType.TEXT, () => new PP.VisualText());
-        this.addVisualElementType(VisualElementType.TRANSFORM, () => new PP.VisualTransform());
-        this.addVisualElementType(VisualElementType.RAYCAST, () => new PP.VisualRaycast());
-        this.addVisualElementType(VisualElementType.TORUS, () => new PP.VisualTorus());
+        this.addVisualElementType(VisualElementType.LINE, () => new VisualLine());
+        this.addVisualElementType(VisualElementType.MESH, () => new VisualMesh());
+        this.addVisualElementType(VisualElementType.POINT, () => new VisualPoint());
+        this.addVisualElementType(VisualElementType.ARROW, () => new VisualArrow());
+        this.addVisualElementType(VisualElementType.TEXT, () => new VisualText());
+        this.addVisualElementType(VisualElementType.TRANSFORM, () => new VisualTransform());
+        this.addVisualElementType(VisualElementType.RAYCAST, () => new VisualRaycast());
+        this.addVisualElementType(VisualElementType.TORUS, () => new VisualTorus());
     }
 };

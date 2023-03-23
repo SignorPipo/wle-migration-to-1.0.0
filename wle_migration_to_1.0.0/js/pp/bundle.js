@@ -78,17 +78,17 @@ require("./cauldron/visual/visual_manager");
 require("./cauldron/visual/visual_data");
 require("./cauldron/visual/visual_globals");
 
-//require("./cauldron/visual/elements/visual_element_types");
-//require("./cauldron/visual/elements/visual_line");
-//require("./cauldron/visual/elements/visual_mesh");
-//require("./cauldron/visual/elements/visual_point");
-//require("./cauldron/visual/elements/visual_arrow");
-//require("./cauldron/visual/elements/visual_text");
-//require("./cauldron/visual/elements/visual_transform");
-//require("./cauldron/visual/elements/visual_raycast");
-//require("./cauldron/visual/elements/visual_torus");
+require("./cauldron/visual/elements/visual_element_types");
+require("./cauldron/visual/elements/visual_line");
+require("./cauldron/visual/elements/visual_mesh");
+require("./cauldron/visual/elements/visual_point");
+require("./cauldron/visual/elements/visual_arrow");
+require("./cauldron/visual/elements/visual_text");
+require("./cauldron/visual/elements/visual_transform");
+require("./cauldron/visual/elements/visual_raycast");
+require("./cauldron/visual/elements/visual_torus");
 
-//require("./cauldron/visual/components/visual_manager_component");
+require("./cauldron/visual/components/visual_manager_component");
 
 //	DEBUG
 //require("./debug/debug_manager");

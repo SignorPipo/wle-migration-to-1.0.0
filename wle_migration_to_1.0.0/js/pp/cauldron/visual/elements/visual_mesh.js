@@ -1,14 +1,14 @@
 /*
-let visualParams = new PP.VisualMeshParams();
+let visualParams = new VisualMeshParams();
 visualParams.myTransform = transform;
-visualParams.myMesh = PP.myDefaultResources.myMeshes.mySphere;
-visualParams.myMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-visualParams.myMaterial.color = PP.vec4_create(1, 1, 1, 1);
-PP.myVisualManager.draw(visualParams);
+visualParams.myMesh = myDefaultResources.myMeshes.mySphere;
+visualParams.myMaterial = myDefaultResources.myMaterials.myFlatOpaque.clone();
+visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
+getVisualManager().draw(visualParams);
 
 or
 
-let visualMesh = new PP.VisualMesh(visualParams);
+let visualMesh = new VisualMesh(visualParams);
 */
 
 import { mat4_create } from "../../../plugin/js/extensions/array_extension";

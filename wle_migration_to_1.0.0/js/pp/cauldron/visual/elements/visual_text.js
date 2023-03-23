@@ -1,14 +1,14 @@
 /*
-let visualParams = new PP.VisualTextParams();
+let visualParams = new VisualTextParams();
 visualParams.myText = text;
 visualParams.myTransform.mat4_copy(transform);
-visualParams.myMaterial = PP.myDefaultResources.myMaterials.myText.clone();
-visualParams.myMaterial.color = PP.vec4_create(1, 1, 1, 1);
-PP.myVisualManager.draw(visualParams);
+visualParams.myMaterial = myDefaultResources.myMaterials.myText.clone();
+visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
+getVisualManager().draw(visualParams);
 
 or
 
-let visualText = new PP.VisualText(visualParams);
+let visualText = new VisualText(visualParams);
 */
 
 import { mat4_create } from "../../../plugin/js/extensions/array_extension";
@@ -16,6 +16,7 @@ import { getMainEngine } from "../../../plugin/wl/extensions/engine_extension";
 import { getVisualData } from "../visual_globals";
 import { Alignment, Justification, TextComponent } from "@wonderlandengine/api"
 import { getDefaultResources } from "../../../pp/default_resources_global";
+import { VisualElementType } from "./visual_element_types";
 
 export class VisualTextParams {
 
@@ -26,7 +27,7 @@ export class VisualTextParams {
 
         this.myTransform = mat4_create();
 
-        this.myMaterial = null;     // null means it will default on PP.myDefaultResources.myMaterials.myDefaultTextMaterial
+        this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myDefaultTextMaterial
 
         this.myColor = null;        // if this is set and material is null, it will use the default text material with this color
 
@@ -161,7 +162,11 @@ export class VisualText {
 
         return clone;
     }
-};
+}
+
+
+
+// IMPLEMENTATION
 
 VisualTextParams.prototype.copy = function copy(other) {
     this.myText = other.myText;

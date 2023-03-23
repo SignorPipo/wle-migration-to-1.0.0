@@ -1,14 +1,14 @@
 /*
-let visualParams = new PP.VisualPointParams();
+let visualParams = new VisualPointParams();
 visualParams.myPosition.vec3_copy(position);
 visualParams.myRadius = 0.005;
-visualParams.myMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-visualParams.myMaterial.color = PP.vec4_create(1, 1, 1, 1);
-PP.myVisualManager.draw(visualParams);
+visualParams.myMaterial = myDefaultResources.myMaterials.myFlatOpaque.clone();
+visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
+getVisualManager().draw(visualParams);
 
 or
 
-let visualPoint = new PP.VisualPoint(visualParams);
+let visualPoint = new VisualPoint(visualParams);
 */
 
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
@@ -24,9 +24,9 @@ export class VisualPointParams {
         this.myPosition = vec3_create();
         this.myRadius = 0.005;
 
-        this.myMesh = null;         // the mesh is scaled along up axis, null means it will default on PP.myDefaultResources.myMeshes.mySphere
+        this.myMesh = null;         // the mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.mySphere
 
-        this.myMaterial = null;     // null means it will default on PP.myDefaultResources.myMaterials.myFlatOpaque
+        this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // if this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = getVisualData(engine).myRootObject;

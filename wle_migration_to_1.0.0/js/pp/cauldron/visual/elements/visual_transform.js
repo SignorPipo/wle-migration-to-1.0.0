@@ -1,18 +1,24 @@
 /*
-let visualParams = new PP.VisualTransformParams();
+let visualParams = new VisualTransformParams();
 visualParams.myTransform.mat4_copy(transform);
 visualParams.myLength = 0.2;
-PP.myVisualManager.draw(visualParams);
+getVisualManager().draw(visualParams);
 
 or
 
-let visualTransform = new PP.VisualTransform(visualParams);
+let visualTransform = new VisualTransform(visualParams);
 */
 
-PP.VisualTransformParams = class VisualTransformParams {
+import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../../../plugin/wl/extensions/engine_extension";
+import { getVisualData } from "../visual_globals";
+import { VisualArrow, VisualArrowParams } from "./visual_arrow";
+import { VisualElementType } from "./visual_element_types";
 
-    constructor() {
-        this.myTransform = PP.mat4_create();
+export class VisualTransformParams {
+
+    constructor(engine = getMainEngine()) {
+        this.myTransform = mat4_create();
         this.myLength = 0.2;
         this.myThickness = 0.005;
 
@@ -31,9 +37,9 @@ PP.VisualTransformParams = class VisualTransformParams {
     }
 };
 
-PP.VisualTransform = class VisualTransform {
+export class VisualTransform {
 
-    constructor(params = new PP.VisualTransformParams()) {
+    constructor(params = new VisualTransformParams()) {
         this._myParams = params;
 
         this._myVisible = false;
@@ -41,9 +47,10 @@ PP.VisualTransform = class VisualTransform {
 
         this._myDirty = false;
 
-        this._myVisualRight = new PP.VisualArrow();
-        this._myVisualUp = new PP.VisualArrow();
-        this._myVisualForward = new PP.VisualArrow();
+        let visualArrowParams = new VisualArrowParams(this._myParams.myParent.engine);
+        this._myVisualRight = new VisualArrow(visualArrowParams);
+        this._myVisualUp = new VisualArrow(visualArrowParams);
+        this._myVisualForward = new VisualArrow(visualArrowParams);
 
         this._myVisualRight.setAutoRefresh(false);
         this._myVisualUp.setAutoRefresh(false);
@@ -118,22 +125,30 @@ PP.VisualTransform = class VisualTransform {
     }
 
     clone() {
-        let clonedParams = new PP.VisualTransformParams();
+        let clonedParams = new VisualTransformParams(this._myParams.myParent.engine);
         clonedParams.copy(this._myParams);
 
-        let clone = new PP.VisualTransform(clonedParams);
+        let clone = new VisualTransform(clonedParams);
         clone.setAutoRefresh(this._myAutoRefresh);
         clone.setVisible(this._myVisible);
         clone._myDirty = this._myDirty;
 
         return clone;
     }
-};
 
-PP.VisualTransform.prototype._refresh = function () {
-    let axes = [PP.vec3_create(), PP.vec3_create(), PP.vec3_create()];
-    let scale = PP.vec3_create();
-    let position = PP.vec3_create();
+    _refresh() {
+        // implemented outside class definition
+    }
+}
+
+
+
+// IMPLEMENTATION
+
+VisualTransform.prototype._refresh = function () {
+    let axes = [vec3_create(), vec3_create(), vec3_create()];
+    let scale = vec3_create();
+    let position = vec3_create();
     return function _refresh() {
         axes = this._myParams.myTransform.mat4_getAxes(axes);
         scale = this._myParams.myTransform.mat4_getScale(scale);
@@ -162,7 +177,7 @@ PP.VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myRightMaterial == null) {
-                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myRight;
+                visualArrowParams.myMaterial = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myRight;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myRightMaterial;
             }
@@ -181,7 +196,7 @@ PP.VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myUpMaterial == null) {
-                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myUp;
+                visualArrowParams.myMaterial = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myUp;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myUpMaterial;
             }
@@ -200,7 +215,7 @@ PP.VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myForwardMaterial == null) {
-                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myForward;
+                visualArrowParams.myMaterial = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myForward;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myForwardMaterial;
             }
@@ -213,7 +228,7 @@ PP.VisualTransform.prototype._refresh = function () {
     };
 }();
 
-PP.VisualTransformParams.prototype.copy = function copy(other) {
+VisualTransformParams.prototype.copy = function copy(other) {
     this.myTransform.mat4_copy(other.myTransform);
     this.myLength = other.myLength;
     this.myThickness = other.myThickness;
@@ -241,8 +256,3 @@ PP.VisualTransformParams.prototype.copy = function copy(other) {
 
     this.myType = other.myType;
 };
-
-
-
-Object.defineProperty(PP.VisualTransform.prototype, "_refresh", { enumerable: false });
-Object.defineProperty(PP.VisualTransformParams.prototype, "copy", { enumerable: false });
