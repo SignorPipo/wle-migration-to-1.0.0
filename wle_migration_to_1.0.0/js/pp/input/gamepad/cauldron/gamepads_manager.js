@@ -1,4 +1,4 @@
-PP.GamepadsManager = class GamepadsManager {
+export class GamepadsManager {
     constructor() {
         this._myLeftGamepad = new PP.UniversalGamepad(PP.Handedness.LEFT);
         this._myRightGamepad = new PP.UniversalGamepad(PP.Handedness.RIGHT);
@@ -47,4 +47,4 @@ PP.GamepadsManager = class GamepadsManager {
 
         return gamepads;
     }
-};
+}

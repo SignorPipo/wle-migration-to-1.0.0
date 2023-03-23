@@ -1,8 +1,13 @@
-PP.InputManager = class InputManager {
-    constructor() {
-        this._myMouse = new PP.Mouse();
-        this._myKeyboard = new PP.Keyboard();
-        this._myGamepadsManager = new PP.GamepadsManager();
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+import { GamepadsManager } from "../gamepad/cauldron/gamepads_manager";
+import { Keyboard } from "./keyboard";
+import { Mouse } from "./mouse";
+
+export class InputManager {
+    constructor(engine = getMainEngine()) {
+        this._myMouse = new Mouse(engine);
+        this._myKeyboard = new Keyboard();
+        this._myGamepadsManager = new GamepadsManager(engine);
     }
 
     start() {

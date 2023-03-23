@@ -204,11 +204,12 @@ require("./debug/components/debug_manager_component");
 //require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_transform_manager_cleaned");
 
 //	INPUT
-//require("./input/cauldron/input_types");
-//require("./input/cauldron/input_utils");
-//require("./input/cauldron/keyboard");
-//require("./input/cauldron/mouse");
-//require("./input/cauldron/input_manager");
+require("./input/cauldron/input_types");
+require("./input/cauldron/input_utils");
+require("./input/cauldron/keyboard");
+require("./input/cauldron/mouse");
+require("./input/cauldron/input_globals");
+require("./input/cauldron/input_manager");
 
 //require("./input/cauldron/components/finger_cursor_component");
 //require("./input/cauldron/components/input_manager_component");

@@ -1,15 +1,8 @@
 import { Component, Type } from "@wonderlandengine/api";
-
-PP.myInputManager = null;
-
-PP.myMouse = null;
-
-PP.myKeyboard = null;
-
-PP.myGamepadsManager = null;
-PP.myGamepads = null;
-PP.myLeftGamepad = null;
-PP.myRightGamepad = null;
+import { getPlayerObjects } from "../../../pp/player_objects_global";
+import { hasInputManager, setInputManager } from "../input_globals";
+import { InputManager } from "../input_manager";
+import { Handedness } from "../input_types";
 
 export class InputManagerComponent extends Component {
     static TypeName = "pp-input-manager";
@@ -20,62 +13,63 @@ export class InputManagerComponent extends Component {
     };
 
     init() {
-        this._myInputManager = new PP.InputManager();
+        this._myInputManager = null;
 
-        PP.myInputManager = this._myInputManager;
+        // prevents double global from same engine
+        if (!hasInputManager(this.engine)) {
+            this._myInputManager = new InputManager(this.engine);
 
-        PP.myMouse = this._myInputManager.getMouse();
-        PP.myKeyboard = this._myInputManager.getKeyboard();
-
-        PP.myGamepadsManager = this._myInputManager.getGamepadsManager();
-        PP.myGamepads = PP.myGamepadsManager.getGamepads();
-        PP.myLeftGamepad = PP.myGamepadsManager.getLeftGamepad();
-        PP.myRightGamepad = PP.myGamepadsManager.getRightGamepad();
+            setInputManager(this._myInputManager, this.engine);
+        }
     }
 
     start() {
-        this._myInputManager.start();
+        if (this._myInputManager != null) {
+            this._myInputManager.start();
 
-        this._setupMousePrevent();
-        this._addGamepadCores();
+            this._setupMousePrevent();
+            this._addGamepadCores();
+        }
     }
 
     update(dt) {
-        this._myInputManager.update(dt);
+        if (this._myInputManager != null) {
+            this._myInputManager.update(dt);
+        }
     }
 
     _setupMousePrevent() {
         if (this._myMousePreventContextMenu) {
-            PP.myMouse.setContextMenuActive(false);
+            this._myInputManager.getMouse().setContextMenuActive(false);
         }
 
         if (this._myMousePreventMiddleButtonScroll) {
-            PP.myMouse.setMiddleButtonScrollActive(false);
+            this._myInputManager.getMouse().setMiddleButtonScrollActive(false);
         }
     }
 
     _addGamepadCores() {
         let handPoseParams = new PP.HandPoseParams();
-        handPoseParams.myReferenceObject = PP.myPlayerObjects.myPlayerPivot;
+        handPoseParams.myReferenceObject = getPlayerObjects(this.engine).myPlayerPivot;
         handPoseParams.myFixForward = this._myFixForward;
         handPoseParams.myForceEmulatedVelocities = false;
 
-        let leftXRGamepadCore = new PP.XRGamepadCore(PP.Handedness.LEFT, handPoseParams);
-        let rightXRGamepadCore = new PP.XRGamepadCore(PP.Handedness.RIGHT, handPoseParams);
+        let leftXRGamepadCore = new PP.XRGamepadCore(Handedness.LEFT, handPoseParams);
+        let rightXRGamepadCore = new PP.XRGamepadCore(Handedness.RIGHT, handPoseParams);
 
-        PP.myLeftGamepad.addGamepadCore("left_xr_gamepad", leftXRGamepadCore);
-        PP.myRightGamepad.addGamepadCore("right_xr_gamepad", rightXRGamepadCore);
+        this._myInputManager.getGamepadsManager().getLeftGamepad().addGamepadCore("left_xr_gamepad", leftXRGamepadCore);
+        this._myInputManager.getGamepadsManager().getRightGamepad().addGamepadCore("right_xr_gamepad", rightXRGamepadCore);
 
-        let leftKeyboardGamepadCore = new PP.KeyboardGamepadCore(PP.Handedness.LEFT, leftXRGamepadCore.getHandPose());
-        let rightKeyboardGamepadCore = new PP.KeyboardGamepadCore(PP.Handedness.RIGHT, rightXRGamepadCore.getHandPose());
+        let leftKeyboardGamepadCore = new PP.KeyboardGamepadCore(Handedness.LEFT, leftXRGamepadCore.getHandPose());
+        let rightKeyboardGamepadCore = new PP.KeyboardGamepadCore(Handedness.RIGHT, rightXRGamepadCore.getHandPose());
 
-        PP.myLeftGamepad.addGamepadCore("left_keyboard_gamepad", leftKeyboardGamepadCore);
-        PP.myRightGamepad.addGamepadCore("right_keyboard_gamepad", rightKeyboardGamepadCore);
+        this._myInputManager.getGamepadsManager().getLeftGamepad().addGamepadCore("left_keyboard_gamepad", leftKeyboardGamepadCore);
+        this._myInputManager.getGamepadsManager().getRightGamepad().addGamepadCore("right_keyboard_gamepad", rightKeyboardGamepadCore);
 
-        let leftClassicGamepadCore = new PP.ClassicGamepadCore(null, PP.Handedness.LEFT, leftXRGamepadCore.getHandPose());
-        let rightClassicGamepadCore = new PP.ClassicGamepadCore(null, PP.Handedness.RIGHT, rightXRGamepadCore.getHandPose());
+        let leftClassicGamepadCore = new PP.ClassicGamepadCore(null, Handedness.LEFT, leftXRGamepadCore.getHandPose());
+        let rightClassicGamepadCore = new PP.ClassicGamepadCore(null, Handedness.RIGHT, rightXRGamepadCore.getHandPose());
 
-        PP.myLeftGamepad.addGamepadCore("left_classic_gamepad", leftClassicGamepadCore);
-        PP.myRightGamepad.addGamepadCore("right_classic_gamepad", rightClassicGamepadCore);
+        this._myInputManager.getGamepadsManager().getLeftGamepad().addGamepadCore("left_classic_gamepad", leftClassicGamepadCore);
+        this._myInputManager.getGamepadsManager().getRightGamepad().addGamepadCore("right_classic_gamepad", rightClassicGamepadCore);
     }
 };
