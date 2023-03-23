@@ -12,6 +12,7 @@ let raycastResults = PhysicsUtils.raycast(raycastSetup);
 */
 
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 import { PhysicsLayerFlags } from "./physics_layer_flags";
 
 export class RaycastSetup {
@@ -24,6 +25,8 @@ export class RaycastSetup {
 
         this.myObjectsToIgnore = [];
         this.myIgnoreHitsInsideCollision = false;
+
+        this.myPhysics = getMainEngine().physics;
     }
 
     copy(setup) {

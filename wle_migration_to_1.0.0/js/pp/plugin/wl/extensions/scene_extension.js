@@ -19,49 +19,13 @@
         - pp_toString / pp_toStringCompact / pp_toStringExtended
 
         - pp_getComponentsAmountMap
-        
-    GLOBAL FUNCTIONS:
-        - getScene
 */
 
 import { Scene } from "@wonderlandengine/api";
 import { ExtensionUtils } from "../../utils/extension_utils";
 
-let _myMainScene = null;
-let _myScenes = [];
-
 export function initSceneExtension(engine) {
-    if (engine != null) {
-        engine.onSceneLoaded.push(() => {
-            let newScene = engine.scene;
-            if (!hasScene(newScene)) {
-                _myScenes.push(newScene);
-                if (getMainScene() == null) {
-                    setMainScene(newScene);
-                }
-            }
-        });
-    }
-
     initSceneExtensionPrototype();
-}
-
-export function getMainScene() {
-    return _myMainScene;
-}
-
-export function setMainScene(scene) {
-    if (hasScene(scene)) {
-        _myMainScene = scene;
-    }
-}
-
-export function getScenes() {
-    return _myScenes;
-}
-
-export function hasScene(scene) {
-    return _myScenes.indexOf(scene) >= 0;
 }
 
 export function initSceneExtensionPrototype() {

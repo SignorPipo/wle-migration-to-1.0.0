@@ -173,6 +173,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
             this._myRaycastSetup.myDirection.vec3_copy(direction);
             this._myRaycastSetup.myDistance = distance;
             this._myRaycastSetup.myBlockLayerFlags.setMask(255);
+            this._myRaycastSetup.myPhysics = this.engine.physics;
 
             let raycastResults = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResults);
 

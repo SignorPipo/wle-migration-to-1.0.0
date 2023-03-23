@@ -16,7 +16,7 @@ export let raycast = function () {
     let invertedRaycastDirection = vec3_create();
     let objectsEqualCallback = (first, second) => first.pp_equals(second);
     return function raycast(raycastSetup, raycastResults = new RaycastResults()) {
-        let internalRaycastResults = WL.physics.rayCast(raycastSetup.myOrigin, raycastSetup.myDirection, raycastSetup.myBlockLayerFlags.getMask(), raycastSetup.myDistance);
+        let internalRaycastResults = raycastSetup.myPhysics.rayCast(raycastSetup.myOrigin, raycastSetup.myDirection, raycastSetup.myBlockLayerFlags.getMask(), raycastSetup.myDistance);
 
         if (raycastResults.myRaycastSetup == null) {
             raycastResults.myRaycastSetup = new RaycastSetup();
