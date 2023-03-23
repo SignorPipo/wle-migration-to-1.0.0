@@ -8,13 +8,13 @@ export function initComponentCloneMod() {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
-        if (deepCloneParams.isDeepCloneComponentVariable("mesh", "material")) {
+        if (deepCloneParams.isDeepCloneComponentVariable(MeshComponent.TypeName, "material")) {
             clonedComponent.material = this.material.clone();
         } else {
             clonedComponent.material = this.material;
         }
 
-        if (deepCloneParams.isDeepCloneComponentVariable("mesh", "mesh")) {
+        if (deepCloneParams.isDeepCloneComponentVariable(MeshComponent.TypeName, "mesh")) {
             clonedComponent.mesh = MeshUtils.cloneMesh(this.mesh);
         } else {
             clonedComponent.mesh = this.mesh;
@@ -40,13 +40,13 @@ export function initComponentCloneMod() {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
-        if (deepCloneParams.isDeepCloneComponent("text")) {
+        if (deepCloneParams.isDeepCloneComponent(TextComponent.TypeName)) {
             clonedComponent.text = this.text.slice(0);
         } else {
             clonedComponent.text = this.text;
         }
 
-        if (deepCloneParams.isDeepCloneComponentVariable("text", "material")) {
+        if (deepCloneParams.isDeepCloneComponentVariable(TextComponent.TypeName, "material")) {
             clonedComponent.material = this.material.clone();
         } else {
             clonedComponent.material = this.material;

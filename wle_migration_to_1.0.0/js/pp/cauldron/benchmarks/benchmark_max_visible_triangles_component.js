@@ -4,6 +4,7 @@ import { CloneParams } from "../../plugin/wl/extensions/object_extension";
 import { Timer } from "../cauldron/timer";
 import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParams, MeshUtils } from "../utils/mesh_utils";
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
+import { getPlayerObjects } from "../../pp/player_objects_global";
 
 export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     static TypeName = "pp-benchmark-max-visible-triangles";
@@ -18,6 +19,10 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         _myCloneMesh: { type: Type.Bool, default: false },
 
         _myEnableLog: { type: Type.Bool, default: true },
+
+        _myStartOnXRStart: { type: Type.Bool, default: true },
+        _myDisplayInFrontOfPlayer: { type: Type.Bool, default: true },
+        _myDisplayInFrontOfPlayerDistance: { type: Type.Float, default: 10 },
 
         _myPlaneMaterial: { type: Type.Material },
         _myBackgroundMaterial: { type: Type.Material },
@@ -237,7 +242,13 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         this._myRealTrianglesAmount = 0;
 
-        this._myTrianglesObject = this.engine.scene.addObject(this.object);
+        let parent = this.object;
+        if (this._myDisplayInFrontOfPlayer) {
+            parent = getPlayerObjects().myHead.pp_addObject();
+            parent.pp_translateLocal(vec3_create(0, 0, this._myDisplayInFrontOfPlayerDistance));
+        }
+
+        this._myTrianglesObject = this.engine.scene.addObject(parent);
 
         this._myBackgroundObject = this.engine.scene.addObject(this._myTrianglesObject);
         {
@@ -271,8 +282,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         poolParams.myPercentageToAddWhenEmpty = 0;
         poolParams.myAmountToAddWhenEmpty = 10000;
         poolParams.myCloneParams = new CloneParams();
-        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable("mesh", "material", this._myCloneMaterial);
-        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable("mesh", "mesh", this._myCloneMesh);
+        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "material", this._myCloneMaterial);
+        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "mesh", this._myCloneMesh);
         this._myPlanePool = new ObjectPool(this._myPlaneObject, poolParams);
 
         this._myBackgroundObject.pp_setActive(false);
@@ -345,7 +356,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     }
 
     update(dt) {
-        if (this._mySessionStarted) {
+        if (this._mySessionStarted || !this._myStartOnXRStart) {
             if (this._myStartTimer.isRunning()) {
                 this._myStartTimer.update(dt);
 
