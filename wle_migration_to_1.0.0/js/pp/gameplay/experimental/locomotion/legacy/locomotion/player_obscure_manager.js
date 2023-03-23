@@ -1,5 +1,7 @@
 // even if this can be sued to generally fade, it should be called collision obscure to hint that is meant for collision obscuring
 
+import { MaterialUtils } from "../../../../../cauldron/utils/material_utils";
+
 // occlude
 PP.PlayerObscureManagerParams = class PlayerObscureManagerParams {
     constructor() {
@@ -225,9 +227,9 @@ PP.PlayerObscureManager = class PlayerObscureManager {
 
     _setObscureAlpha(alpha) {
         if (this._myParams.myObscureObject == null) {
-            PP.MaterialUtils.setAlpha(this._myObscureMaterial, alpha);
+            MaterialUtils.setAlpha(this._myObscureMaterial, alpha);
         } else {
-            PP.MaterialUtils.setObjectAlpha(this._myParams.myObscureObject, alpha);
+            MaterialUtils.setObjectAlpha(this._myParams.myObscureObject, alpha);
         }
     }
 
