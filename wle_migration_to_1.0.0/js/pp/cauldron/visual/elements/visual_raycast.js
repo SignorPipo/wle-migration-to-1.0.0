@@ -21,10 +21,10 @@ PP.VisualRaycastParams = class VisualRaycastParams {
         this.myRayMaterial = null;
         this.myHitNormalMaterial = null;
 
-        this.myParent = PP.myVisualData.myRootObject;
+        this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
 
-        this.myType = PP.VisualElementType.RAYCAST;
+        this.myType = VisualElementType.RAYCAST;
     }
 
     get myRaycastResults() {
@@ -160,7 +160,7 @@ PP.VisualRaycast = class VisualRaycast {
                 visualRaycastParams.myThickness = this._myParams.myThickness;
 
                 if (this._myParams.myRayMaterial == null) {
-                    visualRaycastParams.myMaterial = PP.myVisualData.myDefaultMaterials.myDefaultRayMaterial;
+                    visualRaycastParams.myMaterial = PP.myVisualData.myDefaultMaterials.myRay;
                 } else {
                     visualRaycastParams.myMaterial = this._myParams.myRayMaterial;
                 }
@@ -189,7 +189,7 @@ PP.VisualRaycast = class VisualRaycast {
                     visualRaycastHitParams.myThickness = this._myParams.myThickness;
 
                     if (this._myParams.myHitNormalMaterial == null) {
-                        visualRaycastHitParams.myMaterial = PP.myVisualData.myDefaultMaterials.myDefaultHitNormalMaterial;
+                        visualRaycastHitParams.myMaterial = PP.myVisualData.myDefaultMaterials.myHitNormal;
                     } else {
                         visualRaycastHitParams.myMaterial = this._myParams.myHitNormalMaterial;
                     }
@@ -212,7 +212,7 @@ PP.VisualRaycast = class VisualRaycast {
                 visualRaycastParams.myThickness = this._myParams.myThickness;
 
                 if (this._myParams.myRayMaterial == null) {
-                    visualRaycastParams.myMaterial = PP.myVisualData.myDefaultMaterials.myDefaultRayMaterial;
+                    visualRaycastParams.myMaterial = PP.myVisualData.myDefaultMaterials.myRay;
                 } else {
                     visualRaycastParams.myMaterial = this._myParams.myRayMaterial;
                 }

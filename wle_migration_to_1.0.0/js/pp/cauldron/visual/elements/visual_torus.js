@@ -27,10 +27,10 @@ PP.VisualTorusParams = class VisualTorusParams {
         this.myMaterial = null;     // null means it will default on PP.myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // if this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = PP.myVisualData.myRootObject;
+        this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
 
-        this.myType = PP.VisualElementType.TORUS;
+        this.myType = VisualElementType.TORUS;
     }
 
     copy(other) {
@@ -216,7 +216,7 @@ PP.VisualTorus.prototype._refresh = function () {
 
             if (this._myParams.myMaterial == null) {
                 if (this._myParams.myColor == null) {
-                    visualSegmentParams.myMaterial = PP.myVisualData.myDefaultMaterials.myDefaultMeshMaterial;
+                    visualSegmentParams.myMaterial = PP.myVisualData.myDefaultMaterials.myMesh;
                 } else {
                     if (this._myFlatOpaqueMaterial == null) {
                         this._myFlatOpaqueMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();

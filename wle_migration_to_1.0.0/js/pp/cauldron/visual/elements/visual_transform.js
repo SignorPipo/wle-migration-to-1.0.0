@@ -20,10 +20,10 @@ PP.VisualTransformParams = class VisualTransformParams {
         this.myUpMaterial = null;
         this.myRightMaterial = null;
 
-        this.myParent = PP.myVisualData.myRootObject;
+        this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
 
-        this.myType = PP.VisualElementType.TRANSFORM;
+        this.myType = VisualElementType.TRANSFORM;
     }
 
     copy(other) {
@@ -162,7 +162,7 @@ PP.VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myRightMaterial == null) {
-                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myDefaultRightMaterial;
+                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myRight;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myRightMaterial;
             }
@@ -181,7 +181,7 @@ PP.VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myUpMaterial == null) {
-                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myDefaultUpMaterial;
+                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myUp;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myUpMaterial;
             }
@@ -200,7 +200,7 @@ PP.VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myForwardMaterial == null) {
-                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myDefaultForwardMaterial;
+                visualArrowParams.myMaterial = PP.myVisualData.myDefaultMaterials.myForward;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myForwardMaterial;
             }

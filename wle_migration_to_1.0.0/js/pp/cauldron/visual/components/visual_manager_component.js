@@ -30,21 +30,21 @@ export class VisualManagerComponent extends Component {
 
     start() {
         if (this._myVisualData != null) {
-            this._myVisualData.myDefaultMaterials.myDefaultMeshMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myMesh = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
 
-            this._myVisualData.myDefaultMaterials.myDefaultTextMaterial = getDefaultResources(this.engine).myMaterials.myText.clone();
+            this._myVisualData.myDefaultMaterials.myText = getDefaultResources(this.engine).myMaterials.myText.clone();
 
-            this._myVisualData.myDefaultMaterials.myDefaultRightMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myDefaultRightMaterial.color = vec4_create(1, 0, 0, 1);
-            this._myVisualData.myDefaultMaterials.myDefaultUpMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myDefaultUpMaterial.color = vec4_create(0, 1, 0, 1);
-            this._myVisualData.myDefaultMaterials.myDefaultForwardMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myDefaultForwardMaterial.color = vec4_create(0, 0, 1, 1);
+            this._myVisualData.myDefaultMaterials.myRight = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myRight.color = vec4_create(1, 0, 0, 1);
+            this._myVisualData.myDefaultMaterials.myUp = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myUp.color = vec4_create(0, 1, 0, 1);
+            this._myVisualData.myDefaultMaterials.myForward = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myForward.color = vec4_create(0, 0, 1, 1);
 
-            this._myVisualData.myDefaultMaterials.myDefaultRayMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myDefaultRayMaterial.color = vec4_create(0, 1, 0, 1);
-            this._myVisualData.myDefaultMaterials.myDefaultHitNormalMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myDefaultHitNormalMaterial.color = vec4_create(1, 0, 0, 1);
+            this._myVisualData.myDefaultMaterials.myRay = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myRay.color = vec4_create(0, 1, 0, 1);
+            this._myVisualData.myDefaultMaterials.myHitNormal = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualData.myDefaultMaterials.myHitNormal.color = vec4_create(1, 0, 0, 1);
         }
 
         if (this.myVisualManager != null) {

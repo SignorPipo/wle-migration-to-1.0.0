@@ -11,23 +11,29 @@ or
 let visualText = new PP.VisualText(visualParams);
 */
 
-PP.VisualTextParams = class VisualTextParams {
+import { mat4_create } from "../../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../../../plugin/wl/extensions/engine_extension";
+import { getVisualData } from "../visual_globals";
+import { Alignment, Justification, TextComponent } from "@wonderlandengine/api"
+import { getDefaultResources } from "../../../pp/default_resources_global";
 
-    constructor() {
+export class VisualTextParams {
+
+    constructor(engine = getMainEngine()) {
         this.myText = "";
-        this.myAlignment = WL.Alignment.Center;
-        this.myJustification = WL.Justification.Middle;
+        this.myAlignment = Alignment.Center;
+        this.myJustification = Justification.Middle;
 
-        this.myTransform = PP.mat4_create();
+        this.myTransform = mat4_create();
 
         this.myMaterial = null;     // null means it will default on PP.myDefaultResources.myMaterials.myDefaultTextMaterial
 
         this.myColor = null;        // if this is set and material is null, it will use the default text material with this color
 
-        this.myParent = PP.myVisualData.myRootObject;
+        this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
 
-        this.myType = PP.VisualElementType.TEXT;
+        this.myType = VisualElementType.TEXT;
     }
 
     copy(other) {
@@ -35,9 +41,9 @@ PP.VisualTextParams = class VisualTextParams {
     }
 };
 
-PP.VisualText = class VisualText {
+export class VisualText {
 
-    constructor(params = new PP.VisualTextParams()) {
+    constructor(params = new VisualTextParams()) {
         this._myParams = params;
 
         this._myVisible = false;
@@ -112,10 +118,10 @@ PP.VisualText = class VisualText {
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myTextComponent.material = PP.myVisualData.myDefaultMaterials.myDefaultTextMaterial;
+                this._myTextComponent.material = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myText;
             } else {
                 if (this._myTextMaterial == null) {
-                    this._myTextMaterial = PP.myDefaultResources.myMaterials.myText.clone();
+                    this._myTextMaterial = getDefaultResources(this._myParams.myParent.engine).myMaterials.myText.clone();
                 }
                 this._myTextComponent.material = this._myTextMaterial;
                 this._myTextMaterial.color = this._myParams.myColor;
@@ -132,8 +138,8 @@ PP.VisualText = class VisualText {
     }
 
     _build() {
-        this._myTextObject = WL.scene.addObject(null);
-        this._myTextComponent = this._myTextObject.addComponent('text');
+        this._myTextObject = this._myParams.myParent.engine.scene.pp_addObject();
+        this._myTextComponent = this._myTextObject.pp_addComponent(TextComponent);
     }
 
     _markDirty() {
@@ -145,10 +151,10 @@ PP.VisualText = class VisualText {
     }
 
     clone() {
-        let clonedParams = new PP.VisualTextParams();
+        let clonedParams = new VisualTextParams(this._myParams.myParent.engine);
         clonedParams.copy(this._myParams);
 
-        let clone = new PP.VisualText(clonedParams);
+        let clone = new VisualText(clonedParams);
         clone.setAutoRefresh(this._myAutoRefresh);
         clone.setVisible(this._myVisible);
         clone._myDirty = this._myDirty;
@@ -157,7 +163,7 @@ PP.VisualText = class VisualText {
     }
 };
 
-PP.VisualTextParams.prototype.copy = function copy(other) {
+VisualTextParams.prototype.copy = function copy(other) {
     this.myText = other.myText;
     this.myAlignment = other.myAlignment;
     this.myJustification = other.myJustification;
@@ -185,7 +191,3 @@ PP.VisualTextParams.prototype.copy = function copy(other) {
 
     this.myType = other.myType;
 };
-
-
-
-Object.defineProperty(PP.VisualTextParams.prototype, "copy", { enumerable: false });
