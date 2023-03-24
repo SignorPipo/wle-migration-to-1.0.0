@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
 
 export class AdjustHierarchyPhysXScaleComponent extends Component {
     static TypeName = "pp-adjust-hierarchy-physx-scale";
@@ -28,7 +28,7 @@ export class AdjustHierarchyPhysXScaleComponent extends Component {
 
     _adjustScale() {
         let scale = this.object.pp_getScale();
-        let physXComponents = this.object.pp_getComponentsHierarchy("physx");
+        let physXComponents = this.object.pp_getComponents(PhysXComponent);
         for (let physX of physXComponents) {
             physX.extents[0] = physX.extents[0] * scale[0];
             physX.extents[1] = physX.extents[1] * scale[1];

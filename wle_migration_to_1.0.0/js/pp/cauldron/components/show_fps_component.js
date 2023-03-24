@@ -4,6 +4,7 @@ import { getDefaultResources } from "../../pp/default_resources_global";
 import { getPlayerObjects } from "../../pp/player_objects_global";
 import { Timer } from "../cauldron/timer";
 import { XRUtils } from "../utils/xr_utils";
+import { VisualText, VisualTextParams } from "../visual/elements/visual_text";
 
 export class ShowFPSComponent extends Component {
     static TypeName = "pp-show-fps";
@@ -19,7 +20,7 @@ export class ShowFPSComponent extends Component {
 
         this._myVisualFPSParent = this.object.pp_addObject();
 
-        let visualParams = new PP.VisualTextParams();
+        let visualParams = new VisualTextParams(this.engine);
         visualParams.myText = "00";
 
         visualParams.myTransform.mat4_setPositionRotationScale(vec3_create(-0.115, -0.115, 0.35), vec3_create(0, 180, 0), vec3_create(0.3, 0.3, 0.3));
@@ -34,7 +35,7 @@ export class ShowFPSComponent extends Component {
         visualParams.myParent = this._myVisualFPSParent;
         visualParams.myIsLocal = true;
 
-        this._myVisualFPS = new PP.VisualText(visualParams);
+        this._myVisualFPS = new VisualText(visualParams);
 
         //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("FPS X", -0.25, 0.1, 3));
         //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("FPS Y", -0.130, 0.1, 3));

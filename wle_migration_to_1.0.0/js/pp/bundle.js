@@ -50,10 +50,10 @@ require("./cauldron/cauldron/object_pools_manager");
 require("./cauldron/cauldron/save_manager");
 require("./cauldron/cauldron/timer");
 
-//require("./cauldron/components/clear_console_on_xr_session_start_component");
-//require("./cauldron/components/set_active_component");
-//require("./cauldron/components/adjust_hierarchy_physx_scale_component");
-//require("./cauldron/components/show_fps_component");
+require("./cauldron/components/clear_console_on_xr_session_start_component");
+require("./cauldron/components/set_active_component");
+require("./cauldron/components/adjust_hierarchy_physx_scale_component");
+require("./cauldron/components/show_fps_component");
 
 require("./cauldron/fsm/fsm");
 require("./cauldron/fsm/state");
