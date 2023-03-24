@@ -1040,6 +1040,8 @@
                 "js/pp/input",
                 "js/pp/input/cauldron",
                 "js/pp/input/cauldron/components",
+                "js/pp/input/gamepad",
+                "js/pp/input/gamepad/cauldron",
                 "js/pp/input/pose",
                 "js/pp/input/pose/components"
             ],

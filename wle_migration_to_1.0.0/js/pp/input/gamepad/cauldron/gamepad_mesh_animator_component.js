@@ -1,4 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { vec3_create } from "../../../plugin/js/extensions/array_extension";
+import { getLeftGamepad, getRightGamepad } from "../../cauldron/input_globals";
+import { GamepadAxesEvent, GamepadAxesID, GamepadButtonEvent, GamepadButtonID } from "../gamepad_buttons";
 
 export class GamepadMeshAnimatorComponent extends Component {
     static TypeName = "pp-gamepad-mesh-animator";
@@ -22,9 +25,9 @@ export class GamepadMeshAnimatorComponent extends Component {
     start() {
         let gamepad = null;
         if (this._myHandedness == 0) {
-            gamepad = PP.myLeftGamepad;
+            gamepad = getLeftGamepad(this.engine);
         } else {
-            gamepad = PP.myRightGamepad;
+            gamepad = getRightGamepad(this.engine);
         }
 
         if (this._mySelect != null) {
@@ -59,33 +62,33 @@ export class GamepadMeshAnimatorComponent extends Component {
 
         // PRESSED
         if (this._myThumbstick != null) {
-            gamepad.registerButtonEventListener(PP.GamepadButtonID.THUMBSTICK, PP.GamepadButtonEvent.PRESS_START, this, this._thumbstickPressedStart.bind(this));
-            gamepad.registerButtonEventListener(PP.GamepadButtonID.THUMBSTICK, PP.GamepadButtonEvent.PRESS_END, this, this._thumbstickPressedEnd.bind(this));
+            gamepad.registerButtonEventListener(GamepadButtonID.THUMBSTICK, GamepadButtonEvent.PRESS_START, this, this._thumbstickPressedStart.bind(this));
+            gamepad.registerButtonEventListener(GamepadButtonID.THUMBSTICK, GamepadButtonEvent.PRESS_END, this, this._thumbstickPressedEnd.bind(this));
         }
 
         if (this._myTopButton != null) {
-            gamepad.registerButtonEventListener(PP.GamepadButtonID.TOP_BUTTON, PP.GamepadButtonEvent.PRESS_START, this, this._topButtonPressedStart.bind(this));
-            gamepad.registerButtonEventListener(PP.GamepadButtonID.TOP_BUTTON, PP.GamepadButtonEvent.PRESS_END, this, this._topButtonPressedEnd.bind(this));
+            gamepad.registerButtonEventListener(GamepadButtonID.TOP_BUTTON, GamepadButtonEvent.PRESS_START, this, this._topButtonPressedStart.bind(this));
+            gamepad.registerButtonEventListener(GamepadButtonID.TOP_BUTTON, GamepadButtonEvent.PRESS_END, this, this._topButtonPressedEnd.bind(this));
         }
 
         if (this._myBottomButton != null) {
 
-            gamepad.registerButtonEventListener(PP.GamepadButtonID.BOTTOM_BUTTON, PP.GamepadButtonEvent.PRESS_START, this, this._bottomButtonPressedStart.bind(this));
-            gamepad.registerButtonEventListener(PP.GamepadButtonID.BOTTOM_BUTTON, PP.GamepadButtonEvent.PRESS_END, this, this._bottomButtonPressedEnd.bind(this));
+            gamepad.registerButtonEventListener(GamepadButtonID.BOTTOM_BUTTON, GamepadButtonEvent.PRESS_START, this, this._bottomButtonPressedStart.bind(this));
+            gamepad.registerButtonEventListener(GamepadButtonID.BOTTOM_BUTTON, GamepadButtonEvent.PRESS_END, this, this._bottomButtonPressedEnd.bind(this));
         }
 
         // VALUE CHANGED
         if (this._mySelect != null) {
-            gamepad.registerButtonEventListener(PP.GamepadButtonID.SELECT, PP.GamepadButtonEvent.VALUE_CHANGED, this, this._selectValueChanged.bind(this));
+            gamepad.registerButtonEventListener(GamepadButtonID.SELECT, GamepadButtonEvent.VALUE_CHANGED, this, this._selectValueChanged.bind(this));
         }
 
         if (this._mySqueeze != null) {
-            gamepad.registerButtonEventListener(PP.GamepadButtonID.SQUEEZE, PP.GamepadButtonEvent.VALUE_CHANGED, this, this._squeezeValueChanged.bind(this));
+            gamepad.registerButtonEventListener(GamepadButtonID.SQUEEZE, GamepadButtonEvent.VALUE_CHANGED, this, this._squeezeValueChanged.bind(this));
         }
 
         // AXES CHANGED
         if (this._myThumbstick != null) {
-            gamepad.registerAxesEventListener(PP.GamepadAxesID.THUMBSTICK, PP.GamepadAxesEvent.AXES_CHANGED, this, this._thumbstickValueChanged.bind(this));
+            gamepad.registerAxesEventListener(GamepadAxesID.THUMBSTICK, GamepadAxesEvent.AXES_CHANGED, this, this._thumbstickValueChanged.bind(this));
         }
     }
 
@@ -165,7 +168,7 @@ export class GamepadMeshAnimatorComponent extends Component {
 // IMPLEMENTATION
 
 GamepadMeshAnimatorComponent.prototype._thumbstickPressedStart = function () {
-    let upTranslation = PP.vec3_create();
+    let upTranslation = vec3_create();
     return function _thumbstickPressedStart(buttonInfo, gamepad) {
         // since thumbstick object rotate you need to specifically use its original up to translate it
         this._myThumbstickOriginalUp.vec3_scale(-this._myThumbstickPressOffset, upTranslation);

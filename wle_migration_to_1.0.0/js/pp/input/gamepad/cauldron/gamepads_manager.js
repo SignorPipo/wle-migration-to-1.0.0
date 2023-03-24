@@ -1,7 +1,10 @@
+import { Handedness } from "../../cauldron/input_types";
+import { UniversalGamepad } from "../universal_gamepad";
+
 export class GamepadsManager {
     constructor() {
-        this._myLeftGamepad = new PP.UniversalGamepad(PP.Handedness.LEFT);
-        this._myRightGamepad = new PP.UniversalGamepad(PP.Handedness.RIGHT);
+        this._myLeftGamepad = new UniversalGamepad(Handedness.LEFT);
+        this._myRightGamepad = new UniversalGamepad(Handedness.RIGHT);
     }
 
     start() {
@@ -26,10 +29,10 @@ export class GamepadsManager {
         let gamepad = null;
 
         switch (handedness) {
-            case PP.Handedness.LEFT:
+            case Handedness.LEFT:
                 gamepad = this._myLeftGamepad;
                 break;
-            case PP.Handedness.RIGHT:
+            case Handedness.RIGHT:
                 gamepad = this._myRightGamepad;
                 break;
             default:
@@ -42,8 +45,8 @@ export class GamepadsManager {
     getGamepads() {
         let gamepads = [];
 
-        gamepads[PP.Handedness.LEFT] = this._myLeftGamepad;
-        gamepads[PP.Handedness.RIGHT] = this._myRightGamepad;
+        gamepads[Handedness.LEFT] = this._myLeftGamepad;
+        gamepads[Handedness.RIGHT] = this._myRightGamepad;
 
         return gamepads;
     }
