@@ -1,4 +1,5 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Type, TextComponent } from "@wonderlandengine/api";
+import { CADummyServer } from "./ca_dummy_server";
 
 export class CADisplayLeaderboardComponent extends Component {
     static TypeName = "pp-ca-display-leaderboard";
@@ -18,9 +19,9 @@ export class CADisplayLeaderboardComponent extends Component {
 
         this._myStarted = false;
 
-        PP.CAUtils.setDummyServer(new PP.CADummyServer());
-        PP.CAUtils.setUseDummyServerOnSDKMissing(true);
-        PP.CAUtils.setUseDummyServerOnError(true);
+        CAUtils.setDummyServer(new CADummyServer());
+        CAUtils.setUseDummyServerOnSDKMissing(true);
+        CAUtils.setUseDummyServerOnError(true);
     }
 
     update(dt) {
@@ -31,8 +32,8 @@ export class CADisplayLeaderboardComponent extends Component {
             let scoresObject = this.object.pp_getObjectByName("Scores");
 
             if (namesObject != null && scoresObject != null) {
-                this._myNamesTextComponent = namesObject.pp_getComponent("text");
-                this._myScoresTextComponent = scoresObject.pp_getComponent("text");
+                this._myNamesTextComponent = namesObject.pp_getComponent(TextComponent);
+                this._myScoresTextComponent = scoresObject.pp_getComponent(TextComponent);
             }
 
             this.updateLeaderboard();
@@ -40,7 +41,7 @@ export class CADisplayLeaderboardComponent extends Component {
     }
 
     updateLeaderboard() {
-        PP.CAUtils.getLeaderboard(this._myLeaderboardID, this._myIsAscending, this._myIsLocal, this._myScoresAmount, this._onLeaderboardRetrieved.bind(this));
+        CAUtils.getLeaderboard(this._myLeaderboardID, this._myIsAscending, this._myIsLocal, this._myScoresAmount, this._onLeaderboardRetrieved.bind(this));
     }
 
     _onLeaderboardRetrieved(leaderboard) {

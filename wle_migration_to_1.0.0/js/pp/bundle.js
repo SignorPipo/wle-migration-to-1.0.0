@@ -111,17 +111,17 @@ require("./debug/components/debug_manager_component");
 //	GAMEPLAY
 
 //    CAULDRON
-//require("./gameplay/cauldron/cauldron/direction_2D_to_3D_converter");
-//require("./gameplay/cauldron/cauldron/number_over_value");
+require("./gameplay/cauldron/cauldron/direction_2D_to_3D_converter");
+require("./gameplay/cauldron/cauldron/number_over_value");
 
 //    GRAB & THROW
 //require("./gameplay/grab_throw/grabbable_component");
 //require("./gameplay/grab_throw/grabber_hand_component");
 
 //    INTEGRATIONS
-//require("./gameplay/integrations/construct_arcade/ca_utils");
-//require("./gameplay/integrations/construct_arcade/ca_dummy_server");
-//require("./gameplay/integrations/construct_arcade/ca_display_leaderboard_component");
+require("./gameplay/integrations/construct_arcade/ca_utils");
+require("./gameplay/integrations/construct_arcade/ca_dummy_server");
+require("./gameplay/integrations/construct_arcade/ca_display_leaderboard_component");
 
 //    EXPERIMENTAL
 
