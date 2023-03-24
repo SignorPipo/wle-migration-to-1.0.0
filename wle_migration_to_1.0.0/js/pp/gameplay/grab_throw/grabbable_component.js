@@ -1,4 +1,5 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
+import { vec3_create } from "../../plugin/js/extensions/array_extension";
 
 export class GrabbableComponent extends Component {
     static TypeName = "pp-grabbable";
@@ -21,7 +22,7 @@ export class GrabbableComponent extends Component {
 
     start() {
         this._myOldParent = this.object.parent;
-        this._myPhysX = this.object.pp_getComponent("physx");
+        this._myPhysX = this.object.pp_getComponent(PhysXComponent);
         this._myOldKinematicValue = null;
     }
 
@@ -74,7 +75,7 @@ export class GrabbableComponent extends Component {
     }
 
     getLinearVelocity() {
-        let linearVelocity = PP.vec3_create();
+        let linearVelocity = vec3_create();
 
         this._myPhysX.linearVelocity.vec3_clone(linearVelocity);
 
@@ -86,7 +87,7 @@ export class GrabbableComponent extends Component {
     }
 
     getAngularVelocityDegrees() {
-        let angularVelocityDegrees = PP.vec3_create();
+        let angularVelocityDegrees = vec3_create();
 
         this._myPhysX.angularVelocity.vec3_toDegrees(angularVelocityDegrees);
 
@@ -94,7 +95,7 @@ export class GrabbableComponent extends Component {
     }
 
     getAngularVelocityRadians() {
-        let angularVelocityRadians = PP.vec3_create();
+        let angularVelocityRadians = vec3_create();
 
         this._myPhysX.angularVelocity.vec3_clone(angularVelocityRadians);
 
@@ -152,8 +153,8 @@ export class GrabbableComponent extends Component {
         }
 
         if (this._myPhysX.kinematic) {
-            this._myPhysX.linearVelocity = PP.vec3_create();
-            this._myPhysX.angularVelocity = PP.vec3_create();
+            this._myPhysX.linearVelocity = vec3_create();
+            this._myPhysX.angularVelocity = vec3_create();
         }
     }
 

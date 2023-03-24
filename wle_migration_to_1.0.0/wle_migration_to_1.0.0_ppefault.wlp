@@ -1041,6 +1041,7 @@
                 "js/pp/gameplay",
                 "js/pp/gameplay/cauldron",
                 "js/pp/gameplay/cauldron/cauldron",
+                "js/pp/gameplay/grab_throw",
                 "js/pp/gameplay/integrations",
                 "js/pp/gameplay/integrations/construct_arcade",
                 "js/pp/input",

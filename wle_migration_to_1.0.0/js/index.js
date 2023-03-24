@@ -95,6 +95,8 @@ import {DebugManagerComponent} from './pp/debug/components/debug_manager_compone
 import {DebugTransformComponent} from './pp/debug/components/debug_transform_component.js';
 import './pp/gameplay/cauldron/cauldron/direction_2D_to_3D_converter.js';
 import './pp/gameplay/cauldron/cauldron/number_over_value.js';
+import {GrabbableComponent} from './pp/gameplay/grab_throw/grabbable_component.js';
+import {GrabberHandComponent} from './pp/gameplay/grab_throw/grabber_hand_component.js';
 import {CADisplayLeaderboardComponent} from './pp/gameplay/integrations/construct_arcade/ca_display_leaderboard_component.js';
 import './pp/gameplay/integrations/construct_arcade/ca_dummy_server.js';
 import './pp/gameplay/integrations/construct_arcade/ca_utils.js';
@@ -196,6 +198,8 @@ engine.registerComponent(ShowFPSComponent);
 engine.registerComponent(VisualManagerComponent);
 engine.registerComponent(DebugManagerComponent);
 engine.registerComponent(DebugTransformComponent);
+engine.registerComponent(GrabbableComponent);
+engine.registerComponent(GrabberHandComponent);
 engine.registerComponent(CADisplayLeaderboardComponent);
 engine.registerComponent(FingerCursorComponent);
 engine.registerComponent(InputManagerComponent);
