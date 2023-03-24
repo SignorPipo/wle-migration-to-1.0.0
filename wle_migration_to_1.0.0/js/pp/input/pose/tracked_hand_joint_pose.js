@@ -15,6 +15,10 @@ export class TrackedHandJointPose extends BasePose {
         this._myJointRadius = 0;
     }
 
+    getHandedness() {
+        return this._myHandedness;
+    }
+
     getTrackedHandJointID() {
         return this._myTrackedHandJointID;
     }

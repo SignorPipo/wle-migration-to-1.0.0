@@ -24,6 +24,10 @@ export class HandPose extends BasePose {
         this._myIsTrackedHand = false;
     }
 
+    getHandedness() {
+        return this._myHandedness;
+    }
+
     getInputSourceType() {
         if (this._myInputSource == null) {
             return null;

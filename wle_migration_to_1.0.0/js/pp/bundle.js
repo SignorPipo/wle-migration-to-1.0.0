@@ -225,11 +225,11 @@ require("./input/gamepad/cauldron/gamepad_mesh_animator_component");
 require("./input/gamepad/cauldron/gamepads_manager");
 require("./input/gamepad/cauldron/gamepad_utils");
 require("./input/gamepad/cauldron/gamepad_control_scheme_component");
-//require("./input/gamepad/gamepad_cores/gamepad_core");
-//require("./input/gamepad/gamepad_cores/xr_gamepad_core");
-//require("./input/gamepad/gamepad_cores/keyboard_gamepad_core");
-//require("./input/gamepad/gamepad_cores/virtual_gamepad_gamepad_core");
-//require("./input/gamepad/gamepad_cores/classic_gamepad_core");
+require("./input/gamepad/gamepad_cores/gamepad_core");
+require("./input/gamepad/gamepad_cores/xr_gamepad_core");
+require("./input/gamepad/gamepad_cores/keyboard_gamepad_core");
+require("./input/gamepad/gamepad_cores/virtual_gamepad_gamepad_core");
+require("./input/gamepad/gamepad_cores/classic_gamepad_core");
 
 //require("./input/gamepad/virtual_gamepad/virtual_gamepad");
 //require("./input/gamepad/virtual_gamepad/virtual_gamepad_component");

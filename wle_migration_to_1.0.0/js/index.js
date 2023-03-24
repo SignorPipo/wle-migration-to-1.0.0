@@ -107,6 +107,11 @@ import {GamepadControlSchemeComponent} from './pp/input/gamepad/cauldron/gamepad
 import {GamepadMeshAnimatorComponent} from './pp/input/gamepad/cauldron/gamepad_mesh_animator_component.js';
 import './pp/input/gamepad/cauldron/gamepad_utils.js';
 import './pp/input/gamepad/cauldron/gamepads_manager.js';
+import './pp/input/gamepad/gamepad_cores/classic_gamepad_core.js';
+import './pp/input/gamepad/gamepad_cores/gamepad_core.js';
+import './pp/input/gamepad/gamepad_cores/keyboard_gamepad_core.js';
+import './pp/input/gamepad/gamepad_cores/virtual_gamepad_gamepad_core.js';
+import './pp/input/gamepad/gamepad_cores/xr_gamepad_core.js';
 import './pp/input/pose/base_pose.js';
 import './pp/input/pose/hand_pose.js';
 import './pp/input/pose/head_pose.js';

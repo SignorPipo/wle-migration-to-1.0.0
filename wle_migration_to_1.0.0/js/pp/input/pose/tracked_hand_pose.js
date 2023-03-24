@@ -54,6 +54,14 @@ export class TrackedHandPose {
         }
     }
 
+    getEngine() {
+        this._myEngine;
+    }
+
+    getHandedness() {
+        return this._myHandedness;
+    }
+
     getJointPoseList() {
         return this._myTrackedHandJointPoseList;
     }

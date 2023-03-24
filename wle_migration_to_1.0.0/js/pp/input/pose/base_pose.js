@@ -42,6 +42,10 @@ export class BasePose {
         this._myPoseUpdatedCallbacks = new Map();   // Signature: callback(thisPose)
     }
 
+    getEngine() {
+        return this._myEngine;
+    }
+
     // if the reference object is set, the transform will be converted using it as a parent,
     // otherwise the transform will be local, as if the parent/reference object was the identity transform
     setReferenceObject(referenceObject) {
