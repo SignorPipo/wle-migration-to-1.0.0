@@ -1,15 +1,21 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
+import { getAudioManager } from "../pp/audio/audio_manager_global";
+import { PhysicsCollisionCollector } from "../pp/cauldron/physics/physics_collision_collector";
+import { GrabbableComponent } from "../pp/gameplay/grab_throw/grabbable_component";
+import { getLeftGamepad } from "../pp/input/cauldron/input_globals";
+import { GamepadButtonID } from "../pp/input/gamepad/gamepad_buttons";
+import { ParticlesSpawnerComponent } from "./particles_spawner_component";
 
 export class TargetHitCheckComponent extends Component {
     static TypeName = "target-hit-check";
     static Properties = {};
 
     start() {
-        this._myTrigger = this.object.pp_getComponent("physx");
-        this._myParticlesSpawner = this.engine.scene.pp_getRoot().pp_getComponent("particles-spawner");
-        this._myCollisionsCollector = new PP.PhysicsCollisionCollector(this._myTrigger, true);
+        this._myTrigger = this.object.pp_getComponent(PhysXComponent);
+        this._myParticlesSpawner = this.engine.scene.pp_getComponent(ParticlesSpawnerComponent);
+        this._myCollisionsCollector = new PhysicsCollisionCollector(this._myTrigger, true);
 
-        this._mySFX = PP.myAudioManager.createAudioPlayer("strike");
+        this._mySFX = getAudioManager(this.engine).createAudioPlayer("strike");
     }
 
     update(dt) {
@@ -17,14 +23,12 @@ export class TargetHitCheckComponent extends Component {
 
         let collisionsStart = this._myCollisionsCollector.getCollisionsStart();
         for (let collisionStart of collisionsStart) {
-            if (collisionStart.pp_getComponent("pp-grabbable") != null) {
+            if (collisionStart.pp_getComponent(GrabbableComponent) != null) {
                 this._strike(collisionStart);
             }
         }
 
-        //if (PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.SELECT).isPressStart()) {
-        //    this._myParticlesSpawner.spawn(this.object.pp_getPosition());
-        //}
+        //this._fun();
     }
 
     _strike(strikeSource) {
@@ -33,5 +37,11 @@ export class TargetHitCheckComponent extends Component {
         this._mySFX.play();
 
         this._myParticlesSpawner.spawn(strikeSource.pp_getPosition());
+    }
+
+    _fun() {
+        if (getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressStart()) {
+            this._myParticlesSpawner.spawn(this.object.pp_getPosition());
+        }
     }
 };

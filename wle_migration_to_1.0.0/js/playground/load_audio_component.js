@@ -1,4 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { getAudioManager } from "../pp/audio/audio_manager_global";
+import { AudioSetup } from "../pp/audio/audio_setup";
 
 export class LoadAudioComponent extends Component {
     static TypeName = "load-audio";
@@ -9,10 +11,10 @@ export class LoadAudioComponent extends Component {
     }
 
     _loadAudio() {
-        let manager = PP.myAudioManager;
+        let manager = getAudioManager(this.engine);
 
         {
-            let audioSetup = new PP.AudioSetup("assets/audio/music/pp/playground_ambient.mp3");
+            let audioSetup = new AudioSetup("assets/audio/music/pp/playground_ambient.mp3");
             audioSetup.myLoop = true;
             audioSetup.mySpatial = false;
             audioSetup.myVolume = 2;
@@ -20,7 +22,7 @@ export class LoadAudioComponent extends Component {
         }
 
         {
-            let audioSetup = new PP.AudioSetup("assets/audio/sfx/pp/collision.mp3");
+            let audioSetup = new AudioSetup("assets/audio/sfx/pp/collision.mp3");
             audioSetup.myRate = 1;
             audioSetup.myVolume = 1;
             audioSetup.myReferenceDistance = 5;
@@ -28,7 +30,7 @@ export class LoadAudioComponent extends Component {
         }
 
         {
-            let audioSetup = new PP.AudioSetup("assets/audio/sfx/pp/grab.mp3");
+            let audioSetup = new AudioSetup("assets/audio/sfx/pp/grab.mp3");
             audioSetup.myRate = 1;
             audioSetup.myVolume = 1.5;
             audioSetup.myReferenceDistance = 0.5;
@@ -36,7 +38,7 @@ export class LoadAudioComponent extends Component {
         }
 
         {
-            let audioSetup = new PP.AudioSetup("assets/audio/sfx/pp/throw.mp3");
+            let audioSetup = new AudioSetup("assets/audio/sfx/pp/throw.mp3");
             audioSetup.myRate = 1;
             audioSetup.myVolume = 1.5;
             audioSetup.myReferenceDistance = 0.5;
@@ -44,7 +46,7 @@ export class LoadAudioComponent extends Component {
         }
 
         {
-            let audioSetup = new PP.AudioSetup("assets/audio/sfx/pp/strike.mp3");
+            let audioSetup = new AudioSetup("assets/audio/sfx/pp/strike.mp3");
             audioSetup.myRate = 1;
             audioSetup.myVolume = 1;
             audioSetup.myReferenceDistance = 3;

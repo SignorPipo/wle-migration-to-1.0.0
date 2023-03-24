@@ -139,6 +139,18 @@ import {SetNonVRHeadLocalTransformComponent} from './pp/input/pose/components/se
 import {SetPlayerHeightComponent} from './pp/input/pose/components/set_player_height_component.js';
 import {SetTrackedHandJointLocalTransformComponent} from './pp/input/pose/components/set_tracked_hand_joint_local_transform_component.js';
 import {SetVRHeadLocalTransformComponent} from './pp/input/pose/components/set_vr_head_local_transform_component.js';
+import './playground/bundle.js';
+import {FadeViewComponent} from './playground/fade_view_component.js';
+import {GrabbableSpawnerComponent} from './playground/grabbable_spawner_component.js';
+import {LoadAudioComponent} from './playground/load_audio_component.js';
+import {ParticleComponent} from './playground/particle_component.js';
+import {ParticlesSpawnerComponent} from './playground/particles_spawner_component.js';
+import {PlayMusicComponent} from './playground/play_music_component.js';
+import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
+import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
+import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
+import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
+import {WaveMovementComponent} from './playground/wave_movement_component.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -219,6 +231,17 @@ engine.registerComponent(SetNonVRHeadLocalTransformComponent);
 engine.registerComponent(SetPlayerHeightComponent);
 engine.registerComponent(SetTrackedHandJointLocalTransformComponent);
 engine.registerComponent(SetVRHeadLocalTransformComponent);
+engine.registerComponent(FadeViewComponent);
+engine.registerComponent(GrabbableSpawnerComponent);
+engine.registerComponent(LoadAudioComponent);
+engine.registerComponent(ParticleComponent);
+engine.registerComponent(ParticlesSpawnerComponent);
+engine.registerComponent(PlayMusicComponent);
+engine.registerComponent(ScaleOnSpawnComponent);
+engine.registerComponent(SFXOnCollisionComponent);
+engine.registerComponent(SFXOnGrabThrowComponent);
+engine.registerComponent(TargetHitCheckComponent);
+engine.registerComponent(WaveMovementComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

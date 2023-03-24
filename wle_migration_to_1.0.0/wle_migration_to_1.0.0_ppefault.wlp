@@ -1051,7 +1051,8 @@
                 "js/pp/input/gamepad/cauldron",
                 "js/pp/input/gamepad/gamepad_cores",
                 "js/pp/input/pose",
-                "js/pp/input/pose/components"
+                "js/pp/input/pose/components",
+                "js/playground"
             ],
             "libraryPaths": [
                 "/js/lib/"

@@ -1,4 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { Timer } from "../pp/cauldron/cauldron/timer";
+import { vec3_create } from "../pp/plugin/js/extensions/array_extension";
+import { EasingFunction } from "../pp/plugin/js/extensions/math_extension";
 
 export class ScaleOnSpawnComponent extends Component {
     static TypeName = "scale-on-spawn";
@@ -8,14 +11,14 @@ export class ScaleOnSpawnComponent extends Component {
     };
 
     init() {
-        this._myTargetScale = PP.vec3_create(1, 1, 1);
+        this._myTargetScale = vec3_create(1, 1, 1);
     }
 
     start() {
-        this.object.pp_setScale(0.00001);
+        this.object.pp_setScale(Math.PP_EPSILON);
 
-        this._myDelayTimer = new PP.Timer(this._myStartDelay);
-        this._myScaleDurationTimer = new PP.Timer(this._myScaleDuration);
+        this._myDelayTimer = new Timer(this._myStartDelay);
+        this._myScaleDurationTimer = new Timer(this._myScaleDuration);
     }
 
     update(dt) {
@@ -24,7 +27,7 @@ export class ScaleOnSpawnComponent extends Component {
         } else if (this._myScaleDurationTimer.isRunning()) {
             this._myScaleDurationTimer.update(dt);
 
-            this.object.pp_setScale(this._myTargetScale.vec3_scale(PP.EasingFunction.easeOut(this._myScaleDurationTimer.getPercentage())));
+            this.object.pp_setScale(this._myTargetScale.vec3_scale(EasingFunction.easeOut(this._myScaleDurationTimer.getPercentage())));
         }
     }
 

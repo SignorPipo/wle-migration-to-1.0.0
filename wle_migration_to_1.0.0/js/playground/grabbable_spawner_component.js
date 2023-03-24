@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { Timer } from "../pp/cauldron/cauldron/timer";
 
 export class GrabbableSpawnerComponent extends Component {
     static TypeName = "grabbable-spawner";
@@ -11,7 +12,7 @@ export class GrabbableSpawnerComponent extends Component {
         this._myCurrentGrabbable = null;
 
         this._myFirstUpdate = true;
-        this._myStartTimer = new PP.Timer(0);
+        this._myStartTimer = new Timer(0);
     }
 
     update(dt) {

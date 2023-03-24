@@ -1,17 +1,18 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { Timer } from "../pp/cauldron/cauldron/timer";
 
 export class WaveMovementComponent extends Component {
     static TypeName = "wave-movement";
     static Properties = {};
 
     start() {
-        this._myStartTimer = new PP.Timer(0);
+        this._myStartTimer = new Timer(0);
 
         this._myStartPosition = this.object.pp_getPosition();
 
         this._myCurrentTimes = [Math.pp_random(0, 100), Math.pp_random(0, 100), Math.pp_random(0, 100)];
 
-        this._myChangeParamsTimers = [new PP.Timer(3), this._randomTimer(), this._randomTimer()];
+        this._myChangeParamsTimers = [new Timer(3), this._randomTimer(), this._randomTimer()];
 
         this._mySpeedMultipliers = [this._randomSpeedMultiplier(), this._randomSpeedMultiplier(), this._randomSpeedMultiplier()];
 
@@ -61,7 +62,7 @@ export class WaveMovementComponent extends Component {
     }
 
     _randomTimer() {
-        return new PP.Timer(Math.pp_random(4, 8));
+        return new Timer(Math.pp_random(4, 8));
     }
 
     _randomSpeedMultiplier() {
