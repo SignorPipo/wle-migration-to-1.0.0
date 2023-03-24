@@ -1,4 +1,4 @@
-import { getMainEngine } from "../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 
 let _myInputManagers = new WeakMap();
 

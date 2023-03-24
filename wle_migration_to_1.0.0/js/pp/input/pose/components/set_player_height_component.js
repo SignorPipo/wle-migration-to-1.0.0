@@ -1,5 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
+import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 
 export class SetPlayerHeightComponent extends Component {
     static TypeName = "pp-set-player-height";
@@ -10,7 +11,7 @@ export class SetPlayerHeightComponent extends Component {
 
     start() {
         let localPosition = this.object.pp_getPositionLocal();
-        this.object.pp_setPositionLocal(PP.vec3_create(localPosition[0], this._myEyesHeight, localPosition[2]));
+        this.object.pp_setPositionLocal(vec3_create(localPosition[0], this._myEyesHeight, localPosition[2]));
 
         this._myHeightSetOnce = false;
 
@@ -25,11 +26,11 @@ export class SetPlayerHeightComponent extends Component {
         if (this.active && (!this._mySetOnlyOnStart || !this._myHeightSetOnce)) {
             let localPosition = this.object.pp_getPositionLocal();
             if (XRUtils.isReferenceSpaceLocalFloor()) {
-                this.object.pp_setPositionLocal(PP.vec3_create(localPosition[0], 0, localPosition[2]));
+                this.object.pp_setPositionLocal(vec3_create(localPosition[0], 0, localPosition[2]));
             } else if (XRUtils.isDeviceEmulated()) {
-                this.object.pp_setPositionLocal(PP.vec3_create(localPosition[0], 0, localPosition[2]));
+                this.object.pp_setPositionLocal(vec3_create(localPosition[0], 0, localPosition[2]));
             } else {
-                this.object.pp_setPositionLocal(PP.vec3_create(localPosition[0], this._myEyesHeight, localPosition[2]));
+                this.object.pp_setPositionLocal(vec3_create(localPosition[0], this._myEyesHeight, localPosition[2]));
             }
 
             this._myHeightSetOnce = true;
@@ -39,7 +40,7 @@ export class SetPlayerHeightComponent extends Component {
     _onXRSessionEnd() {
         if (this.active && !this._mySetOnlyOnStart) {
             let localPosition = this.object.pp_getPositionLocal();
-            this.object.pp_setPositionLocal(PP.vec3_create(localPosition[0], this._myEyesHeight, localPosition[2]));
+            this.object.pp_setPositionLocal(vec3_create(localPosition[0], this._myEyesHeight, localPosition[2]));
         }
     }
 };

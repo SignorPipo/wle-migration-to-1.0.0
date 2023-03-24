@@ -1,4 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { quat2_create } from "../../../plugin/js/extensions/array_extension";
+import { InputUtils } from "../../cauldron/input_utils";
+import { TrackedHandJointPose } from "../tracked_hand_joint_pose";
 
 export class SetTrackedHandJointLocalTransformComponent extends Component {
     static TypeName = "pp-set-tracked-hand-joint-local-transform";
@@ -22,10 +25,10 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
     };
 
     init() {
-        this._myHandednessInternal = PP.InputUtils.getHandednessByIndex(this._myHandedness);
-        this._myJointIDInternal = PP.InputUtils.getJointIDByIndex(this._myJointID);
+        this._myHandednessInternal = InputUtils.getHandednessByIndex(this._myHandedness);
+        this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
 
-        this._myTrackedHandJointPose = new PP.TrackedHandJointPose(this._myHandednessInternal, this._myJointIDInternal);
+        this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessInternal, this._myJointIDInternal, new BasePoseParams(this.engine));
         this._myTrackedHandJointPose.setFixForward(this._myFixForward);
         this._myTrackedHandJointPose.setUpdateOnViewReset(this._myUpdateOnViewReset);
         this._myTrackedHandJointPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
@@ -50,7 +53,7 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
 // IMPLEMENTATION
 
 SetTrackedHandJointLocalTransformComponent.prototype.onPoseUpdated = function () {
-    let jointPoseTransform = PP.quat2_create()
+    let jointPoseTransform = quat2_create()
     return function onPoseUpdated() {
         this.object.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat(jointPoseTransform));
 

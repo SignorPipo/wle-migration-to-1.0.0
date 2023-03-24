@@ -1,5 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { getPlayerObjects } from "../../../pp/player_objects_global";
+import { HandPoseParams } from "../../pose/hand_pose";
 import { hasInputManager, setInputManager } from "../input_globals";
 import { InputManager } from "../input_manager";
 import { Handedness } from "../input_types";
@@ -49,7 +50,7 @@ export class InputManagerComponent extends Component {
     }
 
     _addGamepadCores() {
-        let handPoseParams = new PP.HandPoseParams();
+        let handPoseParams = new HandPoseParams(this.engine);
         handPoseParams.myReferenceObject = getPlayerObjects(this.engine).myPlayerPivot;
         handPoseParams.myFixForward = this._myFixForward;
         handPoseParams.myForceEmulatedVelocities = false;

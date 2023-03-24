@@ -18,10 +18,11 @@ export class MeshCreationTriangleParams {
 };
 
 export class MeshCreationParams {
-    constructor() {
+    constructor(engine = getMainEngine()) {
         this.myVertexes = [];
         this.myTriangles = [];
-        this.myEngine = getMainEngine();
+
+        this.myEngine = engine;
     }
 };
 

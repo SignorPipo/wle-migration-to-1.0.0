@@ -1,17 +1,22 @@
-PP.BasePoseParams = class BasePoseParams {
-    constructor() {
+import { mat4_create, quat2_create, quat_create, vec3_create } from "../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+
+export class BasePoseParams {
+    constructor(engine = getMainEngine()) {
         this.myReferenceObject = null;
         this.myFixForward = true;
         this.myForceEmulatedVelocities = false;
         this.myUpdateOnViewReset = false;
+
+        this.myEngine = engine;
     }
 };
 
 // BasePose transform is local by default (as if the parent/reference object was the identity transform)
 // you can use setReferenceObject if you want the BasePose to return the transform in world space 
-PP.BasePose = class BasePose {
+export class BasePose {
 
-    constructor(basePoseParams = new PP.BasePoseParams()) {
+    constructor(basePoseParams = new BasePoseParams()) {
         this._myFixForward = basePoseParams.myFixForward;
         this._myForceEmulatedVelocities = basePoseParams.myForceEmulatedVelocities;
         this._myUpdateOnViewReset = basePoseParams.myUpdateOnViewReset;
@@ -19,14 +24,16 @@ PP.BasePose = class BasePose {
         this._myReferenceSpace = null;
         this._myReferenceObject = basePoseParams.myReferenceObject;
 
-        this._myPosition = PP.vec3_create();
-        this._myRotationQuat = PP.quat_create();
+        this._myEngine = basePoseParams.myEngine;
 
-        this._myPrevPosition = PP.vec3_create();
-        this._myPrevRotationQuat = PP.quat_create();
+        this._myPosition = vec3_create();
+        this._myRotationQuat = quat2_create();
 
-        this._myLinearVelocity = PP.vec3_create();
-        this._myAngularVelocityRadians = PP.vec3_create();
+        this._myPrevPosition = vec3_create();
+        this._myPrevRotationQuat = quat_create();
+
+        this._myLinearVelocity = vec3_create();
+        this._myAngularVelocityRadians = vec3_create();
 
         this._myIsValid = false;
         this._myIsLinearVelocityEmulated = true;
@@ -147,11 +154,11 @@ PP.BasePose = class BasePose {
     }
 
     start() {
-        if (WL.xrSession) {
-            this._onXRSessionStart(true, WL.xrSession);
+        if (this._myEngine.xrSession) {
+            this._onXRSessionStart(true, this._myEngine.xrSession);
         }
-        WL.onXRSessionStart.push(this._onXRSessionStart.bind(this, false));
-        WL.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
+        this._myEngine.onXRSessionStart.push(this._onXRSessionStart.bind(this, false));
+        this._myEngine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
     }
 
     update(dt) {
@@ -314,11 +321,19 @@ PP.BasePose = class BasePose {
 
         this._onViewResetHook();
     }
+
+    _computeEmulatedAngularVelocity() {
+        // implemented outside class definition
+    }
 };
 
-PP.BasePose.prototype.getPosition = function () {
-    let position = PP.vec3_create();
-    let transform = PP.mat4_create();
+
+
+// IMPLEMENTATION
+
+BasePose.prototype.getPosition = function () {
+    let position = vec3_create();
+    let transform = mat4_create();
     return function getPosition() {
         if (this._myReferenceObject == null) {
             return this._myPosition;
@@ -328,10 +343,10 @@ PP.BasePose.prototype.getPosition = function () {
     };
 }();
 
-PP.BasePose.prototype.getRotationQuat = function () {
-    let rotationQuat = PP.quat_create();
-    let playerRotationQuat = PP.quat_create();
-    let up = PP.vec3_create();
+BasePose.prototype.getRotationQuat = function () {
+    let rotationQuat = quat_create();
+    let playerRotationQuat = quat_create();
+    let up = vec3_create();
     return function getRotationQuat() {
         rotationQuat.quat_copy(this._myRotationQuat);
 
@@ -347,16 +362,16 @@ PP.BasePose.prototype.getRotationQuat = function () {
     };
 }();
 
-PP.BasePose.prototype.getTransformMatrix = function () {
-    let transform = PP.mat4_create();
+BasePose.prototype.getTransformMatrix = function () {
+    let transform = mat4_create();
     return function getTransformMatrix() {
         return this.getTransformQuat().quat2_toMatrix(transform);
     };
 }();
 
-PP.BasePose.prototype.getTransformQuat = function () {
-    let transformQuat = PP.quat2_create();
-    let playerTransformQuat = PP.quat2_create();
+BasePose.prototype.getTransformQuat = function () {
+    let transformQuat = quat2_create();
+    let playerTransformQuat = quat2_create();
     return function getTransformQuat() {
         transformQuat.quat2_setPositionRotationQuat(this._myPosition, this.getRotationQuat());
 
@@ -368,9 +383,9 @@ PP.BasePose.prototype.getTransformQuat = function () {
     };
 }();
 
-PP.BasePose.prototype.getLinearVelocity = function () {
-    let position = PP.vec3_create();
-    let transform = PP.mat4_create();
+BasePose.prototype.getLinearVelocity = function () {
+    let position = vec3_create();
+    let transform = mat4_create();
     return function getLinearVelocity() {
         if (this._myReferenceObject == null) {
             return this._myLinearVelocity;
@@ -380,16 +395,16 @@ PP.BasePose.prototype.getLinearVelocity = function () {
     };
 }();
 
-PP.BasePose.prototype.getAngularVelocityDegrees = function () {
-    let rotationDegrees = PP.vec3_create();
+BasePose.prototype.getAngularVelocityDegrees = function () {
+    let rotationDegrees = vec3_create();
     return function getAngularVelocityDegrees() {
         this.getAngularVelocityRadians().vec3_toDegrees(rotationDegrees);
     };
 }();
 
-PP.BasePose.prototype.getAngularVelocityRadians = function () {
-    let rotationRadians = PP.vec3_create();
-    let transform = PP.mat4_create();
+BasePose.prototype.getAngularVelocityRadians = function () {
+    let rotationRadians = vec3_create();
+    let transform = mat4_create();
     return function getAngularVelocityRadians() {
         if (this._myReferenceObject == null) {
             return this._myAngularVelocityRadians;
@@ -399,9 +414,9 @@ PP.BasePose.prototype.getAngularVelocityRadians = function () {
     };
 }();
 
-PP.BasePose.prototype._computeEmulatedAngularVelocity = function () {
-    let rotationRadians = PP.vec3_create();
-    let prevRotationRadians = PP.vec3_create();
+BasePose.prototype._computeEmulatedAngularVelocity = function () {
+    let rotationRadians = vec3_create();
+    let prevRotationRadians = vec3_create();
     return function _computeEmulatedAngularVelocity(dt) {
         if (dt > 0) {
             rotationRadians = this._myRotationQuat.quat_toRadians(rotationRadians);
@@ -415,14 +430,3 @@ PP.BasePose.prototype._computeEmulatedAngularVelocity = function () {
         }
     };
 }();
-
-
-
-Object.defineProperty(PP.BasePose.prototype, "getPosition", { enumerable: false });
-Object.defineProperty(PP.BasePose.prototype, "getRotationQuat", { enumerable: false });
-Object.defineProperty(PP.BasePose.prototype, "getTransformMatrix", { enumerable: false });
-Object.defineProperty(PP.BasePose.prototype, "getTransformQuat", { enumerable: false });
-Object.defineProperty(PP.BasePose.prototype, "getLinearVelocity", { enumerable: false });
-Object.defineProperty(PP.BasePose.prototype, "getAngularVelocityDegrees", { enumerable: false });
-Object.defineProperty(PP.BasePose.prototype, "getAngularVelocityRadians", { enumerable: false });
-Object.defineProperty(PP.BasePose.prototype, "_computeEmulatedAngularVelocity", { enumerable: false });

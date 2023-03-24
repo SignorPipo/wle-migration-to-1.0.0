@@ -1,4 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { TrackedHandPose, TrackedHandPoseParams } from "../../pose/tracked_hand_pose";
+import { InputUtils } from "../input_utils";
 
 export class TrackedHandDrawSkinComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-skin";
@@ -9,9 +11,9 @@ export class TrackedHandDrawSkinComponent extends Component {
     };
 
     init() {
-        this._myHandednessInternal = PP.InputUtils.getHandednessByIndex(this._myHandedness);
+        this._myHandednessInternal = InputUtils.getHandednessByIndex(this._myHandedness);
 
-        this._myTrackedHandPose = new PP.TrackedHandPose(this._myHandednessInternal);
+        this._myTrackedHandPose = new TrackedHandPose(this._myHandednessInternal, new TrackedHandPoseParams(true, this.engine));
         this._myTrackedHandPose.setFixForward(this._myFixForward);
     }
 
@@ -27,7 +29,7 @@ export class TrackedHandDrawSkinComponent extends Component {
         for (let i = 0; i < this._myJoints.length; i++) {
             let jointObject = this._myJoints[i];
 
-            let jointID = jointObject.name; // joint name must match the PP.TrackedHandJointID enum value
+            let jointID = jointObject.name; // joint name must match the TrackedHandJointID enum value
             let jointPose = this._myTrackedHandPose.getJointPose(jointID);
 
             jointObject.pp_setTransformLocalQuat(jointPose.getTransformQuat());
@@ -40,7 +42,7 @@ export class TrackedHandDrawSkinComponent extends Component {
         let skinJointIDs = this._myHandSkin.jointIds;
 
         for (let i = 0; i < skinJointIDs.length; i++) {
-            this._myJoints[i] = new WL.Object(skinJointIDs[i]);
+            this._myJoints[i] = this.engine.wrapObject(skinJointIDs[i]);
         }
     }
 };

@@ -1,4 +1,6 @@
 import { Component, MeshComponent, Type } from "@wonderlandengine/api";
+import { BasePoseParams } from "../../pose/base_pose";
+import { TrackedHandJointPose } from "../../pose/tracked_hand_joint_pose";
 import { InputUtils } from "../input_utils";
 
 export class TrackedHandDrawJointComponent extends Component {
@@ -26,7 +28,7 @@ export class TrackedHandDrawJointComponent extends Component {
         this._myHandednessInternal = InputUtils.getHandednessByIndex(this._myHandedness);
         this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
 
-        this._myTrackedHandJointPose = new PP.TrackedHandJointPose(this._myHandednessInternal, this._myJointIDInternal);
+        this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessInternal, this._myJointIDInternal, new BasePoseParams(this.engine));
         this._myTrackedHandJointPose.setFixForward(this._myFixForward);
     }
 

@@ -88,6 +88,33 @@ import './pp/debug/debug_manager.js';
 import './pp/debug/debug_visual_manager.js';
 import {DebugManagerComponent} from './pp/debug/components/debug_manager_component.js';
 import {DebugTransformComponent} from './pp/debug/components/debug_transform_component.js';
+import './pp/input/cauldron/input_globals.js';
+import './pp/input/cauldron/input_manager.js';
+import './pp/input/cauldron/input_types.js';
+import './pp/input/cauldron/input_utils.js';
+import './pp/input/cauldron/keyboard.js';
+import './pp/input/cauldron/mouse.js';
+import {FingerCursorComponent} from './pp/input/cauldron/components/finger_cursor_component.js';
+import {InputManagerComponent} from './pp/input/cauldron/components/input_manager_component.js';
+import {SwitchHandObjectComponent} from './pp/input/cauldron/components/switch_hand_object_component.js';
+import {TrackedHandDrawAllJointsComponent} from './pp/input/cauldron/components/tracked_hand_draw_all_joints_component.js';
+import {TrackedHandDrawJointComponent} from './pp/input/cauldron/components/tracked_hand_draw_joint_component.js';
+import {TrackedHandDrawSkinComponent} from './pp/input/cauldron/components/tracked_hand_draw_skin_component.js';
+import './pp/input/pose/base_pose.js';
+import './pp/input/pose/hand_pose.js';
+import './pp/input/pose/head_pose.js';
+import './pp/input/pose/tracked_hand_joint_pose.js';
+import './pp/input/pose/tracked_hand_pose.js';
+import {CopyHandTransformComponent} from './pp/input/pose/components/copy_hand_transform_component.js';
+import {CopyHeadTransformComponent} from './pp/input/pose/components/copy_head_transform_component.js';
+import {CopyPlayerPivotTransformComponent} from './pp/input/pose/components/copy_player_pivot_transform_component.js';
+import {CopyPlayerTransformComponent} from './pp/input/pose/components/copy_player_transform_component.js';
+import {SetHandLocalTransformComponent} from './pp/input/pose/components/set_hand_local_transform_component.js';
+import {SetHeadLocalTransformComponent} from './pp/input/pose/components/set_head_local_transform_component.js';
+import {SetNonVRHeadLocalTransformComponent} from './pp/input/pose/components/set_non_vr_head_local_transform_component.js';
+import {SetPlayerHeightComponent} from './pp/input/pose/components/set_player_height_component.js';
+import {SetTrackedHandJointLocalTransformComponent} from './pp/input/pose/components/set_tracked_hand_joint_local_transform_component.js';
+import {SetVRHeadLocalTransformComponent} from './pp/input/pose/components/set_vr_head_local_transform_component.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -143,6 +170,22 @@ engine.registerComponent(BenchmarkMaxVisibleTrianglesComponent);
 engine.registerComponent(VisualManagerComponent);
 engine.registerComponent(DebugManagerComponent);
 engine.registerComponent(DebugTransformComponent);
+engine.registerComponent(FingerCursorComponent);
+engine.registerComponent(InputManagerComponent);
+engine.registerComponent(SwitchHandObjectComponent);
+engine.registerComponent(TrackedHandDrawAllJointsComponent);
+engine.registerComponent(TrackedHandDrawJointComponent);
+engine.registerComponent(TrackedHandDrawSkinComponent);
+engine.registerComponent(CopyHandTransformComponent);
+engine.registerComponent(CopyHeadTransformComponent);
+engine.registerComponent(CopyPlayerPivotTransformComponent);
+engine.registerComponent(CopyPlayerTransformComponent);
+engine.registerComponent(SetHandLocalTransformComponent);
+engine.registerComponent(SetHeadLocalTransformComponent);
+engine.registerComponent(SetNonVRHeadLocalTransformComponent);
+engine.registerComponent(SetPlayerHeightComponent);
+engine.registerComponent(SetTrackedHandJointLocalTransformComponent);
+engine.registerComponent(SetVRHeadLocalTransformComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

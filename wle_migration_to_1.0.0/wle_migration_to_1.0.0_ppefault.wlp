@@ -1036,7 +1036,12 @@
                 "js/pp/cauldron/visual/components",
                 "js/pp/cauldron/visual/elements",
                 "js/pp/debug",
-                "js/pp/debug/components"
+                "js/pp/debug/components",
+                "js/pp/input",
+                "js/pp/input/cauldron",
+                "js/pp/input/cauldron/components",
+                "js/pp/input/pose",
+                "js/pp/input/pose/components"
             ],
             "libraryPaths": [
                 "/js/lib/"

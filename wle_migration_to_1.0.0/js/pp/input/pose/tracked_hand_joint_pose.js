@@ -1,6 +1,10 @@
-PP.TrackedHandJointPose = class TrackedHandJointPose extends PP.BasePose {
+import { InputSourceType } from "../cauldron/input_types";
+import { InputUtils } from "../cauldron/input_utils";
+import { BasePose, BasePoseParams } from "./base_pose";
 
-    constructor(handedness, trackedHandJointID, basePoseParams = new PP.BasePoseParams()) {
+export class TrackedHandJointPose extends BasePose {
+
+    constructor(handedness, trackedHandJointID, basePoseParams = new BasePoseParams()) {
         super(basePoseParams);
 
         this._myInputSource = null;
@@ -50,7 +54,7 @@ PP.TrackedHandJointPose = class TrackedHandJointPose extends PP.BasePose {
             if (event.added) {
                 for (let item of event.added) {
                     if (item.handedness == this._myHandedness) {
-                        if (PP.InputUtils.getInputSourceType(item) == PP.InputSourceType.TRACKED_HAND) {
+                        if (InputUtils.getInputSourceType(item) == InputSourceType.TRACKED_HAND) {
                             this._myInputSource = item;
                         }
                     }
@@ -61,7 +65,7 @@ PP.TrackedHandJointPose = class TrackedHandJointPose extends PP.BasePose {
         if (manualStart && this._myInputSource == null && session.inputSources) {
             for (let item of session.inputSources) {
                 if (item.handedness == this._myHandedness) {
-                    if (PP.InputUtils.getInputSourceType(item) == PP.InputSourceType.TRACKED_HAND) {
+                    if (InputUtils.getInputSourceType(item) == InputSourceType.TRACKED_HAND) {
                         this._myInputSource = item;
                     }
                 }

@@ -20,7 +20,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         _myEnableLog: { type: Type.Bool, default: true },
 
-        _myStartOnXRStart: { type: Type.Bool, default: true },
+        _myStartOnXRStart: { type: Type.Bool, default: false },
         _myDisplayInFrontOfPlayer: { type: Type.Bool, default: true },
         _myDisplayInFrontOfPlayerDistance: { type: Type.Float, default: 10 },
 
@@ -245,6 +245,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         let parent = this.object;
         if (this._myDisplayInFrontOfPlayer) {
             parent = getPlayerObjects().myHead.pp_addObject();
+            parent.pp_rotateAxis(180, vec3_create(0, 1, 0));
             parent.pp_translateLocal(vec3_create(0, 0, this._myDisplayInFrontOfPlayerDistance));
         }
 
@@ -289,7 +290,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myBackgroundObject.pp_setActive(false);
         this._myPlaneObject.pp_setActive(false);
 
-        this._myStartTimer = new Timer(1);
+        this._myStartTimer = new Timer(2);
         this._mySessionStarted = false;
 
         this._myTextsObject = this.engine.scene.addObject(this._myTrianglesObject);
@@ -422,8 +423,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             row--;
         }
 
-        let meshParams = new MeshCreationParams();
-        meshParams.myEngine = this.engine;
+        let meshParams = new MeshCreationParams(this.engine);
 
         for (let i = 0; i < row + 1; i++) {
             for (let j = 0; j < column + 1; j++) {

@@ -1,5 +1,5 @@
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
-import { Handedness, HandednessIndex, InputSourceType, TrackedHandJointIDIndex } from "./input_types";
+import { Handedness, HandednessIndex, InputSourceType, TrackedHandJointID, TrackedHandJointIDIndex } from "./input_types";
 
 export function getHandednessByIndex(index) {
     let handedness = null;

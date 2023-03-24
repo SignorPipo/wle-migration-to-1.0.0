@@ -19,7 +19,7 @@ export let raycast = function () {
         let internalRaycastResults = raycastSetup.myPhysics.rayCast(raycastSetup.myOrigin, raycastSetup.myDirection, raycastSetup.myBlockLayerFlags.getMask(), raycastSetup.myDistance);
 
         if (raycastResults.myRaycastSetup == null) {
-            raycastResults.myRaycastSetup = new RaycastSetup();
+            raycastResults.myRaycastSetup = new RaycastSetup(raycastSetup.myPhysics);
         }
 
         raycastResults.myRaycastSetup.copy(raycastSetup);

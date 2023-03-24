@@ -238,22 +238,22 @@ require("./input/cauldron/input_manager");
 //require("./input/gamepad/virtual_gamepad/virtual_gamepad_virtual_thumbstick");
 //require("./input/gamepad/virtual_gamepad/virtual_gamepad_icon");
 
-//require("./input/pose/base_pose.js");
-//require("./input/pose/hand_pose");
-//require("./input/pose/head_pose");
-//require("./input/pose/tracked_hand_joint_pose");
-//require("./input/pose/tracked_hand_pose");
+require("./input/pose/base_pose.js");
+require("./input/pose/hand_pose");
+require("./input/pose/head_pose");
+require("./input/pose/tracked_hand_joint_pose");
+require("./input/pose/tracked_hand_pose");
 
-//require("./input/pose/components/set_player_height_component");
-//require("./input/pose/components/set_hand_local_transform_component");
-//require("./input/pose/components/set_head_local_transform_component");
-//require("./input/pose/components/set_vr_head_local_transform_component");
-//require("./input/pose/components/set_non_vr_head_local_transform_component");
-//require("./input/pose/components/set_tracked_hand_joint_local_transform_component");
-//require("./input/pose/components/copy_hand_transform_component");
-//require("./input/pose/components/copy_head_transform_component");
-//require("./input/pose/components/copy_player_transform_component");
-//require("./input/pose/components/copy_player_pivot_transform_component");
+require("./input/pose/components/set_player_height_component");
+require("./input/pose/components/set_hand_local_transform_component");
+require("./input/pose/components/set_head_local_transform_component");
+require("./input/pose/components/set_vr_head_local_transform_component");
+require("./input/pose/components/set_non_vr_head_local_transform_component");
+require("./input/pose/components/set_tracked_hand_joint_local_transform_component");
+require("./input/pose/components/copy_hand_transform_component");
+require("./input/pose/components/copy_head_transform_component");
+require("./input/pose/components/copy_player_transform_component");
+require("./input/pose/components/copy_player_pivot_transform_component");
 
 //	TOOL
 //require("./tool/cauldron/cauldron/tool_types");

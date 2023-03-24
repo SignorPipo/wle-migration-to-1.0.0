@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 
 export class SetNonVRHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-non-vr-head-local-transform";
@@ -21,9 +22,9 @@ export class SetNonVRHeadLocalTransformComponent extends Component {
 // IMPLEMENTATION
 
 SetNonVRHeadLocalTransformComponent.prototype.update = function () {
-    let nonVRCameraRotation = PP.quat_create();
-    let nonVRCameraUp = PP.vec3_create();
-    let nonVRCameraPosition = PP.vec3_create();
+    let nonVRCameraRotation = quat_create();
+    let nonVRCameraUp = vec3_create();
+    let nonVRCameraPosition = vec3_create();
     return function update(dt) {
         nonVRCameraRotation = this._myNonVRCamera.pp_getRotationLocalQuat(nonVRCameraRotation);
         if (this._myFixForward) {
