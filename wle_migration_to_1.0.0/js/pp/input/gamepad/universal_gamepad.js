@@ -1,4 +1,6 @@
-PP.UniversalGamepad = class UniversalGamepad extends PP.BaseGamepad {
+import { BaseGamepad } from "./base_gamepad";
+
+export class UniversalGamepad extends BaseGamepad {
 
     constructor(handedness) {
         super(handedness);

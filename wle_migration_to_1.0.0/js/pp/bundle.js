@@ -211,16 +211,16 @@ require("./input/cauldron/mouse");
 require("./input/cauldron/input_globals");
 require("./input/cauldron/input_manager");
 
-//require("./input/cauldron/components/finger_cursor_component");
-//require("./input/cauldron/components/input_manager_component");
-//require("./input/cauldron/components/switch_hand_object_component");
-//require("./input/cauldron/components/tracked_hand_draw_joint_component");
-//require("./input/cauldron/components/tracked_hand_draw_all_joints_component");
-//require("./input/cauldron/components/tracked_hand_draw_skin_component");
+require("./input/cauldron/components/finger_cursor_component");
+require("./input/cauldron/components/input_manager_component");
+require("./input/cauldron/components/switch_hand_object_component");
+require("./input/cauldron/components/tracked_hand_draw_joint_component");
+require("./input/cauldron/components/tracked_hand_draw_all_joints_component");
+require("./input/cauldron/components/tracked_hand_draw_skin_component");
 
-//require("./input/gamepad/gamepad_buttons");
-//require("./input/gamepad/base_gamepad");
-//require("./input/gamepad/universal_gamepad");
+require("./input/gamepad/gamepad_buttons");
+require("./input/gamepad/base_gamepad");
+require("./input/gamepad/universal_gamepad");
 //require("./input/gamepad/gamepad_cores/gamepad_core");
 //require("./input/gamepad/gamepad_cores/xr_gamepad_core");
 //require("./input/gamepad/gamepad_cores/keyboard_gamepad_core");
