@@ -118,9 +118,9 @@ PP.VirtualGamepadIcon = class VirtualGamepadIcon {
         iconElementParent.appendChild(this._myIconContainerElement);
 
         this._myBackgroundElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        this._myBackgroundElement.setAttributeNS(null, 'cx', "50%");
-        this._myBackgroundElement.setAttributeNS(null, 'cy', "50%");
-        this._myBackgroundElement.setAttributeNS(null, 'r', "50%");
+        this._myBackgroundElement.setAttributeNS(null, "cx", "50%");
+        this._myBackgroundElement.setAttributeNS(null, "cy", "50%");
+        this._myBackgroundElement.setAttributeNS(null, "r", "50%");
         this._myBackgroundElement.style.fill = this._myParams.myBackgroundColor;
         this._myIconContainerElement.appendChild(this._myBackgroundElement);
 
@@ -128,9 +128,9 @@ PP.VirtualGamepadIcon = class VirtualGamepadIcon {
             case PP.VirtualGamepadIconType.NONE:
                 break;
             case PP.VirtualGamepadIconType.LABEL:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-                this._myIconElement.setAttributeNS(null, 'x', "50%");
-                this._myIconElement.setAttributeNS(null, 'y', "50%");
+                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                this._myIconElement.setAttributeNS(null, "x", "50%");
+                this._myIconElement.setAttributeNS(null, "y", "50%");
                 this._myIconElement.style.textAlign = "center";
                 this._myIconElement.style.textAnchor = "middle";
                 this._myIconElement.style.dominantBaseline = "central";
@@ -143,9 +143,9 @@ PP.VirtualGamepadIcon = class VirtualGamepadIcon {
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case PP.VirtualGamepadIconType.IMAGE:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-                this._myIconElement.setAttributeNS(null, 'x', "0%");
-                this._myIconElement.setAttributeNS(null, 'y', "0%");
+                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "image");
+                this._myIconElement.setAttributeNS(null, "x", "0%");
+                this._myIconElement.setAttributeNS(null, "y", "0%");
                 this._myIconElement.setAttribute("href", this._myParams.myImageURL);
                 this._myIconElement.style.width = "100%";
                 this._myIconElement.style.height = "100%";
@@ -153,51 +153,51 @@ PP.VirtualGamepadIcon = class VirtualGamepadIcon {
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case PP.VirtualGamepadIconType.DOT:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
-                this._myIconElement.setAttributeNS(null, 'cx', "50%");
-                this._myIconElement.setAttributeNS(null, 'cy', "50%");
-                this._myIconElement.setAttributeNS(null, 'r', "17.5%");
+                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                this._myIconElement.setAttributeNS(null, "cx", "50%");
+                this._myIconElement.setAttributeNS(null, "cy", "50%");
+                this._myIconElement.setAttributeNS(null, "r", "17.5%");
                 this._myIconElement.style.fill = this._myParams.myIconColor;
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case PP.VirtualGamepadIconType.CIRCLE:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
-                this._myIconElement.setAttributeNS(null, 'cx', "50%");
-                this._myIconElement.setAttributeNS(null, 'cy', "50%");
-                this._myIconElement.setAttributeNS(null, 'r', "24%");
+                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                this._myIconElement.setAttributeNS(null, "cx", "50%");
+                this._myIconElement.setAttributeNS(null, "cy", "50%");
+                this._myIconElement.setAttributeNS(null, "r", "24%");
                 this._myIconElement.style.fill = this._myParams.myIconColor;
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case PP.VirtualGamepadIconType.SQUARE:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-                this._myIconElement.setAttributeNS(null, 'x', "28%");
-                this._myIconElement.setAttributeNS(null, 'y', "28%");
-                this._myIconElement.setAttributeNS(null, 'rx', "10%");
-                this._myIconElement.setAttributeNS(null, 'ry', "10%");
-                this._myIconElement.setAttributeNS(null, 'width', "44%");
-                this._myIconElement.setAttributeNS(null, 'height', "44%");
+                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                this._myIconElement.setAttributeNS(null, "x", "28%");
+                this._myIconElement.setAttributeNS(null, "y", "28%");
+                this._myIconElement.setAttributeNS(null, "rx", "10%");
+                this._myIconElement.setAttributeNS(null, "ry", "10%");
+                this._myIconElement.setAttributeNS(null, "width", "44%");
+                this._myIconElement.setAttributeNS(null, "height", "44%");
                 this._myIconElement.style.fill = this._myParams.myIconColor;
                 this._myIconElement.style.transformOrigin = "center";
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case PP.VirtualGamepadIconType.RING:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
-                this._myIconElement.setAttributeNS(null, 'cx', "50%");
-                this._myIconElement.setAttributeNS(null, 'cy', "50%");
-                this._myIconElement.setAttributeNS(null, 'r', "20%");
+                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                this._myIconElement.setAttributeNS(null, "cx", "50%");
+                this._myIconElement.setAttributeNS(null, "cy", "50%");
+                this._myIconElement.setAttributeNS(null, "r", "20%");
                 this._myIconElement.style.fill = "#00000000";
                 this._myIconElement.style.stroke = this._myParams.myIconColor;
                 this._myIconElement.style.strokeWidth = "10%";
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case PP.VirtualGamepadIconType.FRAME:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-                this._myIconElement.setAttributeNS(null, 'x', "31.5%");
-                this._myIconElement.setAttributeNS(null, 'y', "31.5%");
-                this._myIconElement.setAttributeNS(null, 'rx', "10%");
-                this._myIconElement.setAttributeNS(null, 'ry', "10%");
-                this._myIconElement.setAttributeNS(null, 'width', "37%");
-                this._myIconElement.setAttributeNS(null, 'height', "37%");
+                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                this._myIconElement.setAttributeNS(null, "x", "31.5%");
+                this._myIconElement.setAttributeNS(null, "y", "31.5%");
+                this._myIconElement.setAttributeNS(null, "rx", "10%");
+                this._myIconElement.setAttributeNS(null, "ry", "10%");
+                this._myIconElement.setAttributeNS(null, "width", "37%");
+                this._myIconElement.setAttributeNS(null, "height", "37%");
                 this._myIconElement.style.fill = "#00000000";
                 this._myIconElement.style.stroke = this._myParams.myIconColor;
                 this._myIconElement.style.strokeWidth = "10%";

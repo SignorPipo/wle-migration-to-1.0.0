@@ -164,90 +164,90 @@ PP.EasyTuneBaseWidgetUI = class EasyTuneBaseWidgetUI {
     // Components
 
     _addComponents() {
-        this.myBackBackgroundComponent = this.myBackBackground.addComponent('mesh');
+        this.myBackBackgroundComponent = this.myBackBackground.addComponent("mesh");
         this.myBackBackgroundComponent.mesh = this._myPlaneMesh;
         this.myBackBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myBackBackgroundComponent.material.color = this._mySetup.myBackBackgroundColor;
 
         // Display
 
-        this.myVariableLabelTextComponent = this.myVariableLabelText.addComponent('text');
+        this.myVariableLabelTextComponent = this.myVariableLabelText.addComponent("text");
         this._setupTextComponent(this.myVariableLabelTextComponent);
         this.myVariableLabelTextComponent.text = " ";
 
-        this.myVariableLabelCursorTargetComponent = this.myVariableLabelCursorTarget.addComponent('cursor-target');
-        this.myVariableLabelCollisionComponent = this.myVariableLabelCursorTarget.addComponent('collision');
+        this.myVariableLabelCursorTargetComponent = this.myVariableLabelCursorTarget.addComponent("cursor-target");
+        this.myVariableLabelCollisionComponent = this.myVariableLabelCursorTarget.addComponent("collision");
         this.myVariableLabelCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myVariableLabelCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myVariableLabelCollisionComponent.extents = this._mySetup.myVariableLabelCollisionExtents;
 
         // Next/Previous
 
-        this.myNextButtonBackgroundComponent = this.myNextButtonBackground.addComponent('mesh');
+        this.myNextButtonBackgroundComponent = this.myNextButtonBackground.addComponent("mesh");
         this.myNextButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myNextButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myNextButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myNextButtonTextComponent = this.myNextButtonText.addComponent('text');
+        this.myNextButtonTextComponent = this.myNextButtonText.addComponent("text");
         this._setupTextComponent(this.myNextButtonTextComponent);
         this.myNextButtonTextComponent.text = this._mySetup.myNextButtonText;
 
-        this.myNextButtonCursorTargetComponent = this.myNextButtonCursorTarget.addComponent('cursor-target');
-        this.myNextButtonCollisionComponent = this.myNextButtonCursorTarget.addComponent('collision');
+        this.myNextButtonCursorTargetComponent = this.myNextButtonCursorTarget.addComponent("cursor-target");
+        this.myNextButtonCollisionComponent = this.myNextButtonCursorTarget.addComponent("collision");
         this.myNextButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myNextButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myNextButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        this.myPreviousButtonBackgroundComponent = this.myPreviousButtonBackground.addComponent('mesh');
+        this.myPreviousButtonBackgroundComponent = this.myPreviousButtonBackground.addComponent("mesh");
         this.myPreviousButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myPreviousButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myPreviousButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myPreviousButtonTextComponent = this.myPreviousButtonText.addComponent('text');
+        this.myPreviousButtonTextComponent = this.myPreviousButtonText.addComponent("text");
         this._setupTextComponent(this.myPreviousButtonTextComponent);
         this.myPreviousButtonTextComponent.text = this._mySetup.myPreviousButtonText;
 
-        this.myPreviousButtonCursorTargetComponent = this.myPreviousButtonCursorTarget.addComponent('cursor-target');
-        this.myPreviousButtonCollisionComponent = this.myPreviousButtonCursorTarget.addComponent('collision');
+        this.myPreviousButtonCursorTargetComponent = this.myPreviousButtonCursorTarget.addComponent("cursor-target");
+        this.myPreviousButtonCollisionComponent = this.myPreviousButtonCursorTarget.addComponent("collision");
         this.myPreviousButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPreviousButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPreviousButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
         // Import/Export
 
-        this.myImportButtonBackgroundComponent = this.myImportButtonBackground.addComponent('mesh');
+        this.myImportButtonBackgroundComponent = this.myImportButtonBackground.addComponent("mesh");
         this.myImportButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myImportButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myImportButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myImportButtonTextComponent = this.myImportButtonText.addComponent('text');
+        this.myImportButtonTextComponent = this.myImportButtonText.addComponent("text");
         this._setupTextComponent(this.myImportButtonTextComponent);
         this.myImportButtonTextComponent.text = this._mySetup.myImportButtonText;
 
-        this.myImportButtonCursorTargetComponent = this.myImportButtonCursorTarget.addComponent('cursor-target');
-        this.myImportButtonCollisionComponent = this.myImportButtonCursorTarget.addComponent('collision');
+        this.myImportButtonCursorTargetComponent = this.myImportButtonCursorTarget.addComponent("cursor-target");
+        this.myImportButtonCollisionComponent = this.myImportButtonCursorTarget.addComponent("collision");
         this.myImportButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myImportButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myImportButtonCollisionComponent.extents = this._mySetup.myImportExportButtonCollisionExtents;
 
-        this.myExportButtonBackgroundComponent = this.myExportButtonBackground.addComponent('mesh');
+        this.myExportButtonBackgroundComponent = this.myExportButtonBackground.addComponent("mesh");
         this.myExportButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myExportButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myExportButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myExportButtonTextComponent = this.myExportButtonText.addComponent('text');
+        this.myExportButtonTextComponent = this.myExportButtonText.addComponent("text");
         this._setupTextComponent(this.myExportButtonTextComponent);
         this.myExportButtonTextComponent.text = this._mySetup.myExportButtonText;
 
-        this.myExportButtonCursorTargetComponent = this.myExportButtonCursorTarget.addComponent('cursor-target');
-        this.myExportButtonCollisionComponent = this.myExportButtonCursorTarget.addComponent('collision');
+        this.myExportButtonCursorTargetComponent = this.myExportButtonCursorTarget.addComponent("cursor-target");
+        this.myExportButtonCollisionComponent = this.myExportButtonCursorTarget.addComponent("collision");
         this.myExportButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myExportButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myExportButtonCollisionComponent.extents = this._mySetup.myImportExportButtonCollisionExtents;
 
         // Pointer
 
-        this.myPointerCollisionComponent = this.myPointerCursorTarget.addComponent('collision');
+        this.myPointerCollisionComponent = this.myPointerCursorTarget.addComponent("collision");
         this.myPointerCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPointerCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPointerCollisionComponent.extents = this._mySetup.myPointerCollisionExtents;

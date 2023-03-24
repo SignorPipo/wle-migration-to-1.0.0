@@ -1,7 +1,7 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 export class PlayerHeadCharacterControllerComponent extends Component {
-    static TypeName = 'pp-player-head-character-controller';
+    static TypeName = "pp-player-head-character-controller";
     static Properties = {};
 
     init() {

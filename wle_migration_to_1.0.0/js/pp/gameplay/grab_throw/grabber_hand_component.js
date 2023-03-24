@@ -7,6 +7,7 @@ import { InputUtils } from "../../input/cauldron/input_utils";
 import { GamepadButtonEvent, GamepadButtonID } from "../../input/gamepad/gamepad_buttons";
 import { vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../plugin/js/extensions/math_extension";
+import { GrabbableComponent } from "./grabbable_component";
 
 export class GrabberHandComponent extends Component {
     static TypeName = "pp-grabber-hand";
@@ -156,7 +157,7 @@ export class GrabberHandComponent extends Component {
 
             let collisions = this._myCollisionsCollector.getCollisions();
             for (let i = 0; i < collisions.length; i++) {
-                let grabbable = collisions[i].getComponent("pp-grabbable");
+                let grabbable = collisions[i].pp_getComponent(GrabbableComponent);
                 if (grabbable && grabbable.active) {
                     grabbablesToGrab.push(grabbable);
                 }

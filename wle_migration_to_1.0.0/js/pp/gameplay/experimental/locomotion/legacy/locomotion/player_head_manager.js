@@ -532,7 +532,7 @@ PP.PlayerHeadManager.prototype._onXRSessionStart = function () {
             }
         }.bind(this));
 
-        session.addEventListener('visibilitychange', function (event) {
+        session.addEventListener("visibilitychange", function (event) {
             if (event.session.visibilityState != "visible") {
                 if (!this._mySessionBlurred) {
                     this._onXRSessionBlurStart(event.session);

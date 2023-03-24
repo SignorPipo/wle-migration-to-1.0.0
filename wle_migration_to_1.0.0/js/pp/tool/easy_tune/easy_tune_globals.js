@@ -130,10 +130,10 @@ PP.exportEasyTuneVariables = function exportEasyTuneVariables(fileURL = null, on
 
         fetch(replacedFileURL, {
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
-            method: 'POST',
+            method: "POST",
             body: jsonVariables
         }).then(
             function (response) {

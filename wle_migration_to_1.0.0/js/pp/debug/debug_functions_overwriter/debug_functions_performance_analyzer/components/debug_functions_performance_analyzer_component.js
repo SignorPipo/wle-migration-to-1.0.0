@@ -129,7 +129,7 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
         functionsPerformanceAnalysisResultsLoggerParams.myLogTitle = this._myLogTitle;
 
         functionsPerformanceAnalysisResultsLoggerParams.mySecondsBetweenLogs = this._mySecondsBetweenLogs;
-        functionsPerformanceAnalysisResultsLoggerParams.myLogFunction = ['log', 'error', 'warn', 'debug'][this._myLogFunction];
+        functionsPerformanceAnalysisResultsLoggerParams.myLogFunction = ["log", "error", "warn", "debug"][this._myLogFunction];
         functionsPerformanceAnalysisResultsLoggerParams.myLogMaxAmountOfFunctions = (this._myLogMaxAmountOfFunctions >= 0) ? this._myLogMaxAmountOfFunctions : null;
         functionsPerformanceAnalysisResultsLoggerParams.myLogFunctionsWithCallsCountAbove = (this._myLogFunctionsWithCallsCountAbove >= 0) ? this._myLogFunctionsWithCallsCountAbove : null;
         functionsPerformanceAnalysisResultsLoggerParams.myLogFunctionsWithTotalExecutionTimePercentageAbove = (this._myLogFunctionsWithTotalExecutionTimePercentageAbove >= 0) ? this._myLogFunctionsWithTotalExecutionTimePercentageAbove : null;

@@ -1,7 +1,7 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 export class CharacterCollisionSystemComponent extends Component {
-    static TypeName = 'pp-character-collision-system';
+    static TypeName = "pp-character-collision-system";
     static Properties = {};
 
     init() {

@@ -135,34 +135,34 @@ PP.WidgetFrameUI = class WidgetFrameUI {
 
     //Components
     _addComponents() {
-        this.myVisibilityButtonBackgroundComponent = this.myVisibilityButtonBackground.addComponent('mesh');
+        this.myVisibilityButtonBackgroundComponent = this.myVisibilityButtonBackground.addComponent("mesh");
         this.myVisibilityButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myVisibilityButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myVisibilityButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myVisibilityButtonTextComponent = this.myVisibilityButtonText.addComponent('text');
+        this.myVisibilityButtonTextComponent = this.myVisibilityButtonText.addComponent("text");
         this._setupButtonTextComponent(this.myVisibilityButtonTextComponent);
         this.myVisibilityButtonTextComponent.text = this._mySetup.myVisibilityButtonText;
 
-        this.myVisibilityButtonCursorTargetComponent = this.myVisibilityButtonCursorTarget.addComponent('cursor-target');
-        this.myVisibilityButtonCollisionComponent = this.myVisibilityButtonCursorTarget.addComponent('collision');
+        this.myVisibilityButtonCursorTargetComponent = this.myVisibilityButtonCursorTarget.addComponent("cursor-target");
+        this.myVisibilityButtonCollisionComponent = this.myVisibilityButtonCursorTarget.addComponent("collision");
         this.myVisibilityButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myVisibilityButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myVisibilityButtonCollisionComponent.extents = this._mySetup.myVisibilityButtonCollisionExtents;
 
-        this.myPinButtonBackgroundComponent = this.myPinButtonBackground.addComponent('mesh');
+        this.myPinButtonBackgroundComponent = this.myPinButtonBackground.addComponent("mesh");
         this.myPinButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myPinButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myPinButtonBackgroundComponent.material.color = this._mySetup.myButtonDisabledBackgroundColor;
 
-        this.myPinButtonTextComponent = this.myPinButtonText.addComponent('text');
+        this.myPinButtonTextComponent = this.myPinButtonText.addComponent("text");
         this._setupButtonTextComponent(this.myPinButtonTextComponent);
         this.myPinButtonTextComponent.material.color = this._mySetup.myButtonDisabledTextColor;
         this.myPinButtonTextComponent.text = this._mySetup.myPinButtonText;
 
-        this.myPinButtonCursorTargetComponent = this.myPinButtonCursorTarget.addComponent('cursor-target');
+        this.myPinButtonCursorTargetComponent = this.myPinButtonCursorTarget.addComponent("cursor-target");
 
-        this.myPinButtonCollisionComponent = this.myPinButtonCursorTarget.addComponent('collision');
+        this.myPinButtonCollisionComponent = this.myPinButtonCursorTarget.addComponent("collision");
         this.myPinButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPinButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPinButtonCollisionComponent.extents = this._mySetup.myPinButtonCollisionExtents;

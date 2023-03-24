@@ -1,7 +1,7 @@
-import { Component, Type } from '@wonderlandengine/api';
+import { Component, Type } from "@wonderlandengine/api";
 
 export class PlayerViewOcclusionComponent extends Component {
-    static TypeName = 'pp-player-occlusion';
+    static TypeName = "pp-player-occlusion";
     static Properties = {};
 
     init() {

@@ -67,9 +67,9 @@ export class FSM {
 
     addState(stateID, state = null) {
         let stateObject = null;
-        if (!state || typeof state == 'function') {
+        if (!state || typeof state == "function") {
             stateObject = {};
-            if (typeof state == 'function') {
+            if (typeof state == "function") {
                 stateObject.update = function update() { return state(...arguments); };
             } else {
                 stateObject.update = null;
@@ -91,9 +91,9 @@ export class FSM {
 
     addTransition(fromStateID, toStateID, transitionID, transition = null, skipStateFunction = SkipStateFunction.NONE) {
         let transitionObject = null;
-        if (!transition || typeof transition == 'function') {
+        if (!transition || typeof transition == "function") {
             transitionObject = {};
-            if (typeof transition == 'function') {
+            if (typeof transition == "function") {
                 transitionObject.perform = function perform() { return transition(...arguments); };
             } else {
                 transitionObject.perform = null;
@@ -126,7 +126,7 @@ export class FSM {
 
     init(initStateID, initTransition = null, ...args) {
         let initTransitionObject = initTransition;
-        if (initTransition && typeof initTransition == 'function') {
+        if (initTransition && typeof initTransition == "function") {
             initTransitionObject = {};
             initTransitionObject.performInit = initTransition;
         }

@@ -81,7 +81,7 @@ PP.ConsoleVRWidget = class ConsoleVRWidget {
             console.assert = this._consolePrint.bind(this, PP.ConsoleVRWidget.ConsoleFunction.ASSERT, PP.ConsoleVRWidget.Sender.BROWSER_CONSOLE);
             console.clear = this._clearConsole.bind(this, true, PP.ConsoleVRWidget.Sender.BROWSER_CONSOLE);
 
-            window.addEventListener('error', function (errorEvent) {
+            window.addEventListener("error", function (errorEvent) {
                 if (errorEvent.error != null) {
                     this._consolePrint(PP.ConsoleVRWidget.ConsoleFunction.ERROR, PP.ConsoleVRWidget.Sender.WINDOW, "Uncaught", errorEvent.error.stack);
                 } else {
@@ -89,7 +89,7 @@ PP.ConsoleVRWidget = class ConsoleVRWidget {
                 }
             }.bind(this));
 
-            window.addEventListener('unhandledrejection', function (errorEvent) {
+            window.addEventListener("unhandledrejection", function (errorEvent) {
                 this._consolePrint(PP.ConsoleVRWidget.ConsoleFunction.ERROR, PP.ConsoleVRWidget.Sender.WINDOW, "Uncaught (in promise)", errorEvent.reason);
             }.bind(this));
         }
@@ -294,7 +294,7 @@ PP.ConsoleVRWidget = class ConsoleVRWidget {
     }
 
     _stringifyItem(item) {
-        if (typeof item === 'object') {
+        if (typeof item === "object") {
             let stringifiedItem = null;
             let linesBetweenItems = 2;
 
@@ -304,7 +304,7 @@ PP.ConsoleVRWidget = class ConsoleVRWidget {
                 let cache = new WeakSet();
 
                 stringifiedItem = JSON.stringify(item, function (key, value) {
-                    if (typeof value === 'object' && value !== null) {
+                    if (typeof value === "object" && value !== null) {
                         if (cache.has(value)) {
                             return "<stringify error: object already stringified>"; //try to avoid circular reference, a repeated object will be caught in this check too sadly
                         }
@@ -315,9 +315,9 @@ PP.ConsoleVRWidget = class ConsoleVRWidget {
                 }.bind(this), linesBetweenItems);
             }
 
-            stringifiedItem = stringifiedItem.replaceAll('"[', '[');
+            stringifiedItem = stringifiedItem.replaceAll("\"[", "[");
             stringifiedItem = stringifiedItem.replaceAll("'[", "[");
-            stringifiedItem = stringifiedItem.replaceAll(']"', ']');
+            stringifiedItem = stringifiedItem.replaceAll("]\"", "]");
             stringifiedItem = stringifiedItem.replaceAll("]'", "]");
 
             return stringifiedItem;
@@ -360,7 +360,7 @@ PP.ConsoleVRWidget = class ConsoleVRWidget {
         let spaces = "";
         let i = 0;
 
-        while (i < text.length && text[i] == ' ') {
+        while (i < text.length && text[i] == " ") {
             spaces = spaces.concat(" ");
             i++;
         }

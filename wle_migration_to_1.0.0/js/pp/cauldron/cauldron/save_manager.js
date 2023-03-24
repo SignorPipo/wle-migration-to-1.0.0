@@ -268,7 +268,7 @@ export class SaveManager {
     }
 
     _onXRSessionStart(session) {
-        session.addEventListener('visibilitychange', function (event) {
+        session.addEventListener("visibilitychange", function (event) {
             if (event.session.visibilityState != "visible") {
                 this._onXRSessionInterrupt();
             }

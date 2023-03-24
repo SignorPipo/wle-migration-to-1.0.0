@@ -177,9 +177,9 @@ PP.VirtualGamepadVirtualButton = class VirtualGamepadVirtualButton {
         buttonElementStill.appendChild(buttonDetectionElementSVG);
 
         let buttonDetectionElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        buttonDetectionElement.setAttributeNS(null, 'cx', "50%");
-        buttonDetectionElement.setAttributeNS(null, 'cy', "50%");
-        buttonDetectionElement.setAttributeNS(null, 'r', "50%");
+        buttonDetectionElement.setAttributeNS(null, "cx", "50%");
+        buttonDetectionElement.setAttributeNS(null, "cy", "50%");
+        buttonDetectionElement.setAttributeNS(null, "r", "50%");
         buttonDetectionElement.style.fill = "#00000000";
         buttonDetectionElementSVG.appendChild(buttonDetectionElement);
 

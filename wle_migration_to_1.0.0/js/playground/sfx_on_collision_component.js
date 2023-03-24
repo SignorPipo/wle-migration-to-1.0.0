@@ -1,16 +1,19 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
+import { getAudioManager } from "../pp/audio/audio_manager_global";
+import { PhysicsCollisionCollector } from "../pp/cauldron/physics/physics_collision_collector";
+import { GrabbableComponent } from "../pp/gameplay/grab_throw/grabbable_component";
 
 export class SFXOnCollisionComponent extends Component {
     static TypeName = "sfx-on-collision";
     static Properties = {};
 
     start() {
-        this._myPhysX = this.object.pp_getComponent('physx');
-        this._myCollisionsCollector = new PP.PhysicsCollisionCollector(this._myPhysX);
+        this._myPhysX = this.object.pp_getComponent(PhysXComponent);
+        this._myCollisionsCollector = new PhysicsCollisionCollector(this._myPhysX);
 
-        this._mySFX = PP.myAudioManager.createAudioPlayer("collision");
+        this._mySFX = getAudioManager(this.engine).createAudioPlayer("collision");
 
-        this._myGrabbable = this.object.pp_getComponent("pp-grabbable");
+        this._myGrabbable = this.object.pp_getComponent(GrabbableComponent);
         this._myLastLastGrabbed = this._myGrabbable.isGrabbed();
         this._myLastGrabbed = this._myGrabbable.isGrabbed();
     }

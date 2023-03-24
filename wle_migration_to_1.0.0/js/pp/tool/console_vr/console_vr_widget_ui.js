@@ -171,14 +171,14 @@ PP.ConsoleVRWidgetUI = class ConsoleVRWidgetUI {
     }
 
     _addMessagesComponents() {
-        let messagesBackgroundMeshComp = this.myMessagesBackground.addComponent('mesh');
+        let messagesBackgroundMeshComp = this.myMessagesBackground.addComponent("mesh");
         messagesBackgroundMeshComp.mesh = this._myPlaneMesh;
         messagesBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         messagesBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
 
         this.myMessagesTextComponents = [];
         for (let key in PP.ConsoleVRWidget.MessageType) {
-            let textComp = this.myMessagesTexts[PP.ConsoleVRWidget.MessageType[key]].addComponent('text');
+            let textComp = this.myMessagesTexts[PP.ConsoleVRWidget.MessageType[key]].addComponent("text");
 
             textComp.alignment = this._mySetup.myMessagesTextAlignment;
             textComp.justification = this._mySetup.myMessagesTextJustification;
@@ -190,14 +190,14 @@ PP.ConsoleVRWidgetUI = class ConsoleVRWidgetUI {
             this.myMessagesTextComponents[PP.ConsoleVRWidget.MessageType[key]] = textComp;
         }
 
-        this.myNotifyIconBackgroundComponent = this.myNotifyIconBackground.addComponent('mesh');
+        this.myNotifyIconBackgroundComponent = this.myNotifyIconBackground.addComponent("mesh");
         this.myNotifyIconBackgroundComponent.mesh = this._myPlaneMesh;
         this.myNotifyIconBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myNotifyIconBackgroundComponent.material.color = this._mySetup.myNotifyIconColor;
 
-        this.myNotifyIconCursorTargetComponent = this.myNotifyIconCursorTarget.addComponent('cursor-target');
+        this.myNotifyIconCursorTargetComponent = this.myNotifyIconCursorTarget.addComponent("cursor-target");
 
-        this.myNotifyIconCollisionComponent = this.myNotifyIconCursorTarget.addComponent('collision');
+        this.myNotifyIconCollisionComponent = this.myNotifyIconCursorTarget.addComponent("collision");
         this.myNotifyIconCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myNotifyIconCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myNotifyIconCollisionComponent.extents = this._mySetup.myNotifyIconCollisionExtents;
@@ -213,19 +213,19 @@ PP.ConsoleVRWidgetUI = class ConsoleVRWidgetUI {
 
         //Filter Buttons
         for (let key in PP.ConsoleVRWidget.MessageType) {
-            let buttonBackgroundMeshComp = this.myFilterButtonsBackgrounds[PP.ConsoleVRWidget.MessageType[key]].addComponent('mesh');
+            let buttonBackgroundMeshComp = this.myFilterButtonsBackgrounds[PP.ConsoleVRWidget.MessageType[key]].addComponent("mesh");
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
             buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
             buttonBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
 
-            let buttonTextComp = this.myFilterButtonsTexts[PP.ConsoleVRWidget.MessageType[key]].addComponent('text');
+            let buttonTextComp = this.myFilterButtonsTexts[PP.ConsoleVRWidget.MessageType[key]].addComponent("text");
             this._setupButtonTextComponent(buttonTextComp);
             buttonTextComp.material.color = this._mySetup.myFilterButtonsTextColors[PP.ConsoleVRWidget.MessageType[key]];
             buttonTextComp.text = this._mySetup.myFilterButtonsTextLabel[PP.ConsoleVRWidget.MessageType[key]];
 
-            let buttonCursorTargetComp = this.myFilterButtonsCursorTargets[PP.ConsoleVRWidget.MessageType[key]].addComponent('cursor-target');
+            let buttonCursorTargetComp = this.myFilterButtonsCursorTargets[PP.ConsoleVRWidget.MessageType[key]].addComponent("cursor-target");
 
-            let buttonCollisionComp = this.myFilterButtonsCursorTargets[PP.ConsoleVRWidget.MessageType[key]].addComponent('collision');
+            let buttonCollisionComp = this.myFilterButtonsCursorTargets[PP.ConsoleVRWidget.MessageType[key]].addComponent("collision");
             buttonCollisionComp.collider = this._mySetup.myButtonsCollisionCollider;
             buttonCollisionComp.group = 1 << this._mySetup.myButtonsCollisionGroup;
             buttonCollisionComp.extents = this._mySetup.myButtonsCollisionExtents;
@@ -238,18 +238,18 @@ PP.ConsoleVRWidgetUI = class ConsoleVRWidgetUI {
 
         //Clear 
         {
-            let buttonBackgroundMeshComp = this.myClearButtonBackground.addComponent('mesh');
+            let buttonBackgroundMeshComp = this.myClearButtonBackground.addComponent("mesh");
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
             buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
             buttonBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
 
-            let buttonTextComp = this.myClearButtonText.addComponent('text');
+            let buttonTextComp = this.myClearButtonText.addComponent("text");
             this._setupButtonTextComponent(buttonTextComp);
             buttonTextComp.text = this._mySetup.myClearButtonTextLabel;
 
-            let buttonCursorTargetComp = this.myClearButtonCursorTarget.addComponent('cursor-target');
+            let buttonCursorTargetComp = this.myClearButtonCursorTarget.addComponent("cursor-target");
 
-            let buttonCollisionComp = this.myClearButtonCursorTarget.addComponent('collision');
+            let buttonCollisionComp = this.myClearButtonCursorTarget.addComponent("collision");
             buttonCollisionComp.collider = this._mySetup.myButtonsCollisionCollider;
             buttonCollisionComp.group = 1 << this._mySetup.myButtonsCollisionGroup;
             buttonCollisionComp.extents = this._mySetup.myButtonsCollisionExtents;
@@ -262,18 +262,18 @@ PP.ConsoleVRWidgetUI = class ConsoleVRWidgetUI {
 
         //Up 
         {
-            let buttonBackgroundMeshComp = this.myUpButtonBackground.addComponent('mesh');
+            let buttonBackgroundMeshComp = this.myUpButtonBackground.addComponent("mesh");
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
             buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
             buttonBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
 
-            let buttonTextComp = this.myUpButtonText.addComponent('text');
+            let buttonTextComp = this.myUpButtonText.addComponent("text");
             this._setupButtonTextComponent(buttonTextComp);
             buttonTextComp.text = this._mySetup.myUpButtonTextLabel;
 
-            let buttonCursorTargetComp = this.myUpButtonCursorTarget.addComponent('cursor-target');
+            let buttonCursorTargetComp = this.myUpButtonCursorTarget.addComponent("cursor-target");
 
-            let buttonCollisionComp = this.myUpButtonCursorTarget.addComponent('collision');
+            let buttonCollisionComp = this.myUpButtonCursorTarget.addComponent("collision");
             buttonCollisionComp.collider = this._mySetup.myButtonsCollisionCollider;
             buttonCollisionComp.group = 1 << this._mySetup.myButtonsCollisionGroup;
             buttonCollisionComp.extents = this._mySetup.myButtonsCollisionExtents;
@@ -286,18 +286,18 @@ PP.ConsoleVRWidgetUI = class ConsoleVRWidgetUI {
 
         //Down 
         {
-            let buttonBackgroundMeshComp = this.myDownButtonBackground.addComponent('mesh');
+            let buttonBackgroundMeshComp = this.myDownButtonBackground.addComponent("mesh");
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
             buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
             buttonBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
 
-            let buttonTextComp = this.myDownButtonText.addComponent('text');
+            let buttonTextComp = this.myDownButtonText.addComponent("text");
             this._setupButtonTextComponent(buttonTextComp);
             buttonTextComp.text = this._mySetup.myDownButtonTextLabel;
 
-            let buttonCursorTargetComp = this.myDownButtonCursorTarget.addComponent('cursor-target');
+            let buttonCursorTargetComp = this.myDownButtonCursorTarget.addComponent("cursor-target");
 
-            let buttonCollisionComp = this.myDownButtonCursorTarget.addComponent('collision');
+            let buttonCollisionComp = this.myDownButtonCursorTarget.addComponent("collision");
             buttonCollisionComp.collider = this._mySetup.myButtonsCollisionCollider;
             buttonCollisionComp.group = 1 << this._mySetup.myButtonsCollisionGroup;
             buttonCollisionComp.extents = this._mySetup.myButtonsCollisionExtents;
@@ -310,10 +310,10 @@ PP.ConsoleVRWidgetUI = class ConsoleVRWidgetUI {
     }
 
     _addPointerComponents() {
-        this.myPointerCursorTargetComponent = this.myPointerCursorTarget.addComponent('cursor-target');
+        this.myPointerCursorTargetComponent = this.myPointerCursorTarget.addComponent("cursor-target");
         this.myPointerCursorTargetComponent.isSurface = true;
 
-        let collisionComp = this.myPointerCursorTarget.addComponent('collision');
+        let collisionComp = this.myPointerCursorTarget.addComponent("collision");
         collisionComp.collider = this._mySetup.myPointerCollisionCollider;
         collisionComp.group = 1 << this._mySetup.myPointerCollisionGroup;
         collisionComp.extents = this._mySetup.myPointerCollisionExtents;

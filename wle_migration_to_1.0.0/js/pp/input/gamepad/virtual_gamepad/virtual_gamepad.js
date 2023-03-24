@@ -177,7 +177,7 @@ PP.VirtualGamepad = class VirtualGamepad {
         document.body.style.webkitUserSelect = "none";
         document.body.style.webkitTapHighlightColor = "transparent";
         document.body.style.touchAction = "none";
-        document.addEventListener('gesturestart', function (e) {
+        document.addEventListener("gesturestart", function (e) {
             e.preventDefault();
         });
     }

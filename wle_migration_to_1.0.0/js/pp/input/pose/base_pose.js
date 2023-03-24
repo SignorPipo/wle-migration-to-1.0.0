@@ -200,7 +200,7 @@ export class BasePose {
         this._myPrevPosition.vec3_copy(this._myPosition);
         this._myPrevRotationQuat.quat_copy(this._myRotationQuat);
 
-        let xrFrame = Module['webxr_frame'];
+        let xrFrame = Module["webxr_frame"];
         if (xrFrame && this._isReadyToGetPose()) {
             let xrPose = null;
             try {

@@ -46,7 +46,7 @@ export class TrackedHandJointPose extends BasePose {
     }
 
     _onXRSessionStartHook(manualStart, session) {
-        session.addEventListener('inputsourceschange', function (event) {
+        session.addEventListener("inputsourceschange", function (event) {
             if (event.removed) {
                 for (let item of event.removed) {
                     if (item == this._myInputSource) {

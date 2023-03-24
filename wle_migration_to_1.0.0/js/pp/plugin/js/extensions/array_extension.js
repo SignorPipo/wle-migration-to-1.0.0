@@ -163,8 +163,8 @@
             ○ mat4_fromQuat
 */
 
-import * as glMatrix from 'gl-matrix';
-import { ExtensionUtils } from '../../utils/extension_utils';
+import * as glMatrix from "gl-matrix";
+import { ExtensionUtils } from "../../utils/extension_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();

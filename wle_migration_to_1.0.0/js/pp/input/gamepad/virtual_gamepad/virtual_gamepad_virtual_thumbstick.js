@@ -177,9 +177,9 @@ PP.VirtualGamepadVirtualThumbstick = class VirtualGamepadVirtualThumbstick {
         thumbstickContainer.appendChild(thumbstickContainerSVG);
 
         this._myThumbstickBackground = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        this._myThumbstickBackground.setAttributeNS(null, 'cx', "50%");
-        this._myThumbstickBackground.setAttributeNS(null, 'cy', "50%");
-        this._myThumbstickBackground.setAttributeNS(null, 'r', "48%");
+        this._myThumbstickBackground.setAttributeNS(null, "cx", "50%");
+        this._myThumbstickBackground.setAttributeNS(null, "cy", "50%");
+        this._myThumbstickBackground.setAttributeNS(null, "r", "48%");
         this._myThumbstickBackground.style.fill = this._myParams.myBackgroundColor;
         thumbstickContainerSVG.appendChild(this._myThumbstickBackground);
 
@@ -201,9 +201,9 @@ PP.VirtualGamepadVirtualThumbstick = class VirtualGamepadVirtualThumbstick {
             thumbstickContainer.appendChild(thumbstickBackgroundDetectionElementSVG);
 
             let thumbstickBackgroundDetectionElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            thumbstickBackgroundDetectionElement.setAttributeNS(null, 'cx', "50%");
-            thumbstickBackgroundDetectionElement.setAttributeNS(null, 'cy', "50%");
-            thumbstickBackgroundDetectionElement.setAttributeNS(null, 'r', "48%");
+            thumbstickBackgroundDetectionElement.setAttributeNS(null, "cx", "50%");
+            thumbstickBackgroundDetectionElement.setAttributeNS(null, "cy", "50%");
+            thumbstickBackgroundDetectionElement.setAttributeNS(null, "r", "48%");
             thumbstickBackgroundDetectionElement.style.fill = "#00000000";
             thumbstickBackgroundDetectionElementSVG.appendChild(thumbstickBackgroundDetectionElement);
 
@@ -224,9 +224,9 @@ PP.VirtualGamepadVirtualThumbstick = class VirtualGamepadVirtualThumbstick {
             thumbstickElementStill.appendChild(thumbstickDetectionElementSVG);
 
             let thumbstickDetectionElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            thumbstickDetectionElement.setAttributeNS(null, 'cx', "50%");
-            thumbstickDetectionElement.setAttributeNS(null, 'cy', "50%");
-            thumbstickDetectionElement.setAttributeNS(null, 'r', "50%");
+            thumbstickDetectionElement.setAttributeNS(null, "cx", "50%");
+            thumbstickDetectionElement.setAttributeNS(null, "cy", "50%");
+            thumbstickDetectionElement.setAttributeNS(null, "r", "50%");
             thumbstickDetectionElement.style.fill = "#00000000";
             thumbstickDetectionElementSVG.appendChild(thumbstickDetectionElement);
 
