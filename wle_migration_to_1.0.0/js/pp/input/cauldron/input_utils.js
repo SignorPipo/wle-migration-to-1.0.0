@@ -1,3 +1,4 @@
+import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 import { Handedness, HandednessIndex, InputSourceType, TrackedHandJointID, TrackedHandJointIDIndex } from "./input_types";
 
@@ -20,9 +21,10 @@ export function getHandednessByIndex(index) {
 export function getInputSource(handedness, inputSourceType = null, engine = getMainEngine()) {
     let inputSource = null;
 
-    if (engine.xrSession && engine.xrSession.inputSources) {
-        for (let i = 0; i < engine.xrSession.inputSources.length; i++) {
-            let input = engine.xrSession.inputSources[i];
+    let xrSession = XRUtils.getSession(engine);
+    if (xrSession != null && xrSession.inputSources) {
+        for (let i = 0; i < xrSession.inputSources.length; i++) {
+            let input = xrSession.inputSources[i];
 
             let isCorrectType = (!inputSourceType) || (inputSourceType == InputSourceType.GAMEPAD && !input.hand) || (inputSourceType == InputSourceType.TRACKED_HAND && input.hand);
             if (isCorrectType && input.handedness == handedness) {

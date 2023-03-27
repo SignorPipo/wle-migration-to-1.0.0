@@ -5,6 +5,7 @@ import { Timer } from "../cauldron/timer";
 import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParams, MeshUtils } from "../utils/mesh_utils";
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
 import { getPlayerObjects } from "../../pp/player_objects_global";
+import { XRUtils } from "../utils/xr_utils";
 
 export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     static TypeName = "pp-benchmark-max-visible-triangles";
@@ -380,7 +381,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                 this._update(dt);
             }
         } else {
-            this._mySessionStarted = this.engine.xrSession != null;
+            this._mySessionStarted = XRUtils.getSession(this.engine) != null;
         }
     }
 

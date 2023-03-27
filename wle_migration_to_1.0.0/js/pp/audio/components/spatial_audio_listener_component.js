@@ -1,5 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { Howler } from "howler";
+import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 
 export class SpatialAudioListenerComponent extends Component {
@@ -15,7 +16,7 @@ export class SpatialAudioListenerComponent extends Component {
     }
 
     update(dt) {
-        if (this._myEnabled == 0 || (this._myEnabled == 1 && this.engine.xrSession) || (this._myEnabled == 2 && !this.engine.xrSession)) {
+        if (this._myEnabled == 0 || (this._myEnabled == 1 && XRUtils.getSession(this.engine)) || (this._myEnabled == 2 && !XRUtils.getSession(this.engine))) {
             this.object.pp_getPosition(this._myOrigin);
             this.object.pp_getForward(this._myForward);
             this.object.pp_getUp(this._myUp);

@@ -1,5 +1,6 @@
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 import { SaveUtils } from "../utils/save_utils";
+import { XRUtils } from "../utils/xr_utils";
 import { Timer } from "./timer";
 
 export class SaveManager {
@@ -15,8 +16,8 @@ export class SaveManager {
 
         this._myCacheDefaultValueOnFail = true;
 
-        if (this._myEngine.xrSession) {
-            this._onXRSessionStart(this._myEngine.xrSession);
+        if (XRUtils.isSessionActive(this._myEngine)) {
+            this._onXRSessionStart(XRUtils.getSession(this._myEngine));
         }
         this._myEngine.onXRSessionStart.push(this._onXRSessionStart.bind(this));
         this._myEngine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));

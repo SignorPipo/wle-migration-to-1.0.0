@@ -114,9 +114,9 @@ export class ToolCursorComponent extends Component {
     _isUsingHand() {
         let isUsingHand = false;
 
-        if (this.engine.xrSession && this.engine.xrSession.inputSources) {
-            for (let i = 0; i < this.engine.xrSession.inputSources.length; i++) {
-                let input = this.engine.xrSession.inputSources[i];
+        if (XRUtils.getSession(this.engine) && XRUtils.getSession(this.engine).inputSources) {
+            for (let i = 0; i < XRUtils.getSession(this.engine).inputSources.length; i++) {
+                let input = XRUtils.getSession(this.engine).inputSources[i];
                 if (input.hand && input.handedness == this._myHandednessString) {
                     isUsingHand = true;
                     break;

@@ -1,5 +1,6 @@
 import { InputComponent, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
+import { XRUtils } from "../../../../cauldron/utils/xr_utils";
 import { vec3_create, quat_create, quat2_create, mat4_create } from "../../../js/extensions/array_extension";
 
 export function initCursorComponentMod() {
@@ -99,7 +100,7 @@ export function initCursorComponentModPrototype() {
         if (!this.viewComponent) return;
         /* Projection matrix will change if the viewport is resized, which will affect the
          * projection matrix because of the aspect ratio. */
-        mat4.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
+        this.viewComponent.projectionMatrix.mat4_invert(this.projectionMatrix);
     };
 
     Cursor.prototype._setCursorRayTransform = function _setCursorRayTransform(hitPosition) {
@@ -109,7 +110,7 @@ export function initCursorComponentModPrototype() {
 
             if (hitPosition != null) {
                 this.cursorRayObject.getTranslationWorld(this.cursorRayOrigin);
-                let dist = vec3.dist(this.cursorRayOrigin, hitPosition);
+                let dist = this.cursorRayOrigin.vec3_distance(hitPosition);
                 this.cursorRayScale[this.cursorRayScalingAxis] = dist;
                 this.cursorRayObject.scale(this.cursorRayScale);
             }
@@ -139,8 +140,8 @@ export function initCursorComponentModPrototype() {
         /* If in VR, set the cursor ray based on object transform */
         if (this.session) {
             /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
-            if (this.arTouchDown && this.input && this.engine.xrSession.inputSources[0].handedness === "none" && this.engine.xrSession.inputSources[0].gamepad) {
-                let p = this.engine.xrSession.inputSources[0].gamepad.axes;
+            if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
+                let p = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
                 /* Screenspace Y is inverted */
                 this.direction.vec3_set(p[0], -p[1], -1.0);
                 this.updateDirection();
@@ -435,9 +436,9 @@ export function initCursorComponentModPrototype() {
         this.object.getTranslationWorld(this.origin);
 
         /* Reverse-project the direction into view space */
-        vec3.transformMat4(this.direction, this.direction, this.projectionMatrix);
-        vec3.normalize(this.direction, this.direction);
-        vec3.transformQuat(this.direction, this.direction, this.object.transformWorld);
+        this.direction.vec3_transformMat4(this.projectionMatrix, this.direction);
+        this.direction.vec3_normalze(this.direction);
+        this.direction.vec3_transformQuat(this.object.transformWorld, this.direction);
         let rayHit = this.rayHit = (this.rayCastMode == 0) ?
             this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
             this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
@@ -509,7 +510,7 @@ export function initCursorComponentModPrototype() {
             this.engine.canvas.addEventListener("pointerleave", onPointerLeave);
 
             this.projectionMatrix = mat4_create();
-            mat4.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
+            this.viewComponent.projectionMatrix.mat4_invert(this.projectionMatrix);
             let onViewportResize = this.onViewportResize.bind(this);
             window.addEventListener("resize", onViewportResize);
 

@@ -42,8 +42,8 @@ export class FingerCursorComponent extends Component {
         this._myCollisionComponent.group = 1 << this._myCollisionGroup;
         this._myCollisionComponent.extents = vec3_create(this._myCollisionSize, this._myCollisionSize, this._myCollisionSize);
 
-        if (this.engine.xrSession) {
-            this._onXRSessionStart(this.engine.xrSession);
+        if (XRUtils.getSession(this.engine)) {
+            this._onXRSessionStart(XRUtils.getSession(this.engine));
         }
         this.engine.onXRSessionStart.push(this._onXRSessionStart.bind(this));
         this.engine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));

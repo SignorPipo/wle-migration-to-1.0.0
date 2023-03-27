@@ -1,5 +1,6 @@
 // xr-standard mapping is assumed
 
+import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { HandPose } from "../../pose/hand_pose";
 import { GamepadButtonID } from "../gamepad_buttons";
 import { GamepadCore } from "./gamepad_core";
@@ -28,8 +29,8 @@ export class XRGamepadCore extends GamepadCore {
     }
 
     _startHook() {
-        if (this.getEngine().xrSession) {
-            this._onXRSessionStart(this.getEngine().xrSession);
+        if (XRUtils.isSessionActive(this.getEngine())) {
+            this._onXRSessionStart(XRUtils.getSession(this.getEngine()));
         }
         this.getEngine().onXRSessionStart.push(this._onXRSessionStart.bind(this));
         this.getEngine().onXRSessionEnd.push(this._onXRSessionEnd.bind(this));

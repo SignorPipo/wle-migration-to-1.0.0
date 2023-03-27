@@ -159,8 +159,8 @@ export class BasePose {
     }
 
     start() {
-        if (this._myEngine.xrSession) {
-            this._onXRSessionStart(true, this._myEngine.xrSession);
+        if (XRUtils.isSessionActive(this._myEngine)) {
+            this._onXRSessionStart(true, XRUtils.getSession(this._myEngine));
         }
         this._myEngine.onXRSessionStart.push(this._onXRSessionStart.bind(this, false));
         this._myEngine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
