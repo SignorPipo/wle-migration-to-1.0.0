@@ -1,7 +1,7 @@
 import { Timer } from "../../../../../cauldron/cauldron/timer";
-import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
+import { getReferenceSpaceType, XRUtils } from "../../../../../cauldron/utils/xr_utils";
 import { getDebugVisualManager } from "../../../../../debug/debug_globals";
-import { quat2_create } from "../../../../../plugin/js/extensions/array_extension";
+import { quat2_create, quat_create, vec3_create } from "../../../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../../../../plugin/wl/extensions/engine_extension";
 import { getPlayerObjects } from "../../../../../pp/player_objects_global";
 
@@ -533,7 +533,7 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
         this._myDelayBlurEndResyncCounter = 0;
         this._myDelayBlurEndResyncTimer.reset();
 
-        session.requestReferenceSpace(WebXR.refSpace).then(function (referenceSpace) {
+        session.requestReferenceSpace(getReferenceSpaceType(this._myParams.myEngine)).then(function (referenceSpace) {
             if (referenceSpace.addEventListener != null) {
                 referenceSpace.addEventListener("reset", this._onViewReset.bind(this));
             }

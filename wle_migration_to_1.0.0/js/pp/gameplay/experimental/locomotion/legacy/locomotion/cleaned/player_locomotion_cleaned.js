@@ -2,12 +2,14 @@ import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { getLeftGamepad } from "../../../../../../input/cauldron/input_globals";
 import { InputUtils } from "../../../../../../input/cauldron/input_utils";
 import { GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
+import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../../plugin/js/extensions/math_extension";
 import { getPlayerObjects } from "../../../../../../pp/player_objects_global";
 import { CharacterColliderSetupSimplifiedCreationAccuracyLevel, CharacterColliderSetupSimplifiedCreationParams, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
 import { CollisionCheckBridge } from "../../../../character_controller/collision/collision_check_bridge";
 import { CollisionCheckUtils } from "../../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
+import { LocomotionUtils } from "../locomotion_utils";
 import { PlayerHeadManager, PlayerHeadManagerParams } from "../player_head_manager";
 import { PlayerLocomotionMovementRuntimeParams } from "../player_locomotion_movement";
 import { PlayerLocomotionRotate, PlayerLocomotionRotateParams } from "../player_locomotion_rotate";
@@ -408,7 +410,7 @@ export class CleanedPlayerLocomotion {
 
         let colliderSetup = CharacterColliderUtils.createCharacterColliderSetupSimplified(simplifiedParams);
 
-        this._myCollisionCheckParamsMovement = CollisionCheckBridge.convertCharacterColliderSetupToCollisionCheckParams(colliderSetup, this._myCollisionCheckParamsMovement);
+        this._myCollisionCheckParamsMovement = CollisionCheckBridge.convertCharacterColliderSetupToCollisionCheckParams(colliderSetup, this._myCollisionCheckParamsMovement, this._myParams.myEngine);
     }
 
     _setupCollisionCheckParamsTeleport() {

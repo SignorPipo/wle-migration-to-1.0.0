@@ -4,8 +4,7 @@ import { CollisionCheck } from "./collision_check";
 CollisionCheck.prototype._verticalCheck = function () {
     let newFeetPosition = vec3_create();
     let additionalFixedMovement = vec3_create();
-    let zero = vec3_create();
-    zero.vec3_zero();
+    let zero = vec3_create(0, 0, 0);
     return function _verticalCheck(verticalMovement, originalMovementSign, feetPosition, height, up, forward, collisionCheckParams, collisionRuntimeParams, outFixedMovement) {
         collisionRuntimeParams.myIsCollidingVertically = false;
         collisionRuntimeParams.myVerticalCollisionHit.reset();

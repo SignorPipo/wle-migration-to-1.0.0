@@ -1,12 +1,16 @@
 import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
 import { getGamepads, getMouse } from "../../../../../../input/cauldron/input_globals";
+import { Handedness } from "../../../../../../input/cauldron/input_types";
 import { MouseButtonID } from "../../../../../../input/cauldron/mouse";
 import { GamepadAxesID } from "../../../../../../input/gamepad/gamepad_buttons";
 import { quat2_create, vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../../../../../plugin/wl/extensions/engine_extension";
-import { getCollisionCheck, myCollisionCheck } from "../player_locomotion_component";
+import { getCollisionCheck } from "../player_locomotion_component";
 import { PlayerLocomotionMovement } from "../player_locomotion_movement";
+import { PlayerLocomotionTeleportDetectionParams, PlayerLocomotionTeleportDetectionState } from "./player_locomotion_teleport_detection_state";
+import { PlayerLocomotionTeleportDetectionVisualizerParams } from "./player_locomotion_teleport_detection_visualizer";
+import { PlayerLocomotionTeleportTeleportParams, PlayerLocomotionTeleportTeleportState } from "./player_locomotion_teleport_teleport_state";
 
 export class PlayerLocomotionTeleportParams {
     constructor(engine = getMainEngine()) {
@@ -14,9 +18,9 @@ export class PlayerLocomotionTeleportParams {
 
         this.myCollisionCheckParams = null;
 
-        this.myDetectionParams = new PP.PlayerLocomotionTeleportDetectionParams();
-        this.myVisualizerParams = new PP.PlayerLocomotionTeleportDetectionVisualizerParams();
-        this.myTeleportParams = new PP.PlayerLocomotionTeleportTeleportParams();
+        this.myDetectionParams = new PlayerLocomotionTeleportDetectionParams();
+        this.myVisualizerParams = new PlayerLocomotionTeleportDetectionVisualizerParams();
+        this.myTeleportParams = new PlayerLocomotionTeleportTeleportParams();
 
         this.myHandedness = Handedness.LEFT;
 
@@ -62,8 +66,8 @@ export class PlayerLocomotionTeleport extends PlayerLocomotionMovement {
         this._myStickIdleCharge = true;
         this._myGravitySpeed = 0;
 
-        this._myDetectionState = new PP.PlayerLocomotionTeleportDetectionState(this._myTeleportParams, this._myTeleportRuntimeParams, this._myLocomotionRuntimeParams);
-        this._myTeleportState = new PP.PlayerLocomotionTeleportTeleportState(this._myTeleportParams, this._myTeleportRuntimeParams, this._myLocomotionRuntimeParams);
+        this._myDetectionState = new PlayerLocomotionTeleportDetectionState(this._myTeleportParams, this._myTeleportRuntimeParams, this._myLocomotionRuntimeParams);
+        this._myTeleportState = new PlayerLocomotionTeleportTeleportState(this._myTeleportParams, this._myTeleportRuntimeParams, this._myLocomotionRuntimeParams);
 
         this._myFSM = new FSM();
         //this._myFSM.setDebugLogActive(true, "Locomotion Teleport");

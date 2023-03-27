@@ -1,5 +1,6 @@
 import { Timer } from "../../../../../cauldron/cauldron/timer";
 import { getGamepads } from "../../../../../input/cauldron/input_globals";
+import { Handedness } from "../../../../../input/cauldron/input_types";
 import { InputUtils } from "../../../../../input/cauldron/input_utils";
 import { GamepadAxesID, GamepadButtonID } from "../../../../../input/gamepad/gamepad_buttons";
 import { quat2_create, vec3_create } from "../../../../../plugin/js/extensions/array_extension";

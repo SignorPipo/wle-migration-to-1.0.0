@@ -1,4 +1,5 @@
 import { Timer } from "../../../../../../cauldron/cauldron/timer";
+import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
 import { getGamepads } from "../../../../../../input/cauldron/input_globals";
 import { InputUtils } from "../../../../../../input/cauldron/input_utils";
 import { GamepadAxesID, GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
@@ -18,7 +19,7 @@ export class CleanedPlayerLocomotionSmooth extends PlayerLocomotionMovement {
 
         this._myStickIdleTimer = new Timer(0.25, false);
 
-        let directionConverterNonVRParams = Direction2DTo3DConverterParams(this._myParams.myEngine)();
+        let directionConverterNonVRParams = new Direction2DTo3DConverterParams(this._myParams.myEngine);
         directionConverterNonVRParams.myAutoUpdateFlyForward = this._myParams.myFlyEnabled;
         directionConverterNonVRParams.myAutoUpdateFlyRight = this._myParams.myFlyEnabled;
         directionConverterNonVRParams.myMinAngleToFlyForwardUp = this._myParams.myMinAngleToFlyUpNonVR;
@@ -26,7 +27,7 @@ export class CleanedPlayerLocomotionSmooth extends PlayerLocomotionMovement {
         directionConverterNonVRParams.myMinAngleToFlyRightUp = this._myParams.myMinAngleToFlyRight;
         directionConverterNonVRParams.myMinAngleToFlyRightDown = this._myParams.myMinAngleToFlyRight;
 
-        let directionConverterVRParams = Direction2DTo3DConverterParams(this._myParams.myEngine)();
+        let directionConverterVRParams = new Direction2DTo3DConverterParams(this._myParams.myEngine);
         directionConverterVRParams.myAutoUpdateFlyForward = this._myParams.myFlyEnabled;
         directionConverterVRParams.myAutoUpdateFlyRight = this._myParams.myFlyEnabled;
         directionConverterVRParams.myMinAngleToFlyForwardUp = this._myParams.myMinAngleToFlyUpVR;

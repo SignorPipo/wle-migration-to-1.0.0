@@ -1,16 +1,25 @@
-PP.PlayerLocomotionTeleportTeleportBlinkState = class PlayerLocomotionTeleportTeleportBlinkState extends PP.PlayerLocomotionTeleportState {
+import { PlayerLocomotionTeleportState } from "./player_locomotion_teleport_state";
+import { MeshComponent } from "@wonderlandengine/api"
+import { getDefaultResources } from "../../../../../../pp/default_resources_global";
+import { vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { FSM } from "../../../../../../cauldron/fsm/fsm";
+import { TimerState } from "../../../../../../cauldron/fsm/states/timer_state";
+import { NumberOverValue } from "../../../../../cauldron/cauldron/number_over_value";
+import { Timer } from "../../../../../../cauldron/cauldron/timer";
+
+export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotionTeleportState {
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 
-        this._myBlinkSphere = WL.scene.addObject(null);
-        this._myBlinkSphereMeshComponent = this._myBlinkSphere.pp_addComponent("mesh");
-        this._myBlinkSphereMeshComponent.mesh = PP.myDefaultResources.myMeshes.myInvertedSphere;
-        this._myBlinkSphereMeshComponent.material = PP.myDefaultResources.myMaterials.myFlatTransparentNoDepth.clone();
-        this._myBlinkSphereMaterialColor = [
+        this._myBlinkSphere = this._myTeleportParams.myEngine.scene.pp_addObject();
+        this._myBlinkSphereMeshComponent = this._myBlinkSphere.pp_addComponent(MeshComponent);
+        this._myBlinkSphereMeshComponent.mesh = getDefaultResources(this._myTeleportParams.myEngine).myMeshes.myInvertedSphere;
+        this._myBlinkSphereMeshComponent.material = getDefaultResources(this._myTeleportParams.myEngine).myMaterials.myFlatTransparentNoDepth.clone();
+        this._myBlinkSphereMaterialColor = vec4_create(
             this._myTeleportParams.myTeleportParams.myBlinkSphereColor[0] / 255,
             this._myTeleportParams.myTeleportParams.myBlinkSphereColor[1] / 255,
             this._myTeleportParams.myTeleportParams.myBlinkSphereColor[2] / 255,
-            0];
+            0);
 
         this._myBlinkSphereMeshComponent.material.color = this._myBlinkSphereMaterialColor;
 
@@ -18,7 +27,7 @@ PP.PlayerLocomotionTeleportTeleportBlinkState = class PlayerLocomotionTeleportTe
         this._myBlinkSphere.pp_setScaleLocal(this._myTeleportParams.myTeleportParams.myBlinkSphereScale);
         this._myBlinkSphere.pp_setActive(false);
 
-        this._myFSM = new PP.FSM();
+        this._myFSM = new FSM();
         //this._myFSM.setDebugLogActive(true, "Locomotion Teleport Teleport Blink");
 
         this._myFSM.addState("init");
@@ -45,8 +54,8 @@ PP.PlayerLocomotionTeleportTeleportBlinkState = class PlayerLocomotionTeleportTe
 
         this._myFadeInTimer = new Timer(this._myTeleportParams.myTeleportParams.myBlinkFadeInSeconds);
         this._myFadeOutTimer = new Timer(this._myTeleportParams.myTeleportParams.myBlinkFadeOutSeconds);
-        this._myFadeOutAlphaOverTime = new PP.NumberOverValue(0, 1, 0, 1);
-        this._myFadeInAlphaOverTime = new PP.NumberOverValue(1, 0, 0, 1);
+        this._myFadeOutAlphaOverTime = new NumberOverValue(0, 1, 0, 1);
+        this._myFadeInAlphaOverTime = new NumberOverValue(1, 0, 0, 1);
     }
 
     start(fsm) {

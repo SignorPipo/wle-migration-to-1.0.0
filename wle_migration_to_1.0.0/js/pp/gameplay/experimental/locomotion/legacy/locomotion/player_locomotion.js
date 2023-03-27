@@ -8,6 +8,7 @@ import { EasingFunction } from "../../../../../plugin/js/extensions/math_extensi
 import { getMainEngine } from "../../../../../plugin/wl/extensions/engine_extension";
 import { CollisionCheckUtils } from "../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../character_controller/collision/legacy/collision_check/collision_params";
+import { LocomotionUtils } from "./locomotion_utils";
 import { PlayerHeadManager, PlayerHeadManagerParams } from "./player_head_manager";
 import { PlayerLocomotionMovementRuntimeParams } from "./player_locomotion_movement";
 import { PlayerLocomotionRotate, PlayerLocomotionRotateParams } from "./player_locomotion_rotate";

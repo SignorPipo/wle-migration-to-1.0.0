@@ -1,4 +1,12 @@
-PP.PlayerLocomotionTeleportDetectionVisualizerParams = class PlayerLocomotionTeleportDetectionVisualizerParams {
+import { VisualLine, VisualLineParams } from "../../../../../../cauldron/visual/elements/visual_line";
+import { VisualPoint, VisualPointParams } from "../../../../../../cauldron/visual/elements/visual_point";
+import { VisualTorus, VisualTorusParams } from "../../../../../../cauldron/visual/elements/visual_torus";
+import { getVisualData } from "../../../../../../cauldron/visual/visual_globals";
+import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
+import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { getDefaultResources } from "../../../../../../pp/default_resources_global";
+
+export class PlayerLocomotionTeleportDetectionVisualizerParams {
     constructor() {
         this.myTeleportParableValidMaterial = null;
         this.myTeleportParableInvalidMaterial = null;
@@ -27,7 +35,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizerParams = class PlayerLocomotionTel
     }
 };
 
-PP.PlayerLocomotionTeleportDetectionVisualizer = class PlayerLocomotionTeleportDetectionVisualizer {
+export class PlayerLocomotionTeleportDetectionVisualizer {
     constructor(teleportParams, teleportRuntimeParams, detectionRuntimeParams) {
         this._myDetectionRuntimeParams = detectionRuntimeParams;
 
@@ -106,7 +114,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer = class PlayerLocomotionTeleportD
     _addVisualLines(amount) {
         for (let i = 0; i < amount; i++) {
             {
-                let visualParams = new PP.VisualLineParams();
+                let visualParams = new VisualLineParams(this._myTeleportParams.myEngine);
 
                 if (this._myTeleportParams.myVisualizerParams.myTeleportParableValidMaterial != null) {
                     visualParams.myMaterial = this._myTeleportParams.myVisualizerParams.myTeleportParableValidMaterial;
@@ -114,11 +122,11 @@ PP.PlayerLocomotionTeleportDetectionVisualizer = class PlayerLocomotionTeleportD
                     visualParams.myMaterial = this._myTeleportParableValidMaterial;
                 }
 
-                this._myValidVisualLines.push(new PP.VisualLine(visualParams));
+                this._myValidVisualLines.push(new VisualLine(visualParams));
             }
 
             {
-                let visualParams = new PP.VisualLineParams();
+                let visualParams = new VisualLineParams(this._myTeleportParams.myEngine);
 
                 if (this._myTeleportParams.myVisualizerParams.myTeleportParableValidMaterial != null) {
                     visualParams.myMaterial = this._myTeleportParams.myVisualizerParams.myTeleportParableInvalidMaterial;
@@ -126,18 +134,22 @@ PP.PlayerLocomotionTeleportDetectionVisualizer = class PlayerLocomotionTeleportD
                     visualParams.myMaterial = this._myTeleportParableInvalidMaterial;
                 }
 
-                this._myInvalidVisualLines.push(new PP.VisualLine(visualParams));
+                this._myInvalidVisualLines.push(new VisualLine(visualParams));
             }
         }
     }
-};
+}
 
-PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = function () {
+
+
+// IMPLEMENTATION
+
+PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = function () {
     let innerTorusPosition = vec3_create();
     return function _setupVisuals() {
-        this._myTeleportParableValidMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
+        this._myTeleportParableValidMaterial = getDefaultResources(this._myTeleportParams.myEngine).myMaterials.myFlatOpaque.clone();
         this._myTeleportParableValidMaterial.color = vec4_create(0, 0.5, 1, 1);
-        this._myTeleportParableInvalidMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
+        this._myTeleportParableInvalidMaterial = getDefaultResources(this._myTeleportParams.myEngine).myMaterials.myFlatOpaque.clone();
         this._myTeleportParableInvalidMaterial.color = vec4_create(0.75, 0.05, 0, 1);
 
         this._myValidVisualLines = [];
@@ -145,7 +157,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
         this._addVisualLines(30);
 
         {
-            let visualParams = new PP.VisualPointParams();
+            let visualParams = new VisualPointParams(this._myTeleportParams.myEngine);
 
             if (this._myTeleportParams.myVisualizerParams.myTeleportParableValidMaterial != null) {
                 visualParams.myMaterial = this._myTeleportParams.myVisualizerParams.myTeleportParableValidMaterial;
@@ -153,11 +165,11 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
                 visualParams.myMaterial = this._myTeleportParableValidMaterial;
             }
 
-            this._myValidVisualPoint = new PP.VisualPoint(visualParams);
+            this._myValidVisualPoint = new VisualPoint(visualParams);
         }
 
         {
-            let visualParams = new PP.VisualPointParams();
+            let visualParams = new VisualPointParams(this._myTeleportParams.myEngine);
 
             if (this._myTeleportParams.myVisualizerParams.myTeleportParableInvalidMaterial != null) {
                 visualParams.myMaterial = this._myTeleportParams.myVisualizerParams.myTeleportParableInvalidMaterial;
@@ -165,11 +177,11 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
                 visualParams.myMaterial = this._myTeleportParableInvalidMaterial;
             }
 
-            this._myInvalidVisualPoint = new PP.VisualPoint(visualParams);
+            this._myInvalidVisualPoint = new VisualPoint(visualParams);
         }
 
         {
-            let visualParams = new PP.VisualLineParams();
+            let visualParams = new VisualLineParams(this._myTeleportParams.myEngine);
 
             if (this._myTeleportParams.myVisualizerParams.myTeleportParableValidMaterial != null) {
                 visualParams.myMaterial = this._myTeleportParams.myVisualizerParams.myTeleportParableValidMaterial;
@@ -177,10 +189,10 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
                 visualParams.myMaterial = this._myTeleportParableValidMaterial;
             }
 
-            this._myValidVisualVerticalLine = new PP.VisualLine(visualParams);
+            this._myValidVisualVerticalLine = new VisualLine(visualParams);
         }
 
-        this._myVisualTeleportPositionObject = PP.myVisualData.myRootObject.pp_addObject();
+        this._myVisualTeleportPositionObject = getVisualData(this._myTeleportParams.myEngine).myRootObject.pp_addObject();
 
         //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("Teleport Torus Radius", 0.175, 0.1, 3));
         //PP.myEasyTuneVariables.add(new PP.EasyTuneInt("Teleport Torus Segments", 24, 1));
@@ -189,7 +201,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
         //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("Teleport Torus Inner Radius", 0.04, 0.1, 3));
 
         {
-            let visualParams = new PP.VisualTorusParams();
+            let visualParams = new VisualTorusParams(this._myTeleportParams.myEngine);
             visualParams.myRadius = 0.175;
             visualParams.mySegmentsAmount = 24;
             visualParams.mySegmentThickness = 0.02;
@@ -207,11 +219,11 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
             visualParams.myParent = this._myVisualTeleportPositionObject;
             visualParams.myIsLocal = true;
 
-            this._myValidVisualTeleportPositionTorus = new PP.VisualTorus(visualParams);
+            this._myValidVisualTeleportPositionTorus = new VisualTorus(visualParams);
         }
 
         {
-            let visualParams = new PP.VisualTorusParams();
+            let visualParams = new VisualTorusParams(this._myTeleportParams.myEngine);
             visualParams.myRadius = 0.04;
             visualParams.mySegmentsAmount = 24;
             visualParams.mySegmentThickness = 0.02;
@@ -236,7 +248,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
 
             visualParams.myTransform.mat4_setPosition(innerTorusPosition);
 
-            this._myValidVisualTeleportPositionTorusInner = new PP.VisualTorus(visualParams);
+            this._myValidVisualTeleportPositionTorusInner = new VisualTorus(visualParams);
         }
 
         if (this._myTeleportParams.myVisualizerParams.myTeleportPositionObject != null) {
@@ -249,7 +261,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
     };
 }();
 
-PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParable = function () {
+PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParable = function () {
     let currentPosition = vec3_create();
     let nextPosition = vec3_create();
 
@@ -285,7 +297,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParable = 
             visuaLine.setVisible(true);
 
             if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugShowActive) {
-                PP.myDebugVisualManager.drawPoint(0, currentPosition, vec4_create(1, 0, 0, 1), 0.01);
+                getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, currentPosition, vec4_create(1, 0, 0, 1), 0.01);
             }
         }
 
@@ -325,7 +337,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParable = 
     };
 }();
 
-PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParablePosition = function () {
+PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParablePosition = function () {
     let playerUp = vec3_create();
     let feetTransformQuat = quat2_create();
     let feetRotationQuat = quat_create();
@@ -435,7 +447,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParablePos
         }
 
         if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugShowActive) {
-            PP.myDebugVisualManager.drawPoint(0, this._myTeleportRuntimeParams.myTeleportPosition, vec4_create(0, 0, 1, 1), 0.02);
+            getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, this._myTeleportRuntimeParams.myTeleportPosition, vec4_create(0, 0, 1, 1), 0.02);
         }
     };
 }();

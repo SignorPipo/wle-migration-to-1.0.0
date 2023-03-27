@@ -1,8 +1,13 @@
-PP.PlayerLocomotionTeleportTeleportShiftState = class PlayerLocomotionTeleportTeleportShiftState extends PP.PlayerLocomotionTeleportState {
+import { Timer } from "../../../../../../cauldron/cauldron/timer";
+import { FSM } from "../../../../../../cauldron/fsm/fsm";
+import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { PlayerLocomotionTeleportState } from "./player_locomotion_teleport_state";
+
+export class PlayerLocomotionTeleportTeleportShiftState extends PlayerLocomotionTeleportState {
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 
-        this._myFSM = new PP.FSM();
+        this._myFSM = new FSM();
         //this._myFSM.setDebugLogActive(true, "Locomotion Teleport Teleport Shift");
 
         this._myFSM.addState("init");
@@ -24,7 +29,7 @@ PP.PlayerLocomotionTeleportTeleportShiftState = class PlayerLocomotionTeleportTe
         this._myShiftMovementTimer = new Timer(this._myTeleportParams.myTeleportParams.myShiftMovementSeconds);
         this._myShiftRotateTimer = new Timer(this._myTeleportParams.myTeleportParams.myShiftRotateSeconds, false);
 
-        this._myFeetStartPosition = new vec3_create();
+        this._myFeetStartPosition = vec3_create();
 
         this._myCurrentRotationOnUp = 0;
         this._myStartRotationOnUp = 0;
@@ -93,7 +98,7 @@ PP.PlayerLocomotionTeleportTeleportShiftState = class PlayerLocomotionTeleportTe
     }
 };
 
-PP.PlayerLocomotionTeleportTeleportShiftState.prototype._shiftingUpdate = function () {
+PlayerLocomotionTeleportTeleportShiftState.prototype._shiftingUpdate = function () {
     let movementToTeleportFeet = vec3_create();
     let newFeetPosition = vec3_create();
     return function _shiftingUpdate(dt, fsm) {
@@ -136,4 +141,4 @@ PP.PlayerLocomotionTeleportTeleportShiftState.prototype._shiftingUpdate = functi
 
 
 
-Object.defineProperty(PP.PlayerLocomotionTeleportTeleportShiftState.prototype, "_shiftingUpdate", { enumerable: false });
+Object.defineProperty(PlayerLocomotionTeleportTeleportShiftState.prototype, "_shiftingUpdate", { enumerable: false });

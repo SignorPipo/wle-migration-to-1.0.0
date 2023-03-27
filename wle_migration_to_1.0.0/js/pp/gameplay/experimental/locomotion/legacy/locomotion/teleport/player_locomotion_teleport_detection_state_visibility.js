@@ -1,4 +1,10 @@
-PP.PlayerLocomotionTeleportDetectionState.prototype._isTeleportPositionVisible = function () {
+import { RaycastResults, RaycastSetup } from "../../../../../../cauldron/physics/physics_raycast_data";
+import { PhysicsUtils } from "../../../../../../cauldron/physics/physics_utils";
+import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
+import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { PlayerLocomotionTeleportDetectionState } from "./player_locomotion_teleport_detection_state";
+
+PlayerLocomotionTeleportDetectionState.prototype._isTeleportPositionVisible = function () {
     let playerUp = vec3_create();
 
     let offsetFeetTeleportPosition = vec3_create();
@@ -42,7 +48,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._isTeleportPositionVisible =
     };
 }();
 
-PP.PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = function () {
+PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = function () {
     let playerUp = vec3_create();
     let standardUp = vec3_create(0, 1, 0);
     let standardForward = vec3_create(0, 0, 1);
@@ -54,8 +60,8 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = functio
     let fixedUp = vec3_create();
     let raycastEndPosition = vec3_create();
 
-    let raycastSetup = new PP.RaycastSetup();
-    let raycastResult = new PP.RaycastResults();
+    let raycastSetup = new RaycastSetup();
+    let raycastResult = new RaycastResults();
 
     let objectsEqualCallback = (first, second) => first.pp_equals(second);
     return function _isPositionVisible(position) {
@@ -84,6 +90,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = functio
         let distance = headPosition.vec3_distance(position);
 
         for (let checkPosition of checkPositions) {
+            raycastSetup.myPhysics = this._myTeleportParams.myEngine.physics;
             raycastSetup.myOrigin.vec3_copy(checkPosition);
             raycastSetup.myDirection.vec3_copy(fixedForward);
             raycastSetup.myDistance = distance;
@@ -97,10 +104,10 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = functio
 
             raycastSetup.myIgnoreHitsInsideCollision = true;
 
-            raycastResult = PP.PhysicsUtils.raycast(raycastSetup, raycastResult);
+            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
 
             if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugVisibilityActive) {
-                PP.myDebugVisualManager.drawRaycast(0, raycastResult);
+                getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
             }
 
             if (raycastResult.isColliding()) {
@@ -118,7 +125,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = functio
     };
 }();
 
-PP.PlayerLocomotionTeleportDetectionState.prototype._getVisibilityCheckPositions = function () {
+PlayerLocomotionTeleportDetectionState.prototype._getVisibilityCheckPositions = function () {
     let checkPositions = [];
     let cachedCheckPositions = [];
     let currentCachedCheckPositionIndex = 0;

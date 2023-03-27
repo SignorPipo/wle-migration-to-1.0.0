@@ -1,4 +1,6 @@
-PP.PlayerLocomotionTeleportParable = class PlayerLocomotionTeleportParable {
+import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+
+export class PlayerLocomotionTeleportParable {
     constructor() {
         this._myStartPosition = vec3_create();
 
@@ -57,9 +59,13 @@ PP.PlayerLocomotionTeleportParable = class PlayerLocomotionTeleportParable {
     getFlatDistanceOverDistance(distance) {
         // implemented outside class definition
     }
-};
+}
 
-PP.PlayerLocomotionTeleportParable.prototype.getPosition = function () {
+
+
+// IMPLEMENTATION
+
+PlayerLocomotionTeleportParable.prototype.getPosition = function () {
     let forwardPosition = vec3_create();
     let upPosition = vec3_create();
     return function getPosition(positionIndex, outPosition = vec3_create()) {
@@ -78,7 +84,7 @@ PP.PlayerLocomotionTeleportParable.prototype.getPosition = function () {
     };
 }();
 
-PP.PlayerLocomotionTeleportParable.prototype.getDistance = function () {
+PlayerLocomotionTeleportParable.prototype.getDistance = function () {
     let currentPosition = vec3_create();
     let prevPosition = vec3_create();
     return function getDistance(positionIndex) {
@@ -96,7 +102,7 @@ PP.PlayerLocomotionTeleportParable.prototype.getDistance = function () {
     };
 }();
 
-PP.PlayerLocomotionTeleportParable.prototype.getPositionIndexByDistance = function () {
+PlayerLocomotionTeleportParable.prototype.getPositionIndexByDistance = function () {
     let currentPosition = vec3_create();
     let prevPosition = vec3_create();
     return function getPositionIndexByDistance(distance) {
@@ -116,7 +122,7 @@ PP.PlayerLocomotionTeleportParable.prototype.getPositionIndexByDistance = functi
     };
 }();
 
-PP.PlayerLocomotionTeleportParable.prototype.getPositionByDistance = function () {
+PlayerLocomotionTeleportParable.prototype.getPositionByDistance = function () {
     let currentPosition = vec3_create();
     let prevPosition = vec3_create();
     let prevToCurrent = vec3_create();
@@ -147,7 +153,7 @@ PP.PlayerLocomotionTeleportParable.prototype.getPositionByDistance = function ()
     };
 }();
 
-PP.PlayerLocomotionTeleportParable.prototype.getDistanceOverFlatDistance = function () {
+PlayerLocomotionTeleportParable.prototype.getDistanceOverFlatDistance = function () {
     let currentPosition = vec3_create();
     let flatCurrentPosition = vec3_create();
     let flatStartPosition = vec3_create();
@@ -198,7 +204,7 @@ PP.PlayerLocomotionTeleportParable.prototype.getDistanceOverFlatDistance = funct
     };
 }();
 
-PP.PlayerLocomotionTeleportParable.prototype.getFlatDistanceOverDistance = function () {
+PlayerLocomotionTeleportParable.prototype.getFlatDistanceOverDistance = function () {
     let positionByDistance = vec3_create();
     let flatPositionByDistance = vec3_create();
     let flatStartPosition = vec3_create();

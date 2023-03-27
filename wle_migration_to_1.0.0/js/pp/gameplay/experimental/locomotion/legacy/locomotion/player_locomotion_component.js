@@ -5,11 +5,14 @@ import { CollisionCheck } from "../../../character_controller/collision/legacy/c
 import { CleanedPlayerLocomotion } from "./cleaned/player_locomotion_cleaned";
 import { PlayerLocomotion, PlayerLocomotionParams } from "./player_locomotion";
 
-let _myCollisionCheck = null;
+let _myCollisionChecks = new WeakMap();
 
-// #ENGINE
-export function getCollisionCheck() {
-    return _myCollisionCheck;
+export function getCollisionCheck(engine = getMainEngine()) {
+    return _myCollisionChecks.get(engine);
+}
+
+export function setCollisionCheck(collisionCheck, engine = getMainEngine()) {
+    _myCollisionChecks.set(engine, collisionCheck);
 }
 
 export class PlayerLocomotionComponent extends Component {
@@ -40,7 +43,7 @@ export class PlayerLocomotionComponent extends Component {
     };
 
     start() {
-        _myCollisionCheck = new CollisionCheck(this.engine);
+        setCollisionCheck(new CollisionCheck(this.engine), this.engine);
 
         let params = new PlayerLocomotionParams(this.engine);
         params.myMaxSpeed = this._myMaxSpeed;
@@ -97,14 +100,14 @@ export class PlayerLocomotionComponent extends Component {
 
             this._myPlayerLocomotion._myPlayerHeadManager.update(dt);
         } else {
-            PP.myCollisionCheck._myTotalRaycasts = 0; // #TODO debug stuff, remove later
+            getCollisionCheck(this.engine)._myTotalRaycasts = 0; // #TODO debug stuff, remove later
 
             this._myPlayerLocomotion.update(dt);
         }
 
-        //PP.myCollisionCheck._myTotalRaycastsMax = Math.max(PP.myCollisionCheck._myTotalRaycasts, PP.myCollisionCheck._myTotalRaycastsMax);
-        //console.error(PP.myCollisionCheck._myTotalRaycastsMax);
-        //console.error(PP.myCollisionCheck._myTotalRaycasts);
+        //getCollisionCheck(this.engine)._myTotalRaycastsMax = Math.max(getCollisionCheck(this.engine)._myTotalRaycasts, getCollisionCheck(this.engine)._myTotalRaycastsMax);
+        //console.error(getCollisionCheck(this.engine)._myTotalRaycastsMax);
+        //console.error(getCollisionCheck(this.engine)._myTotalRaycasts);
     }
 
     onActivate() {
