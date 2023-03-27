@@ -5,13 +5,13 @@
 
 import { JSUtils } from "../../cauldron/utils/js_utils";
 
-PP.DebugFunctionsOverwriterParams = class DebugFunctionsOverwriterParams {
+export class DebugFunctionsOverwriterParams {
     constructor() {
         this.myObjectsByReference = [];         // You can specify to count the call on a specific object instance
         this.myObjectsByPath = [];              // If you want you can specify the instance by path, but it means it must be reachable from window
 
-        this.myClassesByReference = [];         // By Reference means by using a reference to the class, like doing PP.Timer, but also let ref = PP.Timer and use ref
-        this.myClassesByPath = [];              // By Path means by using the full class path, like "PP.Timer", this is requiredneeded if u want to count the constructor
+        this.myClassesByReference = [];         // By Reference means by using a reference to the class, like doing Timer, but also let ref = Timer and use ref
+        this.myClassesByPath = [];              // By Path means by using the full class path, like "Timer", this is requiredneeded if u want to count the constructor
 
         this.myFunctionsByPath = [];
         // You can also count the call to a specific function, but it must be reachable from window, no reference way
@@ -54,8 +54,8 @@ PP.DebugFunctionsOverwriterParams = class DebugFunctionsOverwriterParams {
     }
 };
 
-PP.DebugFunctionsOverwriter = class DebugFunctionsOverwriter {
-    constructor(params = new PP.DebugFunctionsOverwriterParams()) {
+export class DebugFunctionsOverwriter {
+    constructor(params = new DebugFunctionsOverwriterParams()) {
         this._myParams = params;
 
         this._myPropertiesAlreadyOverwritten = new Map();
@@ -412,11 +412,17 @@ PP.DebugFunctionsOverwriter = class DebugFunctionsOverwriter {
 
         return isValidName;
     }
+
+    _isJSObjectFunction(propertyName) {
+        // implemented outside class definition
+    }
 };
 
 
 
-PP.DebugFunctionsOverwriter.prototype._isJSObjectFunction = function () {
+// IMPLEMENTATION
+
+DebugFunctionsOverwriter.prototype._isJSObjectFunction = function () {
     let jsObjectFunctions = [
         "__defineGetter__", "__defineSetter__", "hasOwnProperty", "__lookupGetter__", "__lookupSetter__", "isPrototypeOf",
         "propertyIsEnumerable", "toString", "valueOf", "__proto__", "toLocaleString", "arguments", "caller", "apply", "bind", "call", "callee"];
@@ -424,7 +430,3 @@ PP.DebugFunctionsOverwriter.prototype._isJSObjectFunction = function () {
         return jsObjectFunctions.pp_hasEqual(propertyName);
     };
 }();
-
-
-
-Object.defineProperty(PP.DebugFunctionsOverwriter.prototype, "_isJSObjectFunction", { enumerable: false });

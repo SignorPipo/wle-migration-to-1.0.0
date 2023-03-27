@@ -1,8 +1,7 @@
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 
-export function isDeviceEmulated() {
-    let isEmulated = ("CustomWebXRPolyfill" in window);
-    return isEmulated;
+export function getSession(engine = getMainEngine()) {
+    return engine.xrSession;
 }
 
 // #ENGINE
@@ -31,17 +30,18 @@ export function isARSupported(engine = getMainEngine()) {
     return engine.arSupported;
 }
 
-export function getSession(engine = getMainEngine()) {
-    return engine.xrSession;
+export function isDeviceEmulated() {
+    let isEmulated = ("CustomWebXRPolyfill" in window);
+    return isEmulated;
 }
 
 export let XRUtils = {
-    isDeviceEmulated,
+    getSession,
     isSessionActive,
     isReferenceSpaceLocalFloor,
     getReferenceSpaceType,
     getFrame,
     isVRSupported,
     isARSupported,
-    getSession
+    isDeviceEmulated
 };

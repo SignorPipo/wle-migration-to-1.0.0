@@ -1,6 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
 
-PP.DebugPPArrayCreationPerformanceAnalyzer = class DebugPPArrayCreationPerformanceAnalyzer extends Component {
+export class DebugPPArrayCreationPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-pp-array-creation-performance-analyzer";
     static Properties = {
         _myDelayStart: { type: Type.Float, default: 0.0 },
@@ -20,7 +21,7 @@ PP.DebugPPArrayCreationPerformanceAnalyzer = class DebugPPArrayCreationPerforman
     };
 
     init() {
-        this.object.pp_addComponent("pp-debug-functions-performance-analyzer", {
+        this.object.pp_addComponent(DebugFunctionsPerformanceAnalyzerComponent, {
             _myObjectsByPath: "PP",
             _myDelayStart: this._myDelayStart,
             _myLogTitle: "PP Array Creation Performance Analysis Results",

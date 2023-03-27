@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
 
 export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-wl-components-functions-performance-analyzer";
@@ -44,7 +45,7 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
             objectByReference.push([Object.getPrototypeOf(WL._wrapComponent(nativeComponentType, WL.Object._typeIndexFor(nativeComponentType), 0)), "_WL._componentTypes[\"" + nativeComponentType + "\"]"]);
         }
 
-        this._myAnalyzerComponent = this.object.pp_addComponent("pp-debug-functions-performance-analyzer", {
+        this._myAnalyzerComponent = this.object.pp_addComponent(DebugFunctionsPerformanceAnalyzerComponent, {
             _myObjectsByReference: objectByReference,
             _myObjectsByPath: objectsByPath,
             _myDelayStart: this._myDelayStart + 0.001,

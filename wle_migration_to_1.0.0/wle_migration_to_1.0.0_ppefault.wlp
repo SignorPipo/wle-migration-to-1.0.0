@@ -134,10 +134,7 @@
                 null,
                 null,
                 null,
-                null,
-                {
-                    "type": "pp-player-locomotion"
-                }
+                null
             ]
         },
         "20": {
@@ -1136,6 +1133,9 @@
                 "js/pp/cauldron/visual/elements",
                 "js/pp/debug",
                 "js/pp/debug/components",
+                "js/pp/debug/debug_functions_overwriter",
+                "js/pp/debug/debug_functions_overwriter/debug_functions_performance_analyzer",
+                "js/pp/debug/debug_functions_overwriter/debug_functions_performance_analyzer/components",
                 "js/pp/gameplay",
                 "js/pp/gameplay/cauldron",
                 "js/pp/gameplay/cauldron/cauldron",

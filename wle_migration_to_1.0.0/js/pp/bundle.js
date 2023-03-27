@@ -98,15 +98,15 @@ require("./debug/debug_globals");
 require("./debug/components/debug_transform_component");
 require("./debug/components/debug_manager_component");
 
-//require("./debug/debug_functions_overwriter/debug_functions_overwriter");
-//require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/debug_functions_performance_analyzer");
-//require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/debug_functions_performance_analysis_results_logger");
-//require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_functions_performance_analyzer_component");
-//require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_pp_functions_performance_analyzer_component");
-//require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_array_functions_performance_analyzer_component");
-//require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_pp_array_creation_performance_analyzer_component");
-//require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_wl_function_performance_analyzer_component");
-//require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_wl_components_function_performance_analyzer_component.js");
+require("./debug/debug_functions_overwriter/debug_functions_overwriter");
+require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/debug_functions_performance_analyzer");
+require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/debug_functions_performance_analysis_results_logger");
+require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_functions_performance_analyzer_component");
+require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_pp_functions_performance_analyzer_component");
+require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_array_functions_performance_analyzer_component");
+require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_pp_array_creation_performance_analyzer_component");
+require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_wl_function_performance_analyzer_component");
+require("./debug/debug_functions_overwriter/debug_functions_performance_analyzer/components/debug_wl_components_function_performance_analyzer_component.js");
 
 //	GAMEPLAY
 

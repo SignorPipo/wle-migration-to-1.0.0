@@ -1,4 +1,9 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { Timer } from "../../../../cauldron/cauldron/timer";
+import { getLeftGamepad } from "../../../../input/cauldron/input_globals";
+import { GamepadButtonID } from "../../../../input/gamepad/gamepad_buttons";
+import { DebugFunctionsPerformanceAnalysisResultsLogger, DebugFunctionsPerformanceAnalysisResultsLoggerParams } from "../debug_functions_performance_analysis_results_logger";
+import { DebugFunctionsPerformanceAnalyzer, DebugFunctionsPerformanceAnalyzerParams } from "../debug_functions_performance_analyzer";
 
 export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-functions-performance-analyzer";
@@ -35,7 +40,7 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
         this._myFunctionsPerformanceAnalysisResultsLogger = null;
 
         this._mySkipFirstUpdate = true;
-        this._myStartTimer = new PP.Timer(this._myDelayStart);
+        this._myStartTimer = new Timer(this._myDelayStart);
         if (this._myDelayStart == 0) {
             this._myStartTimer.end();
             this._mySkipFirstUpdate = false;
@@ -60,14 +65,14 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
         }
 
         if (this._myResetMaxResultsShortcutEnabled) {
-            if (PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.SELECT).isPressEnd(3)) {
+            if (getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressEnd(3)) {
                 this._myFunctionsPerformanceAnalyzer.resetMaxResults();
             }
         }
     }
 
     _start() {
-        let functionsPerformanceAnalyzerParams = new PP.DebugFunctionsPerformanceAnalyzerParams();
+        let functionsPerformanceAnalyzerParams = new DebugFunctionsPerformanceAnalyzerParams();
 
         if (this._myObjectsByPath.length > 0) {
             let toIncludeList = [...this._myObjectsByPath.split(",")];
@@ -121,10 +126,10 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
         functionsPerformanceAnalyzerParams.myClassesByReference = (this._myClassesByReference != null) ? this._myClassesByReference : [];
         functionsPerformanceAnalyzerParams.myObjectsByReference = (this._myObjectsByReference != null) ? this._myObjectsByReference : [];
 
-        this._myFunctionsPerformanceAnalyzer = new PP.DebugFunctionsPerformanceAnalyzer(functionsPerformanceAnalyzerParams);
+        this._myFunctionsPerformanceAnalyzer = new DebugFunctionsPerformanceAnalyzer(functionsPerformanceAnalyzerParams);
         this._myFunctionsPerformanceAnalyzer.overwriteFunctions();
 
-        let functionsPerformanceAnalysisResultsLoggerParams = new PP.DebugFunctionsPerformanceAnalysisResultsLoggerParams();
+        let functionsPerformanceAnalysisResultsLoggerParams = new DebugFunctionsPerformanceAnalysisResultsLoggerParams();
         functionsPerformanceAnalysisResultsLoggerParams.myPerformanceAnalyzer = this._myFunctionsPerformanceAnalyzer;
         functionsPerformanceAnalysisResultsLoggerParams.myLogTitle = this._myLogTitle;
 
@@ -143,6 +148,6 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
         functionsPerformanceAnalysisResultsLoggerParams.myLogTotalExecutionTimePercentageResults = this._myLogTotalExecutionTimePercentageResults;
         functionsPerformanceAnalysisResultsLoggerParams.myLogAverageExecutionTimeResults = this._myLogAverageExecutionTimeResults;
 
-        this._myFunctionsPerformanceAnalysisResultsLogger = new PP.DebugFunctionsPerformanceAnalysisResultsLogger(functionsPerformanceAnalysisResultsLoggerParams);
+        this._myFunctionsPerformanceAnalysisResultsLogger = new DebugFunctionsPerformanceAnalysisResultsLogger(functionsPerformanceAnalysisResultsLoggerParams);
     }
 };

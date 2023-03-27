@@ -1,5 +1,6 @@
 
 import { Component, Type } from "@wonderlandengine/api";
+import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
 
 export class DebugArrayFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-array-functions-performance-analyzer";
@@ -31,7 +32,7 @@ export class DebugArrayFunctionsPerformanceAnalyzerComponent extends Component {
             classesByPath = "Array, Uint8Array, Uint16Array, Float32Array";
         }
 
-        this.object.pp_addComponent("pp-debug-functions-performance-analyzer", {
+        this.object.pp_addComponent(DebugFunctionsPerformanceAnalyzerComponent, {
             _myClassesByPath: classesByPath,
             _myDelayStart: this._myDelayStart,
             _myLogTitle: "Array Functions Performance Analysis Results",
