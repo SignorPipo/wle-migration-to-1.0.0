@@ -1,4 +1,10 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { getLeftGamepad, getRightGamepad } from "../../cauldron/input_globals";
+import { Handedness } from "../../cauldron/input_types";
+import { GamepadButtonID } from "../gamepad_buttons";
+import { VirtualGamepadGamepadCore } from "../gamepad_cores/virtual_gamepad_gamepad_core";
+import { VirtualGamepad } from "./virtual_gamepad";
+import { VirtualGamepadParams } from "./virtual_gamepad_params";
 
 export class VirtualGamepadComponent extends Component {
     static TypeName = "pp-virtual-gamepad";
@@ -72,7 +78,7 @@ export class VirtualGamepadComponent extends Component {
     };
 
     start() {
-        let params = new PP.VirtualGamepadParams();
+        let params = new VirtualGamepadParams(this.engine);
         params.defaultSetup();
 
         for (let handedness in params.myButtonParams) {
@@ -111,7 +117,7 @@ export class VirtualGamepadComponent extends Component {
 
         this._advancedSetup(params);
 
-        this._myVirtualGamepad = new PP.VirtualGamepad(params);
+        this._myVirtualGamepad = new VirtualGamepad(params);
         if (!params.myAutoUpdateVisibility) {
             this._myVirtualGamepad.setVisible(false);
         }
@@ -126,11 +132,11 @@ export class VirtualGamepadComponent extends Component {
             this._myFirstUpdate = false;
 
             if (this._myAddToUniversalGamepad) {
-                let leftVirtualGamepadGamepadCore = new PP.VirtualGamepadGamepadCore(this._myVirtualGamepad, PP.Handedness.LEFT, PP.myLeftGamepad.getGamepadCore("left_xr_gamepad").getHandPose());
-                let rightVirtualGamepadGamepadCore = new PP.VirtualGamepadGamepadCore(this._myVirtualGamepad, PP.Handedness.RIGHT, PP.myRightGamepad.getGamepadCore("right_xr_gamepad").getHandPose());
+                let leftVirtualGamepadGamepadCore = new VirtualGamepadGamepadCore(this._myVirtualGamepad, getLeftGamepad(this.engine).getGamepadCore("pp_left_xr_gamepad").getHandPose());
+                let rightVirtualGamepadGamepadCore = new VirtualGamepadGamepadCore(this._myVirtualGamepad, getRightGamepad(this.engine).getGamepadCore("pp_right_xr_gamepad").getHandPose());
 
-                PP.myLeftGamepad.addGamepadCore("left_virtual_gamepad", leftVirtualGamepadGamepadCore);
-                PP.myRightGamepad.addGamepadCore("right_virtual_gamepad", rightVirtualGamepadGamepadCore);
+                getLeftGamepad(this.engine).addGamepadCore("pp_left_virtual_gamepad", leftVirtualGamepadGamepadCore);
+                getRightGamepad(this.engine).addGamepadCore("pp_right_virtual_gamepad", rightVirtualGamepadGamepadCore);
             }
         }
 
@@ -138,11 +144,11 @@ export class VirtualGamepadComponent extends Component {
     }
 
     _advancedSetup(params) {
-        params.myButtonsOrder[PP.Handedness.LEFT] = [null, null, null, null, null];
-        params.myButtonsOrder[PP.Handedness.RIGHT] = [null, null, null, null, null];
+        params.myButtonsOrder[Handedness.LEFT] = [null, null, null, null, null];
+        params.myButtonsOrder[Handedness.RIGHT] = [null, null, null, null, null];
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.LEFT][PP.GamepadButtonID.SELECT];
+            let buttonParams = params.myButtonParams[Handedness.LEFT][GamepadButtonID.SELECT];
             buttonParams.myIconParams.myIconType = this._myLeftSelectButtonIconType;
             buttonParams.myIconParams.myLabel = this._myLeftSelectIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myLeftSelectIconLabelOrImageUrl;
@@ -152,12 +158,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myLeftSelectButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.LEFT][this._myLeftSelectButtonOrderIndex] = [PP.Handedness.LEFT, PP.GamepadButtonID.SELECT];
+                params.myButtonsOrder[Handedness.LEFT][this._myLeftSelectButtonOrderIndex] = [Handedness.LEFT, GamepadButtonID.SELECT];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.LEFT][PP.GamepadButtonID.SQUEEZE];
+            let buttonParams = params.myButtonParams[Handedness.LEFT][GamepadButtonID.SQUEEZE];
             buttonParams.myIconParams.myIconType = this._myLeftSqueezeButtonIconType;
             buttonParams.myIconParams.myLabel = this._myLeftSqueezeIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myLeftSqueezeIconLabelOrImageUrl;
@@ -167,12 +173,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myLeftSqueezeButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.LEFT][this._myLeftSqueezeButtonOrderIndex] = [PP.Handedness.LEFT, PP.GamepadButtonID.SQUEEZE];
+                params.myButtonsOrder[Handedness.LEFT][this._myLeftSqueezeButtonOrderIndex] = [Handedness.LEFT, GamepadButtonID.SQUEEZE];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.LEFT][PP.GamepadButtonID.THUMBSTICK];
+            let buttonParams = params.myButtonParams[Handedness.LEFT][GamepadButtonID.THUMBSTICK];
             buttonParams.myIconParams.myIconType = this._myLeftThumbstickButtonIconType;
             buttonParams.myIconParams.myLabel = this._myLeftThumbstickButtonIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myLeftThumbstickButtonIconLabelOrImageUrl;
@@ -182,12 +188,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myLeftThumbstickButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.LEFT][this._myLeftThumbstickButtonOrderIndex] = [PP.Handedness.LEFT, PP.GamepadButtonID.THUMBSTICK];
+                params.myButtonsOrder[Handedness.LEFT][this._myLeftThumbstickButtonOrderIndex] = [Handedness.LEFT, GamepadButtonID.THUMBSTICK];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.LEFT][PP.GamepadButtonID.TOP_BUTTON];
+            let buttonParams = params.myButtonParams[Handedness.LEFT][GamepadButtonID.TOP_BUTTON];
             buttonParams.myIconParams.myIconType = this._myLeftTopButtonIconType;
             buttonParams.myIconParams.myLabel = this._myLeftTopButtonIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myLeftTopButtonIconLabelOrImageUrl;
@@ -197,12 +203,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myLeftTopButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.LEFT][this._myLeftTopButtonOrderIndex] = [PP.Handedness.LEFT, PP.GamepadButtonID.TOP_BUTTON];
+                params.myButtonsOrder[Handedness.LEFT][this._myLeftTopButtonOrderIndex] = [Handedness.LEFT, GamepadButtonID.TOP_BUTTON];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.LEFT][PP.GamepadButtonID.BOTTOM_BUTTON];
+            let buttonParams = params.myButtonParams[Handedness.LEFT][GamepadButtonID.BOTTOM_BUTTON];
             buttonParams.myIconParams.myIconType = this._myLeftBottomButtonIconType;
             buttonParams.myIconParams.myLabel = this._myLeftBottomButtonIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myLeftBottomButtonIconLabelOrImageUrl;
@@ -212,12 +218,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myLeftBottomButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.LEFT][this._myLeftBottomButtonOrderIndex] = [PP.Handedness.LEFT, PP.GamepadButtonID.BOTTOM_BUTTON];
+                params.myButtonsOrder[Handedness.LEFT][this._myLeftBottomButtonOrderIndex] = [Handedness.LEFT, GamepadButtonID.BOTTOM_BUTTON];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.RIGHT][PP.GamepadButtonID.SELECT];
+            let buttonParams = params.myButtonParams[Handedness.RIGHT][GamepadButtonID.SELECT];
             buttonParams.myIconParams.myIconType = this._myRightSelectButtonIconType;
             buttonParams.myIconParams.myLabel = this._myRightSelectIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myRightSelectIconLabelOrImageUrl;
@@ -227,12 +233,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myRightSelectButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.RIGHT][this._myRightSelectButtonOrderIndex] = [PP.Handedness.RIGHT, PP.GamepadButtonID.SELECT];
+                params.myButtonsOrder[Handedness.RIGHT][this._myRightSelectButtonOrderIndex] = [Handedness.RIGHT, GamepadButtonID.SELECT];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.RIGHT][PP.GamepadButtonID.SQUEEZE];
+            let buttonParams = params.myButtonParams[Handedness.RIGHT][GamepadButtonID.SQUEEZE];
             buttonParams.myIconParams.myIconType = this._myRightSqueezeButtonIconType;
             buttonParams.myIconParams.myLabel = this._myRightSqueezeIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myRightSqueezeIconLabelOrImageUrl;
@@ -242,12 +248,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myRightSqueezeButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.RIGHT][this._myRightSqueezeButtonOrderIndex] = [PP.Handedness.RIGHT, PP.GamepadButtonID.SQUEEZE];
+                params.myButtonsOrder[Handedness.RIGHT][this._myRightSqueezeButtonOrderIndex] = [Handedness.RIGHT, GamepadButtonID.SQUEEZE];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.RIGHT][PP.GamepadButtonID.THUMBSTICK];
+            let buttonParams = params.myButtonParams[Handedness.RIGHT][GamepadButtonID.THUMBSTICK];
             buttonParams.myIconParams.myIconType = this._myRightThumbstickButtonIconType;
             buttonParams.myIconParams.myLabel = this._myRightThumbstickButtonIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myRightThumbstickButtonIconLabelOrImageUrl;
@@ -257,12 +263,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myRightThumbstickButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.RIGHT][this._myRightThumbstickButtonOrderIndex] = [PP.Handedness.RIGHT, PP.GamepadButtonID.THUMBSTICK];
+                params.myButtonsOrder[Handedness.RIGHT][this._myRightThumbstickButtonOrderIndex] = [Handedness.RIGHT, GamepadButtonID.THUMBSTICK];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.RIGHT][PP.GamepadButtonID.TOP_BUTTON];
+            let buttonParams = params.myButtonParams[Handedness.RIGHT][GamepadButtonID.TOP_BUTTON];
             buttonParams.myIconParams.myIconType = this._myRightTopButtonIconType;
             buttonParams.myIconParams.myLabel = this._myRightTopButtonIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myRightTopButtonIconLabelOrImageUrl;
@@ -272,12 +278,12 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myRightTopButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.RIGHT][this._myRightTopButtonOrderIndex] = [PP.Handedness.RIGHT, PP.GamepadButtonID.TOP_BUTTON];
+                params.myButtonsOrder[Handedness.RIGHT][this._myRightTopButtonOrderIndex] = [Handedness.RIGHT, GamepadButtonID.TOP_BUTTON];
             }
         }
 
         {
-            let buttonParams = params.myButtonParams[PP.Handedness.RIGHT][PP.GamepadButtonID.BOTTOM_BUTTON];
+            let buttonParams = params.myButtonParams[Handedness.RIGHT][GamepadButtonID.BOTTOM_BUTTON];
             buttonParams.myIconParams.myIconType = this._myRightBottomButtonIconType;
             buttonParams.myIconParams.myLabel = this._myRightBottomButtonIconLabelOrImageUrl;
             buttonParams.myIconParams.myImageURL = this._myRightBottomButtonIconLabelOrImageUrl;
@@ -287,7 +293,7 @@ export class VirtualGamepadComponent extends Component {
             buttonParams.myIconParams.myImagePressedBrightness = this._myImagePressedBrightness;
 
             if (this._myRightBottomButtonVisible) {
-                params.myButtonsOrder[PP.Handedness.RIGHT][this._myRightBottomButtonOrderIndex] = [PP.Handedness.RIGHT, PP.GamepadButtonID.BOTTOM_BUTTON];
+                params.myButtonsOrder[Handedness.RIGHT][this._myRightBottomButtonOrderIndex] = [Handedness.RIGHT, GamepadButtonID.BOTTOM_BUTTON];
             }
         }
     }

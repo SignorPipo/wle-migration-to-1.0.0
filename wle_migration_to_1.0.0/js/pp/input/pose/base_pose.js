@@ -1,3 +1,4 @@
+import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { mat4_create, quat2_create, quat_create, vec3_create } from "../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 
@@ -200,7 +201,7 @@ export class BasePose {
         this._myPrevPosition.vec3_copy(this._myPosition);
         this._myPrevRotationQuat.quat_copy(this._myRotationQuat);
 
-        let xrFrame = Module["webxr_frame"];
+        let xrFrame = XRUtils.getFrame(this._myEngine);
         if (xrFrame && this._isReadyToGetPose()) {
             let xrPose = null;
             try {
@@ -301,7 +302,7 @@ export class BasePose {
     }
 
     _onXRSessionStart(manualStart, session) {
-        session.requestReferenceSpace(WebXR.refSpace).then(function (referenceSpace) {
+        session.requestReferenceSpace(XRUtils.getReferenceSpaceType(this._myEngine)).then(function (referenceSpace) {
             this._myReferenceSpace = referenceSpace;
 
             if (referenceSpace.addEventListener != null) {

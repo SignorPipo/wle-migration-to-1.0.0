@@ -1050,6 +1050,7 @@
                 "js/pp/input/gamepad",
                 "js/pp/input/gamepad/cauldron",
                 "js/pp/input/gamepad/gamepad_cores",
+                "js/pp/input/gamepad/virtual_gamepad",
                 "js/pp/input/pose",
                 "js/pp/input/pose/components",
                 "js/playground"

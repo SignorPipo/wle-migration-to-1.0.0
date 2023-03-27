@@ -1,4 +1,7 @@
-PP.VirtualGamepadVirtualButton = class VirtualGamepadVirtualButton {
+import { Handedness } from "../../cauldron/input_types";
+import { VirtualGamepadIcon } from "./virtual_gamepad_icon";
+
+export class VirtualGamepadVirtualButton {
     constructor(buttonElementParent, virtualGamepadParams, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID) {
         this._myButtonElement = null;
         this._myButtonIcon = null;
@@ -119,13 +122,13 @@ PP.VirtualGamepadVirtualButton = class VirtualGamepadVirtualButton {
 
         let minSizeMultiplier = Math.max(1, this._myVirtualGamepadParams.myMinSizeMultiplier / this._myVirtualGamepadParams.myInterfaceScale);
 
-        let buttonsAmount = this._myVirtualGamepadParams.myButtonsOrder[PP.Handedness.LEFT].length;
+        let buttonsAmount = this._myVirtualGamepadParams.myButtonsOrder[Handedness.LEFT].length;
 
         let angleStep = (buttonRingEndAngle - buttonRingStartAngle) / (buttonsAmount - 1);
 
         let currentAngle = Math.pp_angleClamp(buttonRingStartAngle + angleStep * virtualButtonIndex);
 
-        if (virtualButtonHandedness == PP.Handedness.RIGHT) {
+        if (virtualButtonHandedness == Handedness.RIGHT) {
             currentAngle = 270 + (270 - currentAngle);
             currentAngle = Math.pp_angleClamp(currentAngle, true);
         }
@@ -143,7 +146,7 @@ PP.VirtualGamepadVirtualButton = class VirtualGamepadVirtualButton {
 
         buttonPivot.style.bottom = this._createSizeValue(centerOnThumbstickBottom, minSizeMultiplier);
 
-        if (virtualButtonHandedness == PP.Handedness.LEFT) {
+        if (virtualButtonHandedness == Handedness.LEFT) {
             let centerOnThumbstickLeft = marginLeft + thumbstickSize / 2 - buttonSize / 2;
             buttonPivot.style.left = this._createSizeValue(centerOnThumbstickLeft, minSizeMultiplier);
         } else {
@@ -161,7 +164,7 @@ PP.VirtualGamepadVirtualButton = class VirtualGamepadVirtualButton {
         this._myButtonElement.style.transform = "rotate(" + counterAngle + "deg)";
         buttonPivot.appendChild(this._myButtonElement);
 
-        this._myButtonIcon = new PP.VirtualGamepadIcon(this._myButtonElement, this._myParams.myIconParams, minSizeMultiplier, this._myVirtualGamepadParams.myInterfaceScale);
+        this._myButtonIcon = new VirtualGamepadIcon(this._myButtonElement, this._myParams.myIconParams, minSizeMultiplier, this._myVirtualGamepadParams.myInterfaceScale);
 
         let buttonElementStill = document.createElement("div");
         buttonElementStill.style.position = "absolute";
@@ -189,4 +192,4 @@ PP.VirtualGamepadVirtualButton = class VirtualGamepadVirtualButton {
     _createSizeValue(value, minSizeMultiplier) {
         return "min(" + value.toFixed(3) + "vmax," + (value * minSizeMultiplier).toFixed(3) + "vw)";
     }
-};
+}

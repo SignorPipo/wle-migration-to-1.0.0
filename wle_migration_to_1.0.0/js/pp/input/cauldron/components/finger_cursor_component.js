@@ -1,5 +1,6 @@
 import { CollisionComponent, Component, Type } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
+import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getPlayerObjects } from "../../../pp/player_objects_global";
 import { InputSourceType, TrackedHandJointID } from "../input_types";
@@ -131,7 +132,7 @@ export class FingerCursorComponent extends Component {
         this._myHandInputSource = InputUtils.getInputSource(this._myHandednessString, InputSourceType.TRACKED_HAND, this.engine);
 
         if (this._myHandInputSource) {
-            let tip = Module["webxr_frame"].getJointPose(this._myHandInputSource.hand.get(TrackedHandJointID.INDEX_FINGER_TIP), this._myReferenceSpace);
+            let tip = XRUtils.getFrame(this.engine).getJointPose(this._myHandInputSource.hand.get(TrackedHandJointID.INDEX_FINGER_TIP), this._myReferenceSpace);
 
             if (tip) {
                 this._myCursorObject.pp_setRotationLocalQuat([
@@ -149,7 +150,7 @@ export class FingerCursorComponent extends Component {
     }
 
     _onXRSessionStart(session) {
-        session.requestReferenceSpace(WebXR.refSpace).then(function (referenceSpace) { this._myReferenceSpace = referenceSpace; }.bind(this));
+        session.requestReferenceSpace(XRUtils.getReferenceSpaceType(this.engine)).then(function (referenceSpace) { this._myReferenceSpace = referenceSpace; }.bind(this));
     }
 
     _onXRSessionEnd(session) {

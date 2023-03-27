@@ -1,4 +1,8 @@
-PP.VirtualGamepadVirtualThumbstick = class VirtualGamepadVirtualThumbstick {
+import { vec2_create } from "../../../plugin/js/extensions/array_extension";
+import { Handedness } from "../../cauldron/input_types";
+import { VirtualGamepadIcon } from "./virtual_gamepad_icon";
+
+export class VirtualGamepadVirtualThumbstick {
     constructor(thumbstickElementParent, virtualGamepadParams, virtualThumbstickHandedness, gamepadThumbstickHandedness) {
         this._myThumbstickElement = null;
         this._myThumbstickIcon = null;
@@ -10,9 +14,9 @@ PP.VirtualGamepadVirtualThumbstick = class VirtualGamepadVirtualThumbstick {
         this._myPointerID = null;
         this._myPointerButton = null
 
-        this._myThumbstickDragStartPosition = PP.vec2_create();
+        this._myThumbstickDragStartPosition = vec2_create();
 
-        this._myAxes = PP.vec2_create();
+        this._myAxes = vec2_create();
         this._myIsPressed = false;
 
         this._myVirtualGamepadParams = virtualGamepadParams;
@@ -162,7 +166,7 @@ PP.VirtualGamepadVirtualThumbstick = class VirtualGamepadVirtualThumbstick {
         thumbstickContainer.style.height = this._createSizeValue(thumbstickSize, minSizeMultiplier);
         thumbstickContainer.style.bottom = this._createSizeValue(marginBottom, minSizeMultiplier);
 
-        if (virtualThumbstickHandedness == PP.Handedness.LEFT) {
+        if (virtualThumbstickHandedness == Handedness.LEFT) {
             thumbstickContainer.style.left = this._createSizeValue(marginLeft, minSizeMultiplier);
         } else {
             thumbstickContainer.style.right = this._createSizeValue(marginRight, minSizeMultiplier);
@@ -191,7 +195,7 @@ PP.VirtualGamepadVirtualThumbstick = class VirtualGamepadVirtualThumbstick {
         this._myThumbstickElement.style.left = "33%";
         thumbstickContainer.appendChild(this._myThumbstickElement);
 
-        this._myThumbstickIcon = new PP.VirtualGamepadIcon(this._myThumbstickElement, this._myParams.myIconParams, minSizeMultiplier, this._myVirtualGamepadParams.myScale);
+        this._myThumbstickIcon = new VirtualGamepadIcon(this._myThumbstickElement, this._myParams.myIconParams, minSizeMultiplier, this._myVirtualGamepadParams.myScale);
 
         if (this._myParams.myIncludeBackgroundToDetection) {
             let thumbstickBackgroundDetectionElementSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -237,4 +241,4 @@ PP.VirtualGamepadVirtualThumbstick = class VirtualGamepadVirtualThumbstick {
     _createSizeValue(value, minSizeMultiplier) {
         return "min(" + value.toFixed(3) + "vmax," + (value * minSizeMultiplier).toFixed(3) + "vw)";
     }
-};
+}

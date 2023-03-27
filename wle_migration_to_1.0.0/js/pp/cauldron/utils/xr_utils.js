@@ -10,12 +10,38 @@ export function isSessionActive(engine = getMainEngine()) {
     return engine.xrSession != null;
 }
 
-export function isReferenceSpaceLocalFloor() {
-    return !["local", "viewer"].includes(WebXR.refSpace);
+// #ENGINE
+export function isReferenceSpaceLocalFloor(engine = getMainEngine()) {
+    return !["local", "viewer"].includes(getReferenceSpaceType(engine));
+}
+
+export function getReferenceSpaceType(engine = getMainEngine()) {
+    return engine.wasm.WebXR.refSpace;
+}
+
+export function getFrame(engine = getMainEngine()) {
+    return engine.xrFrame;
+}
+
+export function isVRSupported(engine = getMainEngine()) {
+    return engine.vrSupported;
+}
+
+export function isARSupported(engine = getMainEngine()) {
+    return engine.arSupported;
+}
+
+export function getSession(engine = getMainEngine()) {
+    return engine.xrSession;
 }
 
 export let XRUtils = {
     isDeviceEmulated,
     isSessionActive,
-    isReferenceSpaceLocalFloor
+    isReferenceSpaceLocalFloor,
+    getReferenceSpaceType,
+    getFrame,
+    isVRSupported,
+    isARSupported,
+    getSession
 };

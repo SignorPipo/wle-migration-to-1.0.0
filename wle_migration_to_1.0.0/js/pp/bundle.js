@@ -231,12 +231,12 @@ require("./input/gamepad/gamepad_cores/keyboard_gamepad_core");
 require("./input/gamepad/gamepad_cores/virtual_gamepad_gamepad_core");
 require("./input/gamepad/gamepad_cores/classic_gamepad_core");
 
-//require("./input/gamepad/virtual_gamepad/virtual_gamepad");
-//require("./input/gamepad/virtual_gamepad/virtual_gamepad_component");
-//require("./input/gamepad/virtual_gamepad/virtual_gamepad_params");
-//require("./input/gamepad/virtual_gamepad/virtual_gamepad_virtual_button");
-//require("./input/gamepad/virtual_gamepad/virtual_gamepad_virtual_thumbstick");
-//require("./input/gamepad/virtual_gamepad/virtual_gamepad_icon");
+require("./input/gamepad/virtual_gamepad/virtual_gamepad");
+require("./input/gamepad/virtual_gamepad/virtual_gamepad_component");
+require("./input/gamepad/virtual_gamepad/virtual_gamepad_params");
+require("./input/gamepad/virtual_gamepad/virtual_gamepad_virtual_button");
+require("./input/gamepad/virtual_gamepad/virtual_gamepad_virtual_thumbstick");
+require("./input/gamepad/virtual_gamepad/virtual_gamepad_icon");
 
 require("./input/pose/base_pose.js");
 require("./input/pose/hand_pose");
