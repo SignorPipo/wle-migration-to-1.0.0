@@ -5,7 +5,7 @@ export class CharacterCollisionSystemComponent extends Component {
     static Properties = {};
 
     init() {
-        PP.myCharacterCollisionSystem = new PP.CharacterCollisionSystem();
+        PP.myCharacterCollisionSystem = new CharacterCollisionSystem();
     }
 
     start() {
@@ -14,6 +14,4 @@ export class CharacterCollisionSystemComponent extends Component {
     update(dt) {
         PP.myCharacterCollisionSystem.update(dt);
     }
-};
-
-PP.myCharacterCollisionSystem = null;
+}

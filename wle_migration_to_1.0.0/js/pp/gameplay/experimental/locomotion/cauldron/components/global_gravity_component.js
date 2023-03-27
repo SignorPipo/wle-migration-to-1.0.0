@@ -6,4 +6,4 @@ export class GlobalGravityComponent extends Component {
 
     init() {
     }
-};
+}

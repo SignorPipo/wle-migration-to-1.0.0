@@ -1,4 +1,4 @@
-PP.CharacterController = class CharacterController {
+export class CharacterController {
     constructor() {
     }
 };

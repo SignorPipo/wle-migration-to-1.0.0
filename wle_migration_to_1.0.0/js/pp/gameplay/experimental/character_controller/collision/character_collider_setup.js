@@ -1,28 +1,31 @@
-PP.CharacterColliderSetup = class CharacterColliderSetup {
+import { PhysicsLayerFlags } from "../../../../cauldron/physics/physics_layer_flags";
+import { quat_create, vec3_create } from "../../../../plugin/js/extensions/array_extension";
+
+export class CharacterColliderSetup {
     constructor() {
         this.myHeight = 0;
 
-        this.myHorizontalCheckSetup = new PP.CharacterColliderHorizontalCheckSetup();
-        this.myVerticalCheckSetup = new PP.CharacterColliderVerticalCheckSetup();
+        this.myHorizontalCheckSetup = new CharacterColliderHorizontalCheckSetup();
+        this.myVerticalCheckSetup = new CharacterColliderVerticalCheckSetup();
 
-        this.myWallSlideSetup = new PP.CharacterColliderWallSlideSetup();
+        this.myWallSlideSetup = new CharacterColliderWallSlideSetup();
 
-        this.myGroundSetup = new PP.CharacterColliderSurfaceSetup();
-        this.myCeilingSetup = new PP.CharacterColliderSurfaceSetup();
+        this.myGroundSetup = new CharacterColliderSurfaceSetup();
+        this.myCeilingSetup = new CharacterColliderSurfaceSetup();
 
-        this.mySplitMovementSetup = new PP.CharacterColliderSplitMovementSetup();
+        this.mySplitMovementSetup = new CharacterColliderSplitMovementSetup();
 
-        this.myAdditionalSetup = new PP.CharacterColliderAdditionalSetup();
+        this.myAdditionalSetup = new CharacterColliderAdditionalSetup();
 
-        this.myDebugSetup = new PP.CharacterColliderDebugSetup();
+        this.myDebugSetup = new CharacterColliderDebugSetup();
     }
 
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
-PP.CharacterColliderHorizontalPositionVerticalCheckDirection = {
+export let CharacterColliderHorizontalPositionVerticalCheckDirection = {
     UPWARD: 0,      // gives less issues with a ground based movement, but may also collide a bit more, resulting in less sliding
     DOWNWARD: 1,    // gives less issues with a ceiling based movement (unusual), but may also collide a bit more, resulting in less sliding and more stuck in front of a wall
     BOTH: 2         // check both directions, more expensive (2x checks) and better prevent collisions, sliding more, but is more expensive and gives more issues           
@@ -35,9 +38,9 @@ PP.CharacterColliderHorizontalPositionVerticalCheckDirection = {
     // the step that is created "on the other side" in fact can easily be ignored thanks to the myHorizontalCheckFeetDistanceToIgnore param
     // if the level is properly created the best solution should be UPWARD
     // and also myHorizontalPositionVerticalCheckIgnoreHitsInsideCollision = false
-}
+};
 
-PP.CharacterColliderHorizontalCheckSetup = class CharacterColliderHorizontalCheckSetup {
+export class CharacterColliderHorizontalCheckSetup {
     constructor() {
         this.myHorizontalCheckConeRadius = 0;
         this.myHorizontalCheckConeHalfAngle = 0;
@@ -50,7 +53,7 @@ PP.CharacterColliderHorizontalCheckSetup = class CharacterColliderHorizontalChec
         // it also needs the surface pop out to be enabeld to then snap on the step
 
         this.myHorizontalCheckFixedForwardEnabled = false; // this is basically only useful if the cone angle is 180 degrees
-        this.myHorizontalCheckFixedForward = PP.vec3_create();
+        this.myHorizontalCheckFixedForward = vec3_create();
 
         this.myHorizontalMovementCheckEnabled = false;
 
@@ -117,18 +120,18 @@ PP.CharacterColliderHorizontalCheckSetup = class CharacterColliderHorizontalChec
         // so restoring the vertical hit can be a bit safer (since u are actually colliding) but also can lead to false positive
 
         this.myHorizontalPositionVerticalCheckIgnoreHitsInsideCollision = false; // true gives less issues, but may also collide a bit more, resulting in less sliding
-        this.myHorizontalPositionVerticalCheckDirection = PP.CharacterColliderHorizontalPositionVerticalCheckDirection.UPWARD;
+        this.myHorizontalPositionVerticalCheckDirection = CharacterColliderHorizontalPositionVerticalCheckDirection.UPWARD;
 
-        this.myHorizontalCheckBlockLayerFlags = new PP.PhysicsLayerFlags();
+        this.myHorizontalCheckBlockLayerFlags = new PhysicsLayerFlags();
         this.myHorizontalCheckObjectsToIgnore = [];
     }
 
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
-PP.CharacterColliderVerticalCheckSetup = class CharacterColliderVerticalCheckSetup {
+export class CharacterColliderVerticalCheckSetup {
     constructor() {
         this.myVerticalCheckCircumferenceRadius = 0;
 
@@ -138,7 +141,7 @@ PP.CharacterColliderVerticalCheckSetup = class CharacterColliderVerticalCheckSet
         this.myVerticalCheckCircumferenceRotationPerRadialStep = 0;
 
         this.myVerticalCheckFixedForwardEnabled = false;
-        this.myVerticalCheckFixedForward = PP.vec3_create();
+        this.myVerticalCheckFixedForward = vec3_create();
 
         this.myVerticalMovementCheckEnabled = false;
         this.myVerticalMovementCheckReductionEnabled = false;
@@ -150,24 +153,24 @@ PP.CharacterColliderVerticalCheckSetup = class CharacterColliderVerticalCheckSet
         // if at least one vertical raycast is valid (no hit, outside collision) is it ok if the other checks are completely inside a collision
         // let you keep moving vertically if only partially inside a wall
 
-        this.myVerticalCheckBlockLayerFlags = new PP.PhysicsLayerFlags();
+        this.myVerticalCheckBlockLayerFlags = new PhysicsLayerFlags();
         this.myVerticalCheckObjectsToIgnore = [];
     }
 
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
-PP.CharacterColliderSlideFlickerPreventionMode = {
+export let CharacterColliderSlideFlickerPreventionMode = {
     NONE: 0,
     USE_PREVIOUS_RESULTS: 1,                // allow some flicker before stabilizing but avoid stopping for a 1 frame flicker only (false positive), is also less expensive
     COLLISION_ANGLE_ABOVE_90_DEGREES: 2,    // prevents most flicker apart those on almost flat surface, can have some false positive, always check when sliding into opposite direction
     COLLISION_ANGLE_ABOVE_90_DEGREES_OR_MOVEMENT_ANGLE_ABOVE_85_DEGREES: 3, // less flicker than COLLISION_ANGLE_ABOVE_90_DEGREES but more false positive, always check when sliding into opposite direction
-    ALWAYS: 4,                              // less flicker than COLLISION_ANGLE_ABOVE_90_DEGREES_OR_MOVEMENT_ANGLE_ABOVE_85_DEGREES but more false positive
+    ALWAYS: 4                               // less flicker than COLLISION_ANGLE_ABOVE_90_DEGREES_OR_MOVEMENT_ANGLE_ABOVE_85_DEGREES but more false positive
 };
 
-PP.CharacterColliderWallSlideSetup = class CharacterColliderWallSlideSetup {
+export class CharacterColliderWallSlideSetup {
     constructor() {
         this.myWallSlideEnabled = false;
 
@@ -178,7 +181,7 @@ PP.CharacterColliderWallSlideSetup = class CharacterColliderWallSlideSetup {
         // this can fix some edge cases in which u can get stuck instead of sliding
         // it basically require that u also add flicker prevention
 
-        this.myWallSlideFlickerPreventionMode = PP.CharacterColliderSlideFlickerPreventionMode.NONE;
+        this.myWallSlideFlickerPreventionMode = CharacterColliderSlideFlickerPreventionMode.NONE;
 
         this.myWallSlideFlickerPreventionCheckOnlyIfAlreadySliding = false;
         // this flag make it so the prevention is done only if it was already sliding
@@ -195,9 +198,9 @@ PP.CharacterColliderWallSlideSetup = class CharacterColliderWallSlideSetup {
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
-PP.CharacterColliderSurfaceSetup = class CharacterColliderSurfaceSetup {
+export class CharacterColliderSurfaceSetup {
     constructor() {
         this.mySurfaceSnapEnabled = false;
         this.mySurfaceSnapMaxDistance = 0;
@@ -271,9 +274,9 @@ PP.CharacterColliderSurfaceSetup = class CharacterColliderSurfaceSetup {
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
-PP.CharacterColliderSplitMovementSetup = class CharacterColliderSplitMovementSetup {
+export class CharacterColliderSplitMovementSetup {
     constructor() {
         this.mySplitMovementEnabled = false;
 
@@ -295,12 +298,12 @@ PP.CharacterColliderSplitMovementSetup = class CharacterColliderSplitMovementSet
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
-PP.CharacterColliderAdditionalSetup = class CharacterColliderAdditionalSetup {
+export class CharacterColliderAdditionalSetup {
     constructor() {
-        this.myPositionOffsetLocal = PP.vec3_create();
-        this.myRotationOffsetLocalQuat = PP.quat_create();
+        this.myPositionOffsetLocal = vec3_create();
+        this.myRotationOffsetLocalQuat = quat_create();
 
         /*
         these will not be available until the bridge is removed with a new implementation that directly use the collider and results
@@ -313,9 +316,9 @@ PP.CharacterColliderAdditionalSetup = class CharacterColliderAdditionalSetup {
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
-PP.CharacterColliderDebugSetup = class CharacterColliderDebugSetup {
+export class CharacterColliderDebugSetup {
     constructor() {
         this.myVisualDebugActive = false;
 
@@ -338,13 +341,13 @@ PP.CharacterColliderDebugSetup = class CharacterColliderDebugSetup {
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
 
 
 // IMPLEMENTATION
 
-PP.CharacterColliderSetup.prototype.copy = function copy(other) {
+CharacterColliderSetup.prototype.copy = function copy(other) {
     this.myHeight = other.myHeight;
 
     this.myHorizontalCheckSetup.copy(other.myHorizontalCheckSetup);
@@ -362,7 +365,7 @@ PP.CharacterColliderSetup.prototype.copy = function copy(other) {
     this.myDebugSetup.copy(other.myDebugSetup);
 };
 
-PP.CharacterColliderHorizontalCheckSetup.prototype.copy = function copy(other) {
+CharacterColliderHorizontalCheckSetup.prototype.copy = function copy(other) {
     this.myHorizontalCheckConeRadius = other.myHorizontalCheckConeRadius;
     this.myHorizontalCheckConeHalfAngle = other.myHorizontalCheckConeHalfAngle;
 
@@ -440,7 +443,7 @@ PP.CharacterColliderHorizontalCheckSetup.prototype.copy = function copy(other) {
     this.myHorizontalCheckObjectsToIgnore.pp_copy(other.myHorizontalCheckObjectsToIgnore);
 };
 
-PP.CharacterColliderVerticalCheckSetup.prototype.copy = function copy(other) {
+CharacterColliderVerticalCheckSetup.prototype.copy = function copy(other) {
     this.myVerticalCheckCircumferenceRadius = other.myVerticalCheckCircumferenceRadius;
 
     this.myVerticalCheckCircumferenceSlices = other.myVerticalCheckCircumferenceSlices;
@@ -463,7 +466,7 @@ PP.CharacterColliderVerticalCheckSetup.prototype.copy = function copy(other) {
     this.myVerticalCheckObjectsToIgnore.pp_copy(other.myVerticalCheckObjectsToIgnore);
 };
 
-PP.CharacterColliderWallSlideSetup.prototype.copy = function copy(other) {
+CharacterColliderWallSlideSetup.prototype.copy = function copy(other) {
     this.myWallSlideEnabled = other.myWallSlideEnabled;
 
     this.myWallSlideMaxAttempts = other.myWallSlideMaxAttempts;
@@ -479,7 +482,7 @@ PP.CharacterColliderWallSlideSetup.prototype.copy = function copy(other) {
     this.my90DegreesWallSlideAdjustDirectionSign = other.my90DegreesWallSlideAdjustDirectionSign;
 };
 
-PP.CharacterColliderSurfaceSetup.prototype.copy = function copy(other) {
+CharacterColliderSurfaceSetup.prototype.copy = function copy(other) {
     this.mySurfaceSnapEnabled = other.mySurfaceSnapEnabled;
     this.mySurfaceSnapMaxDistance = other.mySurfaceSnapMaxDistance;
 
@@ -536,7 +539,7 @@ PP.CharacterColliderSurfaceSetup.prototype.copy = function copy(other) {
     this.myHorizontalMovementAllowExitAttemptWhenOnNotIgnorableSurfacePerceivedAngle = other.myHorizontalMovementAllowExitAttemptWhenOnNotIgnorableSurfacePerceivedAngle;
 };
 
-PP.CharacterColliderSplitMovementSetup.prototype.copy = function copy(other) {
+CharacterColliderSplitMovementSetup.prototype.copy = function copy(other) {
     this.mySplitMovementEnabled = other.mySplitMovementEnabled;
 
     this.mySplitMovementMaxSteps = other.mySplitMovementMaxSteps;
@@ -553,7 +556,7 @@ PP.CharacterColliderSplitMovementSetup.prototype.copy = function copy(other) {
     this.mySplitMovementStopReturnPreviousResults = other.mySplitMovementStopReturnPreviousResults;
 };
 
-PP.CharacterColliderAdditionalSetup.prototype.copy = function copy(other) {
+CharacterColliderAdditionalSetup.prototype.copy = function copy(other) {
     this.myPositionOffsetLocal.vec3_copy(other.myPositionOffsetLocal);
     this.myRotationOffsetLocalQuat.quat_copy(other.myRotationOffsetLocalQuat);
 
@@ -564,7 +567,7 @@ PP.CharacterColliderAdditionalSetup.prototype.copy = function copy(other) {
     */
 };
 
-PP.CharacterColliderDebugSetup.prototype.copy = function copy(other) {
+CharacterColliderDebugSetup.prototype.copy = function copy(other) {
     this.myVisualDebugActive = other.myVisualDebugActive;
 
     this.myVisualDebugMovementActive = other.myVisualDebugMovementActive;
@@ -582,14 +585,3 @@ PP.CharacterColliderDebugSetup.prototype.copy = function copy(other) {
 
     this.myVisualDebugResultsActive = other.myVisualDebugResultsActive;
 };
-
-
-
-Object.defineProperty(PP.CharacterColliderSetup.prototype, "copy", { enumerable: false });
-Object.defineProperty(PP.CharacterColliderHorizontalCheckSetup.prototype, "copy", { enumerable: false });
-Object.defineProperty(PP.CharacterColliderVerticalCheckSetup.prototype, "copy", { enumerable: false });
-Object.defineProperty(PP.CharacterColliderWallSlideSetup.prototype, "copy", { enumerable: false });
-Object.defineProperty(PP.CharacterColliderSurfaceSetup.prototype, "copy", { enumerable: false });
-Object.defineProperty(PP.CharacterColliderSplitMovementSetup.prototype, "copy", { enumerable: false });
-Object.defineProperty(PP.CharacterColliderAdditionalSetup.prototype, "copy", { enumerable: false });
-Object.defineProperty(PP.CharacterColliderDebugSetup.prototype, "copy", { enumerable: false });

@@ -1,4 +1,6 @@
-PP.CharacterCollisionSystem = class CharacterCollisionSystem {
+import { quat2_create } from "../../../../plugin/js/extensions/array_extension";
+
+export class CharacterCollisionSystem {
     constructor() {
         this._myLastCheckRaycastsPerformed = 0;
         this._myCurrentFrameRaycastsPerformed = 0;
@@ -71,21 +73,17 @@ PP.CharacterCollisionSystem = class CharacterCollisionSystem {
         this._myMaxFrameRaycastsPerformed = Math.max(this._myCurrentFrameRaycastsPerformed, this._myMaxFrameRaycastsPerformed);
         outCharacterCollisionResults.myDebugResults._myRaycastsPerformed = this._myLastCheckRaycastsPerformed;
     }
-};
+}
 
 
 
 // IMPLEMENTATION
 
-PP.CharacterCollisionSystem.prototype.checkTeleportToPosition = function () {
-    let teleportTransformQuat = PP.quat2_create();
+CharacterCollisionSystem.prototype.checkTeleportToPosition = function () {
+    let teleportTransformQuat = quat2_create();
     return function checkTeleportToPosition(teleportPosition, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults) {
         teleportTransformQuat.quat2_copy(currentTransformQuat);
         teleportTransformQuat.quat2_setPosition(teleportPosition);
         this.checkTeleportToTransform(teleportTransformQuat, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
     };
 }();
-
-
-
-Object.defineProperty(PP.CharacterCollisionSystem.prototype, "checkTeleportToPosition", { enumerable: false });

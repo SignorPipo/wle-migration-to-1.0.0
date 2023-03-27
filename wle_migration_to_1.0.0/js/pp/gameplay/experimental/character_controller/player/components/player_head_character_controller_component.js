@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { PlayerHeadCharacterController } from "../player_head_character_controller";
 
 export class PlayerHeadCharacterControllerComponent extends Component {
     static TypeName = "pp-player-head-character-controller";
@@ -8,7 +9,7 @@ export class PlayerHeadCharacterControllerComponent extends Component {
     }
 
     start() {
-        this._myPlayerHeadCharacterController = new PP.PlayerHeadCharacterController();
+        this._myPlayerHeadCharacterController = new PlayerHeadCharacterController();
     }
 
     update(dt) {

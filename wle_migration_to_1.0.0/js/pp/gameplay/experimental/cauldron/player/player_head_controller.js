@@ -1,4 +1,4 @@
-PP.PlayerHeadController = class PlayerHeadController {
+export class PlayerHeadController {
     constructor() {
     }
 };

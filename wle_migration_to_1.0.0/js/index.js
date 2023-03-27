@@ -157,6 +157,10 @@ import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.j
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
 import {WaveMovementComponent} from './playground/wave_movement_component.js';
+import {PlayerHeadControllerComponent} from './pp/gameplay/experimental/cauldron/player/components/player_head_controller_component.js';
+import {PlayerViewOcclusionComponent} from './pp/gameplay/experimental/cauldron/player/components/player_view_occlusion_component.js';
+import './pp/gameplay/experimental/cauldron/player/player_head_controller.js';
+import './pp/gameplay/experimental/cauldron/player/player_view_occlusion.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -249,6 +253,8 @@ engine.registerComponent(SFXOnCollisionComponent);
 engine.registerComponent(SFXOnGrabThrowComponent);
 engine.registerComponent(TargetHitCheckComponent);
 engine.registerComponent(WaveMovementComponent);
+engine.registerComponent(PlayerHeadControllerComponent);
+engine.registerComponent(PlayerViewOcclusionComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

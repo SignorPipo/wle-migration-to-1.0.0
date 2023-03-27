@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { PlayerViewOcclusion } from "../player_view_occlusion";
 
 export class PlayerViewOcclusionComponent extends Component {
     static TypeName = "pp-player-occlusion";
@@ -8,7 +9,7 @@ export class PlayerViewOcclusionComponent extends Component {
     }
 
     start() {
-        this._myPlayerViewOcclusion = new PP.PlayerViewOcclusion();
+        this._myPlayerViewOcclusion = new PlayerViewOcclusion();
     }
 
     update(dt) {

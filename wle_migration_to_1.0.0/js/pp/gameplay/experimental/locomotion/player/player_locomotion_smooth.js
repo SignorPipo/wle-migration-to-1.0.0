@@ -1,4 +1,4 @@
-PP.PlayerLocomotionSmooth = class PlayerLocomotionSmooth {
+export class PlayerLocomotionSmooth {
     constructor() {
     }
-};
+}

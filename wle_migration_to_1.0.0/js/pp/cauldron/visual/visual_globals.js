@@ -1,6 +1,7 @@
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
 
 let _myVisualDatas = new WeakMap();
+let _myVisualManagers = new WeakMap();
 
 export function getVisualData(engine = getMainEngineinEngine()) {
     return _myVisualDatas.get(engine);
@@ -17,8 +18,6 @@ export function removeVisualData(engine = getMainEngine()) {
 export function hasVisualData(engine = getMainEngine()) {
     return _myVisualDatas.has(engine);
 }
-
-let _myVisualManagers = new WeakMap();
 
 export function getVisualManager(engine = getMainEngine()) {
     return _myVisualManagers.get(engine);

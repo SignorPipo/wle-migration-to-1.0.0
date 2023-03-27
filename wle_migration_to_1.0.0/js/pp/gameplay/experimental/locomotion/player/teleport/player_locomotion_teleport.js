@@ -1,4 +1,4 @@
-PP.PlayerLocomotionTeleport = class PlayerLocomotionTeleport {
+export class PlayerLocomotionTeleport {
     constructor() {
     }
-};
+}

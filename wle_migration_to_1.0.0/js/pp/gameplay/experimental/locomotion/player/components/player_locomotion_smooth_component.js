@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { PlayerLocomotionSmooth } from "../player_locomotion_smooth";
 
 export class PlayerLocomotionSmoothComponent extends Component {
     static TypeName = "pp-player-locomotion-smooth";
@@ -8,7 +9,7 @@ export class PlayerLocomotionSmoothComponent extends Component {
     }
 
     start() {
-        this._myPlayerLocomotionSmooth = new PP.PlayerLocomotionSmooth();
+        this._myPlayerLocomotionSmooth = new PlayerLocomotionSmooth();
     }
 
     update(dt) {
