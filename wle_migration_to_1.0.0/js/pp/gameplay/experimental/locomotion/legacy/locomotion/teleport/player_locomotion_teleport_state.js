@@ -22,20 +22,20 @@ PP.PlayerLocomotionTeleportState.prototype._checkTeleport = function () {
 
 PP.PlayerLocomotionTeleportState.prototype._checkTeleportAsMovement = function () {
     let checkTeleportMovementCollisionRuntimeParams = new PP.CollisionRuntimeParams();
-    let feetRotationQuat = PP.quat_create();
-    let feetPosition = PP.vec3_create();
-    let feetUp = PP.vec3_create();
-    let teleportFeetForward = PP.vec3_create();
-    let teleportFeetRotationQuat = PP.quat_create();
-    let teleportFeetTransformQuat = PP.quat2_create();
+    let feetRotationQuat = quat_create();
+    let feetPosition = vec3_create();
+    let feetUp = vec3_create();
+    let teleportFeetForward = vec3_create();
+    let teleportFeetRotationQuat = quat_create();
+    let teleportFeetTransformQuat = quat2_create();
 
-    let currentFeetPosition = PP.vec3_create();
-    let fixedTeleportPosition = PP.vec3_create();
+    let currentFeetPosition = vec3_create();
+    let fixedTeleportPosition = vec3_create();
 
-    let teleportMovement = PP.vec3_create();
-    let extraVerticalMovement = PP.vec3_create();
-    let movementToTeleportPosition = PP.vec3_create();
-    let movementFeetTransformQuat = PP.quat2_create();
+    let teleportMovement = vec3_create();
+    let extraVerticalMovement = vec3_create();
+    let movementToTeleportPosition = vec3_create();
+    let movementFeetTransformQuat = quat2_create();
     return function _checkTeleportAsMovement(teleportPosition, feetTransformQuat, collisionRuntimeParams, checkTeleportCollisionRuntimeParams) {
         feetPosition = feetTransformQuat.quat2_getPosition(feetPosition);
         feetRotationQuat = feetTransformQuat.quat2_getRotationQuat(feetRotationQuat);
@@ -102,11 +102,11 @@ PP.PlayerLocomotionTeleportState.prototype._checkTeleportAsMovement = function (
 }();
 
 PP.PlayerLocomotionTeleportState.prototype._teleportToPosition = function () {
-    let playerUp = PP.vec3_create();
-    let feetTransformQuat = PP.quat2_create();
-    let newFeetTransformQuat = PP.quat2_create();
-    let newFeetRotationQuat = PP.quat_create();
-    let teleportRotation = PP.quat_create();
+    let playerUp = vec3_create();
+    let feetTransformQuat = quat2_create();
+    let newFeetTransformQuat = quat2_create();
+    let newFeetRotationQuat = quat_create();
+    let teleportRotation = quat_create();
     return function _teleportToPosition(teleportPosition, rotationOnUp, collisionRuntimeParams, forceTeleport = false) {
         this._myTeleportAsMovementFailed = false;
 

@@ -19,8 +19,8 @@ PP.PlayerLocomotionTeleportDetectionParams = class PlayerLocomotionTeleportDetec
         this.myTeleportParableStartReferenceObject = null;
 
         // used if reference is null
-        this.myTeleportParableStartPositionOffset = PP.vec3_create(0, -0.04, 0.08);
-        this.myTeleportParableStartRotationOffset = PP.vec3_create(30, 0, 0);
+        this.myTeleportParableStartPositionOffset = vec3_create(0, -0.04, 0.08);
+        this.myTeleportParableStartRotationOffset = vec3_create(30, 0, 0);
 
         this.myTeleportParableSpeed = 15;
         this.myTeleportParableGravity = -30;
@@ -47,7 +47,7 @@ PP.PlayerLocomotionTeleportDetectionRuntimeParams = class PlayerLocomotionTelepo
     constructor() {
         this.myTeleportDetectionValid = false;
         this.myTeleportPositionValid = false;
-        this.myTeleportSurfaceNormal = PP.vec3_create();
+        this.myTeleportSurfaceNormal = vec3_create();
 
         this.myParable = new PP.PlayerLocomotionTeleportParable();
     }
@@ -152,10 +152,10 @@ PP.PlayerLocomotionTeleportDetectionState = class PlayerLocomotionTeleportDetect
 };
 
 PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionNonVR = function () {
-    let mousePosition = PP.vec3_create();
-    let mouseDirection = PP.vec3_create();
+    let mousePosition = vec3_create();
+    let mouseDirection = vec3_create();
 
-    let playerUp = PP.vec3_create();
+    let playerUp = vec3_create();
     return function _detectTeleportPositionNonVR(dt) {
         this._myDetectionRuntimeParams.myTeleportPositionValid = false;
         this._myDetectionRuntimeParams.myTeleportDetectionValid = true;
@@ -170,14 +170,14 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionNonVR
 }();
 
 PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionVR = function () {
-    let teleportStartTransformLocal = PP.quat2_create();
-    let teleportStartTransformWorld = PP.quat2_create();
+    let teleportStartTransformLocal = quat2_create();
+    let teleportStartTransformWorld = quat2_create();
 
-    let teleportStartPosition = PP.vec3_create();
-    let teleportDirection = PP.vec3_create();
+    let teleportStartPosition = vec3_create();
+    let teleportDirection = vec3_create();
 
-    let playerUp = PP.vec3_create();
-    let playerUpNegate = PP.vec3_create();
+    let playerUp = vec3_create();
+    let playerUpNegate = vec3_create();
     return function _detectTeleportPositionVR(dt) {
         this._myDetectionRuntimeParams.myTeleportPositionValid = false;
         this._myDetectionRuntimeParams.myTeleportDetectionValid = false;
@@ -212,22 +212,22 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionVR = 
 }();
 
 PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable = function () {
-    let parablePosition = PP.vec3_create();
-    let prevParablePosition = PP.vec3_create();
-    let parableFinalPosition = PP.vec3_create();
+    let parablePosition = vec3_create();
+    let prevParablePosition = vec3_create();
+    let parableFinalPosition = vec3_create();
 
     let raycastSetup = new PP.RaycastSetup();
     let raycastResult = new PP.RaycastResults();
 
-    let parableHitPosition = PP.vec3_create();
-    let parableHitNormal = PP.vec3_create();
+    let parableHitPosition = vec3_create();
+    let parableHitNormal = vec3_create();
 
-    let verticalHitOrigin = PP.vec3_create();
-    let verticalHitDirection = PP.vec3_create();
+    let verticalHitOrigin = vec3_create();
+    let verticalHitDirection = vec3_create();
 
-    let flatTeleportHorizontalHitNormal = PP.vec3_create();
-    let flatParableHitNormal = PP.vec3_create();
-    let flatParableDirectionNegate = PP.vec3_create();
+    let flatTeleportHorizontalHitNormal = vec3_create();
+    let flatParableHitNormal = vec3_create();
+    let flatParableDirectionNegate = vec3_create();
 
     let teleportCollisionRuntimeParams = new PP.CollisionRuntimeParams();
 
@@ -348,7 +348,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParab
                                 raycastResult = PP.PhysicsUtils.raycast(raycastSetup, raycastResult);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                                    PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, PP.vec4_create(0, 0, 0, 1), 0.03);
+                                    PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     PP.myDebugVisualManager.drawRaycast(0, raycastResult);
                                 }
 
@@ -379,7 +379,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParab
                                 raycastResult = PP.PhysicsUtils.raycast(raycastSetup, raycastResult);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                                    PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, PP.vec4_create(0, 0, 0, 1), 0.03);
+                                    PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     PP.myDebugVisualManager.drawRaycast(0, raycastResult);
                                 }
 
@@ -411,7 +411,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParab
                                 raycastResult = PP.PhysicsUtils.raycast(raycastSetup, raycastResult);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                                    PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, PP.vec4_create(0, 0, 0, 1), 0.03);
+                                    PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     PP.myDebugVisualManager.drawRaycast(0, raycastResult);
                                 }
 
@@ -479,7 +479,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParab
                         raycastResult = PP.PhysicsUtils.raycast(raycastSetup, raycastResult);
 
                         if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                            PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, PP.vec4_create(0, 0, 0, 1), 0.03);
+                            PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                             PP.myDebugVisualManager.drawRaycast(0, raycastResult);
                         }
 
@@ -509,7 +509,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParab
                         raycastResult = PP.PhysicsUtils.raycast(raycastSetup, raycastResult);
 
                         if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                            PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, PP.vec4_create(0, 0, 0, 1), 0.03);
+                            PP.myDebugVisualManager.drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                             PP.myDebugVisualManager.drawRaycast(0, raycastResult);
                         }
 
@@ -530,9 +530,9 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParab
 }();
 
 PP.PlayerLocomotionTeleportDetectionState.prototype._detectTeleportRotationVR = function () {
-    let axesVec3 = PP.vec3_create();
-    let axesForward = PP.vec3_create(0, 0, 1);
-    let axesUp = PP.vec3_create(0, 1, 0);
+    let axesVec3 = vec3_create();
+    let axesForward = vec3_create(0, 0, 1);
+    let axesUp = vec3_create(0, 1, 0);
     return function _detectTeleportRotationVR(dt) {
         let axes = PP.myGamepads[this._myTeleportParams.myHandedness].getAxesInfo(PP.GamepadAxesID.THUMBSTICK).getAxes();
 
@@ -554,7 +554,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = functi
     let raycastSetup = new PP.RaycastSetup();
     let raycastResult = new PP.RaycastResults();
 
-    let playerUp = PP.vec3_create();
+    let playerUp = vec3_create();
     let objectsEqualCallback = (first, second) => first.pp_equals(second);
     return function _isTeleportHitValid(hit, rotationOnUp, checkTeleportCollisionRuntimeParams) {
         let isValid = false;
@@ -597,11 +597,11 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = functi
 }();
 
 PP.PlayerLocomotionTeleportDetectionState.prototype._isTeleportPositionValid = function () {
-    let playerUp = PP.vec3_create();
-    let feetTransformQuat = PP.quat2_create();
-    let feetRotationQuat = PP.quat_create();
-    let feetPosition = PP.vec3_create();
-    let differenceOnUpVector = PP.vec3_create();
+    let playerUp = vec3_create();
+    let feetTransformQuat = quat2_create();
+    let feetRotationQuat = quat_create();
+    let feetPosition = vec3_create();
+    let differenceOnUpVector = vec3_create();
     let teleportCheckCollisionRuntimeParams = new PP.CollisionRuntimeParams();
     return function _isTeleportPositionValid(teleportPosition, rotationOnUp, checkTeleportCollisionRuntimeParams) {
         let isValid = false;

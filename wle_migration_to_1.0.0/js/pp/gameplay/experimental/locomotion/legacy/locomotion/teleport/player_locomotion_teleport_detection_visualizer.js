@@ -35,7 +35,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer = class PlayerLocomotionTeleportD
         this._myTeleportRuntimeParams = teleportRuntimeParams;
 
         this._myVisualTeleportTransformQuatReset = true;
-        this._myVisualTeleportTransformQuat = PP.quat2_create();
+        this._myVisualTeleportTransformQuat = quat2_create();
         this._myVisualTeleportTransformPositionLerping = false;
         this._myVisualTeleportTransformRotationLerping = false;
 
@@ -133,12 +133,12 @@ PP.PlayerLocomotionTeleportDetectionVisualizer = class PlayerLocomotionTeleportD
 };
 
 PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = function () {
-    let innerTorusPosition = PP.vec3_create();
+    let innerTorusPosition = vec3_create();
     return function _setupVisuals() {
         this._myTeleportParableValidMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-        this._myTeleportParableValidMaterial.color = PP.vec4_create(0, 0.5, 1, 1);
+        this._myTeleportParableValidMaterial.color = vec4_create(0, 0.5, 1, 1);
         this._myTeleportParableInvalidMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-        this._myTeleportParableInvalidMaterial.color = PP.vec4_create(0.75, 0.05, 0, 1);
+        this._myTeleportParableInvalidMaterial.color = vec4_create(0.75, 0.05, 0, 1);
 
         this._myValidVisualLines = [];
         this._myInvalidVisualLines = [];
@@ -250,11 +250,11 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = functio
 }();
 
 PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParable = function () {
-    let currentPosition = PP.vec3_create();
-    let nextPosition = PP.vec3_create();
+    let currentPosition = vec3_create();
+    let nextPosition = vec3_create();
 
-    let playerUp = PP.vec3_create();
-    let upDifference = PP.vec3_create();
+    let playerUp = vec3_create();
+    let upDifference = vec3_create();
     return function _showTeleportParable(dt) {
         let showParableDistance = Math.max(this._myDetectionRuntimeParams.myParableDistance - this._myTeleportParams.myVisualizerParams.myTeleportParableLineEndOffset);
         let lastParableIndex = this._myDetectionRuntimeParams.myParable.getPositionIndexByDistance(showParableDistance);
@@ -285,7 +285,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParable = 
             visuaLine.setVisible(true);
 
             if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugShowActive) {
-                PP.myDebugVisualManager.drawPoint(0, currentPosition, PP.vec4_create(1, 0, 0, 1), 0.01);
+                PP.myDebugVisualManager.drawPoint(0, currentPosition, vec4_create(1, 0, 0, 1), 0.01);
             }
         }
 
@@ -326,18 +326,18 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParable = 
 }();
 
 PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParablePosition = function () {
-    let playerUp = PP.vec3_create();
-    let feetTransformQuat = PP.quat2_create();
-    let feetRotationQuat = PP.quat_create();
+    let playerUp = vec3_create();
+    let feetTransformQuat = quat2_create();
+    let feetRotationQuat = quat_create();
 
-    let visualPosition = PP.vec3_create();
-    let visualForward = PP.vec3_create();
-    let visualRotationQuat = PP.quat_create();
+    let visualPosition = vec3_create();
+    let visualForward = vec3_create();
+    let visualRotationQuat = quat_create();
 
-    let currentVisualTeleportTransformQuat = PP.quat2_create();
-    let currentVisualTeleportPosition = PP.vec3_create();
-    let currentVisualTeleportRotationQuat = PP.quat_create();
-    let differenceRotationQuat = PP.quat_create();
+    let currentVisualTeleportTransformQuat = quat2_create();
+    let currentVisualTeleportPosition = vec3_create();
+    let currentVisualTeleportRotationQuat = quat_create();
+    let differenceRotationQuat = quat_create();
 
     return function _showTeleportParablePosition(dt) {
         playerUp = this._myTeleportParams.myPlayerHeadManager.getPlayer().pp_getUp(playerUp);
@@ -435,7 +435,7 @@ PP.PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParablePos
         }
 
         if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugShowActive) {
-            PP.myDebugVisualManager.drawPoint(0, this._myTeleportRuntimeParams.myTeleportPosition, PP.vec4_create(0, 0, 1, 1), 0.02);
+            PP.myDebugVisualManager.drawPoint(0, this._myTeleportRuntimeParams.myTeleportPosition, vec4_create(0, 0, 1, 1), 0.02);
         }
     };
 }();

@@ -1,6 +1,16 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { PhysicsLayerFlags } from "../../../../../cauldron/physics/physics_layer_flags";
+import { InputUtils } from "../../../../../input/cauldron/input_utils";
+import { CollisionCheck } from "../../../character_controller/collision/legacy/collision_check/collision_check";
+import { CleanedPlayerLocomotion } from "./cleaned/player_locomotion_cleaned";
+import { PlayerLocomotion, PlayerLocomotionParams } from "./player_locomotion";
 
-PP.myCollisionCheck = null;
+let _myCollisionCheck = null;
+
+// #ENGINE
+export function getCollisionCheck() {
+    return _myCollisionCheck;
+}
 
 export class PlayerLocomotionComponent extends Component {
     static TypeName = "pp-player-locomotion";
@@ -30,8 +40,9 @@ export class PlayerLocomotionComponent extends Component {
     };
 
     start() {
-        PP.myCollisionCheck = new PP.CollisionCheck();
-        let params = new PP.PlayerLocomotionParams();
+        _myCollisionCheck = new CollisionCheck(this.engine);
+
+        let params = new PlayerLocomotionParams(this.engine);
         params.myMaxSpeed = this._myMaxSpeed;
         params.myMaxRotationSpeed = this._myMaxRotationSpeed;
 
@@ -49,7 +60,7 @@ export class PlayerLocomotionComponent extends Component {
         params.myMinAngleToFlyDownVR = this._myMinAngleToFlyDownVR;
         params.myMinAngleToFlyRight = this._myMinAngleToFlyRight;
 
-        params.myMainHand = PP.InputUtils.getHandednessByIndex(this._myMainHand);
+        params.myMainHand = InputUtils.getHandednessByIndex(this._myMainHand);
 
         params.myVRDirectionReferenceType = this._myVRDirectionReferenceType;
         params.myVRDirectionReferenceObject = this._myVRDirectionReferenceObject;
@@ -66,9 +77,9 @@ export class PlayerLocomotionComponent extends Component {
         params.myPhysicsBlockLayerFlags.copy(this._getPhysicsBlockLayersFlags());
 
         if (this._myUseCleanedVersion) {
-            this._myPlayerLocomotion = new PP.CleanedPlayerLocomotion(params);
+            this._myPlayerLocomotion = new CleanedPlayerLocomotion(params);
         } else {
-            this._myPlayerLocomotion = new PP.PlayerLocomotion(params);
+            this._myPlayerLocomotion = new PlayerLocomotion(params);
         }
 
         this._myStartCounter = 1;
@@ -113,7 +124,7 @@ export class PlayerLocomotionComponent extends Component {
     }
 
     _getPhysicsBlockLayersFlags() {
-        let physicsFlags = new PP.PhysicsLayerFlags();
+        let physicsFlags = new PhysicsLayerFlags();
 
         let flags = [...this._myPhysicsBlockLayerFlags.split(",")];
         for (let i = 0; i < flags.length; i++) {

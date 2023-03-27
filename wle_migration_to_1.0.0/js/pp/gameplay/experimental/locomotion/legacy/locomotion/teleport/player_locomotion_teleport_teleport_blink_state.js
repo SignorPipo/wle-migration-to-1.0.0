@@ -25,7 +25,7 @@ PP.PlayerLocomotionTeleportTeleportBlinkState = class PlayerLocomotionTeleportTe
         this._myFSM.addState("idle");
 
         this._myFSM.addState("fade_out", this._fadeOutUpdate.bind(this));
-        this._myFSM.addState("wait", new PP.TimerState(this._myTeleportParams.myTeleportParams.myBlinkWaitSeconds, "done"));
+        this._myFSM.addState("wait", new TimerState(this._myTeleportParams.myTeleportParams.myBlinkWaitSeconds, "done"));
         this._myFSM.addState("fade_in", this._fadeInUpdate.bind(this));
 
         this._myFSM.addTransition("init", "idle", "start");
@@ -43,8 +43,8 @@ PP.PlayerLocomotionTeleportTeleportBlinkState = class PlayerLocomotionTeleportTe
         this._myFSM.init("init");
         this._myFSM.perform("start");
 
-        this._myFadeInTimer = new PP.Timer(this._myTeleportParams.myTeleportParams.myBlinkFadeInSeconds);
-        this._myFadeOutTimer = new PP.Timer(this._myTeleportParams.myTeleportParams.myBlinkFadeOutSeconds);
+        this._myFadeInTimer = new Timer(this._myTeleportParams.myTeleportParams.myBlinkFadeInSeconds);
+        this._myFadeOutTimer = new Timer(this._myTeleportParams.myTeleportParams.myBlinkFadeOutSeconds);
         this._myFadeOutAlphaOverTime = new PP.NumberOverValue(0, 1, 0, 1);
         this._myFadeInAlphaOverTime = new PP.NumberOverValue(1, 0, 0, 1);
     }

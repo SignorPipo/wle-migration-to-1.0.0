@@ -1,9 +1,9 @@
 PP.PlayerLocomotionTeleportParable = class PlayerLocomotionTeleportParable {
     constructor() {
-        this._myStartPosition = PP.vec3_create();
+        this._myStartPosition = vec3_create();
 
-        this._myForward = PP.vec3_create();
-        this._myUp = PP.vec3_create();
+        this._myForward = vec3_create();
+        this._myUp = vec3_create();
 
         this._mySpeed = 0;
         this._myGravity = 0;
@@ -34,7 +34,7 @@ PP.PlayerLocomotionTeleportParable = class PlayerLocomotionTeleportParable {
         this._myStepLength = stepLength;
     }
 
-    getPosition(positionIndex, outPosition = PP.vec3_create()) {
+    getPosition(positionIndex, outPosition = vec3_create()) {
         // implemented outside class definition
     }
 
@@ -46,7 +46,7 @@ PP.PlayerLocomotionTeleportParable = class PlayerLocomotionTeleportParable {
         // implemented outside class definition
     }
 
-    getPositionByDistance(distance, outPosition = PP.vec3_create()) {
+    getPositionByDistance(distance, outPosition = vec3_create()) {
         // implemented outside class definition
     }
 
@@ -60,9 +60,9 @@ PP.PlayerLocomotionTeleportParable = class PlayerLocomotionTeleportParable {
 };
 
 PP.PlayerLocomotionTeleportParable.prototype.getPosition = function () {
-    let forwardPosition = PP.vec3_create();
-    let upPosition = PP.vec3_create();
-    return function getPosition(positionIndex, outPosition = PP.vec3_create()) {
+    let forwardPosition = vec3_create();
+    let upPosition = vec3_create();
+    return function getPosition(positionIndex, outPosition = vec3_create()) {
         let deltaTimePerStep = this._myStepLength / this._mySpeed;
 
         let elapsedTime = deltaTimePerStep * positionIndex;
@@ -79,8 +79,8 @@ PP.PlayerLocomotionTeleportParable.prototype.getPosition = function () {
 }();
 
 PP.PlayerLocomotionTeleportParable.prototype.getDistance = function () {
-    let currentPosition = PP.vec3_create();
-    let prevPosition = PP.vec3_create();
+    let currentPosition = vec3_create();
+    let prevPosition = vec3_create();
     return function getDistance(positionIndex) {
         let distance = 0;
         prevPosition.vec3_copy(this._myStartPosition);
@@ -97,8 +97,8 @@ PP.PlayerLocomotionTeleportParable.prototype.getDistance = function () {
 }();
 
 PP.PlayerLocomotionTeleportParable.prototype.getPositionIndexByDistance = function () {
-    let currentPosition = PP.vec3_create();
-    let prevPosition = PP.vec3_create();
+    let currentPosition = vec3_create();
+    let prevPosition = vec3_create();
     return function getPositionIndexByDistance(distance) {
         let currentDistance = 0;
         let currentIndex = 0;
@@ -117,10 +117,10 @@ PP.PlayerLocomotionTeleportParable.prototype.getPositionIndexByDistance = functi
 }();
 
 PP.PlayerLocomotionTeleportParable.prototype.getPositionByDistance = function () {
-    let currentPosition = PP.vec3_create();
-    let prevPosition = PP.vec3_create();
-    let prevToCurrent = PP.vec3_create();
-    return function getPositionByDistance(distance, outPosition = PP.vec3_create()) {
+    let currentPosition = vec3_create();
+    let prevPosition = vec3_create();
+    let prevToCurrent = vec3_create();
+    return function getPositionByDistance(distance, outPosition = vec3_create()) {
         let currentDistance = 0;
         let currentIndex = 0;
         let found = false;
@@ -148,12 +148,12 @@ PP.PlayerLocomotionTeleportParable.prototype.getPositionByDistance = function ()
 }();
 
 PP.PlayerLocomotionTeleportParable.prototype.getDistanceOverFlatDistance = function () {
-    let currentPosition = PP.vec3_create();
-    let flatCurrentPosition = PP.vec3_create();
-    let flatStartPosition = PP.vec3_create();
-    let prevPosition = PP.vec3_create();
-    let prevToCurrent = PP.vec3_create();
-    let startToCurrentFlat = PP.vec3_create();
+    let currentPosition = vec3_create();
+    let flatCurrentPosition = vec3_create();
+    let flatStartPosition = vec3_create();
+    let prevPosition = vec3_create();
+    let prevToCurrent = vec3_create();
+    let startToCurrentFlat = vec3_create();
     return function getDistanceOverFlatDistance(flatDistance, maxParableDistance) {
         if (flatDistance < 0.00001) {
             return 0;
@@ -199,9 +199,9 @@ PP.PlayerLocomotionTeleportParable.prototype.getDistanceOverFlatDistance = funct
 }();
 
 PP.PlayerLocomotionTeleportParable.prototype.getFlatDistanceOverDistance = function () {
-    let positionByDistance = PP.vec3_create();
-    let flatPositionByDistance = PP.vec3_create();
-    let flatStartPosition = PP.vec3_create();
+    let positionByDistance = vec3_create();
+    let flatPositionByDistance = vec3_create();
+    let flatStartPosition = vec3_create();
     return function getFlatDistanceOverDistance(distance) {
         positionByDistance = this.getPositionByDistance(distance, positionByDistance);
 

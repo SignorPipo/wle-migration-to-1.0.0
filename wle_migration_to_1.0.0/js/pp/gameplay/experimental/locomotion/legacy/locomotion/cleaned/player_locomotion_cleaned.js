@@ -1,18 +1,38 @@
-PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
+import { FSM } from "../../../../../../cauldron/fsm/fsm";
+import { getLeftGamepad } from "../../../../../../input/cauldron/input_globals";
+import { InputUtils } from "../../../../../../input/cauldron/input_utils";
+import { GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
+import { EasingFunction } from "../../../../../../plugin/js/extensions/math_extension";
+import { getPlayerObjects } from "../../../../../../pp/player_objects_global";
+import { CharacterColliderSetupSimplifiedCreationAccuracyLevel, CharacterColliderSetupSimplifiedCreationParams, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
+import { CollisionCheckBridge } from "../../../../character_controller/collision/collision_check_bridge";
+import { CollisionCheckUtils } from "../../../../character_controller/collision/legacy/collision_check/collision_check";
+import { CollisionCheckParams, CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
+import { PlayerHeadManager, PlayerHeadManagerParams } from "../player_head_manager";
+import { PlayerLocomotionMovementRuntimeParams } from "../player_locomotion_movement";
+import { PlayerLocomotionRotate, PlayerLocomotionRotateParams } from "../player_locomotion_rotate";
+import { PlayerLocomotionSmoothParams } from "../player_locomotion_smooth";
+import { PlayerObscureManager, PlayerObscureManagerParams } from "../player_obscure_manager";
+import { PlayerTransformManagerParams } from "../player_transform_manager";
+import { PlayerLocomotionTeleport, PlayerLocomotionTeleportParams } from "../teleport/player_locomotion_teleport";
+import { CleanedPlayerLocomotionSmooth } from "./player_locomotion_smooth_cleaned";
+import { CleanedPlayerTransformManager } from "./player_transform_manager_cleaned";
+
+export class CleanedPlayerLocomotion {
     constructor(params) {
         this._myParams = params;
 
-        this._myCollisionCheckParamsMovement = new PP.CollisionCheckParams();
+        this._myCollisionCheckParamsMovement = new CollisionCheckParams();
         this._setupCollisionCheckParamsMovement();
         this._myCollisionCheckParamsTeleport = null;
         this._setupCollisionCheckParamsTeleport();
 
-        this._myCollisionRuntimeParams = new PP.CollisionRuntimeParams();
-        this._myMovementRuntimeParams = new PP.PlayerLocomotionMovementRuntimeParams();
+        this._myCollisionRuntimeParams = new CollisionRuntimeParams();
+        this._myMovementRuntimeParams = new PlayerLocomotionMovementRuntimeParams();
         this._myMovementRuntimeParams.myCollisionRuntimeParams = this._myCollisionRuntimeParams;
 
         {
-            let params = new PP.PlayerHeadManagerParams();
+            let params = new PlayerHeadManagerParams(this._myParams.myEngine);
 
             params.mySessionChangeResyncEnabled = true;
 
@@ -37,11 +57,11 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
 
             params.myDebugActive = false;
 
-            this._myPlayerHeadManager = new PP.PlayerHeadManager(params);
+            this._myPlayerHeadManager = new PlayerHeadManager(params);
         }
 
         {
-            let params = new PP.PlayerTransformManagerParams();
+            let params = new PlayerTransformManagerParams(this._myParams.myEngine);
 
             params.myPlayerHeadManager = this._myPlayerHeadManager;
 
@@ -106,11 +126,11 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
 
             params.myDebugActive = false;
 
-            this._myPlayerTransformManager = new PP.CleanedPlayerTransformManager(params);
+            this._myPlayerTransformManager = new CleanedPlayerTransformManager(params);
         }
 
         {
-            let params = new PP.PlayerObscureManagerParams();
+            let params = new PlayerObscureManagerParams(this._myParams.myEngine);
 
             params.myPlayerTransformManager = this._myPlayerTransformManager;
 
@@ -121,8 +141,8 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
             params.myObscureFadeOutSeconds = 0.25;
             params.myObscureFadeInSeconds = 0.25;
 
-            params.myObscureFadeEasingFunction = PP.EasingFunction.linear;
-            params.myObscureLevelRelativeDistanceEasingFunction = PP.EasingFunction.linear;
+            params.myObscureFadeEasingFunction = EasingFunction.linear;
+            params.myObscureLevelRelativeDistanceEasingFunction = EasingFunction.linear;
 
             params.myDistanceToStartObscureWhenBodyColliding = 0.75;
             params.myDistanceToStartObscureWhenHeadColliding = 0;
@@ -134,11 +154,11 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
             params.myRelativeDistanceToMaxObscureWhenFloating = 0.5;
             params.myRelativeDistanceToMaxObscureWhenFar = 0.5;
 
-            this._myPlayerObscureManager = new PP.PlayerObscureManager(params);
+            this._myPlayerObscureManager = new PlayerObscureManager(params);
         }
 
         {
-            let params = new PP.PlayerLocomotionRotateParams();
+            let params = new PlayerLocomotionRotateParams(this._myParams.myEngine);
 
             params.myPlayerHeadManager = this._myPlayerHeadManager;
             params.myPlayerTransformManager = this._myPlayerTransformManager;
@@ -148,7 +168,7 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
             params.mySnapTurnOnlyVR = this._myParams.mySnapTurnOnlyVR;
             params.mySnapTurnAngle = this._myParams.mySnapTurnAngle;
 
-            if (this._myParams.mySnapTurnSpeedDegrees > PP.LocomotionUtils.EPSILON) {
+            if (this._myParams.mySnapTurnSpeedDegrees > LocomotionUtils.EPSILON) {
                 params.mySmoothSnapActive = true;
                 params.mySmoothSnapSpeedDegrees = this._myParams.mySnapTurnSpeedDegrees;
             } else {
@@ -162,14 +182,14 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
             params.myClampVerticalAngle = true;
             params.myMaxVerticalAngle = 90;
 
-            this._myPlayerLocomotionRotate = new PP.PlayerLocomotionRotate(params);
+            this._myPlayerLocomotionRotate = new PlayerLocomotionRotate(params);
 
-            params.myHandedness = PP.InputUtils.getOppositeHandedness(this._myParams.myMainHand);
+            params.myHandedness = InputUtils.getOppositeHandedness(this._myParams.myMainHand);
         }
 
         {
             {
-                let params = new PP.PlayerLocomotionSmoothParams();
+                let params = new PlayerLocomotionSmoothParams(this._myParams.myEngine);
 
                 params.myPlayerHeadManager = this._myPlayerHeadManager;
                 params.myPlayerTransformManager = this._myPlayerTransformManager;
@@ -197,11 +217,11 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
                 params.myMoveThroughCollisionShortcutEnabled = this._myParams.myMoveThroughCollisionShortcutEnabled;
                 params.myMoveHeadShortcutEnabled = this._myParams.myMoveHeadShortcutEnabled;
 
-                this._myPlayerLocomotionSmooth = new PP.CleanedPlayerLocomotionSmooth(params, this._myMovementRuntimeParams);
+                this._myPlayerLocomotionSmooth = new CleanedPlayerLocomotionSmooth(params, this._myMovementRuntimeParams);
             }
 
             {
-                let params = new PP.PlayerLocomotionTeleportParams();
+                let params = new PlayerLocomotionTeleportParams(this._myParams.myEngine);
 
                 params.myPlayerHeadManager = this._myPlayerHeadManager;
                 params.myPlayerTransformManager = this._myPlayerTransformManager;
@@ -239,7 +259,7 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
                 params.myDebugShowActive = true;
                 params.myDebugVisibilityActive = false;
 
-                this._myPlayerLocomotionTeleport = new PP.PlayerLocomotionTeleport(params, this._myMovementRuntimeParams);
+                this._myPlayerLocomotionTeleport = new PlayerLocomotionTeleport(params, this._myMovementRuntimeParams);
             }
         }
 
@@ -311,7 +331,7 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
         this._myPlayerHeadManager.update(dt);
         this._myPlayerTransformManager.update(dt);
 
-        if (PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.THUMBSTICK).isPressEnd(2)) {
+        if (getLeftGamepad(this._myParams.myEngine).getButtonInfo(GamepadButtonID.THUMBSTICK).isPressEnd(2)) {
             if (this._myLocomotionMovementFSM.isInState("smooth") && this._myPlayerLocomotionSmooth.canStop()) {
                 this._myLocomotionMovementFSM.perform("next");
             } else if (this._myLocomotionMovementFSM.isInState("teleport") && this._myPlayerLocomotionTeleport.canStop()) {
@@ -351,12 +371,12 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
     }
 
     _setupCollisionCheckParamsMovement() {
-        let simplifiedParams = new PP.CharacterColliderSetupSimplifiedCreationParams();
+        let simplifiedParams = new CharacterColliderSetupSimplifiedCreationParams();
 
         simplifiedParams.myHeight = 1.75;
         simplifiedParams.myRadius = this._myParams.myCharacterRadius;
 
-        simplifiedParams.myAccuracyLevel = PP.CharacterColliderSetupSimplifiedCreationAccuracyLevel.HIGH;
+        simplifiedParams.myAccuracyLevel = CharacterColliderSetupSimplifiedCreationAccuracyLevel.HIGH;
 
         simplifiedParams.myIsPlayer = true;
 
@@ -376,7 +396,7 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
         simplifiedParams.myShouldNotFallFromEdges = false;
 
         simplifiedParams.myHorizontalCheckBlockLayerFlags.copy(this._myParams.myPhysicsBlockLayerFlags);
-        let physXComponents = PP.myPlayerObjects.myPlayer.pp_getComponentsHierarchy("physx");
+        let physXComponents = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getComponentsHierarchy("physx");
         for (let physXComponent of physXComponents) {
             simplifiedParams.myHorizontalCheckObjectsToIgnore.pp_pushUnique(physXComponent.object, (first, second) => first.pp_equals(second));
         }
@@ -386,13 +406,13 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
         simplifiedParams.myHorizontalCheckDebugActive = false;
         simplifiedParams.myVerticalCheckDebugActive = false;
 
-        let colliderSetup = PP.CharacterColliderUtils.createCharacterColliderSetupSimplified(simplifiedParams);
+        let colliderSetup = CharacterColliderUtils.createCharacterColliderSetupSimplified(simplifiedParams);
 
-        this._myCollisionCheckParamsMovement = PP.CollisionCheckBridge.convertCharacterColliderSetupToCollisionCheckParams(colliderSetup, this._myCollisionCheckParamsMovement);
+        this._myCollisionCheckParamsMovement = CollisionCheckBridge.convertCharacterColliderSetupToCollisionCheckParams(colliderSetup, this._myCollisionCheckParamsMovement);
     }
 
     _setupCollisionCheckParamsTeleport() {
-        this._myCollisionCheckParamsTeleport = PP.CollisionCheckUtils.generate360TeleportParamsFromMovementParams(this._myCollisionCheckParamsMovement);
+        this._myCollisionCheckParamsTeleport = CollisionCheckUtils.generate360TeleportParamsFromMovementParams(this._myCollisionCheckParamsMovement);
 
         // increased so to let teleport on steep slopes from above (from below is fixed through detection myGroundAngleToIgnoreUpward)
         this._myCollisionCheckParamsTeleport.myGroundAngleToIgnore = 61;
@@ -434,23 +454,23 @@ PP.CleanedPlayerLocomotion = class CleanedPlayerLocomotion {
     _fixAlmostUp() {
         // get rotation on y and adjust if it's slightly tilted when it's almsot 0,1,0
 
-        let defaultUp = PP.vec3_create(0, 1, 0);
-        let angleWithDefaultUp = PP.myPlayerObjects.myPlayer.pp_getUp().vec3_angle(defaultUp);
+        let defaultUp = vec3_create(0, 1, 0);
+        let angleWithDefaultUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp().vec3_angle(defaultUp);
         if (angleWithDefaultUp < 1) {
-            let forward = PP.myPlayerObjects.myPlayer.pp_getForward();
+            let forward = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getForward();
             let flatForward = forward.vec3_clone();
             flatForward[1] = 0;
 
-            let defaultForward = PP.vec3_create(0, 0, 1);
+            let defaultForward = vec3_create(0, 0, 1);
             let angleWithDefaultForward = defaultForward.vec3_angleSigned(flatForward, defaultUp);
 
-            PP.myPlayerObjects.myPlayer.pp_resetRotation();
-            PP.myPlayerObjects.myPlayer.pp_rotateAxis(angleWithDefaultForward, defaultUp);
+            getPlayerObjects(this._myParams.myEngine).myPlayer.pp_resetRotation();
+            getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateAxis(angleWithDefaultForward, defaultUp);
         }
     }
 
     _setupLocomotionMovementFSM() {
-        this._myLocomotionMovementFSM = new PP.FSM();
+        this._myLocomotionMovementFSM = new FSM();
         //this._myLocomotionMovementFSM.setDebugLogActive(true, "Locomotion Movement");
 
         this._myLocomotionMovementFSM.addState("init");

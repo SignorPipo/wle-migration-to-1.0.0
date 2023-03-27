@@ -1,8 +1,8 @@
 PP.PlayerLocomotionTeleportDetectionState.prototype._isTeleportPositionVisible = function () {
-    let playerUp = PP.vec3_create();
+    let playerUp = vec3_create();
 
-    let offsetFeetTeleportPosition = PP.vec3_create();
-    let headTeleportPosition = PP.vec3_create();
+    let offsetFeetTeleportPosition = vec3_create();
+    let headTeleportPosition = vec3_create();
     return function _isTeleportPositionVisible(teleportPosition) {
         let isVisible = true;
 
@@ -43,16 +43,16 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._isTeleportPositionVisible =
 }();
 
 PP.PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = function () {
-    let playerUp = PP.vec3_create();
-    let standardUp = PP.vec3_create(0, 1, 0);
-    let standardForward = PP.vec3_create(0, 0, 1);
-    let referenceUp = PP.vec3_create();
-    let headPosition = PP.vec3_create();
-    let direction = PP.vec3_create();
-    let fixedRight = PP.vec3_create();
-    let fixedForward = PP.vec3_create();
-    let fixedUp = PP.vec3_create();
-    let raycastEndPosition = PP.vec3_create();
+    let playerUp = vec3_create();
+    let standardUp = vec3_create(0, 1, 0);
+    let standardForward = vec3_create(0, 0, 1);
+    let referenceUp = vec3_create();
+    let headPosition = vec3_create();
+    let direction = vec3_create();
+    let fixedRight = vec3_create();
+    let fixedForward = vec3_create();
+    let fixedUp = vec3_create();
+    let raycastEndPosition = vec3_create();
 
     let raycastSetup = new PP.RaycastSetup();
     let raycastResult = new PP.RaycastResults();
@@ -125,7 +125,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._getVisibilityCheckPositions
     let _localGetCachedCheckPosition = function () {
         let item = null;
         while (cachedCheckPositions.length <= currentCachedCheckPositionIndex) {
-            cachedCheckPositions.push(PP.vec3_create());
+            cachedCheckPositions.push(vec3_create());
         }
 
         item = cachedCheckPositions[currentCachedCheckPositionIndex];
@@ -133,7 +133,7 @@ PP.PlayerLocomotionTeleportDetectionState.prototype._getVisibilityCheckPositions
         return item;
     };
 
-    let currentDirection = PP.vec3_create();
+    let currentDirection = vec3_create();
     return function _getVisibilityCheckPositions(position, up, forward) {
         checkPositions.length = 0;
         currentCachedCheckPositionIndex = 0;

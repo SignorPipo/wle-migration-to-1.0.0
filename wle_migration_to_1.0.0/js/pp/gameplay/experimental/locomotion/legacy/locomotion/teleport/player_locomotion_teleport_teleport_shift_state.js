@@ -21,10 +21,10 @@ PP.PlayerLocomotionTeleportTeleportShiftState = class PlayerLocomotionTeleportTe
         this._myFSM.init("init");
         this._myFSM.perform("start");
 
-        this._myShiftMovementTimer = new PP.Timer(this._myTeleportParams.myTeleportParams.myShiftMovementSeconds);
-        this._myShiftRotateTimer = new PP.Timer(this._myTeleportParams.myTeleportParams.myShiftRotateSeconds, false);
+        this._myShiftMovementTimer = new Timer(this._myTeleportParams.myTeleportParams.myShiftMovementSeconds);
+        this._myShiftRotateTimer = new Timer(this._myTeleportParams.myTeleportParams.myShiftRotateSeconds, false);
 
-        this._myFeetStartPosition = new PP.vec3_create();
+        this._myFeetStartPosition = new vec3_create();
 
         this._myCurrentRotationOnUp = 0;
         this._myStartRotationOnUp = 0;
@@ -94,8 +94,8 @@ PP.PlayerLocomotionTeleportTeleportShiftState = class PlayerLocomotionTeleportTe
 };
 
 PP.PlayerLocomotionTeleportTeleportShiftState.prototype._shiftingUpdate = function () {
-    let movementToTeleportFeet = PP.vec3_create();
-    let newFeetPosition = PP.vec3_create();
+    let movementToTeleportFeet = vec3_create();
+    let newFeetPosition = vec3_create();
     return function _shiftingUpdate(dt, fsm) {
         this._myShiftMovementTimer.update(dt);
         this._myShiftRotateTimer.update(dt);

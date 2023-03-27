@@ -11,7 +11,7 @@ PP.PlayerLocomotionTeleportTeleportParams = class PlayerLocomotionTeleportTelepo
         this.myBlinkFadeOutSeconds = 0.1;
         this.myBlinkFadeInSeconds = 0.1;
         this.myBlinkWaitSeconds = 0.1;
-        this.myBlinkSphereColor = PP.vec3_create();
+        this.myBlinkSphereColor = vec3_create();
         this.myBlinkSphereScale = 0.1;
 
         this.myShiftMovementSeconds = 0.15;

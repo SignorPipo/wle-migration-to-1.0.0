@@ -1,7 +1,15 @@
+import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
+import { getGamepads, getMouse } from "../../../../../../input/cauldron/input_globals";
+import { MouseButtonID } from "../../../../../../input/cauldron/mouse";
+import { GamepadAxesID } from "../../../../../../input/gamepad/gamepad_buttons";
+import { quat2_create, vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../../../../../../plugin/wl/extensions/engine_extension";
+import { getCollisionCheck, myCollisionCheck } from "../player_locomotion_component";
+import { PlayerLocomotionMovement } from "../player_locomotion_movement";
 
-PP.PlayerLocomotionTeleportParams = class PlayerLocomotionTeleportParams {
-    constructor() {
+export class PlayerLocomotionTeleportParams {
+    constructor(engine = getMainEngine()) {
         this.myPlayerHeadManager = null;
 
         this.myCollisionCheckParams = null;
@@ -10,7 +18,7 @@ PP.PlayerLocomotionTeleportParams = class PlayerLocomotionTeleportParams {
         this.myVisualizerParams = new PP.PlayerLocomotionTeleportDetectionVisualizerParams();
         this.myTeleportParams = new PP.PlayerLocomotionTeleportTeleportParams();
 
-        this.myHandedness = PP.Handedness.LEFT;
+        this.myHandedness = Handedness.LEFT;
 
         this.myPerformTeleportAsMovement = false;
         this.myTeleportAsMovementMaxDistanceFromTeleportPosition = 0.001;
@@ -28,26 +36,28 @@ PP.PlayerLocomotionTeleportParams = class PlayerLocomotionTeleportParams {
         this.myAdjustPositionEveryFrame = false;
         this.myGravityAcceleration = 0;
 
+        this.myEngine = engine;
+
         this.myDebugActive = false;
         this.myDebugDetectActive = false;
         this.myDebugShowActive = false;
         this.myDebugVisibilityActive = false;
     }
-};
+}
 
-PP.PlayerLocomotionTeleportRuntimeParams = class PlayerLocomotionTeleportRuntimeParams {
+export class PlayerLocomotionTeleportRuntimeParams {
     constructor() {
-        this.myTeleportPosition = PP.vec3_create();
+        this.myTeleportPosition = vec3_create();
         this.myTeleportRotationOnUp = 0;
     }
 };
 
-PP.PlayerLocomotionTeleport = class PlayerLocomotionTeleport extends PP.PlayerLocomotionMovement {
+export class PlayerLocomotionTeleport extends PlayerLocomotionMovement {
     constructor(teleportParams, locomotionRuntimeParams) {
         super(locomotionRuntimeParams);
 
         this._myTeleportParams = teleportParams;
-        this._myTeleportRuntimeParams = new PP.PlayerLocomotionTeleportRuntimeParams();
+        this._myTeleportRuntimeParams = new PlayerLocomotionTeleportRuntimeParams();
 
         this._myStickIdleCharge = true;
         this._myGravitySpeed = 0;
@@ -55,7 +65,7 @@ PP.PlayerLocomotionTeleport = class PlayerLocomotionTeleport extends PP.PlayerLo
         this._myDetectionState = new PP.PlayerLocomotionTeleportDetectionState(this._myTeleportParams, this._myTeleportRuntimeParams, this._myLocomotionRuntimeParams);
         this._myTeleportState = new PP.PlayerLocomotionTeleportTeleportState(this._myTeleportParams, this._myTeleportRuntimeParams, this._myLocomotionRuntimeParams);
 
-        this._myFSM = new PP.FSM();
+        this._myFSM = new FSM();
         //this._myFSM.setDebugLogActive(true, "Locomotion Teleport");
 
         this._myFSM.addState("init");
@@ -115,9 +125,10 @@ PP.PlayerLocomotionTeleport = class PlayerLocomotionTeleport extends PP.PlayerLo
         let startDetecting = false;
 
         if (!XRUtils.isSessionActive()) {
-            startDetecting = PP.myMouse.isButtonPressStart(PP.MouseButtonID.MIDDLE) && PP.myMouse.isTargetingRenderCanvas();
+            startDetecting = getMouse(this._myTeleportParams.myEngine).isButtonPressStart(MouseButtonID.MIDDLE) &&
+                getMouse(this._myTeleportParams.myEngine).isTargetingRenderCanvas();
         } else {
-            let axes = PP.myGamepads[this._myTeleportParams.myHandedness].getAxesInfo(PP.GamepadAxesID.THUMBSTICK).getAxes();
+            let axes = getGamepads(this._myTeleportParams.myEngine)[this._myTeleportParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
 
             if (axes.vec2_length() <= this._myTeleportParams.myStickIdleThreshold) {
                 this._myStickIdleCharge = true;
@@ -135,12 +146,16 @@ PP.PlayerLocomotionTeleport = class PlayerLocomotionTeleport extends PP.PlayerLo
     _completeTeleport() {
         this._myTeleportState.completeTeleport();
     }
-};
+}
 
-PP.PlayerLocomotionTeleport.prototype._applyGravity = function () {
-    let playerUp = PP.vec3_create();
-    let gravityMovement = PP.vec3_create();
-    let feetTransformQuat = PP.quat2_create();
+
+
+// IMPLEMENTATION
+
+PlayerLocomotionTeleport.prototype._applyGravity = function () {
+    let playerUp = vec3_create();
+    let gravityMovement = vec3_create();
+    let feetTransformQuat = quat2_create();
     return function _applyGravity(dt) {
         // if gravity is zero it's still important to move to remain snapped and gather proper surface data even when not teleporting
 
@@ -154,7 +169,7 @@ PP.PlayerLocomotionTeleport.prototype._applyGravity = function () {
         }
 
         feetTransformQuat = this._myTeleportParams.myPlayerHeadManager.getTransformFeetQuat(feetTransformQuat);
-        PP.myCollisionCheck.move(gravityMovement, feetTransformQuat, this._myTeleportParams.myCollisionCheckParams, this._myLocomotionRuntimeParams.myCollisionRuntimeParams);
+        getCollisionCheck(this._myTeleportParams.myEngine).move(gravityMovement, feetTransformQuat, this._myTeleportParams.myCollisionCheckParams, this._myLocomotionRuntimeParams.myCollisionRuntimeParams);
         if (!this._myLocomotionRuntimeParams.myCollisionRuntimeParams.myVerticalMovementCanceled) {
             this._myTeleportParams.myPlayerHeadManager.teleportPositionFeet(this._myLocomotionRuntimeParams.myCollisionRuntimeParams.myNewPosition);
         }

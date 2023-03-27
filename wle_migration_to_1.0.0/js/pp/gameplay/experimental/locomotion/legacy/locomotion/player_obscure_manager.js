@@ -1,10 +1,18 @@
 // even if this can be sued to generally fade, it should be called collision obscure to hint that is meant for collision obscuring
 
+import { Timer } from "../../../../../cauldron/cauldron/timer";
+import { FSM } from "../../../../../cauldron/fsm/fsm";
 import { MaterialUtils } from "../../../../../cauldron/utils/material_utils";
+import { VisualMesh, VisualMeshParams } from "../../../../../cauldron/visual/elements/visual_mesh";
+import { getVisualData } from "../../../../../cauldron/visual/visual_globals";
+import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
+import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
+import { getMainEngine } from "../../../../../plugin/wl/extensions/engine_extension";
+import { getDefaultResources } from "../../../../../pp/default_resources_global";
 
 // occlude
-PP.PlayerObscureManagerParams = class PlayerObscureManagerParams {
-    constructor() {
+export class PlayerObscureManagerParams {
+    constructor(engine = getMainEngine()) {
         this.myPlayerTransformManager = null;
 
         this.myObscureObject = null;
@@ -14,7 +22,7 @@ PP.PlayerObscureManagerParams = class PlayerObscureManagerParams {
         this.myObscureFadeOutSeconds = 0.1;
         this.myObscureFadeInSeconds = 0.1;
 
-        this.myObscureFadeEasingFunction = PP.EasingFunction.linear;
+        this.myObscureFadeEasingFunction = EasingFunction.linear;
 
         this.myDistanceToStartObscureWhenHeadColliding = 0;
         this.myDistanceToStartObscureWhenBodyColliding = 0;
@@ -26,11 +34,13 @@ PP.PlayerObscureManagerParams = class PlayerObscureManagerParams {
         this.myRelativeDistanceToMaxObscureWhenFloating = 0;
         this.myRelativeDistanceToMaxObscureWhenFar = 0;
 
-        this.myObscureLevelRelativeDistanceEasingFunction = PP.EasingFunction.linear;
-    }
-};
+        this.myObscureLevelRelativeDistanceEasingFunction = EasingFunction.linear;
 
-PP.PlayerObscureManager = class PlayerObscureManager {
+        this.myEngine = engine;
+    }
+}
+
+export class PlayerObscureManager {
     constructor(params) {
         this._myParams = params;
 
@@ -42,9 +52,9 @@ PP.PlayerObscureManager = class PlayerObscureManager {
         this._myLastTargetObscureLevel = null;
         this._myLastIsFadingIn = null;
 
-        this._myFadeTimer = new PP.Timer(0, false);
+        this._myFadeTimer = new Timer(0, false);
 
-        this._myFSM = new PP.FSM();
+        this._myFSM = new FSM();
         //this._myFSM.setDebugLogActive(true, " Obscure");
 
         this._myFSM.addState("init");
@@ -289,19 +299,19 @@ PP.PlayerObscureManager = class PlayerObscureManager {
         if (this._myParams.myObscureMaterial != null) {
             this._myObscureMaterial = this._myParams.myObscureMaterial;
         } else {
-            this._myObscureMaterial = PP.myDefaultResources.myMaterials.myFlatTransparentNoDepth.clone();
-            this._myObscureMaterial.color = PP.vec4_create(0, 0, 0, 1);
+            this._myObscureMaterial = getDefaultResources(this._myParams.myEngine).myMaterials.myFlatTransparentNoDepth.clone();
+            this._myObscureMaterial.color = vec4_create(0, 0, 0, 1);
         }
 
-        this._myObscureParentObject = PP.myVisualData.myRootObject.pp_addObject();
+        this._myObscureParentObject = getVisualData(this._myParams.myEngine).myRootObject.pp_addObject();
 
-        let obscureVisualParams = new PP.VisualMeshParams();
-        obscureVisualParams.myMesh = PP.myDefaultResources.myMeshes.myInvertedSphere;
+        let obscureVisualParams = new VisualMeshParams(this._myParams.myEngine);
+        obscureVisualParams.myMesh = getDefaultResources(this._myParams.myEngine).myMeshes.myInvertedSphere;
         obscureVisualParams.myMaterial = (this._myParams.myObscureMaterial != null) ? this._myParams.myObscureMaterial : this._myObscureMaterial;
         obscureVisualParams.myParent = this._myObscureParentObject;
         obscureVisualParams.myIsLocal = true;
-        obscureVisualParams.myTransform.mat4_setScale(PP.vec3_create(this._myParams.myObscureRadius, this._myParams.myObscureRadius, this._myParams.myObscureRadius));
-        this._myObscureVisual = new PP.VisualMesh(obscureVisualParams);
+        obscureVisualParams.myTransform.mat4_setScale(vec3_create(this._myParams.myObscureRadius, this._myParams.myObscureRadius, this._myParams.myObscureRadius));
+        this._myObscureVisual = new VisualMesh(obscureVisualParams);
 
         if (this._myParams.myObscureObject != null) {
             this._myParams.myObscureObject.pp_setParent(this._myObscureParentObject, false);
