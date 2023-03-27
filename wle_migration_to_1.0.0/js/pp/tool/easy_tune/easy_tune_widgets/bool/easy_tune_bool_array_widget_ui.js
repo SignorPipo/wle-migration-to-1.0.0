@@ -87,42 +87,42 @@ PP.EasyTuneBoolArrayWidgetUI = class EasyTuneBoolArrayWidgetUI extends PP.EasyTu
 
 
         for (let i = 0; i < this._mySetup.myArraySize; i++) {
-            this.myValueTextComponents[i] = this.myValueTexts[i].addComponent("text");
+            this.myValueTextComponents[i] = this.myValueTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myValueTextComponents[i]);
             this.myValueTextComponents[i].text = " ";
 
-            this.myValueCursorTargetComponents[i] = this.myValueCursorTargets[i].addComponent("cursor-target");
-            this.myValueCollisionComponents[i] = this.myValueCursorTargets[i].addComponent("collision");
+            this.myValueCursorTargetComponents[i] = this.myValueCursorTargets[i].addComponent(CursorTarget);
+            this.myValueCollisionComponents[i] = this.myValueCursorTargets[i].addComponent(CollisionComponent);
             this.myValueCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myValueCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myValueCollisionComponents[i].extents = this._mySetup.myValueCollisionExtents;
 
-            this.myValueIncreaseButtonBackgroundComponents[i] = this.myValueIncreaseButtonBackgrounds[i].addComponent("mesh");
+            this.myValueIncreaseButtonBackgroundComponents[i] = this.myValueIncreaseButtonBackgrounds[i].addComponent(MeshComponent);
             this.myValueIncreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
             this.myValueIncreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
             this.myValueIncreaseButtonBackgroundComponents[i].material.color = this._mySetup.myBackgroundColor;
 
-            this.myValueIncreaseButtonTextComponents[i] = this.myValueIncreaseButtonTexts[i].addComponent("text");
+            this.myValueIncreaseButtonTextComponents[i] = this.myValueIncreaseButtonTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myValueIncreaseButtonTextComponents[i]);
             this.myValueIncreaseButtonTextComponents[i].text = this._mySetup.myIncreaseButtonText;
 
-            this.myValueIncreaseButtonCursorTargetComponents[i] = this.myValueIncreaseButtonCursorTargets[i].addComponent("cursor-target");
-            this.myValueIncreaseButtonCollisionComponents[i] = this.myValueIncreaseButtonCursorTargets[i].addComponent("collision");
+            this.myValueIncreaseButtonCursorTargetComponents[i] = this.myValueIncreaseButtonCursorTargets[i].addComponent(CursorTarget);
+            this.myValueIncreaseButtonCollisionComponents[i] = this.myValueIncreaseButtonCursorTargets[i].addComponent(CollisionComponent);
             this.myValueIncreaseButtonCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myValueIncreaseButtonCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myValueIncreaseButtonCollisionComponents[i].extents = this._mySetup.mySideButtonCollisionExtents;
 
-            this.myValueDecreaseButtonBackgroundComponents[i] = this.myValueDecreaseButtonBackgrounds[i].addComponent("mesh");
+            this.myValueDecreaseButtonBackgroundComponents[i] = this.myValueDecreaseButtonBackgrounds[i].addComponent(MeshComponent);
             this.myValueDecreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
             this.myValueDecreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
             this.myValueDecreaseButtonBackgroundComponents[i].material.color = this._mySetup.myBackgroundColor;
 
-            this.myValueDecreaseButtonTextComponents[i] = this.myValueDecreaseButtonTexts[i].addComponent("text");
+            this.myValueDecreaseButtonTextComponents[i] = this.myValueDecreaseButtonTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myValueDecreaseButtonTextComponents[i]);
             this.myValueDecreaseButtonTextComponents[i].text = this._mySetup.myDecreaseButtonText;
 
-            this.myValueDecreaseButtonCursorTargetComponents[i] = this.myValueDecreaseButtonCursorTargets[i].addComponent("cursor-target");
-            this.myValueDecreaseButtonCollisionComponents[i] = this.myValueDecreaseButtonCursorTargets[i].addComponent("collision");
+            this.myValueDecreaseButtonCursorTargetComponents[i] = this.myValueDecreaseButtonCursorTargets[i].addComponent(CursorTarget);
+            this.myValueDecreaseButtonCollisionComponents[i] = this.myValueDecreaseButtonCursorTargets[i].addComponent(CollisionComponent);
             this.myValueDecreaseButtonCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myValueDecreaseButtonCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myValueDecreaseButtonCollisionComponents[i].extents = this._mySetup.mySideButtonCollisionExtents;

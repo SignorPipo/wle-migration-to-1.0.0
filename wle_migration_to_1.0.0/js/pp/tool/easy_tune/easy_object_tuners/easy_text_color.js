@@ -44,7 +44,7 @@ PP.EasyTextColor = class EasyTextColor extends PP.EasyObjectTuner {
     }
 
     _getDefaultValue() {
-        return PP.vec4_create();
+        return vec4_create();
     }
 
     _updateObjectValue(object, value) {
@@ -73,7 +73,7 @@ PP.EasyTextColor = class EasyTextColor extends PP.EasyObjectTuner {
 
     _getTextMaterial(object) {
         let material = null;
-        let text = object.pp_getComponentHierarchy("text");
+        let text = object.pp_getComponentHierarchy(TextComponent);
         if (text) {
             material = text.material;
         }

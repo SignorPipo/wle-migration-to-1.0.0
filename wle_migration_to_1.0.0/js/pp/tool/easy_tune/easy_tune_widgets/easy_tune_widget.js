@@ -1,6 +1,6 @@
 PP.EasyTuneWidgetAdditionalSetup = class EasyTuneWidgetAdditionalSetup {
     constructor() {
-        this.myHandedness = PP.ToolHandedness.NONE;
+        this.myHandedness = ToolHandedness.NONE;
         this.myShowOnStart = false;
         this.myShowVisibilityButton = false;
         this.myEnableAdditionalButtons = false;
@@ -72,9 +72,9 @@ PP.EasyTuneWidget = class EasyTuneWidget {
     start(parentObject, additionalSetup, easyTuneVariables) {
         this._myRightGamepad = PP.myRightGamepad;
         this._myLeftGamepad = PP.myLeftGamepad;
-        if (this._mySetup.myGamepadHandedness == PP.ToolHandedness.RIGHT) {
+        if (this._mySetup.myGamepadHandedness == ToolHandedness.RIGHT) {
             this._myGamepad = this._myRightGamepad;
-        } else if (this._mySetup.myGamepadHandedness == PP.ToolHandedness.LEFT) {
+        } else if (this._mySetup.myGamepadHandedness == ToolHandedness.LEFT) {
             this._myGamepad = this._myLeftGamepad;
         }
 

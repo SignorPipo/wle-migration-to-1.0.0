@@ -18,7 +18,7 @@ PP.EasyScale = class EasyScale extends PP.EasyObjectTuner {
     }
 
     _getDefaultValue() {
-        return PP.vec3_create(1, 1, 1);
+        return vec3_create(1, 1, 1);
     }
 
     _updateObjectValue(object, value) {

@@ -1,52 +1,63 @@
-PP.ConsoleVR = {
-    _myRealLog: console.log,
-    _myRealError: console.error,
-    _myRealWarn: console.warn,
-    _myRealInfo: console.info,
-    _myRealDebug: console.debug,
-    _myRealAssert: console.assert,
-    _myRealClear: console.clear,
-    _myForwardToBrowserConsole: true,
+export class ConsoleVR {
+    constructor() {
+        this._myRealLog = console.log;
+        this._myRealError = console.error;
+        this._myRealWarn = console.warn;
+        this._myRealInfo = console.info;
+        this._myRealDebug = console.debug;
+        this._myRealAssert = console.assert;
+        this._myRealClear = console.clear;
 
-    log: function (...args) {
+        this._myForwardToBrowserConsole = true;
+    }
+
+    log(...args) {
         if (this._myForwardToBrowserConsole) {
             this._myRealLog.apply(console, args);
         }
-    },
-    error: function (...args) {
+    }
+
+    error(...args) {
         if (this._myForwardToBrowserConsole) {
             this._myRealError.apply(console, args);
         }
-    },
-    warn: function (...args) {
+    }
+
+    warn(...args) {
         if (this._myForwardToBrowserConsole) {
             this._myRealWarn.apply(console, args);
         }
-    },
-    info: function (...args) {
+    }
+
+    info(...args) {
         if (this._myForwardToBrowserConsole) {
             this._myRealInfo.apply(console, args);
         }
-    },
-    debug: function (...args) {
+    }
+
+    debug(...args) {
         if (this._myForwardToBrowserConsole) {
             this._myRealDebug.apply(console, args);
         }
-    },
-    assert: function (...args) {
+    }
+
+    assert(...args) {
         if (this._myForwardToBrowserConsole) {
             this._myRealAssert.apply(console, args);
         }
-    },
-    clear: function () {
+    }
+
+    clear() {
         if (this._myForwardToBrowserConsole) {
             this._myRealClear.apply(console);
         }
-    },
-    setForwardToBrowserConsole: function (forwardToBrowserConsole) {
+    }
+
+    setForwardToBrowserConsole(forwardToBrowserConsole) {
         this._myForwardToBrowserConsole = forwardToBrowserConsole;
-    },
-    isForwardToBrowserConsole: function () {
+    }
+
+    isForwardToBrowserConsole() {
         return this._myForwardToBrowserConsole;
     }
-};
+}

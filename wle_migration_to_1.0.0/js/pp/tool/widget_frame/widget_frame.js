@@ -1,14 +1,17 @@
+import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+import { WidgetFrameSetup } from "./widget_frame_setup";
+import { WidgetFrameUI } from "./widget_frame_ui";
 
-PP.WidgetFrame = class WidgetFrame {
+export class WidgetFrame {
 
-    constructor(widgetLetterID, buttonsColumnIndex) {
+    constructor(widgetLetterID, buttonsColumnIndex, engine = getMainEngine()) {
         this.myIsWidgetVisible = true;
         this.myIsPinned = false;
 
-        this._mySetup = new PP.WidgetFrameSetup(widgetLetterID, buttonsColumnIndex);
+        this._mySetup = new WidgetFrameSetup(widgetLetterID, buttonsColumnIndex);
         this._myAdditionalSetup = null;
 
-        this._myUI = new PP.WidgetFrameUI();
+        this._myUI = new WidgetFrameUI(engine);
         this._myShowVisibilityButton = false;
 
         this._myWidgetVisibleChangedCallbacks = new Map();      // Signature: callback(isWidgetVisible)

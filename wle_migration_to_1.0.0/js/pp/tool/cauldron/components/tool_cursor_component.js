@@ -1,6 +1,7 @@
 import { Component, MeshComponent, Type, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
+import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
 import { quat2_create, vec3_create, vec4_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { getPlayerObjects } from "../../../pp/player_objects_global";
@@ -132,12 +133,12 @@ export class ToolCursorComponent extends Component {
 
         if (targetComponent && !targetComponent.isSurface) {
             if (this._myHandedness == 0) {
-                if (PP.myLeftGamepad) {
-                    PP.myLeftGamepad.pulse(0.4, 0);
+                if (getLeftGamepad(this.engine) != null) {
+                    getLeftGamepad(this.engine).pulse(0.4, 0);
                 }
             } else {
-                if (PP.myRightGamepad) {
-                    PP.myRightGamepad.pulse(0.4, 0);
+                if (getRightGamepad(this.engine) != null) {
+                    getRightGamepad(this.engine).pulse(0.4, 0);
                 }
             }
         }

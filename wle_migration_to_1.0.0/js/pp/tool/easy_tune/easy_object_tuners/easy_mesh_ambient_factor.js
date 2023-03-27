@@ -47,7 +47,7 @@ PP.EasyMeshAmbientFactor = class EasyMeshAmbientFactor extends PP.EasyObjectTune
 
     _getMeshMaterial(object) {
         let material = null;
-        let mesh = object.pp_getComponentHierarchy("mesh");
+        let mesh = object.pp_getComponentHierarchy(MeshComponent);
         if (mesh) {
             material = mesh.material;
         }

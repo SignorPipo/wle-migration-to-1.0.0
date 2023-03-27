@@ -13,7 +13,7 @@ PP.EasyTuneNoneWidgetUI = class EasyTuneNoneWidgetUI extends PP.EasyTuneBaseWidg
     }
 
     _addComponentsHook() {
-        this.myTypeNotSupportedTextComponent = this.myTypeNotSupportedText.addComponent("text");
+        this.myTypeNotSupportedTextComponent = this.myTypeNotSupportedText.addComponent(TextComponent);
         this._setupTextComponent(this.myTypeNotSupportedTextComponent);
         this.myTypeNotSupportedTextComponent.text = this._mySetup.myTypeNotSupportedText;
     }

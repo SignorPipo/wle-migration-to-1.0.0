@@ -323,12 +323,12 @@ PP.EasyTuneTransformWidgetUI = class EasyTuneTransformWidgetUI extends PP.EasyTu
     _addComponentsHook() {
         // Position
 
-        this.myPositionLabelTextComponent = this.myPositionLabelText.addComponent("text");
+        this.myPositionLabelTextComponent = this.myPositionLabelText.addComponent(TextComponent);
         this._setupTextComponent(this.myPositionLabelTextComponent);
         this.myPositionLabelTextComponent.text = this._mySetup.myPositionText;
 
-        this.myPositionLabelCursorTargetComponent = this.myPositionLabelCursorTarget.addComponent("cursor-target");
-        this.myPositionLabelCollisionComponent = this.myPositionLabelCursorTarget.addComponent("collision");
+        this.myPositionLabelCursorTargetComponent = this.myPositionLabelCursorTarget.addComponent(CursorTarget);
+        this.myPositionLabelCollisionComponent = this.myPositionLabelCursorTarget.addComponent(CollisionComponent);
         this.myPositionLabelCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPositionLabelCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionLabelCollisionComponent.extents = this._mySetup.myComponentLabelCollisionExtents;
@@ -348,42 +348,42 @@ PP.EasyTuneTransformWidgetUI = class EasyTuneTransformWidgetUI extends PP.EasyTu
         this.myPositionDecreaseButtonCollisionComponents = [];
 
         for (let i = 0; i < 3; i++) {
-            this.myPositionTextComponents[i] = this.myPositionTexts[i].addComponent("text");
+            this.myPositionTextComponents[i] = this.myPositionTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myPositionTextComponents[i]);
             this.myPositionTextComponents[i].text = " ";
 
-            this.myPositionCursorTargetComponents[i] = this.myPositionCursorTargets[i].addComponent("cursor-target");
-            this.myPositionCollisionComponents[i] = this.myPositionCursorTargets[i].addComponent("collision");
+            this.myPositionCursorTargetComponents[i] = this.myPositionCursorTargets[i].addComponent(CursorTarget);
+            this.myPositionCollisionComponents[i] = this.myPositionCursorTargets[i].addComponent(CollisionComponent);
             this.myPositionCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myPositionCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myPositionCollisionComponents[i].extents = this._mySetup.myValueCollisionExtents;
 
-            this.myPositionIncreaseButtonBackgroundComponents[i] = this.myPositionIncreaseButtonBackgrounds[i].addComponent("mesh");
+            this.myPositionIncreaseButtonBackgroundComponents[i] = this.myPositionIncreaseButtonBackgrounds[i].addComponent(MeshComponent);
             this.myPositionIncreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
             this.myPositionIncreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
             this.myPositionIncreaseButtonBackgroundComponents[i].material.color = this._mySetup.myBackgroundColor;
 
-            this.myPositionIncreaseButtonTextComponents[i] = this.myPositionIncreaseButtonTexts[i].addComponent("text");
+            this.myPositionIncreaseButtonTextComponents[i] = this.myPositionIncreaseButtonTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myPositionIncreaseButtonTextComponents[i]);
             this.myPositionIncreaseButtonTextComponents[i].text = this._mySetup.myIncreaseButtonText;
 
-            this.myPositionIncreaseButtonCursorTargetComponents[i] = this.myPositionIncreaseButtonCursorTargets[i].addComponent("cursor-target");
-            this.myPositionIncreaseButtonCollisionComponents[i] = this.myPositionIncreaseButtonCursorTargets[i].addComponent("collision");
+            this.myPositionIncreaseButtonCursorTargetComponents[i] = this.myPositionIncreaseButtonCursorTargets[i].addComponent(CursorTarget);
+            this.myPositionIncreaseButtonCollisionComponents[i] = this.myPositionIncreaseButtonCursorTargets[i].addComponent(CollisionComponent);
             this.myPositionIncreaseButtonCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myPositionIncreaseButtonCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myPositionIncreaseButtonCollisionComponents[i].extents = this._mySetup.mySideButtonCollisionExtents;
 
-            this.myPositionDecreaseButtonBackgroundComponents[i] = this.myPositionDecreaseButtonBackgrounds[i].addComponent("mesh");
+            this.myPositionDecreaseButtonBackgroundComponents[i] = this.myPositionDecreaseButtonBackgrounds[i].addComponent(MeshComponent);
             this.myPositionDecreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
             this.myPositionDecreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
             this.myPositionDecreaseButtonBackgroundComponents[i].material.color = this._mySetup.myBackgroundColor;
 
-            this.myPositionDecreaseButtonTextComponents[i] = this.myPositionDecreaseButtonTexts[i].addComponent("text");
+            this.myPositionDecreaseButtonTextComponents[i] = this.myPositionDecreaseButtonTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myPositionDecreaseButtonTextComponents[i]);
             this.myPositionDecreaseButtonTextComponents[i].text = this._mySetup.myDecreaseButtonText;
 
-            this.myPositionDecreaseButtonCursorTargetComponents[i] = this.myPositionDecreaseButtonCursorTargets[i].addComponent("cursor-target");
-            this.myPositionDecreaseButtonCollisionComponents[i] = this.myPositionDecreaseButtonCursorTargets[i].addComponent("collision");
+            this.myPositionDecreaseButtonCursorTargetComponents[i] = this.myPositionDecreaseButtonCursorTargets[i].addComponent(CursorTarget);
+            this.myPositionDecreaseButtonCollisionComponents[i] = this.myPositionDecreaseButtonCursorTargets[i].addComponent(CollisionComponent);
             this.myPositionDecreaseButtonCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myPositionDecreaseButtonCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myPositionDecreaseButtonCollisionComponents[i].extents = this._mySetup.mySideButtonCollisionExtents;
@@ -391,12 +391,12 @@ PP.EasyTuneTransformWidgetUI = class EasyTuneTransformWidgetUI extends PP.EasyTu
 
         // Rotation
 
-        this.myRotationLabelTextComponent = this.myRotationLabelText.addComponent("text");
+        this.myRotationLabelTextComponent = this.myRotationLabelText.addComponent(TextComponent);
         this._setupTextComponent(this.myRotationLabelTextComponent);
         this.myRotationLabelTextComponent.text = this._mySetup.myRotationText;
 
-        this.myRotationLabelCursorTargetComponent = this.myRotationLabelCursorTarget.addComponent("cursor-target");
-        this.myRotationLabelCollisionComponent = this.myRotationLabelCursorTarget.addComponent("collision");
+        this.myRotationLabelCursorTargetComponent = this.myRotationLabelCursorTarget.addComponent(CursorTarget);
+        this.myRotationLabelCollisionComponent = this.myRotationLabelCursorTarget.addComponent(CollisionComponent);
         this.myRotationLabelCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myRotationLabelCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationLabelCollisionComponent.extents = this._mySetup.myComponentLabelCollisionExtents;
@@ -416,42 +416,42 @@ PP.EasyTuneTransformWidgetUI = class EasyTuneTransformWidgetUI extends PP.EasyTu
         this.myRotationDecreaseButtonCollisionComponents = [];
 
         for (let i = 0; i < 3; i++) {
-            this.myRotationTextComponents[i] = this.myRotationTexts[i].addComponent("text");
+            this.myRotationTextComponents[i] = this.myRotationTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myRotationTextComponents[i]);
             this.myRotationTextComponents[i].text = " ";
 
-            this.myRotationCursorTargetComponents[i] = this.myRotationCursorTargets[i].addComponent("cursor-target");
-            this.myRotationCollisionComponents[i] = this.myRotationCursorTargets[i].addComponent("collision");
+            this.myRotationCursorTargetComponents[i] = this.myRotationCursorTargets[i].addComponent(CursorTarget);
+            this.myRotationCollisionComponents[i] = this.myRotationCursorTargets[i].addComponent(CollisionComponent);
             this.myRotationCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myRotationCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myRotationCollisionComponents[i].extents = this._mySetup.myValueCollisionExtents;
 
-            this.myRotationIncreaseButtonBackgroundComponents[i] = this.myRotationIncreaseButtonBackgrounds[i].addComponent("mesh");
+            this.myRotationIncreaseButtonBackgroundComponents[i] = this.myRotationIncreaseButtonBackgrounds[i].addComponent(MeshComponent);
             this.myRotationIncreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
             this.myRotationIncreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
             this.myRotationIncreaseButtonBackgroundComponents[i].material.color = this._mySetup.myBackgroundColor;
 
-            this.myRotationIncreaseButtonTextComponents[i] = this.myRotationIncreaseButtonTexts[i].addComponent("text");
+            this.myRotationIncreaseButtonTextComponents[i] = this.myRotationIncreaseButtonTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myRotationIncreaseButtonTextComponents[i]);
             this.myRotationIncreaseButtonTextComponents[i].text = this._mySetup.myIncreaseButtonText;
 
-            this.myRotationIncreaseButtonCursorTargetComponents[i] = this.myRotationIncreaseButtonCursorTargets[i].addComponent("cursor-target");
-            this.myRotationIncreaseButtonCollisionComponents[i] = this.myRotationIncreaseButtonCursorTargets[i].addComponent("collision");
+            this.myRotationIncreaseButtonCursorTargetComponents[i] = this.myRotationIncreaseButtonCursorTargets[i].addComponent(CursorTarget);
+            this.myRotationIncreaseButtonCollisionComponents[i] = this.myRotationIncreaseButtonCursorTargets[i].addComponent(CollisionComponent);
             this.myRotationIncreaseButtonCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myRotationIncreaseButtonCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myRotationIncreaseButtonCollisionComponents[i].extents = this._mySetup.mySideButtonCollisionExtents;
 
-            this.myRotationDecreaseButtonBackgroundComponents[i] = this.myRotationDecreaseButtonBackgrounds[i].addComponent("mesh");
+            this.myRotationDecreaseButtonBackgroundComponents[i] = this.myRotationDecreaseButtonBackgrounds[i].addComponent(MeshComponent);
             this.myRotationDecreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
             this.myRotationDecreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
             this.myRotationDecreaseButtonBackgroundComponents[i].material.color = this._mySetup.myBackgroundColor;
 
-            this.myRotationDecreaseButtonTextComponents[i] = this.myRotationDecreaseButtonTexts[i].addComponent("text");
+            this.myRotationDecreaseButtonTextComponents[i] = this.myRotationDecreaseButtonTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myRotationDecreaseButtonTextComponents[i]);
             this.myRotationDecreaseButtonTextComponents[i].text = this._mySetup.myDecreaseButtonText;
 
-            this.myRotationDecreaseButtonCursorTargetComponents[i] = this.myRotationDecreaseButtonCursorTargets[i].addComponent("cursor-target");
-            this.myRotationDecreaseButtonCollisionComponents[i] = this.myRotationDecreaseButtonCursorTargets[i].addComponent("collision");
+            this.myRotationDecreaseButtonCursorTargetComponents[i] = this.myRotationDecreaseButtonCursorTargets[i].addComponent(CursorTarget);
+            this.myRotationDecreaseButtonCollisionComponents[i] = this.myRotationDecreaseButtonCursorTargets[i].addComponent(CollisionComponent);
             this.myRotationDecreaseButtonCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myRotationDecreaseButtonCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myRotationDecreaseButtonCollisionComponents[i].extents = this._mySetup.mySideButtonCollisionExtents;
@@ -459,12 +459,12 @@ PP.EasyTuneTransformWidgetUI = class EasyTuneTransformWidgetUI extends PP.EasyTu
 
         // Scale
 
-        this.myScaleLabelTextComponent = this.myScaleLabelText.addComponent("text");
+        this.myScaleLabelTextComponent = this.myScaleLabelText.addComponent(TextComponent);
         this._setupTextComponent(this.myScaleLabelTextComponent);
         this.myScaleLabelTextComponent.text = this._mySetup.myScaleText;
 
-        this.myScaleLabelCursorTargetComponent = this.myScaleLabelCursorTarget.addComponent("cursor-target");
-        this.myScaleLabelCollisionComponent = this.myScaleLabelCursorTarget.addComponent("collision");
+        this.myScaleLabelCursorTargetComponent = this.myScaleLabelCursorTarget.addComponent(CursorTarget);
+        this.myScaleLabelCollisionComponent = this.myScaleLabelCursorTarget.addComponent(CollisionComponent);
         this.myScaleLabelCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myScaleLabelCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myScaleLabelCollisionComponent.extents = this._mySetup.myComponentLabelCollisionExtents;
@@ -484,42 +484,42 @@ PP.EasyTuneTransformWidgetUI = class EasyTuneTransformWidgetUI extends PP.EasyTu
         this.myScaleDecreaseButtonCollisionComponents = [];
 
         for (let i = 0; i < 3; i++) {
-            this.myScaleTextComponents[i] = this.myScaleTexts[i].addComponent("text");
+            this.myScaleTextComponents[i] = this.myScaleTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myScaleTextComponents[i]);
             this.myScaleTextComponents[i].text = " ";
 
-            this.myScaleCursorTargetComponents[i] = this.myScaleCursorTargets[i].addComponent("cursor-target");
-            this.myScaleCollisionComponents[i] = this.myScaleCursorTargets[i].addComponent("collision");
+            this.myScaleCursorTargetComponents[i] = this.myScaleCursorTargets[i].addComponent(CursorTarget);
+            this.myScaleCollisionComponents[i] = this.myScaleCursorTargets[i].addComponent(CollisionComponent);
             this.myScaleCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myScaleCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myScaleCollisionComponents[i].extents = this._mySetup.myValueCollisionExtents;
 
-            this.myScaleIncreaseButtonBackgroundComponents[i] = this.myScaleIncreaseButtonBackgrounds[i].addComponent("mesh");
+            this.myScaleIncreaseButtonBackgroundComponents[i] = this.myScaleIncreaseButtonBackgrounds[i].addComponent(MeshComponent);
             this.myScaleIncreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
             this.myScaleIncreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
             this.myScaleIncreaseButtonBackgroundComponents[i].material.color = this._mySetup.myBackgroundColor;
 
-            this.myScaleIncreaseButtonTextComponents[i] = this.myScaleIncreaseButtonTexts[i].addComponent("text");
+            this.myScaleIncreaseButtonTextComponents[i] = this.myScaleIncreaseButtonTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myScaleIncreaseButtonTextComponents[i]);
             this.myScaleIncreaseButtonTextComponents[i].text = this._mySetup.myIncreaseButtonText;
 
-            this.myScaleIncreaseButtonCursorTargetComponents[i] = this.myScaleIncreaseButtonCursorTargets[i].addComponent("cursor-target");
-            this.myScaleIncreaseButtonCollisionComponents[i] = this.myScaleIncreaseButtonCursorTargets[i].addComponent("collision");
+            this.myScaleIncreaseButtonCursorTargetComponents[i] = this.myScaleIncreaseButtonCursorTargets[i].addComponent(CursorTarget);
+            this.myScaleIncreaseButtonCollisionComponents[i] = this.myScaleIncreaseButtonCursorTargets[i].addComponent(CollisionComponent);
             this.myScaleIncreaseButtonCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myScaleIncreaseButtonCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myScaleIncreaseButtonCollisionComponents[i].extents = this._mySetup.mySideButtonCollisionExtents;
 
-            this.myScaleDecreaseButtonBackgroundComponents[i] = this.myScaleDecreaseButtonBackgrounds[i].addComponent("mesh");
+            this.myScaleDecreaseButtonBackgroundComponents[i] = this.myScaleDecreaseButtonBackgrounds[i].addComponent(MeshComponent);
             this.myScaleDecreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
             this.myScaleDecreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
             this.myScaleDecreaseButtonBackgroundComponents[i].material.color = this._mySetup.myBackgroundColor;
 
-            this.myScaleDecreaseButtonTextComponents[i] = this.myScaleDecreaseButtonTexts[i].addComponent("text");
+            this.myScaleDecreaseButtonTextComponents[i] = this.myScaleDecreaseButtonTexts[i].addComponent(TextComponent);
             this._setupTextComponent(this.myScaleDecreaseButtonTextComponents[i]);
             this.myScaleDecreaseButtonTextComponents[i].text = this._mySetup.myDecreaseButtonText;
 
-            this.myScaleDecreaseButtonCursorTargetComponents[i] = this.myScaleDecreaseButtonCursorTargets[i].addComponent("cursor-target");
-            this.myScaleDecreaseButtonCollisionComponents[i] = this.myScaleDecreaseButtonCursorTargets[i].addComponent("collision");
+            this.myScaleDecreaseButtonCursorTargetComponents[i] = this.myScaleDecreaseButtonCursorTargets[i].addComponent(CursorTarget);
+            this.myScaleDecreaseButtonCollisionComponents[i] = this.myScaleDecreaseButtonCursorTargets[i].addComponent(CollisionComponent);
             this.myScaleDecreaseButtonCollisionComponents[i].collider = this._mySetup.myCursorTargetCollisionCollider;
             this.myScaleDecreaseButtonCollisionComponents[i].group = 1 << this._mySetup.myCursorTargetCollisionGroup;
             this.myScaleDecreaseButtonCollisionComponents[i].extents = this._mySetup.mySideButtonCollisionExtents;
@@ -528,126 +528,126 @@ PP.EasyTuneTransformWidgetUI = class EasyTuneTransformWidgetUI extends PP.EasyTu
         // Steps
 
         // Position 
-        this.myPositionStepTextComponent = this.myPositionStepText.addComponent("text");
+        this.myPositionStepTextComponent = this.myPositionStepText.addComponent(TextComponent);
         this._setupTextComponent(this.myPositionStepTextComponent);
         this.myPositionStepTextComponent.text = " ";
 
-        this.myPositionStepCursorTargetComponent = this.myPositionStepCursorTarget.addComponent("cursor-target");
-        this.myPositionStepCollisionComponent = this.myPositionStepCursorTarget.addComponent("collision");
+        this.myPositionStepCursorTargetComponent = this.myPositionStepCursorTarget.addComponent(CursorTarget);
+        this.myPositionStepCollisionComponent = this.myPositionStepCursorTarget.addComponent(CollisionComponent);
         this.myPositionStepCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPositionStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
-        this.myPositionStepIncreaseButtonBackgroundComponent = this.myPositionStepIncreaseButtonBackground.addComponent("mesh");
+        this.myPositionStepIncreaseButtonBackgroundComponent = this.myPositionStepIncreaseButtonBackground.addComponent(MeshComponent);
         this.myPositionStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myPositionStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myPositionStepIncreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myPositionStepIncreaseButtonTextComponent = this.myPositionStepIncreaseButtonText.addComponent("text");
+        this.myPositionStepIncreaseButtonTextComponent = this.myPositionStepIncreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myPositionStepIncreaseButtonTextComponent);
         this.myPositionStepIncreaseButtonTextComponent.text = this._mySetup.myIncreaseButtonText;
 
-        this.myPositionStepIncreaseButtonCursorTargetComponent = this.myPositionStepIncreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myPositionStepIncreaseButtonCollisionComponent = this.myPositionStepIncreaseButtonCursorTarget.addComponent("collision");
+        this.myPositionStepIncreaseButtonCursorTargetComponent = this.myPositionStepIncreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myPositionStepIncreaseButtonCollisionComponent = this.myPositionStepIncreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myPositionStepIncreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPositionStepIncreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionStepIncreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        this.myPositionStepDecreaseButtonBackgroundComponent = this.myPositionStepDecreaseButtonBackground.addComponent("mesh");
+        this.myPositionStepDecreaseButtonBackgroundComponent = this.myPositionStepDecreaseButtonBackground.addComponent(MeshComponent);
         this.myPositionStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myPositionStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myPositionStepDecreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myPositionStepDecreaseButtonTextComponent = this.myPositionStepDecreaseButtonText.addComponent("text");
+        this.myPositionStepDecreaseButtonTextComponent = this.myPositionStepDecreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myPositionStepDecreaseButtonTextComponent);
         this.myPositionStepDecreaseButtonTextComponent.text = this._mySetup.myDecreaseButtonText;
 
-        this.myPositionStepDecreaseButtonCursorTargetComponent = this.myPositionStepDecreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myPositionStepDecreaseButtonCollisionComponent = this.myPositionStepDecreaseButtonCursorTarget.addComponent("collision");
+        this.myPositionStepDecreaseButtonCursorTargetComponent = this.myPositionStepDecreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myPositionStepDecreaseButtonCollisionComponent = this.myPositionStepDecreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myPositionStepDecreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPositionStepDecreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionStepDecreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
         // Rotation
 
-        this.myRotationStepTextComponent = this.myRotationStepText.addComponent("text");
+        this.myRotationStepTextComponent = this.myRotationStepText.addComponent(TextComponent);
         this._setupTextComponent(this.myRotationStepTextComponent);
         this.myRotationStepTextComponent.text = " ";
 
-        this.myRotationStepCursorTargetComponent = this.myRotationStepCursorTarget.addComponent("cursor-target");
-        this.myRotationStepCollisionComponent = this.myRotationStepCursorTarget.addComponent("collision");
+        this.myRotationStepCursorTargetComponent = this.myRotationStepCursorTarget.addComponent(CursorTarget);
+        this.myRotationStepCollisionComponent = this.myRotationStepCursorTarget.addComponent(CollisionComponent);
         this.myRotationStepCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myRotationStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
-        this.myRotationStepIncreaseButtonBackgroundComponent = this.myRotationStepIncreaseButtonBackground.addComponent("mesh");
+        this.myRotationStepIncreaseButtonBackgroundComponent = this.myRotationStepIncreaseButtonBackground.addComponent(MeshComponent);
         this.myRotationStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myRotationStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myRotationStepIncreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myRotationStepIncreaseButtonTextComponent = this.myRotationStepIncreaseButtonText.addComponent("text");
+        this.myRotationStepIncreaseButtonTextComponent = this.myRotationStepIncreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myRotationStepIncreaseButtonTextComponent);
         this.myRotationStepIncreaseButtonTextComponent.text = this._mySetup.myIncreaseButtonText;
 
-        this.myRotationStepIncreaseButtonCursorTargetComponent = this.myRotationStepIncreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myRotationStepIncreaseButtonCollisionComponent = this.myRotationStepIncreaseButtonCursorTarget.addComponent("collision");
+        this.myRotationStepIncreaseButtonCursorTargetComponent = this.myRotationStepIncreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myRotationStepIncreaseButtonCollisionComponent = this.myRotationStepIncreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myRotationStepIncreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myRotationStepIncreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationStepIncreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        this.myRotationStepDecreaseButtonBackgroundComponent = this.myRotationStepDecreaseButtonBackground.addComponent("mesh");
+        this.myRotationStepDecreaseButtonBackgroundComponent = this.myRotationStepDecreaseButtonBackground.addComponent(MeshComponent);
         this.myRotationStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myRotationStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myRotationStepDecreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myRotationStepDecreaseButtonTextComponent = this.myRotationStepDecreaseButtonText.addComponent("text");
+        this.myRotationStepDecreaseButtonTextComponent = this.myRotationStepDecreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myRotationStepDecreaseButtonTextComponent);
         this.myRotationStepDecreaseButtonTextComponent.text = this._mySetup.myDecreaseButtonText;
 
-        this.myRotationStepDecreaseButtonCursorTargetComponent = this.myRotationStepDecreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myRotationStepDecreaseButtonCollisionComponent = this.myRotationStepDecreaseButtonCursorTarget.addComponent("collision");
+        this.myRotationStepDecreaseButtonCursorTargetComponent = this.myRotationStepDecreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myRotationStepDecreaseButtonCollisionComponent = this.myRotationStepDecreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myRotationStepDecreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myRotationStepDecreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationStepDecreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
         // Scale
 
-        this.myScaleStepTextComponent = this.myScaleStepText.addComponent("text");
+        this.myScaleStepTextComponent = this.myScaleStepText.addComponent(TextComponent);
         this._setupTextComponent(this.myScaleStepTextComponent);
         this.myScaleStepTextComponent.text = " ";
 
-        this.myScaleStepCursorTargetComponent = this.myScaleStepCursorTarget.addComponent("cursor-target");
-        this.myScaleStepCollisionComponent = this.myScaleStepCursorTarget.addComponent("collision");
+        this.myScaleStepCursorTargetComponent = this.myScaleStepCursorTarget.addComponent(CursorTarget);
+        this.myScaleStepCollisionComponent = this.myScaleStepCursorTarget.addComponent(CollisionComponent);
         this.myScaleStepCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myScaleStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myScaleStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
-        this.myScaleStepIncreaseButtonBackgroundComponent = this.myScaleStepIncreaseButtonBackground.addComponent("mesh");
+        this.myScaleStepIncreaseButtonBackgroundComponent = this.myScaleStepIncreaseButtonBackground.addComponent(MeshComponent);
         this.myScaleStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myScaleStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myScaleStepIncreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myScaleStepIncreaseButtonTextComponent = this.myScaleStepIncreaseButtonText.addComponent("text");
+        this.myScaleStepIncreaseButtonTextComponent = this.myScaleStepIncreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myScaleStepIncreaseButtonTextComponent);
         this.myScaleStepIncreaseButtonTextComponent.text = this._mySetup.myIncreaseButtonText;
 
-        this.myScaleStepIncreaseButtonCursorTargetComponent = this.myScaleStepIncreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myScaleStepIncreaseButtonCollisionComponent = this.myScaleStepIncreaseButtonCursorTarget.addComponent("collision");
+        this.myScaleStepIncreaseButtonCursorTargetComponent = this.myScaleStepIncreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myScaleStepIncreaseButtonCollisionComponent = this.myScaleStepIncreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myScaleStepIncreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myScaleStepIncreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myScaleStepIncreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        this.myScaleStepDecreaseButtonBackgroundComponent = this.myScaleStepDecreaseButtonBackground.addComponent("mesh");
+        this.myScaleStepDecreaseButtonBackgroundComponent = this.myScaleStepDecreaseButtonBackground.addComponent(MeshComponent);
         this.myScaleStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myScaleStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myScaleStepDecreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myScaleStepDecreaseButtonTextComponent = this.myScaleStepDecreaseButtonText.addComponent("text");
+        this.myScaleStepDecreaseButtonTextComponent = this.myScaleStepDecreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myScaleStepDecreaseButtonTextComponent);
         this.myScaleStepDecreaseButtonTextComponent.text = this._mySetup.myDecreaseButtonText;
 
-        this.myScaleStepDecreaseButtonCursorTargetComponent = this.myScaleStepDecreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myScaleStepDecreaseButtonCollisionComponent = this.myScaleStepDecreaseButtonCursorTarget.addComponent("collision");
+        this.myScaleStepDecreaseButtonCursorTargetComponent = this.myScaleStepDecreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myScaleStepDecreaseButtonCollisionComponent = this.myScaleStepDecreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myScaleStepDecreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myScaleStepDecreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myScaleStepDecreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
@@ -655,127 +655,127 @@ PP.EasyTuneTransformWidgetUI = class EasyTuneTransformWidgetUI extends PP.EasyTu
 
     _addStepComponents() {
         //Position
-        this.myPositionStepTextComponent = this.myPositionStepText.addComponent("text");
+        this.myPositionStepTextComponent = this.myPositionStepText.addComponent(TextComponent);
         this._setupTextComponent(this.myPositionStepTextComponent);
         this.myPositionStepTextComponent.text = " ";
 
-        this.myPositionStepCursorTargetComponent = this.myPositionStepCursorTarget.addComponent("cursor-target");
-        this.myPositionStepCollisionComponent = this.myPositionStepCursorTarget.addComponent("collision");
+        this.myPositionStepCursorTargetComponent = this.myPositionStepCursorTarget.addComponent(CursorTarget);
+        this.myPositionStepCollisionComponent = this.myPositionStepCursorTarget.addComponent(CollisionComponent);
         this.myPositionStepCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPositionStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
         //Increase/Decrease
-        this.myPositionStepIncreaseButtonBackgroundComponent = this.myPositionStepIncreaseButtonBackground.addComponent("mesh");
+        this.myPositionStepIncreaseButtonBackgroundComponent = this.myPositionStepIncreaseButtonBackground.addComponent(MeshComponent);
         this.myPositionStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myPositionStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myPositionStepIncreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myPositionStepIncreaseButtonTextComponent = this.myPositionStepIncreaseButtonText.addComponent("text");
+        this.myPositionStepIncreaseButtonTextComponent = this.myPositionStepIncreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myPositionStepIncreaseButtonTextComponent);
         this.myPositionStepIncreaseButtonTextComponent.text = this._mySetup.myIncreaseButtonText;
 
-        this.myPositionStepIncreaseButtonCursorTargetComponent = this.myPositionStepIncreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myPositionStepIncreaseButtonCollisionComponent = this.myPositionStepIncreaseButtonCursorTarget.addComponent("collision");
+        this.myPositionStepIncreaseButtonCursorTargetComponent = this.myPositionStepIncreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myPositionStepIncreaseButtonCollisionComponent = this.myPositionStepIncreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myPositionStepIncreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPositionStepIncreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionStepIncreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        this.myPositionStepDecreaseButtonBackgroundComponent = this.myPositionStepDecreaseButtonBackground.addComponent("mesh");
+        this.myPositionStepDecreaseButtonBackgroundComponent = this.myPositionStepDecreaseButtonBackground.addComponent(MeshComponent);
         this.myPositionStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myPositionStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myPositionStepDecreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myPositionStepDecreaseButtonTextComponent = this.myPositionStepDecreaseButtonText.addComponent("text");
+        this.myPositionStepDecreaseButtonTextComponent = this.myPositionStepDecreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myPositionStepDecreaseButtonTextComponent);
         this.myPositionStepDecreaseButtonTextComponent.text = this._mySetup.myDecreaseButtonText;
 
-        this.myPositionStepDecreaseButtonCursorTargetComponent = this.myPositionStepDecreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myPositionStepDecreaseButtonCollisionComponent = this.myPositionStepDecreaseButtonCursorTarget.addComponent("collision");
+        this.myPositionStepDecreaseButtonCursorTargetComponent = this.myPositionStepDecreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myPositionStepDecreaseButtonCollisionComponent = this.myPositionStepDecreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myPositionStepDecreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myPositionStepDecreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionStepDecreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
         //Rotation
-        this.myRotationStepTextComponent = this.myRotationStepText.addComponent("text");
+        this.myRotationStepTextComponent = this.myRotationStepText.addComponent(TextComponent);
         this._setupTextComponent(this.myRotationStepTextComponent);
         this.myRotationStepTextComponent.text = " ";
 
-        this.myRotationStepCursorTargetComponent = this.myRotationStepCursorTarget.addComponent("cursor-target");
-        this.myRotationStepCollisionComponent = this.myRotationStepCursorTarget.addComponent("collision");
+        this.myRotationStepCursorTargetComponent = this.myRotationStepCursorTarget.addComponent(CursorTarget);
+        this.myRotationStepCollisionComponent = this.myRotationStepCursorTarget.addComponent(CollisionComponent);
         this.myRotationStepCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myRotationStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
         //Increase/Decrease
-        this.myRotationStepIncreaseButtonBackgroundComponent = this.myRotationStepIncreaseButtonBackground.addComponent("mesh");
+        this.myRotationStepIncreaseButtonBackgroundComponent = this.myRotationStepIncreaseButtonBackground.addComponent(MeshComponent);
         this.myRotationStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myRotationStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myRotationStepIncreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myRotationStepIncreaseButtonTextComponent = this.myRotationStepIncreaseButtonText.addComponent("text");
+        this.myRotationStepIncreaseButtonTextComponent = this.myRotationStepIncreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myRotationStepIncreaseButtonTextComponent);
         this.myRotationStepIncreaseButtonTextComponent.text = this._mySetup.myIncreaseButtonText;
 
-        this.myRotationStepIncreaseButtonCursorTargetComponent = this.myRotationStepIncreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myRotationStepIncreaseButtonCollisionComponent = this.myRotationStepIncreaseButtonCursorTarget.addComponent("collision");
+        this.myRotationStepIncreaseButtonCursorTargetComponent = this.myRotationStepIncreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myRotationStepIncreaseButtonCollisionComponent = this.myRotationStepIncreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myRotationStepIncreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myRotationStepIncreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationStepIncreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        this.myRotationStepDecreaseButtonBackgroundComponent = this.myRotationStepDecreaseButtonBackground.addComponent("mesh");
+        this.myRotationStepDecreaseButtonBackgroundComponent = this.myRotationStepDecreaseButtonBackground.addComponent(MeshComponent);
         this.myRotationStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myRotationStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myRotationStepDecreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myRotationStepDecreaseButtonTextComponent = this.myRotationStepDecreaseButtonText.addComponent("text");
+        this.myRotationStepDecreaseButtonTextComponent = this.myRotationStepDecreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myRotationStepDecreaseButtonTextComponent);
         this.myRotationStepDecreaseButtonTextComponent.text = this._mySetup.myDecreaseButtonText;
 
-        this.myRotationStepDecreaseButtonCursorTargetComponent = this.myRotationStepDecreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myRotationStepDecreaseButtonCollisionComponent = this.myRotationStepDecreaseButtonCursorTarget.addComponent("collision");
+        this.myRotationStepDecreaseButtonCursorTargetComponent = this.myRotationStepDecreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myRotationStepDecreaseButtonCollisionComponent = this.myRotationStepDecreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myRotationStepDecreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myRotationStepDecreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationStepDecreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
         //Scale
-        this.myScaleStepTextComponent = this.myScaleStepText.addComponent("text");
+        this.myScaleStepTextComponent = this.myScaleStepText.addComponent(TextComponent);
         this._setupTextComponent(this.myScaleStepTextComponent);
         this.myScaleStepTextComponent.text = " ";
 
-        this.myScaleStepCursorTargetComponent = this.myScaleStepCursorTarget.addComponent("cursor-target");
-        this.myScaleStepCollisionComponent = this.myScaleStepCursorTarget.addComponent("collision");
+        this.myScaleStepCursorTargetComponent = this.myScaleStepCursorTarget.addComponent(CursorTarget);
+        this.myScaleStepCollisionComponent = this.myScaleStepCursorTarget.addComponent(CollisionComponent);
         this.myScaleStepCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myScaleStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myScaleStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
         //Increase/Decrease
-        this.myScaleStepIncreaseButtonBackgroundComponent = this.myScaleStepIncreaseButtonBackground.addComponent("mesh");
+        this.myScaleStepIncreaseButtonBackgroundComponent = this.myScaleStepIncreaseButtonBackground.addComponent(MeshComponent);
         this.myScaleStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myScaleStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myScaleStepIncreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myScaleStepIncreaseButtonTextComponent = this.myScaleStepIncreaseButtonText.addComponent("text");
+        this.myScaleStepIncreaseButtonTextComponent = this.myScaleStepIncreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myScaleStepIncreaseButtonTextComponent);
         this.myScaleStepIncreaseButtonTextComponent.text = this._mySetup.myIncreaseButtonText;
 
-        this.myScaleStepIncreaseButtonCursorTargetComponent = this.myScaleStepIncreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myScaleStepIncreaseButtonCollisionComponent = this.myScaleStepIncreaseButtonCursorTarget.addComponent("collision");
+        this.myScaleStepIncreaseButtonCursorTargetComponent = this.myScaleStepIncreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myScaleStepIncreaseButtonCollisionComponent = this.myScaleStepIncreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myScaleStepIncreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myScaleStepIncreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myScaleStepIncreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        this.myScaleStepDecreaseButtonBackgroundComponent = this.myScaleStepDecreaseButtonBackground.addComponent("mesh");
+        this.myScaleStepDecreaseButtonBackgroundComponent = this.myScaleStepDecreaseButtonBackground.addComponent(MeshComponent);
         this.myScaleStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myScaleStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
         this.myScaleStepDecreaseButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
 
-        this.myScaleStepDecreaseButtonTextComponent = this.myScaleStepDecreaseButtonText.addComponent("text");
+        this.myScaleStepDecreaseButtonTextComponent = this.myScaleStepDecreaseButtonText.addComponent(TextComponent);
         this._setupTextComponent(this.myScaleStepDecreaseButtonTextComponent);
         this.myScaleStepDecreaseButtonTextComponent.text = this._mySetup.myDecreaseButtonText;
 
-        this.myScaleStepDecreaseButtonCursorTargetComponent = this.myScaleStepDecreaseButtonCursorTarget.addComponent("cursor-target");
-        this.myScaleStepDecreaseButtonCollisionComponent = this.myScaleStepDecreaseButtonCursorTarget.addComponent("collision");
+        this.myScaleStepDecreaseButtonCursorTargetComponent = this.myScaleStepDecreaseButtonCursorTarget.addComponent(CursorTarget);
+        this.myScaleStepDecreaseButtonCollisionComponent = this.myScaleStepDecreaseButtonCursorTarget.addComponent(CollisionComponent);
         this.myScaleStepDecreaseButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
         this.myScaleStepDecreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myScaleStepDecreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;

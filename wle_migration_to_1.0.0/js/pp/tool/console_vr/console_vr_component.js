@@ -1,4 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { ConsoleVR } from "./console_vr";
+import { getConsoleVR, hasConsoleVR, removeConsoleVR, setConsoleVR } from "./console_vr_global";
+import { ConsoleVRWidget } from "./console_vr_widget";
 
 export class ConsoleVRComponent extends Component {
     static TypeName = "pp-console-vr";
@@ -11,13 +14,22 @@ export class ConsoleVRComponent extends Component {
     };
 
     init() {
-        this._myWidget = new PP.ConsoleVRWidget();
+        this._myConsoleVR = null;
+
+        // prevents double global from same engine
+        if (!hasConsoleVR(this.engine)) {
+            this._myConsoleVR = new ConsoleVR();
+
+            setConsoleVR(this._myConsoleVR, this.engine);
+        }
+
+        this._myWidget = new ConsoleVRWidget(this.engine);
 
         this._myStarted = false;
     }
 
     start() {
-        let additionalSetup = new PP.ConsoleVRWidget.AdditionalSetup();
+        let additionalSetup = new ConsoleVRWidgetAdditionalSetup(this.engine);
         additionalSetup.myHandedness = [null, "left", "right"][this._myHandedness];
         additionalSetup.myOverrideBrowserConsole = this._myOverrideBrowserConsole;
         additionalSetup.myShowOnStart = this._myShowOnStart;
@@ -53,6 +65,12 @@ export class ConsoleVRComponent extends Component {
             this._myWidgetVisibleBackup = this._myWidget.isVisible();
 
             this._myWidget.setVisible(false);
+        }
+    }
+
+    onDestroy() {
+        if (this._myConsoleVR != null && getConsoleVR(this.engine) == this._myConsoleVR) {
+            removeConsoleVR(this.engine);
         }
     }
 };

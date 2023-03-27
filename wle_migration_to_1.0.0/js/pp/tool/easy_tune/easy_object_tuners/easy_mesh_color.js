@@ -55,7 +55,7 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
             return [0];
         }
 
-        return PP.vec4_create();
+        return vec4_create();
     }
 
     _updateObjectValue(object, value) {
@@ -88,7 +88,7 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
 
     _getMeshMaterial(object) {
         let material = null;
-        let mesh = object.pp_getComponentHierarchy("mesh");
+        let mesh = object.pp_getComponentHierarchy(MeshComponent);
         if (mesh) {
             material = mesh.material;
         }

@@ -5,7 +5,7 @@ PP.EasyTuneWidgetSetup = class EasyTuneWidgetSetup {
     }
 
     _initializeRuntimeSetup() {
-        this.myGamepadHandedness = PP.ToolHandedness.RIGHT;
+        this.myGamepadHandedness = ToolHandedness.RIGHT;
 
         this.myScrollVariableDelay = 0.5;
         this.myScrollVariableMinXThreshold = 0.6;
