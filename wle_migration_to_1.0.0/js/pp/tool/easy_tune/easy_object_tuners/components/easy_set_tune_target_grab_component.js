@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { GrabberHandComponent } from "../../../../gameplay/grab_throw/grabber_hand_component";
 
 export class EasySetTuneTargeetGrabComponent extends Component {
     static TypeName = "pp-easy-set-tune-target-grab";
@@ -8,7 +9,7 @@ export class EasySetTuneTargeetGrabComponent extends Component {
     }
 
     start() {
-        this._myGrabber = this.object.pp_getComponent("pp-grabber-hand");
+        this._myGrabber = this.object.pp_getComponent(GrabberHandComponent);
     }
 
     update() {

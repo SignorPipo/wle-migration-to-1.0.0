@@ -7,6 +7,3 @@ export class GlobalGravityComponent extends Component {
     init() {
     }
 };
-
-PP.myGravityAcceleration = 0;
-PP.myGravityDirection = PP.vec3_create();
