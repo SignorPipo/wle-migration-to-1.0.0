@@ -1,8 +1,11 @@
-PP.CollisionCheck.prototype._horizontalCheck = function () {
-    let fixedFeetPosition = PP.vec3_create();
-    let newFixedFeetPosition = PP.vec3_create();
-    let newFeetPosition = PP.vec3_create();
-    let horizontalDirection = PP.vec3_create();
+import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { CollisionCheck } from "./collision_check";
+
+CollisionCheck.prototype._horizontalCheck = function () {
+    let fixedFeetPosition = vec3_create();
+    let newFixedFeetPosition = vec3_create();
+    let newFeetPosition = vec3_create();
+    let horizontalDirection = vec3_create();
     return function _horizontalCheck(movement, feetPosition, height, up, forward, allowSurfaceSteepFix, collisionCheckParams, collisionRuntimeParams, previousCollisionRuntimeParams, avoidSlidingExtraCheck, outFixedMovement) {
         collisionRuntimeParams.myIsCollidingHorizontally = false;
         collisionRuntimeParams.myHorizontalCollisionHit.reset();
@@ -45,10 +48,10 @@ PP.CollisionCheck.prototype._horizontalCheck = function () {
     };
 }();
 
-PP.CollisionCheck.prototype._horizontalCheckRaycast = function () {
-    let direction = PP.vec3_create();
-    let fixedFeetPosition = PP.vec3_create();
-    let fixedHitPosition = PP.vec3_create();
+CollisionCheck.prototype._horizontalCheckRaycast = function () {
+    let direction = vec3_create();
+    let fixedFeetPosition = vec3_create();
+    let fixedHitPosition = vec3_create();
     return function _horizontalCheckRaycast(startPosition, endPosition, movementDirection, up,
         ignoreHitsInsideCollision, ignoreGroundAngleCallback, ignoreCeilingAngleCallback,
         feetPosition, fixHitOnCollision,
@@ -133,13 +136,13 @@ PP.CollisionCheck.prototype._horizontalCheckRaycast = function () {
     };
 }();
 
-PP.CollisionCheck.prototype._ignoreSurfaceAngle = function () {
+CollisionCheck.prototype._ignoreSurfaceAngle = function () {
     let objectsEqualCallback = (first, second) => first.pp_equals(second);
 
-    let movementDirection = PP.vec3_create();
-    let hitDirection = PP.vec3_create();
-    let hitMovement = PP.vec3_create();
-    let projectAlongAxis = PP.vec3_create();
+    let movementDirection = vec3_create();
+    let hitDirection = vec3_create();
+    let hitMovement = vec3_create();
+    let projectAlongAxis = vec3_create();
     return function _ignoreSurfaceAngle(feetPosition, height, movementOrForward, objectsToIgnore, outIgnoredObjects, isGround, isMovementCheck, up, collisionCheckParams, hit, ignoreHitsInsideCollisionIfObjectToIgnore) {
         let isIgnorable = false;
 
@@ -261,7 +264,7 @@ PP.CollisionCheck.prototype._ignoreSurfaceAngle = function () {
 
 
 
-Object.defineProperty(PP.CollisionCheck.prototype, "_horizontalCheck", { enumerable: false });
-Object.defineProperty(PP.CollisionCheck.prototype, "_horizontalCheckRaycast", { enumerable: false });
-Object.defineProperty(PP.CollisionCheck.prototype, "_ignoreSurfaceAngle", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_horizontalCheck", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_horizontalCheckRaycast", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_ignoreSurfaceAngle", { enumerable: false });
 

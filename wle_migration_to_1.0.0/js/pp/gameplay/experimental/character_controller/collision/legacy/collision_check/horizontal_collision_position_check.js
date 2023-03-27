@@ -1,11 +1,15 @@
-PP.CollisionCheck.prototype._horizontalPositionCheck = function () {
+import { RaycastHit } from "../../../../../../cauldron/physics/physics_raycast_data";
+import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { CollisionCheck } from "./collision_check";
+
+CollisionCheck.prototype._horizontalPositionCheck = function () {
     let checkPositions = [];
     let cachedCheckPositions = [];
     let currentCachedCheckPositionIndex = 0;
     let _localGetCachedCheckPosition = function () {
         let item = null;
         while (cachedCheckPositions.length <= currentCachedCheckPositionIndex) {
-            cachedCheckPositions.push(PP.vec3_create());
+            cachedCheckPositions.push(vec3_create());
         }
 
         item = cachedCheckPositions[currentCachedCheckPositionIndex];
@@ -19,17 +23,17 @@ PP.CollisionCheck.prototype._horizontalPositionCheck = function () {
 
     let objectsEqualCallback = (first, second) => first.pp_equals(second);
 
-    let heightOffset = PP.vec3_create();
-    let heightStep = PP.vec3_create();
-    let currentHeightOffset = PP.vec3_create();
-    let hitHeightOffset = PP.vec3_create();
-    let hitHeightOffsetEpsilon = PP.vec3_create();
-    let downwardHeightOffset = PP.vec3_create();
-    let downwardHeightStep = PP.vec3_create();
+    let heightOffset = vec3_create();
+    let heightStep = vec3_create();
+    let currentHeightOffset = vec3_create();
+    let hitHeightOffset = vec3_create();
+    let hitHeightOffsetEpsilon = vec3_create();
+    let downwardHeightOffset = vec3_create();
+    let downwardHeightStep = vec3_create();
 
-    let verticalDirection = PP.vec3_create();
+    let verticalDirection = vec3_create();
 
-    let vertilCheckHit = new PP.RaycastHit();
+    let vertilCheckHit = new RaycastHit();
 
     return function _horizontalPositionCheck(originalFeetPosition, originalHeight, feetPosition, height, up, forward, collisionCheckParams, collisionRuntimeParams) {
         this._myDebugActive = collisionCheckParams.myDebugActive && collisionCheckParams.myDebugHorizontalPositionActive;
@@ -210,11 +214,11 @@ PP.CollisionCheck.prototype._horizontalPositionCheck = function () {
     };
 }();
 
-PP.CollisionCheck.prototype._horizontalPositionHorizontalCheck = function () {
-    let basePosition = PP.vec3_create();
-    let forwardNegate = PP.vec3_create();
-    let currentRadialPosition = PP.vec3_create();
-    let previousRadialPosition = PP.vec3_create();
+CollisionCheck.prototype._horizontalPositionHorizontalCheck = function () {
+    let basePosition = vec3_create();
+    let forwardNegate = vec3_create();
+    let currentRadialPosition = vec3_create();
+    let previousRadialPosition = vec3_create();
     return function _horizontalPositionHorizontalCheck(feetPosition, checkPositions, heightOffset, up, forward, ignoreGroundAngleCallback, ignoreCeilingAngleCallback, collisionCheckParams, collisionRuntimeParams) {
         let isHorizontalCheckOk = true;
 
@@ -290,13 +294,13 @@ PP.CollisionCheck.prototype._horizontalPositionHorizontalCheck = function () {
     };
 }();
 
-PP.CollisionCheck.prototype._horizontalPositionVerticalCheck = function () {
-    let basePosition = PP.vec3_create();
-    let previousBasePosition = PP.vec3_create();
-    let currentRadialPosition = PP.vec3_create();
-    let previousRadialPosition = PP.vec3_create();
-    let previousCurrentRadialPosition = PP.vec3_create();
-    let previousPreviousRadialPosition = PP.vec3_create();
+CollisionCheck.prototype._horizontalPositionVerticalCheck = function () {
+    let basePosition = vec3_create();
+    let previousBasePosition = vec3_create();
+    let currentRadialPosition = vec3_create();
+    let previousRadialPosition = vec3_create();
+    let previousCurrentRadialPosition = vec3_create();
+    let previousPreviousRadialPosition = vec3_create();
     return function _horizontalPositionVerticalCheck(feetPosition, checkPositions, heightOffset, heightStep, verticalDirection, up, ignoreGroundAngleCallback, ignoreCeilingAngleCallback, collisionCheckParams, collisionRuntimeParams) {
         let isHorizontalCheckOk = true;
 
@@ -439,6 +443,6 @@ PP.CollisionCheck.prototype._horizontalPositionVerticalCheck = function () {
 
 
 
-Object.defineProperty(PP.CollisionCheck.prototype, "_horizontalPositionCheck", { enumerable: false });
-Object.defineProperty(PP.CollisionCheck.prototype, "_horizontalPositionHorizontalCheck", { enumerable: false });
-Object.defineProperty(PP.CollisionCheck.prototype, "_horizontalPositionVerticalCheck", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_horizontalPositionCheck", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_horizontalPositionHorizontalCheck", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_horizontalPositionVerticalCheck", { enumerable: false });

@@ -1,12 +1,23 @@
 import { quat_create, vec3_create } from "../../../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../../../../plugin/wl/extensions/engine_extension";
 import { CharacterCollisionCheckType } from "./character_collision_results";
+import { CollisionCheck } from "./legacy/collision_check/collision_check";
+import { CollisionCheckParams, CollisionRuntimeParams } from "./legacy/collision_check/collision_params";
 
-let _myCollisionCheck = new PP.CollisionCheck();
+let _myCollisionCheck = null;
+
+export function initBridge(engine = getMainEngine()) {
+    _myCollisionCheck = new CollisionCheck(engine);
+}
+
+export function getCollisionCheck() {
+    return _myCollisionCheck;
+}
 
 export let checkMovement = function () {
-    let collisionCheckParams = new PP.CollisionCheckParams();
-    let collisionRuntimeParams = new PP.CollisionRuntimeParams();
-    return function checkMovement(movement, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
+    let collisionCheckParams = new CollisionCheckParams();
+    let collisionRuntimeParams = new CollisionRuntimeParams();
+    return function checkMovement(movement, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
         this.convertCharacterColliderSetupToCollisionCheckParams(characterColliderSetup, collisionCheckParams);
         this.convertCharacterCollisionResultsToCollisionRuntimeParams(prevCharacterCollisionResults, collisionRuntimeParams);
         this._myCollisionCheck.move(movement, currentTransformQuat, collisionCheckParams, collisionRuntimeParams);
@@ -16,9 +27,9 @@ export let checkMovement = function () {
 
 export let checkTeleportToTransform = function () {
     let teleportPosition = vec3_create();
-    let collisionCheckParams = new PP.CollisionCheckParams();
-    let collisionRuntimeParams = new PP.CollisionRuntimeParams();
-    return function checkTeleportToTransform(teleportTransformQuat, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
+    let collisionCheckParams = new CollisionCheckParams();
+    let collisionRuntimeParams = new CollisionRuntimeParams();
+    return function checkTeleportToTransform(teleportTransformQuat, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
         this.convertCharacterColliderSetupToCollisionCheckParams(characterColliderSetup, collisionCheckParams);
         this.convertCharacterCollisionResultsToCollisionRuntimeParams(prevCharacterCollisionResults, collisionRuntimeParams);
         teleportPosition = teleportTransformQuat.quat2_getPosition(teleportPosition);
@@ -28,9 +39,9 @@ export let checkTeleportToTransform = function () {
 }();
 
 export let checkTransform = function () {
-    let collisionCheckParams = new PP.CollisionCheckParams();
-    let collisionRuntimeParams = new PP.CollisionRuntimeParams();
-    return function checkTransform(checkTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
+    let collisionCheckParams = new CollisionCheckParams();
+    let collisionRuntimeParams = new CollisionRuntimeParams();
+    return function checkTransform(checkTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
         this.convertCharacterColliderSetupToCollisionCheckParams(characterColliderSetup, collisionCheckParams);
         this.convertCharacterCollisionResultsToCollisionRuntimeParams(prevCharacterCollisionResults, collisionRuntimeParams);
         this._myCollisionCheck.positionCheck(true, checkTransformQuat, collisionCheckParams, collisionRuntimeParams);
@@ -39,9 +50,9 @@ export let checkTransform = function () {
 }();
 
 export let updateGroundInfo = function () {
-    let collisionCheckParams = new PP.CollisionCheckParams();
-    let collisionRuntimeParams = new PP.CollisionRuntimeParams();
-    return function updateGroundInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
+    let collisionCheckParams = new CollisionCheckParams();
+    let collisionRuntimeParams = new CollisionRuntimeParams();
+    return function updateGroundInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
         this.convertCharacterColliderSetupToCollisionCheckParams(characterColliderSetup, collisionCheckParams);
         this.convertCharacterCollisionResultsToCollisionRuntimeParams(prevCharacterCollisionResults, collisionRuntimeParams);
         collisionCheckParams.myComputeCeilingInfoEnabled = false;
@@ -51,9 +62,9 @@ export let updateGroundInfo = function () {
 }();
 
 export let updateCeilingInfo = function () {
-    let collisionCheckParams = new PP.CollisionCheckParams();
-    let collisionRuntimeParams = new PP.CollisionRuntimeParams();
-    return function updateCeilingInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
+    let collisionCheckParams = new CollisionCheckParams();
+    let collisionRuntimeParams = new CollisionRuntimeParams();
+    return function updateCeilingInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
         this.convertCharacterColliderSetupToCollisionCheckParams(characterColliderSetup, collisionCheckParams);
         this.convertCharacterCollisionResultsToCollisionRuntimeParams(prevCharacterCollisionResults, collisionRuntimeParams);
         collisionCheckParams.myComputeGroundInfoEnabled = false;
@@ -487,6 +498,8 @@ export let convertCharacterColliderSetupToCollisionCheckParams = function () {
 }()
 
 export let CollisionCheckBridge = {
+    initBridge,
+    getCollisionCheck,
     checkMovement,
     checkTeleportToTransform,
     checkTransform,

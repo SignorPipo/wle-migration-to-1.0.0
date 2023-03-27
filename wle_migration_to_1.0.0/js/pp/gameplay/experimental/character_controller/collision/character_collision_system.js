@@ -1,75 +1,80 @@
 import { quat2_create } from "../../../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../../../../plugin/wl/extensions/engine_extension";
+import { CharacterCollisionResults } from "./character_collision_results";
+import { CollisionCheckBridge } from "./collision_check_bridge";
 
 export class CharacterCollisionSystem {
-    constructor() {
+    constructor(engine = getMainEngine()) {
         this._myLastCheckRaycastsPerformed = 0;
         this._myCurrentFrameRaycastsPerformed = 0;
         this._myMaxFrameRaycastsPerformed = 0;
+
+        CollisionCheckBridge.initBridge(engine);
     }
 
     update(dt) {
         this._myMaxFrameRaycastsPerformed = Math.max(this._myCurrentFrameRaycastsPerformed, this._myMaxFrameRaycastsPerformed);
         this._myCurrentFrameRaycastsPerformed = 0;
-        PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts = 0;
+        CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts = 0;
     }
 
-    checkMovement(movement, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
-        PP.CollisionCheckBridge.checkMovement(movement, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
+    checkMovement(movement, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
+        CollisionCheckBridge.checkMovement(movement, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
 
-        this._myLastCheckRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
-        this._myCurrentFrameRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts;
+        this._myLastCheckRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
+        this._myCurrentFrameRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts;
         this._myMaxFrameRaycastsPerformed = Math.max(this._myCurrentFrameRaycastsPerformed, this._myMaxFrameRaycastsPerformed);
         outCharacterCollisionResults.myDebugResults._myRaycastsPerformed = this._myLastCheckRaycastsPerformed;
     }
 
-    checkTeleportToPosition(teleportPosition, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
+    checkTeleportToPosition(teleportPosition, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
         // implemented outside class definition
     }
 
-    checkTeleportToTransform(teleportTransformQuat, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
-        PP.CollisionCheckBridge.checkTeleportToTransform(teleportTransformQuat, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
+    checkTeleportToTransform(teleportTransformQuat, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
+        CollisionCheckBridge.checkTeleportToTransform(teleportTransformQuat, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
 
-        this._myLastCheckRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
-        this._myCurrentFrameRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts;
+        this._myLastCheckRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
+        this._myCurrentFrameRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts;
         this._myMaxFrameRaycastsPerformed = Math.max(this._myCurrentFrameRaycastsPerformed, this._myMaxFrameRaycastsPerformed);
         outCharacterCollisionResults.myDebugResults._myRaycastsPerformed = this._myLastCheckRaycastsPerformed;
     }
 
-    checkTransform(checkTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
-        PP.CollisionCheckBridge.checkTransform(checkTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
+    checkTransform(checkTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
+        CollisionCheckBridge.checkTransform(checkTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
 
-        this._myLastCheckRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
-        this._myCurrentFrameRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts;
+        this._myLastCheckRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
+        this._myCurrentFrameRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts;
         this._myMaxFrameRaycastsPerformed = Math.max(this._myCurrentFrameRaycastsPerformed, this._myMaxFrameRaycastsPerformed);
         outCharacterCollisionResults.myDebugResults._myRaycastsPerformed = this._myLastCheckRaycastsPerformed;
     }
 
-    updateSurfaceInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
+    updateSurfaceInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
         let currentFramePerformedRaycasts = this._myCurrentFrameRaycastsPerformed;
 
         this.updateGroundInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
         this.updateCeilingInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
 
-        this._myLastCheckRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts - currentFramePerformedRaycasts;
-        this._myCurrentFrameRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts;
+        this._myLastCheckRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts - currentFramePerformedRaycasts;
+        this._myCurrentFrameRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts;
         this._myMaxFrameRaycastsPerformed = Math.max(this._myCurrentFrameRaycastsPerformed, this._myMaxFrameRaycastsPerformed);
         outCharacterCollisionResults.myDebugResults._myRaycastsPerformed = this._myLastCheckRaycastsPerformed;
     }
 
-    updateGroundInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
-        PP.CollisionCheckBridge.updateGroundInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
+    updateGroundInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
+        CollisionCheckBridge.updateGroundInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
 
-        this._myLastCheckRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
-        this._myCurrentFrameRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts;
+        this._myLastCheckRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
+        this._myCurrentFrameRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts;
         this._myMaxFrameRaycastsPerformed = Math.max(this._myCurrentFrameRaycastsPerformed, this._myMaxFrameRaycastsPerformed);
         outCharacterCollisionResults.myDebugResults._myRaycastsPerformed = this._myLastCheckRaycastsPerformed;
     }
 
-    updateCeilingInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new PP.CharacterCollisionResults()) {
-        PP.CollisionCheckBridge.updateCeilingInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
+    updateCeilingInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
+        CollisionCheckBridge.updateCeilingInfo(currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults);
 
-        this._myLastCheckRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
-        this._myCurrentFrameRaycastsPerformed = PP.CollisionCheckBridge._myCollisionCheck._myTotalRaycasts;
+        this._myLastCheckRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts - this._myCurrentFrameRaycastsPerformed;
+        this._myCurrentFrameRaycastsPerformed = CollisionCheckBridge.getCollisionCheck()._myTotalRaycasts;
         this._myMaxFrameRaycastsPerformed = Math.max(this._myCurrentFrameRaycastsPerformed, this._myMaxFrameRaycastsPerformed);
         outCharacterCollisionResults.myDebugResults._myRaycastsPerformed = this._myLastCheckRaycastsPerformed;
     }

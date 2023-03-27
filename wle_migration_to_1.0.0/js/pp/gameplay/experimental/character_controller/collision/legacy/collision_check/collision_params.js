@@ -1,5 +1,8 @@
+import { PhysicsLayerFlags } from "../../../../../../cauldron/physics/physics_layer_flags";
+import { RaycastHit } from "../../../../../../cauldron/physics/physics_raycast_data";
+import { quat_create, vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 
-PP.CollisionCheckParams = class CollisionCheckParams {
+export class CollisionCheckParams {
     constructor() {
         this.mySplitMovementEnabled = false;
         this.mySplitMovementMaxLength = 0;
@@ -16,8 +19,8 @@ PP.CollisionCheckParams = class CollisionCheckParams {
         this.myDistanceFromFeetToIgnore = 0;
         this.myDistanceFromHeadToIgnore = 0;
 
-        this.myPositionOffsetLocal = PP.vec3_create();
-        this.myRotationOffsetLocalQuat = PP.quat_create();
+        this.myPositionOffsetLocal = vec3_create();
+        this.myRotationOffsetLocalQuat = quat_create();
 
         this.myHorizontalMovementCheckEnabled = false;
 
@@ -67,7 +70,7 @@ PP.CollisionCheckParams = class CollisionCheckParams {
         // if the level is properly created the best solution should be myHorizontalPositionCheckVerticalIgnoreHitsInsideCollision = false and myHorizontalPositionCheckVerticalDirectionType = 0
 
         this.myCheckHorizontalFixedForwardEnabled = false; // this is basically only useful if the cone angle is 180 degrees
-        this.myCheckHorizontalFixedForward = PP.vec3_create();
+        this.myCheckHorizontalFixedForward = vec3_create();
 
         this.myVerticalMovementCheckEnabled = false;
         this.myVerticalPositionCheckEnabled = false;
@@ -92,7 +95,7 @@ PP.CollisionCheckParams = class CollisionCheckParams {
         this.myAdjustHorizontalMovementWithCeilingAngleDownhillMinAngle = null;
 
         this.myCheckVerticalFixedForwardEnabled = false;
-        this.myCheckVerticalFixedForward = PP.vec3_create();
+        this.myCheckVerticalFixedForward = vec3_create();
         this.myCheckVerticalBothDirection = false;
 
         this.mySnapOnGroundEnabled = false;
@@ -230,10 +233,10 @@ PP.CollisionCheckParams = class CollisionCheckParams {
 
         this.mySlidingAdjustSign90Degrees = false;
 
-        this.myHorizontalBlockLayerFlags = new PP.PhysicsLayerFlags();
+        this.myHorizontalBlockLayerFlags = new PhysicsLayerFlags();
         this.myHorizontalObjectsToIgnore = [];
 
-        this.myVerticalBlockLayerFlags = new PP.PhysicsLayerFlags();
+        this.myVerticalBlockLayerFlags = new PhysicsLayerFlags();
         this.myVerticalObjectsToIgnore = [];
 
         this.myExtraMovementCheckCallback = null;              // Signature: callback(startMovement, endMovement, currentPosition, currentTransformUp, currentTransformForward, currentHeight, collisionCheckParams, prevCollisionRuntimeParams, outCollisionRuntimeParams, outFixedMovement) -> outFixedMovement
@@ -462,53 +465,53 @@ PP.CollisionCheckParams = class CollisionCheckParams {
         this.myDebugRuntimeParamsActive = other.myDebugRuntimeParamsActive;
         this.myDebugMovementActive = other.myDebugMovementActive;
     }
-};
+}
 
-PP.CollisionRuntimeParams = class CollisionRuntimeParams {
+export class CollisionRuntimeParams {
     constructor() {
-        this.myOriginalPosition = PP.vec3_create();
-        this.myNewPosition = PP.vec3_create();
+        this.myOriginalPosition = vec3_create();
+        this.myNewPosition = vec3_create();
 
         this.myOriginalHeight = 0;
 
-        this.myOriginalForward = PP.vec3_create();
-        this.myOriginalUp = PP.vec3_create();
+        this.myOriginalForward = vec3_create();
+        this.myOriginalUp = vec3_create();
 
-        this.myOriginalMovement = PP.vec3_create();
-        this.myFixedMovement = PP.vec3_create();
+        this.myOriginalMovement = vec3_create();
+        this.myFixedMovement = vec3_create();
 
-        this.myLastValidOriginalHorizontalMovement = PP.vec3_create();
-        this.myLastValidOriginalVerticalMovement = PP.vec3_create();
-        this.myLastValidSurfaceAdjustedHorizontalMovement = PP.vec3_create();
-        this.myLastValidSurfaceAdjustedVerticalMovement = PP.vec3_create();
-        this.myLastValidEndHorizontalMovement = PP.vec3_create();
-        this.myLastValidEndVerticalMovement = PP.vec3_create();
+        this.myLastValidOriginalHorizontalMovement = vec3_create();
+        this.myLastValidOriginalVerticalMovement = vec3_create();
+        this.myLastValidSurfaceAdjustedHorizontalMovement = vec3_create();
+        this.myLastValidSurfaceAdjustedVerticalMovement = vec3_create();
+        this.myLastValidEndHorizontalMovement = vec3_create();
+        this.myLastValidEndVerticalMovement = vec3_create();
 
         this.myIsOnGround = false;
         this.myGroundAngle = 0;
         this.myGroundPerceivedAngle = 0;
-        this.myGroundNormal = PP.vec3_create();
+        this.myGroundNormal = vec3_create();
         this.myGroundHitMaxAngle = 0;
-        this.myGroundHitMaxNormal = PP.vec3_create();
+        this.myGroundHitMaxNormal = vec3_create();
         this.myGroundDistance = null;
         this.myGroundIsBaseInsideCollision = false;
 
         this.myIsOnCeiling = false;
         this.myCeilingAngle = 0;
         this.myCeilingPerceivedAngle = 0;
-        this.myCeilingNormal = PP.vec3_create();
+        this.myCeilingNormal = vec3_create();
         this.myCeilingHitMaxAngle = 0;
-        this.myCeilingHitMaxNormal = PP.vec3_create();
+        this.myCeilingHitMaxNormal = vec3_create();
         this.myCeilingDistance = null;
         this.myCeilingIsBaseInsideCollision = false;
 
         this.myHorizontalMovementCanceled = false; // could add HorizontalMovementCanceledReason
         this.myIsCollidingHorizontally = false;
-        this.myHorizontalCollisionHit = new PP.RaycastHit();
+        this.myHorizontalCollisionHit = new RaycastHit();
 
         this.myVerticalMovementCanceled = false;
         this.myIsCollidingVertically = false;
-        this.myVerticalCollisionHit = new PP.RaycastHit();
+        this.myVerticalCollisionHit = new RaycastHit();
 
         this.myHasSnappedOnGround = false;
         this.myHasSnappedOnCeiling = false;
@@ -530,18 +533,18 @@ PP.CollisionRuntimeParams = class CollisionRuntimeParams {
         this.mySlidingFlickerPreventionCheckAnywayCounter = 0;
         this.mySlidingMovementAngle = 0;
         this.mySlidingCollisionAngle = 0;
-        this.mySlidingCollisionHit = new PP.RaycastHit();
-        this.mySlidingWallNormal = new PP.vec3_create();
+        this.mySlidingCollisionHit = new RaycastHit();
+        this.mySlidingWallNormal = new vec3_create();
         this.mySliding90DegreesSign = 0;
         this.mySlidingRecompute90DegreesSign = true;
         this.myLastValidIsSliding = false;
-        this.mySlidingPreviousHorizontalMovement = PP.vec3_create();
+        this.mySlidingPreviousHorizontalMovement = vec3_create();
 
-        this.myOriginalTeleportPosition = PP.vec3_create();
-        this.myFixedTeleportPosition = PP.vec3_create();
+        this.myOriginalTeleportPosition = vec3_create();
+        this.myFixedTeleportPosition = vec3_create();
 
-        this.myOriginalPositionCheckPosition = PP.vec3_create();
-        this.myFixedPositionCheckPosition = PP.vec3_create();
+        this.myOriginalPositionCheckPosition = vec3_create();
+        this.myFixedPositionCheckPosition = vec3_create();
 
         this.myTeleportCanceled = false;
 
@@ -555,7 +558,7 @@ PP.CollisionRuntimeParams = class CollisionRuntimeParams {
         this.mySplitMovementSteps = 0;
         this.mySplitMovementStepsPerformed = 0;
         this.mySplitMovementStop = false;
-        this.mySplitMovementMovementChecked = PP.vec3_create();
+        this.mySplitMovementMovementChecked = vec3_create();
 
         this.myRealIsOnGround = false;
         this.myRealIsOnCeiling = false;
@@ -752,4 +755,4 @@ PP.CollisionRuntimeParams = class CollisionRuntimeParams {
         this.myRealIsOnGround = other.myRealIsOnGround;
         this.myRealIsOnCeiling = other.myRealIsOnCeiling;
     }
-};
+}

@@ -1,11 +1,14 @@
-PP.CollisionCheck.prototype._horizontalMovementCheck = function () {
+import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { CollisionCheck } from "./collision_check";
+
+CollisionCheck.prototype._horizontalMovementCheck = function () {
     let checkPositions = [];
     let cachedCheckPositions = [];
     let currentCachedCheckPositionIndex = 0;
     let _localGetCachedCheckPosition = function () {
         let item = null;
         while (cachedCheckPositions.length <= currentCachedCheckPositionIndex) {
-            cachedCheckPositions.push(PP.vec3_create());
+            cachedCheckPositions.push(vec3_create());
         }
 
         item = cachedCheckPositions[currentCachedCheckPositionIndex];
@@ -19,12 +22,12 @@ PP.CollisionCheck.prototype._horizontalMovementCheck = function () {
 
     let objectsEqualCallback = (first, second) => first.pp_equals(second);
 
-    let movementDirection = PP.vec3_create();
-    let heightOffset = PP.vec3_create();
-    let heightStep = PP.vec3_create();
-    let currentHeightOffset = PP.vec3_create();
-    let leftRadialDirection = PP.vec3_create();
-    let rightRadialDirection = PP.vec3_create();
+    let movementDirection = vec3_create();
+    let heightOffset = vec3_create();
+    let heightStep = vec3_create();
+    let currentHeightOffset = vec3_create();
+    let leftRadialDirection = vec3_create();
+    let rightRadialDirection = vec3_create();
     return function _horizontalMovementCheck(movement, originalFeetPosition, originalHeight, feetPosition, height, up, collisionCheckParams, collisionRuntimeParams) {
         // #TODO add a flag in the params to specify if u want to allow movement inside collision (to hope that it will end up in a non collision position)
         // also vertical check should check all hits like the position check
@@ -177,17 +180,17 @@ PP.CollisionCheck.prototype._horizontalMovementCheck = function () {
     };
 }();
 
-PP.CollisionCheck.prototype._horizontalMovementVerticalCheck = function () {
-    let movementStep = PP.vec3_create();
-    let movementDirection = PP.vec3_create();
-    let firstPosition = PP.vec3_create();
-    let secondPosition = PP.vec3_create();
-    let firstMovementPosition = PP.vec3_create();
-    let secondMovementPosition = PP.vec3_create();
-    let firstHeightPosition = PP.vec3_create();
-    let secondHeightPosition = PP.vec3_create();
-    let firstHeightMovementPosition = PP.vec3_create();
-    let secondHeightMovementPosition = PP.vec3_create();
+CollisionCheck.prototype._horizontalMovementVerticalCheck = function () {
+    let movementStep = vec3_create();
+    let movementDirection = vec3_create();
+    let firstPosition = vec3_create();
+    let secondPosition = vec3_create();
+    let firstMovementPosition = vec3_create();
+    let secondMovementPosition = vec3_create();
+    let firstHeightPosition = vec3_create();
+    let secondHeightPosition = vec3_create();
+    let firstHeightMovementPosition = vec3_create();
+    let secondHeightMovementPosition = vec3_create();
     return function _horizontalMovementVerticalCheck(movement, feetPosition, checkPositions, heightOffset, heightStep, up, ignoreGroundAngleCallback, ignoreCeilingAngleCallback, collisionCheckParams, collisionRuntimeParams) {
         let isHorizontalCheckOk = true;
 
@@ -369,13 +372,13 @@ PP.CollisionCheck.prototype._horizontalMovementVerticalCheck = function () {
     };
 }();
 
-PP.CollisionCheck.prototype._horizontalMovementHorizontalCheck = function () {
-    let movementStep = PP.vec3_create();
-    let movementDirection = PP.vec3_create();
-    let firstPosition = PP.vec3_create();
-    let secondPosition = PP.vec3_create();
-    let firstMovementPosition = PP.vec3_create();
-    let secondMovementPosition = PP.vec3_create();
+CollisionCheck.prototype._horizontalMovementHorizontalCheck = function () {
+    let movementStep = vec3_create();
+    let movementDirection = vec3_create();
+    let firstPosition = vec3_create();
+    let secondPosition = vec3_create();
+    let firstMovementPosition = vec3_create();
+    let secondMovementPosition = vec3_create();
     return function _horizontalMovementHorizontalCheck(movement, feetPosition, checkPositions, heightOffset, up, ignoreGroundAngleCallback, ignoreCeilingAngleCallback, collisionCheckParams, collisionRuntimeParams) {
         let isHorizontalCheckOk = true;
 
@@ -470,6 +473,6 @@ PP.CollisionCheck.prototype._horizontalMovementHorizontalCheck = function () {
 
 
 
-Object.defineProperty(PP.CollisionCheck.prototype, "_horizontalMovementCheck", { enumerable: false });
-Object.defineProperty(PP.CollisionCheck.prototype, "_horizontalMovementVerticalCheck", { enumerable: false });
-Object.defineProperty(PP.CollisionCheck.prototype, "_horizontalMovementHorizontalCheck", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_horizontalMovementCheck", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_horizontalMovementVerticalCheck", { enumerable: false });
+Object.defineProperty(CollisionCheck.prototype, "_horizontalMovementHorizontalCheck", { enumerable: false });

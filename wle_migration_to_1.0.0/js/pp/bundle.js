@@ -126,82 +126,83 @@ require("./gameplay/integrations/construct_arcade/ca_display_leaderboard_compone
 //    EXPERIMENTAL
 
 //          CAULDRON
-//require("./gameplay/experimental/cauldron/player/player_head_controller");
-//require("./gameplay/experimental/cauldron/player/player_view_occlusion");
-////require("./gameplay/experimental/cauldron/player/components/player_head_controller_component");
-////require("./gameplay/experimental/cauldron/player/components/player_view_occlusion_component");
+require("./gameplay/experimental/cauldron/player/player_head_controller");
+require("./gameplay/experimental/cauldron/player/player_view_occlusion");
+require("./gameplay/experimental/cauldron/player/components/player_head_controller_component");
+require("./gameplay/experimental/cauldron/player/components/player_view_occlusion_component");
 
 //          CHARACTER CONTROLLER
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_params");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_check");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_movement_check");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_teleport_check");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_position_check");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/horizontal_collision_check");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/horizontal_collision_sliding");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/horizontal_collision_movement_check");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/horizontal_collision_position_check");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/vertical_collision_check");
-//require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_surface_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_params");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_movement_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_teleport_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_position_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/horizontal_collision_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/horizontal_collision_sliding");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/horizontal_collision_movement_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/horizontal_collision_position_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/vertical_collision_check");
+require("./gameplay/experimental/character_controller/collision/legacy/collision_check/collision_surface_check");
 
-//require("./gameplay/experimental/character_controller/collision/collision_check_bridge");
-//require("./gameplay/experimental/character_controller/collision/character_collider_setup");
-//require("./gameplay/experimental/character_controller/collision/character_collider_utils");
-//require("./gameplay/experimental/character_controller/collision/character_collision_results");
-//require("./gameplay/experimental/character_controller/collision/character_collision_system");
-////require("./gameplay/experimental/character_controller/collision/components/character_collision_system_component");
+require("./gameplay/experimental/character_controller/collision/collision_check_bridge");
+require("./gameplay/experimental/character_controller/collision/character_collider_setup");
+require("./gameplay/experimental/character_controller/collision/character_collider_utils");
+require("./gameplay/experimental/character_controller/collision/character_collision_results");
+require("./gameplay/experimental/character_controller/collision/character_collision_system");
+require("./gameplay/experimental/character_controller/collision/components/character_collision_system_component");
 
-//require("./gameplay/experimental/character_controller/character_controller");
-//require("./gameplay/experimental/character_controller/synced_character_controller");
-//require("./gameplay/experimental/character_controller/character_controller_utils");
+require("./gameplay/experimental/character_controller/character_controller");
+require("./gameplay/experimental/character_controller/synced_character_controller");
+require("./gameplay/experimental/character_controller/character_controller_utils");
 
-////require("./gameplay/experimental/character_controller/components/character_controller_component");
+require("./gameplay/experimental/character_controller/components/character_controller_component");
 
-//require("./gameplay/experimental/character_controller/player/player_character_controller");
-//require("./gameplay/experimental/character_controller/player/player_head_character_controller");
-//require("./gameplay/experimental/character_controller/player/player_hand_character_controller");
+require("./gameplay/experimental/character_controller/player/player_character_controller");
+require("./gameplay/experimental/character_controller/player/player_head_character_controller");
+require("./gameplay/experimental/character_controller/player/player_hand_character_controller");
 
-////require("./gameplay/experimental/character_controller/player/components/player_character_controller_component");
-////require("./gameplay/experimental/character_controller/player/components/player_head_character_controller_component");
-////require("./gameplay/experimental/character_controller/player/components/player_hand_character_controller_component");
+require("./gameplay/experimental/character_controller/player/components/player_character_controller_component");
+require("./gameplay/experimental/character_controller/player/components/player_head_character_controller_component");
+require("./gameplay/experimental/character_controller/player/components/player_hand_character_controller_component");
 
 //          LOCOMOTION
-//require("./gameplay/experimental/locomotion/components/global_gravity");
+require("./gameplay/experimental/locomotion/cauldron/global_gravity_globals");
+require("./gameplay/experimental/locomotion/cauldron/components/global_gravity_component");
 
-//require("./gameplay/experimental/locomotion/player/player_locomotion_smooth");
-//require("./gameplay/experimental/locomotion/player/player_locomotion_rotate");
-//require("./gameplay/experimental/locomotion/player/player_locomotion_gravity");
+require("./gameplay/experimental/locomotion/player/player_locomotion_smooth");
+require("./gameplay/experimental/locomotion/player/player_locomotion_rotate");
+require("./gameplay/experimental/locomotion/player/player_locomotion_gravity");
 
-//require("./gameplay/experimental/locomotion/player/teleport/player_locomotion_teleport");
+require("./gameplay/experimental/locomotion/player/teleport/player_locomotion_teleport");
 
-////require("./gameplay/experimental/locomotion/player/components/player_locomotion_teleport_component");
-////require("./gameplay/experimental/locomotion/player/components/player_locomotion_smooth_component");
-////require("./gameplay/experimental/locomotion/player/components/player_locomotion_rotate_component");
-////require("./gameplay/experimental/locomotion/player/components/player_locomotion_gravity_component");
+require("./gameplay/experimental/locomotion/player/components/player_locomotion_teleport_component");
+require("./gameplay/experimental/locomotion/player/components/player_locomotion_smooth_component");
+require("./gameplay/experimental/locomotion/player/components/player_locomotion_rotate_component");
+require("./gameplay/experimental/locomotion/player/components/player_locomotion_gravity_component");
 
-//require("./gameplay/experimental/locomotion/legacy/locomotion/locomotion_utils");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/player_head_manager");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/player_transform_manager");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_rotate");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_movement");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_smooth");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/player_obscure_manager");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_component");
+require("./gameplay/experimental/locomotion/legacy/locomotion/locomotion_utils");
+require("./gameplay/experimental/locomotion/legacy/locomotion/player_head_manager");
+require("./gameplay/experimental/locomotion/legacy/locomotion/player_transform_manager");
+require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_rotate");
+require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_movement");
+require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_smooth");
+require("./gameplay/experimental/locomotion/legacy/locomotion/player_obscure_manager");
+require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion");
+require("./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_component");
 
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_parable");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_state");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_detection_visualizer");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_detection_state");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_detection_state_visibility");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_teleport_state");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_teleport_blink_state");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_teleport_shift_state");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_parable");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_state");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_detection_visualizer");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_detection_state");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_detection_state_visibility");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_teleport_state");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_teleport_blink_state");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport_teleport_shift_state");
+require("./gameplay/experimental/locomotion/legacy/locomotion/teleport/player_locomotion_teleport");
 
-//require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_locomotion_cleaned");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_locomotion_smooth_cleaned");
-//require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_transform_manager_cleaned");
+require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_locomotion_cleaned");
+require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_locomotion_smooth_cleaned");
+require("./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_transform_manager_cleaned");
 
 //	INPUT
 require("./input/cauldron/input_types");
