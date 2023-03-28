@@ -53,7 +53,7 @@ export function initCursorComponentModPrototype() {
             this.handedness = ["left", "right"][this.handedness - 1];
         }
 
-        this.globalTarget = this.object.addComponent(CursorTarget);
+        this.globalTarget = this.object.pp_addComponent(CursorTarget);
 
         this.transformQuat = quat2_create();
         this.rotationQuat = quat_create();

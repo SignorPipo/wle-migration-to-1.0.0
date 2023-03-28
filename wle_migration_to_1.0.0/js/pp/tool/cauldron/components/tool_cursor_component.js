@@ -93,7 +93,7 @@ export class ToolCursorComponent extends Component {
             fingerCursorMeshObject.pp_setScale(fingerCollisionSize);
         }
 
-        this._myFingerCursorObject = this.engine.scene.addObject(this._myToolCursorObject);
+        this._myFingerCursorObject = this._myToolCursorObject.pp_addObject();
         this._myFingerCursorComponent = this._myFingerCursorObject.pp_addComponent("pp-finger-cursor", {
             "_myHandedness": this._myHandedness,
             "_myEnableMultipleClicks": true,
