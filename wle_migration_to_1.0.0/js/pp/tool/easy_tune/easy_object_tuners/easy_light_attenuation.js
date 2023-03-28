@@ -1,3 +1,4 @@
+import { LightComponent } from "@wonderlandengine/api";
 import { EasyTuneNumber } from "../easy_tune_variable_types";
 import { EasyObjectTuner } from "./easy_object_tuner";
 
@@ -28,7 +29,7 @@ export class EasyLightAttenuation extends EasyObjectTuner {
     _updateObjectValue(object, value) {
         let attenuation = value;
 
-        let light = object.pp_getComponent("light");
+        let light = object.pp_getComponent(LightComponent);
         if (light) {
             light.color[3] = attenuation;
         }
@@ -37,7 +38,7 @@ export class EasyLightAttenuation extends EasyObjectTuner {
     _getLightAttenuation(object) {
         let attenuation = this._getDefaultValue();
 
-        let light = object.pp_getComponent("light");
+        let light = object.pp_getComponent(LightComponent);
         if (light) {
             attenuation = light.color[3];
         }

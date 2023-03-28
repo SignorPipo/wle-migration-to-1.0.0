@@ -6,6 +6,7 @@ import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParam
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
 import { getPlayerObjects } from "../../pp/player_objects_global";
 import { XRUtils } from "../utils/xr_utils";
+import { EasyTransformComponent } from "../../tool/easy_tune/easy_object_tuners/components/easy_transform_component";
 
 export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     static TypeName = "pp-benchmark-max-visible-triangles";
@@ -295,10 +296,10 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._mySessionStarted = false;
 
         this._myTextsObject = this._myTrianglesObject.pp_addObject();
-        //this._myTextsObject.pp_addComponent("pp-easy-transform");
+        //this._myTextsObject.pp_addComponent(EasyTransformComponent);
 
         this._myTriangleTextObject = this._myTextsObject.pp_addObject();
-        //this._myTriangleTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
+        //this._myTriangleTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
 
         this._myTriangleTextComponent = this._myTriangleTextObject.pp_addComponent(TextComponent);
 
@@ -312,7 +313,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myPlaneTextObject = this._myTextsObject.pp_addObject();
 
         this._myPlaneTextComponent = this._myPlaneTextObject.pp_addComponent(TextComponent);
-        //this._myPlaneTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
+        //this._myPlaneTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
 
         this._myPlaneTextComponent.alignment = this.engine.Alignment.Left;
         this._myPlaneTextComponent.justification = this.engine.Justification.Line;
@@ -324,7 +325,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myFPSTextObject = this._myTextsObject.pp_addObject();
 
         this._myFPSTextComponent = this._myFPSTextObject.pp_addComponent(TextComponent);
-        //this._myFPSTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
+        //this._myFPSTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
 
         this._myFPSTextComponent.alignment = this.engine.Alignment.Left;
         this._myFPSTextComponent.justification = this.engine.Justification.Line;
@@ -336,7 +337,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myDoneTextObject = this._myTrianglesObject.pp_addObject();
 
         this._myDoneTextComponent = this._myDoneTextObject.pp_addComponent(TextComponent);
-        //this._myDoneTextObject.pp_addComponent("pp-easy-transform", { _myIsLocal: true });
+        //this._myDoneTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
 
         this._myDoneTextComponent.alignment = this.engine.Alignment.Center;
         this._myDoneTextComponent.justification = this.engine.Justification.Line;

@@ -42,7 +42,7 @@ export function initCursorComponentModPrototype() {
 
     Cursor.prototype.start = function start() {
         if (this.handedness == 0) {
-            let inputComp = this.object.getComponent(InputComponent);
+            let inputComp = this.object.pp_getComponent(InputComponent);
             if (!inputComp) {
                 console.warn("cursor component on object " + this.object.name + " was configured with handedness \"input component\", " + "but object has no input component.");
             } else {
@@ -62,7 +62,7 @@ export function initCursorComponentModPrototype() {
         this.cursorObjScale = vec3_create();
         this.direction = vec3_create();
         this.tempQuat = quat_create();
-        this.setViewComponent(this.object.getComponent(ViewComponent));
+        this.setViewComponent(this.object.pp_getComponent(ViewComponent));
         this.isHovering = false;
         this.visible = true;
         this.isDown = false;
@@ -199,7 +199,7 @@ export function initCursorComponentModPrototype() {
             if (!this.hoveringObject || !this.hoveringObject.equals(rayHit.objects[0])) {
                 /* Unhover previous, if exists */
                 if (this.hoveringObject) {
-                    let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
+                    let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
                     if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
                     this.globalTarget.onUnhover(this.hoveringObject, this);
                 }
@@ -210,7 +210,7 @@ export function initCursorComponentModPrototype() {
                 this.hoveringObject = rayHit.objects[0];
                 if (this.styleCursor) document.body.style.cursor = "pointer";
 
-                let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
+                let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
                 if (cursorTarget) {
                     cursorTarget.onHover(this.hoveringObject, this);
                 }
@@ -226,7 +226,7 @@ export function initCursorComponentModPrototype() {
                 }
             }
 
-            let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
+            let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
 
             if (!hoveringObjectChanged && this._isMoving(rayHit.locations[0])) {
                 if (cursorTarget) cursorTarget.onMove(this.hoveringObject, this);
@@ -271,7 +271,7 @@ export function initCursorComponentModPrototype() {
 
             this.prevHitLocationLocalToTarget = this.hoveringObject.pp_convertPositionWorldToLocal(rayHit.locations[0], this.prevHitLocationLocalToTarget);
         } else if (this.hoveringObject && (forceUnhover || rayHit.hitCount == 0)) {
-            let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
+            let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
             if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
             this.globalTarget.onUnhover(this.hoveringObject, this);
 
@@ -459,7 +459,7 @@ export function initCursorComponentModPrototype() {
 
     Cursor.prototype.onDeactivate = function onDeactivate() {
         if (this.hoveringObject) {
-            let cursorTarget = this.hoveringObject.getComponent(CursorTarget);
+            let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
             if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
             this.globalTarget.onUnhover(this.hoveringObject, this);
         }

@@ -1,6 +1,7 @@
 import { Component, MeshComponent, Type, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
+import { FingerCursorComponent } from "../../../input/cauldron/components/finger_cursor_component";
 import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
 import { quat2_create, vec3_create, vec4_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../../pp/default_resources_global";
@@ -94,7 +95,7 @@ export class ToolCursorComponent extends Component {
         }
 
         this._myFingerCursorObject = this._myToolCursorObject.pp_addObject();
-        this._myFingerCursorComponent = this._myFingerCursorObject.pp_addComponent("pp-finger-cursor", {
+        this._myFingerCursorComponent = this._myFingerCursorObject.pp_addComponent(FingerCursorComponent, {
             "_myHandedness": this._myHandedness,
             "_myEnableMultipleClicks": true,
             "_myCollisionGroup": this._myCursorTargetCollisionGroup,

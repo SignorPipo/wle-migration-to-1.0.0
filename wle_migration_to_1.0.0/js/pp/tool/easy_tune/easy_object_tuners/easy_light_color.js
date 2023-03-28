@@ -1,3 +1,4 @@
+import { LightComponent } from "@wonderlandengine/api";
 import { ColorUtils } from "../../../cauldron/utils/color_utils";
 import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
 import { GamepadButtonID } from "../../../input/gamepad/gamepad_buttons";
@@ -57,7 +58,7 @@ export class EasyLightColor extends EasyObjectTuner {
             color = ColorUtils.hsvToRgb(ColorUtils.hsvHumanToCode(color));
         }
 
-        let light = object.pp_getComponent("light");
+        let light = object.pp_getComponent(LightComponent);
         if (light) {
             light.color[0] = color[0];
             light.color[1] = color[1];
@@ -77,7 +78,7 @@ export class EasyLightColor extends EasyObjectTuner {
 
     _getLightColor(object) {
         let color = null;
-        let light = object.pp_getComponent("light");
+        let light = object.pp_getComponent(LightComponent);
         if (light) {
             color = light.color.slice(0, 3);
         }
