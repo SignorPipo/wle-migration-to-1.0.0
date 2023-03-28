@@ -221,7 +221,7 @@ import './pp/tool/cauldron/cauldron/tool_types.js';
 import {ToolCursorComponent} from './pp/tool/cauldron/components/tool_cursor_component.js';
 import './pp/tool/widget_frame/widget_frame.js';
 import './pp/tool/widget_frame/widget_frame_setup.js';
-import './pp/tool/widget_frame/widget_frame_ui.js';
+import './pp/plugin/wl/extensions/object_extension.js';
 import './pp/tool/console_vr/console_original_functions.js';
 import './pp/tool/console_vr/console_vr.js';
 import {ConsoleVRComponent} from './pp/tool/console_vr/console_vr_component.js';
@@ -283,7 +283,7 @@ import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
 import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
-import './pp/plugin/wl/extensions/object_extension.js';
+import './pp/tool/widget_frame/widget_frame_ui.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"

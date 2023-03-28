@@ -103,7 +103,7 @@ export class WidgetFrameUI {
     //Skeleton
     _createSkeleton() {
         this.myFixForwardObject = this._myParentObject.pp_addObject();
-        this.myFixForwardObject.pp_rotateObjectQuat(vec3_create(0, 180, 0));
+        this.myFixForwardObject.pp_rotateObject(vec3_create(0, 180, 0));
         this.myPivotObject = this.myFixForwardObject.pp_addObject();
         this.myWidgetObject = this.myPivotObject.pp_addObject();
 
@@ -200,7 +200,7 @@ export class WidgetFrameUI {
         this.myFixForwardObject.pp_setParent(this._myParentObject);
 
         this.myFixForwardObject.pp_resetTransformLocal();
-        this.myFixForwardObject.pp_rotateObjectQuat(vec3_create(0, 180, 0));
+        this.myFixForwardObject.pp_rotateObject(vec3_create(0, 180, 0));
 
         this._updateObjectsTransforms(true);
     }
