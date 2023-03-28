@@ -50,7 +50,7 @@ export class EasyMeshAmbientFactor extends EasyObjectTuner {
 
     _getMeshMaterial(object) {
         let material = null;
-        let mesh = object.pp_getComponentHierarchy(MeshComponent);
+        let mesh = object.pp_getComponent(MeshComponent);
         if (mesh) {
             material = mesh.material;
         }

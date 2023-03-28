@@ -43,7 +43,7 @@ export class WidgetFrameUI {
 
     setWidgetVisible(visible) {
         this._myWidgetVisible = visible;
-        this.myFlagsButtonPanel.pp_setActiveHierarchy(visible);
+        this.myFlagsButtonPanel.pp_setActive(visible);
         if (visible) {
             this._updateObjectsTransforms(true);
         }
@@ -51,7 +51,7 @@ export class WidgetFrameUI {
 
     setVisibilityButtonVisible(visible) {
         this._myVisibilityButtonVisible = visible;
-        this.myVisibilityButtonPanel.pp_setActiveHierarchy(visible);
+        this.myVisibilityButtonPanel.pp_setActive(visible);
     }
 
     setPinned(pinned) {
@@ -96,7 +96,7 @@ export class WidgetFrameUI {
                 }
             }
         } else {
-            this.myVisibilityButtonPanel.pp_setActiveHierarchy(this._myWidgetVisible || this._myVisibilityButtonVisible);
+            this.myVisibilityButtonPanel.pp_setActive(this._myWidgetVisible || this._myVisibilityButtonVisible);
         }
     }
 
@@ -187,7 +187,7 @@ export class WidgetFrameUI {
     }
 
     _onXRSessionStart() {
-        this.myVisibilityButtonPanel.pp_setActiveHierarchy(this._myVisibilityButtonVisible);
+        this.myVisibilityButtonPanel.pp_setActive(this._myVisibilityButtonVisible);
 
         this._setTransformForVR();
     }

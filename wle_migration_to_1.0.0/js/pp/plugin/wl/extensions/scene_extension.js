@@ -121,7 +121,7 @@ export function initSceneExtensionPrototype() {
     //Cauldron
 
     sceneExtension.pp_getComponentsAmountMap = function pp_getComponentsAmountMap(amountMap = new Map()) {
-        return this.pp_getRoot().pp_getComponentsAmountMapHierarchy(amountMap);
+        return this.pp_getRoot().pp_getComponentsAmountMap(amountMap);
     }
 
 

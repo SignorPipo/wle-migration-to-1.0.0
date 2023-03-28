@@ -1,3 +1,4 @@
+import { PhysXComponent } from "@wonderlandengine/api";
 import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { getLeftGamepad } from "../../../../../../input/cauldron/input_globals";
 import { InputUtils } from "../../../../../../input/cauldron/input_utils";
@@ -398,7 +399,7 @@ export class CleanedPlayerLocomotion {
         simplifiedParams.myShouldNotFallFromEdges = false;
 
         simplifiedParams.myHorizontalCheckBlockLayerFlags.copy(this._myParams.myPhysicsBlockLayerFlags);
-        let physXComponents = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getComponentsHierarchy("physx");
+        let physXComponents = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getComponents(PhysXComponent);
         for (let physXComponent of physXComponents) {
             simplifiedParams.myHorizontalCheckObjectsToIgnore.pp_pushUnique(physXComponent.object, (first, second) => first.pp_equals(second));
         }

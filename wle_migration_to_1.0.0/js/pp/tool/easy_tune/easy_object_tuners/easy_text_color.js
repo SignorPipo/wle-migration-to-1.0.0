@@ -78,7 +78,7 @@ export class EasyTextColor extends EasyObjectTuner {
 
     _getTextMaterial(object) {
         let material = null;
-        let text = object.pp_getComponentHierarchy(TextComponent);
+        let text = object.pp_getComponent(TextComponent);
         if (text) {
             material = text.material;
         }

@@ -32,7 +32,7 @@ export class ConsoleVRWidgetUI {
     }
 
     setVisible(visible) {
-        this.myPivotObject.pp_setActiveHierarchy(visible);
+        this.myPivotObject.pp_setActive(visible);
     }
 
     //Skeleton

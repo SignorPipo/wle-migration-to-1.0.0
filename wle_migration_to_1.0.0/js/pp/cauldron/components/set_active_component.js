@@ -36,7 +36,7 @@ export class SetActiveComponent extends Component {
         } else if (this._mySetActiveOn == 2) {
             this.object.pp_setActiveDescendants(this._myActive);
         } else {
-            this.object.pp_setActiveHierarchy(this._myActive);
+            this.object.pp_setActive(this._myActive);
         }
     }
 };

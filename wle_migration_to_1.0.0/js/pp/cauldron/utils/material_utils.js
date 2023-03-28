@@ -25,7 +25,7 @@ export let setAlpha = function () {
 }();
 
 export function setObjectAlpha(object, alpha) {
-    let meshComponents = object.pp_getComponentsHierarchy(MeshComponent);
+    let meshComponents = object.pp_getComponents(MeshComponent);
 
     for (let meshComponent of meshComponents) {
         if (meshComponent.material != null) {
@@ -35,7 +35,7 @@ export function setObjectAlpha(object, alpha) {
 }
 
 export function setObjectMaterial(object, material, cloneMaterial = false) {
-    let meshComponents = object.pp_getComponentsHierarchy(MeshComponent);
+    let meshComponents = object.pp_getComponents(MeshComponent);
 
     for (let meshComponent of meshComponents) {
         if (cloneMaterial) {
@@ -47,7 +47,7 @@ export function setObjectMaterial(object, material, cloneMaterial = false) {
 }
 
 export function setObjectClonedMaterials(object) {
-    let meshComponents = object.pp_getComponentsHierarchy(MeshComponent);
+    let meshComponents = object.pp_getComponents(MeshComponent);
 
     for (let meshComponent of meshComponents) {
         meshComponent.material = meshComponent.material.clone();
@@ -55,7 +55,7 @@ export function setObjectClonedMaterials(object) {
 }
 
 export function setObjectSpecularColor(object, color) {
-    let meshComponents = object.pp_getComponentsHierarchy(MeshComponent);
+    let meshComponents = object.pp_getComponents(MeshComponent);
 
     for (let meshComponent of meshComponents) {
         if (meshComponent.material.specularColor != null) {
@@ -65,7 +65,7 @@ export function setObjectSpecularColor(object, color) {
 }
 
 export function setObjectFogColor(object, color) {
-    let meshComponents = object.pp_getComponentsHierarchy(MeshComponent);
+    let meshComponents = object.pp_getComponents(MeshComponent);
 
     for (let meshComponent of meshComponents) {
         if (meshComponent.material.fogColor != null) {
