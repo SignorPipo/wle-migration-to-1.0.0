@@ -437,7 +437,7 @@ export function initCursorComponentModPrototype() {
 
         /* Reverse-project the direction into view space */
         this.direction.vec3_transformMat4(this.projectionMatrix, this.direction);
-        this.direction.vec3_normalze(this.direction);
+        this.direction.vec3_normalize(this.direction);
         this.direction.vec3_transformQuat(this.object.transformWorld, this.direction);
         let rayHit = this.rayHit = (this.rayCastMode == 0) ?
             this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :

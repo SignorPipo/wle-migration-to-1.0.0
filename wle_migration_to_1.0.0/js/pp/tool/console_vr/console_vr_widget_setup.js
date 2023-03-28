@@ -1,4 +1,5 @@
 import { vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
+import { ToolHandedness } from "../cauldron/cauldron/tool_types";
 import { ConsoleVRWidgetMessageType } from "./console_vr_types";
 
 export class ConsoleVRWidgetSetup {

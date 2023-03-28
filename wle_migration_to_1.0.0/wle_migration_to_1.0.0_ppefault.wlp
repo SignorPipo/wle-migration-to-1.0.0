@@ -1173,6 +1173,12 @@
                 "js/pp/input/gamepad/virtual_gamepad",
                 "js/pp/input/pose",
                 "js/pp/input/pose/components",
+                "js/pp/tool",
+                "js/pp/tool/cauldron",
+                "js/pp/tool/cauldron/cauldron",
+                "js/pp/tool/cauldron/components",
+                "js/pp/tool/widget_frame",
+                "js/pp/tool/console_vr",
                 "js/playground"
             ],
             "libraryPaths": [

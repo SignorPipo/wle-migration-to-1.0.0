@@ -217,6 +217,19 @@ import {SetNonVRHeadLocalTransformComponent} from './pp/input/pose/components/se
 import {SetPlayerHeightComponent} from './pp/input/pose/components/set_player_height_component.js';
 import {SetTrackedHandJointLocalTransformComponent} from './pp/input/pose/components/set_tracked_hand_joint_local_transform_component.js';
 import {SetVRHeadLocalTransformComponent} from './pp/input/pose/components/set_vr_head_local_transform_component.js';
+import './pp/tool/cauldron/cauldron/tool_types.js';
+import {ToolCursorComponent} from './pp/tool/cauldron/components/tool_cursor_component.js';
+import './pp/tool/widget_frame/widget_frame.js';
+import './pp/tool/widget_frame/widget_frame_setup.js';
+import './pp/tool/widget_frame/widget_frame_ui.js';
+import './pp/tool/console_vr/console_original_functions.js';
+import './pp/tool/console_vr/console_vr.js';
+import {ConsoleVRComponent} from './pp/tool/console_vr/console_vr_component.js';
+import './pp/tool/console_vr/console_vr_global.js';
+import './pp/tool/console_vr/console_vr_types.js';
+import './pp/tool/console_vr/console_vr_widget.js';
+import './pp/tool/console_vr/console_vr_widget_setup.js';
+import './pp/tool/console_vr/console_vr_widget_ui.js';
 import './playground/bundle.js';
 import {FadeViewComponent} from './playground/fade_view_component.js';
 import {GrabbableSpawnerComponent} from './playground/grabbable_spawner_component.js';
@@ -229,8 +242,6 @@ import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.j
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
 import {WaveMovementComponent} from './playground/wave_movement_component.js';
-import {ToolCursorComponent} from './pp/tool/cauldron/components/tool_cursor_component.js';
-import './pp/tool/widget_frame/widget_frame_setup.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -331,6 +342,8 @@ engine.registerComponent(SetNonVRHeadLocalTransformComponent);
 engine.registerComponent(SetPlayerHeightComponent);
 engine.registerComponent(SetTrackedHandJointLocalTransformComponent);
 engine.registerComponent(SetVRHeadLocalTransformComponent);
+engine.registerComponent(ToolCursorComponent);
+engine.registerComponent(ConsoleVRComponent);
 engine.registerComponent(FadeViewComponent);
 engine.registerComponent(GrabbableSpawnerComponent);
 engine.registerComponent(LoadAudioComponent);
@@ -342,7 +355,6 @@ engine.registerComponent(SFXOnCollisionComponent);
 engine.registerComponent(SFXOnGrabThrowComponent);
 engine.registerComponent(TargetHitCheckComponent);
 engine.registerComponent(WaveMovementComponent);
-engine.registerComponent(ToolCursorComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

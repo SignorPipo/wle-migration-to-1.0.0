@@ -1,4 +1,4 @@
-import { vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
+import { quat_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { ToolHandedness, ToolInputSourceType } from "../cauldron/cauldron/tool_types";
 
 export class WidgetFrameSetup {

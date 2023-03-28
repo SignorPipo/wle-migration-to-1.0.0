@@ -1,7 +1,8 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { getDefaultResources } from "../../pp/default_resources_global";
 import { ConsoleVR } from "./console_vr";
 import { getConsoleVR, hasConsoleVR, removeConsoleVR, setConsoleVR } from "./console_vr_global";
-import { ConsoleVRWidget } from "./console_vr_widget";
+import { ConsoleVRWidget, ConsoleVRWidgetAdditionalSetup } from "./console_vr_widget";
 
 export class ConsoleVRComponent extends Component {
     static TypeName = "pp-console-vr";
@@ -35,8 +36,8 @@ export class ConsoleVRComponent extends Component {
         additionalSetup.myShowOnStart = this._myShowOnStart;
         additionalSetup.myShowVisibilityButton = this._myShowVisibilityButton;
         additionalSetup.myPulseOnNewMessage = this._myPulseOnNewMessage;
-        additionalSetup.myPlaneMaterial = PP.myDefaultResources.myMaterials.myFlatOpaque.clone();
-        additionalSetup.myTextMaterial = PP.myDefaultResources.myMaterials.myText.clone();
+        additionalSetup.myPlaneMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+        additionalSetup.myTextMaterial = getDefaultResources(this.engine).myMaterials.myText.clone();
 
         this._myWidget.start(this.object, additionalSetup);
 

@@ -1,9 +1,11 @@
-/* Doesn't support
-    - Placeholder like %d and other similar kind of way to build strings
-*/
-
+import { getLeftGamepad, getRightGamepad } from "../../input/cauldron/input_globals";
+import { GamepadAxesID, GamepadButtonID } from "../../input/gamepad/gamepad_buttons";
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+import { ToolHandedness } from "../cauldron/cauldron/tool_types";
 import { WidgetFrame } from "../widget_frame/widget_frame";
+import { getOriginalConsoleClear } from "./console_original_functions";
+import { getConsoleVR } from "./console_vr_global";
+import { ConsoleVRWidgetConsoleFunction, ConsoleVRWidgetMessageType, ConsoleVRWidgetPulseOnNewMessage, ConsoleVRWidgetSender } from "./console_vr_types";
 import { ConsoleVRWidgetSetup } from "./console_vr_widget_setup";
 import { ConsoleVRWidgetUI } from "./console_vr_widget_ui";
 
@@ -13,7 +15,7 @@ export class ConsoleVRWidgetAdditionalSetup {
         this.myOverrideBrowserConsole = false;
         this.myShowOnStart = false;
         this.myShowVisibilityButton = false;
-        this.myPulseOnNewMessage = ConsoleVRWidget.PulseOnNewMessage.NEVER;
+        this.myPulseOnNewMessage = ConsoleVRWidgetPulseOnNewMessage.NEVER;
         this.myPlaneMaterial = null;
         this.myTextMaterial = null;
     }
@@ -44,6 +46,8 @@ export class ConsoleVRWidgetMessage {
     }
 }
 
+// Doesn't support
+//  - Placeholder like %d and other similar kind of way to build strings
 export class ConsoleVRWidget {
 
     constructor(engine = getMainEngine()) {
@@ -78,7 +82,7 @@ export class ConsoleVRWidget {
             this._myGamepadScrollActive = false;
         }
 
-        this.myEngine = engine;
+        this._myEngine = engine;
     }
 
     setVisible(visible) {
@@ -90,8 +94,8 @@ export class ConsoleVRWidget {
     }
 
     start(parentObject, additionalSetup) {
-        this._myLeftGamepad = PP.myLeftGamepad;
-        this._myRightGamepad = PP.myRightGamepad;
+        this._myLeftGamepad = getLeftGamepad(this._myEngine);
+        this._myRightGamepad = getRightGamepad(this._myEngine);
 
         this._myAdditionalSetup = additionalSetup;
 
@@ -108,51 +112,51 @@ export class ConsoleVRWidget {
 
     //This must be done only when all the setup is complete, to avoid issues with other part of the code calling the console and then triggering the console vr while not ready yet
     _overrideConsolesFunctions() {
-        this._myOldBrowserConsole[ConsoleVRWidget.ConsoleFunction.LOG] = console.log;
-        this._myOldBrowserConsole[ConsoleVRWidget.ConsoleFunction.ERROR] = console.error;
-        this._myOldBrowserConsole[ConsoleVRWidget.ConsoleFunction.WARN] = console.warn;
-        this._myOldBrowserConsole[ConsoleVRWidget.ConsoleFunction.INFO] = console.info;
-        this._myOldBrowserConsole[ConsoleVRWidget.ConsoleFunction.DEBUG] = console.debug;
-        this._myOldBrowserConsole[ConsoleVRWidget.ConsoleFunction.ASSERT] = console.assert;
+        this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.LOG] = console.log;
+        this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.ERROR] = console.error;
+        this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.WARN] = console.warn;
+        this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.INFO] = console.info;
+        this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.DEBUG] = console.debug;
+        this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.ASSERT] = console.assert;
         this._myOldBrowserConsoleClear = console.clear;
 
         if (this._myAdditionalSetup.myOverrideBrowserConsole) {
-            console.log = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.LOG, ConsoleVRWidget.Sender.BROWSER_CONSOLE);
-            console.error = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.ERROR, ConsoleVRWidget.Sender.BROWSER_CONSOLE);
-            console.warn = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.WARN, ConsoleVRWidget.Sender.BROWSER_CONSOLE);
-            console.info = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.INFO, ConsoleVRWidget.Sender.BROWSER_CONSOLE);
-            console.debug = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.DEBUG, ConsoleVRWidget.Sender.BROWSER_CONSOLE);
-            console.assert = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.ASSERT, ConsoleVRWidget.Sender.BROWSER_CONSOLE);
-            console.clear = this._clearConsole.bind(this, true, ConsoleVRWidget.Sender.BROWSER_CONSOLE);
+            console.log = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.LOG, ConsoleVRWidgetSender.BROWSER_CONSOLE);
+            console.error = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.BROWSER_CONSOLE);
+            console.warn = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.WARN, ConsoleVRWidgetSender.BROWSER_CONSOLE);
+            console.info = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.INFO, ConsoleVRWidgetSender.BROWSER_CONSOLE);
+            console.debug = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.DEBUG, ConsoleVRWidgetSender.BROWSER_CONSOLE);
+            console.assert = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ASSERT, ConsoleVRWidgetSender.BROWSER_CONSOLE);
+            console.clear = this._clearConsole.bind(this, true, ConsoleVRWidgetSender.BROWSER_CONSOLE);
 
             window.addEventListener("error", function (errorEvent) {
                 if (errorEvent.error != null) {
-                    this._consolePrint(ConsoleVRWidget.ConsoleFunction.ERROR, ConsoleVRWidget.Sender.WINDOW, "Uncaught", errorEvent.error.stack);
+                    this._consolePrint(ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.WINDOW, "Uncaught", errorEvent.error.stack);
                 } else {
-                    this._consolePrint(ConsoleVRWidget.ConsoleFunction.ERROR, ConsoleVRWidget.Sender.WINDOW, "Uncaught", errorEvent.message);
+                    this._consolePrint(ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.WINDOW, "Uncaught", errorEvent.message);
                 }
             }.bind(this));
 
             window.addEventListener("unhandledrejection", function (errorEvent) {
-                this._consolePrint(ConsoleVRWidget.ConsoleFunction.ERROR, ConsoleVRWidget.Sender.WINDOW, "Uncaught (in promise)", errorEvent.reason);
+                this._consolePrint(ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.WINDOW, "Uncaught (in promise)", errorEvent.reason);
             }.bind(this));
         }
 
-        this._myOldConsoleVR[ConsoleVRWidget.ConsoleFunction.LOG] = PP.ConsoleVR.log;
-        this._myOldConsoleVR[ConsoleVRWidget.ConsoleFunction.ERROR] = PP.ConsoleVR.error;
-        this._myOldConsoleVR[ConsoleVRWidget.ConsoleFunction.WARN] = PP.ConsoleVR.warn;
-        this._myOldConsoleVR[ConsoleVRWidget.ConsoleFunction.INFO] = PP.ConsoleVR.info;
-        this._myOldConsoleVR[ConsoleVRWidget.ConsoleFunction.DEBUG] = PP.ConsoleVR.debug;
-        this._myOldConsoleVR[ConsoleVRWidget.ConsoleFunction.ASSERT] = PP.ConsoleVR.assert;
-        this._myOldConsoleVRClear = PP.ConsoleVR.clear;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.LOG] = getConsoleVR(this._myEngine).log;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.ERROR] = getConsoleVR(this._myEngine).error;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.WARN] = getConsoleVR(this._myEngine).warn;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.INFO] = getConsoleVR(this._myEngine).info;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.DEBUG] = getConsoleVR(this._myEngine).debug;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.ASSERT] = getConsoleVR(this._myEngine).assert;
+        this._myOldConsoleVRClear = getConsoleVR(this._myEngine).clear;
 
-        PP.ConsoleVR.log = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.LOG, ConsoleVRWidget.Sender.CONSOLE_VR);
-        PP.ConsoleVR.error = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.ERROR, ConsoleVRWidget.Sender.CONSOLE_VR);
-        PP.ConsoleVR.warn = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.WARN, ConsoleVRWidget.Sender.CONSOLE_VR);
-        PP.ConsoleVR.info = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.INFO, ConsoleVRWidget.Sender.CONSOLE_VR);
-        PP.ConsoleVR.debug = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.DEBUG, ConsoleVRWidget.Sender.CONSOLE_VR);
-        PP.ConsoleVR.assert = this._consolePrint.bind(this, ConsoleVRWidget.ConsoleFunction.ASSERT, ConsoleVRWidget.Sender.CONSOLE_VR);
-        PP.ConsoleVR.clear = this._clearConsole.bind(this, true, ConsoleVRWidget.Sender.CONSOLE_VR);
+        getConsoleVR(this._myEngine).log = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.LOG, ConsoleVRWidgetSender.CONSOLE_VR);
+        getConsoleVR(this._myEngine).error = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.CONSOLE_VR);
+        getConsoleVR(this._myEngine).warn = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.WARN, ConsoleVRWidgetSender.CONSOLE_VR);
+        getConsoleVR(this._myEngine).info = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.INFO, ConsoleVRWidgetSender.CONSOLE_VR);
+        getConsoleVR(this._myEngine).debug = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.DEBUG, ConsoleVRWidgetSender.CONSOLE_VR);
+        getConsoleVR(this._myEngine).assert = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ASSERT, ConsoleVRWidgetSender.CONSOLE_VR);
+        getConsoleVR(this._myEngine).clear = this._clearConsole.bind(this, true, ConsoleVRWidgetSender.CONSOLE_VR);
     }
 
     update(dt) {
@@ -256,7 +260,7 @@ export class ConsoleVRWidget {
     }
 
     _consolePrint(consoleFunction, sender, ...args) {
-        if (consoleFunction != ConsoleVRWidget.ConsoleFunction.ASSERT || (args.length > 0 && !args[0])) {
+        if (consoleFunction != ConsoleVRWidgetConsoleFunction.ASSERT || (args.length > 0 && !args[0])) {
             let message = this._argsToMessage(consoleFunction, ...args);
             this._addMessage(message);
 
@@ -271,11 +275,11 @@ export class ConsoleVRWidget {
         }
 
         switch (sender) {
-            case ConsoleVRWidget.Sender.BROWSER_CONSOLE:
+            case ConsoleVRWidgetSender.BROWSER_CONSOLE:
                 this._myOldBrowserConsole[consoleFunction].apply(console, args);
                 break;
-            case ConsoleVRWidget.Sender.CONSOLE_VR:
-                this._myOldConsoleVR[consoleFunction].apply(PP.ConsoleVR, args);
+            case ConsoleVRWidgetSender.CONSOLE_VR:
+                this._myOldConsoleVR[consoleFunction].apply(getConsoleVR(this._myEngine), args);
                 break;
             default:
                 this._myOldBrowserConsole[consoleFunction].apply(console, args);
@@ -284,7 +288,7 @@ export class ConsoleVRWidget {
     }
 
     _argsToMessage(consoleFunction, ...args) {
-        if (consoleFunction == ConsoleVRWidget.ConsoleFunction.ASSERT) {
+        if (consoleFunction == ConsoleVRWidgetConsoleFunction.ASSERT) {
             args = args.slice(1);
             args.splice(0, 0, this._mySetup.myAssertStartString);
         }
@@ -302,7 +306,7 @@ export class ConsoleVRWidget {
         }
 
 
-        let message = new ConsoleVRWidget.Message(messageType, lines);
+        let message = new ConsoleVRWidgetMessage(messageType, lines);
 
         return message;
     }
@@ -310,9 +314,9 @@ export class ConsoleVRWidget {
     _consoleFunctionToMessageType(consoleFunction) {
         let messageType = ConsoleVRWidgetMessageType.LOG;
 
-        if (consoleFunction < ConsoleVRWidget.ConsoleFunction.INFO) {
+        if (consoleFunction < ConsoleVRWidgetConsoleFunction.INFO) {
             messageType = consoleFunction;
-        } else if (consoleFunction == ConsoleVRWidget.ConsoleFunction.INFO) {
+        } else if (consoleFunction == ConsoleVRWidgetConsoleFunction.INFO) {
             messageType = ConsoleVRWidgetMessageType.LOG;
         } else {
             messageType = ConsoleVRWidgetMessageType.ERROR;
@@ -623,17 +627,17 @@ export class ConsoleVRWidget {
 
             if (codeDrivenClear) {
                 switch (sender) {
-                    case ConsoleVRWidget.Sender.BROWSER_CONSOLE:
+                    case ConsoleVRWidgetSender.BROWSER_CONSOLE:
                         this._myOldBrowserConsoleClear.apply(console);
                         break;
-                    case ConsoleVRWidget.Sender.CONSOLE_VR:
-                        this._myOldConsoleVRClear.apply(PP.ConsoleVR);
+                    case ConsoleVRWidgetSender.CONSOLE_VR:
+                        this._myOldConsoleVRClear.apply(getConsoleVR(this._myEngine));
                         break;
                     default:
                         break;
                 }
             } else if (this._mySetup.myClearBrowserConsoleWhenClearPressed) {
-                PP.ConsoleVR._myRealClear();
+                getOriginalConsoleClear()();
             }
         }
     }
@@ -706,8 +710,8 @@ export class ConsoleVRWidget {
 
     _updateGamepadsExtraActions(dt) {
         if (this._myLeftGamepad && this._myRightGamepad) {
-            if ((this._myLeftGamepad.getButtonInfo(PP.GamepadButtonID.THUMBSTICK).isPressStart() && this._myRightGamepad.getButtonInfo(PP.GamepadButtonID.THUMBSTICK).myIsPressed) ||
-                (this._myRightGamepad.getButtonInfo(PP.GamepadButtonID.THUMBSTICK).isPressStart() && this._myLeftGamepad.getButtonInfo(PP.GamepadButtonID.THUMBSTICK).myIsPressed)) {
+            if ((this._myLeftGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).isPressStart() && this._myRightGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).myIsPressed) ||
+                (this._myRightGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).isPressStart() && this._myLeftGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).myIsPressed)) {
                 this._toggleVisibility();
             }
 
@@ -732,9 +736,9 @@ export class ConsoleVRWidget {
         if (this._myWidgetFrame.myIsWidgetVisible && this._myGamepadScrollActive) {
             let axes = [0, 0];
             if (this._mySetup.myScrollThumbstickHandedness == ToolHandedness.LEFT) {
-                axes = this._myLeftGamepad.getAxesInfo(PP.GamepadAxesID.THUMBSTICK).myAxes;
+                axes = this._myLeftGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes;
             } else if (this._mySetup.myScrollThumbstickHandedness == ToolHandedness.RIGHT) {
-                axes = this._myRightGamepad.getAxesInfo(PP.GamepadAxesID.THUMBSTICK).myAxes;
+                axes = this._myRightGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes;
             }
 
             if (Math.abs(axes[1]) > this._mySetup.myScrollThumbstickMinThreshold) {
@@ -758,7 +762,7 @@ export class ConsoleVRWidget {
     _pulseGamepad() {
         if (this._myLeftGamepad && this._myRightGamepad) {
             let pulseType = this._myAdditionalSetup.myPulseOnNewMessage;
-            let pulseEnabled = pulseType == ConsoleVRWidget.PulseOnNewMessage.ALWAYS || (!this._myWidgetFrame.myIsWidgetVisible && pulseType == ConsoleVRWidget.PulseOnNewMessage.WHEN_HIDDEN);
+            let pulseEnabled = pulseType == ConsoleVRWidgetPulseOnNewMessage.ALWAYS || (!this._myWidgetFrame.myIsWidgetVisible && pulseType == ConsoleVRWidgetPulseOnNewMessage.WHEN_HIDDEN);
             if (pulseEnabled && this._myPulseTimer == 0) {
                 if (this._myAdditionalSetup.myHandedness == ToolHandedness.RIGHT) {
                     this._myRightGamepad.pulse(this._mySetup.myPulseIntensity, this._mySetup.myPulseDuration);
@@ -789,9 +793,17 @@ export class ConsoleVRWidget {
     }
 
     _isSpecialSimpleArray(item) {
+        let arrayPrototypesToExtend = [
+            Array.prototype, Uint8ClampedArray.prototype, Uint8Array.prototype, Uint16Array.prototype, Uint32Array.prototype, Int8Array.prototype,
+            Int16Array.prototype, Int32Array.prototype, Float32Array.prototype, Float64Array.prototype];
         return item && item.constructor &&
             (
+                item.constructor.name == "Uint8ClampedArray" ||
+                item.constructor.name == "Uint8Array" ||
+                item.constructor.name == "Uint16Array" ||
                 item.constructor.name == "Uint32Array" ||
+                item.constructor.name == "Int8Array" ||
+                item.constructor.name == "Int16Array" ||
                 item.constructor.name == "Int32Array" ||
                 item.constructor.name == "Float32Array" ||
                 item.constructor.name == "Float64Array"

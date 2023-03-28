@@ -267,7 +267,9 @@ require("./tool/console_vr/console_vr");
 require("./tool/console_vr/console_vr_types");
 require("./tool/console_vr/console_vr_global");
 require("./tool/console_vr/console_vr_component");
+require("./tool/console_vr/console_original_functions");
 
+/*
 require("./tool/easy_tune/easy_object_tuners/easy_object_tuner");
 require("./tool/easy_tune/easy_object_tuners/easy_light_attenuation");
 require("./tool/easy_tune/easy_object_tuners/easy_light_color");
@@ -303,7 +305,7 @@ require("./tool/easy_tune/easy_tune_variable_types");
 require("./tool/easy_tune/easy_tune_globals");
 
 require("./tool/easy_tune/components/easy_tune_component");
-require("./tool/easy_tune/components/easy_tune_import_variables_component");
+require("./tool/easy_tune/components/easy_tune_import_variables_component");*/
 
 require("./tool/widget_frame/widget_frame_setup");
 require("./tool/widget_frame/widget_frame_ui");
