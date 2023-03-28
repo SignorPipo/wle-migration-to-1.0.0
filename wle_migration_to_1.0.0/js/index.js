@@ -34,7 +34,6 @@ import './pp/plugin/js/extensions/init_js_extentions.js';
 import './pp/plugin/js/extensions/math_extension.js';
 import './pp/plugin/js/extensions/number_extension.js';
 import './pp/plugin/wl/init_wl_plugins.js';
-import './pp/plugin/wl/extensions/engine_extension.js';
 import './pp/plugin/wl/extensions/init_wl_extentions.js';
 import './pp/plugin/wl/extensions/object_extension.js';
 import './pp/plugin/wl/extensions/scene_extension.js';
@@ -255,6 +254,7 @@ import {EasyTextColorComponent} from './pp/tool/easy_tune/easy_object_tuners/com
 import {EasyTransformComponent} from './pp/tool/easy_tune/easy_object_tuners/components/easy_transform_component.js';
 import './pp/tool/easy_tune/easy_tune_widgets/easy_tune_widget.js';
 import './pp/tool/easy_tune/easy_tune_widgets/easy_tune_widget_setup.js';
+import './pp/tool/easy_tune/easy_tune_widgets/base/easy_tune_base_array_widget_selector.js';
 import './pp/tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget.js';
 import './pp/tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_setup.js';
 import './pp/tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_ui.js';
@@ -284,7 +284,6 @@ import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.j
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
 import {WaveMovementComponent} from './playground/wave_movement_component.js';
-import './pp/tool/easy_tune/easy_tune_widgets/base/easy_tune_base_array_widget_selector.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"

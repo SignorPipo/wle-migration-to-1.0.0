@@ -7,7 +7,7 @@ import { VisualMesh, VisualMeshParams } from "../../../../../cauldron/visual/ele
 import { getVisualData } from "../../../../../cauldron/visual/visual_globals";
 import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
-import { getMainEngine } from "../../../../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../../../../cauldron/wl/engine_global";
 import { getDefaultResources } from "../../../../../pp/default_resources_global";
 
 // occlude

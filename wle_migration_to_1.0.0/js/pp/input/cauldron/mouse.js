@@ -4,7 +4,7 @@ import { RaycastResults } from "../../cauldron/physics/physics_raycast_data";
 import { PhysicsUtils } from "../../cauldron/physics/physics_utils";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { mat4_create, quat_create, vec2_create, vec3_create } from "../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../cauldron/wl/engine_global";
 import { getPlayerObjects } from "../../pp/player_objects_global";
 
 export let MouseButtonID = {

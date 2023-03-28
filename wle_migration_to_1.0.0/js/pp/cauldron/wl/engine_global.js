@@ -1,10 +1,6 @@
 let _myMainEngine = null;
 let _myEngines = [];
 
-export function initEngineExtension(engine) {
-    initEngineExtensionGlobal(engine);
-}
-
 export function getMainEngine() {
     return _myMainEngine;
 }
@@ -34,13 +30,4 @@ export function removeEngine(engine) {
 
 export function hasEngine(engine) {
     return _myEngines.indexOf(engine) >= 0;
-}
-
-export function initEngineExtensionGlobal(engine) {
-    if (engine != null) {
-        addEngine(engine);
-        if (getMainEngine() == null) {
-            setMainEngine(engine);
-        }
-    }
 }

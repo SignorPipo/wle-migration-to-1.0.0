@@ -1,4 +1,4 @@
-import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../cauldron/wl/engine_global";
 import { WidgetFrameSetup } from "./widget_frame_setup";
 import { WidgetFrameUI } from "./widget_frame_ui";
 

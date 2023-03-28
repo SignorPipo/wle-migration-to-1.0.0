@@ -1,4 +1,4 @@
-import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../cauldron/wl/engine_global";
 import { TrackedHandJointID } from "../cauldron/input_types";
 import { InputUtils } from "../cauldron/input_utils";
 import { BasePoseParams } from "./base_pose";

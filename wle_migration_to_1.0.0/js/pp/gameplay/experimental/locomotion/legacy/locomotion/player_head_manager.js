@@ -2,7 +2,7 @@ import { Timer } from "../../../../../cauldron/cauldron/timer";
 import { getReferenceSpaceType, XRUtils } from "../../../../../cauldron/utils/xr_utils";
 import { getDebugVisualManager } from "../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create } from "../../../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../../../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../../../../cauldron/wl/engine_global";
 import { getPlayerObjects } from "../../../../../pp/player_objects_global";
 
 export class PlayerHeadManagerParams {

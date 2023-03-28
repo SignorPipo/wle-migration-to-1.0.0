@@ -1,4 +1,4 @@
-import { getMainEngine } from "../../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../../cauldron/wl/engine_global";
 import { getEasyTuneTarget, getEasyTuneVariables } from "../easy_tune_globals";
 import { EasyTuneUtils } from "../easy_tune_utils";
 

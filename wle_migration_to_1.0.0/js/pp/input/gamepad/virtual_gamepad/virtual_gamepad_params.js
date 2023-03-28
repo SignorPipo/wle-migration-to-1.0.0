@@ -1,4 +1,4 @@
-import { getMainEngine } from "../../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../../cauldron/wl/engine_global";
 import { Handedness } from "../../cauldron/input_types";
 import { GamepadButtonID } from "../gamepad_buttons";
 import { VirtualGamepadIconParams, VirtualGamepadIconType } from "./virtual_gamepad_icon";

@@ -3,7 +3,7 @@ import { getGamepads } from "../../../../../input/cauldron/input_globals";
 import { Handedness } from "../../../../../input/cauldron/input_types";
 import { GamepadAxesID } from "../../../../../input/gamepad/gamepad_buttons";
 import { quat_create, vec3_create } from "../../../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../../../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../../../../cauldron/wl/engine_global";
 import { getEasyTuneVariables } from "../../../../../tool/easy_tune/easy_tune_globals";
 import { EasyTuneNumber } from "../../../../../tool/easy_tune/easy_tune_variable_types";
 import { LocomotionUtils } from "./locomotion_utils";

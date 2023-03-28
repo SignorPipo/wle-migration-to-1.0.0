@@ -10,7 +10,7 @@ let visualTransform = new VisualTransform(visualParams);
 */
 
 import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../wl/engine_global";
 import { getVisualData } from "../visual_globals";
 import { VisualArrow, VisualArrowParams } from "./visual_arrow";
 import { VisualElementType } from "./visual_element_types";

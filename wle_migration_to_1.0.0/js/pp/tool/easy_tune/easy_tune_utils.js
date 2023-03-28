@@ -1,4 +1,4 @@
-import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
+import { getMainEngine } from "../../cauldron/wl/engine_global";
 import { getEasyTuneVariables } from "./easy_tune_globals";
 
 let _mySetEasyTuneWidgetActiveVariableCallbacks = new WeakMap();
