@@ -293,6 +293,7 @@ require("./tool/easy_tune/easy_object_tuners/components/easy_mesh_ambient_factor
 require("./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget");
 require("./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_ui");
 require("./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_setup");
+require("./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_array_widget_selector");
 require("./tool/easy_tune/easy_tune_widgets/bool/easy_tune_bool_array_widget");
 require("./tool/easy_tune/easy_tune_widgets/bool/easy_tune_bool_array_widget_ui");
 require("./tool/easy_tune/easy_tune_widgets/bool/easy_tune_bool_array_widget_setup");
