@@ -37,7 +37,7 @@ export class VirtualGamepadGamepadCore extends GamepadCore {
         this._myAxesData.vec2_zero();
 
         if (this.isGamepadCoreActive()) {
-            this._myVirtualGamepad.getAxes(this.getHandedness(), this._myAxesData);
+            this._myVirtualGamepad.getAxes(this.getHandedness(), axesID, this._myAxesData);
         }
 
         return this._myAxesData;

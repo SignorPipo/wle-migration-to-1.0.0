@@ -92,12 +92,14 @@ export class VirtualGamepadComponent extends Component {
         }
 
         for (let handedness in params.myThumbstickParams) {
-            let thumbstickParams = params.myThumbstickParams[handedness];
-            thumbstickParams.myBackgroundColor = this._myBackgroundColor;
-            thumbstickParams.myIconParams.myBackgroundColor = this._myIconColor;
-            thumbstickParams.myIconParams.myBackgroundPressedColor = this._myIconColor;
-            thumbstickParams.myIconParams.myIconColor = this._myBackgroundColor;
-            thumbstickParams.myIconParams.myIconPressedColor = this._myBackgroundColor;
+            for (let gamepadAxesID in params.myThumbstickParams[handedness]) {
+                let thumbstickParams = params.myThumbstickParams[handedness][gamepadAxesID];
+                thumbstickParams.myBackgroundColor = this._myBackgroundColor;
+                thumbstickParams.myIconParams.myBackgroundColor = this._myIconColor;
+                thumbstickParams.myIconParams.myBackgroundPressedColor = this._myIconColor;
+                thumbstickParams.myIconParams.myIconColor = this._myBackgroundColor;
+                thumbstickParams.myIconParams.myIconPressedColor = this._myBackgroundColor;
+            }
         }
 
         params.myOpacity = this._myOpacity;

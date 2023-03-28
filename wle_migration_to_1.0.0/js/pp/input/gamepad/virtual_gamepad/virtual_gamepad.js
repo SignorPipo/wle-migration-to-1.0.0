@@ -2,7 +2,7 @@ import { BrowserUtils } from "../../../cauldron/utils/browser_utils";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { vec2_create } from "../../../plugin/js/extensions/array_extension";
 import { Handedness } from "../../cauldron/input_types";
-import { GamepadButtonID } from "../gamepad_buttons";
+import { GamepadAxesID, GamepadButtonID } from "../gamepad_buttons";
 import { VirtualGamepadParams } from "./virtual_gamepad_params";
 import { VirtualGamepadVirtualButton } from "./virtual_gamepad_virtual_button";
 import { VirtualGamepadVirtualThumbstick } from "./virtual_gamepad_virtual_thumbstick";
@@ -33,8 +33,10 @@ export class VirtualGamepad {
         this._myButtonsAmount = this._myVirtualGamepadVirtualButtons[Handedness.LEFT].length;
 
         this._myVirtualGamepadVirtualThumbsticks = [];
-        this._myVirtualGamepadVirtualThumbsticks[Handedness.LEFT] = null;
-        this._myVirtualGamepadVirtualThumbsticks[Handedness.RIGHT] = null;
+        this._myVirtualGamepadVirtualThumbsticks[Handedness.LEFT] = [];
+        this._myVirtualGamepadVirtualThumbsticks[Handedness.RIGHT] = [];
+        this._myVirtualGamepadVirtualThumbsticks[Handedness.LEFT][GamepadAxesID.THUMBSTICK] = null;
+        this._myVirtualGamepadVirtualThumbsticks[Handedness.RIGHT][GamepadAxesID.THUMBSTICK] = null;
     }
 
     isVisible() {
@@ -62,9 +64,11 @@ export class VirtualGamepad {
                 }
 
                 for (let handedness in this._myVirtualGamepadVirtualThumbsticks) {
-                    let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness];
-                    if (thumbstick != null) {
-                        thumbstick.setActive(this._myVisible);
+                    for (let gamepadAxesID in this._myVirtualGamepadVirtualThumbsticks[handedness]) {
+                        let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness][gamepadAxesID];
+                        if (thumbstick != null) {
+                            thumbstick.setActive(this._myVisible);
+                        }
                     }
                 }
             }
@@ -82,10 +86,10 @@ export class VirtualGamepad {
         return false;
     }
 
-    getAxes(handedness, outAxes = vec2_create(0, 0)) {
+    getAxes(handedness, gamepadAxesID, outAxes = vec2_create(0, 0)) {
         if (!this._myVisible) return outAxes;
 
-        let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness];
+        let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness][gamepadAxesID];
         if (thumbstick != null) {
             outAxes.vec2_copy(thumbstick.getAxes());
         }
@@ -127,9 +131,11 @@ export class VirtualGamepad {
             }
 
             for (let handedness in this._myVirtualGamepadVirtualThumbsticks) {
-                let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness];
-                if (thumbstick != null) {
-                    thumbstick.update(dt);
+                for (let gamepadAxesID in this._myVirtualGamepadVirtualThumbsticks[handedness]) {
+                    let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness][gamepadAxesID];
+                    if (thumbstick != null) {
+                        thumbstick.update(dt);
+                    }
                 }
             }
 
@@ -166,14 +172,19 @@ export class VirtualGamepad {
             }
         }
 
-        if (this._myParams.myThumbsticksOrder[Handedness.LEFT] != null) {
-            let gamepadThumbstickHandedness = this._myParams.myThumbsticksOrder[Handedness.LEFT];
-            this._buildThumbstick(leftDiv, Handedness.LEFT, gamepadThumbstickHandedness);
-        }
+        let thumbsticksAmount = this._myParams.myThumbsticksOrder[Handedness.LEFT].length;
+        for (let i = 0; i < thumbsticksAmount; i++) {
+            if (this._myParams.myThumbsticksOrder[Handedness.LEFT][i] != null) {
+                let gamepadThumbstickHandedness = this._myParams.myThumbsticksOrder[Handedness.LEFT][i][0];
+                let gamepadAxesID = this._myParams.myThumbsticksOrder[Handedness.LEFT][i][1];
+                this._buildThumbstick(leftDiv, Handedness.LEFT, gamepadThumbstickHandedness, gamepadAxesID);
+            }
 
-        if (this._myParams.myThumbsticksOrder[Handedness.RIGHT] != null) {
-            let gamepadThumbstickHandedness = this._myParams.myThumbsticksOrder[Handedness.RIGHT];
-            this._buildThumbstick(rightDiv, Handedness.RIGHT, gamepadThumbstickHandedness);
+            if (this._myParams.myThumbsticksOrder[Handedness.RIGHT][i] != null) {
+                let gamepadThumbstickHandedness = this._myParams.myThumbsticksOrder[Handedness.RIGHT][i][0];
+                let gamepadAxesID = this._myParams.myThumbsticksOrder[Handedness.RIGHT][i][1];
+                this._buildThumbstick(rightDiv, Handedness.RIGHT, gamepadThumbstickHandedness, gamepadAxesID);
+            }
         }
     }
 
@@ -193,9 +204,9 @@ export class VirtualGamepad {
         this._myVirtualGamepadVirtualButtons[gamepadButtonHandedness][gamepadButtonID] = virtualGamepadVirtualButton;
     }
 
-    _buildThumbstick(thumbstickElementParent, virtualThumbstickHandedness, gamepadThumbstickHandedness) {
-        let virtualGamepadVirtualThumbstick = new VirtualGamepadVirtualThumbstick(thumbstickElementParent, this._myParams, virtualThumbstickHandedness, gamepadThumbstickHandedness);
-        this._myVirtualGamepadVirtualThumbsticks[gamepadThumbstickHandedness] = virtualGamepadVirtualThumbstick;
+    _buildThumbstick(thumbstickElementParent, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID) {
+        let virtualGamepadVirtualThumbstick = new VirtualGamepadVirtualThumbstick(thumbstickElementParent, this._myParams, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID);
+        this._myVirtualGamepadVirtualThumbsticks[gamepadThumbstickHandedness][gamepadAxesID] = virtualGamepadVirtualThumbstick;
     }
 
     _createSizeValue(value, minSizeMultiplier) {
@@ -217,10 +228,12 @@ export class VirtualGamepad {
 
         if (!isAnyElementPressed) {
             for (let handedness in this._myVirtualGamepadVirtualThumbsticks) {
-                let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness];
-                if (thumbstick != null && thumbstick.isPressed()) {
-                    isAnyElementPressed = true;
-                    break;
+                for (let gamepadAxesID in this._myVirtualGamepadVirtualThumbsticks[handedness]) {
+                    let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness][gamepadAxesID];
+                    if (thumbstick != null && thumbstick.isPressed()) {
+                        isAnyElementPressed = true;
+                        break;
+                    }
                 }
             }
         }
@@ -239,9 +252,11 @@ export class VirtualGamepad {
         }
 
         for (let handedness in this._myVirtualGamepadVirtualThumbsticks) {
-            let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness];
-            if (thumbstick != null) {
-                thumbstick.setMouseHoverActive(hoverActive);
+            for (let gamepadAxesID in this._myVirtualGamepadVirtualThumbsticks[handedness]) {
+                let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness][gamepadAxesID];
+                if (thumbstick != null) {
+                    thumbstick.setMouseHoverActive(hoverActive);
+                }
             }
         }
     }

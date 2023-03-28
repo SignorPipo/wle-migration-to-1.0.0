@@ -38,6 +38,13 @@
                         "_myHeadNonVR": "71",
                         "_myHeadVR": "25"
                     }
+                },
+                {
+                    "type": "pp-virtual-gamepad",
+                    "pp-virtual-gamepad": {
+                        "_myShowOnDesktop": true,
+                        "_myShowOnHeadset": true
+                    }
                 }
             ]
         },

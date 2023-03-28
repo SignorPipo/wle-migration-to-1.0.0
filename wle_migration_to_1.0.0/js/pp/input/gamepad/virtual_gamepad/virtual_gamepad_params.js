@@ -1,6 +1,6 @@
 import { getMainEngine } from "../../../cauldron/wl/engine_global";
 import { Handedness } from "../../cauldron/input_types";
-import { GamepadButtonID } from "../gamepad_buttons";
+import { GamepadAxesID, GamepadButtonID } from "../gamepad_buttons";
 import { VirtualGamepadIconParams, VirtualGamepadIconType } from "./virtual_gamepad_icon";
 
 export class VirtualGamepadButtonParams {
@@ -59,16 +59,18 @@ export class VirtualGamepadParams {
         this.myButtonParams[Handedness.RIGHT][GamepadButtonID.BOTTOM_BUTTON] = new VirtualGamepadButtonParams();
 
         this.myThumbstickParams = [];
-        this.myThumbstickParams[Handedness.LEFT] = new VirtualGamepadThumbstickParams();
-        this.myThumbstickParams[Handedness.RIGHT] = new VirtualGamepadThumbstickParams();
+        this.myThumbstickParams[Handedness.LEFT] = [];
+        this.myThumbstickParams[Handedness.RIGHT] = [];
+        this.myThumbstickParams[Handedness.LEFT][GamepadAxesID.THUMBSTICK] = new VirtualGamepadThumbstickParams();
+        this.myThumbstickParams[Handedness.RIGHT][GamepadAxesID.THUMBSTICK] = new VirtualGamepadThumbstickParams();
 
         this.myButtonsOrder = [];
         this.myButtonsOrder[Handedness.LEFT] = [null, null, null, null, null];
         this.myButtonsOrder[Handedness.RIGHT] = [null, null, null, null, null];
 
         this.myThumbsticksOrder = [];
-        this.myThumbsticksOrder[Handedness.LEFT] = null;
-        this.myThumbsticksOrder[Handedness.RIGHT] = null;
+        this.myThumbsticksOrder[Handedness.LEFT] = [null];
+        this.myThumbsticksOrder[Handedness.RIGHT] = [null];
 
         // Even More Advanced Params
 
@@ -137,15 +139,17 @@ export class VirtualGamepadParams {
         this.myButtonParams[Handedness.RIGHT][GamepadButtonID.THUMBSTICK].myIconParams.myIconType = VirtualGamepadIconType.DOT;
 
         for (let handedness in this.myThumbstickParams) {
-            let thumbstickParams = this.myThumbstickParams[handedness];
-            thumbstickParams.myBackgroundColor = backgroundColor;
-            thumbstickParams.myIconParams.myBackgroundColor = iconColor;
-            thumbstickParams.myIconParams.myBackgroundPressedColor = iconColor;
-            thumbstickParams.myIconParams.myIconColor = backgroundColor;
-            thumbstickParams.myIconParams.myIconPressedColor = backgroundColor;
-            thumbstickParams.myIconParams.myOverallHoveredBrightness = thumbstickHoveredBrightness;
+            for (let gamepadAxesID in this.myThumbstickParams[handedness]) {
+                let thumbstickParams = this.myThumbstickParams[handedness][gamepadAxesID];
+                thumbstickParams.myBackgroundColor = backgroundColor;
+                thumbstickParams.myIconParams.myBackgroundColor = iconColor;
+                thumbstickParams.myIconParams.myBackgroundPressedColor = iconColor;
+                thumbstickParams.myIconParams.myIconColor = backgroundColor;
+                thumbstickParams.myIconParams.myIconPressedColor = backgroundColor;
+                thumbstickParams.myIconParams.myOverallHoveredBrightness = thumbstickHoveredBrightness;
 
-            thumbstickParams.myIncludeBackgroundToDetection = thumbstickIncludeBackgroundToDetection;
+                thumbstickParams.myIncludeBackgroundToDetection = thumbstickIncludeBackgroundToDetection;
+            }
         }
 
         // Orders
@@ -162,8 +166,8 @@ export class VirtualGamepadParams {
         this.myButtonsOrder[Handedness.RIGHT][3] = [Handedness.RIGHT, GamepadButtonID.BOTTOM_BUTTON];
         this.myButtonsOrder[Handedness.RIGHT][4] = [Handedness.RIGHT, GamepadButtonID.THUMBSTICK];
 
-        this.myThumbsticksOrder[Handedness.LEFT] = Handedness.LEFT;
-        this.myThumbsticksOrder[Handedness.RIGHT] = Handedness.RIGHT;
+        this.myThumbsticksOrder[Handedness.LEFT][0] = [Handedness.LEFT, GamepadAxesID.THUMBSTICK];
+        this.myThumbsticksOrder[Handedness.RIGHT][0] = [Handedness.RIGHT, GamepadAxesID.THUMBSTICK];
 
         // Sizes
 
