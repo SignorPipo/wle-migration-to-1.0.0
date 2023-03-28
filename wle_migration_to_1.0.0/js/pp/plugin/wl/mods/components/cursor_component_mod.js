@@ -112,7 +112,7 @@ export function initCursorComponentModPrototype() {
                 this.cursorRayObject.getTranslationWorld(this.cursorRayOrigin);
                 let dist = this.cursorRayOrigin.vec3_distance(hitPosition);
                 this.cursorRayScale[this.cursorRayScalingAxis] = dist;
-                this.cursorRayObject.scale(this.cursorRayScale);
+                this.cursorRayObject.pp_scaleObject(this.cursorRayScale);
             }
         }
     };

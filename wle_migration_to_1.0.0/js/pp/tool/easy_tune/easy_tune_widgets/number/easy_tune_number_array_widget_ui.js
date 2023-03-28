@@ -77,36 +77,36 @@ export class EasyTuneNumberArrayWidgetUI extends EasyTuneBaseWidgetUI {
 
         for (let i = 0; i < this._mySetup.myArraySize; i++) {
             this.myValuePanels[i].setTranslationLocal(this._mySetup.myValuePanelsPositions[i]);
-            this.myValueTexts[i].scale(this._mySetup.myValueTextScale);
+            this.myValueTexts[i].pp_scaleObject(this._mySetup.myValueTextScale);
             this.myValueCursorTargets[i].setTranslationLocal(this._mySetup.myValueCursorTargetPosition);
 
             this.myValueIncreaseButtonPanels[i].setTranslationLocal(this._mySetup.myRightSideButtonPosition);
-            this.myValueIncreaseButtonBackgrounds[i].scale(this._mySetup.mySideButtonBackgroundScale);
+            this.myValueIncreaseButtonBackgrounds[i].pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
             this.myValueIncreaseButtonTexts[i].setTranslationLocal(this._mySetup.mySideButtonTextPosition);
-            this.myValueIncreaseButtonTexts[i].scale(this._mySetup.mySideButtonTextScale);
+            this.myValueIncreaseButtonTexts[i].pp_scaleObject(this._mySetup.mySideButtonTextScale);
             this.myValueIncreaseButtonCursorTargets[i].setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
             this.myValueDecreaseButtonPanels[i].setTranslationLocal(this._mySetup.myLeftSideButtonPosition);
-            this.myValueDecreaseButtonBackgrounds[i].scale(this._mySetup.mySideButtonBackgroundScale);
+            this.myValueDecreaseButtonBackgrounds[i].pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
             this.myValueDecreaseButtonTexts[i].setTranslationLocal(this._mySetup.mySideButtonTextPosition);
-            this.myValueDecreaseButtonTexts[i].scale(this._mySetup.mySideButtonTextScale);
+            this.myValueDecreaseButtonTexts[i].pp_scaleObject(this._mySetup.mySideButtonTextScale);
             this.myValueDecreaseButtonCursorTargets[i].setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
         }
 
         this.myStepPanel.setTranslationLocal(this._mySetup.myStepPanelPosition);
-        this.myStepText.scale(this._mySetup.myStepTextScale);
+        this.myStepText.pp_scaleObject(this._mySetup.myStepTextScale);
         this.myStepCursorTarget.setTranslationLocal(this._mySetup.myStepCursorTargetPosition);
 
         this.myStepIncreaseButtonPanel.setTranslationLocal(this._mySetup.myRightSideButtonPosition);
-        this.myStepIncreaseButtonBackground.scale(this._mySetup.mySideButtonBackgroundScale);
+        this.myStepIncreaseButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
         this.myStepIncreaseButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
-        this.myStepIncreaseButtonText.scale(this._mySetup.mySideButtonTextScale);
+        this.myStepIncreaseButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
         this.myStepIncreaseButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
         this.myStepDecreaseButtonPanel.setTranslationLocal(this._mySetup.myLeftSideButtonPosition);
-        this.myStepDecreaseButtonBackground.scale(this._mySetup.mySideButtonBackgroundScale);
+        this.myStepDecreaseButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
         this.myStepDecreaseButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
-        this.myStepDecreaseButtonText.scale(this._mySetup.mySideButtonTextScale);
+        this.myStepDecreaseButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
         this.myStepDecreaseButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
     }
 

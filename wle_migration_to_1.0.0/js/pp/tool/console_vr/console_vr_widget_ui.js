@@ -105,16 +105,16 @@ export class ConsoleVRWidgetUI {
 
     _setMessagesTransforms() {
         this.myMessagesPanel.setTranslationLocal(this._mySetup.myMessagesPanelPosition);
-        this.myMessagesBackground.scale(this._mySetup.myMessagesBackgroundScale);
+        this.myMessagesBackground.pp_scaleObject(this._mySetup.myMessagesBackgroundScale);
 
         this.myMessagesTextsPanel.setTranslationLocal(this._mySetup.myMessagesTextsPanelPosition);
-        this.myMessagesTextsPanel.scale(this._mySetup.myMessagesTextsPanelScale);
+        this.myMessagesTextsPanel.pp_scaleObject(this._mySetup.myMessagesTextsPanelScale);
         for (let key in ConsoleVRWidgetMessageType) {
             this.myMessagesTexts[ConsoleVRWidgetMessageType[key]].setTranslationLocal(this._mySetup.myMessagesTextPositions[ConsoleVRWidgetMessageType[key]]);
         }
 
         this.myNotifyIconPanel.setTranslationLocal(this._mySetup.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
-        this.myNotifyIconBackground.scale(this._mySetup.myNotifyIconBackgroundScale);
+        this.myNotifyIconBackground.pp_scaleObject(this._mySetup.myNotifyIconBackgroundScale);
         this.myNotifyIconCursorTarget.setTranslationLocal(this._mySetup.myNotifyIconCursorTargetPosition);
     }
 
@@ -125,10 +125,10 @@ export class ConsoleVRWidgetUI {
         for (let key in ConsoleVRWidgetMessageType) {
             this.myFilterButtonsPanels[ConsoleVRWidgetMessageType[key]].setTranslationLocal(this._mySetup.myFilterButtonsPositions[ConsoleVRWidgetMessageType[key]]);
 
-            this.myFilterButtonsBackgrounds[ConsoleVRWidgetMessageType[key]].scale(this._mySetup.myButtonBackgroundScale);
+            this.myFilterButtonsBackgrounds[ConsoleVRWidgetMessageType[key]].pp_scaleObject(this._mySetup.myButtonBackgroundScale);
 
             this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].setTranslationLocal(this._mySetup.myButtonTextPosition);
-            this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].scale(this._mySetup.myButtonTextScale);
+            this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_scaleObject(this._mySetup.myButtonTextScale);
 
             this.myFilterButtonsCursorTargets[ConsoleVRWidgetMessageType[key]].setTranslationLocal(this._mySetup.myButtonCursorTargetPosition);
         }
@@ -137,10 +137,10 @@ export class ConsoleVRWidgetUI {
         {
             this.myClearButtonPanel.setTranslationLocal(this._mySetup.myClearButtonPosition);
 
-            this.myClearButtonBackground.scale(this._mySetup.myButtonBackgroundScale);
+            this.myClearButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
 
             this.myClearButtonText.setTranslationLocal(this._mySetup.myButtonTextPosition);
-            this.myClearButtonText.scale(this._mySetup.myButtonTextScale);
+            this.myClearButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
 
             this.myClearButtonCursorTarget.setTranslationLocal(this._mySetup.myButtonCursorTargetPosition);
         }
@@ -149,10 +149,10 @@ export class ConsoleVRWidgetUI {
         {
             this.myUpButtonPanel.setTranslationLocal(this._mySetup.myUpButtonPosition);
 
-            this.myUpButtonBackground.scale(this._mySetup.myButtonBackgroundScale);
+            this.myUpButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
 
             this.myUpButtonText.setTranslationLocal(this._mySetup.myButtonTextPosition);
-            this.myUpButtonText.scale(this._mySetup.myButtonTextScale);
+            this.myUpButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
 
             this.myUpButtonCursorTarget.setTranslationLocal(this._mySetup.myButtonCursorTargetPosition);
         }
@@ -161,10 +161,10 @@ export class ConsoleVRWidgetUI {
         {
             this.myDownButtonPanel.setTranslationLocal(this._mySetup.myDownButtonPosition);
 
-            this.myDownButtonBackground.scale(this._mySetup.myButtonBackgroundScale);
+            this.myDownButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
 
             this.myDownButtonText.setTranslationLocal(this._mySetup.myButtonTextPosition);
-            this.myDownButtonText.scale(this._mySetup.myButtonTextScale);
+            this.myDownButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
 
             this.myDownButtonCursorTarget.setTranslationLocal(this._mySetup.myButtonCursorTargetPosition);
         }

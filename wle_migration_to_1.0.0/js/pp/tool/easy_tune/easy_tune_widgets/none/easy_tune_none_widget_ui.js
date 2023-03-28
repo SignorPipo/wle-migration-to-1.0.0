@@ -15,7 +15,7 @@ export class EasyTuneNoneWidgetUI extends EasyTuneBaseWidgetUI {
 
     _setTransformHook() {
         this.myTypeNotSupportedPanel.setTranslationLocal(this._mySetup.myTypeNotSupportedPanelPosition);
-        this.myTypeNotSupportedText.scale(this._mySetup.myTypeNotSupportedTextScale);
+        this.myTypeNotSupportedText.pp_scaleObject(this._mySetup.myTypeNotSupportedTextScale);
     }
 
     _addComponentsHook() {

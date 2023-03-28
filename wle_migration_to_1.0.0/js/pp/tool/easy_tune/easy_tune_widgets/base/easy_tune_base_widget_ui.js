@@ -125,27 +125,27 @@ export class EasyTuneBaseWidgetUI {
         this.myPivotObject.setTranslationLocal(this._mySetup.myPivotObjectPositions[this._myAdditionalSetup.myHandedness]);
 
         this.myBackPanel.setTranslationLocal(this._mySetup.myBackPanelPosition);
-        this.myBackBackground.scale(this._mySetup.myBackBackgroundScale);
+        this.myBackBackground.pp_scaleObject(this._mySetup.myBackBackgroundScale);
 
         // Display
         this.myDisplayPanel.setTranslationLocal(this._mySetup.myDisplayPanelPosition);
 
         this.myVariableLabelPanel.setTranslationLocal(this._mySetup.myVariableLabelPanelPosition);
-        this.myVariableLabelText.scale(this._mySetup.myVariableLabelTextScale);
+        this.myVariableLabelText.pp_scaleObject(this._mySetup.myVariableLabelTextScale);
         this.myVariableLabelCursorTarget.setTranslationLocal(this._mySetup.myVariableLabelCursorTargetPosition);
 
         // Next/Previous
 
         this.myNextButtonPanel.setTranslationLocal(this._mySetup.myRightSideButtonPosition);
-        this.myNextButtonBackground.scale(this._mySetup.mySideButtonBackgroundScale);
+        this.myNextButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
         this.myNextButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
-        this.myNextButtonText.scale(this._mySetup.mySideButtonTextScale);
+        this.myNextButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
         this.myNextButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
         this.myPreviousButtonPanel.setTranslationLocal(this._mySetup.myLeftSideButtonPosition);
-        this.myPreviousButtonBackground.scale(this._mySetup.mySideButtonBackgroundScale);
+        this.myPreviousButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
         this.myPreviousButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
-        this.myPreviousButtonText.scale(this._mySetup.mySideButtonTextScale);
+        this.myPreviousButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
         this.myPreviousButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
         // Import/Export
@@ -153,15 +153,15 @@ export class EasyTuneBaseWidgetUI {
         this.myImportExportPanel.setTranslationLocal(this._mySetup.myImportExportPanelPosition);
 
         this.myImportButtonPanel.setTranslationLocal(this._mySetup.myImportButtonPosition);
-        this.myImportButtonBackground.scale(this._mySetup.myImportExportButtonBackgroundScale);
+        this.myImportButtonBackground.pp_scaleObject(this._mySetup.myImportExportButtonBackgroundScale);
         this.myImportButtonText.setTranslationLocal(this._mySetup.myImportExportButtonTextPosition);
-        this.myImportButtonText.scale(this._mySetup.myImportExportButtonTextScale);
+        this.myImportButtonText.pp_scaleObject(this._mySetup.myImportExportButtonTextScale);
         this.myImportButtonCursorTarget.setTranslationLocal(this._mySetup.myImportExportButtonCursorTargetPosition);
 
         this.myExportButtonPanel.setTranslationLocal(this._mySetup.myExportButtonPosition);
-        this.myExportButtonBackground.scale(this._mySetup.myImportExportButtonBackgroundScale);
+        this.myExportButtonBackground.pp_scaleObject(this._mySetup.myImportExportButtonBackgroundScale);
         this.myExportButtonText.setTranslationLocal(this._mySetup.myImportExportButtonTextPosition);
-        this.myExportButtonText.scale(this._mySetup.myImportExportButtonTextScale);
+        this.myExportButtonText.pp_scaleObject(this._mySetup.myImportExportButtonTextScale);
         this.myExportButtonCursorTarget.setTranslationLocal(this._mySetup.myImportExportButtonCursorTargetPosition);
 
         // Pointer

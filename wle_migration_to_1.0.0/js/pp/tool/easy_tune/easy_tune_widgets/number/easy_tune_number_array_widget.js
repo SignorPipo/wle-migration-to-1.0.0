@@ -238,7 +238,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
             if (active) {
                 this._myValueRealValue = this._myVariable.myValue[index];
                 this._myValueEditIndex = index;
-                text.scale(this._mySetup.myTextHoverScaleMultiplier);
+                text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
             } else {
                 text.scalingWorld = this._mySetup.myValueTextScale;
             }
@@ -250,7 +250,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     _setStepEditActive(text, active) {
         if (this._isActive() || !active) {
             if (active) {
-                text.scale(this._mySetup.myTextHoverScaleMultiplier);
+                text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
             } else {
                 text.scalingWorld = this._mySetup.myStepTextScale;
             }
@@ -285,7 +285,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     }
 
     _genericTextHover(text) {
-        text.scale(this._mySetup.myTextHoverScaleMultiplier);
+        text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
     }
 
     _genericTextUnHover(text, originalScale) {

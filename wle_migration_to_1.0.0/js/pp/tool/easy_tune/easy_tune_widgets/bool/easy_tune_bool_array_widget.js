@@ -103,7 +103,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         if (this._isActive() || !active) {
             if (active) {
                 this._myValueEditIndex = index;
-                text.scale(this._mySetup.myTextHoverScaleMultiplier);
+                text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
             } else {
                 text.scalingWorld = this._mySetup.myValueTextScale;
             }
@@ -126,7 +126,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
     }
 
     _genericTextHover(text) {
-        text.scale(this._mySetup.myTextHoverScaleMultiplier);
+        text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
     }
 
     _genericTextUnHover(text, originalScale) {
