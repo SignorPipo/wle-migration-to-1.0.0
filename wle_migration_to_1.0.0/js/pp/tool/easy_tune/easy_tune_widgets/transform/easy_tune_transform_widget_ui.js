@@ -200,131 +200,131 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
     _setTransformHook() {
         //Position
 
-        this.myPositionPanel.setTranslationLocal(this._mySetup.myPositionPanelPosition);
+        this.myPositionPanel.pp_setPositionLocal(this._mySetup.myPositionPanelPosition);
         this.myPositionLabelText.pp_scaleObject(this._mySetup.myComponentLabelTextScale);
-        this.myPositionLabelCursorTarget.setTranslationLocal(this._mySetup.myComponentLabelCursorTargetPosition);
+        this.myPositionLabelCursorTarget.pp_setPositionLocal(this._mySetup.myComponentLabelCursorTargetPosition);
 
         for (let i = 0; i < 3; i++) {
-            this.myPositionPanels[i].setTranslationLocal(this._mySetup.myValuePanelsPositions[i]);
+            this.myPositionPanels[i].pp_setPositionLocal(this._mySetup.myValuePanelsPositions[i]);
             this.myPositionTexts[i].pp_scaleObject(this._mySetup.myValueTextScale);
-            this.myPositionCursorTargets[i].setTranslationLocal(this._mySetup.myValueCursorTargetPosition);
+            this.myPositionCursorTargets[i].pp_setPositionLocal(this._mySetup.myValueCursorTargetPosition);
 
-            this.myPositionIncreaseButtonPanels[i].setTranslationLocal(this._mySetup.myIncreaseButtonPosition);
+            this.myPositionIncreaseButtonPanels[i].pp_setPositionLocal(this._mySetup.myIncreaseButtonPosition);
             this.myPositionIncreaseButtonBackgrounds[i].pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-            this.myPositionIncreaseButtonTexts[i].setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+            this.myPositionIncreaseButtonTexts[i].pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
             this.myPositionIncreaseButtonTexts[i].pp_scaleObject(this._mySetup.mySideButtonTextScale);
-            this.myPositionIncreaseButtonCursorTargets[i].setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+            this.myPositionIncreaseButtonCursorTargets[i].pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
-            this.myPositionDecreaseButtonPanels[i].setTranslationLocal(this._mySetup.myDecreaseButtonPosition);
+            this.myPositionDecreaseButtonPanels[i].pp_setPositionLocal(this._mySetup.myDecreaseButtonPosition);
             this.myPositionDecreaseButtonBackgrounds[i].pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-            this.myPositionDecreaseButtonTexts[i].setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+            this.myPositionDecreaseButtonTexts[i].pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
             this.myPositionDecreaseButtonTexts[i].pp_scaleObject(this._mySetup.mySideButtonTextScale);
-            this.myPositionDecreaseButtonCursorTargets[i].setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+            this.myPositionDecreaseButtonCursorTargets[i].pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
         }
 
         // Rotation
 
-        this.myRotationPanel.setTranslationLocal(this._mySetup.myRotationPanelPosition);
+        this.myRotationPanel.pp_setPositionLocal(this._mySetup.myRotationPanelPosition);
         this.myRotationLabelText.pp_scaleObject(this._mySetup.myComponentLabelTextScale);
-        this.myRotationLabelCursorTarget.setTranslationLocal(this._mySetup.myComponentLabelCursorTargetPosition);
+        this.myRotationLabelCursorTarget.pp_setPositionLocal(this._mySetup.myComponentLabelCursorTargetPosition);
 
         for (let i = 0; i < 3; i++) {
-            this.myRotationPanels[i].setTranslationLocal(this._mySetup.myValuePanelsPositions[i]);
+            this.myRotationPanels[i].pp_setPositionLocal(this._mySetup.myValuePanelsPositions[i]);
             this.myRotationTexts[i].pp_scaleObject(this._mySetup.myValueTextScale);
-            this.myRotationCursorTargets[i].setTranslationLocal(this._mySetup.myValueCursorTargetPosition);
+            this.myRotationCursorTargets[i].pp_setPositionLocal(this._mySetup.myValueCursorTargetPosition);
 
-            this.myRotationIncreaseButtonPanels[i].setTranslationLocal(this._mySetup.myIncreaseButtonPosition);
+            this.myRotationIncreaseButtonPanels[i].pp_setPositionLocal(this._mySetup.myIncreaseButtonPosition);
             this.myRotationIncreaseButtonBackgrounds[i].pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-            this.myRotationIncreaseButtonTexts[i].setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+            this.myRotationIncreaseButtonTexts[i].pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
             this.myRotationIncreaseButtonTexts[i].pp_scaleObject(this._mySetup.mySideButtonTextScale);
-            this.myRotationIncreaseButtonCursorTargets[i].setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+            this.myRotationIncreaseButtonCursorTargets[i].pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
-            this.myRotationDecreaseButtonPanels[i].setTranslationLocal(this._mySetup.myDecreaseButtonPosition);
+            this.myRotationDecreaseButtonPanels[i].pp_setPositionLocal(this._mySetup.myDecreaseButtonPosition);
             this.myRotationDecreaseButtonBackgrounds[i].pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-            this.myRotationDecreaseButtonTexts[i].setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+            this.myRotationDecreaseButtonTexts[i].pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
             this.myRotationDecreaseButtonTexts[i].pp_scaleObject(this._mySetup.mySideButtonTextScale);
-            this.myRotationDecreaseButtonCursorTargets[i].setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+            this.myRotationDecreaseButtonCursorTargets[i].pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
         }
 
         // Scale
 
-        this.myScalePanel.setTranslationLocal(this._mySetup.myScalePanelPosition);
+        this.myScalePanel.pp_setPositionLocal(this._mySetup.myScalePanelPosition);
         this.myScaleLabelText.pp_scaleObject(this._mySetup.myComponentLabelTextScale);
-        this.myScaleLabelCursorTarget.setTranslationLocal(this._mySetup.myComponentLabelCursorTargetPosition);
+        this.myScaleLabelCursorTarget.pp_setPositionLocal(this._mySetup.myComponentLabelCursorTargetPosition);
 
         for (let i = 0; i < 3; i++) {
-            this.myScalePanels[i].setTranslationLocal(this._mySetup.myValuePanelsPositions[i]);
+            this.myScalePanels[i].pp_setPositionLocal(this._mySetup.myValuePanelsPositions[i]);
             this.myScaleTexts[i].pp_scaleObject(this._mySetup.myValueTextScale);
-            this.myScaleCursorTargets[i].setTranslationLocal(this._mySetup.myValueCursorTargetPosition);
+            this.myScaleCursorTargets[i].pp_setPositionLocal(this._mySetup.myValueCursorTargetPosition);
 
-            this.myScaleIncreaseButtonPanels[i].setTranslationLocal(this._mySetup.myIncreaseButtonPosition);
+            this.myScaleIncreaseButtonPanels[i].pp_setPositionLocal(this._mySetup.myIncreaseButtonPosition);
             this.myScaleIncreaseButtonBackgrounds[i].pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-            this.myScaleIncreaseButtonTexts[i].setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+            this.myScaleIncreaseButtonTexts[i].pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
             this.myScaleIncreaseButtonTexts[i].pp_scaleObject(this._mySetup.mySideButtonTextScale);
-            this.myScaleIncreaseButtonCursorTargets[i].setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+            this.myScaleIncreaseButtonCursorTargets[i].pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
-            this.myScaleDecreaseButtonPanels[i].setTranslationLocal(this._mySetup.myDecreaseButtonPosition);
+            this.myScaleDecreaseButtonPanels[i].pp_setPositionLocal(this._mySetup.myDecreaseButtonPosition);
             this.myScaleDecreaseButtonBackgrounds[i].pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-            this.myScaleDecreaseButtonTexts[i].setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+            this.myScaleDecreaseButtonTexts[i].pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
             this.myScaleDecreaseButtonTexts[i].pp_scaleObject(this._mySetup.mySideButtonTextScale);
-            this.myScaleDecreaseButtonCursorTargets[i].setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+            this.myScaleDecreaseButtonCursorTargets[i].pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
         }
 
         // Steps
 
         // Position
 
-        this.myPositionStepPanel.setTranslationLocal(this._mySetup.myStepPanelPosition);
+        this.myPositionStepPanel.pp_setPositionLocal(this._mySetup.myStepPanelPosition);
         this.myPositionStepText.pp_scaleObject(this._mySetup.myStepTextScale);
-        this.myPositionStepCursorTarget.setTranslationLocal(this._mySetup.myStepCursorTargetPosition);
+        this.myPositionStepCursorTarget.pp_setPositionLocal(this._mySetup.myStepCursorTargetPosition);
 
-        this.myPositionStepIncreaseButtonPanel.setTranslationLocal(this._mySetup.myIncreaseButtonPosition);
+        this.myPositionStepIncreaseButtonPanel.pp_setPositionLocal(this._mySetup.myIncreaseButtonPosition);
         this.myPositionStepIncreaseButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-        this.myPositionStepIncreaseButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+        this.myPositionStepIncreaseButtonText.pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
         this.myPositionStepIncreaseButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
-        this.myPositionStepIncreaseButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+        this.myPositionStepIncreaseButtonCursorTarget.pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
-        this.myPositionStepDecreaseButtonPanel.setTranslationLocal(this._mySetup.myDecreaseButtonPosition);
+        this.myPositionStepDecreaseButtonPanel.pp_setPositionLocal(this._mySetup.myDecreaseButtonPosition);
         this.myPositionStepDecreaseButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-        this.myPositionStepDecreaseButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+        this.myPositionStepDecreaseButtonText.pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
         this.myPositionStepDecreaseButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
-        this.myPositionStepDecreaseButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+        this.myPositionStepDecreaseButtonCursorTarget.pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
         // Rotation
 
-        this.myRotationStepPanel.setTranslationLocal(this._mySetup.myStepPanelPosition);
+        this.myRotationStepPanel.pp_setPositionLocal(this._mySetup.myStepPanelPosition);
         this.myRotationStepText.pp_scaleObject(this._mySetup.myStepTextScale);
-        this.myRotationStepCursorTarget.setTranslationLocal(this._mySetup.myStepCursorTargetPosition);
+        this.myRotationStepCursorTarget.pp_setPositionLocal(this._mySetup.myStepCursorTargetPosition);
 
-        this.myRotationStepIncreaseButtonPanel.setTranslationLocal(this._mySetup.myIncreaseButtonPosition);
+        this.myRotationStepIncreaseButtonPanel.pp_setPositionLocal(this._mySetup.myIncreaseButtonPosition);
         this.myRotationStepIncreaseButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-        this.myRotationStepIncreaseButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+        this.myRotationStepIncreaseButtonText.pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
         this.myRotationStepIncreaseButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
-        this.myRotationStepIncreaseButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+        this.myRotationStepIncreaseButtonCursorTarget.pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
-        this.myRotationStepDecreaseButtonPanel.setTranslationLocal(this._mySetup.myDecreaseButtonPosition);
+        this.myRotationStepDecreaseButtonPanel.pp_setPositionLocal(this._mySetup.myDecreaseButtonPosition);
         this.myRotationStepDecreaseButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-        this.myRotationStepDecreaseButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+        this.myRotationStepDecreaseButtonText.pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
         this.myRotationStepDecreaseButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
-        this.myRotationStepDecreaseButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+        this.myRotationStepDecreaseButtonCursorTarget.pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
         // Scale
 
-        this.myScaleStepPanel.setTranslationLocal(this._mySetup.myStepPanelPosition);
+        this.myScaleStepPanel.pp_setPositionLocal(this._mySetup.myStepPanelPosition);
         this.myScaleStepText.pp_scaleObject(this._mySetup.myStepTextScale);
-        this.myScaleStepCursorTarget.setTranslationLocal(this._mySetup.myStepCursorTargetPosition);
+        this.myScaleStepCursorTarget.pp_setPositionLocal(this._mySetup.myStepCursorTargetPosition);
 
-        this.myScaleStepIncreaseButtonPanel.setTranslationLocal(this._mySetup.myIncreaseButtonPosition);
+        this.myScaleStepIncreaseButtonPanel.pp_setPositionLocal(this._mySetup.myIncreaseButtonPosition);
         this.myScaleStepIncreaseButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-        this.myScaleStepIncreaseButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+        this.myScaleStepIncreaseButtonText.pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
         this.myScaleStepIncreaseButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
-        this.myScaleStepIncreaseButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+        this.myScaleStepIncreaseButtonCursorTarget.pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
-        this.myScaleStepDecreaseButtonPanel.setTranslationLocal(this._mySetup.myDecreaseButtonPosition);
+        this.myScaleStepDecreaseButtonPanel.pp_setPositionLocal(this._mySetup.myDecreaseButtonPosition);
         this.myScaleStepDecreaseButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-        this.myScaleStepDecreaseButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+        this.myScaleStepDecreaseButtonText.pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
         this.myScaleStepDecreaseButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
-        this.myScaleStepDecreaseButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+        this.myScaleStepDecreaseButtonCursorTarget.pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
     }
 
     _addComponentsHook() {

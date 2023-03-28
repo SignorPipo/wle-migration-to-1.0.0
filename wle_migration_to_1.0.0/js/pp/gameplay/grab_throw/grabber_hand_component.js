@@ -182,7 +182,7 @@ export class GrabberHandComponent extends Component {
                     grabbableToGrab.registerReleaseEventListener(this, this._onRelease.bind(this));
 
                     if (this._mySnapOnPivot) {
-                        grabbableToGrab.object.resetTranslation();
+                        grabbableToGrab.object.pp_resetPositionLocal();
                     }
 
                     this._myGrabCallbacks.forEach(function (callback) { callback(this, grabbableToGrab); }.bind(this));

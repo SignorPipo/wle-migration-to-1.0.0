@@ -83,16 +83,16 @@ export class WidgetFrameUI {
                 this._myInputSourceType = inputSourceType;
 
                 if (!this._myIsPinned) {
-                    this.myPivotObject.setTranslationLocal(this._mySetup.myPivotObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myPosition);
-                    this.myPivotObject.resetRotation();
-                    this.myPivotObject.rotateObject(this._mySetup.myPivotObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myRotation);
+                    this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myPosition);
+                    this.myPivotObject.pp_resetRotationLocal();
+                    this.myPivotObject.pp_rotateObjectQuat(this._mySetup.myPivotObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myRotation);
 
-                    this.myWidgetObject.setTranslationLocal(this._mySetup.myWidgetObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myPosition);
-                    this.myWidgetObject.resetRotation();
-                    this.myWidgetObject.rotateObject(this._mySetup.myWidgetObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myRotation);
+                    this.myWidgetObject.pp_setPositionLocal(this._mySetup.myWidgetObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myPosition);
+                    this.myWidgetObject.pp_resetRotationLocal();
+                    this.myWidgetObject.pp_rotateObjectQuat(this._mySetup.myWidgetObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myRotation);
 
-                    this.myVisibilityButtonPanel.setTranslationLocal(this._mySetup.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
-                    this.myPinButtonPanel.setTranslationLocal(this._mySetup.myPinButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
+                    this.myVisibilityButtonPanel.pp_setPositionLocal(this._mySetup.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
+                    this.myPinButtonPanel.pp_setPositionLocal(this._mySetup.myPinButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
                 }
             }
         } else {
@@ -103,7 +103,7 @@ export class WidgetFrameUI {
     //Skeleton
     _createSkeleton() {
         this.myFixForwardObject = this._myParentObject.pp_addObject();
-        this.myFixForwardObject.pp_rotateObject(vec3_create(0, 180, 0));
+        this.myFixForwardObject.pp_rotateObjectQuat(vec3_create(0, 180, 0));
         this.myPivotObject = this.myFixForwardObject.pp_addObject();
         this.myWidgetObject = this.myPivotObject.pp_addObject();
 
@@ -129,18 +129,18 @@ export class WidgetFrameUI {
     _setTransforms() {
         this.myPivotObject.setDirty();
 
-        this.myVisibilityButtonPanel.setTranslationLocal(this._mySetup.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
+        this.myVisibilityButtonPanel.pp_setPositionLocal(this._mySetup.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
         this.myVisibilityButtonBackground.pp_scaleObject(this._mySetup.myVisibilityButtonBackgroundScale);
-        this.myVisibilityButtonText.setTranslationLocal(this._mySetup.myVisibilityButtonTextPosition);
+        this.myVisibilityButtonText.pp_setPositionLocal(this._mySetup.myVisibilityButtonTextPosition);
         this.myVisibilityButtonText.pp_scaleObject(this._mySetup.myVisibilityButtonTextScale);
-        this.myVisibilityButtonCursorTarget.setTranslationLocal(this._mySetup.myVisibilityButtonCursorTargetPosition);
+        this.myVisibilityButtonCursorTarget.pp_setPositionLocal(this._mySetup.myVisibilityButtonCursorTargetPosition);
 
-        this.myPinButtonPanel.setTranslationLocal(this._mySetup.myPinButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
+        this.myPinButtonPanel.pp_setPositionLocal(this._mySetup.myPinButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
 
         this.myPinButtonBackground.pp_scaleObject(this._mySetup.myFlagButtonBackgroundScale);
-        this.myPinButtonText.setTranslationLocal(this._mySetup.myFlagButtonTextPosition);
+        this.myPinButtonText.pp_setPositionLocal(this._mySetup.myFlagButtonTextPosition);
         this.myPinButtonText.pp_scaleObject(this._mySetup.myFlagButtonTextScale);
-        this.myPinButtonCursorTarget.setTranslationLocal(this._mySetup.myPinButtonCursorTargetPosition);
+        this.myPinButtonCursorTarget.pp_setPositionLocal(this._mySetup.myPinButtonCursorTargetPosition);
     }
 
     //Components
@@ -200,7 +200,7 @@ export class WidgetFrameUI {
         this.myFixForwardObject.pp_setParent(this._myParentObject);
 
         this.myFixForwardObject.pp_resetTransformLocal();
-        this.myFixForwardObject.pp_rotateObject(vec3_create(0, 180, 0));
+        this.myFixForwardObject.pp_rotateObjectQuat(vec3_create(0, 180, 0));
 
         this._updateObjectsTransforms(true);
     }
@@ -210,16 +210,16 @@ export class WidgetFrameUI {
             this.myFixForwardObject.pp_setParent(this.myNonVRParentObject);
             this.myFixForwardObject.pp_resetTransformLocal();
 
-            this.myPivotObject.setTranslationLocal(this._mySetup.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);
-            this.myPivotObject.resetRotation();
-            this.myPivotObject.rotateObject(this._mySetup.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myRotation);
+            this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);
+            this.myPivotObject.pp_resetRotationLocal();
+            this.myPivotObject.pp_rotateObjectQuat(this._mySetup.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myRotation);
 
-            this.myWidgetObject.setTranslationLocal(this._mySetup.myWidgetObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);
-            this.myWidgetObject.resetRotation();
-            this.myWidgetObject.rotateObject(this._mySetup.myWidgetObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myRotation);
+            this.myWidgetObject.pp_setPositionLocal(this._mySetup.myWidgetObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);
+            this.myWidgetObject.pp_resetRotationLocal();
+            this.myWidgetObject.pp_rotateObjectQuat(this._mySetup.myWidgetObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myRotation);
 
-            this.myVisibilityButtonPanel.setTranslationLocal(this._mySetup.myVisibilityButtonPosition[ToolHandedness.NONE].myPosition);
-            this.myPinButtonPanel.setTranslationLocal(this._mySetup.myPinButtonPosition[ToolHandedness.NONE].myPosition);
+            this.myVisibilityButtonPanel.pp_setPositionLocal(this._mySetup.myVisibilityButtonPosition[ToolHandedness.NONE].myPosition);
+            this.myPinButtonPanel.pp_setPositionLocal(this._mySetup.myPinButtonPosition[ToolHandedness.NONE].myPosition);
         }
     }
 };

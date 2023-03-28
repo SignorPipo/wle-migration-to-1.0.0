@@ -122,51 +122,51 @@ export class EasyTuneBaseWidgetUI {
     // Transforms
 
     _setTransforms() {
-        this.myPivotObject.setTranslationLocal(this._mySetup.myPivotObjectPositions[this._myAdditionalSetup.myHandedness]);
+        this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectPositions[this._myAdditionalSetup.myHandedness]);
 
-        this.myBackPanel.setTranslationLocal(this._mySetup.myBackPanelPosition);
+        this.myBackPanel.pp_setPositionLocal(this._mySetup.myBackPanelPosition);
         this.myBackBackground.pp_scaleObject(this._mySetup.myBackBackgroundScale);
 
         // Display
-        this.myDisplayPanel.setTranslationLocal(this._mySetup.myDisplayPanelPosition);
+        this.myDisplayPanel.pp_setPositionLocal(this._mySetup.myDisplayPanelPosition);
 
-        this.myVariableLabelPanel.setTranslationLocal(this._mySetup.myVariableLabelPanelPosition);
+        this.myVariableLabelPanel.pp_setPositionLocal(this._mySetup.myVariableLabelPanelPosition);
         this.myVariableLabelText.pp_scaleObject(this._mySetup.myVariableLabelTextScale);
-        this.myVariableLabelCursorTarget.setTranslationLocal(this._mySetup.myVariableLabelCursorTargetPosition);
+        this.myVariableLabelCursorTarget.pp_setPositionLocal(this._mySetup.myVariableLabelCursorTargetPosition);
 
         // Next/Previous
 
-        this.myNextButtonPanel.setTranslationLocal(this._mySetup.myRightSideButtonPosition);
+        this.myNextButtonPanel.pp_setPositionLocal(this._mySetup.myRightSideButtonPosition);
         this.myNextButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-        this.myNextButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+        this.myNextButtonText.pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
         this.myNextButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
-        this.myNextButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+        this.myNextButtonCursorTarget.pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
-        this.myPreviousButtonPanel.setTranslationLocal(this._mySetup.myLeftSideButtonPosition);
+        this.myPreviousButtonPanel.pp_setPositionLocal(this._mySetup.myLeftSideButtonPosition);
         this.myPreviousButtonBackground.pp_scaleObject(this._mySetup.mySideButtonBackgroundScale);
-        this.myPreviousButtonText.setTranslationLocal(this._mySetup.mySideButtonTextPosition);
+        this.myPreviousButtonText.pp_setPositionLocal(this._mySetup.mySideButtonTextPosition);
         this.myPreviousButtonText.pp_scaleObject(this._mySetup.mySideButtonTextScale);
-        this.myPreviousButtonCursorTarget.setTranslationLocal(this._mySetup.mySideButtonCursorTargetPosition);
+        this.myPreviousButtonCursorTarget.pp_setPositionLocal(this._mySetup.mySideButtonCursorTargetPosition);
 
         // Import/Export
 
-        this.myImportExportPanel.setTranslationLocal(this._mySetup.myImportExportPanelPosition);
+        this.myImportExportPanel.pp_setPositionLocal(this._mySetup.myImportExportPanelPosition);
 
-        this.myImportButtonPanel.setTranslationLocal(this._mySetup.myImportButtonPosition);
+        this.myImportButtonPanel.pp_setPositionLocal(this._mySetup.myImportButtonPosition);
         this.myImportButtonBackground.pp_scaleObject(this._mySetup.myImportExportButtonBackgroundScale);
-        this.myImportButtonText.setTranslationLocal(this._mySetup.myImportExportButtonTextPosition);
+        this.myImportButtonText.pp_setPositionLocal(this._mySetup.myImportExportButtonTextPosition);
         this.myImportButtonText.pp_scaleObject(this._mySetup.myImportExportButtonTextScale);
-        this.myImportButtonCursorTarget.setTranslationLocal(this._mySetup.myImportExportButtonCursorTargetPosition);
+        this.myImportButtonCursorTarget.pp_setPositionLocal(this._mySetup.myImportExportButtonCursorTargetPosition);
 
-        this.myExportButtonPanel.setTranslationLocal(this._mySetup.myExportButtonPosition);
+        this.myExportButtonPanel.pp_setPositionLocal(this._mySetup.myExportButtonPosition);
         this.myExportButtonBackground.pp_scaleObject(this._mySetup.myImportExportButtonBackgroundScale);
-        this.myExportButtonText.setTranslationLocal(this._mySetup.myImportExportButtonTextPosition);
+        this.myExportButtonText.pp_setPositionLocal(this._mySetup.myImportExportButtonTextPosition);
         this.myExportButtonText.pp_scaleObject(this._mySetup.myImportExportButtonTextScale);
-        this.myExportButtonCursorTarget.setTranslationLocal(this._mySetup.myImportExportButtonCursorTargetPosition);
+        this.myExportButtonCursorTarget.pp_setPositionLocal(this._mySetup.myImportExportButtonCursorTargetPosition);
 
         // Pointer
 
-        this.myPointerCursorTarget.setTranslationLocal(this._mySetup.myPointerCursorTargetPosition);
+        this.myPointerCursorTarget.pp_setPositionLocal(this._mySetup.myPointerCursorTargetPosition);
 
         this._setTransformHook();
     }
@@ -282,10 +282,10 @@ export class EasyTuneBaseWidgetUI {
     }
 
     _setTransformForVR() {
-        this.myPivotObject.setTranslationLocal(this._mySetup.myPivotObjectPositions[this._myAdditionalSetup.myHandedness]);
+        this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectPositions[this._myAdditionalSetup.myHandedness]);
     }
 
     _setTransformForNonVR() {
-        this.myPivotObject.setTranslationLocal(this._mySetup.myPivotObjectPositions[ToolHandedness.NONE]);
+        this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectPositions[ToolHandedness.NONE]);
     }
 };

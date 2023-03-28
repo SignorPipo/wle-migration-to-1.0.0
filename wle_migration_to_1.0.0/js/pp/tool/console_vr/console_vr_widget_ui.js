@@ -104,74 +104,74 @@ export class ConsoleVRWidgetUI {
     }
 
     _setMessagesTransforms() {
-        this.myMessagesPanel.setTranslationLocal(this._mySetup.myMessagesPanelPosition);
+        this.myMessagesPanel.pp_setPositionLocal(this._mySetup.myMessagesPanelPosition);
         this.myMessagesBackground.pp_scaleObject(this._mySetup.myMessagesBackgroundScale);
 
-        this.myMessagesTextsPanel.setTranslationLocal(this._mySetup.myMessagesTextsPanelPosition);
+        this.myMessagesTextsPanel.pp_setPositionLocal(this._mySetup.myMessagesTextsPanelPosition);
         this.myMessagesTextsPanel.pp_scaleObject(this._mySetup.myMessagesTextsPanelScale);
         for (let key in ConsoleVRWidgetMessageType) {
-            this.myMessagesTexts[ConsoleVRWidgetMessageType[key]].setTranslationLocal(this._mySetup.myMessagesTextPositions[ConsoleVRWidgetMessageType[key]]);
+            this.myMessagesTexts[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myMessagesTextPositions[ConsoleVRWidgetMessageType[key]]);
         }
 
-        this.myNotifyIconPanel.setTranslationLocal(this._mySetup.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
+        this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
         this.myNotifyIconBackground.pp_scaleObject(this._mySetup.myNotifyIconBackgroundScale);
-        this.myNotifyIconCursorTarget.setTranslationLocal(this._mySetup.myNotifyIconCursorTargetPosition);
+        this.myNotifyIconCursorTarget.pp_setPositionLocal(this._mySetup.myNotifyIconCursorTargetPosition);
     }
 
     _setButtonsTransforms() {
-        this.myButtonsPanel.setTranslationLocal(this._mySetup.myButtonsPanelPosition);
+        this.myButtonsPanel.pp_setPositionLocal(this._mySetup.myButtonsPanelPosition);
 
         //Filter Buttons
         for (let key in ConsoleVRWidgetMessageType) {
-            this.myFilterButtonsPanels[ConsoleVRWidgetMessageType[key]].setTranslationLocal(this._mySetup.myFilterButtonsPositions[ConsoleVRWidgetMessageType[key]]);
+            this.myFilterButtonsPanels[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myFilterButtonsPositions[ConsoleVRWidgetMessageType[key]]);
 
             this.myFilterButtonsBackgrounds[ConsoleVRWidgetMessageType[key]].pp_scaleObject(this._mySetup.myButtonBackgroundScale);
 
-            this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].setTranslationLocal(this._mySetup.myButtonTextPosition);
+            this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myButtonTextPosition);
             this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_scaleObject(this._mySetup.myButtonTextScale);
 
-            this.myFilterButtonsCursorTargets[ConsoleVRWidgetMessageType[key]].setTranslationLocal(this._mySetup.myButtonCursorTargetPosition);
+            this.myFilterButtonsCursorTargets[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
         }
 
         //Clear
         {
-            this.myClearButtonPanel.setTranslationLocal(this._mySetup.myClearButtonPosition);
+            this.myClearButtonPanel.pp_setPositionLocal(this._mySetup.myClearButtonPosition);
 
             this.myClearButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
 
-            this.myClearButtonText.setTranslationLocal(this._mySetup.myButtonTextPosition);
+            this.myClearButtonText.pp_setPositionLocal(this._mySetup.myButtonTextPosition);
             this.myClearButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
 
-            this.myClearButtonCursorTarget.setTranslationLocal(this._mySetup.myButtonCursorTargetPosition);
+            this.myClearButtonCursorTarget.pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
         }
 
         //Up
         {
-            this.myUpButtonPanel.setTranslationLocal(this._mySetup.myUpButtonPosition);
+            this.myUpButtonPanel.pp_setPositionLocal(this._mySetup.myUpButtonPosition);
 
             this.myUpButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
 
-            this.myUpButtonText.setTranslationLocal(this._mySetup.myButtonTextPosition);
+            this.myUpButtonText.pp_setPositionLocal(this._mySetup.myButtonTextPosition);
             this.myUpButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
 
-            this.myUpButtonCursorTarget.setTranslationLocal(this._mySetup.myButtonCursorTargetPosition);
+            this.myUpButtonCursorTarget.pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
         }
 
         //Down
         {
-            this.myDownButtonPanel.setTranslationLocal(this._mySetup.myDownButtonPosition);
+            this.myDownButtonPanel.pp_setPositionLocal(this._mySetup.myDownButtonPosition);
 
             this.myDownButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
 
-            this.myDownButtonText.setTranslationLocal(this._mySetup.myButtonTextPosition);
+            this.myDownButtonText.pp_setPositionLocal(this._mySetup.myButtonTextPosition);
             this.myDownButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
 
-            this.myDownButtonCursorTarget.setTranslationLocal(this._mySetup.myButtonCursorTargetPosition);
+            this.myDownButtonCursorTarget.pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
         }
     }
 
     _setPointerTransform() {
-        this.myPointerCursorTarget.setTranslationLocal(this._mySetup.myPointerCursorTargetPosition);
+        this.myPointerCursorTarget.pp_setPositionLocal(this._mySetup.myPointerCursorTargetPosition);
     }
 
     //Components
@@ -349,10 +349,10 @@ export class ConsoleVRWidgetUI {
     }
 
     _setTransformForVR() {
-        this.myNotifyIconPanel.setTranslationLocal(this._mySetup.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
+        this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
     }
 
     _setTransformForNonVR() {
-        this.myNotifyIconPanel.setTranslationLocal(this._mySetup.myNotifyIconPanelPositions[ToolHandedness.NONE]);
+        this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[ToolHandedness.NONE]);
     }
 };

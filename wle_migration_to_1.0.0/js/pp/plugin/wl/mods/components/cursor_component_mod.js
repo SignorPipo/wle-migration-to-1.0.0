@@ -106,7 +106,7 @@ export function initCursorComponentModPrototype() {
     Cursor.prototype._setCursorRayTransform = function _setCursorRayTransform(hitPosition) {
         if (!this.cursorRayObject) return;
         if (this.cursorRayScalingAxis != 4) {
-            this.cursorRayObject.resetScaling();
+            this.cursorRayObject.pp_resetScaleLocal();
 
             if (hitPosition != null) {
                 this.cursorRayObject.getTranslationWorld(this.cursorRayOrigin);
@@ -136,60 +136,62 @@ export function initCursorComponentModPrototype() {
         this.doUpdate(false);
     };
 
-    Cursor.prototype.doUpdate = function doUpdate(doClick) {
-        /* If in VR, set the cursor ray based on object transform */
-        if (this.session) {
-            /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
-            if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
-                let p = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
-                /* Screenspace Y is inverted */
-                this.direction.vec3_set(p[0], -p[1], -1.0);
-                this.updateDirection();
-            } else {
-                this.object.getTranslationWorld(this.origin);
-                this.object.getForward(this.direction);
-            }
-            let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
-                this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
+    Cursor.prototype.doUpdate = function () {
+        return function doUpdate(doClick) {
+            /* If in VR, set the cursor ray based on object transform */
+            if (this.session) {
+                /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
+                if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
+                    let p = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
+                    /* Screenspace Y is inverted */
+                    this.direction.vec3_set(p[0], -p[1], -1.0);
+                    this.updateDirection();
+                } else {
+                    this.object.getTranslationWorld(this.origin);
+                    this.object.getForward(this.direction);
+                }
+                let rayHit = this.rayHit = (this.rayCastMode == 0) ?
+                    this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
+                    this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
-            if (rayHit.hitCount > 0) {
-                this.cursorPos.set(rayHit.locations[0]);
-            } else {
-                this.cursorPos.fill(0);
-            }
-
-            this.hoverBehaviour(rayHit, doClick);
-        } else {
-            if (this.viewComponent != null && this.lastClientX != null) {
-                let rayHit = this.updateMousePos(this.lastClientX, this.lastClientY, this.lastWidth, this.lastHeight);
-                this.hoverBehaviour(rayHit, false);
-            }
-        }
-
-        if (this.cursorObject) {
-            if (this.hoveringObject && (this.cursorPos[0] != 0 || this.cursorPos[1] != 0 || this.cursorPos[2] != 0)) {
-                this._setCursorVisibility(true);
-                this.cursorObject.setTranslationWorld(this.cursorPos);
-                this.cursorObject.transformLocal = this.cursorObject.transformLocal.quat2_normalize(this.transformQuat);
-                this._setCursorRayTransform(this.cursorPos);
-            } else {
-                if (this.visible && this.cursorRayObject) {
-                    this._setCursorRayTransform(null);
+                if (rayHit.hitCount > 0) {
+                    this.cursorPos.set(rayHit.locations[0]);
+                } else {
+                    this.cursorPos.fill(0);
                 }
 
-                this._setCursorVisibility(false);
+                this.hoverBehaviour(rayHit, doClick);
+            } else {
+                if (this.viewComponent != null && this.lastClientX != null) {
+                    let rayHit = this.updateMousePos(this.lastClientX, this.lastClientY, this.lastWidth, this.lastHeight);
+                    this.hoverBehaviour(rayHit, false);
+                }
             }
-        }
 
-        if (this.cursorRayObject) {
-            this.cursorRayObject.pp_setActive(true);
-        }
+            if (this.cursorObject) {
+                if (this.hoveringObject && (this.cursorPos[0] != 0 || this.cursorPos[1] != 0 || this.cursorPos[2] != 0)) {
+                    this._setCursorVisibility(true);
+                    this.cursorObject.pp_setPosition(this.cursorPos);
+                    this.cursorObject.pp_setTransformLocalQuat(this.cursorObject.pp_getTransformLocalQuat(this.transformQuat).quat2_normalize(this.transformQuat));
+                    this._setCursorRayTransform(this.cursorPos);
+                } else {
+                    if (this.visible && this.cursorRayObject) {
+                        this._setCursorRayTransform(null);
+                    }
 
-        if (this.hoveringObject == null) {
-            this.pointerId = null;
-        }
-    };
+                    this._setCursorVisibility(false);
+                }
+            }
+
+            if (this.cursorRayObject) {
+                this.cursorRayObject.pp_setActive(true);
+            }
+
+            if (this.hoveringObject == null) {
+                this.pointerId = null;
+            }
+        };
+    }();
 
     Cursor.prototype.hoverBehaviour = function hoverBehaviour(rayHit, doClick, forceUnhover = false) {
         if (!forceUnhover && rayHit.hitCount > 0) {
@@ -432,25 +434,28 @@ export function initCursorComponentModPrototype() {
         return this.updateDirection();
     };
 
-    Cursor.prototype.updateDirection = function updateDirection() {
-        this.object.getTranslationWorld(this.origin);
+    Cursor.prototype.updateDirection = function () {
+        let transformWorld = quat2_create();
+        return function updateDirection() {
+            this.object.getTranslationWorld(this.origin);
 
-        /* Reverse-project the direction into view space */
-        this.direction.vec3_transformMat4(this.projectionMatrix, this.direction);
-        this.direction.vec3_normalize(this.direction);
-        this.direction.vec3_transformQuat(this.object.transformWorld, this.direction);
-        let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-            this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
-            this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
+            /* Reverse-project the direction into view space */
+            this.direction.vec3_transformMat4(this.projectionMatrix, this.direction);
+            this.direction.vec3_normalize(this.direction);
+            this.direction.vec3_transformQuat(this.object.pp_getTransformWorldQuat(transformWorld), this.direction);
+            let rayHit = this.rayHit = (this.rayCastMode == 0) ?
+                this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
+                this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
-        if (rayHit.hitCount > 0) {
-            this.cursorPos.set(rayHit.locations[0]);
-        } else {
-            this.cursorPos.fill(0);
-        }
+            if (rayHit.hitCount > 0) {
+                this.cursorPos.set(rayHit.locations[0]);
+            } else {
+                this.cursorPos.fill(0);
+            }
 
-        return rayHit;
-    };
+            return rayHit;
+        };
+    }();
 
     Cursor.prototype.onDeactivate = function onDeactivate() {
         if (this.hoveringObject) {
