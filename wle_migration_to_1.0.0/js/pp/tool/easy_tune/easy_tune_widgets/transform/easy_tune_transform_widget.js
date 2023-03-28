@@ -1,12 +1,18 @@
-PP.EasyTuneTransformWidget = class EasyTuneTransformWidget extends PP.EasyTuneBaseWidget {
+import { GamepadAxesID } from "../../../../input/gamepad/gamepad_buttons";
+import { getMainEngine } from "../../../../plugin/wl/extensions/engine_extension";
+import { EasyTuneBaseWidget } from "../base/easy_tune_base_widget";
+import { EasyTuneTransformWidgetSetup } from "./easy_tune_transform_widget_setup";
+import { EasyTuneTransformWidgetUI } from "./easy_tune_transform_widget_ui";
 
-    constructor(params, gamepad) {
+export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
+
+    constructor(params, gamepad, engine = getMainEngine()) {
         super(params);
 
         this._myGamepad = gamepad;
 
-        this._mySetup = new PP.EasyTuneTransformWidgetSetup();
-        this._myUI = new PP.EasyTuneTransformWidgetUI();
+        this._mySetup = new EasyTuneTransformWidgetSetup();
+        this._myUI = new EasyTuneTransformWidgetUI(engine);
 
         this._myValueButtonEditIntensity = 0;
         this._myValueButtonEditIntensityTimer = 0;
@@ -74,7 +80,7 @@ PP.EasyTuneTransformWidget = class EasyTuneTransformWidget extends PP.EasyTuneBa
         let stickVariableIntensity = 0;
 
         if (this._myGamepad) {
-            let y = this._myGamepad.getAxesInfo(PP.GamepadAxesID.THUMBSTICK).myAxes[1];
+            let y = this._myGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes[1];
 
             if (Math.abs(y) > this._mySetup.myEditThumbstickMinThreshold) {
                 let normalizedEditAmount = (Math.abs(y) - this._mySetup.myEditThumbstickMinThreshold) / (1 - this._mySetup.myEditThumbstickMinThreshold);

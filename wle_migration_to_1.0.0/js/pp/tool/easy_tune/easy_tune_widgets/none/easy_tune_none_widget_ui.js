@@ -1,10 +1,16 @@
+import { TextComponent } from "@wonderlandengine/api";
+import { EasyTuneBaseWidgetUI } from "../base/easy_tune_base_widget_ui";
 
-PP.EasyTuneNoneWidgetUI = class EasyTuneNoneWidgetUI extends PP.EasyTuneBaseWidgetUI {
+export class EasyTuneNoneWidgetUI extends EasyTuneBaseWidgetUI {
+
+    constructor(engine) {
+        super(engine);
+    }
 
     _createSkeletonHook() {
-        this.myTypeNotSupportedPanel = WL.scene.addObject(this.myDisplayPanel);
-        this.myTypeNotSupportedText = WL.scene.addObject(this.myTypeNotSupportedPanel);
-        this.myTypeNotSupportedCursorTarget = WL.scene.addObject(this.myTypeNotSupportedPanel);
+        this.myTypeNotSupportedPanel = this.myDisplayPanel.pp_addObject();
+        this.myTypeNotSupportedText = this.myTypeNotSupportedPanel.pp_addObject();
+        this.myTypeNotSupportedCursorTarget = this.myTypeNotSupportedPanel.pp_addObject();
     }
 
     _setTransformHook() {
@@ -13,7 +19,7 @@ PP.EasyTuneNoneWidgetUI = class EasyTuneNoneWidgetUI extends PP.EasyTuneBaseWidg
     }
 
     _addComponentsHook() {
-        this.myTypeNotSupportedTextComponent = this.myTypeNotSupportedText.addComponent(TextComponent);
+        this.myTypeNotSupportedTextComponent = this.myTypeNotSupportedText.pp_addComponent(TextComponent);
         this._setupTextComponent(this.myTypeNotSupportedTextComponent);
         this.myTypeNotSupportedTextComponent.text = this._mySetup.myTypeNotSupportedText;
     }

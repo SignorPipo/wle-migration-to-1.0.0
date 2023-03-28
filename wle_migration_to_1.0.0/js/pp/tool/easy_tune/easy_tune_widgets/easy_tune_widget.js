@@ -1,4 +1,18 @@
-PP.EasyTuneWidgetAdditionalSetup = class EasyTuneWidgetAdditionalSetup {
+import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
+import { GamepadAxesID, GamepadButtonID } from "../../../input/gamepad/gamepad_buttons";
+import { ToolHandedness } from "../../cauldron/cauldron/tool_types";
+import { WidgetFrame } from "../../widget_frame/widget_frame";
+import { EasyTuneVariableType } from "../easy_tune_variable_types";
+import { EasyTuneBaseWidgetParams } from "./base/easy_tune_base_widget";
+import { EasyTuneBoolArrayWidgetSelector } from "./bool/easy_tune_bool_array_widget_selector";
+import { EasyTuneWidgetSetup } from "./easy_tune_widget_setup";
+import { EasyTuneNoneWidget } from "./none/easy_tune_none_widget";
+import { EasyTuneNumberArrayWidgetSelector } from "./number/easy_tune_number_widget_selector";
+import { EasyTuneTransformWidget } from "./transform/easy_tune_transform_widget";
+import { EasyTuneTransformWidgetSetup } from "./transform/easy_tune_transform_widget_setup";
+
+export class EasyTuneWidgetAdditionalSetup {
+
     constructor() {
         this.myHandedness = ToolHandedness.NONE;
         this.myShowOnStart = false;
@@ -14,16 +28,16 @@ PP.EasyTuneWidgetAdditionalSetup = class EasyTuneWidgetAdditionalSetup {
     }
 };
 
-PP.EasyTuneWidget = class EasyTuneWidget {
+export class EasyTuneWidget {
 
-    constructor() {
+    constructor(engine = getMainEngine()) {
         this._myIsStarted = false;
         this._myStartVariable = null;
 
-        this._myWidgetFrame = new PP.WidgetFrame("E", 1);
+        this._myWidgetFrame = new WidgetFrame("E", 1, engine);
         this._myWidgetFrame.registerWidgetVisibleChangedEventListener(this, this._widgetVisibleChanged.bind(this));
 
-        this._mySetup = new PP.EasyTuneWidgetSetup();
+        this._mySetup = new EasyTuneWidgetSetup();
         this._myAdditionalSetup = null;
 
         this._myWidgets = [];
@@ -42,6 +56,8 @@ PP.EasyTuneWidget = class EasyTuneWidget {
         this._myRefreshVariablesTimer = 0;
 
         this._myDirty = false;
+
+        this._myEngine = engine;
     }
 
     setActiveVariable(variableName) {
@@ -70,8 +86,8 @@ PP.EasyTuneWidget = class EasyTuneWidget {
     }
 
     start(parentObject, additionalSetup, easyTuneVariables) {
-        this._myRightGamepad = PP.myRightGamepad;
-        this._myLeftGamepad = PP.myLeftGamepad;
+        this._myRightGamepad = getRightGamepad(this._myEngine);
+        this._myLeftGamepad = getLeftGamepad(this._myEngine);
         if (this._mySetup.myGamepadHandedness == ToolHandedness.RIGHT) {
             this._myGamepad = this._myRightGamepad;
         } else if (this._mySetup.myGamepadHandedness == ToolHandedness.LEFT) {
@@ -134,14 +150,14 @@ PP.EasyTuneWidget = class EasyTuneWidget {
     }
 
     _initializeWidgets() {
-        let widgetParams = new PP.EasyTuneBaseWidgetParams();
+        let widgetParams = new EasyTuneBaseWidgetParams();
         widgetParams.myVariablesImportCallback = this._importVariables.bind(this);
         widgetParams.myVariablesExportCallback = this._exportVariables.bind(this);
 
-        this._myWidgets[PP.EasyTuneVariableType.NONE] = new PP.EasyTuneNoneWidget(widgetParams);
-        this._myWidgets[PP.EasyTuneVariableType.NUMBER] = new PP.EasyTuneNumberArrayWidgetSelector(widgetParams, this._myGamepad);
-        this._myWidgets[PP.EasyTuneVariableType.BOOL] = new PP.EasyTuneBoolArrayWidgetSelector(widgetParams, this._myGamepad);
-        this._myWidgets[PP.EasyTuneVariableType.TRANSFORM] = new PP.EasyTuneTransformWidget(widgetParams, this._myGamepad);
+        this._myWidgets[EasyTuneVariableType.NONE] = new EasyTuneNoneWidget(widgetParams, this._myEngine);
+        this._myWidgets[EasyTuneVariableType.NUMBER] = new EasyTuneNumberArrayWidgetSelector(widgetParams, this._myGamepad, this._myEngine);
+        this._myWidgets[EasyTuneVariableType.BOOL] = new EasyTuneBoolArrayWidgetSelector(widgetParams, this._myGamepad, this._myEngine);
+        this._myWidgets[EasyTuneVariableType.TRANSFORM] = new EasyTuneTransformWidget(widgetParams, this._myGamepad, this._myEngine);
 
         for (let widget of this._myWidgets) {
             if (widget != null) {
@@ -167,7 +183,7 @@ PP.EasyTuneWidget = class EasyTuneWidget {
         if (this._myCurrentVariable.myType in this._myWidgets) {
             this._myCurrentWidget = this._myWidgets[this._myCurrentVariable.myType];
         } else {
-            this._myCurrentWidget = this._myWidgets[PP.EasyTuneVariableType.NONE];
+            this._myCurrentWidget = this._myWidgets[EasyTuneVariableType.NONE];
         }
 
         this._myCurrentWidget.setEasyTuneVariable(this._myCurrentVariable, this._createIndexString());
@@ -205,8 +221,8 @@ PP.EasyTuneWidget = class EasyTuneWidget {
 
     _updateGamepadWidgetVisibility() {
         if (this._myGamepad) {
-            if ((this._myGamepad.getButtonInfo(PP.GamepadButtonID.BOTTOM_BUTTON).isPressStart() && this._myGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).myIsPressed) ||
-                (this._myGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).isPressStart() && this._myGamepad.getButtonInfo(PP.GamepadButtonID.BOTTOM_BUTTON).myIsPressed)) {
+            if ((this._myGamepad.getButtonInfo(GamepadButtonID.BOTTOM_BUTTON).isPressStart() && this._myGamepad.getButtonInfo(GamepadButtonID.TOP_BUTTON).myIsPressed) ||
+                (this._myGamepad.getButtonInfo(GamepadButtonID.TOP_BUTTON).isPressStart() && this._myGamepad.getButtonInfo(GamepadButtonID.BOTTOM_BUTTON).myIsPressed)) {
                 this._toggleVisibility();
             }
         }
@@ -238,8 +254,8 @@ PP.EasyTuneWidget = class EasyTuneWidget {
 
     _updateGamepadScrollVariable(dt) {
         if (this._myGamepad && (!this._mySetup.myScrollVariableButtonID || this._myGamepad.getButtonInfo(this._mySetup.myScrollVariableButtonID).myIsPressed)) {
-            let x = this._myGamepad.getAxesInfo(PP.GamepadAxesID.THUMBSTICK).myAxes[0];
-            let y = this._myGamepad.getAxesInfo(PP.GamepadAxesID.THUMBSTICK).myAxes[1];
+            let x = this._myGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes[0];
+            let y = this._myGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes[1];
             if (Math.abs(x) > this._mySetup.myScrollVariableMinXThreshold && Math.abs(y) < this._mySetup.myScrollVariableMaxYThreshold) {
                 this._myScrollVariableTimer += dt;
                 while (this._myScrollVariableTimer > this._mySetup.myScrollVariableDelay) {
@@ -292,7 +308,7 @@ PP.EasyTuneWidget = class EasyTuneWidget {
     }
 
     _updateActiveVariable() {
-        this._myEasyTuneVariables.getEasyTuneVariables().forEach(function (value) {
+        this._myEasyTuneVariables.getEasyTuneVariablesList().forEach(function (value) {
             value.myIsActive = false;
         });
 

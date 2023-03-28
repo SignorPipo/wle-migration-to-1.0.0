@@ -1,11 +1,16 @@
+import { GamepadAxesID } from "../../../../input/gamepad/gamepad_buttons";
+import { getMainEngine } from "../../../../plugin/wl/extensions/engine_extension";
+import { EasyTuneBaseWidget } from "../base/easy_tune_base_widget";
+import { EasyTuneBoolArrayWidgetSetup } from "./easy_tune_bool_array_widget_setup";
+import { EasyTuneBoolArrayWidgetUI } from "./easy_tune_bool_array_widget_ui";
 
-PP.EasyTuneBoolArrayWidget = class EasyTuneBoolArrayWidget extends PP.EasyTuneBaseWidget {
+export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
 
-    constructor(params, arraySize, gamepad) {
+    constructor(params, arraySize, gamepad, engine = getMainEngine()) {
         super(params);
 
-        this._mySetup = new PP.EasyTuneBoolArrayWidgetSetup(arraySize);
-        this._myUI = new PP.EasyTuneBoolArrayWidgetUI();
+        this._mySetup = new EasyTuneBoolArrayWidgetSetup(arraySize);
+        this._myUI = new EasyTuneBoolArrayWidgetUI(engine);
 
         this._myGamepad = gamepad;
 
@@ -33,7 +38,7 @@ PP.EasyTuneBoolArrayWidget = class EasyTuneBoolArrayWidget extends PP.EasyTuneBa
         let stickVariableIntensity = 0;
 
         if (this._myGamepad) {
-            stickVariableIntensity = this._myGamepad.getAxesInfo(PP.GamepadAxesID.THUMBSTICK).myAxes[1];
+            stickVariableIntensity = this._myGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes[1];
         }
 
         let valueIntensity = 0;

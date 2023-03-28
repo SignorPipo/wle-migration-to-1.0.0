@@ -1,4 +1,7 @@
-PP.EasyTuneNoneWidgetSetup = class EasyTuneNoneWidgetSetup extends PP.EasyTuneBaseWidgetSetup {
+import { vec3_create } from "../../../../plugin/js/extensions/array_extension";
+import { EasyTuneBaseWidgetSetup } from "../base/easy_tune_base_widget_setup";
+
+export class EasyTuneNoneWidgetSetup extends EasyTuneBaseWidgetSetup {
 
     _getBackPanelMinY() {
         return super._getBackPanelMinY() + this.myTypeNotSupportedPanelPosition[1];

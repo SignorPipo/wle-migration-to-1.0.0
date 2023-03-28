@@ -1,4 +1,3 @@
-import { MeshUtils } from "../../cauldron/utils/mesh_utils";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { InputUtils } from "../../input/cauldron/input_utils";
 import { getMainEngine } from "../../plugin/wl/extensions/engine_extension";
@@ -7,6 +6,7 @@ import { MeshComponent, CollisionComponent, TextComponent } from "@wonderlandeng
 import { CursorTarget } from "@wonderlandengine/components";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { ToolHandedness, ToolInputSourceType } from "../cauldron/cauldron/tool_types";
+import { getDefaultResources } from "../../pp/default_resources_global";
 
 export class WidgetFrameUI {
 
@@ -26,7 +26,7 @@ export class WidgetFrameUI {
         this._myParentObject = parentObject;
         this._mySetup = setup;
         this._myAdditionalSetup = additionalSetup;
-        this._myPlaneMesh = MeshUtils.createPlaneMesh();
+        this._myPlaneMesh = getDefaultResources(this._myEngine).myMeshes.myPlane;
 
         this._createSkeleton();
         this._setTransforms();

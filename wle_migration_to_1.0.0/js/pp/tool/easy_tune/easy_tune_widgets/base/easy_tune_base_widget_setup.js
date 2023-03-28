@@ -1,4 +1,8 @@
-PP.EasyTuneBaseWidgetSetup = class EasyTuneBaseWidgetSetup {
+import { Alignment, Collider, Justification } from "@wonderlandengine/api";
+import { vec3_create, vec4_create } from "../../../../plugin/js/extensions/array_extension";
+import { ToolHandedness } from "../../../cauldron/cauldron/tool_types";
+
+export class EasyTuneBaseWidgetSetup {
 
     constructor() {
     }
@@ -42,16 +46,16 @@ PP.EasyTuneBaseWidgetSetup = class EasyTuneBaseWidgetSetup {
     _initializeBuildSetup() {
         // General
 
-        this.myBackgroundColor = [46 / 255, 46 / 255, 46 / 255, 1];
+        this.myBackgroundColor = vec4_create(46 / 255, 46 / 255, 46 / 255, 1);
 
-        this.myCursorTargetCollisionCollider = WL.Collider.Box;
+        this.myCursorTargetCollisionCollider = Collider.Box;
         this.myCursorTargetCollisionGroup = 7;
         this.myCursorTargetCollisionThickness = 0.001;
 
-        this.myDefaultTextColor = [255 / 255, 255 / 255, 255 / 255, 1];
+        this.myDefaultTextColor = vec4_create(255 / 255, 255 / 255, 255 / 255, 1);
 
-        this.myTextAlignment = WL.Alignment.Center;
-        this.myTextJustification = WL.Justification.Middle;
+        this.myTextAlignment = Alignment.Center;
+        this.myTextJustification = Justification.Middle;
         this.myTextColor = this.myDefaultTextColor;
 
         this.myLabelTextScale = vec3_create(0.19, 0.19, 0.19);
@@ -112,7 +116,7 @@ PP.EasyTuneBaseWidgetSetup = class EasyTuneBaseWidgetSetup {
             this.myBackPanelPosition = [(maxX + minX) / 2, (maxY + minY) / 2, 0];
             this.myBackBackgroundScale = [(maxX - minX) / 2, (maxY - minY) / 2, 1];
 
-            this.myBackBackgroundColor = [70 / 255, 70 / 255, 70 / 255, 1];
+            this.myBackBackgroundColor = vec4_create(70 / 255, 70 / 255, 70 / 255, 1);
         }
 
         // Import Export
@@ -157,7 +161,7 @@ PP.EasyTuneBaseWidgetSetup = class EasyTuneBaseWidgetSetup {
     }
 
     _initializeRuntimeSetup() {
-        this.myButtonHoverColor = [150 / 255, 150 / 255, 150 / 255, 1];
+        this.myButtonHoverColor = vec4_create(150 / 255, 150 / 255, 150 / 255, 1);
 
         this.myScrollVariableDelay = 0.5;
 

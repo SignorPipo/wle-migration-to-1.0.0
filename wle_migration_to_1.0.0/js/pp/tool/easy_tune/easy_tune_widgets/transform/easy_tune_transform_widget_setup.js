@@ -1,4 +1,7 @@
-PP.EasyTuneTransformWidgetSetup = class EasyTuneTransformWidgetSetup extends PP.EasyTuneBaseWidgetSetup {
+import { vec3_create } from "../../../../plugin/js/extensions/array_extension";
+import { EasyTuneBaseWidgetSetup } from "../base/easy_tune_base_widget_setup";
+
+export class EasyTuneTransformWidgetSetup extends EasyTuneBaseWidgetSetup {
 
     _getBackPanelMinY() {
         return super._getBackPanelMinY() + this.myPositionPanelPosition[1] + this.myStepPanelPosition[1];

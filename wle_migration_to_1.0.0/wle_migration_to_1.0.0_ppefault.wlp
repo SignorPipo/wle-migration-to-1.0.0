@@ -1179,6 +1179,14 @@
                 "js/pp/tool/cauldron/components",
                 "js/pp/tool/widget_frame",
                 "js/pp/tool/console_vr",
+                "js/pp/tool/easy_tune",
+                "js/pp/tool/easy_tune/components",
+                "js/pp/tool/easy_tune/easy_tune_widgets",
+                "js/pp/tool/easy_tune/easy_tune_widgets/base",
+                "js/pp/tool/easy_tune/easy_tune_widgets/bool",
+                "js/pp/tool/easy_tune/easy_tune_widgets/none",
+                "js/pp/tool/easy_tune/easy_tune_widgets/number",
+                "js/pp/tool/easy_tune/easy_tune_widgets/transform",
                 "js/playground"
             ],
             "libraryPaths": [

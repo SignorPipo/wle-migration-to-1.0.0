@@ -1,4 +1,7 @@
-PP.EasyTuneNumberArrayWidgetSetup = class EasyTuneNumberArrayWidgetSetup extends PP.EasyTuneBaseWidgetSetup {
+import { vec3_create } from "../../../../plugin/js/extensions/array_extension";
+import { EasyTuneBaseWidgetSetup } from "../base/easy_tune_base_widget_setup";
+
+export class EasyTuneNumberArrayWidgetSetup extends EasyTuneBaseWidgetSetup {
 
     constructor(arraySize) {
         super();

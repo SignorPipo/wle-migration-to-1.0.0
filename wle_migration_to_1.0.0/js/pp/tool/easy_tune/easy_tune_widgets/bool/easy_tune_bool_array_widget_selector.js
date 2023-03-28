@@ -1,7 +1,9 @@
+import { getMainEngine } from "../../../../plugin/wl/extensions/engine_extension";
+import { EasyTuneBoolArrayWidget } from "./easy_tune_bool_array_widget";
 
-PP.EasyTuneBoolArrayWidgetSelector = class EasyTuneBoolArrayWidgetSelector {
+export class EasyTuneBoolArrayWidgetSelector {
 
-    constructor(params, gamepad) {
+    constructor(params, gamepad, engine = getMainEngine()) {
         this._myGamepad = gamepad;
 
         this._myParentObject = null;
@@ -19,6 +21,8 @@ PP.EasyTuneBoolArrayWidgetSelector = class EasyTuneBoolArrayWidgetSelector {
         this._myScrollVariableRequestCallbacks = new Map();     // Signature: callback(scrollAmount)
 
         this._myCurrentArraySize = 0;
+
+        this._myEngine = engine;
     }
 
     setEasyTuneVariable(variable, appendToVariableName) {
@@ -153,7 +157,7 @@ PP.EasyTuneBoolArrayWidgetSelector = class EasyTuneBoolArrayWidgetSelector {
     }
 
     _createWidget(arraySize) {
-        this._myWidgets.set(arraySize, new PP.EasyTuneBoolArrayWidget(this._myParams, arraySize, this._myGamepad));
+        this._myWidgets.set(arraySize, new EasyTuneBoolArrayWidget(this._myParams, arraySize, this._myGamepad, this._myEngine));
         this._myWidgets.get(arraySize).start(this._myParentObject, this._myAdditionalSetup);
         this._myWidgets.get(arraySize).setVisible(false);
         this._myWidgets.get(arraySize).registerScrollVariableRequestEventListener(this, this._scrollVariableRequest.bind(this));

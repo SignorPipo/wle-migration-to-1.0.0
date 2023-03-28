@@ -1,4 +1,6 @@
-PP.EasyTuneWidgetSetup = class EasyTuneWidgetSetup {
+import { ToolHandedness } from "../../cauldron/cauldron/tool_types";
+
+export class EasyTuneWidgetSetup {
 
     constructor() {
         this._initializeRuntimeSetup();

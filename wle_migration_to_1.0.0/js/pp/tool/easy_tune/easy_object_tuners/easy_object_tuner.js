@@ -1,3 +1,5 @@
+import { EasyTuneUtils } from "../easy_tune_utils";
+
 PP.EasyObjectTuner = class EasyObjectTuner {
     constructor(object, variableName, setAsDefault, useTuneTarget) {
         this._myObject = object;
@@ -24,7 +26,7 @@ PP.EasyObjectTuner = class EasyObjectTuner {
 
         PP.myEasyTuneVariables.add(easyTuneVariable);
         if (this._mySetAsDefault) {
-            PP.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName);
+            EasyTuneUtils.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName);
         }
     }
 

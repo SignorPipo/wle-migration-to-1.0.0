@@ -1,6 +1,7 @@
 import { ColorUtils } from "../../../cauldron/utils/color_utils";
 
 PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
+
     constructor(colorModel, colorType, object, variableName, setAsDefault, useTuneTarget) {
         super(object, variableName, setAsDefault, useTuneTarget);
         this._myColorModel = colorModel;

@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { EasyTuneUtils } from "../../easy_tune_utils";
 
 export class EasySetTuneTargetChildNumberComponent extends Component {
     static TypeName = "pp-easy-set-tune-target-child-number";
@@ -26,7 +27,7 @@ export class EasySetTuneTargetChildNumberComponent extends Component {
 
         PP.myEasyTuneVariables.add(new PP.EasyTuneInt(this._myEasyTuneVariableName, 0, 10, min, max));
         if (this._mySetAsDefault) {
-            PP.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName);
+            EasyTuneUtils.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName);
         }
 
         this._myCurrentChildIndex = -1;

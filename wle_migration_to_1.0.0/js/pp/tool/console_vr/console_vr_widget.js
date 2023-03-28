@@ -10,6 +10,7 @@ import { ConsoleVRWidgetSetup } from "./console_vr_widget_setup";
 import { ConsoleVRWidgetUI } from "./console_vr_widget_ui";
 
 export class ConsoleVRWidgetAdditionalSetup {
+
     constructor() {
         this.myHandedness = ToolHandedness.NONE;
         this.myOverrideBrowserConsole = false;
@@ -22,6 +23,7 @@ export class ConsoleVRWidgetAdditionalSetup {
 }
 
 export class ConsoleVRWidgetMessage {
+
     constructor(messageType, messageLines) {
         this.myType = messageType;
         this.myLines = messageLines;
