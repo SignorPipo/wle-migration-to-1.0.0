@@ -235,7 +235,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
                     let distance = Math.random() * (maxDistance - minDistance) + minDistance;
                     let extraAxisRotation = (Math.random() * 2 - 1) * (maxExtraRotation - minExtraRotation) + minExtraRotation;
                     let extraUpRotation = (Math.random() * 2 - 1) * (maxExtraRotation - minExtraRotation) + minExtraRotation;
-                    let physXDirection = verticalDirection.slice(0);
+                    let physXDirection = verticalDirection.pp_clone();
 
                     physXDirection.vec3_rotateAxisRadians(extraAxisRotation, rotationAxis, physXDirection);
                     physXDirection.vec3_rotateAxisRadians(extraUpRotation, upDirection, physXDirection);
@@ -251,7 +251,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
                     let distance = Math.random() * (maxDistance - minDistance) + minDistance;
                     let extraAxisRotation = (Math.random() * 2 - 1) * (maxExtraRotation - minExtraRotation) + minExtraRotation;
                     let extraUpRotation = (Math.random() * 2 - 1) * (maxExtraRotation - minExtraRotation) + minExtraRotation;
-                    let physXDirection = verticalDirection.slice(0);
+                    let physXDirection = verticalDirection.pp_clone();
 
                     physXDirection.vec3_rotateAxisRadians(extraAxisRotation, rotationAxis, physXDirection);
                     physXDirection.vec3_rotateAxisRadians(extraUpRotation, upDirection, physXDirection);

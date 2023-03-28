@@ -90,12 +90,12 @@ export class EasyTuneVariableArray extends EasyTuneVariable {
     }
 
     getValue() {
-        return this.myValue.slice(0);
+        return this.myValue.pp_clone();
     }
 
     setValue(value, resetDefaultValue = false) {
         let oldValue = this.myValue;
-        this.myValue = value.slice(0);
+        this.myValue = value.pp_clone();
 
         if (resetDefaultValue) {
             EasyTuneVariableArray.prototype.setDefaultValue.call(this, value);
@@ -109,7 +109,7 @@ export class EasyTuneVariableArray extends EasyTuneVariable {
     }
 
     setDefaultValue(value) {
-        this.myDefaultValue = value.slice(0);
+        this.myDefaultValue = value.pp_clone();
     }
 };
 
@@ -183,7 +183,7 @@ export class EasyTuneInt extends EasyTuneNumber {
 
 export class EasyTuneIntArray extends EasyTuneNumberArray {
     constructor(name, value, stepPerSecond, min, max, editAllValuesTogether, engine) {
-        let tempValue = value.slice(0);
+        let tempValue = value.pp_clone();
 
         for (let i = 0; i < value.length; i++) {
             tempValue[i] = Math.round(tempValue[i]);
@@ -258,7 +258,7 @@ export class EasyTuneTransform extends EasyTuneVariable {
 
     getValue() {
         this.myTransform.mat4_setPositionRotationDegreesScale(this.myPosition, this.myRotation, this.myScale);
-        return this.myTransform.slice(0);
+        return this.myTransform.pp_clone();
     }
 
     setValue(value, resetDefaultValue = false) {

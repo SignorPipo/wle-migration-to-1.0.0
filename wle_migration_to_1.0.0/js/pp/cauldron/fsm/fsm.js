@@ -381,7 +381,7 @@ export class FSM {
     }
 
     getPendingPerforms() {
-        return this._myPendingPerforms.slice(0);
+        return this._myPendingPerforms.pp_clone();
     }
 
     clone(deepClone = false) {
@@ -397,7 +397,7 @@ export class FSM {
 
         cloneFSM._myPerformMode = this._myPerformMode;
         cloneFSM._myPerformDelayedMode = this._myPerformDelayedMode;
-        cloneFSM._myPendingPerforms = this._myPendingPerforms.slice(0);
+        cloneFSM._myPendingPerforms = this._myPendingPerforms.pp_clone();
 
         for (let entry of this._myStates.entries()) {
             let stateData = null;

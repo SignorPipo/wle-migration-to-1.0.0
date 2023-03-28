@@ -30,7 +30,7 @@ export function initComponentCloneMod() {
         clonedComponent.active = this.active;
 
         clonedComponent.collider = this.collider;
-        clonedComponent.extents = this.extents.slice(0);
+        clonedComponent.extents = this.extents.pp_clone();
         clonedComponent.group = this.group;
 
         return clonedComponent;

@@ -36,7 +36,7 @@ import './pp/plugin/js/extensions/number_extension.js';
 import './pp/plugin/wl/init_wl_plugins.js';
 import './pp/plugin/wl/extensions/engine_extension.js';
 import './pp/plugin/wl/extensions/init_wl_extentions.js';
-import {WaveMovementComponent} from './playground/wave_movement_component.js';
+import './pp/plugin/wl/extensions/object_extension.js';
 import './pp/plugin/wl/extensions/scene_extension.js';
 import './pp/plugin/wl/mods/init_wl_mods.js';
 import './pp/plugin/wl/mods/components/component_clone_mod.js';
@@ -221,7 +221,7 @@ import './pp/tool/cauldron/cauldron/tool_types.js';
 import {ToolCursorComponent} from './pp/tool/cauldron/components/tool_cursor_component.js';
 import './pp/tool/widget_frame/widget_frame.js';
 import './pp/tool/widget_frame/widget_frame_setup.js';
-import './pp/plugin/wl/extensions/object_extension.js';
+import './pp/tool/widget_frame/widget_frame_ui.js';
 import './pp/tool/console_vr/console_original_functions.js';
 import './pp/tool/console_vr/console_vr.js';
 import {ConsoleVRComponent} from './pp/tool/console_vr/console_vr_component.js';
@@ -283,7 +283,7 @@ import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
 import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
-import './pp/tool/widget_frame/widget_frame_ui.js';
+import {WaveMovementComponent} from './playground/wave_movement_component.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"
@@ -331,7 +331,6 @@ engine.registerComponent(ARCamera8thwall, Cursor, CursorTarget, DebugObject, Dev
 engine.registerComponent(GetDefaultResourcesComponent);
 engine.registerComponent(GetPlayerObjectsComponent);
 engine.registerComponent(GatewayComponent);
-engine.registerComponent(WaveMovementComponent);
 engine.registerComponent(AudioManagerComponent);
 engine.registerComponent(MuteEverythingComponent);
 engine.registerComponent(SpatialAudioListenerComponent);
@@ -408,6 +407,7 @@ engine.registerComponent(ScaleOnSpawnComponent);
 engine.registerComponent(SFXOnCollisionComponent);
 engine.registerComponent(SFXOnGrabThrowComponent);
 engine.registerComponent(TargetHitCheckComponent);
+engine.registerComponent(WaveMovementComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

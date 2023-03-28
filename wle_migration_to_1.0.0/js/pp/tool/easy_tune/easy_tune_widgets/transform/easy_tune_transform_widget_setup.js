@@ -55,7 +55,7 @@ export class EasyTuneTransformWidgetSetup extends EasyTuneBaseWidgetSetup {
         this.myValuePanelsPositions = [];
         this.myValuePanelsPositions[0] = vec3_create(0, -this._myValuePanelDistanceFromVariableLabelPanel, 0);
         for (let i = 1; i < 3; i++) {
-            this.myValuePanelsPositions[i] = this.myValuePanelsPositions[i - 1].slice(0);
+            this.myValuePanelsPositions[i] = this.myValuePanelsPositions[i - 1].pp_clone();
             this.myValuePanelsPositions[i][1] -= this._myDistanceBetweenValues;
         }
 

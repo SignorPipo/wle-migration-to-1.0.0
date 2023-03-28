@@ -72,7 +72,7 @@ export class ConsoleVRWidgetSetup {
 
         this.myButtonsCollisionCollider = this.myCursorTargetCollisionCollider;
         this.myButtonsCollisionGroup = this.myCursorTargetCollisionGroup;
-        this.myButtonsCollisionExtents = this.myButtonBackgroundScale.slice(0);
+        this.myButtonsCollisionExtents = this.myButtonBackgroundScale.pp_clone();
         this.myButtonsCollisionExtents[2] = this.myCursorTargetCollisionThickness;
 
         this.myClearButtonTextLabel = "clear";
@@ -128,7 +128,7 @@ export class ConsoleVRWidgetSetup {
         this.myNotifyIconCursorTargetPosition = vec3_create(0, 0, 0);
         this.myNotifyIconCursorTargetPosition[2] = this.myButtonsPanelPosition[2] + this.myButtonTextPosition[2] - this.myMessagesTextsPanelPosition[2]; // a little behind the button target to avoid hiding it
 
-        this.myNotifyIconCollisionExtents = this.myNotifyIconBackgroundScale.slice(0);
+        this.myNotifyIconCollisionExtents = this.myNotifyIconBackgroundScale.pp_clone();
         this.myNotifyIconCollisionExtents[2] = this.myCursorTargetCollisionThickness;
 
         this.myNotifyIconColor = vec4_create(210 / 255, 210 / 255, 210 / 255, 1);

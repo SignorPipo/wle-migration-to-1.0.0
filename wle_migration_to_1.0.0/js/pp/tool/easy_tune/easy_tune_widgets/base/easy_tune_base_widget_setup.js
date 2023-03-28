@@ -79,7 +79,7 @@ export class EasyTuneBaseWidgetSetup {
 
         this.mySideButtonCursorTargetPosition = vec3_create(0, 0, 0);
         this.mySideButtonCursorTargetPosition[2] = this._myColliderZOffset - this._myPanelZOffset;
-        this.mySideButtonCollisionExtents = this.mySideButtonBackgroundScale.slice(0);
+        this.mySideButtonCollisionExtents = this.mySideButtonBackgroundScale.pp_clone();
         this.mySideButtonCollisionExtents[2] = this.myCursorTargetCollisionThickness;
 
         this.myLeftSideButtonPosition = vec3_create(0, 0, -0.00001);
@@ -129,7 +129,7 @@ export class EasyTuneBaseWidgetSetup {
 
         this.myImportExportButtonCursorTargetPosition = vec3_create(0, 0, 0);
         this.myImportExportButtonCursorTargetPosition[2] = this._myColliderZOffset - this._myPanelZOffset;
-        this.myImportExportButtonCollisionExtents = this.myImportExportButtonBackgroundScale.slice(0);
+        this.myImportExportButtonCollisionExtents = this.myImportExportButtonBackgroundScale.pp_clone();
         this.myImportExportButtonCollisionExtents[2] = this.myCursorTargetCollisionThickness;
 
         this.myImportButtonText = "Import";
@@ -154,9 +154,9 @@ export class EasyTuneBaseWidgetSetup {
 
         // Pointer
 
-        this.myPointerCollisionExtents = this.myBackBackgroundScale.slice(0);
+        this.myPointerCollisionExtents = this.myBackBackgroundScale.pp_clone();
         this.myPointerCollisionExtents[2] = this.myCursorTargetCollisionThickness;
-        this.myPointerCursorTargetPosition = this.myBackPanelPosition.slice(0);
+        this.myPointerCursorTargetPosition = this.myBackPanelPosition.pp_clone();
         this.myPointerCursorTargetPosition[2] = this._myColliderZOffset - 0.0001; // a little behind the button target to avoid hiding it
     }
 
