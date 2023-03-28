@@ -1,14 +1,16 @@
+import { getMainEngine } from "../../../plugin/wl/extensions/engine_extension";
+import { getEasyTuneTarget, getEasyTuneVariables } from "../easy_tune_globals";
 import { EasyTuneUtils } from "../easy_tune_utils";
 
-PP.EasyObjectTuner = class EasyObjectTuner {
-    constructor(object, variableName, setAsDefault, useTuneTarget) {
+export class EasyObjectTuner {
+    constructor(object, variableName, setAsDefault, useTuneTarget, engine = getMainEngine()) {
         this._myObject = object;
         this._myUseTuneTarget = useTuneTarget;
         this._mySetAsDefault = setAsDefault;
 
         this._myEasyObject = this._myObject;
         if (this._myUseTuneTarget) {
-            this._myEasyObject = PP.myEasyTuneTarget;
+            this._myEasyObject = getEasyTuneTarget(engine);
         }
         this._myPrevEasyObject = null;
 
@@ -19,41 +21,43 @@ PP.EasyObjectTuner = class EasyObjectTuner {
         } else {
             this._myEasyTuneVariableName = variableNamePrefix.concat(variableName);
         }
+
+        this._myEngine = engine;
     }
 
     start() {
         let easyTuneVariable = this._createEasyTuneVariable(this._myEasyTuneVariableName);
 
-        PP.myEasyTuneVariables.add(easyTuneVariable);
+        getEasyTuneVariables(this._myEngine).add(easyTuneVariable);
         if (this._mySetAsDefault) {
             EasyTuneUtils.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName);
         }
     }
 
     update(dt) {
-        if (PP.myEasyTuneVariables.isActive(this._myEasyTuneVariableName)) {
+        if (getEasyTuneVariables(this._myEngine).isActive(this._myEasyTuneVariableName)) {
             if (this._myUseTuneTarget) {
-                this._myEasyObject = PP.myEasyTuneTarget;
+                this._myEasyObject = getEasyTuneTarget(engine);
             }
 
             if (this._myPrevEasyObject != this._myEasyObject) {
                 this._myPrevEasyObject = this._myEasyObject;
                 if (this._myEasyObject) {
                     let value = this._getObjectValue(this._myEasyObject);
-                    PP.myEasyTuneVariables.set(this._myEasyTuneVariableName, value, true);
+                    getEasyTuneVariables(this._myEngine).set(this._myEasyTuneVariableName, value, true);
                 } else {
                     let value = this._getDefaultValue();
-                    PP.myEasyTuneVariables.set(this._myEasyTuneVariableName, value, true);
+                    getEasyTuneVariables(this._myEngine).set(this._myEasyTuneVariableName, value, true);
                 }
             }
 
             if (this._myEasyObject) {
-                this._updateObjectValue(this._myEasyObject, PP.myEasyTuneVariables.get(this._myEasyTuneVariableName));
+                this._updateObjectValue(this._myEasyObject, getEasyTuneVariables(this._myEngine).get(this._myEasyTuneVariableName));
             }
         }
     }
 
     updateVariableValue(value) {
-        PP.myEasyTuneVariables.set(this._myEasyTuneVariableName, value);
+        getEasyTuneVariables(this._myEngine).set(this._myEasyTuneVariableName, value);
     }
 };

@@ -1,9 +1,14 @@
 import { ColorUtils } from "../../../cauldron/utils/color_utils";
+import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
+import { GamepadButtonID } from "../../../input/gamepad/gamepad_buttons";
+import { vec4_create } from "../../../plugin/js/extensions/array_extension";
+import { EasyTuneIntArray, EasyTuneNumberArray } from "../easy_tune_variable_types";
+import { EasyObjectTuner } from "./easy_object_tuner";
 
-PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
+export class EasyMeshColor extends EasyObjectTuner {
 
-    constructor(colorModel, colorType, object, variableName, setAsDefault, useTuneTarget) {
-        super(object, variableName, setAsDefault, useTuneTarget);
+    constructor(colorModel, colorType, object, variableName, setAsDefault, useTuneTarget, engine) {
+        super(object, variableName, setAsDefault, useTuneTarget, engine);
         this._myColorModel = colorModel;
         this._myColorType = colorType;
         this._myColorVariableNames = ["color", "diffuseColor", "ambientColor", "specularColor", "emissiveColor", "fogColor", "ambientFactor",];
@@ -23,9 +28,9 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
 
     _createEasyTuneVariable(variableName) {
         if (this._myColorType == 6) {
-            return new PP.EasyTuneNumberArray(variableName, this._getDefaultValue(), 0.1, 3, 0, 1);
+            return new EasyTuneNumberArray(variableName, this._getDefaultValue(), 0.1, 3, 0, 1);
         }
-        return new PP.EasyTuneIntArray(variableName, this._getDefaultValue(), 100, 0, 255);
+        return new EasyTuneIntArray(variableName, this._getDefaultValue(), 100, 0, 255);
     }
 
     _getObjectValue(object) {
@@ -76,8 +81,8 @@ PP.EasyMeshColor = class EasyMeshColor extends PP.EasyObjectTuner {
         }
 
         if (this._myColorType != 6) {
-            if ((PP.myRightGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).isPressStart() && PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).myIsPressed) ||
-                (PP.myLeftGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).isPressStart() && PP.myRightGamepad.getButtonInfo(PP.GamepadButtonID.TOP_BUTTON).myIsPressed)) {
+            if ((getRightGamepad(this._myEngine).getButtonInfo(GamepadButtonID.TOP_BUTTON).isPressStart() && getLeftGamepad(this._myEngine).getButtonInfo(GamepadButtonID.TOP_BUTTON).myIsPressed) ||
+                (getLeftGamepad(this._myEngine).getButtonInfo(GamepadButtonID.TOP_BUTTON).isPressStart() && getRightGamepad(this._myEngine).getButtonInfo(GamepadButtonID.TOP_BUTTON).myIsPressed)) {
 
                 let hsvColor = ColorUtils.color1To255(ColorUtils.rgbToHsv(color));
                 let rgbColor = ColorUtils.color1To255(color);

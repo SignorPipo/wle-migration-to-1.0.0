@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { EasyScale } from "../easy_scale";
 
 export class EasyScaleComponent extends Component {
     static TypeName = "pp-easy-scale";
@@ -11,7 +12,7 @@ export class EasyScaleComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new PP.EasyScale(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = new EasyScale(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
     }
 
     start() {

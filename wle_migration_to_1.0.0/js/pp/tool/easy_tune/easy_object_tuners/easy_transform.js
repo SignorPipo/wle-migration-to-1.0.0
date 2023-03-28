@@ -1,6 +1,10 @@
-PP.EasyTransform = class EasyTransform extends PP.EasyObjectTuner {
-    constructor(isLocal, scaleAsOne, object, variableName, setAsDefault, useTuneTarget) {
-        super(object, variableName, setAsDefault, useTuneTarget);
+import { mat4_create } from "../../../plugin/js/extensions/array_extension";
+import { EasyTuneTransform } from "../easy_tune_variable_types";
+import { EasyObjectTuner } from "./easy_object_tuner";
+
+export class EasyTransform extends EasyObjectTuner {
+    constructor(isLocal, scaleAsOne, object, variableName, setAsDefault, useTuneTarget, engine) {
+        super(object, variableName, setAsDefault, useTuneTarget, engine);
         this._myIsLocal = isLocal;
         this._myScaleAsOne = scaleAsOne;
     }
@@ -10,7 +14,7 @@ PP.EasyTransform = class EasyTransform extends PP.EasyObjectTuner {
     }
 
     _createEasyTuneVariable(variableName) {
-        return new PP.EasyTuneTransform(variableName, this._getDefaultValue(), this._myScaleAsOne);
+        return new EasyTuneTransform(variableName, this._getDefaultValue(), this._myScaleAsOne);
     }
 
     _getObjectValue(object) {
@@ -18,7 +22,7 @@ PP.EasyTransform = class EasyTransform extends PP.EasyObjectTuner {
     }
 
     _getDefaultValue() {
-        return PP.mat4_create();
+        return mat4_create();
     }
 
     _updateObjectValue(object, value) {

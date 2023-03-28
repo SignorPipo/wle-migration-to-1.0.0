@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { getEasyTuneTarget, getEasyTuneVariables, removeEasyTuneTarget, setEasyTuneTarget } from "../../easy_tune_globals";
 import { EasyTuneUtils } from "../../easy_tune_utils";
 
 export class EasySetTuneTargetChildNumberComponent extends Component {
@@ -25,17 +26,19 @@ export class EasySetTuneTargetChildNumberComponent extends Component {
             max = 0;
         }
 
-        PP.myEasyTuneVariables.add(new PP.EasyTuneInt(this._myEasyTuneVariableName, 0, 10, min, max));
+        getEasyTuneVariables(this.engine).add(new EasyTuneInt(this._myEasyTuneVariableName, 0, 10, min, max));
         if (this._mySetAsDefault) {
             EasyTuneUtils.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName);
         }
 
         this._myCurrentChildIndex = -1;
         this._myCurrentChildrenCount = childrenCount;
+
+        this._myEasyTuneTarget = null;
     }
 
     update(dt) {
-        if (PP.myEasyTuneVariables.isActive(this._myEasyTuneVariableName)) {
+        if (getEasyTuneVariables(this.engine).isActive(this._myEasyTuneVariableName)) {
             let childrenCount = this.object.pp_getChildren().length;
             if (childrenCount != this._myCurrentChildrenCount) {
                 this._myCurrentChildrenCount = childrenCount;
@@ -47,17 +50,21 @@ export class EasySetTuneTargetChildNumberComponent extends Component {
                     max = 0;
                 }
 
-                let easyTuneVariable = PP.myEasyTuneVariables.getEasyTuneVariable(this._myEasyTuneVariableName);
+                let easyTuneVariable = getEasyTuneVariables(this.engine).getEasyTuneVariable(this._myEasyTuneVariableName);
                 easyTuneVariable.setMin(min);
                 easyTuneVariable.setMax(max);
             }
 
-            let childIndex = PP.myEasyTuneVariables.get(this._myEasyTuneVariableName);
+            let childIndex = getEasyTuneVariables(this.engine).get(this._myEasyTuneVariableName);
             if (childIndex != this._myCurrentChildIndex) {
                 if (childIndex == 0 && this._myCurrentChildIndex != -1) {
-                    PP.myEasyTuneTarget = null;
+                    if (getEasyTuneTarget(this.engine) == this._myEasyTuneTarget) {
+                        removeEasyTuneTarget(this.engine);
+                    }
+                    this._myEasyTuneTarget = null;
                 } else if (childIndex > 0) {
-                    PP.myEasyTuneTarget = this.object.pp_getChildren()[childIndex - 1];
+                    this._myEasyTuneTarget = this.object.pp_getChildren()[childIndex - 1];
+                    setEasyTuneTarget(this._myEasyTuneTarget, this.engine);
                 }
 
                 this._myCurrentChildIndex = childIndex;

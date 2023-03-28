@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { EasyTransform } from "../easy_transform";
 
 export class EasyTransformComponent extends Component {
     static TypeName = "pp-easy-transform";
@@ -11,7 +12,7 @@ export class EasyTransformComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new PP.EasyTransform(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = new EasyTransform(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
     }
 
     start() {

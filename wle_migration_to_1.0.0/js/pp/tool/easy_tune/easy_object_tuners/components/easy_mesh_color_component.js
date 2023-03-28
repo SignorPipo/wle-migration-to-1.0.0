@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { EasyMeshColor } from "../easy_mesh_color";
 
 export class EasyMeshColorComponent extends Component {
     static TypeName = "pp-easy-mesh-color";
@@ -11,7 +12,7 @@ export class EasyMeshColorComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new PP.EasyMeshColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = new EasyMeshColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
     }
 
     start() {

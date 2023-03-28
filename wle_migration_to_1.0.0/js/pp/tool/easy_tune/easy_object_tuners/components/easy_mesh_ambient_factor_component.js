@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { EasyMeshAmbientFactor } from "../easy_mesh_ambient_factor";
 
 export class EasyMeshAmbientFactorComponent extends Component {
     static TypeName = "pp-easy-mesh-ambient-factor";
@@ -9,7 +10,7 @@ export class EasyMeshAmbientFactorComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new PP.EasyMeshAmbientFactor(this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = new EasyMeshAmbientFactor(this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
     }
 
     start() {

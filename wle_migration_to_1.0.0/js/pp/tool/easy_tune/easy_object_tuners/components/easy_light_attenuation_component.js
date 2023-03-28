@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { EasyLightAttenuation } from "../easy_light_attenuation";
 
 export class EasyLightAttenuationComponent extends Component {
     static TypeName = "pp-easy-light-attenuation";
@@ -9,7 +10,7 @@ export class EasyLightAttenuationComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new PP.EasyLightAttenuation(this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = new EasyLightAttenuation(this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
     }
 
     start() {

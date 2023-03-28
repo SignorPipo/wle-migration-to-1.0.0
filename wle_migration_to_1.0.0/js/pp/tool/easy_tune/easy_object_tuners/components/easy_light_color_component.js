@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { EasyLightColor } from "../easy_light_color";
 
 export class EasyLightColorComponent extends Component {
     static TypeName = "pp-easy-light-color";
@@ -10,7 +11,7 @@ export class EasyLightColorComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new PP.EasyLightColor(this._myColorModel, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = new EasyLightColor(this._myColorModel, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
     }
 
     start() {

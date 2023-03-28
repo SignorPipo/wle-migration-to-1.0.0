@@ -1,6 +1,10 @@
-PP.EasyScale = class EasyScale extends PP.EasyObjectTuner {
-    constructor(isLocal, scaleAsOne, object, variableName, setAsDefault, useTuneTarget) {
-        super(object, variableName, setAsDefault, useTuneTarget);
+import { vec3_create } from "../../../plugin/js/extensions/array_extension";
+import { EasyTuneNumberArray } from "../easy_tune_variable_types";
+import { EasyObjectTuner } from "./easy_object_tuner";
+
+export class EasyScale extends EasyObjectTuner {
+    constructor(isLocal, scaleAsOne, object, variableName, setAsDefault, useTuneTarget, engine) {
+        super(object, variableName, setAsDefault, useTuneTarget, engine);
         this._myIsLocal = isLocal;
         this._myScaleAsOne = scaleAsOne;
     }
@@ -10,7 +14,7 @@ PP.EasyScale = class EasyScale extends PP.EasyObjectTuner {
     }
 
     _createEasyTuneVariable(variableName) {
-        return new PP.EasyTuneNumberArray(variableName, this._getDefaultValue(), 1, 3, 0.001, null, this._myScaleAsOne);
+        return new EasyTuneNumberArray(variableName, this._getDefaultValue(), 1, 3, 0.001, null, this._myScaleAsOne);
     }
 
     _getObjectValue(object) {

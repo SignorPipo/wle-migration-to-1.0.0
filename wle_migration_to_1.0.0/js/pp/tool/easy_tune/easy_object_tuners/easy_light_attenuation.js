@@ -1,4 +1,8 @@
-PP.EasyLightAttenuation = class EasyLightAttenuation extends PP.EasyObjectTuner {
+import { EasyTuneNumber } from "../easy_tune_variable_types";
+import { EasyObjectTuner } from "./easy_object_tuner";
+
+export class EasyLightAttenuation extends EasyObjectTuner {
+
     constructor(object, variableName, setAsDefault, useTuneTarget) {
         super(object, variableName, setAsDefault, useTuneTarget);
     }
@@ -9,7 +13,7 @@ PP.EasyLightAttenuation = class EasyLightAttenuation extends PP.EasyObjectTuner 
     }
 
     _createEasyTuneVariable(variableName) {
-        return new PP.EasyTuneNumber(variableName, this._getDefaultValue(), 0.01, 3, 0, 1);
+        return new EasyTuneNumber(variableName, this._getDefaultValue(), 0.01, 3, 0, 1);
     }
 
     _getObjectValue(object) {

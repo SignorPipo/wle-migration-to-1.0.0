@@ -1,6 +1,9 @@
-PP.EasyMeshAmbientFactor = class EasyMeshAmbientFactor extends PP.EasyObjectTuner {
-    constructor(object, variableName, setAsDefault, useTuneTarget) {
-        super(object, variableName, setAsDefault, useTuneTarget);
+import { EasyTuneNumber } from "../easy_tune_variable_types";
+import { EasyObjectTuner } from "./easy_object_tuner";
+
+export class EasyMeshAmbientFactor extends EasyObjectTuner {
+    constructor(object, variableName, setAsDefault, useTuneTarget, engine) {
+        super(object, variableName, setAsDefault, useTuneTarget, engine);
     }
 
     _getVariableNamePrefix() {
@@ -16,7 +19,7 @@ PP.EasyMeshAmbientFactor = class EasyMeshAmbientFactor extends PP.EasyObjectTune
     }
 
     _createEasyTuneVariable(variableName) {
-        return new PP.EasyTuneNumber(variableName, this._getDefaultValue(), 0.1, 3, 0, 1);
+        return new EasyTuneNumber(variableName, this._getDefaultValue(), 0.1, 3, 0, 1);
     }
 
     _getObjectValue(object) {

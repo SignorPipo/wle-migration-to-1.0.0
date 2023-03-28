@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { EasyTextColor } from "../easy_text_color";
 
 export class EasyTextColorComponent extends Component {
     static TypeName = "pp-easy-text-color";
@@ -11,7 +12,7 @@ export class EasyTextColorComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new PP.EasyTextColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = new EasyTextColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
     }
 
     start() {
