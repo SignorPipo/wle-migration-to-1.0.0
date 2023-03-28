@@ -4,6 +4,8 @@ import { Handedness } from "../../../../../input/cauldron/input_types";
 import { GamepadAxesID } from "../../../../../input/gamepad/gamepad_buttons";
 import { quat_create, vec3_create } from "../../../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../../../../plugin/wl/extensions/engine_extension";
+import { getEasyTuneVariables } from "../../../../../tool/easy_tune/easy_tune_globals";
+import { EasyTuneNumber } from "../../../../../tool/easy_tune/easy_tune_variable_types";
 import { LocomotionUtils } from "./locomotion_utils";
 
 export class PlayerLocomotionRotateParams {
@@ -42,7 +44,7 @@ export class PlayerLocomotionRotate {
         this._mySmoothSnapVerticalRunning = false;
         this._mySmoothSnapVerticalAngleToPerform = 0;
 
-        //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("Teleport Smooth Speed", this._myParams.mySmoothSnapSpeedDegrees, 10, 3, 0));
+        //getEasyTuneVariables(this._myParams.myEngine).add(new EasyTuneNumber("Teleport Smooth Speed", this._myParams.mySmoothSnapSpeedDegrees, 10, 3, 0, undefined, this._myParams.myEngine));
     }
 
     start() {
@@ -57,7 +59,7 @@ export class PlayerLocomotionRotate {
     }
 
     update(dt) {
-        //this._myParams.mySmoothSnapSpeedDegrees = PP.myEasyTuneVariables.get("Teleport Smooth Speed");
+        //this._myParams.mySmoothSnapSpeedDegrees = getEasyTuneVariables(this._myParams.myEngine).get("Teleport Smooth Speed");
 
         this._rotateHeadHorizontally(dt);
 

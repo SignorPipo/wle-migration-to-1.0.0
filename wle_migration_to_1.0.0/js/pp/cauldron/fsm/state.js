@@ -5,8 +5,8 @@
     If you don't specify some functions the fsm will just skip them
     Or consider them always valid
 
-    The param state is of type PP.StateData and can be used to retrieve the stateID and other data
-    The param transition is of type PP.TransitionData and can be used to retrieve the transitionID, the from and to states and other data
+    The param state is of type StateData and can be used to retrieve the stateID and other data
+    The param transition is of type TransitionData and can be used to retrieve the transitionID, the from and to states and other data
 */
 
 export class State {

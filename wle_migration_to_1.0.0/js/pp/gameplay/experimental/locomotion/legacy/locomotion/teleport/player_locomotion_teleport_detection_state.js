@@ -8,6 +8,8 @@ import { MouseButtonID } from "../../../../../../input/cauldron/mouse";
 import { GamepadAxesID, GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { getPlayerObjects } from "../../../../../../pp/player_objects_global";
+import { getEasyTuneVariables } from "../../../../../../tool/easy_tune/easy_tune_globals";
+import { EasyTuneNumber } from "../../../../../../tool/easy_tune/easy_tune_variable_types";
 import { CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
 import { PlayerLocomotionTeleportDetectionVisualizer } from "./player_locomotion_teleport_detection_visualizer";
 import { PlayerLocomotionTeleportParable } from "./player_locomotion_teleport_parable";
@@ -76,10 +78,10 @@ export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTele
 
         this._myTeleportRotationOnUpNext = 0;
 
-        //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("Parable Steps", this._myTeleportParams.myDetectionParams.myTeleportParableStepLength, 1, 3, 0.01));
-        //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("Parable Gravity", this._myTeleportParams.myDetectionParams.myTeleportParableGravity, 10, 3));
-        //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("Parable Speed", this._myTeleportParams.myDetectionParams.myTeleportParableSpeed, 10, 3, 0));
-        //PP.myEasyTuneVariables.add(new PP.EasyTuneNumber("Teleport Max Distance", this._myTeleportParams.myDetectionParams.myMaxDistance, 10, 3, 0));
+        //getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Parable Steps", this._myTeleportParams.myDetectionParams.myTeleportParableStepLength, 1, 3, 0.01, undefined, this._myTeleportParams.myEngine));
+        //getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Parable Gravity", this._myTeleportParams.myDetectionParams.myTeleportParableGravity, 10, 3, undefined, undefined, this._myTeleportParams.myEngine));
+        //getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Parable Speed", this._myTeleportParams.myDetectionParams.myTeleportParableSpeed, 10, 3, 0, undefined, this._myTeleportParams.myEngine));
+        //getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Teleport Max Distance", this._myTeleportParams.myDetectionParams.myMaxDistance, 10, 3, 0, undefined, this._myTeleportParams.myEngine));
     }
 
     start() {
@@ -148,10 +150,10 @@ export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTele
     }
 
     _detectTeleportPosition() {
-        //this._myDetectionRuntimeParams.myParable.setSpeed(PP.myEasyTuneVariables.get("Parable Speed"));
-        //this._myDetectionRuntimeParams.myParable.setGravity(PP.myEasyTuneVariables.get("Parable Gravity"));
-        //this._myDetectionRuntimeParams.myParable.setStepLength(PP.myEasyTuneVariables.get("Parable Steps"));
-        //this._myTeleportParams.myDetectionParams.myMaxDistance = PP.myEasyTuneVariables.get("Teleport Max Distance");
+        //this._myDetectionRuntimeParams.myParable.setSpeed(getEasyTuneVariables(this._myTeleportParams.myEngine).get("Parable Speed"));
+        //this._myDetectionRuntimeParams.myParable.setGravity(getEasyTuneVariables(this._myTeleportParams.myEngine).get("Parable Gravity"));
+        //this._myDetectionRuntimeParams.myParable.setStepLength(getEasyTuneVariables(this._myTeleportParams.myEngine).get("Parable Steps"));
+        //this._myTeleportParams.myDetectionParams.myMaxDistance = getEasyTuneVariables(this._myTeleportParams.myEngine).get("Teleport Max Distance");
 
         if (XRUtils.isSessionActive()) {
             this._detectTeleportRotationVR();

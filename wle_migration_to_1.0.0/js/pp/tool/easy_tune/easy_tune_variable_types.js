@@ -1,13 +1,13 @@
 /*
 Easy Tune Variables Examples
 
-Number:         PP.myEasyTuneVariables.add(new EasyTuneNumber("Float", 1.00, 0.1, 3));
-Number Array:   PP.myEasyTuneVariables.add(new EasyTuneNumberArray("Float Array", [1.00, 2.00, 3.00], 0.1, 3));
-Int:            PP.myEasyTuneVariables.add(new EasyTuneInt("Int", 1, 1));
-Int Array:      PP.myEasyTuneVariables.add(new EasyTuneIntArray("Int Array", [1, 2, 3], 1));
-Bool:           PP.myEasyTuneVariables.add(new EasyTuneBool("Bool", false));
-Bool Array:     PP.myEasyTuneVariables.add(new EasyTuneBoolArray("Bool Array", [false, true, false]));
-Transform:      PP.myEasyTuneVariables.add(new EasyTuneTransform("Transform", mat4_create(), true));
+Number:         getEasyTuneVariables().add(new EasyTuneNumber("Float", 1.00, 0.1, 3));
+Number Array:   getEasyTuneVariables().add(new EasyTuneNumberArray("Float Array", [1.00, 2.00, 3.00], 0.1, 3));
+Int:            getEasyTuneVariables().add(new EasyTuneInt("Int", 1, 1));
+Int Array:      getEasyTuneVariables().add(new EasyTuneIntArray("Int Array", [1, 2, 3], 1));
+Bool:           getEasyTuneVariables().add(new EasyTuneBool("Bool", false));
+Bool Array:     getEasyTuneVariables().add(new EasyTuneBoolArray("Bool Array", [false, true, false]));
+Transform:      getEasyTuneVariables().add(new EasyTuneTransform("Transform", mat4_create(), true));
 */
 
 import { mat4_create } from "../../plugin/js/extensions/array_extension";

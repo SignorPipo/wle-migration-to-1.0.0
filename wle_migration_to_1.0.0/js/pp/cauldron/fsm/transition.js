@@ -2,8 +2,8 @@
     There is no need to inherit from this transition, especially since states can be only transitions
     It's more like an example of what is needed
     
-    The param transition (forwarded at the end every function) is of type PP.TransitionData and can be used to retrieve the transitionID and other data
-    The initState param is of type PP.StateData and can be used to retrieve the stateID and other data
+    The param transition (forwarded at the end every function) is of type TransitionData and can be used to retrieve the transitionID and other data
+    The initState param is of type StateData and can be used to retrieve the stateID and other data
 */
 
 export class Transition {
