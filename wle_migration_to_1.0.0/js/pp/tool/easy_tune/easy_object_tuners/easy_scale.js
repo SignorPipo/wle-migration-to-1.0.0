@@ -18,7 +18,7 @@ export class EasyScale extends EasyObjectTuner {
     }
 
     _getObjectValue(object) {
-        return this._myIsLocal ? object.pp_getScaleLocal() : object.pp_getScaleWorld();
+        return this._myIsLocal ? object.pp_getScaleLocal() : object.pp_getScale();
     }
 
     _getDefaultValue() {
@@ -29,7 +29,7 @@ export class EasyScale extends EasyObjectTuner {
         if (this._myIsLocal) {
             object.pp_setScaleLocal(value);
         } else {
-            object.pp_setScaleWorld(value);
+            object.pp_setScale(value);
         }
     }
 };

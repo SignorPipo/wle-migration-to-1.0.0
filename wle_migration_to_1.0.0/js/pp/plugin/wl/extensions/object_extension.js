@@ -427,7 +427,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_getTransformLocalMatrix = function pp_getTransformLocalMatrix() {
         let transformQuat = quat2_create();
         let scale = vec3_create();
-        return function pp_getTransformLocal(transform = mat4_create()) {
+        return function pp_getTransformLocalMatrix(transform = mat4_create()) {
             this.pp_getTransformLocalQuat(transformQuat);
             this.pp_getScaleLocal(scale);
             transform.mat4_fromQuat(transformQuat);

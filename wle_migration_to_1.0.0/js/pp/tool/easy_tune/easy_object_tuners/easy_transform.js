@@ -18,7 +18,7 @@ export class EasyTransform extends EasyObjectTuner {
     }
 
     _getObjectValue(object) {
-        return this._myIsLocal ? object.pp_getTransformLocal() : object.pp_getTransformWorld();
+        return this._myIsLocal ? object.pp_getTransformLocal() : object.pp_getTransform();
     }
 
     _getDefaultValue() {
@@ -29,7 +29,7 @@ export class EasyTransform extends EasyObjectTuner {
         if (this._myIsLocal) {
             object.pp_setTransformLocal(value);
         } else {
-            object.pp_setTransformWorld(value);
+            object.pp_setTransform(value);
         }
     }
 };
