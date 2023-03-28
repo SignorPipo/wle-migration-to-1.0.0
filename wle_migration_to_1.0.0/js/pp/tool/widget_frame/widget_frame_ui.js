@@ -119,8 +119,8 @@ export class WidgetFrameUI {
         this.myPinButtonText = this.myPinButtonPanel.pp_addObject();
         this.myPinButtonCursorTarget = this.myPinButtonPanel.pp_addObject();
 
-        this.myNonVRParentObject = getPlayerObjects(this._myEngine).myNonVRCamera.pp_addObject();
-        this.myNonVRParentObject.pp_translateLocal(vec3_create(0, 0, -this._mySetup._myPivotObjectDistanceFromNonVRHead));
+        this.myNonVRParentObject = getPlayerObjects(this._myEngine).myCameraNonVR.pp_addObject();
+        this.myNonVRParentObject.pp_translateLocal(vec3_create(0, 0, -this._mySetup._myPivotObjectDistanceFromHeadNonVR));
         this.myNonVRParentObject.pp_lookToLocal(vec3_create(0, 0, 1), vec3_create(0, 1, 0));
 
     }

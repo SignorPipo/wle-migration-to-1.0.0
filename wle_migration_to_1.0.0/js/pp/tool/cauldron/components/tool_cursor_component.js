@@ -77,7 +77,7 @@ export class ToolCursorComponent extends Component {
             if (this._myPulseOnHover) {
                 this._myCursorComponentNonVR.globalTarget.addHoverFunction(this._pulseOnHover.bind(this));
             }
-            this._myCursorComponentNonVR.setViewComponent(getPlayerObjects(this.engine).myNonVRCamera.pp_getComponent(ViewComponent));
+            this._myCursorComponentNonVR.setViewComponent(getPlayerObjects(this.engine).myCameraNonVR.pp_getComponent(ViewComponent));
         }
 
         let fingerCursorMeshObject = null;
@@ -168,7 +168,7 @@ ToolCursorComponent.prototype.update = function () {
                 this._myCursorComponentNonVR.active = !isUsingHand;
                 this._myCursorComponentVR.active = false;
 
-                this._myCursorObjectNonVR.pp_setTransformQuat(getPlayerObjects(this.engine).myNonVRCamera.pp_getTransformQuat(transformQuat));
+                this._myCursorObjectNonVR.pp_setTransformQuat(getPlayerObjects(this.engine).myCameraNonVR.pp_getTransformQuat(transformQuat));
             }
         }
     };

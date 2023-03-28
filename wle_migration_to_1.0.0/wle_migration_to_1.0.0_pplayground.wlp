@@ -18,7 +18,10 @@
                         "_myEyeRight": "27",
                         "_myHandLeft": "99",
                         "_myHandRight": "107",
-                        "_myHead": "74"
+                        "_myHead": "74",
+                        "_myCameraNonVR": "21",
+                        "_myHeadNonVR": "71",
+                        "_myHeadVR": "25"
                     }
                 },
                 {
@@ -93,7 +96,7 @@
             ]
         },
         "21": {
-            "name": "Non VR Camera",
+            "name": "Camera Non VR",
             "parent": "72",
             "components": [
                 {
@@ -136,11 +139,11 @@
             ]
         },
         "25": {
-            "name": "VR Head",
+            "name": "Head VR",
             "parent": "73",
             "components": [
                 {
-                    "type": "pp-set-vr-head-local-transform"
+                    "type": "pp-set-head-vr-local-transform"
                 }
             ]
         },
@@ -253,13 +256,14 @@
             ]
         },
         "71": {
-            "name": "Non VR Head",
+            "name": "Head Non VR",
             "parent": "73",
             "components": [
                 {
-                    "type": "pp-set-non-vr-head-local-transform",
-                    "pp-set-non-vr-head-local-transform": {
-                        "_myNonVRCamera": "21"
+                    "type": "pp-set-head-non-vr-local-transform",
+                    "pp-set-head-non-vr-local-transform": {
+                        "_myNonVRCamera": "21",
+                        "_myCameraNonVR": "21"
                     }
                 }
             ]
@@ -279,7 +283,8 @@
                 {
                     "type": "pp-set-head-local-transform",
                     "pp-set-head-local-transform": {
-                        "_myNonVRCamera": "21"
+                        "_myNonVRCamera": "21",
+                        "_myCameraNonVR": "21"
                     }
                 },
                 {

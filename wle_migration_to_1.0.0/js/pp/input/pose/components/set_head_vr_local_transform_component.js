@@ -3,8 +3,8 @@ import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { BasePoseParams } from "../base_pose";
 import { HeadPose } from "../head_pose";
 
-export class SetVRHeadLocalTransformComponent extends Component {
-    static TypeName = "pp-set-vr-head-local-transform";
+export class SetHeadVRLocalTransformComponent extends Component {
+    static TypeName = "pp-set-head-vr-local-transform";
     static Properties = {
         _myFixForward: { type: Type.Bool, default: true },
         _myUpdateOnViewReset: { type: Type.Bool, default: true }
@@ -35,7 +35,7 @@ export class SetVRHeadLocalTransformComponent extends Component {
 
 // IMPLEMENTATION
 
-SetVRHeadLocalTransformComponent.prototype.onPoseUpdated = function () {
+SetHeadVRLocalTransformComponent.prototype.onPoseUpdated = function () {
     let headPoseTransform = quat2_create();
     return function onPoseUpdated() {
         this.object.pp_setTransformLocalQuat(this._myHeadPose.getTransformQuat(headPoseTransform));

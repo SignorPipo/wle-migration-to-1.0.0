@@ -7,7 +7,7 @@ import { HeadPose } from "../head_pose";
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {
-        _myNonVRCamera: { type: Type.Object },
+        _myCameraNonVR: { type: Type.Object },
         _myFixForward: { type: Type.Bool, default: true },
         _myUpdateOnViewReset: { type: Type.Bool, default: true }
     };
@@ -38,19 +38,19 @@ export class SetHeadLocalTransformComponent extends Component {
 // IMPLEMENTATION
 
 SetHeadLocalTransformComponent.prototype.update = function () {
-    let nonVRCameraRotation = quat_create();
-    let nonVRCameraUp = vec3_create();
-    let nonVRCameraPosition = vec3_create();
+    let cameraNonVRRotation = quat_create();
+    let cameraNonVRUp = vec3_create();
+    let cameraNonVRPosition = vec3_create();
     return function update(dt) {
         if (XRUtils.isSessionActive(this.engine)) {
             this._myHeadPose.update(dt);
         } else {
-            nonVRCameraRotation = this._myNonVRCamera.pp_getRotationLocalQuat(nonVRCameraRotation);
+            cameraNonVRRotation = this._myCameraNonVR.pp_getRotationLocalQuat(cameraNonVRRotation);
             if (this._myFixForward) {
-                nonVRCameraRotation.quat_rotateAxisRadians(Math.PI, nonVRCameraRotation.quat_getUp(nonVRCameraUp), nonVRCameraRotation);
+                cameraNonVRRotation.quat_rotateAxisRadians(Math.PI, cameraNonVRRotation.quat_getUp(cameraNonVRUp), cameraNonVRRotation);
             }
-            this.object.pp_setPositionLocal(this._myNonVRCamera.pp_getPositionLocal(nonVRCameraPosition));
-            this.object.pp_setRotationLocalQuat(nonVRCameraRotation);
+            this.object.pp_setPositionLocal(this._myCameraNonVR.pp_getPositionLocal(cameraNonVRPosition));
+            this.object.pp_setRotationLocalQuat(cameraNonVRRotation);
         }
     };
 }();

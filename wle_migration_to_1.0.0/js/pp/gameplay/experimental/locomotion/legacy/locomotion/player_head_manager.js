@@ -47,7 +47,7 @@ export class PlayerHeadManager {
     constructor(params = new PlayerHeadManagerParams()) {
         this._myParams = params;
 
-        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myNonVRHead;
+        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myHeadNonVR;
 
         this._mySessionChangeResyncHeadTransform = null;
         this._myBlurRecoverHeadTransform = null;
@@ -390,7 +390,7 @@ PlayerHeadManager.prototype.rotateHeadQuat = function () {
             getPlayerObjects(this._myParams.myEngine).myHead.pp_setRotationQuat(newHeadRotation);
 
             newHeadRotation = newHeadRotation.quat_rotateAxisRadians(Math.PI, newHeadRotation.quat_getUp(newHeadUp), newHeadRotation);
-            getPlayerObjects(this._myParams.myEngine).myNonVRCamera.pp_setRotationQuat(newHeadRotation);
+            getPlayerObjects(this._myParams.myEngine).myCameraNonVR.pp_setRotationQuat(newHeadRotation);
         }
     };
 }();
@@ -567,7 +567,7 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
             this._mySessionChangeResyncHeadTransform = null;
         }
 
-        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myVRHead;
+        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myHeadVR;
 
         this._mySessionActive = true;
         this._mySessionBlurred = false;
@@ -603,7 +603,7 @@ PlayerHeadManager.prototype._onXRSessionEnd = function () {
         this._myDelayBlurEndResyncCounter = 0;
         this._myDelayBlurEndResyncTimer.reset();
 
-        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myNonVRHead;
+        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myHeadNonVR;
 
         this._mySessionActive = false;
         this._mySessionBlurred = false;
@@ -782,7 +782,7 @@ PlayerHeadManager.prototype._sessionChangeResync = function () {
                 newPlayerPosition = flatResyncHeadPosition.vec3_add(playerPosition.vec3_componentAlongAxis(playerUp, newPlayerPosition), newPlayerPosition);
 
                 getPlayerObjects(this._myParams.myEngine).myPlayer.pp_setPosition(newPlayerPosition);
-                getPlayerObjects(this._myParams.myEngine).myNonVRCamera.pp_resetPositionLocal();
+                getPlayerObjects(this._myParams.myEngine).myCameraNonVR.pp_resetPositionLocal();
 
                 if (this._myParams.myExitSessionResyncHeight) {
                     let resyncHeadHeight = this._getPositionHeight(resyncHeadPosition);

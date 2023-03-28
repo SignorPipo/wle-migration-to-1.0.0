@@ -8,12 +8,12 @@ export class GetPlayerObjectsComponent extends Component {
     static Properties = {
         _myPlayer: { type: Type.Object },
         _myPlayerPivot: { type: Type.Object },   // if u don't have a pivot under the player you set this to null, by default will be the same as the player
-        _myNonVRCamera: { type: Type.Object },
+        _myCameraNonVR: { type: Type.Object },
         _myEyeLeft: { type: Type.Object },
         _myEyeRight: { type: Type.Object },
         _myHead: { type: Type.Object },
-        _myNonVRHead: { type: Type.Object },
-        _myVRHead: { type: Type.Object },
+        _myHeadNonVR: { type: Type.Object },
+        _myHeadVR: { type: Type.Object },
         _myHandLeft: { type: Type.Object },
         _myHandRight: { type: Type.Object }
     };
@@ -27,10 +27,10 @@ export class GetPlayerObjectsComponent extends Component {
 
             this._myPlayerObjects.myPlayer = this._myPlayer;
             this._myPlayerObjects.myPlayerPivot = this._myPlayerPivot;
-            this._myPlayerObjects.myNonVRCamera = this._myNonVRCamera;
+            this._myPlayerObjects.myCameraNonVR = this._myCameraNonVR;
             this._myPlayerObjects.myHead = this._myHead;
-            this._myPlayerObjects.myNonVRHead = this._myNonVRHead;
-            this._myPlayerObjects.myVRHead = this._myVRHead;
+            this._myPlayerObjects.myHeadNonVR = this._myHeadNonVR;
+            this._myPlayerObjects.myHeadVR = this._myHeadVR;
             this._myPlayerObjects.myEyeLeft = this._myEyeLeft;
             this._myPlayerObjects.myEyeRight = this._myEyeRight;
             this._myPlayerObjects.myHandLeft = this._myHandLeft;

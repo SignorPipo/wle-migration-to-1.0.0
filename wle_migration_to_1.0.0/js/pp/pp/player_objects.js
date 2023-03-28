@@ -3,9 +3,9 @@ export class PlayerObjects {
         this.myPlayer = null;
         this.myPlayerPivot = null;
 
-        this.myNonVRCamera = null;
-        this.myNonVRHead = null;
-        this.myVRHead = null;
+        this.myCameraNonVR = null;
+        this.myHeadNonVR = null;
+        this.myHeadVR = null;
         this.myHead = null;
 
         this.myEyeLeft = null;
