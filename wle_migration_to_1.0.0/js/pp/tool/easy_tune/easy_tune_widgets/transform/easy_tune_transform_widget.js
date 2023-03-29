@@ -419,7 +419,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
                 this._myComponentIndex = componentIndex;
                 text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
             } else {
-                text.scalingWorld = this._mySetup.myValueTextScale;
+                text.pp_setScaleWorld(this._mySetup.myValueTextScale);
             }
 
             this._myValueEditActive = active;
@@ -431,7 +431,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             if (active) {
                 text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
             } else {
-                text.scalingWorld = this._mySetup.myStepTextScale;
+                text.pp_setScaleWorld(this._mySetup.myStepTextScale);
             }
 
             this._myStepEditActive = active;
@@ -517,6 +517,6 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
     }
 
     _genericTextUnHover(text, originalScale) {
-        text.scalingWorld = originalScale;
+        text.pp_setScaleWorld(originalScale);
     }
 };

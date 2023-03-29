@@ -87,7 +87,7 @@ export function initCursorComponentModPrototype() {
             this.showRay = false;
             this.cursorRayOrigin = vec3_create();
             this.cursorRayScale = vec3_create();
-            this.cursorRayScale.set(this.cursorRayObject.scalingLocal);
+            this.cursorRayScale.set(this.cursorRayObject.pp_getScaleLocal());
 
             /* Set ray to a good default distance of the cursor of 1m */
             this._setCursorRayTransform(null);

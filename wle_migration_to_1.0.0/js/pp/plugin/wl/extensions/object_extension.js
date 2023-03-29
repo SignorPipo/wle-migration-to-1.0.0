@@ -101,6 +101,7 @@
         - pp_reserveObjects / pp_reserveObjectsHierarchy / pp_reserveObjectsDescendants / pp_reserveObjectsChildren / pp_reserveObjectsSelf
         - pp_getComponentsAmountMap / pp_getComponentsAmountMapHierarchy / pp_getComponentsAmountMapDescendants / pp_getComponentsAmountMapChildren / pp_getComponentsAmountMapSelf
         - pp_markDirty
+        - pp_isChangedTransform
         - pp_equals
         - pp_destroy
 
@@ -2140,7 +2141,7 @@ export function initObjectExtensionProtoype() {
 
             if (this.pp_isCloneable(params)) {
                 let objectsToCloneData = [];
-                objectsToCloneData.push([this.parent, this]);
+                objectsToCloneData.push([this.pp_getParent(), this]);
 
                 // Create the object hierarchy
                 let objectsToCloneComponentsData = [];
@@ -2607,6 +2608,10 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_markDirty = function pp_markDirty() {
         return this.setDirty();
+    };
+
+    objectExtension.pp_isChangedTransform = function pp_isChangedTransform() {
+        return this.changed;
     };
 
     objectExtension.pp_equals = function pp_equals(otherObject) {
