@@ -12,7 +12,6 @@ export class ToolCursorComponent extends Component {
     static TypeName = "pp-tool-cursor";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myFixForward: { type: Type.Bool, default: true },
         _myApplyDefaultCursorOffset: { type: Type.Bool, default: true },
         _myPulseOnHover: { type: Type.Bool, default: false },
         _myShowFingerCursor: { type: Type.Bool, default: false }
@@ -21,8 +20,8 @@ export class ToolCursorComponent extends Component {
     init() {
         this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
 
-        this._myCursorPositionDefaultOffset = vec3_create(0, -0.035, -0.05);
-        this._myCursorRotationDefaultOffset = vec3_create(-30, 0, 0);
+        this._myCursorPositionDefaultOffset = vec3_create(0, -0.035, 0.05);
+        this._myCursorRotationDefaultOffset = vec3_create(30, 0, 0);
 
         this._myCursorMeshScale = vec3_create(0.0025, 0.0025, 0.0025);
         this._myCursorColor = vec4_create(255 / 255, 255 / 255, 255 / 255, 1);
@@ -32,13 +31,8 @@ export class ToolCursorComponent extends Component {
 
     start() {
         this._myToolCursorObject = this.object.pp_addObject();
-        this._myFixForwardObject = this._myToolCursorObject.pp_addObject();
 
-        if (this._myFixForward) {
-            this._myFixForwardObject.pp_rotateObject(vec3_create(0, 180, 0));
-        }
-
-        this._myCursorObjectVR = this._myFixForwardObject.pp_addObject();
+        this._myCursorObjectVR = this._myToolCursorObject.pp_addObject();
 
         if (this._myApplyDefaultCursorOffset) {
             this._myCursorObjectVR.pp_setPositionLocal(this._myCursorPositionDefaultOffset);

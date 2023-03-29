@@ -24,12 +24,7 @@ export function initCursorComponentModPrototype() {
 
         this.visible = false;
 
-        let sceneLoaded = this.onDestroy.bind(this);
-        this.engine.onSceneLoaded.push(sceneLoaded);
-        this.onDestroyCallbacks = [() => {
-            let index = this.engine.onSceneLoaded.indexOf(sceneLoaded);
-            if (index >= 0) this.engine.onSceneLoaded.splice(index, 1);
-        }];
+        this.onDestroyCallbacks = [];
 
         this.prevHitLocationLocalToTarget = vec3_create();
 

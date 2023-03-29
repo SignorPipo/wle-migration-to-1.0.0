@@ -18,7 +18,6 @@ require("./plugin/js/extensions/math_extension");
 
 require("./plugin/wl/init_wl_plugins");
 require("./plugin/wl/extensions/init_wl_extentions");
-require("./cauldron/wl/engine_globals");
 require("./plugin/wl/extensions/object_extension");
 require("./plugin/wl/extensions/scene_extension");
 require("./plugin/wl/mods/init_wl_mods");
@@ -89,6 +88,8 @@ require("./cauldron/visual/elements/visual_raycast");
 require("./cauldron/visual/elements/visual_torus");
 
 require("./cauldron/visual/components/visual_manager_component");
+
+require("./cauldron/wl/engine_globals");
 
 //	DEBUG
 require("./debug/debug_manager");
