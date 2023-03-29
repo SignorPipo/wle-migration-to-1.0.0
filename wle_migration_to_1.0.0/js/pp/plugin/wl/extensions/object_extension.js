@@ -2082,12 +2082,12 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_setActiveHierarchyBreadth = function pp_setActiveHierarchyBreadth(active) {
         let objects = this.pp_getHierarchyBreadth();
-        return setActiveObjects(objects, active);
+        setActiveObjects(objects, active);
     };
 
     objectExtension.pp_setActiveHierarchyDepth = function pp_setActiveHierarchyDepth(active) {
         let objects = this.pp_getHierarchyDepth();
-        return setActiveObjects(objects, active);
+        setActiveObjects(objects, active);
     };
 
     objectExtension.pp_setActiveDescendants = function pp_setActiveDescendants(active) {
@@ -2096,17 +2096,17 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_setActiveDescendantsBreadth = function pp_setActiveDescendantsBreadth(active) {
         let objects = this.pp_getDescendantsBreadth();
-        return setActiveObjects(objects, active);
+        setActiveObjects(objects, active);
     };
 
     objectExtension.pp_setActiveDescendantsDepth = function pp_setActiveDescendantsDepth(active) {
         let objects = this.pp_getDescendantsDepth();
-        return setActiveObjects(objects, active);
+        setActiveObjects(objects, active);
     };
 
     objectExtension.pp_setActiveChildren = function pp_setActiveChildren(active) {
         let objects = this.pp_getChildren();
-        return setActiveObjects(objects, active);
+        setActiveObjects(objects, active);
     };
 
     //Uniform Scale

@@ -21,7 +21,7 @@ export class GrabbableComponent extends Component {
     }
 
     start() {
-        this._myOldParent = this.object.parent;
+        this._myOldParent = this.object.pp_getParent();
         this._myPhysX = this.object.pp_getComponent(PhysXComponent);
         this._myOldKinematicValue = null;
     }
@@ -39,7 +39,7 @@ export class GrabbableComponent extends Component {
 
         this._myPhysX.kinematic = true;
 
-        this._myOldParent = this.object.parent;
+        this._myOldParent = this.object.pp_getParent();
         this.object.pp_setParent(grabber);
 
         this._myIsGrabbed = true;

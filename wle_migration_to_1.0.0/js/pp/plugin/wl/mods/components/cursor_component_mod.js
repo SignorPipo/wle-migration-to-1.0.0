@@ -109,7 +109,7 @@ export function initCursorComponentModPrototype() {
             this.cursorRayObject.pp_resetScaleLocal();
 
             if (hitPosition != null) {
-                this.cursorRayObject.getTranslationWorld(this.cursorRayOrigin);
+                this.cursorRayObject.pp_getPosition(this.cursorRayOrigin);
                 let dist = this.cursorRayOrigin.vec3_distance(hitPosition);
                 this.cursorRayScale[this.cursorRayScalingAxis] = dist;
                 this.cursorRayObject.pp_scaleObject(this.cursorRayScale);
@@ -147,8 +147,8 @@ export function initCursorComponentModPrototype() {
                     this.direction.vec3_set(p[0], -p[1], -1.0);
                     this.updateDirection();
                 } else {
-                    this.object.getTranslationWorld(this.origin);
-                    this.object.getForward(this.direction);
+                    this.object.pp_getPosition(this.origin);
+                    this.object.pp_getForward(this.direction);
                 }
                 let rayHit = this.rayHit = (this.rayCastMode == 0) ?
                     this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
@@ -437,7 +437,7 @@ export function initCursorComponentModPrototype() {
     Cursor.prototype.updateDirection = function () {
         let transformWorld = quat2_create();
         return function updateDirection() {
-            this.object.getTranslationWorld(this.origin);
+            this.object.pp_getPosition(this.origin);
 
             /* Reverse-project the direction into view space */
             this.direction.vec3_transformMat4(this.projectionMatrix, this.direction);
