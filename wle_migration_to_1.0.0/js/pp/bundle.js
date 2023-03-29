@@ -1,5 +1,8 @@
+require(".");
+
 //PP
 
+//  PP
 require("./pp/init_pp");
 require("./pp/player_objects");
 require("./pp/player_objects_global");
