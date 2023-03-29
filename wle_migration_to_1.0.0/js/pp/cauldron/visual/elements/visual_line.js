@@ -13,7 +13,7 @@ let visualLine = new VisualLine(visualParams);
 */
 
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../wl/engine_global";
+import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualData } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { MeshComponent } from "@wonderlandengine/api";

@@ -1,13 +1,8 @@
 import { initPlugins } from "../plugin/init_plugins";
-import { addEngine, getMainEngine, setMainEngine } from "../cauldron/wl/engine_global";
+import { easySetupEngineGlobal } from "../cauldron/wl/engine_globals";
 
 export function initPP(engine) {
-    if (engine != null) {
-        addEngine(engine);
-        if (getMainEngine() == null) {
-            setMainEngine(engine);
-        }
-    }
+    easySetupEngineGlobal(engine);
 
     initPlugins(engine);
 }

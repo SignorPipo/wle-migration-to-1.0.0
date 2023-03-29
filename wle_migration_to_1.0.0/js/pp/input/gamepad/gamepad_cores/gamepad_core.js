@@ -1,5 +1,5 @@
 import { vec2_create } from "../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../../cauldron/wl/engine_global";
+import { getMainEngine } from "../../../cauldron/wl/engine_globals";
 
 export class GamepadCore {
 

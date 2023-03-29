@@ -1,4 +1,4 @@
-import { getMainEngine } from "../wl/engine_global";
+import { getMainEngine } from "../wl/engine_globals";
 
 export function getSession(engine = getMainEngine()) {
     return engine.xrSession;

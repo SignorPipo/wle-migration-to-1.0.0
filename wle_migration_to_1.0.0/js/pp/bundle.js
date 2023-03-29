@@ -18,7 +18,7 @@ require("./plugin/js/extensions/math_extension");
 
 require("./plugin/wl/init_wl_plugins");
 require("./plugin/wl/extensions/init_wl_extentions");
-require("./cauldron/wl/engine_global");
+require("./cauldron/wl/engine_globals");
 require("./plugin/wl/extensions/object_extension");
 require("./plugin/wl/extensions/scene_extension");
 require("./plugin/wl/mods/init_wl_mods");

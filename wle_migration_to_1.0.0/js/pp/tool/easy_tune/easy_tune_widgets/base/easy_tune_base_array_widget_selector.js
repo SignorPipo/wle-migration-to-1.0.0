@@ -1,4 +1,4 @@
-import { getMainEngine } from "../../../../cauldron/wl/engine_global";
+import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
 
 export class EasyTuneBaseArrayWidgetSelector {
 

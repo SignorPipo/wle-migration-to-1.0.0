@@ -1,6 +1,6 @@
 import { Mesh, MeshAttribute, MeshIndexType } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../wl/engine_global";
+import { getMainEngine } from "../wl/engine_globals";
 
 export class MeshCreationVertexParams {
     constructor() {

@@ -6,7 +6,7 @@ import { Handedness } from "../../../../../input/cauldron/input_types";
 import { InputUtils } from "../../../../../input/cauldron/input_utils";
 import { GamepadButtonID } from "../../../../../input/gamepad/gamepad_buttons";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_global";
+import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { CollisionCheckUtils } from "../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../character_controller/collision/legacy/collision_check/collision_params";
 import { LocomotionUtils } from "./locomotion_utils";

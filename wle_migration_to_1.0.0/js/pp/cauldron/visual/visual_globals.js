@@ -1,4 +1,4 @@
-import { getMainEngine } from "../wl/engine_global";
+import { getMainEngine } from "../wl/engine_globals";
 
 let _myVisualDatas = new WeakMap();
 let _myVisualManagers = new WeakMap();

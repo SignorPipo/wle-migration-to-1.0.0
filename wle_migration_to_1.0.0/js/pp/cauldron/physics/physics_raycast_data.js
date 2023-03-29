@@ -12,7 +12,7 @@ let raycastResults = PhysicsUtils.raycast(raycastSetup);
 */
 
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../wl/engine_global";
+import { getMainEngine } from "../wl/engine_globals";
 import { PhysicsLayerFlags } from "./physics_layer_flags";
 
 export class RaycastSetup {

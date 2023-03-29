@@ -1,4 +1,4 @@
-import { getMainEngine } from "../cauldron/wl/engine_global";
+import { getMainEngine } from "../cauldron/wl/engine_globals";
 import { DebugVisualManager } from "./debug_visual_manager";
 
 export class DebugManager {

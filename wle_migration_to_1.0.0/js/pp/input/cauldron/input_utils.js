@@ -1,5 +1,5 @@
 import { XRUtils } from "../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../cauldron/wl/engine_global";
+import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { Handedness, HandednessIndex, InputSourceType, TrackedHandJointID, TrackedHandJointIDIndex } from "./input_types";
 
 export function getHandednessByIndex(index) {

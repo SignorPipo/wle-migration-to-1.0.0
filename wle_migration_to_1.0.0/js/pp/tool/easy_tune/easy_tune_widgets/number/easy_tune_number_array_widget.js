@@ -1,5 +1,5 @@
 import { GamepadAxesID } from "../../../../input/gamepad/gamepad_buttons";
-import { getMainEngine } from "../../../../cauldron/wl/engine_global";
+import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
 import { EasyTuneBaseWidget } from "../base/easy_tune_base_widget";
 import { EasyTuneNumberArrayWidgetSetup } from "./easy_tune_number_array_widget_setup";
 import { EasyTuneNumberArrayWidgetUI } from "./easy_tune_number_array_widget_ui";

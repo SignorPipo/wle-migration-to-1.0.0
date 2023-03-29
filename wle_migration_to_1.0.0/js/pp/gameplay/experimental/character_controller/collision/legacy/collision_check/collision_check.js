@@ -2,7 +2,7 @@ import { RaycastHit, RaycastResults, RaycastSetup } from "../../../../../../caul
 import { PhysicsUtils } from "../../../../../../cauldron/physics/physics_utils";
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
 import { vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../../../../../cauldron/wl/engine_global";
+import { getMainEngine } from "../../../../../../cauldron/wl/engine_globals";
 import { CollisionCheckParams, CollisionRuntimeParams } from "./collision_params";
 
 export function generate360TeleportParamsFromMovementParams(movementParams, outTeleportParams = new CollisionCheckParams()) {

@@ -1,7 +1,7 @@
 import { CollisionComponent, MeshComponent, TextComponent } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../../../cauldron/wl/engine_global";
+import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
 import { getDefaultResources } from "../../../../pp/default_resources_global";
 import { ToolHandedness } from "../../../cauldron/cauldron/tool_types";
 

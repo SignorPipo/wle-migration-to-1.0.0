@@ -1,4 +1,4 @@
-import { getMainEngine } from "../wl/engine_global";
+import { getMainEngine } from "../wl/engine_globals";
 import { ObjectPoolParams } from "../cauldron/object_pool";
 import { ObjectPoolsManager } from "../cauldron/object_pools_manager";
 import { Timer } from "../cauldron/timer";

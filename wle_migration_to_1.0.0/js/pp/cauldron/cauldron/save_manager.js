@@ -1,4 +1,4 @@
-import { getMainEngine } from "../wl/engine_global";
+import { getMainEngine } from "../wl/engine_globals";
 import { SaveUtils } from "../utils/save_utils";
 import { XRUtils } from "../utils/xr_utils";
 import { Timer } from "./timer";
