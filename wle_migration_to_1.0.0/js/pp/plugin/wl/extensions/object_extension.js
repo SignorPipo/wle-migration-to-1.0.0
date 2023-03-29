@@ -178,17 +178,20 @@ export function getObjectsByNameObjects(objects, name) {
 export class CloneParams {
 
     constructor() {
-        this.myIgnoreNonCloneable = false; // Ignores components that are not clonable
-        this.myIgnoreComponents = false; // All components are ignored, cloning only the object hierarchy
-        this.myIgnoreChildren = false; // Clones only the given object without the children
+        this.myIgnoreNonCloneable = false;  // Ignores components that are not clonable
+        this.myIgnoreComponents = false;    // All components are ignored, cloning only the object hierarchy
+        this.myIgnoreChildren = false;      // Clones only the given object without the children
 
-        this.myComponentsToIgnore = []; // Ignores all component types in this list (example: "mesh"), has lower priority over myComponentsToInclude
-        this.myComponentsToInclude = []; // Clones only the component types in this list (example: "mesh"), has higher priority over myComponentsToIgnore, if empty it's ignored
+        this.myComponentsToIgnore = [];     // Ignores all component types in this list (example: "mesh"), has lower priority over myComponentsToInclude
+        this.myComponentsToInclude = [];    // Clones only the component types in this list (example: "mesh"), has higher priority over myComponentsToIgnore, if empty it's ignored
         this.myIgnoreComponentCallback = null; // Signature: callback(component) returns true if the component must be ignored, it is called after the previous filters
 
-        this.myChildrenToIgnore = []; // Ignores all the objects in this list (example: "mesh"), has lower priority over myChildrenToInclude
-        this.myChildrenToInclude = []; // Clones only the objects in this list (example: "mesh"), has higher priority over myChildrenToIgnore, if empty it's ignored
-        this.myIgnoreChildCallback = null; // Signature: callback(object) returns true if the object must be ignored, it is called after the previous filters
+        this.myChildrenToIgnore = [];       // Ignores all the objects in this list (example: "mesh"), has lower priority over myChildrenToInclude
+        this.myChildrenToInclude = [];      // Clones only the objects in this list (example: "mesh"), has higher priority over myChildrenToIgnore, if empty it's ignored
+        this.myIgnoreChildCallback = null;  // Signature: callback(object) returns true if the object must be ignored, it is called after the previous filters
+
+        this.myUseWLClone = false;                         // Use the WLE component clone function 
+        this.myUseWLCloneIfPPCloneNotFound = false;    // Use the WLE component clone function if no pp_clone is found on the component
 
         this.myDeepCloneParams = new DeepCloneParams(); // Used to specify if the object must be deep cloned or not, you can also override the behavior for specific components and variables
 
@@ -2218,7 +2221,7 @@ export function initObjectExtensionProtoype() {
 
                     let components = objectToClone.pp_getComponentsSelf();
                     for (let component of components) {
-                        if (component.pp_clone != null) {
+                        if (component.pp_clone != null || params.myUseWLClone || params.myUseWLCloneIfPPCloneNotFound) {
                             let cloneComponent = false;
                             if (params.myComponentsToInclude.length > 0) {
                                 cloneComponent = params.myComponentsToInclude.indexOf(component.type) != -1;
@@ -2243,10 +2246,18 @@ export function initObjectExtensionProtoype() {
                     let cloneData = componentsToCloneData.shift();
                     let componentToClone = cloneData[0];
                     let currentClonedObject = cloneData[1];
+                    let clonedComponent = null;
 
-                    let clonedComponent = componentToClone.pp_clone(currentClonedObject, params.myDeepCloneParams, params.myCustomCloneParams);
-                    if (componentToClone.pp_clonePostProcess != null) {
-                        componentsToPostProcessData.push([componentToClone, clonedComponent]);
+                    if (!params.myUseWLClone && componentToClone.pp_clone != null) {
+                        clonedComponent = componentToClone.pp_clone(currentClonedObject, params.myDeepCloneParams, params.myCustomCloneParams);
+                    } else if (params.myUseWLClone || params.myUseWLCloneIfPPCloneNotFound) {
+                        clonedComponent = currentClonedObject.pp_addComponent(componentToClone.type, componentToClone);
+                    }
+
+                    if (clonedComponent != null) {
+                        if (componentToClone.pp_clonePostProcess != null) {
+                            componentsToPostProcessData.push([componentToClone, clonedComponent]);
+                        }
                     }
                 }
 
@@ -2266,7 +2277,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_isCloneable = function pp_isCloneable(params = new CloneParams()) {
-        if (params.myIgnoreNonCloneable || params.myIgnoreComponents) {
+        if (params.myIgnoreNonCloneable || params.myIgnoreComponents || params.myUseWLClone || params.myUseWLCloneIfPPCloneNotFound) {
             return true;
         }
 
