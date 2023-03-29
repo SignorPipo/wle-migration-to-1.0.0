@@ -4,7 +4,7 @@ import { quat2_create, vec3_create } from "../../../../plugin/js/extensions/arra
 export class CharacterCollisionResults {
 
     constructor() {
-        this.myCheckType = CharacterCollisionCheckType.NONE;
+        this.myCheckType = null;
 
         this.myTransformResults = new CharacterCollisionTransformResults();
 
@@ -41,13 +41,12 @@ export class CharacterCollisionResults {
 }
 
 export let CharacterCollisionCheckType = {
-    NONE: 0,
-    CHECK_MOVEMENT: 1,
-    CHECK_TELEPORT: 2,
-    CHECK_TRANSFORM: 3,
-    UPDATE_SURFACE_INFO: 4,
-    UPDATE_GROUND_INFO: 5,
-    UPDATE_CEILING_INFO: 6
+    CHECK_MOVEMENT: 0,
+    CHECK_TELEPORT: 1,
+    CHECK_TRANSFORM: 2,
+    UPDATE_SURFACE_INFO: 3,
+    UPDATE_GROUND_INFO: 4,
+    UPDATE_CEILING_INFO: 5
 };
 
 export class CharacterCollisionSurfaceInfo {
@@ -248,7 +247,7 @@ export class CharacterCollisionInternalResults {
 // IMPLEMENTATION
 
 CharacterCollisionResults.prototype.reset = function reset() {
-    this.myCheckType = CharacterCollisionCheckType.NONE;
+    this.myCheckType = null;
 
     this.myTransformResults.reset();
 
