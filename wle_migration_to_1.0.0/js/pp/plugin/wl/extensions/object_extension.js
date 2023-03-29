@@ -96,6 +96,7 @@
 
         - pp_addObject
         - pp_getName    / pp_setName
+        - pp_getEngine
         - pp_getID
         - pp_reserveObjects / pp_reserveObjectsHierarchy / pp_reserveObjectsDescendants / pp_reserveObjectsChildren / pp_reserveObjectsSelf
         - pp_getComponentsAmountMap / pp_getComponentsAmountMapHierarchy / pp_getComponentsAmountMapDescendants / pp_getComponentsAmountMapChildren / pp_getComponentsAmountMapSelf
@@ -2585,7 +2586,7 @@ export function initObjectExtensionProtoype() {
     //Cauldron
 
     objectExtension.pp_addObject = function pp_addObject() {
-        return this.engine.scene.addObject(this);
+        return this.pp_getEngine().scene.addObject(this);
     };
 
     objectExtension.pp_getName = function pp_getName() {
@@ -2594,6 +2595,10 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_setName = function pp_setName(name) {
         this.name = name;
+    };
+
+    objectExtension.pp_getEngine = function pp_getEngine() {
+        return this.engine;
     };
 
     objectExtension.pp_getID = function pp_getID() {
@@ -2618,22 +2623,22 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_reserveObjectsSelf = function pp_reserveObjectsSelf(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapSelf();
-        _reserveObjects(count, componentsAmountMap, this.engine.scene);
+        _reserveObjects(count, componentsAmountMap, this.pp_getEngine().scene);
     };
 
     objectExtension.pp_reserveObjectsHierarchy = function pp_reserveObjectsHierarchy(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapHierarchy();
-        _reserveObjects(count, componentsAmountMap, this.engine.scene);
+        _reserveObjects(count, componentsAmountMap, this.pp_getEngine().scene);
     };
 
     objectExtension.pp_reserveObjectsDescendants = function pp_reserveObjectsDescendants(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapDescendants();
-        _reserveObjects(count, componentsAmountMap, this.engine.scene);
+        _reserveObjects(count, componentsAmountMap, this.pp_getEngine().scene);
     };
 
     objectExtension.pp_reserveObjectsChildren = function pp_reserveObjectsChildren(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapChildren();
-        _reserveObjects(count, componentsAmountMap, this.engine.scene);
+        _reserveObjects(count, componentsAmountMap, this.pp_getEngine().scene);
     };
 
     objectExtension.pp_getComponentsAmountMap = function pp_getComponentsAmountMap(amountMap = new Map()) {

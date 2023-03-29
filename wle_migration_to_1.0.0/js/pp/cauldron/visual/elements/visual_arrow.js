@@ -64,7 +64,7 @@ export class VisualArrow {
 
         this._myDirty = false;
 
-        this._myVisualLine = new VisualLine(new VisualLineParams(this._myParams.myParent.engine));
+        this._myVisualLine = new VisualLine(new VisualLineParams(this._myParams.myParent.pp_getEngine()));
         this._myVisualLine.setAutoRefresh(false);
 
         this._myArrowRootObject = null;
@@ -129,7 +129,7 @@ export class VisualArrow {
     }
 
     _build() {
-        this._myArrowRootObject = this._myParams.myParent.engine.scene.pp_addObject();
+        this._myArrowRootObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
         this._myArrowObject = this._myArrowRootObject.pp_addObject();
 
         this._myArrowMeshComponent = this._myArrowObject.pp_addComponent(MeshComponent);
@@ -144,7 +144,7 @@ export class VisualArrow {
     }
 
     clone() {
-        let clonedParams = new VisualArrowParams(this._myParams.myParent.engine);
+        let clonedParams = new VisualArrowParams(this._myParams.myParent.pp_getEngine());
         clonedParams.copy(this._myParams);
 
         let clone = new VisualArrow(clonedParams);
@@ -198,15 +198,15 @@ VisualArrow.prototype._refresh = function () {
         if (this._myParams.myArrowMesh != null) {
             this._myArrowMeshComponent.mesh = this._myParams.myArrowMesh;
         } else {
-            this._myArrowMeshComponent.mesh = getDefaultResources(this._myParams.myParent.engine).myMeshes.myCone;
+            this._myArrowMeshComponent.mesh = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMeshes.myCone;
         }
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myArrowMeshComponent.material = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myMesh;
+                this._myArrowMeshComponent.material = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
-                    this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.engine).myMaterials.myFlatOpaque.clone();
+                    this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();
                 }
                 this._myArrowMeshComponent.material = this._myFlatOpaqueMaterial;
                 this._myFlatOpaqueMaterial.color = this._myParams.myColor;

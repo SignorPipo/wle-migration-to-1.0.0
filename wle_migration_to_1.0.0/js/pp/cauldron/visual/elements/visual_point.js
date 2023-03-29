@@ -107,7 +107,7 @@ export class VisualPoint {
     }
 
     _build() {
-        this._myPointObject = this._myParams.myParent.engine.scene.pp_addObject();
+        this._myPointObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
 
         this._myPointMeshComponent = this._myPointObject.pp_addComponent(MeshComponent);
     }
@@ -121,7 +121,7 @@ export class VisualPoint {
     }
 
     clone() {
-        let clonedParams = new VisualPointParams(this._myParams.myParent.engine);
+        let clonedParams = new VisualPointParams(this._myParams.myParent.pp_getEngine());
         clonedParams.copy(this._myParams);
 
         let clone = new VisualPoint(clonedParams);
@@ -159,15 +159,15 @@ VisualPoint.prototype._refresh = function () {
         if (this._myParams.myMesh != null) {
             this._myPointMeshComponent.mesh = this._myParams.myMesh;
         } else {
-            this._myPointMeshComponent.mesh = getDefaultResources(this._myParams.myParent.engine).myMeshes.mySphere;
+            this._myPointMeshComponent.mesh = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMeshes.mySphere;
         }
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myPointMeshComponent.material = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myMesh;
+                this._myPointMeshComponent.material = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
-                    this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.engine).myMaterials.myFlatOpaque.clone();
+                    this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();
                 }
                 this._myPointMeshComponent.material = this._myFlatOpaqueMaterial;
                 this._myFlatOpaqueMaterial.color = this._myParams.myColor;

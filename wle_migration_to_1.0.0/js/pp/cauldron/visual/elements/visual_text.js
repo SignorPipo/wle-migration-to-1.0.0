@@ -119,10 +119,10 @@ export class VisualText {
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myTextComponent.material = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myText;
+                this._myTextComponent.material = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myText;
             } else {
                 if (this._myTextMaterial == null) {
-                    this._myTextMaterial = getDefaultResources(this._myParams.myParent.engine).myMaterials.myText.clone();
+                    this._myTextMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myText.clone();
                 }
                 this._myTextComponent.material = this._myTextMaterial;
                 this._myTextMaterial.color = this._myParams.myColor;
@@ -139,7 +139,7 @@ export class VisualText {
     }
 
     _build() {
-        this._myTextObject = this._myParams.myParent.engine.scene.pp_addObject();
+        this._myTextObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
         this._myTextComponent = this._myTextObject.pp_addComponent(TextComponent);
     }
 
@@ -152,7 +152,7 @@ export class VisualText {
     }
 
     clone() {
-        let clonedParams = new VisualTextParams(this._myParams.myParent.engine);
+        let clonedParams = new VisualTextParams(this._myParams.myParent.pp_getEngine());
         clonedParams.copy(this._myParams);
 
         let clone = new VisualText(clonedParams);

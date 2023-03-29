@@ -136,7 +136,7 @@ export class VisualTorus {
     }
 
     _build() {
-        this._myTorusRootObject = this._myParams.myParent.engine.scene.pp_addObject();
+        this._myTorusRootObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
 
         this._fillSegmentList();
     }
@@ -151,7 +151,7 @@ export class VisualTorus {
 
     _fillSegmentList() {
         while (this._myVisualSegmentList.length < this._myParams.mySegmentsAmount) {
-            let visualSegment = new VisualLine(new VisualLineParams(this._myParams.myParent.engine));
+            let visualSegment = new VisualLine(new VisualLineParams(this._myParams.myParent.pp_getEngine()));
 
             visualSegment.setAutoRefresh(false);
             visualSegment.setVisible(false);
@@ -164,7 +164,7 @@ export class VisualTorus {
     }
 
     clone() {
-        let clonedParams = new VisualTorusParams(this._myParams.myParent.engine);
+        let clonedParams = new VisualTorusParams(this._myParams.myParent.pp_getEngine());
         clonedParams.copy(this._myParams);
 
         let clone = new VisualTorus(clonedParams);
@@ -231,10 +231,10 @@ VisualTorus.prototype._refresh = function () {
 
             if (this._myParams.myMaterial == null) {
                 if (this._myParams.myColor == null) {
-                    visualSegmentParams.myMaterial = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myMesh;
+                    visualSegmentParams.myMaterial = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
                 } else {
                     if (this._myFlatOpaqueMaterial == null) {
-                        this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.engine).myMaterials.myFlatOpaque.clone();
+                        this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();
                     }
                     visualSegmentParams.myMaterial = this._myFlatOpaqueMaterial;
                     this._myFlatOpaqueMaterial.color = this._myParams.myColor;

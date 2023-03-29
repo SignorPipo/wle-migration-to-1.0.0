@@ -111,20 +111,20 @@ export class VisualMesh {
         }
 
         if (this._myParams.myMesh == null) {
-            this._myMeshComponent.mesh = getDefaultResources(this._myParams.myParent.engine).myMeshes.mySphere;
+            this._myMeshComponent.mesh = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMeshes.mySphere;
         } else {
             this._myMeshComponent.mesh = this._myParams.myMesh;
         }
 
         if (this._myParams.myMaterial == null) {
-            this._myMeshComponent.material = getVisualData(this._myParams.myParent.engine).myDefaultMaterials.myMesh;
+            this._myMeshComponent.material = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
         } else {
             this._myMeshComponent.material = this._myParams.myMaterial;
         }
     }
 
     _build() {
-        this._myMeshObject = this._myParams.myParent.engine.scene.pp_addObject();
+        this._myMeshObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
 
         this._myMeshComponent = this._myMeshObject.pp_addComponent(MeshComponent);
     }
@@ -138,7 +138,7 @@ export class VisualMesh {
     }
 
     clone() {
-        let clonedParams = new VisualMeshParams(this._myParams.myParent.engine);
+        let clonedParams = new VisualMeshParams(this._myParams.myParent.pp_getEngine());
         clonedParams.copy(this._myParams);
 
         let clone = new VisualMesh(clonedParams);
