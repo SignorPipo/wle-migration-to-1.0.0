@@ -9,7 +9,7 @@ import { InputUtils } from "../input_utils";
 export class FingerCursorComponent extends Component {
     static TypeName = "pp-finger-cursor";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
         _myEnableMultipleClicks: { type: Type.Bool, default: true },
         _myCollisionGroup: { type: Type.Int, default: 1 },
         _myCollisionSize: { type: Type.Float, default: 0.0125 },
@@ -20,7 +20,7 @@ export class FingerCursorComponent extends Component {
         this._myLastTarget = null;
         this._myReferenceSpace = null;
         this._myHandInputSource = null;
-        this._myHandednessString = ["left", "right"][this._myHandedness];
+        this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
 
         this._myDoubleClickTimer = 0;
         this._myTripleClickTimer = 0;
@@ -129,7 +129,7 @@ export class FingerCursorComponent extends Component {
     }
 
     _updateHand() {
-        this._myHandInputSource = InputUtils.getInputSource(this._myHandednessString, InputSourceType.TRACKED_HAND, this.engine);
+        this._myHandInputSource = InputUtils.getInputSource(this._myHandednessType, InputSourceType.TRACKED_HAND, this.engine);
 
         if (this._myHandInputSource) {
             let tip = XRUtils.getFrame(this.engine).getJointPose(this._myHandInputSource.hand.get(TrackedHandJointID.INDEX_FINGER_TIP), this._myReferenceSpace);

@@ -5,7 +5,7 @@ import { TrackedHandDrawJointComponent } from "./tracked_hand_draw_joint_compone
 export class TrackedHandDrawAllJointsComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-all-joints";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
         _myFixForward: { type: Type.Bool, default: true },
         _myHideMetacarpals: { type: Type.Bool, default: true },
         _myJointMesh: { type: Type.Mesh },

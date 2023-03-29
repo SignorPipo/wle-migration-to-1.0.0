@@ -4,8 +4,8 @@ export class SetActiveComponent extends Component {
     static TypeName = "pp-set-active";
     static Properties = {
         _myActive: { type: Type.Bool, default: true },
-        _mySetActiveOn: { type: Type.Enum, values: ["self", "children", "descendants", "hierarchy"], default: "hierarchy" },
-        _mySetActiveWhen: { type: Type.Enum, values: ["init", "start", "first_update"], default: "init" }
+        _mySetActiveOn: { type: Type.Enum, values: ["Self", "Children", "Descendants", "Hierarchy"], default: "Hierarchy" },
+        _mySetActiveWhen: { type: Type.Enum, values: ["Init", "Start", "First Update"], default: "Init" }
     };
 
     init() {

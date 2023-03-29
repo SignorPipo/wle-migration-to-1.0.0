@@ -7,8 +7,8 @@ export class EasyMeshColorComponent extends Component {
         _myVariableName: { type: Type.String, default: "" },
         _myUseTuneTarget: { type: Type.Bool, default: false },
         _mySetAsDefault: { type: Type.Bool, default: false },
-        _myColorModel: { type: Type.Enum, values: ["rgb", "hsv"], default: "hsv" },
-        _myColorType: { type: Type.Enum, values: ["color", "diffuse color", "ambient color", "specular color", "emissive color", "fog color", "ambient factor"], default: "color" },
+        _myColorModel: { type: Type.Enum, values: ["RGB", "HSV"], default: "HSV" },
+        _myColorType: { type: Type.Enum, values: ["Color", "Diffuse Color", "Ambient Color", "Specular Color", "Emissive Color", "Fog Color", "Ambient Factor"], default: "Color" },
     };
 
     init() {

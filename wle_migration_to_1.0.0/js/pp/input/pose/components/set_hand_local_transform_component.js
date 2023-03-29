@@ -6,7 +6,7 @@ import { HandPose, HandPoseParams } from "../hand_pose";
 export class SetHandLocalTransformComponent extends Component {
     static TypeName = "pp-set-hand-local-transform";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
         _myFixForward: { type: Type.Bool, default: true },
         _myUpdateOnViewReset: { type: Type.Bool, default: true }
     };

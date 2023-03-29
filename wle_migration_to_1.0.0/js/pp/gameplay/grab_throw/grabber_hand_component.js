@@ -12,13 +12,13 @@ import { GrabbableComponent } from "./grabbable_component";
 export class GrabberHandComponent extends Component {
     static TypeName = "pp-grabber-hand";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
-        _myGrabButton: { type: Type.Enum, values: ["select", "squeeze", "both", "both_exclusive"], default: "squeeze" }, // both_exclusive means u can use both buttons but you have to use the same button you grabbed with to throw
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
+        _myGrabButton: { type: Type.Enum, values: ["Select", "Squeeze", "Both", "Both Exclusive"], default: "Squeeze" }, // both_exclusive means u can use both buttons but you have to use the same button you grabbed with to throw
         _mySnapOnPivot: { type: Type.Bool, default: false },
         _myMaxNumberOfObjects: { type: Type.Int, default: 1 }, // how many objects you can grab at the same time
 
         // ADVANCED SETTINGS
-        _myThrowVelocitySource: { type: Type.Enum, values: ["hand", "grabbable"], default: "hand" },
+        _myThrowVelocitySource: { type: Type.Enum, values: ["Hand", "Grabbable"], default: "Hand" },
         _myThrowLinearVelocityMultiplier: { type: Type.Float, default: 1 }, // multiply the overall throw speed, so slow throws will be multiplied too
         _myThrowMaxLinearSpeed: { type: Type.Float, default: 15 },
         _myThrowAngularVelocityMultiplier: { type: Type.Float, default: 0.5 },

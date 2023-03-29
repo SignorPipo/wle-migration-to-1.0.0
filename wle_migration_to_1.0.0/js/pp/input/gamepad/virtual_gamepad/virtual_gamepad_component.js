@@ -28,52 +28,52 @@ export class VirtualGamepadComponent extends Component {
 
         _myLeftSelectButtonVisible: { type: Type.Bool, default: true },
         _myLeftSelectButtonOrderIndex: { type: Type.Int, default: 1 },
-        _myLeftSelectButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "frame" },
+        _myLeftSelectButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Frame" },
         _myLeftSelectButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myLeftSqueezeButtonVisible: { type: Type.Bool, default: true },
         _myLeftSqueezeButtonOrderIndex: { type: Type.Int, default: 0 },
-        _myLeftSqueezeButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "square" },
+        _myLeftSqueezeButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Square" },
         _myLeftSqueezeButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myLeftThumbstickButtonVisible: { type: Type.Bool, default: true },
         _myLeftThumbstickButtonOrderIndex: { type: Type.Int, default: 4 },
-        _myLeftThumbstickButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "dot" },
+        _myLeftThumbstickButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Dot" },
         _myLeftThumbstickButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myLeftTopButtonVisible: { type: Type.Bool, default: true },
         _myLeftTopButtonOrderIndex: { type: Type.Int, default: 2 },
-        _myLeftTopButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "circle" },
+        _myLeftTopButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Circle" },
         _myLeftTopButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myLeftBottomButtonVisible: { type: Type.Bool, default: true },
         _myLeftBottomButtonOrderIndex: { type: Type.Int, default: 3 },
-        _myLeftBottomButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "ring" },
+        _myLeftBottomButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Ring" },
         _myLeftBottomButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myRightSelectButtonVisible: { type: Type.Bool, default: true },
         _myRightSelectButtonOrderIndex: { type: Type.Int, default: 1 },
-        _myRightSelectButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "frame" },
+        _myRightSelectButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Frame" },
         _myRightSelectButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myRightSqueezeButtonVisible: { type: Type.Bool, default: true },
         _myRightSqueezeButtonOrderIndex: { type: Type.Int, default: 0 },
-        _myRightSqueezeButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "square" },
+        _myRightSqueezeButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Square" },
         _myRightSqueezeButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myRightThumbstickButtonVisible: { type: Type.Bool, default: true },
         _myRightThumbstickButtonOrderIndex: { type: Type.Int, default: 4 },
-        _myRightThumbstickButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "dot" },
+        _myRightThumbstickButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Dot" },
         _myRightThumbstickButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myRightTopButtonVisible: { type: Type.Bool, default: true },
         _myRightTopButtonOrderIndex: { type: Type.Int, default: 2 },
-        _myRightTopButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "circle" },
+        _myRightTopButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Circle" },
         _myRightTopButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
 
         _myRightBottomButtonVisible: { type: Type.Bool, default: true },
         _myRightBottomButtonOrderIndex: { type: Type.Int, default: 3 },
-        _myRightBottomButtonIconType: { type: Type.Enum, values: ["none", "label", "image", "dot", "circle", "square", "ring", "frame"], default: "ring" },
+        _myRightBottomButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Ring" },
         _myRightBottomButtonIconLabelOrImageUrl: { type: Type.String, default: "" }
     };
 

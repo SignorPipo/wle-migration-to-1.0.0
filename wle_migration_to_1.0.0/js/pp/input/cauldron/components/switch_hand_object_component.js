@@ -5,7 +5,7 @@ import { InputUtils } from "../input_utils";
 export class SwitchHandObjectComponent extends Component {
     static TypeName = "pp-switch-hand-object";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
         _myGamepad: { type: Type.Object },
         _myTrackedHand: { type: Type.Object }
     };

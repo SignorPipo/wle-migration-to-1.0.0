@@ -1,6 +1,7 @@
 import { InputComponent, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
+import { InputUtils } from "../../../../input/cauldron/input_utils";
 import { vec3_create, quat_create, quat2_create, mat4_create } from "../../../js/extensions/array_extension";
 
 export function initCursorComponentMod() {
@@ -50,7 +51,7 @@ export function initCursorComponentModPrototype() {
                 this.input = inputComp;
             }
         } else {
-            this.handedness = ["left", "right"][this.handedness - 1];
+            this.handedness = InputUtils.getHandednessByIndex(this.handedness - 1);
         }
 
         this.globalTarget = this.object.pp_addComponent(CursorTarget);

@@ -8,7 +8,7 @@ import { EasyTuneWidget, EasyTuneWidgetAdditionalSetup } from "../easy_tune_widg
 export class EasyTuneComponent extends Component {
     static TypeName = "pp-easy-tune";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["none", "left", "right"], default: "none" },
+        _myHandedness: { type: Type.Enum, values: ["None", "Left", "Right"], default: "None" },
         _myShowOnStart: { type: Type.Bool, default: false },
         _myShowVisibilityButton: { type: Type.Bool, default: false },
         _myEnableGamepadScrollVariable: { type: Type.Bool, default: true },

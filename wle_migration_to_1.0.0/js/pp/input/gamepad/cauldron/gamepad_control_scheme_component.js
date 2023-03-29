@@ -9,7 +9,7 @@ export class GamepadControlSchemeComponent extends Component {
     static Properties = {
         _myShowOnStart: { type: Type.Bool, default: true },
 
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
 
         _mySelectText: { type: Type.String, default: "" },
         _mySqueezeText: { type: Type.String, default: "" },

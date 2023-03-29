@@ -5,15 +5,15 @@ import { InputUtils } from "../input_utils";
 export class TrackedHandDrawSkinComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-skin";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
         _myFixForward: { type: Type.Bool, default: true },
         _myHandSkin: { type: Type.Skin, default: null }
     };
 
     init() {
-        this._myHandednessInternal = InputUtils.getHandednessByIndex(this._myHandedness);
+        this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
 
-        this._myTrackedHandPose = new TrackedHandPose(this._myHandednessInternal, new TrackedHandPoseParams(true, this.engine));
+        this._myTrackedHandPose = new TrackedHandPose(this._myHandednessType, new TrackedHandPoseParams(true, this.engine));
         this._myTrackedHandPose.setFixForward(this._myFixForward);
     }
 

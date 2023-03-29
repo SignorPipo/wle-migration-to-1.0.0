@@ -7,11 +7,11 @@ import { ConsoleVRWidget, ConsoleVRWidgetAdditionalSetup } from "./console_vr_wi
 export class ConsoleVRComponent extends Component {
     static TypeName = "pp-console-vr";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["none", "left", "right"], default: "none" },
+        _myHandedness: { type: Type.Enum, values: ["None", "Left", "Right"], default: "None" },
         _myOverrideBrowserConsole: { type: Type.Bool, default: true },
         _myShowOnStart: { type: Type.Bool, default: false },
         _myShowVisibilityButton: { type: Type.Bool, default: false },
-        _myPulseOnNewMessage: { type: Type.Enum, values: ["never", "always", "when hidden"], default: "never" }
+        _myPulseOnNewMessage: { type: Type.Enum, values: ["Never", "Always", "When Hidden"], default: "Never" }
     };
 
     init() {

@@ -8,7 +8,7 @@ export class CADisplayLeaderboardComponent extends Component {
         _myIsLocal: { type: Type.Bool, default: false },
         _myIsAscending: { type: Type.Bool, default: false },
         _myScoresAmount: { type: Type.Int, default: 10 },
-        _myScoreFormat: { type: Type.Enum, values: ["value", "hours:minutes:seconds", "minutes:seconds", "seconds", "hours:minutes", "minutes"], default: "value" },
+        _myScoreFormat: { type: Type.Enum, values: ["Value", "Hours:Minutes:Seconds", "Minutes:Seconds", "Seconds", "Hours:Minutes", "Minutes"], default: "Value" },
         _myPositionAndUsernameSeparator: { type: Type.String, default: " - " },
         _myNumberOfLinesBetweenScores: { type: Type.Int, default: 1 }
     };

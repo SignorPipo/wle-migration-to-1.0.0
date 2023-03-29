@@ -7,7 +7,7 @@ export class EasyLightColorComponent extends Component {
         _myVariableName: { type: Type.String, default: "" },
         _mySetAsDefault: { type: Type.Bool, default: false },
         _myUseTuneTarget: { type: Type.Bool, default: false },
-        _myColorModel: { type: Type.Enum, values: ["rgb", "hsv"], default: "hsv" }
+        _myColorModel: { type: Type.Enum, values: ["RGB", "HSV"], default: "HSV" }
     };
 
     init() {

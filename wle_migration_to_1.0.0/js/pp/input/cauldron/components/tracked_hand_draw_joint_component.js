@@ -6,29 +6,29 @@ import { InputUtils } from "../input_utils";
 export class TrackedHandDrawJointComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-joint";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
         _myFixForward: { type: Type.Bool, default: true },
         _myJointID: {
             type: Type.Enum, values:
                 [
-                    "wrist",
-                    "thumb metacarpal", "thumb phalanx proximal", "thumb phalanx distal", "thumb tip",
-                    "index metacarpal", "index phalanx proximal", "index phalanx intermediate", "index phalanx distal", "index tip",
-                    "middle metacarpal", "middle phalanx proximal", "middle phalanx intermediate", "middle phalanx distal", "middle tip",
-                    "ring metacarpal", "ring phalanx proximal", "ring phalanx intermediate", "ring phalanx distal", "ring tip",
-                    "pinky metacarpal", "pinky phalanx proximal", "pinky phalanx intermediate", "pinky phalanx distal", "pinky tip"
+                    "Wrist",
+                    "Thumb Metacarpal", "Thumb Phalanx Proximal", "Thumb Phalanx Distal", "Thumb Tip",
+                    "Index Metacarpal", "Index Phalanx Proximal", "Index Phalanx Intermediate", "Index Phalanx Distal", "Index Tip",
+                    "Middle Metacarpal", "Middle Phalanx Proximal", "Middle Phalanx Intermediate", "Middle Phalanx Distal", "Middle Tip",
+                    "Ring Metacarpal", "Ring Phalanx Proximal", "Ring Phalanx Intermediate", "Ring Phalanx Distal", "Ring Tip",
+                    "Pinky Metacarpal", "Pinky Phalanx Proximal", "Pinky Phalanx Intermediate", "Pinky Phalanx Distal", "Pinky Tip"
                 ],
-            default: "wrist"
+            default: "Wrist"
         },
         _myJointMesh: { type: Type.Mesh },
         _myJointMaterial: { type: Type.Material }
     };
 
     init() {
-        this._myHandednessInternal = InputUtils.getHandednessByIndex(this._myHandedness);
+        this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
         this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
 
-        this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessInternal, this._myJointIDInternal, new BasePoseParams(this.engine));
+        this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessType, this._myJointIDInternal, new BasePoseParams(this.engine));
         this._myTrackedHandJointPose.setFixForward(this._myFixForward);
     }
 

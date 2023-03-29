@@ -6,7 +6,7 @@ import { GamepadAxesEvent, GamepadAxesID, GamepadButtonEvent, GamepadButtonID } 
 export class GamepadMeshAnimatorComponent extends Component {
     static TypeName = "pp-gamepad-mesh-animator";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
         _mySelect: { type: Type.Object, default: null },
         _mySqueeze: { type: Type.Object, default: null },
         _myThumbstick: { type: Type.Object, default: null },

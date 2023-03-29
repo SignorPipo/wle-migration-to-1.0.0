@@ -6,8 +6,8 @@ export class GrabbableComponent extends Component {
     static Properties = {
         _myThrowLinearVelocityMultiplier: { type: Type.Float, default: 1 },
         _myThrowAngularVelocityMultiplier: { type: Type.Float, default: 1 },
-        _myKinematicValueOnRelease: { type: Type.Enum, values: ["true", "false", "own"], default: "false" },
-        _myParentOnRelease: { type: Type.Enum, values: ["null", "own"], default: "own" }
+        _myKinematicValueOnRelease: { type: Type.Enum, values: ["True", "False", "Own"], default: "False" },
+        _myParentOnRelease: { type: Type.Enum, values: ["Root", "Own"], default: "Own" }
     };
 
     init() {

@@ -3,6 +3,7 @@ import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { FingerCursorComponent } from "../../../input/cauldron/components/finger_cursor_component";
 import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
+import { InputUtils } from "../../../input/cauldron/input_utils";
 import { quat2_create, vec3_create, vec4_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { getPlayerObjects } from "../../../pp/player_objects_global";
@@ -10,7 +11,7 @@ import { getPlayerObjects } from "../../../pp/player_objects_global";
 export class ToolCursorComponent extends Component {
     static TypeName = "pp-tool-cursor";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["left", "right"], default: "left" },
+        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
         _myFixForward: { type: Type.Bool, default: true },
         _myApplyDefaultCursorOffset: { type: Type.Bool, default: true },
         _myPulseOnHover: { type: Type.Bool, default: false },
@@ -18,7 +19,7 @@ export class ToolCursorComponent extends Component {
     }
 
     init() {
-        this._myHandednessString = ["left", "right"][this._myHandedness];
+        this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
 
         this._myCursorPositionDefaultOffset = vec3_create(0, -0.035, -0.05);
         this._myCursorRotationDefaultOffset = vec3_create(-30, 0, 0);
@@ -119,7 +120,7 @@ export class ToolCursorComponent extends Component {
         if (XRUtils.getSession(this.engine) && XRUtils.getSession(this.engine).inputSources) {
             for (let i = 0; i < XRUtils.getSession(this.engine).inputSources.length; i++) {
                 let input = XRUtils.getSession(this.engine).inputSources[i];
-                if (input.hand && input.handedness == this._myHandednessString) {
+                if (input.hand && input.handedness == this._myHandednessType) {
                     isUsingHand = true;
                     break;
                 }
