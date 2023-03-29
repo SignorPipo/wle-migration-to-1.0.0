@@ -26,4 +26,4 @@ export class SpatialAudioListenerComponent extends Component {
                 this._myUp[0], this._myUp[1], this._myUp[2]);
         }
     }
-};
+}

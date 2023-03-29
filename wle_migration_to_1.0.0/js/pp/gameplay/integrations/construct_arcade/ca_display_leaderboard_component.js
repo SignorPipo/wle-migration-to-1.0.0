@@ -146,4 +146,4 @@ export class CADisplayLeaderboardComponent extends Component {
 
         return clonedComponent;
     }
-};
+}

@@ -45,4 +45,4 @@ export class TrackedHandDrawSkinComponent extends Component {
             this._myJoints[i] = this.engine.wrapObject(skinJointIDs[i]);
         }
     }
-};
+}

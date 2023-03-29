@@ -85,4 +85,4 @@ export class EasyLightColor extends EasyObjectTuner {
 
         return color;
     }
-};
+}

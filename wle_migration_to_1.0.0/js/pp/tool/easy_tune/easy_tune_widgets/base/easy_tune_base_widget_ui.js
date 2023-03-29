@@ -288,4 +288,4 @@ export class EasyTuneBaseWidgetUI {
     _setTransformForNonVR() {
         this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectPositions[ToolHandedness.NONE]);
     }
-};
+}

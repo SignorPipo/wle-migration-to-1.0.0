@@ -45,4 +45,4 @@ export class EasyLightAttenuation extends EasyObjectTuner {
 
         return attenuation;
     }
-};
+}

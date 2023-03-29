@@ -150,4 +150,4 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
 
         this._myFunctionsPerformanceAnalysisResultsLogger = new DebugFunctionsPerformanceAnalysisResultsLogger(functionsPerformanceAnalysisResultsLoggerParams);
     }
-};
+}

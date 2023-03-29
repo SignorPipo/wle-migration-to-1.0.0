@@ -179,4 +179,4 @@ export class XRGamepadCore extends GamepadCore {
             this._mySqueezePressed = false;
         }
     }
-};
+}

@@ -142,4 +142,4 @@ export class ClassicGamepadCore extends GamepadCore {
 
         return classicGamepad;
     }
-};
+}

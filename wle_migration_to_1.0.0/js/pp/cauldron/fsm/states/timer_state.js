@@ -52,4 +52,4 @@ export class TimerState extends State {
             this._myTransitionArgs = transitionArgs;
         }
     }
-};
+}

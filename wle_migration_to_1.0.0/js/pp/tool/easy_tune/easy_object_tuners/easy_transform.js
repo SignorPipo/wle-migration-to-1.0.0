@@ -32,4 +32,4 @@ export class EasyTransform extends EasyObjectTuner {
             object.pp_setTransform(value);
         }
     }
-};
+}

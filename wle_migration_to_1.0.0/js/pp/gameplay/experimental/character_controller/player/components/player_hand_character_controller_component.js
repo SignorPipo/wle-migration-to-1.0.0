@@ -19,4 +19,4 @@ export class PlayerHandCharacterControllerComponent extends Component {
     getPlayerHandCharacterController() {
         return this._myPlayerHandCharacterController;
     }
-};
+}

@@ -39,4 +39,4 @@ export class SetActiveComponent extends Component {
             this.object.pp_setActive(this._myActive);
         }
     }
-};
+}

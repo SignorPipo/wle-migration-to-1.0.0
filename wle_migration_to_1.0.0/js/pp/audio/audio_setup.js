@@ -66,4 +66,4 @@ export class AudioSetup {
     set myRate(rate) {
         this._myRate = rate;
     }
-};
+}

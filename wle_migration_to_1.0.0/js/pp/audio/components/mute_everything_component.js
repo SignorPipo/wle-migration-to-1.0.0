@@ -8,4 +8,4 @@ export class MuteEverythingComponent extends Component {
     start() {
         Howler.mute(true);
     }
-};
+}

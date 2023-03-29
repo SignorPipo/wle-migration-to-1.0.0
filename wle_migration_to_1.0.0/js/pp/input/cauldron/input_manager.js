@@ -33,4 +33,4 @@ export class InputManager {
     getGamepadsManager() {
         return this._myGamepadsManager;
     }
-};
+}

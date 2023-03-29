@@ -167,4 +167,4 @@ export class EasyTuneBaseWidgetSetup {
 
         this._initializeRuntimeSetupHook();
     }
-};
+}

@@ -19,4 +19,4 @@ export class PlayerViewOcclusionComponent extends Component {
     getPlayerViewOcclusion() {
         return this._myPlayerViewOcclusion;
     }
-};
+}

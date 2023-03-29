@@ -46,4 +46,4 @@ export class VirtualGamepadGamepadCore extends GamepadCore {
     getHapticActuators() {
         return this._myHapticActuators;
     }
-};
+}

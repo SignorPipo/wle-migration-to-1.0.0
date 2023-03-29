@@ -474,4 +474,4 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         return mesh;
     }
-};
+}

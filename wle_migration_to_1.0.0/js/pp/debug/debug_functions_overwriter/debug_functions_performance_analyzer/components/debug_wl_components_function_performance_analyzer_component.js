@@ -72,4 +72,4 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
             _myResetMaxResultsShortcutEnabled: this._myResetMaxResultsShortcutEnabled
         });
     }
-};
+}

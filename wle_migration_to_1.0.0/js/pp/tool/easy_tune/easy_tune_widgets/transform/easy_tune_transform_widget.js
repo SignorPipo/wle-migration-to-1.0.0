@@ -519,4 +519,4 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
     _genericTextUnHover(text, originalScale) {
         text.pp_setScaleWorld(originalScale);
     }
-};
+}

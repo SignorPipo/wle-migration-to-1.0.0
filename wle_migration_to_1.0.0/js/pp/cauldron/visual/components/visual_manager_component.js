@@ -67,4 +67,4 @@ export class VisualManagerComponent extends Component {
             removeVisualData(this.engine);
         }
     }
-};
+}

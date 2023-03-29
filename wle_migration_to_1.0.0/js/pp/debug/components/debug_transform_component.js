@@ -20,4 +20,4 @@ export class DebugTransformComponent extends Component {
         this.object.pp_getTransform(this._myDebugTransformParams.myTransform);
         this._myDebugVisualTransform.paramsUpdated();
     }
-};
+}

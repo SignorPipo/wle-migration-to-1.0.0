@@ -4,4 +4,4 @@ export class SyncedCharacterController extends CharacterController {
     constructor() {
         super();
     }
-};
+}

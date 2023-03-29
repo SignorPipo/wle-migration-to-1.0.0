@@ -53,4 +53,4 @@ export class ObjectPoolsManager {
             this._myPools.get(poolIDOrObject).release(object);
         }
     }
-};
+}

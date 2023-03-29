@@ -21,4 +21,4 @@ export class GatewayComponent extends Component {
         this._myVisualManager.active = true;
         this._myDebugManager.active = true;
     }
-};
+}

@@ -18,4 +18,4 @@ export class DebugManager {
     update(dt) {
         this._myDebugVisualManager.update(dt);
     }
-};
+}

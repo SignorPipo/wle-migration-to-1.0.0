@@ -18,4 +18,4 @@ export class EasyTuneImportVariablesComponent extends Component {
             EasyTuneUtils.importEasyTuneVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, undefined, undefined, this.engine);
         }
     }
-};
+}

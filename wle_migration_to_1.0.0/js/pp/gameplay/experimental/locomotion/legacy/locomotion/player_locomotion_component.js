@@ -136,4 +136,4 @@ export class PlayerLocomotionComponent extends Component {
 
         return physicsFlags;
     }
-};
+}

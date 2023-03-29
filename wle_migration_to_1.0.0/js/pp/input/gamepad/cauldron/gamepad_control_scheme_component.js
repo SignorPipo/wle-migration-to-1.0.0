@@ -246,4 +246,4 @@ export class GamepadControlSchemeComponent extends Component {
             this._myTopButtonObject.pp_setActive(false);
         }
     }
-};
+}

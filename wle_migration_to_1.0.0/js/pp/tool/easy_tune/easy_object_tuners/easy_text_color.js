@@ -85,4 +85,4 @@ export class EasyTextColor extends EasyObjectTuner {
 
         return material;
     }
-};
+}

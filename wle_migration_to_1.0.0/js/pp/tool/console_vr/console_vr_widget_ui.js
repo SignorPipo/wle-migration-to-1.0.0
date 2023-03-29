@@ -355,4 +355,4 @@ export class ConsoleVRWidgetUI {
     _setTransformForNonVR() {
         this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[ToolHandedness.NONE]);
     }
-};
+}

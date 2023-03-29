@@ -60,4 +60,4 @@ export class SwitchHandObjectComponent extends Component {
 
         this._myCurrentInputSourceType = null;
     }
-};
+}

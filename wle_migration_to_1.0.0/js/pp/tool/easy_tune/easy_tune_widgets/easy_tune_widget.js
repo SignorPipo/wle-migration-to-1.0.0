@@ -348,4 +348,4 @@ export class EasyTuneWidget {
             this._myCurrentWidget.onExportFailure();
         }
     }
-};
+}

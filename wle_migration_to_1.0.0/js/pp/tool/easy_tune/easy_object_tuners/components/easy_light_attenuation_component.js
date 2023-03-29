@@ -20,4 +20,4 @@ export class EasyLightAttenuationComponent extends Component {
     update(dt) {
         this._myEasyObjectTuner.update(dt);
     }
-};
+}

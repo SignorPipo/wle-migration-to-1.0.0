@@ -16,4 +16,4 @@ export class EasyTuneWidgetSetup {
 
         this.myRefreshVariablesDelay = null;
     }
-};
+}

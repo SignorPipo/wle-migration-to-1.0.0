@@ -44,4 +44,4 @@ export class TargetHitCheckComponent extends Component {
             this._myParticlesSpawner.spawn(this.object.pp_getPosition());
         }
     }
-};
+}

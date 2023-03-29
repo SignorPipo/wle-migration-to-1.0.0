@@ -841,4 +841,4 @@ export class ConsoleVRWidget {
             return value;
         }
     }
-};
+}

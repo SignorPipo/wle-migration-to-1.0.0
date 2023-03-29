@@ -51,4 +51,4 @@ export class DebugPPFunctionsPerformanceAnalyzerComponent extends Component {
             _myResetMaxResultsShortcutEnabled: this._myResetMaxResultsShortcutEnabled
         });
     }
-};
+}

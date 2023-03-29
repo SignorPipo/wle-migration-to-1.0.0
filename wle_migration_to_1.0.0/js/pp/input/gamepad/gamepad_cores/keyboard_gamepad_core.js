@@ -112,4 +112,4 @@ export class KeyboardGamepadCore extends GamepadCore {
     getHapticActuators() {
         return this._myHapticActuators;
     }
-};
+}

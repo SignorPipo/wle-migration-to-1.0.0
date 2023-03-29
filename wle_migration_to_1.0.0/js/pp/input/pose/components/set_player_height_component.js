@@ -43,4 +43,4 @@ export class SetPlayerHeightComponent extends Component {
             this.object.pp_setPositionLocal(vec3_create(localPosition[0], this._myEyesHeight, localPosition[2]));
         }
     }
-};
+}

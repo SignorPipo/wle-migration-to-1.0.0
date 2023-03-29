@@ -131,4 +131,4 @@ export class UniversalGamepad extends BaseGamepad {
 
         return this._myHapticActuators;
     }
-};
+}

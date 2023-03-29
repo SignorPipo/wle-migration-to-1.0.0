@@ -222,4 +222,4 @@ export class WidgetFrameUI {
             this.myPinButtonPanel.pp_setPositionLocal(this._mySetup.myPinButtonPosition[ToolHandedness.NONE].myPosition);
         }
     }
-};
+}

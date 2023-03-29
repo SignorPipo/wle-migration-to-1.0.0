@@ -141,4 +141,4 @@ export class EasyTuneBoolArrayWidgetUI extends EasyTuneBaseWidgetUI {
             this.setAdditionalButtonsActive(this._myAdditionalButtonsActive);
         }
     }
-};
+}

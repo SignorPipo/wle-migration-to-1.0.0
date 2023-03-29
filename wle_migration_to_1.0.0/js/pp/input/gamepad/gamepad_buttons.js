@@ -187,4 +187,4 @@ export class GamepadPulseInfo {
 
         return value;
     }
-};
+}

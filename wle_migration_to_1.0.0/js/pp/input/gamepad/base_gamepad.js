@@ -410,4 +410,4 @@ export class BaseGamepad {
     _createAxesData() {
         return vec2_create(0, 0);
     }
-};
+}

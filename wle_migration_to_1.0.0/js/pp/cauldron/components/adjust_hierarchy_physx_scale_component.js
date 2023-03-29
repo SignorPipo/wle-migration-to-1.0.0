@@ -40,4 +40,4 @@ export class AdjustHierarchyPhysXScaleComponent extends Component {
             }
         }
     }
-};
+}

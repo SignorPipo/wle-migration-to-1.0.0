@@ -156,4 +156,4 @@ export class FingerCursorComponent extends Component {
     _onXRSessionEnd(session) {
         this._myReferenceSpace = null;
     }
-};
+}

@@ -17,4 +17,4 @@ export class PlayMusicComponent extends Component {
             this._myStarted = true;
         }
     }
-};
+}

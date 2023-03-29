@@ -57,4 +57,4 @@ export class GetPlayerObjectsComponent extends Component {
             removePlayerObjects(this.engine);
         }
     }
-};
+}

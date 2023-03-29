@@ -118,4 +118,4 @@ export class PlayerLocomotionTeleportTeleportState extends PlayerLocomotionTelep
 
         this._myParentFSM.performDelayed("done");
     }
-};
+}

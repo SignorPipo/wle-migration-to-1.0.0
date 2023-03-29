@@ -13,4 +13,4 @@ export class ClearConsoleOnXRSessionStartComponent extends Component {
             }
         }.bind(this));
     }
-};
+}

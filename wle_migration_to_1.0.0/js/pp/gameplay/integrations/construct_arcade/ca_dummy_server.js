@@ -73,4 +73,4 @@ export class CADummyServer {
             callbackOnDone(user);
         }
     }
-};
+}

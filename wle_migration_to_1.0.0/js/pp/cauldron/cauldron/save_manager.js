@@ -448,4 +448,4 @@ export class SaveManager {
     _isCacheEnabled(overrideCacheEnabled = null) {
         return (this._myCacheEnabled && overrideCacheEnabled == null) || (overrideCacheEnabled != null && overrideCacheEnabled);
     }
-};
+}

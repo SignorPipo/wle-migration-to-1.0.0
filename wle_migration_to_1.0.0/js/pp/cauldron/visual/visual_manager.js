@@ -240,4 +240,4 @@ export class VisualManager {
         this.addVisualElementType(VisualElementType.RAYCAST, () => new VisualRaycast(new VisualRaycastParams(this._myEngine)));
         this.addVisualElementType(VisualElementType.TORUS, () => new VisualTorus(new VisualTorusParams(this._myEngine)));
     }
-};
+}

@@ -80,4 +80,4 @@ export class TrackedHandJointPose extends BasePose {
     _onXRSessionEndHook() {
         this._myInputSource = null;
     }
-};
+}

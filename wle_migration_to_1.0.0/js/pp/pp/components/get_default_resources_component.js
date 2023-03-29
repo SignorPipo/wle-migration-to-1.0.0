@@ -62,4 +62,4 @@ export class GetDefaultResourcesComponent extends Component {
             removeDefaultResources(this.engine);
         }
     }
-};
+}

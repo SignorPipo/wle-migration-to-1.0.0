@@ -214,4 +214,4 @@ export class AudioPlayer {
             }
         }
     }
-};
+}

@@ -182,4 +182,4 @@ export class ConsoleVRWidgetSetup {
 
         this.myGamepadScrollOnlyOnHover = true;
     }
-};
+}

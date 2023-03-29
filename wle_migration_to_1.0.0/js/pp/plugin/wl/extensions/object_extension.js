@@ -2720,4 +2720,4 @@ function _reserveObjects(count, componentsAmountMap, scene) {
     }
 
     scene.reserveObjects(objectsToReserve, componentsToReserve);
-};
+}

@@ -57,4 +57,4 @@ export class EasyMeshAmbientFactor extends EasyObjectTuner {
 
         return material;
     }
-};
+}

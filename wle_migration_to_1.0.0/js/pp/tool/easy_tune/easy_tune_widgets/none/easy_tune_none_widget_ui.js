@@ -23,4 +23,4 @@ export class EasyTuneNoneWidgetUI extends EasyTuneBaseWidgetUI {
         this._setupTextComponent(this.myTypeNotSupportedTextComponent);
         this.myTypeNotSupportedTextComponent.text = this._mySetup.myTypeNotSupportedText;
     }
-};
+}

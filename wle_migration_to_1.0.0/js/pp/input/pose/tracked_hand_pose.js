@@ -123,4 +123,4 @@ export class TrackedHandPose {
     isForceEmulatedVelocities() {
         return this._myForceEmulatedVelocities;
     }
-};
+}

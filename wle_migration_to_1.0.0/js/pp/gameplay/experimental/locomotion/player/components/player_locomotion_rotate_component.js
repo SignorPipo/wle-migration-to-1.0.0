@@ -19,4 +19,4 @@ export class PlayerLocomotionRotateComponent extends Component {
     getPlayerLocomotionRotate() {
         return this._myPlayerLocomotionRotate;
     }
-};
+}

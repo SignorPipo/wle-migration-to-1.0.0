@@ -48,4 +48,4 @@ export class EasyTuneBoolArrayWidgetSetup extends EasyTuneBaseWidgetSetup {
         this.myThumbstickToggleThreshold = 0.6;
         this.myButtonEditDelay = 0;
     }
-};
+}

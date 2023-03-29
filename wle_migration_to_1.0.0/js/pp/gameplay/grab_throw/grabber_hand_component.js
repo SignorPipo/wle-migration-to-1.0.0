@@ -387,4 +387,4 @@ class _GrabberHandComponentGrabbableData {
             this._myAngularVelocityHistory.pop();
         }
     }
-};
+}

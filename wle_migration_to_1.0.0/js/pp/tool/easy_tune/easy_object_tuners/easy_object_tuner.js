@@ -60,4 +60,4 @@ export class EasyObjectTuner {
     updateVariableValue(value) {
         getEasyTuneVariables(this._myEngine).set(this._myEasyTuneVariableName, value);
     }
-};
+}

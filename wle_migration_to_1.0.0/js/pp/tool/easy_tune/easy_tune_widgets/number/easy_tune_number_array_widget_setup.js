@@ -58,4 +58,4 @@ export class EasyTuneNumberArrayWidgetSetup extends EasyTuneBaseWidgetSetup {
         this.myStepMultiplierStepPerSecond = 2.25;
         this.myButtonEditDelay = 0;
     }
-};
+}

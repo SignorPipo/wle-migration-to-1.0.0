@@ -294,4 +294,4 @@ export class EasyTuneTransform extends EasyTuneVariable {
     toJSON() {
         return this.getValue().vec_toString();
     }
-};
+}

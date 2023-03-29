@@ -71,4 +71,4 @@ export class EasySetTuneTargetChildNumberComponent extends Component {
             }
         }
     }
-};
+}

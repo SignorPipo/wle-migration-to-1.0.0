@@ -299,4 +299,4 @@ export class VirtualGamepadComponent extends Component {
             }
         }
     }
-};
+}

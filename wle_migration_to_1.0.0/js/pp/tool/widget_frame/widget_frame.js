@@ -157,4 +157,4 @@ export class WidgetFrame {
             material.color = this._mySetup.myButtonDisabledBackgroundColor;
         }
     }
-};
+}

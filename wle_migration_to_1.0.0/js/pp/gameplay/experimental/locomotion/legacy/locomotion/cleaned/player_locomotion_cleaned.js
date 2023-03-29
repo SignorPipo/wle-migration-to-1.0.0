@@ -514,4 +514,4 @@ export class CleanedPlayerLocomotion {
 
         this._myLocomotionMovementFSM.init("init");
     }
-};
+}

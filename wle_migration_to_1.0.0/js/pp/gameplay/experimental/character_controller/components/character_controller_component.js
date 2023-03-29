@@ -19,4 +19,4 @@ export class CharacterControllerComponent extends Component {
     getCharacterController() {
         return this._myCharacterController;
     }
-};
+}

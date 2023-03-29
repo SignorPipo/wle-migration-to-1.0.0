@@ -335,4 +335,4 @@ export class PlayerObscureManager {
             this._myObscureParentObject.pp_setParent(null, false);
         }
     }
-};
+}

@@ -22,4 +22,4 @@ export class AudioManagerComponent extends Component {
             removeAudioManager(this.engine);
         }
     }
-};
+}

@@ -105,4 +105,4 @@ export class EasyTuneComponent extends Component {
             removeEasyTuneVariables(this.engine);
         }
     }
-};
+}

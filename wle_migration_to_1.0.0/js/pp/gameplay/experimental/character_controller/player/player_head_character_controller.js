@@ -4,4 +4,4 @@ export class PlayerHeadCharacterController extends SyncedCharacterController {
     constructor() {
         super();
     }
-};
+}

@@ -18,4 +18,4 @@ export class CopyHandTransformComponent extends Component {
         this.object.pp_setTransformQuat(hand.pp_getTransformQuat());
         this.object.pp_setScale(hand.pp_getScale());
     }
-};
+}

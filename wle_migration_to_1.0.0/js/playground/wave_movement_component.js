@@ -74,4 +74,4 @@ export class WaveMovementComponent extends Component {
     _randomMaxDistance(middle) {
         return Math.pp_random(middle - middle / 3, middle + middle / 3);
     }
-};
+}

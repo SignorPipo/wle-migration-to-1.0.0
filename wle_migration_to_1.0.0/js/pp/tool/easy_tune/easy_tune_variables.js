@@ -84,4 +84,4 @@ export class EasyTuneVariables {
     unregisterValueChangedEventListener(variableName, callbackID, callback) {
         this._myVariables.get(variableName).unregisterValueChangedEventListener(callbackID);
     }
-};
+}

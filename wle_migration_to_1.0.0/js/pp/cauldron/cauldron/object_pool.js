@@ -143,4 +143,4 @@ export class ObjectPool {
 
         return equals;
     }
-};
+}

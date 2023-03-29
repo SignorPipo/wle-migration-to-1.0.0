@@ -10,4 +10,4 @@ export class CopyPlayerTransformComponent extends Component {
         this.object.pp_setTransformQuat(player.pp_getTransformQuat());
         this.object.pp_setScale(player.pp_getScale());
     }
-};
+}

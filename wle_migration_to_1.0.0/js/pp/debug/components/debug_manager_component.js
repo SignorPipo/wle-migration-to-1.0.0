@@ -34,4 +34,4 @@ export class DebugManagerComponent extends Component {
             removeDebugManager(this.engine);
         }
     }
-};
+}

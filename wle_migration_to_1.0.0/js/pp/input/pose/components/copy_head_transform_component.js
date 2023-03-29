@@ -10,4 +10,4 @@ export class CopyHeadTransformComponent extends Component {
         this.object.pp_setTransformQuat(head.pp_getTransformQuat());
         this.object.pp_setScale(head.pp_getScale());
     }
-};
+}

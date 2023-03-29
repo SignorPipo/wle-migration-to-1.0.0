@@ -204,4 +204,4 @@ export class IntRangeOverValue extends NumberRangeOverValue {
 
         super(startRange, endRange, startInterpolationValue, endInterpolationValue, easingFunction, roundingFunction);
     }
-};
+}

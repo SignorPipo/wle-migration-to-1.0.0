@@ -18,4 +18,4 @@ export class Transition {
     perform(fsm, transition, ...args) {
     }
 
-};
+}

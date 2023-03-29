@@ -19,4 +19,4 @@ export class PlayerLocomotionGravityComponent extends Component {
     getPlayerLocomotionGravity() {
         return this._myPlayerLocomotionGravity;
     }
-};
+}

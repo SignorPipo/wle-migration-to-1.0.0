@@ -19,4 +19,4 @@ export class PlayerLocomotionTeleportComponent extends Component {
     getPlayerLocomotionTeleport() {
         return this._myPlayerLocomotionTeleport;
     }
-};
+}

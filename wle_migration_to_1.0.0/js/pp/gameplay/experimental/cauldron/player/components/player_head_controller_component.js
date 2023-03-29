@@ -19,4 +19,4 @@ export class PlayerHeadControllerComponent extends Component {
     getPlayerHeadController() {
         return this._myPlayerHeadController;
     }
-};
+}

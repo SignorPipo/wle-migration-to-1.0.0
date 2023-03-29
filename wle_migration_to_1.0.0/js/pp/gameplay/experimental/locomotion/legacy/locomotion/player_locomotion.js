@@ -628,4 +628,4 @@ export class PlayerLocomotion {
 
         this._myLocomotionMovementFSM.init("init");
     }
-};
+}

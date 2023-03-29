@@ -32,4 +32,4 @@ export class EasySetTuneTargeetGrabComponent extends Component {
         //this._myGrabber.unregisterGrabEventListener(this);
         this._myGrabber.unregisterThrowEventListener(this);
     }
-};
+}

@@ -4,4 +4,4 @@ export class HeadPose extends BasePose {
     _getPose(xrFrame) {
         return xrFrame.getViewerPose(this._myReferenceSpace);
     }
-};
+}

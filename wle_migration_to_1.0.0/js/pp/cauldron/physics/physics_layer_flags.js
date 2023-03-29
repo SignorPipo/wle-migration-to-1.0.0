@@ -69,4 +69,4 @@ export class PhysicsLayerFlags {
     setMask(layerMask) {
         this._myLayerMask = layerMask;
     }
-};
+}

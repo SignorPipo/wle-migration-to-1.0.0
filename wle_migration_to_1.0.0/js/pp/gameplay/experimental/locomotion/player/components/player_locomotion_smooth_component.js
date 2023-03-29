@@ -19,4 +19,4 @@ export class PlayerLocomotionSmoothComponent extends Component {
     getPlayerLocomotionSmooth() {
         return this._myPlayerLocomotionSmooth;
     }
-};
+}

@@ -32,4 +32,4 @@ export class EasyScale extends EasyObjectTuner {
             object.pp_setScale(value);
         }
     }
-};
+}

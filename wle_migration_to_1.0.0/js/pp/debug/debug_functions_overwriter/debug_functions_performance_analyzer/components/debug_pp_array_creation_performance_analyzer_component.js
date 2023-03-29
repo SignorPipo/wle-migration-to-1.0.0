@@ -44,4 +44,4 @@ export class DebugPPArrayCreationPerformanceAnalyzerComponent extends Component 
             _myResetMaxResultsShortcutEnabled: this._myResetMaxResultsShortcutEnabled
         });
     }
-};
+}

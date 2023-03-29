@@ -79,4 +79,4 @@ export class ParticleComponent extends Component {
         clonedComponent.active = this.active;
         return clonedComponent;
     }
-};
+}

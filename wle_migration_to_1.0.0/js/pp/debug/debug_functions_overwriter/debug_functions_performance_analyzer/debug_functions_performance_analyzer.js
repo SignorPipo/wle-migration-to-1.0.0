@@ -480,4 +480,4 @@ export class DebugFunctionsPerformanceAnalyzer extends DebugFunctionsOverwriter 
 
         return isPerformanceAnalyzer;
     }
-};
+}

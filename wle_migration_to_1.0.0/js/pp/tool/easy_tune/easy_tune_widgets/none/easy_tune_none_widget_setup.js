@@ -16,4 +16,4 @@ export class EasyTuneNoneWidgetSetup extends EasyTuneBaseWidgetSetup {
         this.myTypeNotSupportedTextScale = vec3_create(0.275, 0.275, 0.275);
         this.myTypeNotSupportedText = "Type Not Supported";
     }
-};
+}
