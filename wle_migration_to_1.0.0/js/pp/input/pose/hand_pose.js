@@ -29,6 +29,10 @@ export class HandPose extends BasePose {
         return this._myHandedness;
     }
 
+    getInputSource() {
+        return this._myInputSource;
+    }
+
     getInputSourceType() {
         if (this._myInputSource == null) {
             return null;

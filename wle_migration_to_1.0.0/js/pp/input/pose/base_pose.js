@@ -86,10 +86,6 @@ export class BasePose {
         return this._myReferenceSpace;
     }
 
-    getInputSource() {
-        return this._myInputSource;
-    }
-
     getPosition() {
         // implemented outside class definition
     }

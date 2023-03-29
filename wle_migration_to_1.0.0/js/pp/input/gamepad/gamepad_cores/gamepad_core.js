@@ -29,7 +29,7 @@ export class GamepadCore {
         this._myManageHandPose = manageHandPose;
     }
 
-    doesManageHandPose() {
+    isManagingHandPose() {
         return this._myManageHandPose;
     }
 

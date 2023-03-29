@@ -64,6 +64,9 @@ export class InputManagerComponent extends Component {
         let leftXRGamepadCore = new XRGamepadCore(leftHandPose);
         let rightXRGamepadCore = new XRGamepadCore(rightHandPose);
 
+        leftXRGamepadCore.setManageHandPose(true);
+        rightXRGamepadCore.setManageHandPose(true);
+
         this._myInputManager.getGamepadsManager().getLeftGamepad().addGamepadCore("pp_left_xr_gamepad", leftXRGamepadCore);
         this._myInputManager.getGamepadsManager().getRightGamepad().addGamepadCore("pp_right_xr_gamepad", rightXRGamepadCore);
 
