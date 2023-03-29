@@ -27,7 +27,7 @@ export class SwitchHandObjectComponent extends Component {
             this._start();
         }
 
-        let inputSourceType = InputUtils.getInputSourceTypeByHandedness(this._myHandednessType);
+        let inputSourceType = InputUtils.getInputSourceTypeByHandedness(this._myHandednessType, this.engine);
         if (inputSourceType != null && this._myCurrentInputSourceType != inputSourceType) {
             this._myCurrentInputSourceType = inputSourceType;
 

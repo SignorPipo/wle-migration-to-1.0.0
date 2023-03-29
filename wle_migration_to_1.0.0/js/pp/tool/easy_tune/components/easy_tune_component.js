@@ -56,10 +56,10 @@ export class EasyTuneComponent extends Component {
 
         additionalSetup.myEnableVariablesImportExportButtons = this._myEnableVariablesImportExportButtons;
         additionalSetup.myVariablesImportCallback = function (onSuccessCallback, onFailureCallback) {
-            EasyTuneUtils.importEasyTuneVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, onSuccessCallback, onFailureCallback);
+            EasyTuneUtils.importEasyTuneVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, onSuccessCallback, onFailureCallback, this.engine);
         }.bind(this);
         additionalSetup.myVariablesExportCallback = function (onSuccessCallback, onFailureCallback) {
-            EasyTuneUtils.exportEasyTuneVariables(this._myVariablesExportURL, onSuccessCallback, onFailureCallback);
+            EasyTuneUtils.exportEasyTuneVariables(this._myVariablesExportURL, onSuccessCallback, onFailureCallback, this.engine);
         }.bind(this);
 
         this._myWidget.start(this.object, additionalSetup, getEasyTuneVariables(this.engine));

@@ -126,7 +126,7 @@ export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTele
     _confirmTeleport() {
         let confirmTeleport = false;
 
-        if (!XRUtils.isSessionActive()) {
+        if (!XRUtils.isSessionActive(this._myTeleportParams.myEngine)) {
             if (getMouse(this._myTeleportParams.myEngine).isInsideView()) {
                 confirmTeleport = getMouse(this._myTeleportParams.myEngine).isButtonPressEnd(MouseButtonID.MIDDLE);
             }
@@ -143,7 +143,7 @@ export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTele
     _cancelTeleport() {
         let cancelTeleport = false;
 
-        if (!XRUtils.isSessionActive()) {
+        if (!XRUtils.isSessionActive(this._myTeleportParams.myEngine)) {
             cancelTeleport = getMouse(this._myTeleportParams.myEngine).isButtonPressEnd(MouseButtonID.RIGHT) || !getMouse(this._myTeleportParams.myEngine).isInsideView();
         } else {
             cancelTeleport = getGamepads(this._myTeleportParams.myEngine)[this._myTeleportParams.myHandedness].getButtonInfo(GamepadButtonID.THUMBSTICK).isPressed();
@@ -158,7 +158,7 @@ export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTele
         //this._myDetectionRuntimeParams.myParable.setStepLength(getEasyTuneVariables(this._myTeleportParams.myEngine).get("Parable Steps"));
         //this._myTeleportParams.myDetectionParams.myMaxDistance = getEasyTuneVariables(this._myTeleportParams.myEngine).get("Teleport Max Distance");
 
-        if (XRUtils.isSessionActive()) {
+        if (XRUtils.isSessionActive(this._myTeleportParams.myEngine)) {
             this._detectTeleportRotationVR();
             this._detectTeleportPositionVR();
         } else {

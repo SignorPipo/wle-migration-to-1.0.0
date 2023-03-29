@@ -85,7 +85,7 @@ PlayerLocomotionRotate.prototype._rotateHeadHorizontally = function () {
 
         let axes = getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
 
-        if (!this._myParams.myIsSnapTurn || (this._myParams.mySnapTurnOnlyVR && !XRUtils.isSessionActive())) {
+        if (!this._myParams.myIsSnapTurn || (this._myParams.mySnapTurnOnlyVR && !XRUtils.isSessionActive(this._myParams.myEngine))) {
             if (Math.abs(axes[0]) > this._myParams.myRotationMinStickIntensityThreshold) {
                 let rotationIntensity = -axes[0];
                 let speed = Math.pp_lerp(0, this._myParams.myMaxRotationSpeed, Math.abs(rotationIntensity)) * Math.pp_sign(rotationIntensity);
@@ -166,7 +166,7 @@ PlayerLocomotionRotate.prototype._rotateHeadVertically = function () {
         let axes = getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
         let angleToRotate = 0;
 
-        if (!this._myParams.myIsSnapTurn || (this._myParams.mySnapTurnOnlyVR && !XRUtils.isSessionActive())) {
+        if (!this._myParams.myIsSnapTurn || (this._myParams.mySnapTurnOnlyVR && !XRUtils.isSessionActive(this._myParams.myEngine))) {
             if (Math.abs(axes[1]) > this._myParams.myRotationMinStickIntensityThreshold) {
                 let rotationIntensity = axes[1];
                 angleToRotate = Math.pp_lerp(0, this._myParams.myMaxRotationSpeed, Math.abs(rotationIntensity)) * Math.pp_sign(rotationIntensity) * dt;

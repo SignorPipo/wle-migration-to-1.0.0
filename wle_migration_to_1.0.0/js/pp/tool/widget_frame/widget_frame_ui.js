@@ -62,7 +62,7 @@ export class WidgetFrameUI {
             } else {
                 this.myPivotObject.pp_setParent(this.myFixForwardObject);
 
-                if (!XRUtils.isSessionActive()) {
+                if (!XRUtils.isSessionActive(this._myEngine)) {
                     this._setTransformForNonVR();
                 }
 
@@ -76,8 +76,8 @@ export class WidgetFrameUI {
     }
 
     _updateObjectsTransforms(forceRefreshObjectsTransforms) {
-        if (XRUtils.isSessionActive()) {
-            let inputSourceType = InputUtils.getInputSourceTypeByHandedness(this._myAdditionalSetup.myHandedness);
+        if (XRUtils.isSessionActive(this._myEngine)) {
+            let inputSourceType = InputUtils.getInputSourceTypeByHandedness(this._myAdditionalSetup.myHandedness, this._myEngine);
 
             if (inputSourceType != this._myInputSourceType || forceRefreshObjectsTransforms) {
                 this._myInputSourceType = inputSourceType;

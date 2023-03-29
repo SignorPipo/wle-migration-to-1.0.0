@@ -4,12 +4,10 @@ export function getSession(engine = getMainEngine()) {
     return engine.xrSession;
 }
 
-// #ENGINE
 export function isSessionActive(engine = getMainEngine()) {
     return engine.xrSession != null;
 }
 
-// #ENGINE
 export function isReferenceSpaceLocalFloor(engine = getMainEngine()) {
     return !["local", "viewer"].includes(getReferenceSpaceType(engine));
 }

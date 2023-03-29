@@ -4,7 +4,6 @@ import { getEasyTuneVariables } from "./easy_tune_globals";
 let _mySetEasyTuneWidgetActiveVariableCallbacks = new WeakMap();
 let _myRefreshEasyTuneWidgetCallbacks = new WeakMap();
 
-// #ENGINE
 export function setEasyTuneWidgetActiveVariable(variableName, engine = getMainEngine()) {
     if (_mySetEasyTuneWidgetActiveVariableCallbacks.has(engine)) {
         for (let callback of _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).values()) {
@@ -13,7 +12,6 @@ export function setEasyTuneWidgetActiveVariable(variableName, engine = getMainEn
     }
 }
 
-// #ENGINE
 export function refreshEasyTuneWidget(engine = getMainEngine()) {
     if (_myRefreshEasyTuneWidgetCallbacks.has(engine)) {
         for (let callback of _myRefreshEasyTuneWidgetCallbacks.get(engine).values()) {

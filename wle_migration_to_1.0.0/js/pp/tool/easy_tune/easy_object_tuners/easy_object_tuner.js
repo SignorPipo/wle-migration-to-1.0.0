@@ -31,7 +31,7 @@ export class EasyObjectTuner {
 
         getEasyTuneVariables(this._myEngine).add(easyTuneVariable);
         if (this._mySetAsDefault) {
-            EasyTuneUtils.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName);
+            EasyTuneUtils.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName, this._myEngine);
         }
     }
 

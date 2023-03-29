@@ -28,7 +28,7 @@ export class EasySetTuneTargetChildNumberComponent extends Component {
 
         getEasyTuneVariables(this.engine).add(new EasyTuneInt(this._myEasyTuneVariableName, 0, 10, min, max));
         if (this._mySetAsDefault) {
-            EasyTuneUtils.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName);
+            EasyTuneUtils.setEasyTuneWidgetActiveVariable(this._myEasyTuneVariableName, this.engine);
         }
 
         this._myCurrentChildIndex = -1;

@@ -17,7 +17,6 @@ export function getHandednessByIndex(index) {
     return handedness;
 }
 
-// #ENGINE
 export function getInputSource(handedness, inputSourceType = null, engine = getMainEngine()) {
     let inputSource = null;
 

@@ -131,7 +131,7 @@ export class PlayerLocomotionTeleport extends PlayerLocomotionMovement {
     _startDetecting() {
         let startDetecting = false;
 
-        if (!XRUtils.isSessionActive()) {
+        if (!XRUtils.isSessionActive(this._myTeleportParams.myEngine)) {
             startDetecting = getMouse(this._myTeleportParams.myEngine).isButtonPressStart(MouseButtonID.MIDDLE) &&
                 getMouse(this._myTeleportParams.myEngine).isTargetingRenderCanvas();
         } else {
