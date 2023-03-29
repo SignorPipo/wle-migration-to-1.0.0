@@ -1,5 +1,3 @@
-require(".");
-
 //PP
 
 //  PP
@@ -14,10 +12,15 @@ require("./pp/components/get_player_objects_component");
 require("./pp/components/get_default_resources_component");
 
 //	PLUGIN
+require("./plugin/init_plugins");
+
 require("./plugin/utils/extension_utils");
 
+require("./plugin/js/init_js_plugins");
+require("./plugin/js/extensions/init_js_extentions");
 require("./plugin/js/extensions/array_extension");
 require("./plugin/js/extensions/math_extension");
+require("./plugin/js/extensions/number_extension");
 
 require("./plugin/wl/init_wl_plugins");
 require("./plugin/wl/extensions/init_wl_extentions");
@@ -153,6 +156,7 @@ require("./gameplay/experimental/character_controller/collision/character_collid
 require("./gameplay/experimental/character_controller/collision/character_collider_utils");
 require("./gameplay/experimental/character_controller/collision/character_collision_results");
 require("./gameplay/experimental/character_controller/collision/character_collision_system");
+require("./gameplay/experimental/character_controller/collision/character_collision_system_global");
 require("./gameplay/experimental/character_controller/collision/components/character_collision_system_component");
 
 require("./gameplay/experimental/character_controller/character_controller");
@@ -273,6 +277,14 @@ require("./tool/console_vr/console_vr_global");
 require("./tool/console_vr/console_vr_component");
 require("./tool/console_vr/console_original_functions");
 
+require("./tool/easy_tune/easy_tune_variables");
+require("./tool/easy_tune/easy_tune_variable_types");
+require("./tool/easy_tune/easy_tune_globals");
+require("./tool/easy_tune/easy_tune_utils");
+
+require("./tool/easy_tune/components/easy_tune_component");
+require("./tool/easy_tune/components/easy_tune_import_variables_component");
+
 require("./tool/easy_tune/easy_object_tuners/easy_object_tuner");
 require("./tool/easy_tune/easy_object_tuners/easy_light_attenuation");
 require("./tool/easy_tune/easy_object_tuners/easy_light_color");
@@ -290,10 +302,9 @@ require("./tool/easy_tune/easy_object_tuners/components/easy_set_tune_target_chi
 require("./tool/easy_tune/easy_object_tuners/components/easy_set_tune_target_grab_component");
 require("./tool/easy_tune/easy_object_tuners/components/easy_text_color_component");
 require("./tool/easy_tune/easy_object_tuners/components/easy_transform_component");
-require("./tool/easy_tune/easy_object_tuners/components/easy_light_attenuation_component");
-require("./tool/easy_tune/easy_object_tuners/components/easy_light_color_component");
-require("./tool/easy_tune/easy_object_tuners/components/easy_mesh_ambient_factor_component");
 
+require("./tool/easy_tune/easy_tune_widgets/easy_tune_widget");
+require("./tool/easy_tune/easy_tune_widgets/easy_tune_widget_setup");
 require("./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget");
 require("./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_ui");
 require("./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_setup");
@@ -312,16 +323,6 @@ require("./tool/easy_tune/easy_tune_widgets/number/easy_tune_number_widget_selec
 require("./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget");
 require("./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget_ui");
 require("./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget_setup");
-require("./tool/easy_tune/easy_tune_widgets/easy_tune_widget");
-require("./tool/easy_tune/easy_tune_widgets/easy_tune_widget_setup");
-
-require("./tool/easy_tune/easy_tune_variables");
-require("./tool/easy_tune/easy_tune_variable_types");
-require("./tool/easy_tune/easy_tune_globals");
-require("./tool/easy_tune/easy_tune_utils");
-
-require("./tool/easy_tune/components/easy_tune_component");
-require("./tool/easy_tune/components/easy_tune_import_variables_component");
 
 require("./tool/widget_frame/widget_frame_setup");
 require("./tool/widget_frame/widget_frame_ui");
