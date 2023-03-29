@@ -190,8 +190,8 @@ export class CloneParams {
         this.myChildrenToInclude = [];      // Clones only the objects in this list (example: "mesh"), has higher priority over myChildrenToIgnore, if empty it's ignored
         this.myIgnoreChildCallback = null;  // Signature: callback(object) returns true if the object must be ignored, it is called after the previous filters
 
-        this.myUseWLClone = false;                         // Use the WLE component clone function 
-        this.myUseWLCloneIfPPCloneNotFound = false;    // Use the WLE component clone function if no pp_clone is found on the component
+        this.myUseWLClone = false;                      // Use the WL component clone function 
+        this.myUseWLCloneIfPPCloneNotFound = false;     // Use the WL component clone function if no pp_clone is found on the component
 
         this.myDeepCloneParams = new DeepCloneParams(); // Used to specify if the object must be deep cloned or not, you can also override the behavior for specific components and variables
 

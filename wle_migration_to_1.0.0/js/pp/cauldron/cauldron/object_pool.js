@@ -9,7 +9,7 @@ export class ObjectPoolParams {
 
         this.myOptimizeObjectsAllocation = true;    //If true it will pre-allocate the memory before adding new objects to the pool
 
-        //These extra functions can be used if u want to use the pool with objects that are not from WLE (WL.Object)
+        //These extra functions can be used if u want to use the pool with objects that are not from WL (WL.Object)
         this.myCloneCallback = undefined;                       //Signature: callback(object, cloneParams) -> clonedObject
         this.mySetActiveCallback = undefined;                   //Signature: callback(object, active)
         this.myEqualCallback = undefined;                       //Signature: callback(firstObject, secondObject) -> bool

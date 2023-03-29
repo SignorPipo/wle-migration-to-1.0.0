@@ -45,6 +45,9 @@
                         "_myShowOnDesktop": true,
                         "_myShowOnHeadset": true
                     }
+                },
+                {
+                    "type": "pp-add-pp-to-window"
                 }
             ]
         },
@@ -1119,7 +1122,6 @@
         "scripting": {
             "sourcePaths": [
                 "js/index.js",
-                "js/bundle.js",
                 "js/pp",
                 "js/pp/pp",
                 "js/pp/pp/components",
@@ -1143,6 +1145,8 @@
                 "js/pp/cauldron/visual",
                 "js/pp/cauldron/visual/components",
                 "js/pp/cauldron/visual/elements",
+                "js/pp/cauldron/wl",
+                "js/pp/cauldron/wl/components",
                 "js/pp/debug",
                 "js/pp/debug/components",
                 "js/pp/debug/debug_functions_overwriter",

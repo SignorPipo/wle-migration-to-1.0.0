@@ -10,6 +10,7 @@ export * from "./pp/default_resources_global"
 export * from "./pp/components/pp_gateway_component"
 export * from "./pp/components/get_player_objects_component"
 export * from "./pp/components/get_default_resources_component"
+export * from "./pp/components/add_pp_to_window_component"
 
 //	PLUGIN
 export * from "./plugin/init_plugins"
@@ -96,6 +97,7 @@ export * from "./cauldron/visual/elements/visual_torus"
 export * from "./cauldron/visual/components/visual_manager_component"
 
 export * from "./cauldron/wl/engine_globals"
+export * from "./cauldron/wl/components/add_wl_to_window_component"
 
 //	DEBUG
 export * from "./debug/debug_manager"
