@@ -4,7 +4,7 @@ import { DeepCloneParams } from "../../extensions/object_extension";
 
 export function initComponentCloneMod() {
 
-    MeshComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customParamsMap = null) {
+    MeshComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -25,7 +25,7 @@ export function initComponentCloneMod() {
         return clonedComponent;
     };
 
-    CollisionComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customParamsMap = null) {
+    CollisionComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -36,7 +36,7 @@ export function initComponentCloneMod() {
         return clonedComponent;
     };
 
-    TextComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customParamsMap = null) {
+    TextComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
         let clonedComponent = targetObject.pp_addComponent(this.type);
         clonedComponent.active = this.active;
 
@@ -59,7 +59,7 @@ export function initComponentCloneMod() {
     };
 
     // #TODO not completed, missing flags like gravity or groups
-    PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customParamsMap = null) {
+    PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
         let componentParams = {
             "static": this.static,
             "simulate": this.simulate,

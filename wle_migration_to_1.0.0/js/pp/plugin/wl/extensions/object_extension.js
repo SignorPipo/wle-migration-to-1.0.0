@@ -192,7 +192,7 @@ export class CloneParams {
 
         this.myDeepCloneParams = new DeepCloneParams(); // Used to specify if the object must be deep cloned or not, you can also override the behavior for specific components and variables
 
-        this.myCustomParamsMap = new Map(); // This map can be filled with whatever custom paramater the component clone function could need
+        this.myCustomCloneParams = new CustomCloneParams(); // This class can be filled with whatever custom paramater the component clone function could need
     }
 }
 
@@ -249,6 +249,29 @@ export class DeepCloneParams {
         }
 
         return this.isDeepCloneComponent(componentName);
+    }
+}
+
+export class CustomCloneParams {
+
+    constructor() {
+        this._myParams = new Map();
+    }
+
+    addParam(name, value) {
+        this._myParams.set(name, value);
+    }
+
+    removeParam(name) {
+        this._myParams.delete(name);
+    }
+
+    getParam(name) {
+        this._myParams.get(name);
+    }
+
+    hasParam(name) {
+        this._myParams.has(name);
     }
 }
 
@@ -2221,7 +2244,7 @@ export function initObjectExtensionProtoype() {
                     let componentToClone = cloneData[0];
                     let currentClonedObject = cloneData[1];
 
-                    let clonedComponent = componentToClone.pp_clone(currentClonedObject, params.myDeepCloneParams, params.myCustomParamsMap);
+                    let clonedComponent = componentToClone.pp_clone(currentClonedObject, params.myDeepCloneParams, params.myCustomCloneParams);
                     if (componentToClone.pp_clonePostProcess != null) {
                         componentsToPostProcessData.push([componentToClone, clonedComponent]);
                     }
@@ -2234,7 +2257,7 @@ export function initObjectExtensionProtoype() {
                     let componentToClone = cloneData[0];
                     let currentClonedComponent = cloneData[1];
 
-                    componentToClone.pp_clonePostProcess(currentClonedComponent, params.myDeepCloneParams, params.myCustomParamsMap);
+                    componentToClone.pp_clonePostProcess(currentClonedComponent, params.myDeepCloneParams, params.myCustomCloneParams);
                 }
             }
 
