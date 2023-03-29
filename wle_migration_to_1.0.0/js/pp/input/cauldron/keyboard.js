@@ -83,6 +83,7 @@ export let KeyID = {
 };
 
 export class Keyboard {
+
     constructor() {
         this._myKeyInfos = new Map();
 

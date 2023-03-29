@@ -3,28 +3,31 @@ import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extension
 import { getMainEngine } from "../wl/engine_globals";
 
 export class MeshCreationVertexParams {
+
     constructor() {
         this.myPosition = null;             // vec3
         this.myTextureCoordinates = null;   // vec2
         this.myNormal = null;               // vec3
         this.myColor = null;                // vec4
     }
-};
+}
 
 export class MeshCreationTriangleParams {
+
     constructor() {
         this.myIndexes = new Uint32Array(3);
     }
-};
+}
 
 export class MeshCreationParams {
+
     constructor(engine = getMainEngine()) {
         this.myVertexes = [];
         this.myTriangles = [];
 
         this.myEngine = engine;
     }
-};
+}
 
 export function createPlaneMesh() {
     let vertexCount = 4;

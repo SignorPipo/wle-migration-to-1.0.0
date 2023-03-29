@@ -10,6 +10,7 @@ export let VirtualGamepadIconType = {
 };
 
 export class VirtualGamepadIconParams {
+
     constructor() {
         this.myBackgroundColor = "";
         this.myBackgroundPressedColor = "";
@@ -35,6 +36,7 @@ export class VirtualGamepadIconParams {
 }
 
 export class VirtualGamepadIcon {
+
     constructor(iconElementParent, iconParams, minSizeMultiplier, scale) {
         this._myParams = iconParams;
 

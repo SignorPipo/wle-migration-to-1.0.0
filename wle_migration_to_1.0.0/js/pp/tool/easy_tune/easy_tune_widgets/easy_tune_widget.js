@@ -9,7 +9,6 @@ import { EasyTuneWidgetSetup } from "./easy_tune_widget_setup";
 import { EasyTuneNoneWidget } from "./none/easy_tune_none_widget";
 import { EasyTuneNumberArrayWidgetSelector } from "./number/easy_tune_number_widget_selector";
 import { EasyTuneTransformWidget } from "./transform/easy_tune_transform_widget";
-import { EasyTuneTransformWidgetSetup } from "./transform/easy_tune_transform_widget_setup";
 
 export class EasyTuneWidgetAdditionalSetup {
 
@@ -26,7 +25,7 @@ export class EasyTuneWidgetAdditionalSetup {
         this.myVariablesImportCallback = null;   // Signature: callback()
         this.myVariablesExportCallback = null;   // Signature: callback()
     }
-};
+}
 
 export class EasyTuneWidget {
 

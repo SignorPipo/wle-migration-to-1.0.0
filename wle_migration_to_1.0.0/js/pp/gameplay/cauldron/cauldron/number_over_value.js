@@ -2,6 +2,7 @@ import { EasingFunction } from "../../../plugin/js/extensions/math_extension";
 
 //You can just put startNumber if u want a number that doesn't actually change -> new NumberOverValue(0)
 export class NumberOverValue {
+
     constructor(startNumber, endNumber = null, startInterpolationValue = 0, endInterpolationValue = 0, easingFunction = EasingFunction.linear, roundingFunction = null) {
         if (endNumber == null) {
             endNumber = startNumber;
@@ -72,9 +73,10 @@ export class NumberOverValue {
 
         return clampedNumber == clampedCurrentNumber;
     }
-};
+}
 
 export class IntOverValue extends NumberOverValue {
+
     constructor(startNumber, endNumber, startInterpolationValue, endInterpolationValue, easingFunction = EasingFunction.linear, roundingFunction = null) {
         if (roundingFunction == null) {
             roundingFunction = function (numberToRound, startNumber, endNumber) {
@@ -93,10 +95,11 @@ export class IntOverValue extends NumberOverValue {
 
         super(startNumber, endNumber, startInterpolationValue, endInterpolationValue, easingFunction, roundingFunction);
     }
-};
+}
 
 //You can just put startRange if u want a range that doesn't actually change -> new NumberOverValue([1,25])
 export class NumberRangeOverValue {
+
     constructor(startRange, endRange = null, startInterpolationValue = 0, endInterpolationValue = 0, easingFunction = EasingFunction.linear, roundingFunction = null) {
         if (endRange == null) {
             endRange = startRange;
@@ -183,9 +186,10 @@ export class NumberRangeOverValue {
 
         return Math.pp_isInsideAngleRangeRadians(number, startNumber, endNumber);
     }
-};
+}
 
 export class IntRangeOverValue extends NumberRangeOverValue {
+
     constructor(startRange, endRange, startInterpolationValue, endInterpolationValue, easingFunction = EasingFunction.linear, roundingFunction = null) {
         if (roundingFunction == null) {
             roundingFunction = function (numberToRound, startNumber, endNumber) {

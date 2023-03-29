@@ -52,4 +52,4 @@ export class ParticlesSpawnerComponent extends Component {
     onParticleDone(particle) {
         this._myObjectPoolsManager.releaseObject(particle);
     }
-};
+}

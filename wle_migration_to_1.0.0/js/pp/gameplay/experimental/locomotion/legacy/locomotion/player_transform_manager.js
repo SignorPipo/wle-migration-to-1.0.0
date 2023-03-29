@@ -15,6 +15,7 @@ export let PlayerTransformManagerSyncFlag = {
 };
 
 export class PlayerTransformManagerParams {
+
     constructor(engine = getMainEngine()) {
         this.myPlayerHeadManager = null;
 
@@ -139,9 +140,10 @@ export class PlayerTransformManagerParams {
 
         this.myDebugActive = false;
     }
-};
+}
 
 export class PlayerTransformManager {
+
     constructor(params) {
         this._myParams = params;
 
@@ -563,7 +565,11 @@ export class PlayerTransformManager {
 
         getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPositionHead, vec4_create(1, 1, 0, 1), 0.05);
     }
-};
+}
+
+
+
+// IMPLEMENTATION
 
 PlayerTransformManager.prototype.getDistanceToReal = function () {
     let realPosition = vec3_create();

@@ -78,7 +78,7 @@ export class DebugVisualManager extends VisualManager {
         visualParams.myThickness = thickness;
         this.draw(visualParams, lifetimeSeconds);
     }
-};
+}
 
 DebugVisualManager.prototype.drawLineEnd = function () {
     let direction = vec3_create();

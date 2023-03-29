@@ -35,6 +35,7 @@ export let GamepadAxesEvent = {
 };
 
 export class GamepadButtonInfo {
+
     constructor(id, handedness) {
         this.myID = id;
         this.myHandedness = handedness;
@@ -138,9 +139,10 @@ export class GamepadButtonInfo {
 
         return value;
     }
-};
+}
 
 export class GamepadAxesInfo {
+
     constructor(id, handedness) {
         this.myID = id;
 
@@ -169,9 +171,10 @@ export class GamepadAxesInfo {
 
         return value;
     }
-};
+}
 
 export class GamepadPulseInfo {
+
     constructor() {
         this.myIntensity = 0.0;
         this.myDuration = 0.0;

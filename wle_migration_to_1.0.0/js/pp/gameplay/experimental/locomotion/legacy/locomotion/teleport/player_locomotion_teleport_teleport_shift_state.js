@@ -6,6 +6,7 @@ import { EasyTuneNumber } from "../../../../../../tool/easy_tune/easy_tune_varia
 import { PlayerLocomotionTeleportState } from "./player_locomotion_teleport_state";
 
 export class PlayerLocomotionTeleportTeleportShiftState extends PlayerLocomotionTeleportState {
+
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 
@@ -98,7 +99,11 @@ export class PlayerLocomotionTeleportTeleportShiftState extends PlayerLocomotion
         this._myLocomotionRuntimeParams.myTeleportJustPerformed = true;
         this._teleportToPosition(this._myTeleportRuntimeParams.myTeleportPosition, this._myStartRotationOnUp - this._myCurrentRotationOnUp, this._myLocomotionRuntimeParams.myCollisionRuntimeParams);
     }
-};
+}
+
+
+
+// IMPLEMENTATION
 
 PlayerLocomotionTeleportTeleportShiftState.prototype._shiftingUpdate = function () {
     let movementToTeleportFeet = vec3_create();

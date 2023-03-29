@@ -12,6 +12,7 @@ export let PlayerLocomotionTeleportTeleportType = {
 };
 
 export class PlayerLocomotionTeleportTeleportParams {
+
     constructor() {
         this.myTeleportType = PlayerLocomotionTeleportTeleportType.SHIFT;
 
@@ -34,9 +35,10 @@ export class PlayerLocomotionTeleportTeleportParams {
             return EasingFunction.easeOut(angle / 180);
         };
     }
-};
+}
 
 export class PlayerLocomotionTeleportTeleportState extends PlayerLocomotionTeleportState {
+
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 

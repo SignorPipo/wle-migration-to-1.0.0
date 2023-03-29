@@ -346,9 +346,10 @@ export class GrabberHandComponent extends Component {
         let found = this._myGrabbables.pp_find(element => element.getGrabbable() == grabbable);
         return found != null;
     }
-};
+}
 
 class _GrabberHandComponentGrabbableData {
+
     constructor(grabbable, useGrabbableAsVelocitySource, linearVelocityHistorySize, angularVelocityHistorySize) {
         this._myGrabbable = grabbable;
         this._myUseGrabbableAsVelocitySource = useGrabbableAsVelocitySource;

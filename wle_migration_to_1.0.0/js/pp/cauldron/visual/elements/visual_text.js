@@ -40,7 +40,7 @@ export class VisualTextParams {
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
 export class VisualText {
 

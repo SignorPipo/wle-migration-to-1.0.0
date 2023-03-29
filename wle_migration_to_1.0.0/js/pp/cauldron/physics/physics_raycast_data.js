@@ -52,7 +52,7 @@ export class RaycastSetup {
         this.myObjectsToIgnore.pp_clear();
         this.myIgnoreHitsInsideCollision = false;
     }
-};
+}
 
 export class RaycastResults {
     constructor() {
@@ -151,7 +151,7 @@ export class RaycastResults {
 
         this.removeAllHits();
     }
-};
+}
 
 export class RaycastHit {
     constructor() {
@@ -182,7 +182,7 @@ export class RaycastHit {
         this.myObject = null;
         this.myIsInsideCollision = false;
     }
-};
+}
 
 
 

@@ -6,6 +6,7 @@
 import { JSUtils } from "../../cauldron/utils/js_utils";
 
 export class DebugFunctionsOverwriterParams {
+
     constructor() {
         this.myObjectsByReference = [];         // You can specify to count the call on a specific object instance
         this.myObjectsByPath = [];              // If you want you can specify the instance by path, but it means it must be reachable from window
@@ -52,9 +53,10 @@ export class DebugFunctionsOverwriterParams {
 
         this.myDebugLogActive = false;
     }
-};
+}
 
 export class DebugFunctionsOverwriter {
+
     constructor(params = new DebugFunctionsOverwriterParams()) {
         this._myParams = params;
 
@@ -416,7 +418,7 @@ export class DebugFunctionsOverwriter {
     _isJSObjectFunction(propertyName) {
         // implemented outside class definition
     }
-};
+}
 
 
 

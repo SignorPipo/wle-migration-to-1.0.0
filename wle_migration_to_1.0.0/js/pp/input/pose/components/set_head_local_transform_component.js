@@ -31,7 +31,7 @@ export class SetHeadLocalTransformComponent extends Component {
     onPoseUpdated() {
         // implemented outside class definition
     }
-};
+}
 
 
 

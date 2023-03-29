@@ -16,6 +16,7 @@ import { PlayerLocomotionTeleportParable } from "./player_locomotion_teleport_pa
 import { PlayerLocomotionTeleportState } from "./player_locomotion_teleport_state";
 
 export class PlayerLocomotionTeleportDetectionParams {
+
     constructor() {
         this.myMaxDistance = 0;
         this.myMaxHeightDifference = 0;
@@ -56,9 +57,10 @@ export class PlayerLocomotionTeleportDetectionParams {
         this.myVisibilityCheckCircumferenceRotationPerStep = 30;
         this.myVisibilityBlockLayerFlags = new PhysicsLayerFlags();
     }
-};
+}
 
 export class PlayerLocomotionTeleportDetectionRuntimeParams {
+
     constructor() {
         this.myTeleportDetectionValid = false;
         this.myTeleportPositionValid = false;
@@ -66,9 +68,10 @@ export class PlayerLocomotionTeleportDetectionRuntimeParams {
 
         this.myParable = new PlayerLocomotionTeleportParable();
     }
-};
+}
 
 export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTeleportState {
+
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 
@@ -164,7 +167,11 @@ export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTele
             this._detectTeleportPositionNonVR();
         }
     }
-};
+}
+
+
+
+// IMPLEMENTATION
 
 PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionNonVR = function () {
     let mousePosition = vec3_create();

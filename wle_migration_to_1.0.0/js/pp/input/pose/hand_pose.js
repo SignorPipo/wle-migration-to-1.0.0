@@ -4,12 +4,13 @@ import { InputUtils } from "../cauldron/input_utils";
 import { BasePose, BasePoseParams } from "./base_pose";
 
 export class HandPoseParams extends BasePoseParams {
+
     constructor(engine) {
         super(engine);
 
         this.myFixTrackedHandRotation = true;
     }
-};
+}
 
 export class HandPose extends BasePose {
 
@@ -85,7 +86,7 @@ export class HandPose extends BasePose {
     _onXRSessionEndHook() {
         this._myInputSource = null;
     }
-};
+}
 
 
 

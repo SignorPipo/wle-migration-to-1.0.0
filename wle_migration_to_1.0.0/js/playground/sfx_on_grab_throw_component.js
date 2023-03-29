@@ -45,4 +45,4 @@ export class SFXOnGrabThrowComponent extends Component {
             grabber.getGamepad().pulse(intensity, 0.1);
         }
     }
-};
+}

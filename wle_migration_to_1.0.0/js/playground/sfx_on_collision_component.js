@@ -36,4 +36,4 @@ export class SFXOnCollisionComponent extends Component {
         clonedComponent.active = this.active;
         return clonedComponent;
     }
-};
+}

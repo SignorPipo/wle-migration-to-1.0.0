@@ -7,6 +7,7 @@ import { CollisionRuntimeParams } from "../../../../character_controller/collisi
 import { getCollisionCheck } from "../player_locomotion_component";
 
 export class PlayerLocomotionTeleportState extends State {
+
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super();
 
@@ -17,7 +18,11 @@ export class PlayerLocomotionTeleportState extends State {
 
         this._myTeleportAsMovementFailed = false;
     }
-};
+}
+
+
+
+// IMPLEMENTATION
 
 PlayerLocomotionTeleportState.prototype._checkTeleport = function () {
     return function _checkTeleport(teleportPosition, feetTransformQuat, collisionRuntimeParams, checkTeleportCollisionRuntimeParams = null) {

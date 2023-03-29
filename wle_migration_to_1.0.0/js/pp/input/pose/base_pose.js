@@ -3,6 +3,7 @@ import { mat4_create, quat2_create, quat_create, vec3_create } from "../../plugi
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
 
 export class BasePoseParams {
+
     constructor(engine = getMainEngine()) {
         this.myReferenceObject = null;
         this.myFixForward = true;
@@ -11,7 +12,7 @@ export class BasePoseParams {
 
         this.myEngine = engine;
     }
-};
+}
 
 // BasePose transform is local by default (as if the parent/reference object was the identity transform)
 // you can use setReferenceObject if you want the BasePose to return the transform in world space 
@@ -330,7 +331,7 @@ export class BasePose {
     _computeEmulatedAngularVelocity() {
         // implemented outside class definition
     }
-};
+}
 
 
 

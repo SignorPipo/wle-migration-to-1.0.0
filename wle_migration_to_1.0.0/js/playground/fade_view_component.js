@@ -56,4 +56,4 @@ export class FadeViewComponent extends Component {
             this._myFadeMaterial.color = this._myColorVector;
         }
     }
-};
+}

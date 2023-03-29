@@ -25,6 +25,7 @@ export let PlayerLocomotionDirectionReferenceType = {
 };
 
 export class PlayerLocomotionParams {
+
     constructor(engine = getMainEngine()) {
         this.myMaxSpeed = 0;
         this.myMaxRotationSpeed = 0;
@@ -61,12 +62,13 @@ export class PlayerLocomotionParams {
 
         this.myEngine = engine;
     }
-};
+}
 
 // #TODO add lerped snap on vertical over like half a second to avoid the "snap effect"
 // this could be done by detatching the actual vertical position of the player from the collision real one when a snap is detected above a certain threshold
 // with a timer, after which the vertical position is just copied, while during the detatching is lerped toward the collision vertical one
 export class PlayerLocomotion {
+
     constructor(params) {
         this._myParams = params;
 

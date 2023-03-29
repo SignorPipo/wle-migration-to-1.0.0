@@ -5,6 +5,7 @@ import { BasePoseParams } from "./base_pose";
 import { TrackedHandJointPose } from "./tracked_hand_joint_pose";
 
 export class TrackedHandPoseParams extends BasePoseParams {
+
     constructor(addAllJointIDs = true, engine = getMainEngine()) {
         super(engine);
 
@@ -16,9 +17,10 @@ export class TrackedHandPoseParams extends BasePoseParams {
             }
         }
     }
-};
+}
 
 export class TrackedHandPose {
+
     constructor(handedness, trackedHandPoseParams = new TrackedHandPoseParams()) {
         this._myHandedness = handedness;
 

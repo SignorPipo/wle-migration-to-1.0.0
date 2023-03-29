@@ -1,4 +1,5 @@
 export class ObjectPoolParams {
+
     constructor() {
         this.myInitialPoolSize = 0;
         this.myAmountToAddWhenEmpty = 0;        //If all the objects are busy, this amount will be added to the pool
@@ -16,9 +17,10 @@ export class ObjectPoolParams {
 
         this.myEnableDebugLog = true;
     }
-};
+}
 
 export class ObjectPool {
+
     constructor(poolObject, objectPoolParams) {
         this._myObjectPoolParams = objectPoolParams;
         this._myPrototype = this._clone(poolObject);

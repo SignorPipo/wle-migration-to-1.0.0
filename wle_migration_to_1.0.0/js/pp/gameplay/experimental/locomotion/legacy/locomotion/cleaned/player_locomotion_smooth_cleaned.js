@@ -53,7 +53,7 @@ export class CleanedPlayerLocomotionSmooth extends PlayerLocomotionMovement {
     update(dt) {
         // implemented outside class definition
     }
-};
+}
 
 
 

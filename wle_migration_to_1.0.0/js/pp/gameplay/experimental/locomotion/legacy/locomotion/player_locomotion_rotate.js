@@ -9,6 +9,7 @@ import { EasyTuneNumber } from "../../../../../tool/easy_tune/easy_tune_variable
 import { LocomotionUtils } from "./locomotion_utils";
 
 export class PlayerLocomotionRotateParams {
+
     constructor(engine = getMainEngine()) {
         this.myPlayerHeadManager = null;
 
@@ -30,9 +31,10 @@ export class PlayerLocomotionRotateParams {
 
         this.myEngine = engine;
     }
-};
+}
 
 export class PlayerLocomotionRotate {
+
     constructor(params) {
         this._myParams = params;
 
@@ -67,7 +69,11 @@ export class PlayerLocomotionRotate {
             this._rotateHeadVertically(dt);
         }
     }
-};
+}
+
+
+
+// IMPLEMENTATION
 
 PlayerLocomotionRotate.prototype._rotateHeadHorizontally = function () {
     let playerUp = vec3_create();

@@ -10,6 +10,7 @@ export let CharacterColliderSetupSimplifiedCreationAccuracyLevel = {
 };
 
 export class CharacterColliderSetupSimplifiedCreationParams {
+
     constructor() {
         this.myHeight = 0;
         this.myRadius = 0;

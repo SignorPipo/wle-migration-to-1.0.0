@@ -42,4 +42,4 @@ export class ScaleOnSpawnComponent extends Component {
 
         return clonedComponent;
     }
-};
+}

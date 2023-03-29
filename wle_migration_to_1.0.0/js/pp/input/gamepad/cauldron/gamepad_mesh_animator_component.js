@@ -161,7 +161,7 @@ export class GamepadMeshAnimatorComponent extends Component {
             this._myThumbstick.pp_rotateAxisLocal(forwardRotation, this._myThumbstickOriginalForward);
         }
     }
-};
+}
 
 
 

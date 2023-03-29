@@ -17,5 +17,4 @@ export class Transition {
     //You can find the from and to states inside the transition params
     perform(fsm, transition, ...args) {
     }
-
 }

@@ -145,7 +145,7 @@ export class ToolCursorComponent extends Component {
             }
         }
     }
-};
+}
 
 
 

@@ -12,6 +12,7 @@ import { getCollisionCheck } from "./player_locomotion_component";
 import { PlayerLocomotionMovement } from "./player_locomotion_movement";
 
 export class PlayerLocomotionSmoothParams {
+
     constructor(engine = getMainEngine()) {
         this.myPlayerHeadManager = null;
         this.myPlayerTransformManager = null;
@@ -41,9 +42,10 @@ export class PlayerLocomotionSmoothParams {
 
         this.myEngine = engine;
     }
-};
+}
 
 export class PlayerLocomotionSmooth extends PlayerLocomotionMovement {
+
     constructor(params, locomotionRuntimeParams) {
         super(locomotionRuntimeParams);
 
@@ -85,7 +87,7 @@ export class PlayerLocomotionSmooth extends PlayerLocomotionMovement {
     update(dt) {
         // implemented outside class definition
     }
-};
+}
 
 
 // IMPLEMENTATION

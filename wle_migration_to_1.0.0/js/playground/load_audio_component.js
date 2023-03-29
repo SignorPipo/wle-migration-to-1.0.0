@@ -53,4 +53,4 @@ export class LoadAudioComponent extends Component {
             manager.addAudioSetup("strike", audioSetup);
         }
     }
-};
+}

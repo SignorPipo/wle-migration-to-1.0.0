@@ -1,13 +1,15 @@
 import { Timer } from "../../../../cauldron/cauldron/timer";
 
 export class EasyTuneBaseWidgetParams {
+
     constructor() {
         this.myVariablesImportCallback = null;   // Signature: callback()
         this.myVariablesExportCallback = null;   // Signature: callback()
     }
-};
+}
 
 export class EasyTuneBaseWidget {
+
     constructor(params) {
         this._mySetup = null;
         this._myUI = null;

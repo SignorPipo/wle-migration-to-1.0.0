@@ -6,6 +6,7 @@ import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getPlayerObjects } from "../../../../../pp/player_objects_global";
 
 export class PlayerHeadManagerParams {
+
     constructor(engine = getMainEngine()) {
         this.mySessionChangeResyncEnabled = false;
 
@@ -40,10 +41,11 @@ export class PlayerHeadManagerParams {
 
         this.myDebugActive = false;
     }
-};
+}
 
 // could be intended as the generic player body manager (maybe with hands and stuff also)
 export class PlayerHeadManager {
+
     constructor(params = new PlayerHeadManagerParams()) {
         this._myParams = params;
 
@@ -269,7 +271,11 @@ export class PlayerHeadManager {
 
         console.error(this.getHeightEyes());
     }
-};
+}
+
+
+
+// IMPLEMENTATION
 
 PlayerHeadManager.prototype.getHeightEyes = function () {
     let headPosition = vec3_create();

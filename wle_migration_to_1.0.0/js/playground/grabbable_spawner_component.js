@@ -44,4 +44,4 @@ export class GrabbableSpawnerComponent extends Component {
         this._myCurrentGrabbable.pp_setPosition(this.object.pp_getPosition());
         this._myCurrentGrabbable.pp_setActive(true);
     }
-};
+}

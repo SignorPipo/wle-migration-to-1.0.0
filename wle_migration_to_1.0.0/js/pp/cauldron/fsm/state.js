@@ -30,5 +30,4 @@ export class State {
     //You can get this state data by accesing to the from state data inside the transition
     end(fsm, transition, ...args) {
     }
-
 }

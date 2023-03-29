@@ -74,4 +74,4 @@ export class ConsoleVRComponent extends Component {
             removeConsoleVR(this.engine);
         }
     }
-};
+}

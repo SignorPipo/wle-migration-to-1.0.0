@@ -15,6 +15,7 @@ export let MouseButtonID = {
 
 // #TODO refactor Mouse/Keyboard/Gamepad and create a sort of parent ButtonHandler that have the base ButtonInfo and all of them inherit
 export class Mouse {
+
     // #ENGINE
     constructor(engine = getMainEngine()) {
 

@@ -1,6 +1,7 @@
 import { quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 
 export class Direction2DTo3DConverterParams {
+
     constructor() {
         this.myStartFlyingForward = false;
         this.myStartFlyingRight = false;
@@ -16,7 +17,7 @@ export class Direction2DTo3DConverterParams {
         this.myMinAngleToFlyRightUp = 90;
         this.myMinAngleToFlyRightDown = 90;
     }
-};
+}
 
 export class Direction2DTo3DConverter {
 
@@ -130,7 +131,7 @@ export class Direction2DTo3DConverter {
     convertRotationQuat(direction2D, conversionRotationQuat, direction3DUp = null, outDirection3D = vec3_create()) {
         // implemented outside class definition
     }
-};
+}
 
 Direction2DTo3DConverter.prototype.convertForward = function () {
     let rotationQuat = quat_create();

@@ -43,7 +43,7 @@ export class VisualTorusParams {
     copy(other) {
         // implemented outside class definition
     }
-};
+}
 
 export class VisualTorus {
 

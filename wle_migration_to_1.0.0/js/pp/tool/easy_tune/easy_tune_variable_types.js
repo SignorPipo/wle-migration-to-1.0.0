@@ -22,6 +22,7 @@ export let EasyTuneVariableType = {
 };
 
 export class EasyTuneVariable {
+
     constructor(name, type, engine = getMainEngine()) {
         this.myName = name.slice(0);
         this.myType = type;
@@ -80,9 +81,10 @@ export class EasyTuneVariable {
             this._myValueChangedCallbacks.forEach(function (callback) { callback(this.myName, this.getValue()); }.bind(this));
         }
     }
-};
+}
 
 export class EasyTuneVariableArray extends EasyTuneVariable {
+
     constructor(name, type, value, engine) {
         super(name, type, engine);
 
@@ -111,11 +113,12 @@ export class EasyTuneVariableArray extends EasyTuneVariable {
     setDefaultValue(value) {
         this.myDefaultValue = value.pp_clone();
     }
-};
+}
 
 //NUMBER
 
 export class EasyTuneNumberArray extends EasyTuneVariableArray {
+
     constructor(name, value, stepPerSecond, decimalPlaces, min = null, max = null, editAllValuesTogether = false, engine) {
         super(name, EasyTuneVariableType.NUMBER, value, engine);
 
@@ -155,9 +158,10 @@ export class EasyTuneNumberArray extends EasyTuneVariableArray {
 
         EasyTuneVariableArray.prototype.setValue.call(this, clampedValue, resetDefaultValue);
     }
-};
+}
 
 export class EasyTuneNumber extends EasyTuneNumberArray {
+
     constructor(name, value, stepPerSecond, decimalPlaces, min, max, engine) {
         super(name, [value], stepPerSecond, decimalPlaces, min, max, engine);
     }
@@ -173,15 +177,17 @@ export class EasyTuneNumber extends EasyTuneNumberArray {
     setDefaultValue(value) {
         super.setDefaultValue([value]);
     }
-};
+}
 
 export class EasyTuneInt extends EasyTuneNumber {
+
     constructor(name, value, stepPerSecond, min, max, engine) {
         super(name, value, stepPerSecond, 0, min, max, engine);
     }
-};
+}
 
 export class EasyTuneIntArray extends EasyTuneNumberArray {
+
     constructor(name, value, stepPerSecond, min, max, editAllValuesTogether, engine) {
         let tempValue = value.pp_clone();
 
@@ -191,17 +197,19 @@ export class EasyTuneIntArray extends EasyTuneNumberArray {
 
         super(name, tempValue, stepPerSecond, 0, min != null ? Math.round(min) : null, max != null ? Math.round(max) : max, editAllValuesTogether, engine);
     }
-};
+}
 
 //BOOL
 
 export class EasyTuneBoolArray extends EasyTuneVariableArray {
+
     constructor(name, value, engine) {
         super(name, EasyTuneVariableType.BOOL, value, engine);
     }
-};
+}
 
 export class EasyTuneBool extends EasyTuneBoolArray {
+
     constructor(name, value, engine) {
         super(name, [value], engine);
     }
@@ -217,11 +225,12 @@ export class EasyTuneBool extends EasyTuneBoolArray {
     setDefaultValue(value) {
         super.setDefaultValue([value]);
     }
-};
+}
 
 //EASY TUNE EASY TRANSFORM
 
 export class EasyTuneTransform extends EasyTuneVariable {
+
     constructor(name, value, scaleAsOne = true, positionStepPerSecond = 1, rotationStepPerSecond = 50, scaleStepPerSecond = 1, engine) {
         super(name, EasyTuneVariableType.TRANSFORM, engine);
 

@@ -30,7 +30,7 @@ export class SetHandLocalTransformComponent extends Component {
     onPoseUpdated() {
         // implemented outside class definition
     }
-};
+}
 
 
 
