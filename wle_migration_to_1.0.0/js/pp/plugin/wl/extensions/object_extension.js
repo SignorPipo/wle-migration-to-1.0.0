@@ -2149,7 +2149,7 @@ export function initObjectExtensionProtoype() {
                     let objectToClone = cloneData[1];
 
                     let currentClonedObject = parent.pp_addObject();
-                    currentClonedObject.name = objectToClone.name;
+                    currentClonedObject.pp_setName(objectToClone.pp_getName());
 
                     currentClonedObject.pp_setScaleLocal(objectToClone.pp_getScaleLocal(scale));
                     currentClonedObject.pp_setTransformLocalQuat(objectToClone.pp_getTransformLocalQuat(transformQuat));
@@ -2159,7 +2159,7 @@ export function initObjectExtensionProtoype() {
                     }
 
                     if (!params.myIgnoreChildren) {
-                        for (let child of objectToClone.children) {
+                        for (let child of objectToClone.pp_getChildren()) {
                             let cloneChild = false;
                             if (params.myChildrenToInclude.length > 0) {
                                 cloneChild = params.myChildrenToInclude.find(childToInclude => childToInclude.pp_equals(child)) != null;
@@ -2271,7 +2271,7 @@ export function initObjectExtensionProtoype() {
             }
 
             if (isCloneable && !params.myIgnoreChildren) {
-                for (let child of object.children) {
+                for (let child of object.pp_getChildren()) {
                     let cloneChild = false;
                     if (params.myChildrenToInclude.length > 0) {
                         cloneChild = params.myChildrenToInclude.find(childToInclude => childToInclude.pp_equals(child)) != null;
@@ -2544,12 +2544,12 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_getDescendantsBreadth = function pp_getDescendantsBreadth() {
         let descendants = [];
 
-        let descendantsQueue = this.children;
+        let descendantsQueue = this.pp_getChildren();
 
         while (descendantsQueue.length > 0) {
             let descendant = descendantsQueue.shift();
             descendants.push(descendant);
-            for (let object of descendant.children) {
+            for (let object of descendant.pp_getChildren()) {
                 descendantsQueue.push(object);
             }
         }

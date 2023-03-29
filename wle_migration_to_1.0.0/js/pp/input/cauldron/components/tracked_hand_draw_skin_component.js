@@ -29,7 +29,7 @@ export class TrackedHandDrawSkinComponent extends Component {
         for (let i = 0; i < this._myJoints.length; i++) {
             let jointObject = this._myJoints[i];
 
-            let jointID = jointObject.name; // joint name must match the TrackedHandJointID enum value
+            let jointID = jointObject.pp_getName(); // joint name must match the TrackedHandJointID enum value
             let jointPose = this._myTrackedHandPose.getJointPose(jointID);
 
             jointObject.pp_setTransformLocalQuat(jointPose.getTransformQuat());

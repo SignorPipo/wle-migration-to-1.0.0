@@ -127,7 +127,7 @@ export class WidgetFrameUI {
 
     //Transforms
     _setTransforms() {
-        this.myPivotObject.setDirty();
+        this.myPivotObject.pp_markDirty();
 
         this.myVisibilityButtonPanel.pp_setPositionLocal(this._mySetup.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
         this.myVisibilityButtonBackground.pp_scaleObject(this._mySetup.myVisibilityButtonBackgroundScale);

@@ -96,11 +96,11 @@ export class FingerCursorComponent extends Component {
 
     _targetTouchEnd() {
         if (this._myLastTarget) {
-            if (this._myEnableMultipleClicks && this._myTripleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.equals(this._myLastTarget.object)) {
+            if (this._myEnableMultipleClicks && this._myTripleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.pp_equals(this._myLastTarget.object)) {
                 this._myLastTarget.onTripleClick(this._myLastTarget.object, this);
 
                 this._myTripleClickTimer = 0;
-            } else if (this._myEnableMultipleClicks && this._myDoubleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.equals(this._myLastTarget.object)) {
+            } else if (this._myEnableMultipleClicks && this._myDoubleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.pp_equals(this._myLastTarget.object)) {
                 this._myLastTarget.onDoubleClick(this._myLastTarget.object, this);
 
                 this._myTripleClickTimer = this._myMultipleClickDelay;

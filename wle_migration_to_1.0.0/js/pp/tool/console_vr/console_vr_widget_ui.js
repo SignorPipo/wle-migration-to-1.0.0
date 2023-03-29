@@ -96,7 +96,7 @@ export class ConsoleVRWidgetUI {
 
     //Transforms
     _setTransforms() {
-        this.myPivotObject.setDirty();
+        this.myPivotObject.pp_markDirty();
 
         this._setMessagesTransforms();
         this._setButtonsTransforms();

@@ -582,8 +582,23 @@ export function initArrayExtensionProtoype() {
             case "Array":
                 clone = new Array(this.length);
                 break;
+            case "Uint8ClampedArray":
+                clone = new Uint8ClampedArray(this.length);
+                break;
+            case "Uint8Array":
+                clone = new Uint8Array(this.length);
+                break;
+            case "Uint16Array":
+                clone = new Uint16Array(this.length);
+                break;
             case "Uint32Array":
                 clone = new Uint32Array(this.length);
+                break;
+            case "Int8Array":
+                clone = new Int8Array(this.length);
+                break;
+            case "Int16Array":
+                clone = new Int16Array(this.length);
                 break;
             case "Int32Array":
                 clone = new Int32Array(this.length);

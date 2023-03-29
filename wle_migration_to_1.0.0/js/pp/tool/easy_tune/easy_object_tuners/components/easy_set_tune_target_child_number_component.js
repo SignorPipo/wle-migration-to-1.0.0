@@ -13,7 +13,7 @@ export class EasySetTuneTargetChildNumberComponent extends Component {
         this._myEasyTuneVariableName = "Target Child ";
 
         if (this._myVariableName == "") {
-            this._myEasyTuneVariableName = this._myEasyTuneVariableName.concat(this.object.objectId);
+            this._myEasyTuneVariableName = this._myEasyTuneVariableName.concat(this.object.pp_getID());
         } else {
             this._myEasyTuneVariableName = this._myEasyTuneVariableName.concat(this._myVariableName);
         }

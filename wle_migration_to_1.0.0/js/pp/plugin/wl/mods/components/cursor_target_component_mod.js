@@ -115,7 +115,7 @@ export function initCursorTargetComponentModPrototype() {
 
     CursorTarget.prototype._validateCallback = function _validateCallback(f) {
         if (typeof f !== "function") {
-            throw new TypeError(this.object.name + ".cursor-target: Argument needs to be a function");
+            throw new TypeError(this.object.pp_getName() + ".cursor-target: Argument needs to be a function");
         }
     };
 

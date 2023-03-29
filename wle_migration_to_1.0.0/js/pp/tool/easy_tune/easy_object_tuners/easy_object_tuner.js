@@ -17,7 +17,7 @@ export class EasyObjectTuner {
         let variableNamePrefix = this._getVariableNamePrefix();
 
         if (variableName == "") {
-            this._myEasyTuneVariableName = variableNamePrefix.concat(this._myObject.objectId);
+            this._myEasyTuneVariableName = variableNamePrefix.concat(this._myObject.pp_getID());
         } else {
             this._myEasyTuneVariableName = variableNamePrefix.concat(variableName);
         }

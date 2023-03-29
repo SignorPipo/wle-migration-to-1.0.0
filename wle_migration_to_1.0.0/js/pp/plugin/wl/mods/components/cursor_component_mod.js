@@ -44,7 +44,7 @@ export function initCursorComponentModPrototype() {
         if (this.handedness == 0) {
             let inputComp = this.object.pp_getComponent(InputComponent);
             if (!inputComp) {
-                console.warn("cursor component on object " + this.object.name + " was configured with handedness \"input component\", " + "but object has no input component.");
+                console.warn("cursor component on object " + this.object.pp_getName() + " was configured with handedness \"input component\", " + "but object has no input component.");
             } else {
                 this.handedness = inputComp.handedness;
                 this.input = inputComp;
@@ -196,7 +196,7 @@ export function initCursorComponentModPrototype() {
     Cursor.prototype.hoverBehaviour = function hoverBehaviour(rayHit, doClick, forceUnhover = false) {
         if (!forceUnhover && rayHit.hitCount > 0) {
             let hoveringObjectChanged = false;
-            if (!this.hoveringObject || !this.hoveringObject.equals(rayHit.objects[0])) {
+            if (!this.hoveringObject || !this.hoveringObject.pp_equals(rayHit.objects[0])) {
                 /* Unhover previous, if exists */
                 if (this.hoveringObject) {
                     let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
@@ -239,12 +239,12 @@ export function initCursorComponentModPrototype() {
                 this.globalTarget.onDown(this.hoveringObject, this);
 
                 /* Click */
-                if (this.tripleClickTimer > 0 && this.multipleClickObject && this.multipleClickObject.equals(this.hoveringObject)) {
+                if (this.tripleClickTimer > 0 && this.multipleClickObject && this.multipleClickObject.pp_equals(this.hoveringObject)) {
                     if (cursorTarget) cursorTarget.onTripleClick(this.hoveringObject, this);
                     this.globalTarget.onTripleClick(this.hoveringObject, this);
 
                     this.tripleClickTimer = 0;
-                } else if (this.doubleClickTimer > 0 && this.multipleClickObject && this.multipleClickObject.equals(this.hoveringObject)) {
+                } else if (this.doubleClickTimer > 0 && this.multipleClickObject && this.multipleClickObject.pp_equals(this.hoveringObject)) {
                     if (cursorTarget) cursorTarget.onDoubleClick(this.hoveringObject, this);
                     this.globalTarget.onDoubleClick(this.hoveringObject, this);
 
