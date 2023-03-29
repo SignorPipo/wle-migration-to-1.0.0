@@ -3,6 +3,7 @@ import { RaycastHit } from "../../../../../../cauldron/physics/physics_raycast_d
 import { quat_create, vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 
 export class CollisionCheckParams {
+
     constructor() {
         this.mySplitMovementEnabled = false;
         this.mySplitMovementMaxLength = 0;
@@ -468,6 +469,7 @@ export class CollisionCheckParams {
 }
 
 export class CollisionRuntimeParams {
+
     constructor() {
         this.myOriginalPosition = vec3_create();
         this.myNewPosition = vec3_create();

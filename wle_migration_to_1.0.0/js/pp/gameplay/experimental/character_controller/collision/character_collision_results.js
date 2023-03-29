@@ -2,6 +2,7 @@ import { RaycastHit } from "../../../../cauldron/physics/physics_raycast_data";
 import { quat2_create, vec3_create } from "../../../../plugin/js/extensions/array_extension";
 
 export class CharacterCollisionResults {
+
     constructor() {
         this.myCheckType = CharacterCollisionCheckType.NONE;
 
@@ -50,6 +51,7 @@ export let CharacterCollisionCheckType = {
 };
 
 export class CharacterCollisionSurfaceInfo {
+
     constructor() {
         this.myIsOnSurface = false;
 
@@ -75,6 +77,7 @@ export class CharacterCollisionSurfaceInfo {
 }
 
 export class CharacterCollisionWallSlideResults {
+
     constructor() {
         this.myHasSlid = false;
         this.mySlideMovementAngle = 0;          // signed angle between the start movement and the wall slide movement, basically telling you how much u had to change direction to slide
@@ -92,6 +95,7 @@ export class CharacterCollisionWallSlideResults {
 }
 
 export class CharacterCollisionTransformResults {
+
     constructor() {
         this.myStartTransformQuat = quat2_create();
         this.myEndTransformQuat = quat2_create();
@@ -107,6 +111,7 @@ export class CharacterCollisionTransformResults {
 }
 
 export class CharacterCollisionMovementResults {
+
     constructor() {
         this.myStartMovement = vec3_create();
         this.myEndMovement = vec3_create();
@@ -125,6 +130,7 @@ export class CharacterCollisionMovementResults {
 }
 
 export class CharacterCollisionTeleportResults {
+
     constructor() {
         this.myStartTeleportTransformQuat = quat2_create();
         this.myEndTeleportTransformQuat = quat2_create();
@@ -141,6 +147,7 @@ export class CharacterCollisionTeleportResults {
 }
 
 export class CharacterCollisionCheckTransformResults {
+
     constructor() {
         this.myStartCheckTransformQuat = quat2_create();
         this.myEndCheckTransformQuat = quat2_create();
@@ -157,6 +164,7 @@ export class CharacterCollisionCheckTransformResults {
 }
 
 export class CharacterCollisionSurfaceResults {
+
     constructor() {
         this.myHasSnappedOnSurface = false;
         this.myHasPoppedOutSurface = false;
@@ -175,6 +183,7 @@ export class CharacterCollisionSurfaceResults {
 }
 
 export class CharacterCollisionSplitMovementResults {
+
     constructor() {
         this.myStepsToPerform = 0;
         this.myStepsPerformed = 0;
@@ -192,6 +201,7 @@ export class CharacterCollisionSplitMovementResults {
 }
 
 export class CharacterCollisionDebugResults {
+
     constructor() {
         this._myRaycastsPerformed = 0;
     }
@@ -206,6 +216,7 @@ export class CharacterCollisionDebugResults {
 }
 
 export class CharacterCollisionInternalResults {
+
     constructor() {
         this.myLastRelevantStartHorizontalMovement = vec3_create();
         this.myLastRelevantAdjustedStartHorizontalMovement = vec3_create();

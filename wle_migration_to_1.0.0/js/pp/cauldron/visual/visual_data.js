@@ -1,4 +1,5 @@
 export class VisualData {
+
     constructor() {
         this.myRootObject = null;
         this.myDefaultMaterials = new VisualDataMaterials();
@@ -6,6 +7,7 @@ export class VisualData {
 }
 
 export class VisualDataMaterials {
+
     constructor() {
         this.myMesh = null;
         this.myText = null;

@@ -1,6 +1,7 @@
 import { PhysicsUtils } from "./physics_utils";
 
 export class PhysicsLayerFlags {
+
     constructor() {
         this._myLayerMask = 0;
     }

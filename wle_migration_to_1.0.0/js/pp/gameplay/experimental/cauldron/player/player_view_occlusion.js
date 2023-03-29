@@ -1,4 +1,5 @@
 export class PlayerViewOcclusion {
+
     constructor() {
     }
 }

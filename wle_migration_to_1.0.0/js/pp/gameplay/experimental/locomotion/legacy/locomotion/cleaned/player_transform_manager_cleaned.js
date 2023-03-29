@@ -6,6 +6,7 @@ import { getCollisionCheck } from "../player_locomotion_component";
 import { PlayerTransformManagerSyncFlag } from "../player_transform_manager";
 
 export class CleanedPlayerTransformManager {
+
     constructor(params) {
         this._myParams = params;
 

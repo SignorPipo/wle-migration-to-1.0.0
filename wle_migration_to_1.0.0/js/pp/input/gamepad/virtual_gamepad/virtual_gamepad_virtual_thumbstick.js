@@ -3,6 +3,7 @@ import { Handedness } from "../../cauldron/input_types";
 import { VirtualGamepadIcon } from "./virtual_gamepad_icon";
 
 export class VirtualGamepadVirtualThumbstick {
+
     constructor(thumbstickElementParent, virtualGamepadParams, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID) {
         this._myThumbstickElement = null;
         this._myThumbstickIcon = null;

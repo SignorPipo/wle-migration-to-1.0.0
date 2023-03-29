@@ -2,6 +2,7 @@ import { Howler } from "howler";
 import { AudioPlayer } from "./audio_player";
 
 export class AudioManager {
+
     constructor() {
         this._myAudioSetups = new Map();
     }

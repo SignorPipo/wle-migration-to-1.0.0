@@ -1,6 +1,7 @@
 import { ObjectPool, ObjectPoolParams } from "./object_pool";
 
 export class ObjectPoolsManager {
+
     constructor() {
         this._myPools = new Map();
     }

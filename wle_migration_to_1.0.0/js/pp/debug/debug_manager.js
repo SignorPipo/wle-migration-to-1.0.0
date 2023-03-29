@@ -2,6 +2,7 @@ import { getMainEngine } from "../cauldron/wl/engine_globals";
 import { DebugVisualManager } from "./debug_visual_manager";
 
 export class DebugManager {
+
     constructor(engine = getMainEngine()) {
         this._myEngine = engine;
         this._myDebugVisualManager = new DebugVisualManager(this._myEngine);

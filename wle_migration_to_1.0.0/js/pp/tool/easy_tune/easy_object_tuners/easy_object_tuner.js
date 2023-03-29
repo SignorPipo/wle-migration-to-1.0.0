@@ -3,6 +3,7 @@ import { getEasyTuneTarget, getEasyTuneVariables } from "../easy_tune_globals";
 import { EasyTuneUtils } from "../easy_tune_utils";
 
 export class EasyObjectTuner {
+
     constructor(object, variableName, setAsDefault, useTuneTarget, engine = getMainEngine()) {
         this._myObject = object;
         this._myUseTuneTarget = useTuneTarget;

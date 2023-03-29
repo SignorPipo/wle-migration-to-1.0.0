@@ -12,6 +12,7 @@ import { getDefaultResources } from "../../../../../pp/default_resources_global"
 
 // occlude
 export class PlayerObscureManagerParams {
+
     constructor(engine = getMainEngine()) {
         this.myPlayerTransformManager = null;
 
@@ -41,6 +42,7 @@ export class PlayerObscureManagerParams {
 }
 
 export class PlayerObscureManager {
+
     constructor(params) {
         this._myParams = params;
 

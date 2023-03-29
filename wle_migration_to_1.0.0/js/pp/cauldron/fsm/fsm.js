@@ -8,6 +8,7 @@
 */
 
 export class StateData {
+
     constructor(stateID, stateObject) {
         this.myID = stateID;
         this.myObject = stateObject;
@@ -15,6 +16,7 @@ export class StateData {
 }
 
 export class TransitionData {
+
     constructor(transitionID, fromStateData, toStateData, transitionObject, skipStateFunction) {
         this.myID = transitionID;
         this.myFromState = fromStateData;
@@ -640,6 +642,7 @@ export class FSM {
 }
 
 class PendingPerform {
+
     constructor(transitionID, ...args) {
         this.myID = transitionID;
         this.myArgs = args;

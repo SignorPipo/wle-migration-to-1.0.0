@@ -2,6 +2,7 @@ import { Handedness } from "../../cauldron/input_types";
 import { VirtualGamepadIcon } from "./virtual_gamepad_icon";
 
 export class VirtualGamepadVirtualButton {
+
     constructor(buttonElementParent, virtualGamepadParams, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID) {
         this._myButtonElement = null;
         this._myButtonIcon = null;

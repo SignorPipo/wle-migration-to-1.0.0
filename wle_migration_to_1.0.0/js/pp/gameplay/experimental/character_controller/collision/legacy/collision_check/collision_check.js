@@ -22,6 +22,7 @@ export let CollisionCheckUtils = {
 };
 
 export class CollisionCheck {
+
     constructor(engine = getMainEngine()) {
         this._myEngine = engine;
 

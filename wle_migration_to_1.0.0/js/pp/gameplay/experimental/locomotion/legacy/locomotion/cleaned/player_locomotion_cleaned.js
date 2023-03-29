@@ -22,6 +22,7 @@ import { CleanedPlayerLocomotionSmooth } from "./player_locomotion_smooth_cleane
 import { CleanedPlayerTransformManager } from "./player_transform_manager_cleaned";
 
 export class CleanedPlayerLocomotion {
+
     constructor(params) {
         this._myParams = params;
 

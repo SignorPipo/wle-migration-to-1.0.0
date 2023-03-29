@@ -2,6 +2,7 @@ import { CollisionEventType, PhysXComponent } from "@wonderlandengine/api";
 import { Timer } from "../cauldron/timer";
 
 export class PhysicsCollisionCollector {
+
     constructor(physXComponent, isTrigger = false) {
         this._myPhysX = physXComponent;
 

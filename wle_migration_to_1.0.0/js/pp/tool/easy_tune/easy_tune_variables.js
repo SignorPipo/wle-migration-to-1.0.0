@@ -1,4 +1,5 @@
 export class EasyTuneVariables {
+
     constructor() {
         this._myVariables = new Map();
     }

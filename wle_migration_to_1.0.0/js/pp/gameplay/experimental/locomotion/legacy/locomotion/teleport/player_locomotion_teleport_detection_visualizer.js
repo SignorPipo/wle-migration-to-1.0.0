@@ -9,6 +9,7 @@ import { getEasyTuneVariables } from "../../../../../../tool/easy_tune/easy_tune
 import { EasyTuneInt, EasyTuneNumber } from "../../../../../../tool/easy_tune/easy_tune_variable_types";
 
 export class PlayerLocomotionTeleportDetectionVisualizerParams {
+
     constructor() {
         this.myTeleportParableValidMaterial = null;
         this.myTeleportParableInvalidMaterial = null;
@@ -38,6 +39,7 @@ export class PlayerLocomotionTeleportDetectionVisualizerParams {
 };
 
 export class PlayerLocomotionTeleportDetectionVisualizer {
+
     constructor(teleportParams, teleportRuntimeParams, detectionRuntimeParams) {
         this._myDetectionRuntimeParams = detectionRuntimeParams;
 

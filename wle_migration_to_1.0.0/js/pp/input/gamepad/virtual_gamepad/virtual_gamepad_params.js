@@ -4,12 +4,14 @@ import { GamepadAxesID, GamepadButtonID } from "../gamepad_buttons";
 import { VirtualGamepadIconParams, VirtualGamepadIconType } from "./virtual_gamepad_icon";
 
 export class VirtualGamepadButtonParams {
+
     constructor() {
         this.myIconParams = new VirtualGamepadIconParams();
     }
 }
 
 export class VirtualGamepadThumbstickParams {
+
     constructor() {
         this.myBackgroundColor = "";
 
@@ -25,6 +27,7 @@ export class VirtualGamepadThumbstickParams {
 }
 
 export class VirtualGamepadParams {
+
     constructor(engine = getMainEngine()) {
         this.myShowOnDesktop = false;
         this.myShowOnMobile = false;

@@ -18,6 +18,7 @@ export let AudioEvent = {
 };
 
 export class AudioPlayer {
+
     constructor(audioSetupOrAudioFilePath, createAudio = true) {
         if (audioSetupOrAudioFilePath == null) {
             this._myAudioSetup = new AudioSetup();

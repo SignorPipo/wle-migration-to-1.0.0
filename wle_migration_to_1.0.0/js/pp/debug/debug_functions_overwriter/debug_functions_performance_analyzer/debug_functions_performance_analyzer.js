@@ -2,6 +2,7 @@ import { JSUtils } from "../../../cauldron/utils/js_utils";
 import { DebugFunctionsOverwriter, DebugFunctionsOverwriterParams } from "../debug_functions_overwriter";
 
 export class DebugFunctionsPerformanceAnalyzerParams extends DebugFunctionsOverwriterParams {
+
     constructor() {
         super();
 
@@ -16,6 +17,7 @@ export class DebugFunctionsPerformanceAnalyzerParams extends DebugFunctionsOverw
 }
 
 export class DebugFunctionPerformanceAnalysisResults {
+
     constructor() {
         this.myReference = null;
         this.myName = "";
@@ -72,6 +74,7 @@ export let DebugFunctionsPerformanceAnalyzerSortOrder = {
 };
 
 export class DebugFunctionsPerformanceAnalyzer extends DebugFunctionsOverwriter {
+
     constructor(params = new DebugFunctionsPerformanceAnalyzerParams()) {
         super(params);
 

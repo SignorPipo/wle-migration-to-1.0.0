@@ -2,6 +2,7 @@ import { Timer } from "../../../cauldron/cauldron/timer";
 import { DebugFunctionsPerformanceAnalyzerSortOrder } from "./debug_functions_performance_analyzer";
 
 export class DebugFunctionsPerformanceAnalysisResultsLoggerParams {
+
     constructor() {
         this.myPerformanceAnalyzer = null;
 
@@ -31,6 +32,7 @@ export class DebugFunctionsPerformanceAnalysisResultsLoggerParams {
 }
 
 export class DebugFunctionsPerformanceAnalysisResultsLogger {
+
     constructor(params) {
         this._myParams = params;
 

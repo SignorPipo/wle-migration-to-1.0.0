@@ -1,6 +1,7 @@
 
 
 export class PlayerLocomotionMovementRuntimeParams {
+
     constructor() {
         this.myIsFlying = false;
         this.myCollisionRuntimeParams = null;
@@ -12,6 +13,7 @@ export class PlayerLocomotionMovementRuntimeParams {
 }
 
 export class PlayerLocomotionMovement {
+
     constructor(locomotionRuntimeParams) {
         this._myLocomotionRuntimeParams = locomotionRuntimeParams;
     }

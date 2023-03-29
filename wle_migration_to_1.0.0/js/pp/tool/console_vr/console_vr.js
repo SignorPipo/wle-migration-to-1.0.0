@@ -2,6 +2,7 @@ import { getOriginalConsoleAssert, getOriginalConsoleClear, getOriginalConsoleDe
 
 
 export class ConsoleVR {
+
     constructor() {
         this._myForwardToBrowserConsole = true;
     }

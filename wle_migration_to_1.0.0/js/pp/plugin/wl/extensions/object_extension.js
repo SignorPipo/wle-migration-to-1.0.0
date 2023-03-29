@@ -176,6 +176,7 @@ export function getObjectsByNameObjects(objects, name) {
 }
 
 export class CloneParams {
+
     constructor() {
         this.myIgnoreNonCloneable = false; // Ignores components that are not clonable
         this.myIgnoreComponents = false; // All components are ignored, cloning only the object hierarchy
@@ -196,6 +197,7 @@ export class CloneParams {
 }
 
 export class DeepCloneParams {
+
     constructor() {
         this._myDeepCloneObject = false;
         this._myOverrideDeepCloneComponentsMap = new Map();

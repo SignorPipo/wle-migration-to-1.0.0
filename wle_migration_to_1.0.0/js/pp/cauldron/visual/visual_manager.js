@@ -13,6 +13,7 @@ import { VisualTorus, VisualTorusParams } from "./elements/visual_torus";
 import { VisualTransform, VisualTransformParams } from "./elements/visual_transform";
 
 export class VisualManager {
+
     constructor(engine = getMainEngine()) {
         this._myEngine = engine;
 

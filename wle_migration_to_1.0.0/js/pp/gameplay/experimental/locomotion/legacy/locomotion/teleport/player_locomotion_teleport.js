@@ -13,6 +13,7 @@ import { PlayerLocomotionTeleportDetectionVisualizerParams } from "./player_loco
 import { PlayerLocomotionTeleportTeleportParams, PlayerLocomotionTeleportTeleportState } from "./player_locomotion_teleport_teleport_state";
 
 export class PlayerLocomotionTeleportParams {
+
     constructor(engine = getMainEngine()) {
         this.myPlayerHeadManager = null;
 

@@ -8,6 +8,7 @@ import { VisualManager } from "../cauldron/visual/visual_manager";
 import { vec3_create, vec4_create } from "../plugin/js/extensions/array_extension";
 
 export class DebugVisualManager extends VisualManager {
+
     constructor(engine) {
         super(engine);
     }

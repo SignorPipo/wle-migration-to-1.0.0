@@ -16,6 +16,7 @@ import { getMainEngine } from "../wl/engine_globals";
 import { PhysicsLayerFlags } from "./physics_layer_flags";
 
 export class RaycastSetup {
+
     constructor(physics = (getMainEngine() != null) ? getMainEngine().physics : null) {
         this.myOrigin = vec3_create();
         this.myDirection = vec3_create();
@@ -55,6 +56,7 @@ export class RaycastSetup {
 }
 
 export class RaycastResults {
+
     constructor() {
         this.myRaycastSetup = null;
         this.myHits = [];
@@ -154,6 +156,7 @@ export class RaycastResults {
 }
 
 export class RaycastHit {
+
     constructor() {
         this.myPosition = vec3_create();
         this.myNormal = vec3_create();

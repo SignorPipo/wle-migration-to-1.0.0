@@ -2,6 +2,7 @@ import { Handedness } from "../../cauldron/input_types";
 import { UniversalGamepad } from "../universal_gamepad";
 
 export class GamepadsManager {
+
     constructor() {
         this._myLeftGamepad = new UniversalGamepad(Handedness.LEFT);
         this._myRightGamepad = new UniversalGamepad(Handedness.RIGHT);

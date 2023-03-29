@@ -288,6 +288,7 @@ import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.
 import './pp/cauldron/fsm/transition.js';
 import './pp/cauldron/fsm/states/timer_state.js';
 import './pp/cauldron/fsm/state.js';
+import './pp/cauldron/fsm/fsm.js';
 /* wle:auto-imports:end */
 
 import { initPP } from "./pp/pp/init_pp"

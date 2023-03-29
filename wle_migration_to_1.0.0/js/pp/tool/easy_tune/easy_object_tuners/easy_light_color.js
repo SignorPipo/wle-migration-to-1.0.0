@@ -7,6 +7,7 @@ import { EasyTuneIntArray } from "../easy_tune_variable_types";
 import { EasyObjectTuner } from "./easy_object_tuner";
 
 export class EasyLightColor extends EasyObjectTuner {
+
     constructor(colorModel, object, variableName, setAsDefault, useTuneTarget, engine) {
         super(object, variableName, setAsDefault, useTuneTarget, engine);
         this._myColorModel = colorModel;

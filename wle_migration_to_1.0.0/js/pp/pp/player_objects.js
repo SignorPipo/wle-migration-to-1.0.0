@@ -1,4 +1,5 @@
 export class PlayerObjects {
+
     constructor() {
         this.myPlayer = null;
         this.myPlayerPivot = null;

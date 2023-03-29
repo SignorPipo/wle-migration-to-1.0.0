@@ -2,6 +2,7 @@ import { PhysicsLayerFlags } from "../../../../cauldron/physics/physics_layer_fl
 import { quat_create, vec3_create } from "../../../../plugin/js/extensions/array_extension";
 
 export class CharacterColliderSetup {
+
     constructor() {
         this.myHeight = 0;
 
@@ -41,6 +42,7 @@ export let CharacterColliderHorizontalPositionVerticalCheckDirection = {
 };
 
 export class CharacterColliderHorizontalCheckSetup {
+
     constructor() {
         this.myHorizontalCheckConeRadius = 0;
         this.myHorizontalCheckConeHalfAngle = 0;
@@ -132,6 +134,7 @@ export class CharacterColliderHorizontalCheckSetup {
 }
 
 export class CharacterColliderVerticalCheckSetup {
+
     constructor() {
         this.myVerticalCheckCircumferenceRadius = 0;
 
@@ -171,6 +174,7 @@ export let CharacterColliderSlideFlickerPreventionMode = {
 };
 
 export class CharacterColliderWallSlideSetup {
+
     constructor() {
         this.myWallSlideEnabled = false;
 
@@ -201,6 +205,7 @@ export class CharacterColliderWallSlideSetup {
 }
 
 export class CharacterColliderSurfaceSetup {
+
     constructor() {
         this.mySurfaceSnapEnabled = false;
         this.mySurfaceSnapMaxDistance = 0;
@@ -277,6 +282,7 @@ export class CharacterColliderSurfaceSetup {
 }
 
 export class CharacterColliderSplitMovementSetup {
+
     constructor() {
         this.mySplitMovementEnabled = false;
 
@@ -301,6 +307,7 @@ export class CharacterColliderSplitMovementSetup {
 }
 
 export class CharacterColliderAdditionalSetup {
+
     constructor() {
         this.myPositionOffsetLocal = vec3_create();
         this.myRotationOffsetLocalQuat = quat_create();
@@ -319,6 +326,7 @@ export class CharacterColliderAdditionalSetup {
 }
 
 export class CharacterColliderDebugSetup {
+
     constructor() {
         this.myVisualDebugActive = false;
 

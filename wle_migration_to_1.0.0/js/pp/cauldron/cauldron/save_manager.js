@@ -4,6 +4,7 @@ import { XRUtils } from "../utils/xr_utils";
 import { Timer } from "./timer";
 
 export class SaveManager {
+
     constructor(engine = getMainEngine()) {
         this._myEngine = engine;
 

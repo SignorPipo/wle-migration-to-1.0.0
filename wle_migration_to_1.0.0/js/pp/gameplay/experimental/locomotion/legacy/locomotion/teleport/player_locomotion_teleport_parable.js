@@ -1,6 +1,7 @@
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 
 export class PlayerLocomotionTeleportParable {
+
     constructor() {
         this._myStartPosition = vec3_create();
 

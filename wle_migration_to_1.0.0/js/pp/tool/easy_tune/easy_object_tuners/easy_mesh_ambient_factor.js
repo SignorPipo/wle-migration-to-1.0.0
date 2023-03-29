@@ -2,6 +2,7 @@ import { EasyTuneNumber } from "../easy_tune_variable_types";
 import { EasyObjectTuner } from "./easy_object_tuner";
 
 export class EasyMeshAmbientFactor extends EasyObjectTuner {
+
     constructor(object, variableName, setAsDefault, useTuneTarget, engine) {
         super(object, variableName, setAsDefault, useTuneTarget, engine);
     }

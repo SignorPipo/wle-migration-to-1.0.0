@@ -8,6 +8,7 @@ import { VirtualGamepadVirtualButton } from "./virtual_gamepad_virtual_button";
 import { VirtualGamepadVirtualThumbstick } from "./virtual_gamepad_virtual_thumbstick";
 
 export class VirtualGamepad {
+
     constructor(params = new VirtualGamepadParams()) {
         this._myParams = params;
 

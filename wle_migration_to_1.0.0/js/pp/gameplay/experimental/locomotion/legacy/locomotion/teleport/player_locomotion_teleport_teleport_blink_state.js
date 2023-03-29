@@ -8,6 +8,7 @@ import { NumberOverValue } from "../../../../../cauldron/cauldron/number_over_va
 import { Timer } from "../../../../../../cauldron/cauldron/timer";
 
 export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotionTeleportState {
+
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 

@@ -7,6 +7,7 @@ import { ToolHandedness } from "../cauldron/cauldron/tool_types";
 import { ConsoleVRWidgetMessageType } from "./console_vr_types";
 
 export class ConsoleVRWidgetUI {
+
     constructor(engine = getMainEngine()) {
         this._myEngine = engine;
     }

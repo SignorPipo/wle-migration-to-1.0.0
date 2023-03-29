@@ -21,6 +21,7 @@ import { VisualLine, VisualLineParams } from "./visual_line";
 import { MeshComponent } from "@wonderlandengine/api";
 
 export class VisualArrowParams {
+
     constructor(engine = getMainEngine()) {
         this.myStart = vec3_create();
         this.myDirection = vec3_create(0, 0, 1);

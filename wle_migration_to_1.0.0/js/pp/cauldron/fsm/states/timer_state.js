@@ -2,6 +2,7 @@ import { Timer } from "../../cauldron/timer";
 import { State } from "../state";
 
 export class TimerState extends State {
+
     constructor(duration = 0, transitionToPerformOnEnd = null, ...transitionArgs) {
         super();
 

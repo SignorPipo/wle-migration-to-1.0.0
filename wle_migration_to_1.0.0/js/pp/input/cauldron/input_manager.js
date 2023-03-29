@@ -4,6 +4,7 @@ import { Keyboard } from "./keyboard";
 import { Mouse } from "./mouse";
 
 export class InputManager {
+
     constructor(engine = getMainEngine()) {
         this._myMouse = new Mouse(engine);
         this._myKeyboard = new Keyboard();
