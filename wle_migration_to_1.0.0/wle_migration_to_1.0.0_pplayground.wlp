@@ -3335,11 +3335,14 @@
         "physx": {
             "enable": true,
             "groupNames": {
-                "0": "player",
-                "1": "solid",
-                "2": "interactable",
-                "3": "group3",
-                "4": "group4"
+                "0": "Player",
+                "1": "Solid",
+                "2": "Interactable",
+                "3": "Group 3",
+                "4": "Group 4",
+                "5": "Group 5",
+                "6": "Group 6",
+                "7": "Group 7"
             }
         }
     },
