@@ -21,7 +21,7 @@ import './pp/pp/default_resources_global.js';
 import './pp/pp/init_pp.js';
 import './pp/pp/player_objects.js';
 import './pp/pp/player_objects_global.js';
-import {AddPPToWindowComponent as AddPPToWindowComponent1} from './pp/pp/components/add_pp_to_window_component.js';
+import {WaveMovementComponent} from './playground/wave_movement_component.js';
 import {GetDefaultResourcesComponent as GetDefaultResourcesComponent1} from './pp/pp/components/get_default_resources_component.js';
 import {GetPlayerObjectsComponent as GetPlayerObjectsComponent1} from './pp/pp/components/get_player_objects_component.js';
 import {PPGatewayComponent as PPGatewayComponent1} from './pp/pp/components/pp_gateway_component.js';
@@ -286,7 +286,7 @@ import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
 import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
-import {WaveMovementComponent} from './playground/wave_movement_component.js';
+import {AddPPToWindowComponent as AddPPToWindowComponent1} from './pp/pp/components/add_pp_to_window_component.js';
 /* wle:auto-imports:end */
 
 import { loadRuntime } from "@wonderlandengine/api";
@@ -331,7 +331,7 @@ if (vrButton) {
 /* wle:auto-register:start */
 engine.registerComponent(ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent);
 engine.registerComponent(AddPPToWindowComponent, AddWLToWindowComponent, AdjustHierarchyPhysXScaleComponent, AudioManagerComponent, BenchmarkMaxPhysXComponent, BenchmarkMaxVisibleTrianglesComponent, CADisplayLeaderboardComponent, CharacterCollisionSystemComponent, CharacterControllerComponent, ClearConsoleOnXRSessionStartComponent, ConsoleVRComponent, CopyHandTransformComponent, CopyHeadTransformComponent, CopyPlayerPivotTransformComponent, CopyPlayerTransformComponent, DebugArrayFunctionsPerformanceAnalyzerComponent, DebugFunctionsPerformanceAnalyzerComponent, DebugManagerComponent, DebugPPArrayCreationPerformanceAnalyzerComponent, DebugPPFunctionsPerformanceAnalyzerComponent, DebugTransformComponent, DebugWLComponentsFunctionsPerformanceAnalyzerComponent, DebugWLFunctionsPerformanceAnalyzerComponent, EasyLightAttenuationComponent, EasyLightColorComponent, EasyMeshAmbientFactorComponent, EasyMeshColorComponent, EasyScaleComponent, EasySetTuneTargeetGrabComponent, EasySetTuneTargetChildNumberComponent, EasyTextColorComponent, EasyTransformComponent, EasyTuneComponent, EasyTuneImportVariablesComponent, EnableDebugsComponent, EnableToolsComponent, FingerCursorComponent, GamepadControlSchemeComponent, GamepadMeshAnimatorComponent, GetDefaultResourcesComponent, GetPlayerObjectsComponent, GlobalGravityComponent, GrabbableComponent, GrabberHandComponent, InputManagerComponent, MuteEverythingComponent, PPGatewayComponent, PlayerCharacterControllerComponent, PlayerHandCharacterControllerComponent, PlayerHeadCharacterControllerComponent, PlayerHeadControllerComponent, PlayerLocomotionComponent, PlayerLocomotionGravityComponent, PlayerLocomotionRotateComponent, PlayerLocomotionSmoothComponent, PlayerLocomotionTeleportComponent, PlayerViewOcclusionComponent, SetActiveComponent, SetHandLocalTransformComponent, SetHeadLocalTransformComponent, SetHeadNonVRLocalTransformComponent, SetHeadVRLocalTransformComponent, SetPlayerHeightComponent, SetTrackedHandJointLocalTransformComponent, ShowFPSComponent, SpatialAudioListenerComponent, SwitchHandObjectComponent, ToolCursorComponent, TrackedHandDrawAllJointsComponent, TrackedHandDrawJointComponent, TrackedHandDrawSkinComponent, VirtualGamepadComponent, VisualManagerComponent);
-engine.registerComponent(AddPPToWindowComponent1);
+engine.registerComponent(WaveMovementComponent);
 engine.registerComponent(GetDefaultResourcesComponent1);
 engine.registerComponent(GetPlayerObjectsComponent1);
 engine.registerComponent(PPGatewayComponent1);
@@ -414,7 +414,7 @@ engine.registerComponent(ScaleOnSpawnComponent);
 engine.registerComponent(SFXOnCollisionComponent);
 engine.registerComponent(SFXOnGrabThrowComponent);
 engine.registerComponent(TargetHitCheckComponent);
-engine.registerComponent(WaveMovementComponent);
+engine.registerComponent(AddPPToWindowComponent1);
 /* wle:auto-register:end */
 
 initPP(engine);
