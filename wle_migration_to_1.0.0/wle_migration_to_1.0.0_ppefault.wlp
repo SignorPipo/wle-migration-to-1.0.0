@@ -137,7 +137,7 @@
             ]
         },
         "20": {
-            "name": "Pivot",
+            "name": "Player Pivot",
             "parent": "19"
         },
         "21": {
