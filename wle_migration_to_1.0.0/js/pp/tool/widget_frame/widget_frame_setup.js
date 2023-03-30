@@ -1,3 +1,4 @@
+import { Alignment, Collider, Justification } from "@wonderlandengine/api";
 import { quat_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { ToolHandedness, ToolInputSourceType } from "../cauldron/cauldron/tool_types";
 
@@ -13,14 +14,14 @@ export class WidgetFrameSetup {
         // General
         this.myBackgroundColor = vec4_create(46 / 255, 46 / 255, 46 / 255, 1);
 
-        this.myCursorTargetCollisionCollider = 2; // Box
+        this.myCursorTargetCollisionCollider = Collider.Box;
         this.myCursorTargetCollisionGroup = 7;
         this.myCursorTargetCollisionThickness = 0.001;
 
         this.myDefaultTextColor = vec4_create(255 / 255, 255 / 255, 255 / 255, 1);
 
-        this.myTextAlignment = 2; // Center
-        this.myTextJustification = 2; // Middle
+        this.myTextAlignment = Alignment.Center;
+        this.myTextJustification = Justification.Middle;
         this.myTextColor = this.myDefaultTextColor;
 
         this.myButtonTextScale = vec3_create(0.18, 0.18, 0.18);
