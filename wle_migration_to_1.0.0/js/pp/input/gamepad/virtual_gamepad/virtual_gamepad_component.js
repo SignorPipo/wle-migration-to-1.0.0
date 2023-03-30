@@ -11,7 +11,7 @@ export class VirtualGamepadComponent extends Component {
     static Properties = {
         _myShowOnDesktop: { type: Type.Bool, default: false },   // You may have to enable headset too
         _myShowOnMobile: { type: Type.Bool, default: true },
-        _myShowOnHeadset: { type: Type.Bool, default: false },   // Not 100% reliable, this is true if the device supports vr and it is desktop
+        _myShowOnHeadset: { type: Type.Bool, default: false },   // Not 100% reliable, this is true if the device supports VR and it is Desktop
         _myAddToUniversalGamepad: { type: Type.Bool, default: true },
         _myOpacity: { type: Type.Float, default: 0.5 },
         _myIconColor: { type: Type.String, default: "#e0e0e0" },

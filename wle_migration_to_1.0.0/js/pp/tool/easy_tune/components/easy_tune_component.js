@@ -11,8 +11,8 @@ export class EasyTuneComponent extends Component {
         _myHandedness: { type: Type.Enum, values: ["None", "Left", "Right"], default: "None" },
         _myShowOnStart: { type: Type.Bool, default: false },
         _myShowVisibilityButton: { type: Type.Bool, default: false },
-        _myEnableGamepadScrollVariable: { type: Type.Bool, default: true },
-        _myEnableVariablesImportExportButtons: { type: Type.Bool, default: false },
+        _myGamepadScrollVariableEnabled: { type: Type.Bool, default: true },
+        _myVariablesImportExportButtonsEnabled: { type: Type.Bool, default: false },
         _myVariablesImportURL: { type: Type.String, default: "" },   // The URL can contain parameters inside brackets, like {param}
         _myVariablesExportURL: { type: Type.String, default: "" },   // Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
         _myImportVariablesOnStart: { type: Type.Bool, default: false },
@@ -49,12 +49,12 @@ export class EasyTuneComponent extends Component {
         additionalSetup.myHandedness = [null, "left", "right"][this._myHandedness];
         additionalSetup.myShowOnStart = this._myShowOnStart;
         additionalSetup.myShowVisibilityButton = this._myShowVisibilityButton;
-        additionalSetup.myEnableAdditionalButtons = true;
-        additionalSetup.myEnableGamepadScrollVariable = this._myEnableGamepadScrollVariable;
+        additionalSetup.myAdditionalButtonsEnabled = true;
+        additionalSetup.myGamepadScrollVariableEnabled = this._myGamepadScrollVariableEnabled;
         additionalSetup.myPlaneMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
         additionalSetup.myTextMaterial = getDefaultResources(this.engine).myMaterials.myText.clone();
 
-        additionalSetup.myEnableVariablesImportExportButtons = this._myEnableVariablesImportExportButtons;
+        additionalSetup.myVariablesImportExportButtonsEnabled = this._myVariablesImportExportButtonsEnabled;
         additionalSetup.myVariablesImportCallback = function (onSuccessCallback, onFailureCallback) {
             EasyTuneUtils.importEasyTuneVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, onSuccessCallback, onFailureCallback, this.engine);
         }.bind(this);

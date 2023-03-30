@@ -395,7 +395,7 @@ CollisionCheck.prototype._moveStep = function () {
             if (collisionCheckParams.mySlidingAdjustSign90Degrees) {
                 if (!collisionRuntimeParams.myHorizontalMovementCanceled && !collisionRuntimeParams.myIsSliding && !fixedHorizontalMovement.vec3_isZero()) {
                     /* let angleWithPreviousThreshold = 0.5;
-                    check use surfaceAdjustedHorizontalMovement instead of horizontalMovement if reenable this
+                    check use surfaceAdjustedHorizontalMovement instead of horizontalMovement if re-enable this
                     if (!this._myPrevCollisionRuntimeParams.myLastValidOriginalHorizontalMovement.vec3_isZero() && !horizontalMovement.vec3_isZero() &&
                         horizontalMovement.vec3_angle(this._myPrevCollisionRuntimeParams.myLastValidOriginalHorizontalMovement) > angleWithPreviousThreshold) {
                         collisionRuntimeParams.mySliding90DegreesSign = horizontalMovement.vec3_signTo(this._myPrevCollisionRuntimeParams.myLastValidOriginalHorizontalMovement, transformUp);

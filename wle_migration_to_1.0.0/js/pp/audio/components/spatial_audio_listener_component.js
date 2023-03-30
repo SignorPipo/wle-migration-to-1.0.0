@@ -6,7 +6,7 @@ import { vec3_create } from "../../plugin/js/extensions/array_extension";
 export class SpatialAudioListenerComponent extends Component {
     static TypeName = "pp-spatial-audio-listener";
     static Properties = {
-        _myEnabled: { type: Type.Enum, values: ["Always", "Vr", "Non Vr"], default: "Always" }
+        _myActive: { type: Type.Enum, values: ["Always", "VR", "Non VR"], default: "Always" }
     };
 
     init() {
@@ -16,7 +16,7 @@ export class SpatialAudioListenerComponent extends Component {
     }
 
     update(dt) {
-        if (this._myEnabled == 0 || (this._myEnabled == 1 && XRUtils.getSession(this.engine)) || (this._myEnabled == 2 && !XRUtils.getSession(this.engine))) {
+        if (this._myActive == 0 || (this._myActive == 1 && XRUtils.getSession(this.engine)) || (this._myActive == 2 && !XRUtils.getSession(this.engine))) {
             this.object.pp_getPosition(this._myOrigin);
             this.object.pp_getForward(this._myForward);
             this.object.pp_getUp(this._myUp);

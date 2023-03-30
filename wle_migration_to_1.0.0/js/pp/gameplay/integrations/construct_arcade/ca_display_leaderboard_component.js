@@ -98,38 +98,38 @@ export class CADisplayLeaderboardComponent extends Component {
         return convertedScore;
     }
 
-    _formatTime(score, hoursEnabled, minutesEnabled, secondsEnabled) {
+    _formatTime(score, displayHours, displayMinutes, displaySeconds) {
         let time = Math.floor(score / 1000);
 
         let hours = 0;
-        if (hoursEnabled) {
+        if (displayHours) {
             hours = Math.floor(time / 3600);
             time -= hours * 3600;
         }
 
         let minutes = 0;
-        if (minutesEnabled) {
+        if (displayMinutes) {
             minutes = Math.floor(time / 60);
             time -= minutes * 60;
         }
 
         let seconds = 0;
-        if (secondsEnabled) {
+        if (displaySeconds) {
             seconds = Math.floor(time);
         }
 
         let convertedTime = "";
 
-        if (secondsEnabled) {
-            convertedTime = (seconds.toFixed(0).length < 2 && (minutesEnabled || hoursEnabled)) ? "0".concat(seconds.toFixed(0)) : seconds.toFixed(0);
+        if (displaySeconds) {
+            convertedTime = (seconds.toFixed(0).length < 2 && (displayMinutes || displayHours)) ? "0".concat(seconds.toFixed(0)) : seconds.toFixed(0);
         }
 
-        if (minutesEnabled) {
-            convertedTime = ((minutes.toFixed(0).length < 2 && (secondsEnabled || hoursEnabled)) ? "0".concat(minutes.toFixed(0)) : minutes.toFixed(0)) + (secondsEnabled ? ":" + convertedTime : "");
+        if (displayMinutes) {
+            convertedTime = ((minutes.toFixed(0).length < 2 && (displaySeconds || displayHours)) ? "0".concat(minutes.toFixed(0)) : minutes.toFixed(0)) + (displaySeconds ? ":" + convertedTime : "");
         }
 
-        if (hoursEnabled) {
-            convertedTime = ((hours.toFixed(0).length < 2 && (secondsEnabled || minutesEnabled)) ? "0".concat(hours.toFixed(0)) : hours.toFixed(0)) + (minutesEnabled ? ":" + convertedTime : "");
+        if (displayHours) {
+            convertedTime = ((hours.toFixed(0).length < 2 && (displaySeconds || displayMinutes)) ? "0".concat(hours.toFixed(0)) : hours.toFixed(0)) + (displayMinutes ? ":" + convertedTime : "");
         }
 
         return convertedTime;

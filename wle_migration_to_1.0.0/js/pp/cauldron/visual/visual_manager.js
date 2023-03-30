@@ -211,7 +211,6 @@ export class VisualManager {
         objectPoolParams.myInitialPoolSize = 10;
         objectPoolParams.myAmountToAddWhenEmpty = 0;
         objectPoolParams.myPercentageToAddWhenEmpty = 0.5;
-        objectPoolParams.myEnableDebugLog = false;
         objectPoolParams.mySetActiveCallback = function (object, active) {
             object.setVisible(active);
         };

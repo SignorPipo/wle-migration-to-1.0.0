@@ -10,7 +10,7 @@ export class FingerCursorComponent extends Component {
     static TypeName = "pp-finger-cursor";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myEnableMultipleClicks: { type: Type.Bool, default: true },
+        _myMultipleClicksEnabled: { type: Type.Bool, default: true },
         _myCollisionGroup: { type: Type.Int, default: 1 },
         _myCollisionSize: { type: Type.Float, default: 0.0125 },
         _myCursorObject: { type: Type.Object, default: null }
@@ -96,11 +96,11 @@ export class FingerCursorComponent extends Component {
 
     _targetTouchEnd() {
         if (this._myLastTarget) {
-            if (this._myEnableMultipleClicks && this._myTripleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.pp_equals(this._myLastTarget.object)) {
+            if (this._myMultipleClicksEnabled && this._myTripleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.pp_equals(this._myLastTarget.object)) {
                 this._myLastTarget.onTripleClick(this._myLastTarget.object, this);
 
                 this._myTripleClickTimer = 0;
-            } else if (this._myEnableMultipleClicks && this._myDoubleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.pp_equals(this._myLastTarget.object)) {
+            } else if (this._myMultipleClicksEnabled && this._myDoubleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.pp_equals(this._myLastTarget.object)) {
                 this._myLastTarget.onDoubleClick(this._myLastTarget.object, this);
 
                 this._myTripleClickTimer = this._myMultipleClickDelay;

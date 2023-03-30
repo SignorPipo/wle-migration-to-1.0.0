@@ -69,7 +69,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
     }
 
     _startHook(parentObject, additionalSetup) {
-        this._myUI.setAdditionalButtonsActive(additionalSetup.myEnableAdditionalButtons);
+        this._myUI.setAdditionalButtonsActive(additionalSetup.myAdditionalButtonsEnabled);
     }
 
     _updateHook(dt) {

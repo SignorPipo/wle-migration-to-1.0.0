@@ -16,12 +16,12 @@ export class EasyTuneWidgetAdditionalSetup {
         this.myHandedness = ToolHandedness.NONE;
         this.myShowOnStart = false;
         this.myShowVisibilityButton = false;
-        this.myEnableAdditionalButtons = false;
-        this.myEnableGamepadScrollVariable = false;
+        this.myAdditionalButtonsEnabled = false;
+        this.myGamepadScrollVariableEnabled = false;
         this.myPlaneMaterial = null;
         this.myTextMaterial = null;
 
-        this.myEnableVariablesImportExportButtons = false;
+        this.myVariablesImportExportButtonsEnabled = false;
         this.myVariablesImportCallback = null;   // Signature: callback()
         this.myVariablesExportCallback = null;   // Signature: callback()
     }
@@ -138,7 +138,7 @@ export class EasyTuneWidget {
                 this._myCurrentWidget.update(dt);
             }
 
-            if (this._myAdditionalSetup.myEnableGamepadScrollVariable) {
+            if (this._myAdditionalSetup.myGamepadScrollVariableEnabled) {
                 this._updateGamepadScrollVariable(dt);
             }
         }

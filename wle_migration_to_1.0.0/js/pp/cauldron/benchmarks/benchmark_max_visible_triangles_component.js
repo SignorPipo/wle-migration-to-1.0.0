@@ -20,7 +20,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         _myCloneMaterial: { type: Type.Bool, default: false },
         _myCloneMesh: { type: Type.Bool, default: false },
 
-        _myEnableLog: { type: Type.Bool, default: true },
+        _myLogActive: { type: Type.Bool, default: true },
 
         _myStartOnXRStart: { type: Type.Bool, default: false },
         _myDisplayInFrontOfPlayer: { type: Type.Bool, default: true },
@@ -134,13 +134,13 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                             this._myUpperLimit = 0;
                             reset = true;
 
-                            if (this._myEnableLog) {
+                            if (this._myLogActive) {
                                 // Reset
                                 console.log("Rst - Triangles:", this._myCurrentPlanes * this._myRealTrianglesAmount, "- Planes:", this._myCurrentPlanes, "- Frame Rate:", frameRate);
                             }
                         } else {
                             if (this._myMaxPlanesReached) {
-                                if (this._myEnableLog) {
+                                if (this._myLogActive) {
                                     console.log("Aborted - Max Planes Reached");
 
                                     this._myDoneTextComponent.text = "Aborted - Max Planes Reached";
@@ -148,7 +148,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                             } else {
                                 this._displayPlanes(this._myLowerLimit);
 
-                                if (this._myEnableLog) {
+                                if (this._myLogActive) {
                                     console.log("\nEnd - Triangles:", this._myLowerLimit * this._myRealTrianglesAmount, "- Planes:", this._myLowerLimit, "- Frame Rate:", frameRate);
                                     console.log("Plane Triangles (Adjusted):", this._myRealTrianglesAmount);
                                     console.log("Target Frame Rate:", this._myStableFrameRate, "- Threshold: ", (this._myStableFrameRate - this._myTargetFrameRateThreshold));
@@ -165,7 +165,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                     }
 
                     if (isLagging && !reset) {
-                        if (this._myEnableLog) {
+                        if (this._myLogActive) {
                             console.log("Lag - Triangles:", this._myCurrentPlanes * this._myRealTrianglesAmount, "- Planes:", this._myCurrentPlanes, "- Frame Rate:", frameRate);
                         }
                     }
@@ -371,7 +371,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                         this._myStableFrameRate = this._myTargetFrameRate;
                     }
 
-                    if (this._myEnableLog) {
+                    if (this._myLogActive) {
                         console.log("\nPlane Triangles (Adjusted):", this._myRealTrianglesAmount);
                         console.log("Target Frame Rate:", this._myStableFrameRate, "- Threshold: ", (this._myStableFrameRate - this._myTargetFrameRateThreshold));
                         console.log("");

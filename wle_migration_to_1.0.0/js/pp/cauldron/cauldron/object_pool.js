@@ -15,7 +15,7 @@ export class ObjectPoolParams {
         this.myEqualCallback = undefined;                       // Signature: callback(firstObject, secondObject) -> bool
         this.myOptimizeObjectsAllocationCallback = undefined;   // Signature: callback(object, numberOfObjectsToAllocate)
 
-        this.myEnableDebugLog = true;
+        this.myDebugLogActive = false;
     }
 }
 
@@ -37,7 +37,7 @@ export class ObjectPool {
         if (object == null) {
             let amountToAdd = Math.ceil(this._myBusyObjects.length * this._myObjectPoolParams.myPercentageToAddWhenEmpty);
             amountToAdd += this._myObjectPoolParams.myAmountToAddWhenEmpty;
-            this._addToPool(amountToAdd, this._myObjectPoolParams.myEnableDebugLog);
+            this._addToPool(amountToAdd, this._myObjectPoolParams.myDebugLogActive);
             object = this._myAvailableObjects.shift();
         }
 
