@@ -1,9 +1,9 @@
 import { Component, Type } from "@wonderlandengine/api";
-import { Timer } from "../pp/cauldron/cauldron/timer";
-import { VisualMesh, VisualMeshParams } from "../pp/cauldron/visual/elements/visual_mesh";
-import { EasingFunction } from "../pp/plugin/js/extensions/math_extension";
-import { getDefaultResources } from "../pp/pp/default_resources_global";
-import { getPlayerObjects } from "../pp/pp/player_objects_global";
+import { Timer } from "../pp/index";
+import { VisualMesh, VisualMeshParams } from "../pp/index";
+import { EasingFunction } from "../pp/index";
+import { getDefaultResources } from "../pp/index";
+import { getPlayerObjects } from "../pp/index";
 
 export class FadeViewComponent extends Component {
     static TypeName = "fade-view";

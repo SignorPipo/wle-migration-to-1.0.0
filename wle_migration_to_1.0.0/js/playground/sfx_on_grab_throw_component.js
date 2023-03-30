@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
-import { getAudioManager } from "../pp/audio/audio_manager_global";
-import { GrabberHandComponent } from "../pp/gameplay/grab_throw/grabber_hand_component";
+import { getAudioManager } from "../pp/index";
+import { GrabberHandComponent } from "../pp/index";
 
 export class SFXOnGrabThrowComponent extends Component {
     static TypeName = "sfx-on-grab-throw";

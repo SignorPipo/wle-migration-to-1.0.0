@@ -267,4 +267,3 @@ CollisionCheck.prototype._ignoreSurfaceAngle = function () {
 Object.defineProperty(CollisionCheck.prototype, "_horizontalCheck", { enumerable: false });
 Object.defineProperty(CollisionCheck.prototype, "_horizontalCheckRaycast", { enumerable: false });
 Object.defineProperty(CollisionCheck.prototype, "_ignoreSurfaceAngle", { enumerable: false });
-

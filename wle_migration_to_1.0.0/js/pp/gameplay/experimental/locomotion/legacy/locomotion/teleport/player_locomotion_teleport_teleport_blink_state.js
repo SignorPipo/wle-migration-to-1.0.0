@@ -1,5 +1,5 @@
 import { PlayerLocomotionTeleportState } from "./player_locomotion_teleport_state";
-import { MeshComponent } from "@wonderlandengine/api"
+import { MeshComponent } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../../../../pp/default_resources_global";
 import { vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { FSM } from "../../../../../../cauldron/fsm/fsm";

@@ -1,9 +1,9 @@
 import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
-import { getAudioManager } from "../pp/audio/audio_manager_global";
-import { PhysicsCollisionCollector } from "../pp/cauldron/physics/physics_collision_collector";
-import { GrabbableComponent } from "../pp/gameplay/grab_throw/grabbable_component";
-import { getLeftGamepad } from "../pp/input/cauldron/input_globals";
-import { GamepadButtonID } from "../pp/input/gamepad/gamepad_buttons";
+import { getAudioManager } from "../pp/index";
+import { PhysicsCollisionCollector } from "../pp/index";
+import { GrabbableComponent } from "../pp/index";
+import { getLeftGamepad } from "../pp/index";
+import { GamepadButtonID } from "../pp/index";
 import { ParticlesSpawnerComponent } from "./particles_spawner_component";
 
 export class TargetHitCheckComponent extends Component {

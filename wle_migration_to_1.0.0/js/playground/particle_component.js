@@ -1,6 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
-import { vec3_create } from "../pp/plugin/js/extensions/array_extension";
-import { EasingFunction } from "../pp/plugin/js/extensions/math_extension";
+import { vec3_create } from "../pp/index";
+import { EasingFunction } from "../pp/index";
 
 export class ParticleComponent extends Component {
     static TypeName = "particle";

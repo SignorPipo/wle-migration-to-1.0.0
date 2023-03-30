@@ -14,7 +14,7 @@ let visualText = new VisualText(visualParams);
 import { mat4_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualData } from "../visual_globals";
-import { Alignment, Justification, TextComponent } from "@wonderlandengine/api"
+import { Alignment, Justification, TextComponent } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { VisualElementType } from "./visual_element_types";
 

@@ -164,4 +164,3 @@ CollisionCheck.prototype._raycastAndDebug = function () {
         return raycastResult;
     };
 }();
-

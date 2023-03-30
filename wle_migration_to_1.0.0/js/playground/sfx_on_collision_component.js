@@ -1,7 +1,7 @@
 import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
-import { getAudioManager } from "../pp/audio/audio_manager_global";
-import { PhysicsCollisionCollector } from "../pp/cauldron/physics/physics_collision_collector";
-import { GrabbableComponent } from "../pp/gameplay/grab_throw/grabbable_component";
+import { getAudioManager } from "../pp/index";
+import { PhysicsCollisionCollector } from "../pp/index";
+import { GrabbableComponent } from "../pp/index";
 
 export class SFXOnCollisionComponent extends Component {
     static TypeName = "sfx-on-collision";

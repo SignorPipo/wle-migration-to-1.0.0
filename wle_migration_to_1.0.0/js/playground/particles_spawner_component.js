@@ -1,7 +1,7 @@
 import { Component, Type, MeshComponent } from "@wonderlandengine/api";
-import { ObjectPoolParams } from "../pp/cauldron/cauldron/object_pool";
-import { ObjectPoolsManager } from "../pp/cauldron/cauldron/object_pools_manager";
-import { CloneParams } from "../pp/plugin/wl/extensions/object_extension";
+import { ObjectPoolParams } from "../pp/index";
+import { ObjectPoolsManager } from "../pp/index";
+import { CloneParams } from "../pp/index";
 import { ParticleComponent } from "./particle_component";
 
 export class ParticlesSpawnerComponent extends Component {

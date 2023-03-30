@@ -5,7 +5,7 @@ import { Timer } from "../cauldron/timer";
 import { VisualArrow, VisualArrowParams } from "./elements/visual_arrow";
 import { VisualElementType } from "./elements/visual_element_types";
 import { VisualLine, VisualLineParams } from "./elements/visual_line";
-import { VisualMesh, VisualMeshParams } from "./elements/visual_mesh"
+import { VisualMesh, VisualMeshParams } from "./elements/visual_mesh";
 import { VisualPoint, VisualPointParams } from "./elements/visual_point";
 import { VisualRaycast, VisualRaycastParams } from "./elements/visual_raycast";
 import { VisualText, VisualTextParams } from "./elements/visual_text";
