@@ -131,7 +131,7 @@
                 {
                     "type": "pp-switch-hand-object",
                     "pp-switch-hand-object": {
-                        "_myHandedness": "right",
+                        "_myHandedness": "Right",
                         "_myGamepad": "106",
                         "_myTrackedHand": "108"
                     }
@@ -351,13 +351,13 @@
                 {
                     "type": "pp-console-vr",
                     "pp-console-vr": {
-                        "_myHandedness": "left"
+                        "_myHandedness": "Left"
                     }
                 },
                 {
                     "type": "pp-easy-tune",
                     "pp-easy-tune": {
-                        "_myHandedness": "left"
+                        "_myHandedness": "Left"
                     }
                 }
             ]
@@ -382,7 +382,7 @@
                 {
                     "type": "pp-set-hand-local-transform",
                     "pp-set-hand-local-transform": {
-                        "_myHandedness": "right"
+                        "_myHandedness": "Right"
                     }
                 },
                 {
@@ -394,7 +394,7 @@
                         "_myTopButton": "143",
                         "_myBottomButton": "138",
                         "_myUsePressForSqueeze": true,
-                        "_myHandedness": "right"
+                        "_myHandedness": "Right"
                     }
                 }
             ],
@@ -422,7 +422,7 @@
                 {
                     "type": "pp-set-hand-local-transform",
                     "pp-set-hand-local-transform": {
-                        "_myHandedness": "right"
+                        "_myHandedness": "Right"
                     }
                 }
             ]
@@ -436,7 +436,7 @@
                     "pp-tracked-hand-draw-all-joints": {
                         "_myJointMesh": "p1",
                         "_myJointMaterial": "148",
-                        "_myHandedness": "right"
+                        "_myHandedness": "Right"
                     }
                 }
             ]
@@ -448,13 +448,13 @@
                 {
                     "type": "pp-set-hand-local-transform",
                     "pp-set-hand-local-transform": {
-                        "_myHandedness": "right"
+                        "_myHandedness": "Right"
                     }
                 },
                 {
                     "type": "pp-tool-cursor",
                     "pp-tool-cursor": {
-                        "_myHandedness": "right"
+                        "_myHandedness": "Right"
                     }
                 }
             ]
@@ -1700,7 +1700,7 @@
                     "type": "pp-grabber-hand",
                     "pp-grabber-hand": {
                         "_myMaxNumberOfObjects": 9999,
-                        "_myHandedness": "right",
+                        "_myHandedness": "Right",
                         "_myThrowVelocitySource": "grabbable"
                     }
                 }
@@ -3242,7 +3242,6 @@
         "scripting": {
             "sourcePaths": [
                 "js/index.js",
-                "js/bundle.js",
                 "js/pp",
                 "js/pp/pp",
                 "js/pp/pp/components",
@@ -3266,6 +3265,8 @@
                 "js/pp/cauldron/visual",
                 "js/pp/cauldron/visual/components",
                 "js/pp/cauldron/visual/elements",
+                "js/pp/cauldron/wl",
+                "js/pp/cauldron/wl/components",
                 "js/pp/debug",
                 "js/pp/debug/components",
                 "js/pp/debug/debug_functions_overwriter",
