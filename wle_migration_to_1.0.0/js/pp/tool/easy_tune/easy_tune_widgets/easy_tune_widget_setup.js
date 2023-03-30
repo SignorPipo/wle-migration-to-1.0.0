@@ -1,4 +1,4 @@
-import { ToolHandedness } from "../../cauldron/cauldron/tool_types";
+import { ToolHandedness } from "../../cauldron/tool_types";
 
 export class EasyTuneWidgetSetup {
 

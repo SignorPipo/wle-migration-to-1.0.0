@@ -3,9 +3,13 @@ import * as PP from "../../index";
 
 export class AddPPToWindowComponent extends Component {
     static TypeName = "pp-add-pp-to-window";
-    static Properties = {};
+    static Properties = {
+        _myAdd: { type: Type.Bool, default: true }
+    };
 
     init() {
-        window.PP = PP;
+        if (this._myAdd) {
+            window.PP = PP;
+        }
     }
 }

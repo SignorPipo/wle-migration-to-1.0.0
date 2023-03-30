@@ -5,7 +5,7 @@ import { getPlayerObjects } from "../../pp/player_objects_global";
 import { MeshComponent, CollisionComponent, TextComponent } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
-import { ToolHandedness, ToolInputSourceType } from "../cauldron/cauldron/tool_types";
+import { ToolHandedness, ToolInputSourceType } from "../cauldron/tool_types";
 import { getDefaultResources } from "../../pp/default_resources_global";
 
 export class WidgetFrameUI {

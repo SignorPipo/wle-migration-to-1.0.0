@@ -104,6 +104,7 @@ export * from "./debug/debug_globals";
 
 export * from "./debug/components/debug_transform_component";
 export * from "./debug/components/debug_manager_component";
+export * from "./debug/components/enable_debugs_component";
 
 export * from "./debug/debug_functions_overwriter/debug_functions_overwriter";
 export * from "./debug/debug_functions_overwriter/debug_functions_performance_analyzer/debug_functions_performance_analyzer";
@@ -265,8 +266,10 @@ export * from "./input/pose/components/copy_player_transform_component";
 export * from "./input/pose/components/copy_player_pivot_transform_component";
 
 //	TOOL
-export * from "./tool/cauldron/cauldron/tool_types";
+export * from "./tool/cauldron/tool_types";
+export * from "./tool/cauldron/tool_globals";
 export * from "./tool/cauldron/components/tool_cursor_component";
+export * from "./tool/cauldron/components/enable_tools_component";
 
 export * from "./tool/console_vr/console_vr_widget_setup";
 export * from "./tool/console_vr/console_vr_widget_ui";

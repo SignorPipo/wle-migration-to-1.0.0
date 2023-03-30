@@ -4,7 +4,7 @@ import { hasToolEnabled, isToolEnabled, removeToolEnabled, setToolEnabled } from
 export class EnableToolsComponent extends Component {
     static TypeName = "pp-enable-tools";
     static Properties = {
-        _myEnabled: { type: Type.Bool, default: true }
+        _myEnable: { type: Type.Bool, default: true }
     };
 
     init() {
@@ -12,7 +12,7 @@ export class EnableToolsComponent extends Component {
 
         // Prevents double global from same engine
         if (!hasToolEnabled(this.engine)) {
-            this._myToolEnabled = this._myEnabled;
+            this._myToolEnabled = this._myEnable;
 
             setToolEnabled(this._myToolEnabled, this.engine);
         }

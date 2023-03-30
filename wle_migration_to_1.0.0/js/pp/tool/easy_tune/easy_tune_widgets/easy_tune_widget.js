@@ -1,6 +1,6 @@
 import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
 import { GamepadAxesID, GamepadButtonID } from "../../../input/gamepad/gamepad_buttons";
-import { ToolHandedness } from "../../cauldron/cauldron/tool_types";
+import { ToolHandedness } from "../../cauldron/tool_types";
 import { WidgetFrame } from "../../widget_frame/widget_frame";
 import { EasyTuneVariableType } from "../easy_tune_variable_types";
 import { EasyTuneBaseWidgetParams } from "./base/easy_tune_base_widget";

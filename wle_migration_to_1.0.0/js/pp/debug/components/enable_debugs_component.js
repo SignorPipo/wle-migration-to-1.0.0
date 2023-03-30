@@ -4,7 +4,7 @@ import { hasDebugEnabled, isDebugEnabled, removeDebugEnabled, setDebugEnabled } 
 export class EnableDebugsComponent extends Component {
     static TypeName = "pp-enable-debugs";
     static Properties = {
-        _myEnabled: { type: Type.Bool, default: true }
+        _myEnable: { type: Type.Bool, default: true }
     };
 
     init() {
@@ -12,7 +12,7 @@ export class EnableDebugsComponent extends Component {
 
         // Prevents double global from same engine
         if (!hasDebugEnabled(this.engine)) {
-            this._myDebugEnabled = this._myEnabled;
+            this._myDebugEnabled = this._myEnable;
 
             setDebugEnabled(this._myDebugEnabled, this.engine);
         }
