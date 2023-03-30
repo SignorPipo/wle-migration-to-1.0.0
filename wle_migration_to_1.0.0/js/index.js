@@ -15,13 +15,13 @@ import * as API from "@wonderlandengine/api"; // Deprecated: Backward compatibil
 
 /* wle:auto-imports:start */
 import {ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent} from '@wonderlandengine/components';
-import {AddPPToWindowComponent, AddWLToWindowComponent, AdjustHierarchyPhysXScaleComponent, AudioManagerComponent, BenchmarkMaxPhysXComponent, BenchmarkMaxVisibleTrianglesComponent, CADisplayLeaderboardComponent, CharacterCollisionSystemComponent, CharacterControllerComponent, ClearConsoleOnXRSessionStartComponent, ConsoleVRComponent, CopyHandTransformComponent, CopyHeadTransformComponent, CopyPlayerPivotTransformComponent, CopyPlayerTransformComponent, DebugArrayFunctionsPerformanceAnalyzerComponent, DebugFunctionsPerformanceAnalyzerComponent, DebugManagerComponent, DebugPPArrayCreationPerformanceAnalyzerComponent, DebugPPFunctionsPerformanceAnalyzerComponent, DebugTransformComponent, DebugWLComponentsFunctionsPerformanceAnalyzerComponent, DebugWLFunctionsPerformanceAnalyzerComponent, EasyLightAttenuationComponent, EasyLightColorComponent, EasyMeshAmbientFactorComponent, EasyMeshColorComponent, EasyScaleComponent, EasySetTuneTargeetGrabComponent, EasySetTuneTargetChildNumberComponent, EasyTextColorComponent, EasyTransformComponent, EasyTuneComponent, EasyTuneImportVariablesComponent, EnableDebugsComponent, EnableToolsComponent, FingerCursorComponent, GamepadControlSchemeComponent, GamepadMeshAnimatorComponent, GetDefaultResourcesComponent, GetPlayerObjectsComponent, GlobalGravityComponent, GrabbableComponent, GrabberHandComponent, InputManagerComponent, MuteEverythingComponent, PPGatewayComponent, PlayerCharacterControllerComponent, PlayerHandCharacterControllerComponent, PlayerHeadCharacterControllerComponent, PlayerHeadControllerComponent, PlayerLocomotionComponent, PlayerLocomotionGravityComponent, PlayerLocomotionRotateComponent, PlayerLocomotionSmoothComponent, PlayerLocomotionTeleportComponent, PlayerViewOcclusionComponent, SetActiveComponent, SetHandLocalTransformComponent, SetHeadLocalTransformComponent, SetHeadNonVRLocalTransformComponent, SetHeadVRLocalTransformComponent, SetPlayerHeightComponent, SetTrackedHandJointLocalTransformComponent, ShowFPSComponent, SpatialAudioListenerComponent, SwitchHandObjectComponent, ToolCursorComponent, TrackedHandDrawAllJointsComponent, TrackedHandDrawJointComponent, TrackedHandDrawSkinComponent, VirtualGamepadComponent, VisualManagerComponent} from './pp/index.js';
+import {AddPPToWindowComponent, AddWLToWindowComponent, AdjustHierarchyPhysXScaleComponent, AudioManagerComponent, BenchmarkMaxPhysXComponent, BenchmarkMaxVisibleTrianglesComponent, CADisplayLeaderboardComponent, CharacterCollisionSystemComponent, CharacterControllerComponent, ClearConsoleOnXRSessionStartComponent, ConsoleVRToolComponent, CopyHandTransformComponent, CopyHeadTransformComponent, CopyPlayerPivotTransformComponent, CopyPlayerTransformComponent, DebugArrayFunctionsPerformanceAnalyzerComponent, DebugFunctionsPerformanceAnalyzerComponent, DebugManagerComponent, DebugPPArrayCreationPerformanceAnalyzerComponent, DebugPPFunctionsPerformanceAnalyzerComponent, DebugTransformComponent, DebugWLComponentsFunctionsPerformanceAnalyzerComponent, DebugWLFunctionsPerformanceAnalyzerComponent, EasyLightAttenuationComponent, EasyLightColorComponent, EasyMeshAmbientFactorComponent, EasyMeshColorComponent, EasyScaleComponent, EasySetTuneTargeetGrabComponent, EasySetTuneTargetChildNumberComponent, EasyTextColorComponent, EasyTransformComponent, EasyTuneImportVariablesComponent, EasyTuneToolComponent, EnableDebugsComponent, EnableToolsComponent, FingerCursorComponent, GamepadControlSchemeComponent, GamepadMeshAnimatorComponent, GetDefaultResourcesComponent, GetPlayerObjectsComponent, GlobalGravityComponent, GrabbableComponent, GrabberHandComponent, InitConsoleVRComponent, InitEasyTuneVariablesComponent, InputManagerComponent, MuteEverythingComponent, PPGatewayComponent, PlayerCharacterControllerComponent, PlayerHandCharacterControllerComponent, PlayerHeadCharacterControllerComponent, PlayerHeadControllerComponent, PlayerLocomotionComponent, PlayerLocomotionGravityComponent, PlayerLocomotionRotateComponent, PlayerLocomotionSmoothComponent, PlayerLocomotionTeleportComponent, PlayerViewOcclusionComponent, SetActiveComponent, SetHandLocalTransformComponent, SetHeadLocalTransformComponent, SetHeadNonVRLocalTransformComponent, SetHeadVRLocalTransformComponent, SetPlayerHeightComponent, SetTrackedHandJointLocalTransformComponent, ShowFPSComponent, SpatialAudioListenerComponent, SwitchHandObjectComponent, ToolCursorComponent, TrackedHandDrawAllJointsComponent, TrackedHandDrawJointComponent, TrackedHandDrawSkinComponent, VirtualGamepadComponent, VisualManagerComponent} from './pp/index.js';
 import './pp/pp/default_resources.js';
 import './pp/pp/default_resources_global.js';
 import './pp/pp/init_pp.js';
 import './pp/pp/player_objects.js';
 import './pp/pp/player_objects_global.js';
-import {WaveMovementComponent} from './playground/wave_movement_component.js';
+import {AddPPToWindowComponent as AddPPToWindowComponent1} from './pp/pp/components/add_pp_to_window_component.js';
 import {GetDefaultResourcesComponent as GetDefaultResourcesComponent1} from './pp/pp/components/get_default_resources_component.js';
 import {GetPlayerObjectsComponent as GetPlayerObjectsComponent1} from './pp/pp/components/get_player_objects_component.js';
 import {PPGatewayComponent as PPGatewayComponent1} from './pp/pp/components/pp_gateway_component.js';
@@ -227,7 +227,6 @@ import './pp/tool/widget_frame/widget_frame_setup.js';
 import './pp/tool/widget_frame/widget_frame_ui.js';
 import './pp/tool/console_vr/console_original_functions.js';
 import './pp/tool/console_vr/console_vr.js';
-import {ConsoleVRComponent as ConsoleVRComponent1} from './pp/tool/console_vr/console_vr_component.js';
 import './pp/tool/console_vr/console_vr_global.js';
 import './pp/tool/console_vr/console_vr_types.js';
 import './pp/tool/console_vr/console_vr_widget.js';
@@ -237,8 +236,9 @@ import './pp/tool/easy_tune/easy_tune_globals.js';
 import './pp/tool/easy_tune/easy_tune_utils.js';
 import './pp/tool/easy_tune/easy_tune_variable_types.js';
 import './pp/tool/easy_tune/easy_tune_variables.js';
-import {EasyTuneComponent as EasyTuneComponent1} from './pp/tool/easy_tune/components/easy_tune_component.js';
 import {EasyTuneImportVariablesComponent as EasyTuneImportVariablesComponent1} from './pp/tool/easy_tune/components/easy_tune_import_variables_component.js';
+import {EasyTuneToolComponent as EasyTuneToolComponent1} from './pp/tool/easy_tune/components/easy_tune_tool_component.js';
+import {InitEasyTuneVariablesComponent as InitEasyTuneVariablesComponent1} from './pp/tool/easy_tune/components/init_easy_tune_variables_component.js';
 import './pp/tool/easy_tune/easy_object_tuners/easy_light_attenuation.js';
 import './pp/tool/easy_tune/easy_object_tuners/easy_light_color.js';
 import './pp/tool/easy_tune/easy_object_tuners/easy_mesh_ambient_factor.js';
@@ -286,7 +286,7 @@ import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
 import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
-import {AddPPToWindowComponent as AddPPToWindowComponent1} from './pp/pp/components/add_pp_to_window_component.js';
+import {WaveMovementComponent} from './playground/wave_movement_component.js';
 /* wle:auto-imports:end */
 
 import { loadRuntime } from "@wonderlandengine/api";
@@ -330,8 +330,8 @@ if (vrButton) {
 
 /* wle:auto-register:start */
 engine.registerComponent(ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent);
-engine.registerComponent(AddPPToWindowComponent, AddWLToWindowComponent, AdjustHierarchyPhysXScaleComponent, AudioManagerComponent, BenchmarkMaxPhysXComponent, BenchmarkMaxVisibleTrianglesComponent, CADisplayLeaderboardComponent, CharacterCollisionSystemComponent, CharacterControllerComponent, ClearConsoleOnXRSessionStartComponent, ConsoleVRComponent, CopyHandTransformComponent, CopyHeadTransformComponent, CopyPlayerPivotTransformComponent, CopyPlayerTransformComponent, DebugArrayFunctionsPerformanceAnalyzerComponent, DebugFunctionsPerformanceAnalyzerComponent, DebugManagerComponent, DebugPPArrayCreationPerformanceAnalyzerComponent, DebugPPFunctionsPerformanceAnalyzerComponent, DebugTransformComponent, DebugWLComponentsFunctionsPerformanceAnalyzerComponent, DebugWLFunctionsPerformanceAnalyzerComponent, EasyLightAttenuationComponent, EasyLightColorComponent, EasyMeshAmbientFactorComponent, EasyMeshColorComponent, EasyScaleComponent, EasySetTuneTargeetGrabComponent, EasySetTuneTargetChildNumberComponent, EasyTextColorComponent, EasyTransformComponent, EasyTuneComponent, EasyTuneImportVariablesComponent, EnableDebugsComponent, EnableToolsComponent, FingerCursorComponent, GamepadControlSchemeComponent, GamepadMeshAnimatorComponent, GetDefaultResourcesComponent, GetPlayerObjectsComponent, GlobalGravityComponent, GrabbableComponent, GrabberHandComponent, InputManagerComponent, MuteEverythingComponent, PPGatewayComponent, PlayerCharacterControllerComponent, PlayerHandCharacterControllerComponent, PlayerHeadCharacterControllerComponent, PlayerHeadControllerComponent, PlayerLocomotionComponent, PlayerLocomotionGravityComponent, PlayerLocomotionRotateComponent, PlayerLocomotionSmoothComponent, PlayerLocomotionTeleportComponent, PlayerViewOcclusionComponent, SetActiveComponent, SetHandLocalTransformComponent, SetHeadLocalTransformComponent, SetHeadNonVRLocalTransformComponent, SetHeadVRLocalTransformComponent, SetPlayerHeightComponent, SetTrackedHandJointLocalTransformComponent, ShowFPSComponent, SpatialAudioListenerComponent, SwitchHandObjectComponent, ToolCursorComponent, TrackedHandDrawAllJointsComponent, TrackedHandDrawJointComponent, TrackedHandDrawSkinComponent, VirtualGamepadComponent, VisualManagerComponent);
-engine.registerComponent(WaveMovementComponent);
+engine.registerComponent(AddPPToWindowComponent, AddWLToWindowComponent, AdjustHierarchyPhysXScaleComponent, AudioManagerComponent, BenchmarkMaxPhysXComponent, BenchmarkMaxVisibleTrianglesComponent, CADisplayLeaderboardComponent, CharacterCollisionSystemComponent, CharacterControllerComponent, ClearConsoleOnXRSessionStartComponent, ConsoleVRToolComponent, CopyHandTransformComponent, CopyHeadTransformComponent, CopyPlayerPivotTransformComponent, CopyPlayerTransformComponent, DebugArrayFunctionsPerformanceAnalyzerComponent, DebugFunctionsPerformanceAnalyzerComponent, DebugManagerComponent, DebugPPArrayCreationPerformanceAnalyzerComponent, DebugPPFunctionsPerformanceAnalyzerComponent, DebugTransformComponent, DebugWLComponentsFunctionsPerformanceAnalyzerComponent, DebugWLFunctionsPerformanceAnalyzerComponent, EasyLightAttenuationComponent, EasyLightColorComponent, EasyMeshAmbientFactorComponent, EasyMeshColorComponent, EasyScaleComponent, EasySetTuneTargeetGrabComponent, EasySetTuneTargetChildNumberComponent, EasyTextColorComponent, EasyTransformComponent, EasyTuneImportVariablesComponent, EasyTuneToolComponent, EnableDebugsComponent, EnableToolsComponent, FingerCursorComponent, GamepadControlSchemeComponent, GamepadMeshAnimatorComponent, GetDefaultResourcesComponent, GetPlayerObjectsComponent, GlobalGravityComponent, GrabbableComponent, GrabberHandComponent, InitConsoleVRComponent, InitEasyTuneVariablesComponent, InputManagerComponent, MuteEverythingComponent, PPGatewayComponent, PlayerCharacterControllerComponent, PlayerHandCharacterControllerComponent, PlayerHeadCharacterControllerComponent, PlayerHeadControllerComponent, PlayerLocomotionComponent, PlayerLocomotionGravityComponent, PlayerLocomotionRotateComponent, PlayerLocomotionSmoothComponent, PlayerLocomotionTeleportComponent, PlayerViewOcclusionComponent, SetActiveComponent, SetHandLocalTransformComponent, SetHeadLocalTransformComponent, SetHeadNonVRLocalTransformComponent, SetHeadVRLocalTransformComponent, SetPlayerHeightComponent, SetTrackedHandJointLocalTransformComponent, ShowFPSComponent, SpatialAudioListenerComponent, SwitchHandObjectComponent, ToolCursorComponent, TrackedHandDrawAllJointsComponent, TrackedHandDrawJointComponent, TrackedHandDrawSkinComponent, VirtualGamepadComponent, VisualManagerComponent);
+engine.registerComponent(AddPPToWindowComponent1);
 engine.registerComponent(GetDefaultResourcesComponent1);
 engine.registerComponent(GetPlayerObjectsComponent1);
 engine.registerComponent(PPGatewayComponent1);
@@ -392,9 +392,9 @@ engine.registerComponent(SetPlayerHeightComponent1);
 engine.registerComponent(SetTrackedHandJointLocalTransformComponent1);
 engine.registerComponent(EnableToolsComponent1);
 engine.registerComponent(ToolCursorComponent1);
-engine.registerComponent(ConsoleVRComponent1);
-engine.registerComponent(EasyTuneComponent1);
 engine.registerComponent(EasyTuneImportVariablesComponent1);
+engine.registerComponent(EasyTuneToolComponent1);
+engine.registerComponent(InitEasyTuneVariablesComponent1);
 engine.registerComponent(EasyLightAttenuationComponent1);
 engine.registerComponent(EasyLightColorComponent1);
 engine.registerComponent(EasyMeshAmbientFactorComponent1);
@@ -414,7 +414,7 @@ engine.registerComponent(ScaleOnSpawnComponent);
 engine.registerComponent(SFXOnCollisionComponent);
 engine.registerComponent(SFXOnGrabThrowComponent);
 engine.registerComponent(TargetHitCheckComponent);
-engine.registerComponent(AddPPToWindowComponent1);
+engine.registerComponent(WaveMovementComponent);
 /* wle:auto-register:end */
 
 initPP(engine);

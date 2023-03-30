@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { isToolEnabled } from "../../../cauldron/tool_globals";
 import { EasyMeshColor } from "../easy_mesh_color";
 
 export class EasyMeshColorComponent extends Component {
@@ -12,15 +13,27 @@ export class EasyMeshColorComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new EasyMeshColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = null;
+
+        if (isToolEnabled(this.engine)) {
+            this._myEasyObjectTuner = new EasyMeshColor(this._myColorModel, this._myColorType, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        }
     }
 
     start() {
-        this._myEasyObjectTuner.start();
+        if (isToolEnabled(this.engine)) {
+            if (this._myEasyObjectTuner != null) {
+                this._myEasyObjectTuner.start();
+            }
+        }
     }
 
     update(dt) {
-        this._myEasyObjectTuner.update(dt);
+        if (isToolEnabled(this.engine)) {
+            if (this._myEasyObjectTuner != null) {
+                this._myEasyObjectTuner.update(dt);
+            }
+        }
     }
 
     pp_clone(targetObject) {

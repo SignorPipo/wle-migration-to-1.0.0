@@ -1,4 +1,5 @@
 import { Component, Type } from "@wonderlandengine/api";
+import { isToolEnabled } from "../../../cauldron/tool_globals";
 import { EasyScale } from "../easy_scale";
 
 export class EasyScaleComponent extends Component {
@@ -12,14 +13,26 @@ export class EasyScaleComponent extends Component {
     };
 
     init() {
-        this._myEasyObjectTuner = new EasyScale(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        this._myEasyObjectTuner = null;
+
+        if (isToolEnabled(this.engine)) {
+            this._myEasyObjectTuner = new EasyScale(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+        }
     }
 
     start() {
-        this._myEasyObjectTuner.start();
+        if (isToolEnabled(this.engine)) {
+            if (this._myEasyObjectTuner != null) {
+                this._myEasyObjectTuner.start();
+            }
+        }
     }
 
     update(dt) {
-        this._myEasyObjectTuner.update(dt);
+        if (isToolEnabled(this.engine)) {
+            if (this._myEasyObjectTuner != null) {
+                this._myEasyObjectTuner.update(dt);
+            }
+        }
     }
 }

@@ -13,8 +13,8 @@ import { GetPlayerObjectsComponent } from "./get_player_objects_component";
 export class PPGatewayComponent extends Component {
     static TypeName = "pp-gateway";
     static Properties = {
-        _myDebugsEnabled: { type: Type.Bool, default: true },
-        _myToolsEnabled: { type: Type.Bool, default: true },
+        _myEnableDebugs: { type: Type.Bool, default: true },
+        _myEnableTools: { type: Type.Bool, default: true },
         _myAddPPToWindow: { type: Type.Bool, default: true },
         _myAddWLToWindow: { type: Type.Bool, default: true },
         ...InputManagerComponent.Properties,

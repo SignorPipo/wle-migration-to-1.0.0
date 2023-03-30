@@ -374,14 +374,14 @@
                     "type": "pp-set-hand-local-transform"
                 },
                 {
-                    "type": "pp-console-vr",
-                    "pp-console-vr": {
+                    "type": "pp-console-vr-tool",
+                    "pp-console-vr-tool": {
                         "_myHandedness": "Left"
                     }
                 },
                 {
-                    "type": "pp-easy-tune",
-                    "pp-easy-tune": {
+                    "type": "pp-easy-tune-tool",
+                    "pp-easy-tune-tool": {
                         "_myHandedness": "Left"
                     }
                 }
@@ -1182,6 +1182,7 @@
                 "js/pp/tool/cauldron/components",
                 "js/pp/tool/widget_frame",
                 "js/pp/tool/console_vr",
+                "js/pp/tool/console_vr/components",
                 "js/pp/tool/easy_tune",
                 "js/pp/tool/easy_tune/components",
                 "js/pp/tool/easy_tune/easy_object_tuners",

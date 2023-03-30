@@ -277,16 +277,19 @@ export * from "./tool/console_vr/console_vr_widget";
 export * from "./tool/console_vr/console_vr";
 export * from "./tool/console_vr/console_vr_types";
 export * from "./tool/console_vr/console_vr_global";
-export * from "./tool/console_vr/console_vr_component";
 export * from "./tool/console_vr/console_original_functions";
+
+export * from "./tool/console_vr/components/console_vr_tool_component";
+export * from "./tool/console_vr/components/init_console_vr_component";
 
 export * from "./tool/easy_tune/easy_tune_variables";
 export * from "./tool/easy_tune/easy_tune_variable_types";
 export * from "./tool/easy_tune/easy_tune_globals";
 export * from "./tool/easy_tune/easy_tune_utils";
 
-export * from "./tool/easy_tune/components/easy_tune_component";
+export * from "./tool/easy_tune/components/easy_tune_tool_component";
 export * from "./tool/easy_tune/components/easy_tune_import_variables_component";
+export * from "./tool/easy_tune/components/init_easy_tune_variables_component";
 
 export * from "./tool/easy_tune/easy_object_tuners/easy_object_tuner";
 export * from "./tool/easy_tune/easy_object_tuners/easy_light_attenuation";

@@ -1,5 +1,6 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { GrabberHandComponent } from "../../../../gameplay/grab_throw/grabber_hand_component";
+import { isToolEnabled } from "../../../cauldron/tool_globals";
 import { getEasyTuneTarget, removeEasyTuneTarget, setEasyTuneTarget } from "../../easy_tune_globals";
 
 export class EasySetTuneTargeetGrabComponent extends Component {
@@ -7,8 +8,12 @@ export class EasySetTuneTargeetGrabComponent extends Component {
     static Properties = {};
 
     start() {
-        this._myGrabber = this.object.pp_getComponent(GrabberHandComponent);
-        this._myEasyTuneTarget = null;
+        this._myGrabber = null;
+
+        if (isToolEnabled(this.engine)) {
+            this._myGrabber = this.object.pp_getComponent(GrabberHandComponent);
+            this._myEasyTuneTarget = null;
+        }
     }
 
     _onRelease(grabber, grabbable) {
@@ -24,12 +29,20 @@ export class EasySetTuneTargeetGrabComponent extends Component {
     }
 
     onActivate() {
-        //this._myGrabber.registerGrabEventListener(this, this._onGrab.bind(this));
-        this._myGrabber.registerThrowEventListener(this, this._onRelease.bind(this));
+        if (isToolEnabled(this.engine)) {
+            if (this._myGrabber != null) {
+                //this._myGrabber.registerGrabEventListener(this, this._onGrab.bind(this));
+                this._myGrabber.registerThrowEventListener(this, this._onRelease.bind(this));
+            }
+        }
     }
 
     onDeactivate() {
-        //this._myGrabber.unregisterGrabEventListener(this);
-        this._myGrabber.unregisterThrowEventListener(this);
+        if (isToolEnabled(this.engine)) {
+            if (this._myGrabber != null) {
+                //this._myGrabber.unregisterGrabEventListener(this);
+                this._myGrabber.unregisterThrowEventListener(this);
+            }
+        }
     }
 }
