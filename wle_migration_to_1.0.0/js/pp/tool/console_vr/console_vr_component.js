@@ -17,7 +17,7 @@ export class ConsoleVRComponent extends Component {
     init() {
         this._myConsoleVR = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasConsoleVR(this.engine)) {
             this._myConsoleVR = new ConsoleVR();
 

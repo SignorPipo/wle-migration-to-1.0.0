@@ -505,8 +505,8 @@ export class FSM {
         this._myTransitionCallbacks.delete(callbackID);
     }
 
-    //the fsm IDs can be null, that means that the callback is called whenever only the valid IDs match
-    //this let you register to all the transitions with a specific ID and from of a specific state but to every state (toStateID == null)
+    // The fsm IDs can be null, that means that the callback is called whenever only the valid IDs match
+    // This let you register to all the transitions with a specific ID and from of a specific state but to every state (toStateID == null)
     registerTransitionIDEventListener(fromStateID, toStateID, transitionID, callbackID, callback) {
         let internalTransitionIDCallbacks = null;
         for (let value of this._myTransitionIDCallbacks) {

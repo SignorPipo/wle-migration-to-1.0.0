@@ -276,7 +276,8 @@ export class EasyTuneWidget {
 
         let variableIndex = this._getVariableIndex(this._myCurrentVariable);
         if (variableIndex >= 0) {
-            let newIndex = (((variableIndex + amount) % this._myVariableNames.length) + this._myVariableNames.length) % this._myVariableNames.length; //manage negative numbers
+            // Manage negative numbers
+            let newIndex = (((variableIndex + amount) % this._myVariableNames.length) + this._myVariableNames.length) % this._myVariableNames.length;
             if (this._myEasyTuneVariables.has(this._myVariableNames[newIndex])) {
                 this._myCurrentVariable = this._myEasyTuneVariables.getEasyTuneVariable(this._myVariableNames[newIndex]);
                 this._selectCurrentWidget();

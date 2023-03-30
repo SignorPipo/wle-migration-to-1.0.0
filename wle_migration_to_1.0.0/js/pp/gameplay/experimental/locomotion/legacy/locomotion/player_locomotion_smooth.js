@@ -85,7 +85,7 @@ export class PlayerLocomotionSmooth extends PlayerLocomotionMovement {
     }
 
     update(dt) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

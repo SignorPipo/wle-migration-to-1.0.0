@@ -6,7 +6,7 @@ import { PhysicsCollisionCollector } from "../physics/physics_collision_collecto
 import { RaycastResults, RaycastSetup } from "../physics/physics_raycast_data";
 import { PhysicsUtils } from "../physics/physics_utils";
 
-// adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away
+// Adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away
 export class BenchmarkMaxPhysXComponent extends Component {
     static TypeName = "pp-benchmark-max-physx";
     static Properties = {
@@ -20,11 +20,11 @@ export class BenchmarkMaxPhysXComponent extends Component {
         _myVisualizeRaycast: { type: Type.Bool, default: false },
         _myVisualizeRaycastDelay: { type: Type.Float, default: 0.5 },
 
-        // you can use this to test with convex mesh, 
+        // You can use this to test with convex mesh, 
         // but u first need to add a physx with a convex mesh to the scene and read the shapeData index on the component to set it as _myShapeIndex
         _myUseConvexMesh: { type: Type.Bool, default: false },
         _myShapeIndex: { type: Type.Int, default: 0 },
-        _myShapeScaleMultiplier: { type: Type.Float, default: 1 }, // used to adjust the scale of the convex mesh if too big or small based on how u imported it
+        _myShapeScaleMultiplier: { type: Type.Float, default: 1 }, // Used to adjust the scale of the convex mesh if too big or small based on how u imported it
 
         _myEnableLog: { type: Type.Bool, default: true },
         _myClearConsoleBeforeLog: { type: Type.Bool, default: true }
@@ -125,7 +125,8 @@ export class BenchmarkMaxPhysXComponent extends Component {
                             kinematicCollisions += collector.getCollisions().length;
                         }
 
-                        let totalCollisions = (staticCollisions + dynamicCollisions + kinematicCollisions) / 2; //every collision is considered twice since it is caught by 2 physX
+                        // Every collision is considered twice since it is caught by 2 physX
+                        let totalCollisions = (staticCollisions + dynamicCollisions + kinematicCollisions) / 2;
 
                         console.log("Current Collisions Count:", totalCollisions);
                         console.log("Raycast Count:", this._myRaycastCount);

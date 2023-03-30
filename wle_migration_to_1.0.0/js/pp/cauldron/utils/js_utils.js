@@ -241,13 +241,13 @@ export function cleanObjectProperties(object) {
                 value: undefined
             });
         } catch (error) {
-            // ignored
+            // Ignored
         }
 
         try {
             delete object[objectName];
         } catch (error) {
-            // ignored
+            // Ignored
         }
     }
 
@@ -341,6 +341,6 @@ function _jsObjectFunctionsSpecialCopy(fromObject, toObject) {
             }
         }
     } catch (error) {
-        // ignored
+        // Ignored
     }
 }

@@ -20,11 +20,11 @@ export class PlayerTransformManagerParams {
         this.myPlayerHeadManager = null;
 
         this.myMovementCollisionCheckParams = null;
-        this.myTeleportCollisionCheckParams = null; // can be left null and will be generated from the movement one
+        this.myTeleportCollisionCheckParams = null; // Can be left null and will be generated from the movement one
         this.myTeleportCollisionCheckParamsCopyFromMovement = false;
         this.myTeleportCollisionCheckParamsCheck360 = false;
 
-        // sync for vr and non vr
+        // Sync for VR and NOn VR
         this.mySyncEnabledFlagMap = new Map();
         this.mySyncEnabledFlagMap.set(PlayerTransformManagerSyncFlag.BODY_COLLIDING, true);
         this.mySyncEnabledFlagMap.set(PlayerTransformManagerSyncFlag.HEAD_COLLIDING, true);
@@ -58,9 +58,9 @@ export class PlayerTransformManagerParams {
         this.myIsLeaningValidAboveDistance = false;
         this.myLeaningValidDistance = 0;
 
-        // settings for both hop and lean
+        // Settings for both hop and lean
         this.myIsFloatingValidIfVerticalMovement = false;
-        this.myIsFloatingValidIfVerticalMovementAndRealOnGround = false; //#TODO this is more an override
+        this.myIsFloatingValidIfVerticalMovementAndRealOnGround = false; // #TODO This is more an override
         this.myIsFloatingValidIfRealOnGround = false;
         this.myIsFloatingValidIfSteepGround = false;
         this.myIsFloatingValidIfVerticalMovementAndSteepGround = false;
@@ -73,7 +73,7 @@ export class PlayerTransformManagerParams {
 
         this.myIsMaxDistanceFromRealToSyncEnabled = false;
         this.myMaxDistanceFromRealToSync = 0;
-        // max distance to resync valid with head, if you head is further do not resync
+        // Max distance to resync valid with head, if you head is further do not resync
 
         this.myHeadRadius = 0;
         this.myHeadCollisionBlockLayerFlags = new PhysicsLayerFlags();
@@ -82,15 +82,15 @@ export class PlayerTransformManagerParams {
         this.myRotateOnlyIfSynced = false;
         this.myResetRealResetRotationIfUpChanged = true;
 
-        // this.myDistanceToStartApplyGravityWhenFloating = 0; // this should be moved outisde, that is, if it is floating stop gravity
+        //this.myDistanceToStartApplyGravityWhenFloating = 0; // This should be moved outisde, that is, if it is floating stop gravity
 
-        // set valid if head synced (head manager)
+        // Set valid if head synced (head manager)
 
         this.myRealMovementAllowVerticalAdjustments = false;
-        // this true means that the real movement should also snap on ground or fix the vertical to pop from it
-        // you may want this if u want that while real moving u can also climb stairs
+        // This true means that the real movement should also snap on ground or fix the vertical to pop from it
+        // You may want this if u want that while real moving u can also climb stairs
 
-        // real movement apply vertical snap or not (other option to apply gravity) 
+        // Real movement apply vertical snap or not (other option to apply gravity) 
         // (gravity inside this class?) only when movement is applied not for head only)
 
         this.myUpdateRealPositionValid = false;
@@ -99,12 +99,12 @@ export class PlayerTransformManagerParams {
         this.myMinHeight = null;
         this.myMaxHeight = null;
 
-        // these and the callbacks does not makes much sense
-        // the colliding things are made to not sync the real position, but if the height is below and the body is not colliding
-        // there is not reason not to resync, even if u put the real back on the valid the height will stay the same
-        // if someone puts the head in the ground, there is no way for me to resync and make the head pop out sadly
-        // in this case u either accept that u can move without seeing, or stop moving until the obscure is on
-        this.myIsBodyCollidingWhenHeightBelowValue = null; // could be removed and added with the custom check callback if u want it
+        // These and the callbacks does not makes much sense
+        // The colliding things are made to not sync the real position, but if the height is below and the body is not colliding
+        // There is not reason not to resync, even if u put the real back on the valid the height will stay the same
+        // If someone puts the head in the ground, there is no way for me to resync and make the head pop out sadly
+        // In this case u either accept that u can move without seeing, or stop moving until the obscure is on
+        this.myIsBodyCollidingWhenHeightBelowValue = null; // Could be removed and added with the custom check callback if u want it
         this.myIsBodyCollidingWhenHeightAboveValue = null;
 
         this.myIsBodyCollidingExtraCheckCallback = null;      // Signature: callback(transformManager) -> bool
@@ -191,50 +191,50 @@ export class PlayerTransformManager {
     // update should be before to check the new valid transform and if the head new transform is fine
     // then update movements, so that they will use the proper transform
     // pre/post update?
-    // for sliding if previous frame no horizontal movement then reset sliding on pre update
-    // in generale capire come fare per risolvere i problemi quando c'è un move solo verticale che sputtana i dati dello sliding precedente
+    // For sliding if previous frame no horizontal movement then reset sliding on pre update
+    // In generale capire come fare per risolvere i problemi quando c'è un move solo verticale che sputtana i dati dello sliding precedente
     // che servono per far slidare bene anche dopo, magari un flag per dire non aggiornare le cose relative al movimento orizzontale
     // o un move check solo verticale
     update(dt) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     move(movement, outCollisionRuntimeParams = null, forceMove = false) {
-        // collision runtime will copy the result, so that u can use that for later reference like if it was sliding
-        // maybe there should be a way to sum all the things happened for proper movement in a summary runtime
+        // Collision runtime will copy the result, so that u can use that for later reference like if it was sliding
+        // Maybe there should be a way to sum all the things happened for proper movement in a summary runtime
         // or maybe the move should be done once per frame, or at least in theory
 
-        // collision check and move
+        // Collision check and move
 
-        // move should move the valid transform, but also move the player object so that they head, even is colliding is dragged with it
-        // also teleport, should get the difference from previous and move the player object, this will keep the relative position head-to-valid
+        // Move should move the valid transform, but also move the player object so that they head, even is colliding is dragged with it
+        // Also teleport, should get the difference from previous and move the player object, this will keep the relative position head-to-valid
 
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     teleportPosition(position, outCollisionRuntimeParams = null, forceTeleport = false) {
-        // collision check and teleport, if force teleport teleport in any case
-        // use current valid rotation
+        // Collision check and teleport, if force teleport teleport in any case
+        // Use current valid rotation
 
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     teleportTransformQuat(transformQuat, outCollisionRuntimeParams = null, forceTeleport = false) {
-        // collision check and teleport, if force teleport teleport in any case
+        // Collision check and teleport, if force teleport teleport in any case
 
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     rotateQuat(rotationQuat) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     setRotationQuat(rotationQuat) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     setHeight(height, forceSet = false) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getPlayer() {
@@ -302,7 +302,7 @@ export class PlayerTransformManager {
     }
 
     resetReal(resetPosition = true, resetRotation = true, resetHeight = true, updateRealFlags = false) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     resetHeadToReal() {
@@ -353,11 +353,11 @@ export class PlayerTransformManager {
     }
 
     getDistanceToReal() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getDistanceToRealHead() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getPlayerHeadManager() {
@@ -440,7 +440,7 @@ export class PlayerTransformManager {
         params.myHorizontalPositionCheckVerticalIgnoreHitsInsideCollision = false;
         params.myHorizontalPositionCheckVerticalDirectionType = 0;
 
-        params.myHeight = params.myRadius; // on purpose the height "radius" is half, to avoid hitting before with head than body collision (through height)
+        params.myHeight = params.myRadius; // On purpose the height "radius" is half, to avoid hitting before with head than body collision (through height)
         params.myPositionOffsetLocal.vec3_set(0, -params.myRadius / 2, 0)
 
         params.myCheckHeight = true;
@@ -623,7 +623,7 @@ PlayerTransformManager.prototype.update = function () {
     let horizontalDirection = vec3_create();
     let rotationQuat = quat_create();
     return function update(dt) {
-        //#TODO this should update ground and ceiling info but not sliding info        
+        // #TODO This should update ground and ceiling info but not sliding info        
 
         if (this._myResetRealOnSynced) {
             if (this.getPlayerHeadManager().isSynced()) {
@@ -688,8 +688,8 @@ PlayerTransformManager.prototype._updateReal = function () {
     let horizontalDirection = vec3_create();
     let rotationQuat = quat_create();
     return function _updateReal(dt, resetRealEnabled = true) {
-        // check if new head is ok and update the data
-        // if head is not synced (blurred or session changing) avoid this and keep last valid
+        // Check if new head is ok and update the data
+        // If head is not synced (blurred or session changing) avoid this and keep last valid
         if (this.getPlayerHeadManager().isSynced()) {
             this._updateCollisionHeight();
 
@@ -701,7 +701,7 @@ PlayerTransformManager.prototype._updateReal = function () {
 
             movementToCheck = this.getPositionReal(positionReal).vec3_sub(this.getPosition(position), movementToCheck);
             if (movementToCheck.vec3_length() > 0.0001) {
-                this._myLastValidMovementDirection = movementToCheck.vec3_normalize(this._myLastValidMovementDirection); //TEMP direction
+                this._myLastValidMovementDirection = movementToCheck.vec3_normalize(this._myLastValidMovementDirection);
             }
 
             // Far
@@ -715,7 +715,7 @@ PlayerTransformManager.prototype._updateReal = function () {
 
             // Body Colliding
             collisionRuntimeParams.copy(this._myCollisionRuntimeParams);
-            collisionRuntimeParams.myIsOnGround = true; //#TODO temp as long as surface infos are not actually updated
+            collisionRuntimeParams.myIsOnGround = true; // #TODO Temp as long as surface infos are not actually updated
             transformQuat = this.getTransformQuat(transformQuat);
             newPosition.vec3_copy(this._myValidPosition);
             if (this._myParams.mySyncEnabledFlagMap.get(PlayerTransformManagerSyncFlag.BODY_COLLIDING)) {
@@ -750,7 +750,7 @@ PlayerTransformManager.prototype._updateReal = function () {
                 collisionRuntimeParams.copy(this._myCollisionRuntimeParams);
                 floatingTransformQuat.quat2_setPositionRotationQuat(this._myValidPosition, this._myValidRotationQuat);
                 getCollisionCheck(this._myParams.myEngine).updateSurfaceInfo(floatingTransformQuat, this._myRealMovementCollisionCheckParams, collisionRuntimeParams);
-                //#TODO utilizzare on ground del body gia calcolato, ma ora non c'è quindi va bene così
+                // #TODO Utilizzare on ground del body gia calcolato, ma ora non c'è quindi va bene così
 
                 if (collisionRuntimeParams.myIsOnGround) {
                     transformUp = transformQuat.quat2_getUp(transformUp);
@@ -865,7 +865,7 @@ PlayerTransformManager.prototype._updateReal = function () {
             // Head Colliding
             movementToCheck = this.getPositionHeadReal(positionReal).vec3_sub(this.getPositionHead(position), movementToCheck);
             collisionRuntimeParams.reset();
-            transformQuat = this.getTransformHeadQuat(transformQuat); // get eyes transform
+            transformQuat = this.getTransformHeadQuat(transformQuat); // Get eyes transform
             newPositionHead.vec3_copy(this._myValidPositionHead);
             if (this._myParams.mySyncEnabledFlagMap.get(PlayerTransformManagerSyncFlag.HEAD_COLLIDING)) {
                 getCollisionCheck(this._myParams.myEngine).move(movementToCheck, transformQuat, this._myHeadCollisionCheckParams, collisionRuntimeParams);
@@ -880,7 +880,7 @@ PlayerTransformManager.prototype._updateReal = function () {
 
             if (this.isSynced(this._myParams.mySyncPositionFlagMap) && !this._myParams.mySyncPositionDisabled) {
                 this._myValidPosition.vec3_copy(newPosition);
-                //reset real position dato che la posizione new potrebbe essere quella influenzata da snap
+                // Reset real position dato che la posizione new potrebbe essere quella influenzata da snap
             }
 
             if (this.isSynced(this._myParams.mySyncPositionHeadFlagMap)) {
@@ -896,7 +896,7 @@ PlayerTransformManager.prototype._updateReal = function () {
                 this._updateCollisionHeight();
             }
 
-            if (resetRealEnabled) { //no
+            if (resetRealEnabled) { // No
                 if (XRUtils.isSessionActive(this._myParams.myEngine)) {
                     let resetPosition = (this.isSynced(this._myParams.mySyncPositionFlagMap) || this._myParams.myAlwaysResetRealPositionVR) && !this._myParams.myNeverResetRealPositionVR;
                     let resetRotation = (this.isSynced(this._myParams.mySyncRotationFlagMap) || this._myParams.myAlwaysResetRealRotationVR) && !this._myParams.myNeverResetRealRotationVR;
@@ -953,7 +953,7 @@ PlayerTransformManager.prototype.move = function () {
             this.getPlayerHeadManager().moveFeet(fixedMovement);
         }
 
-        // this make reset happens even for gravity, maybe u should do it manually
+        // This make reset happens even for gravity, maybe u should do it manually
         if (this._myParams.myResetRealOnMove) {
             if (!this.isSynced()) {
                 if (XRUtils.isSessionActive(this._myParams.myEngine)) {
@@ -972,7 +972,7 @@ PlayerTransformManager.prototype.move = function () {
             }
         }
 
-        //#TODO add move callback
+        // #TODO Add move callback
     };
 }();
 
@@ -1037,7 +1037,7 @@ PlayerTransformManager.prototype.teleportTransformQuat = function () {
             }
         }
 
-        //#TODO add teleport callback
+        // #TODO Add teleport callback
     };
 }();
 
@@ -1079,4 +1079,4 @@ PlayerTransformManager.prototype.setHeight = function () {
     };
 }();
 
-//sliding info, surface info, update
+// #TODO Sliding info, surface info, update

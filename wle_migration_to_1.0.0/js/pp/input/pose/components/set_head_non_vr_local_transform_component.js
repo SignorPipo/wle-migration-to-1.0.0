@@ -13,7 +13,7 @@ export class SetHeadNonVRLocalTransformComponent extends Component {
     }
 
     update(dt) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

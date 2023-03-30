@@ -51,7 +51,7 @@ export class VisualManager {
         this._updateDraw(dt);
     }
 
-    //lifetimeSeconds can be null, in that case the element will be drawn until cleared
+    // lifetimeSeconds can be null, in that case the element will be drawn until cleared
     draw(visualElementParams, lifetimeSeconds = 0, idToReuse = null) {
         if (!this._myActive) {
             return 0;

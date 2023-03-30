@@ -310,7 +310,7 @@ export function mat4_fromPositionRotationQuatScale(position, rotation, scale) {
 
 export function initArrayExtensionProtoype() {
 
-    //SETTER
+    // SETTER
 
     let arrayExtension = {};
 
@@ -358,9 +358,9 @@ export function initArrayExtensionProtoype() {
             m30, m31, m32, m33);
     };
 
-    //ARRAY
+    // ARRAY
 
-    //New Functions
+    // New Functions
 
     arrayExtension.pp_first = function pp_first() {
         return this.length > 0 ? this[0] : undefined;
@@ -648,7 +648,7 @@ export function initArrayExtensionProtoype() {
 
     // GENERIC VECTOR
 
-    //New Functions
+    // New Functions
 
     arrayExtension.vec_toString = function vec_toString(decimalPlaces = null) {
         let message = _vec_buildConsoleMessage(this, decimalPlaces);
@@ -1034,7 +1034,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    // the result can easily be not 100% exact due to precision errors
+    // The result can easily be not 100% exact due to precision errors
     arrayExtension.vec3_projectOnAxisAlongAxis = function () {
         let up = vec3_create();
 
@@ -1067,7 +1067,7 @@ export function initArrayExtensionProtoype() {
                     fixedProjectAlongAxis.vec3_scale(lengthToRemove, fixedProjectAlongAxis);
                     out.vec3_add(fixedProjectAlongAxis, out);
 
-                    out.vec3_projectOnAxis(axis, out); // snap on the axis, due to float precision error
+                    out.vec3_projectOnAxis(axis, out); // Snap on the axis, due to float precision error
                 }
             }
 
@@ -1080,7 +1080,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    // the result can easily be not 100% exact due to precision errors
+    // The result can easily be not 100% exact due to precision errors
     arrayExtension.vec3_projectOnPlaneAlongAxis = function () {
         let thisToPlane = vec3_create();
 
@@ -1107,7 +1107,7 @@ export function initArrayExtensionProtoype() {
                 fixedProjectAlongAxis.vec3_scale(lengthToRemove, fixedProjectAlongAxis);
                 out.vec3_add(fixedProjectAlongAxis, out);
 
-                out.vec3_projectOnPlane(planeNormal, out); // snap on the axis, due to float precision error
+                out.vec3_projectOnPlane(planeNormal, out); // Snap on the axis, due to float precision error
             }
 
             return out;
@@ -1514,7 +1514,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    //QUAT
+    // QUAT
 
     // glMatrix Bridge
 
@@ -1779,7 +1779,7 @@ export function initArrayExtensionProtoype() {
         return function quat_toRadians(out = vec3_create()) {
             glMatrix.mat3.fromQuat(mat3, this);
 
-            //Rotation order is ZYX 
+            // Rotation order is ZYX 
             out[1] = Math.asin(-Math.pp_clamp(mat3[2], -1, 1));
 
             if (Math.abs(mat3[2]) < (1 - Math.PP_EPSILON)) {
@@ -2020,7 +2020,7 @@ export function initArrayExtensionProtoype() {
         return this.quat_slerp(to, lerpValue, out);
     };
 
-    //QUAT 2
+    // QUAT 2
 
     // glMatrix Bridge
 
@@ -2289,7 +2289,7 @@ export function initArrayExtensionProtoype() {
         return this.quat2_lerp(to, lerpValue, out);
     };
 
-    //MATRIX 3
+    // MATRIX 3
 
     // glMatrix Bridge
 
@@ -2326,7 +2326,7 @@ export function initArrayExtensionProtoype() {
         return this;
     };
 
-    //MATRIX 4
+    // MATRIX 4
 
     // glMatrix Bridge
 
@@ -2684,7 +2684,7 @@ function _vec_prepareOut(vector, out) {
 };
 
 function _findAllEqualOptimized(array, elementToFind, getIndexes) {
-    // adapted from: https://stackoverflow.com/a/20798567
+    // Adapted from: https:// stackoverflow.com/a/20798567
 
     let elementsFound = [];
     let index = -1;

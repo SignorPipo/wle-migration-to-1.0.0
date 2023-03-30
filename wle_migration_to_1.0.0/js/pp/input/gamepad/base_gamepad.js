@@ -34,7 +34,8 @@ export class BaseGamepad {
 
         this._myPulseInfo = new GamepadPulseInfo();
 
-        //Setup
+        // Setup
+
         this._myMultiplePressMaxDelay = 0.4;
         this._myMultipleTouchMaxDelay = 0.4;
     }
@@ -68,7 +69,7 @@ export class BaseGamepad {
     }
 
     pulse(intensity, duration = 0) {
-        this._myPulseInfo.myIntensity = Math.min(Math.max(intensity, 0), 1); // clamp 
+        this._myPulseInfo.myIntensity = Math.pp_clamp(intensity, 0, 1);
         this._myPulseInfo.myDuration = Math.max(duration, 0);
     }
 
@@ -101,7 +102,7 @@ export class BaseGamepad {
         this._myMultipleTouchMaxDelay = maxDelay;
     }
 
-    // the following functions should be re-implemented in the actual class
+    // The following functions should be re-implemented in the actual class
 
     getHandPose() {
         return null;
@@ -134,7 +135,7 @@ export class BaseGamepad {
         return hapticActuator;
     }
 
-    // the above functions should be re-implemented in the actual class
+    // The above functions should be re-implemented in the actual class
 
     start() {
         this._start();
@@ -266,7 +267,7 @@ export class BaseGamepad {
             let buttonInfo = this._myButtonInfos[GamepadButtonID[key]];
             let buttonCallbacks = this._myButtonCallbacks[GamepadButtonID[key]];
 
-            //PRESSED
+            // PRESSED
             if (buttonInfo.myIsPressed && !buttonInfo.myPrevIsPressed) {
                 let callbacks = buttonCallbacks[GamepadButtonEvent.PRESS_START];
                 this._triggerCallbacks(callbacks, buttonInfo);
@@ -285,7 +286,7 @@ export class BaseGamepad {
                 this._triggerCallbacks(callbacks, buttonInfo);
             }
 
-            //TOUCHED
+            // TOUCHED
             if (buttonInfo.myIsTouched && !buttonInfo.myPrevIsTouched) {
                 let callbacks = buttonCallbacks[GamepadButtonEvent.TOUCH_START];
                 this._triggerCallbacks(callbacks, buttonInfo);
@@ -304,13 +305,13 @@ export class BaseGamepad {
                 this._triggerCallbacks(callbacks, buttonInfo);
             }
 
-            //VALUE
+            // VALUE
             if (buttonInfo.myValue != buttonInfo.myPrevValue) {
                 let callbacks = buttonCallbacks[GamepadButtonEvent.VALUE_CHANGED];
                 this._triggerCallbacks(callbacks, buttonInfo);
             }
 
-            //ALWAYS
+            // ALWAYS
             let callbacks = buttonCallbacks[GamepadButtonEvent.ALWAYS];
             this._triggerCallbacks(callbacks, buttonInfo);
         }
@@ -345,26 +346,26 @@ export class BaseGamepad {
             let axesInfo = this._myAxesInfos[GamepadAxesID[key]];
             let axesCallbacks = this._myAxesCallbacks[GamepadAxesID[key]];
 
-            //X CHANGED
+            // X CHANGED
             if (axesInfo.myAxes[0] != axesInfo.myPrevAxes[0]) {
                 let callbacks = axesCallbacks[GamepadAxesEvent.X_CHANGED];
                 this._triggerCallbacks(callbacks, axesInfo);
             }
 
-            //Y CHANGED
+            // Y CHANGED
             if (axesInfo.myAxes[1] != axesInfo.myPrevAxes[1]) {
                 let callbacks = axesCallbacks[GamepadAxesEvent.Y_CHANGED];
                 this._triggerCallbacks(callbacks, axesInfo);
             }
 
-            //AXES CHANGED
+            // AXES CHANGED
             if (axesInfo.myAxes[0] != axesInfo.myPrevAxes[0] ||
                 axesInfo.myAxes[1] != axesInfo.myPrevAxes[1]) {
                 let callbacks = axesCallbacks[GamepadAxesEvent.AXES_CHANGED];
                 this._triggerCallbacks(callbacks, axesInfo);
             }
 
-            //ALWAYS        
+            // ALWAYS        
             let callbacks = axesCallbacks[GamepadAxesEvent.ALWAYS];
             this._triggerCallbacks(callbacks, axesInfo);
         }
@@ -376,7 +377,7 @@ export class BaseGamepad {
             if (hapticActuators.length > 0) {
                 if (this._myPulseInfo.myIntensity > 0) {
                     for (let hapticActuator of hapticActuators) {
-                        hapticActuator.pulse(this._myPulseInfo.myIntensity, 1000); // duration is managed by this class
+                        hapticActuator.pulse(this._myPulseInfo.myIntensity, 1000); // Duration is managed by this class
                     }
                     this._myPulseInfo.myIsDevicePulsing = true;
                 } else if (this._myPulseInfo.myIsDevicePulsing) {

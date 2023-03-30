@@ -13,17 +13,17 @@ export class GrabberHandComponent extends Component {
     static TypeName = "pp-grabber-hand";
     static Properties = {
         _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myGrabButton: { type: Type.Enum, values: ["Select", "Squeeze", "Both", "Both Exclusive"], default: "Squeeze" }, // both_exclusive means u can use both buttons but you have to use the same button you grabbed with to throw
+        _myGrabButton: { type: Type.Enum, values: ["Select", "Squeeze", "Both", "Both Exclusive"], default: "Squeeze" }, // @"Both Exclusive" means u can use both buttons but you have to use the same button you grabbed with to throw
         _mySnapOnPivot: { type: Type.Bool, default: false },
-        _myMaxNumberOfObjects: { type: Type.Int, default: 1 }, // how many objects you can grab at the same time
+        _myMaxNumberOfObjects: { type: Type.Int, default: 1 }, // How many objects you can grab at the same time
 
         // ADVANCED SETTINGS
         _myThrowVelocitySource: { type: Type.Enum, values: ["Hand", "Grabbable"], default: "Hand" },
-        _myThrowLinearVelocityMultiplier: { type: Type.Float, default: 1 }, // multiply the overall throw speed, so slow throws will be multiplied too
+        _myThrowLinearVelocityMultiplier: { type: Type.Float, default: 1 }, // Multiply the overall throw speed, so slow throws will be multiplied too
         _myThrowMaxLinearSpeed: { type: Type.Float, default: 15 },
         _myThrowAngularVelocityMultiplier: { type: Type.Float, default: 0.5 },
-        _myThrowMaxAngularSpeed: { type: Type.Float, default: 1080 }, // degrees
-        _myThrowLinearVelocityBoost: { type: Type.Float, default: 1.75 },   // this boost is applied from 0% to 100% based on how fast you throw, so slow throws are not affected
+        _myThrowMaxAngularSpeed: { type: Type.Float, default: 1080 }, // @Degrees
+        _myThrowLinearVelocityBoost: { type: Type.Float, default: 1.75 },   // This boost is applied from 0% to 100% based on how fast you throw, so slow throws are not affected
         _myThrowLinearVelocityBoostMinSpeedThreshold: { type: Type.Float, default: 0.6 },   // 0% boost is applied if plain throw speed is under this value
         _myThrowLinearVelocityBoostMaxSpeedThreshold: { type: Type.Float, default: 2.5 },   // 100% boost is applied if plain throw speed is over this value
     };
@@ -264,7 +264,7 @@ export class GrabberHandComponent extends Component {
     }
 
     _computeReleaseLinearVelocity(linearVelocityHistory) {
-        //speed
+        // Speed
         let speed = linearVelocityHistory[0].vec3_length();
         for (let i = 1; i < this._myLinearVelocityHistorySpeedAverageSamplesFromStart; i++) {
             speed += linearVelocityHistory[i].vec3_length();
@@ -286,7 +286,7 @@ export class GrabberHandComponent extends Component {
             this._debugDirectionLines(linearVelocityHistory);
         }
 
-        //direction
+        // Direction
         let directionCurrentWeight = this._myLinearVelocityHistoryDirectionAverageSamplesFromStart;
         let lastDirectionIndex = this._myLinearVelocityHistoryDirectionAverageSkipFromStart + this._myLinearVelocityHistoryDirectionAverageSamplesFromStart;
         let direction = vec3_create();
@@ -307,12 +307,12 @@ export class GrabberHandComponent extends Component {
     _computeReleaseAngularVelocity(angularVelocityHistory) {
         let angularVelocity = angularVelocityHistory[0];
 
-        //speed
+        // Speed
         let speed = angularVelocity.vec3_length();
 
         speed = Math.pp_clamp(speed * this._myThrowAngularVelocityMultiplier, 0, this._myThrowMaxAngularSpeedRadians);
 
-        //direction
+        // Direction
         let direction = angularVelocity;
         direction.vec3_normalize(direction);
 

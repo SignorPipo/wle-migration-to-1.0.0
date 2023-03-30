@@ -24,10 +24,10 @@ export class VisualPointParams {
         this.myPosition = vec3_create();
         this.myRadius = 0.005;
 
-        this.myMesh = null;         // the mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.mySphere
+        this.myMesh = null;         // The mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.mySphere
 
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
-        this.myColor = null;        // if this is set and material is null, it will use the default flat opaque material with this color
+        this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
@@ -36,7 +36,7 @@ export class VisualPointParams {
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -133,7 +133,7 @@ export class VisualPoint {
     }
 
     _refresh() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

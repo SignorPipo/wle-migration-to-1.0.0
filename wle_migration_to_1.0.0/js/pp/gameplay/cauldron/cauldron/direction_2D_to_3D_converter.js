@@ -30,14 +30,14 @@ export class Direction2DTo3DConverter {
         this._myLastValidFlatForward = vec3_create();
         this._myLastValidFlatRight = vec3_create();
 
-        //Setup
+        // Setup
 
         this._myMinAngleToBeValid = 5;
     }
 
-    // direction3DUp can be used to flat the direction if the conversionTransform is not aligned with it
-    // it's also needed to specify the fly axis, if different from the conversionTransform up
-    // if direction3DUp is null, conversionTransform up is used
+    // @direction3DUp can be used to flat the direction if the @conversionTransform is not aligned with it
+    // It's also needed to specify the fly axis, if different from the @conversionTransform up
+    // If @direction3DUp is null, conversionTransform up is used
     convert(direction2D, conversionTransform, direction3DUp = null, outDirection3D = vec3_create()) {
         return this.convertTransform(direction2D, conversionTransform, direction3DUp, outDirection3D);
     }
@@ -107,29 +107,29 @@ export class Direction2DTo3DConverter {
 
     // Convert Alternatives
 
-    // if direction3DUp is null, vec3_create(0, 1, 0) is used
-    // does not work properly if forward is aligned with direction3DUp
+    // If @direction3DUp is null, vec3_create(0, 1, 0) is used
+    // Does not work properly if forward is aligned with @direction3DUp
     convertForward(direction2D, forward, direction3DUp = null, outDirection3D = vec3_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
-    // direction3DUp can be used to flat the direction if the conversionTransform is not aligned with it
-    // it's also needed to specify the fly axis, if different from the conversionTransform up
-    // if direction3DUp is null, conversionTransform up is used
+    // @direction3DUp can be used to flat the direction if the @conversionTransform is not aligned with it
+    // It's also needed to specify the fly axis, if different from the @conversionTransform up
+    // If @direction3DUp is null, conversionTransform up is used
     convertTransform(direction2D, conversionTransform, direction3DUp = null, outDirection3D = vec3_create()) {
         return this.convertTransformMatrix(direction2D, conversionTransform, direction3DUp, outDirection3D);
     }
 
     convertTransformMatrix(direction2D, conversionTransformMatrix, direction3DUp = null, outDirection3D = vec3_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     convertTransformQuat(direction2D, conversionTransformQuat, direction3DUp = null, outDirection3D = vec3_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     convertRotationQuat(direction2D, conversionRotationQuat, direction3DUp = null, outDirection3D = vec3_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -194,7 +194,7 @@ Direction2DTo3DConverter.prototype.convertRotationQuat = function () {
         if (direction3DUp != null) {
             direction3DUpNegate = direction3DUp.vec3_negate(direction3DUpNegate);
 
-            // check if it is flying based on the convert transform orientation 
+            // Check if it is flying based on the convert transform orientation 
             if (this._myParams.myAutoUpdateFlyForward) {
                 let angleForwardWithDirectionUp = forward.vec3_angle(direction3DUp);
                 this._myIsFlyingForward = this._myIsFlyingForward ||
@@ -207,9 +207,9 @@ Direction2DTo3DConverter.prototype.convertRotationQuat = function () {
                     (angleRightWithDirectionUp < 90 - this._myParams.myMinAngleToFlyRightUp || angleRightWithDirectionUp > 90 + this._myParams.myMinAngleToFlyRightDown);
             }
 
-            // remove the component to prevent flying, if needed
+            // Remove the component to prevent flying, if needed
             if (!this._myIsFlyingForward) {
-                // if the forward is too similar to the up (or down) take the last valid forward
+                // If the forward is too similar to the up (or down) take the last valid forward
                 if (!this._myLastValidFlatForward.vec3_isZero(Math.PP_EPSILON) && (forward.vec3_angle(direction3DUp) < this._myMinAngleToBeValid || forward.vec3_angle(direction3DUpNegate) < this._myMinAngleToBeValid)) {
                     if (forward.vec3_isConcordant(this._myLastValidFlatForward)) {
                         forward.pp_copy(this._myLastValidFlatForward);
@@ -223,7 +223,7 @@ Direction2DTo3DConverter.prototype.convertRotationQuat = function () {
             }
 
             if (!this._myIsFlyingRight) {
-                // if the right is too similar to the up (or down) take the last valid right
+                // If the right is too similar to the up (or down) take the last valid right
                 if (!this._myLastValidFlatRight.vec3_isZero(Math.PP_EPSILON) && (right.vec3_angle(direction3DUp) < this._myMinAngleToBeValid || right.vec3_angle(direction3DUpNegate) < this._myMinAngleToBeValid)) {
                     if (right.vec3_isConcordant(this._myLastValidFlatRight)) {
                         right.pp_copy(this._myLastValidFlatRight);
@@ -236,7 +236,7 @@ Direction2DTo3DConverter.prototype.convertRotationQuat = function () {
                 right.vec3_normalize(right);
             }
 
-            // update last valid
+            // Update last valid
             if ((forward.vec3_angle(direction3DUp) > this._myMinAngleToBeValid && forward.vec3_angle(direction3DUpNegate) > this._myMinAngleToBeValid) ||
                 (direction2D[1] != 0 && this._myLastValidFlatForward.vec3_isZero(Math.PP_EPSILON))) {
                 this._myLastValidFlatForward = forward.vec3_removeComponentAlongAxis(direction3DUp, this._myLastValidFlatForward);
@@ -250,7 +250,7 @@ Direction2DTo3DConverter.prototype.convertRotationQuat = function () {
             }
         }
 
-        // compute direction 3D
+        // Compute direction 3D
         outDirection3D = right.vec3_scale(direction2D[0], rightScaled).vec3_add(forward.vec3_scale(direction2D[1], forwardScaled), outDirection3D);
 
         if (direction3DUp != null && !this._myIsFlyingForward && !this._myIsFlyingRight) {

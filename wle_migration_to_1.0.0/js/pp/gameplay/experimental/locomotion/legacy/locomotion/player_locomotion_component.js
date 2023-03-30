@@ -100,7 +100,7 @@ export class PlayerLocomotionComponent extends Component {
 
             this._myPlayerLocomotion._myPlayerHeadManager.update(dt);
         } else {
-            getCollisionCheck(this.engine)._myTotalRaycasts = 0; // #TODO debug stuff, remove later
+            getCollisionCheck(this.engine)._myTotalRaycasts = 0; // #TODO Debug stuff, remove later
 
             this._myPlayerLocomotion.update(dt);
         }

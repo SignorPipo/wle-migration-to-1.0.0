@@ -51,7 +51,7 @@ export class CleanedPlayerLocomotionSmooth extends PlayerLocomotionMovement {
     }
 
     update(dt) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -137,7 +137,7 @@ CleanedPlayerLocomotionSmooth.prototype.update = function () {
             }
 
             if (getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.SQUEEZE).isPressed()) {
-                // headMovement.vec3_zero();
+                //headMovement.vec3_zero();
             }
 
             feetTransformQuat = this._myParams.myPlayerTransformManager.getTransformQuat(feetTransformQuat);

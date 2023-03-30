@@ -64,8 +64,8 @@ export class PlayerLocomotionParams {
     }
 }
 
-// #TODO add lerped snap on vertical over like half a second to avoid the "snap effect"
-// this could be done by detatching the actual vertical position of the player from the collision real one when a snap is detected above a certain threshold
+// #TODO Add lerped snap on vertical over like half a second to avoid the "snap effect"
+// This could be done by detatching the actual vertical position of the player from the collision real one when a snap is detected above a certain threshold
 // with a timer, after which the vertical position is just copied, while during the detatching is lerped toward the collision vertical one
 export class PlayerLocomotion {
 
@@ -418,7 +418,7 @@ export class PlayerLocomotion {
         this._myCollisionCheckParamsMovement.myCheckConeBorder = true;
         this._myCollisionCheckParamsMovement.myCheckConeRay = true;
         this._myCollisionCheckParamsMovement.myHorizontalPositionCheckVerticalIgnoreHitsInsideCollision = false;
-        this._myCollisionCheckParamsMovement.myHorizontalPositionCheckVerticalDirectionType = 2; // somewhat expensive, 2 times the check for the vertical check of the horizontal movement!
+        this._myCollisionCheckParamsMovement.myHorizontalPositionCheckVerticalDirectionType = 2; // Somewhat expensive, 2 times the check for the vertical check of the horizontal movement!
 
         this._myCollisionCheckParamsMovement.myVerticalMovementCheckEnabled = true;
         this._myCollisionCheckParamsMovement.myVerticalPositionCheckEnabled = true;
@@ -502,8 +502,8 @@ export class PlayerLocomotion {
         this._myCollisionCheckParamsMovement.mySlidingEnabled = true;
         this._myCollisionCheckParamsMovement.mySlidingHorizontalMovementCheckBetterNormal = true;
         this._myCollisionCheckParamsMovement.mySlidingMaxAttempts = 4;
-        this._myCollisionCheckParamsMovement.mySlidingCheckBothDirections = true;        // expensive, 2 times the check for the whole horizontal movement!
-        this._myCollisionCheckParamsMovement.mySlidingFlickeringPreventionType = 1;      // expensive, 2 times the check for the whole horizontal movement!
+        this._myCollisionCheckParamsMovement.mySlidingCheckBothDirections = true;        // Expensive, 2 times the check for the whole horizontal movement!
+        this._myCollisionCheckParamsMovement.mySlidingFlickeringPreventionType = 1;      // Expensive, 2 times the check for the whole horizontal movement!
         this._myCollisionCheckParamsMovement.mySlidingFlickeringPreventionCheckOnlyIfAlreadySliding = true;
         this._myCollisionCheckParamsMovement.mySlidingFlickerPreventionCheckAnywayCounter = 4;
         this._myCollisionCheckParamsMovement.mySlidingAdjustSign90Degrees = true;
@@ -533,7 +533,7 @@ export class PlayerLocomotion {
     _setupCollisionCheckParamsTeleport() {
         this._myCollisionCheckParamsTeleport = CollisionCheckUtils.generate360TeleportParamsFromMovementParams(this._myCollisionCheckParamsMovement);
 
-        // increased so to let teleport on steep slopes from above (from below is fixed through detection myGroundAngleToIgnoreUpward)
+        // Increased so to let teleport on steep slopes from above (from below is fixed through detection myGroundAngleToIgnoreUpward)
         this._myCollisionCheckParamsTeleport.myGroundAngleToIgnore = 60;
         this._myCollisionCheckParamsTeleport.myTeleportMustBeOnIgnorableGroundAngle = true;
         this._myCollisionCheckParamsTeleport.myTeleportMustBeOnGround = true;
@@ -553,13 +553,13 @@ export class PlayerLocomotion {
             return newFeetPosition;
         }*/
 
-        // this is needed for when u want to perform the teleport as a movement
-        // maybe this should be another set of collsion check params copied from the smooth ones?
-        // when you teleport as move, u check with the teleport for the position, and this other params for the move, so that u can use a smaller
+        // This is needed for when u want to perform the teleport as a movement
+        // Maybe this should be another set of collsion check params copied from the smooth ones?
+        // When you teleport as move, u check with the teleport for the position, and this other params for the move, so that u can use a smaller
         // cone, and sliding if desired
-        // if nothing is specified it's copied from the teleport and if greater than 90 cone is tuned down, and also the below settings are applied
+        // If nothing is specified it's copied from the teleport and if greater than 90 cone is tuned down, and also the below settings are applied
 
-        // you could also do this if u want to perform the teleport as movement, instead of using the smooth
+        // You could also do this if u want to perform the teleport as movement, instead of using the smooth
         // but this will make even the final teleport check be halved
         //this._myCollisionCheckParamsTeleport.myHalfConeAngle = 90;
         //this._myCollisionCheckParamsTeleport.myHalfConeSliceAmount = 3;
@@ -571,7 +571,7 @@ export class PlayerLocomotion {
     }
 
     _fixAlmostUp() {
-        // get rotation on y and adjust if it's slightly tilted when it's almsot 0,1,0
+        // Get rotation on y and adjust if it's slightly tilted when it's almsot 0,1,0
 
         let defaultUp = vec3_create(0, 1, 0);
         let angleWithDefaultUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp().vec3_angle(defaultUp);

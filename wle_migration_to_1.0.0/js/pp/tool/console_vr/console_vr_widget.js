@@ -112,7 +112,7 @@ export class ConsoleVRWidget {
         this._overrideConsolesFunctions();
     }
 
-    //This must be done only when all the setup is complete, to avoid issues with other part of the code calling the console and then triggering the console vr while not ready yet
+    // This must be done only when all the setup is complete, to avoid issues with other part of the code calling the console and then triggering the console vr while not ready yet
     _overrideConsolesFunctions() {
         this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.LOG] = console.log;
         this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.ERROR] = console.error;
@@ -171,7 +171,7 @@ export class ConsoleVRWidget {
         this._updateGamepadsExtraActions(dt);
     }
 
-    //Text section
+    // Text section
 
     _updateText(messageType) {
         let consoleText = "";
@@ -185,7 +185,7 @@ export class ConsoleVRWidget {
             while (i >= 0 && linesCount < this._mySetup.myMaxLines) {
                 let message = this._myMessages[i];
 
-                //skip filtered messages
+                // Skip filtered messages
                 if (this._myTypeFilters[message.myType]) {
                     i -= 1;
                     continue;
@@ -193,7 +193,7 @@ export class ConsoleVRWidget {
 
                 let messageLines = message.myLines.length;
 
-                //compute line to skip due to scroll offset
+                // Compute line to skip due to scroll offset
                 let linesToSkip = 0;
                 if (scrollLinesToSkip > 0) {
                     let additionalEmptyLines = 0;
@@ -210,7 +210,7 @@ export class ConsoleVRWidget {
                     }
                 }
 
-                //add empty lines between messages
+                // Add empty lines between messages
                 if (i != this._myMessages.length - 1) {
                     let emptyLinesToSkip = this._mySetup.myLinesBetweenMessages - Math.max(this._mySetup.myLinesBetweenMessages - linesToSkip, 0);
                     let emptyLinesToShow = this._mySetup.myLinesBetweenMessages - emptyLinesToSkip;
@@ -226,7 +226,7 @@ export class ConsoleVRWidget {
                     linesToSkip -= emptyLinesToSkip;
                 }
 
-                //computing the number of message lines to show
+                // Computing the number of message lines to show
                 let linesToShow = messageLines - linesToSkip;
                 if (linesCount + linesToShow > this._mySetup.myMaxLines) {
                     linesToShow = this._mySetup.myMaxLines - linesCount;
@@ -234,7 +234,7 @@ export class ConsoleVRWidget {
 
                 if (linesToShow > 0) {
                     if (message.myType == messageType) {
-                        //if the message is the same type of this message text component, add the message lines
+                        // If the message is the same type of this message text component, add the message lines
 
                         let linesToPrint = message.myLines.slice(messageLines - linesToShow - linesToSkip, messageLines - linesToSkip);
                         let text = linesToPrint.join("\n");
@@ -242,7 +242,7 @@ export class ConsoleVRWidget {
 
                         linesCount += linesToShow;
                     } else {
-                        //otherwise add empty lines, so that the text component with the correct type will have space to show this message
+                        // Otherwise add empty lines, so that the text component with the correct type will have space to show this message
 
                         for (let j = 0; j < linesToShow; j++) {
                             consoleText = ("\n").concat(consoleText);
@@ -327,7 +327,7 @@ export class ConsoleVRWidget {
         return messageType;
     }
 
-    //Here the formatting using placeholder like %d could be implemented in the future
+    // Here the formatting using placeholder like %d could be implemented in the future
     _formatArgs(...args) {
         let stringifiedArgs = [];
         for (let i = 0; i < args.length; i++) {
@@ -356,7 +356,7 @@ export class ConsoleVRWidget {
                 stringifiedItem = JSON.stringify(item, function (key, value) {
                     if (typeof value === "object" && value !== null) {
                         if (cache.has(value)) {
-                            return "<stringify error: object already stringified>"; //try to avoid circular reference, a repeated object will be caught in this check too sadly
+                            return "<stringify error: object already stringified>"; // Try to avoid circular reference, a repeated object will be caught in this check too sadly
                         }
                         cache.add(value);
                     }
@@ -436,7 +436,7 @@ export class ConsoleVRWidget {
         this._updateNotifyIcon(message);
     }
 
-    //if you have scrolled, new messages does not move the scroll position
+    // If you have scrolled, new messages does not move the scroll position
     _adjustScrollOffsetAfterMessageAdded(message, hasSameInfoAsPrev) {
         if (!hasSameInfoAsPrev && !(this._myTypeFilters[message.myType]) && this._myScrollOffset > 0) {
             this._myScrollOffset += message.myLines.length + this._mySetup.myLinesBetweenMessages;
@@ -485,7 +485,7 @@ export class ConsoleVRWidget {
 
     _clampScrollOffset() {
         let maxScroll = this._getMaxScrollOffset();
-        this._myScrollOffset = Math.min(Math.max(this._myScrollOffset, 0), maxScroll); //clamp 
+        this._myScrollOffset = Math.pp_clamp(this._myScrollOffset, 0, maxScroll);
     }
 
     _getMaxScrollOffset() {
@@ -499,13 +499,13 @@ export class ConsoleVRWidget {
                 linesCount += message.myLines.length + this._mySetup.myLinesBetweenMessages;
             }
         }
-        linesCount -= this._mySetup.myLinesBetweenMessages; //empty line is added only between messages
+        linesCount -= this._mySetup.myLinesBetweenMessages; // Empty line is added only between messages
         linesCount = Math.max(linesCount, 0);
 
         return linesCount;
     }
 
-    //Listener section
+    // Listener section
 
     _addListeners() {
         let ui = this._myUI;
@@ -708,7 +708,7 @@ export class ConsoleVRWidget {
         material.color = this._mySetup.myBackgroundColor;
     }
 
-    //Gamepad section
+    // Gamepad section
 
     _updateGamepadsExtraActions(dt) {
         if (this._myLeftGamepad && this._myRightGamepad) {

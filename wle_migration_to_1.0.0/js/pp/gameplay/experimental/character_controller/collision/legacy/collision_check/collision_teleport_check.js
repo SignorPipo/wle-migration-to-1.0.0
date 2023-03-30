@@ -46,7 +46,7 @@ CollisionCheck.prototype._teleport = function () {
 
 
         let height = collisionCheckParams.myHeight;
-        height = height - 0.00001; // this makes it easier to setup things at the same exact height of a character so that it can go under it
+        height = height - 0.00001; // This makes it easier to setup things at the same exact height of a character so that it can go under it
         if (height < 0.00001) {
             height = 0;
         }
@@ -198,7 +198,7 @@ CollisionCheck.prototype._teleport = function () {
                     }
                 }
 
-                //regather surface if invalid else use before
+                // Regather surface if invalid else use before
             } else {
                 collisionRuntimeParams.myTeleportCanceled = true;
             }

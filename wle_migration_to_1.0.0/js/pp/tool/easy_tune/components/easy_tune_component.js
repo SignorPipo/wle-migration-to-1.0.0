@@ -13,8 +13,8 @@ export class EasyTuneComponent extends Component {
         _myShowVisibilityButton: { type: Type.Bool, default: false },
         _myEnableGamepadScrollVariable: { type: Type.Bool, default: true },
         _myEnableVariablesImportExportButtons: { type: Type.Bool, default: false },
-        _myVariablesImportURL: { type: Type.String, default: "" },   // the URL can contain parameters inside brackets, like {param}
-        _myVariablesExportURL: { type: Type.String, default: "" },   // those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
+        _myVariablesImportURL: { type: Type.String, default: "" },   // The URL can contain parameters inside brackets, like {param}
+        _myVariablesExportURL: { type: Type.String, default: "" },   // Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
         _myImportVariablesOnStart: { type: Type.Bool, default: false },
         _myResetVariablesDefaultValueOnImport: { type: Type.Bool, default: false }
     };
@@ -22,7 +22,7 @@ export class EasyTuneComponent extends Component {
     init() {
         this._myEasyTuneVariables = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasEasyTuneVariables(this.engine)) {
             this._myEasyTuneVariables = new EasyTuneVariables();
 
@@ -31,7 +31,7 @@ export class EasyTuneComponent extends Component {
 
         this._myWidget = new EasyTuneWidget(this.engine);
 
-        //add easy tune variables
+        // Add easy tune variables
 
         EasyTuneUtils.addSetEasyTuneWidgetActiveVariableCallback(this, function (variableName) {
             this._myWidget.setActiveVariable(variableName);

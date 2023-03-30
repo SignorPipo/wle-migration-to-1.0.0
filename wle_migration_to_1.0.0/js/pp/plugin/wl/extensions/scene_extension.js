@@ -52,7 +52,7 @@ export function initSceneExtensionPrototype() {
         return this.pp_getRoot().pp_getHierarchyDepth();
     }
 
-    //Get Component    
+    // Get Component    
 
     sceneExtension.pp_getComponent = function pp_getComponent(type, index = 0) {
         return this.pp_getComponentBreadth(type, index);
@@ -78,7 +78,7 @@ export function initSceneExtensionPrototype() {
         return this.pp_getRoot().pp_getComponentsHierarchyDepth(type);
     }
 
-    //Get By Name
+    // Get By Name
 
     sceneExtension.pp_getObjectByName = function pp_getObjectByName(name) {
         return this.pp_getObjectByNameBreadth(name);
@@ -104,7 +104,7 @@ export function initSceneExtensionPrototype() {
         return this.pp_getRoot().pp_getObjectsByNameHierarchyDepth(name);
     }
 
-    //To String
+    // To String
 
     sceneExtension.pp_toString = function pp_toString() {
         return this.pp_toStringCompact();
@@ -118,7 +118,7 @@ export function initSceneExtensionPrototype() {
         return this.pp_getRoot().pp_toStringExtended();
     }
 
-    //Cauldron
+    // Cauldron
 
     sceneExtension.pp_getComponentsAmountMap = function pp_getComponentsAmountMap(amountMap = new Map()) {
         return this.pp_getRoot().pp_getComponentsAmountMap(amountMap);

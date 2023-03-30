@@ -529,7 +529,7 @@ export function initCursorComponentModPrototype() {
     Cursor.prototype.onPointerLeave = function onPointerLeave(e) {
         if (this.pointerId == null || this.pointerId == e.pointerId) {
             if (this.active) {
-                this.hoverBehaviour(null, false, true); // trigger unhover
+                this.hoverBehaviour(null, false, true); // Trigger unhover
             }
 
             this.pointerId = null;

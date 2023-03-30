@@ -38,7 +38,7 @@ CollisionCheck.prototype._move = function () {
         feetPosition = offsetTransformQuat.quat2_getPosition(feetPosition);
 
         let height = collisionCheckParams.myHeight;
-        height = height - 0.00001; // this makes it easier to setup things at the same exact height of a character so that it can go under it
+        height = height - 0.00001; // This makes it easier to setup things at the same exact height of a character so that it can go under it
         if (height < 0.00001) {
             height = 0;
         }
@@ -168,12 +168,12 @@ CollisionCheck.prototype._moveStep = function () {
     let zAxis = vec3_create(0, 0, 1);
     let xAxis = vec3_create(1, 0, 0);
     return function _moveStep(movement, feetPosition, transformUp, transformForward, height, allowSurfaceSteepFix, collisionCheckParams, collisionRuntimeParams, outFixedMovement) {
-        // #TODO refactor and split horizontal check and vertical check into: hMovement + vMovement + hPosition + vPosition?
+        // #TODO Refactor and split horizontal check and vertical check into: hMovement + vMovement + hPosition + vPosition?
         // Will make the sliding heavier, if I slide repeating all the 4 steps instead of 2 as now, but would be more correct
 
-        // #TODO when on high slopes where u are not allowed to move the check does not manage to slide
+        // #TODO When on high slopes where u are not allowed to move the check does not manage to slide
 
-        // #TODO when moving upward on the edge of a slope, the edge can be detected as a wall and prevent movement, while it should just keep moving
+        // #TODO When moving upward on the edge of a slope, the edge can be detected as a wall and prevent movement, while it should just keep moving
 
         horizontalMovement = movement.vec3_removeComponentAlongAxis(transformUp, horizontalMovement);
         if (horizontalMovement.vec3_isZero(0.000001)) {
@@ -284,7 +284,7 @@ CollisionCheck.prototype._moveStep = function () {
             }
 
             //console.error(this._myTotalRaycasts );
-            // collisionCheckParams.myDebugActive = false;
+            //collisionCheckParams.myDebugActive = false;
 
             surfaceAdjustedVerticalMovement = this._adjustVerticalMovementWithSurface(fixedHorizontalMovement, verticalMovement, transformUp, collisionCheckParams, collisionRuntimeParams, this._myPrevCollisionRuntimeParams, surfaceAdjustedVerticalMovement);
 

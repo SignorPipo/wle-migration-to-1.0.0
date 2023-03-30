@@ -10,17 +10,17 @@ export class ConsoleVRWidgetSetup {
     }
 
     _initializeBuildSetup() {
-        //General
+        // General
         this.myBackgroundColor = vec4_create(46 / 255, 46 / 255, 46 / 255, 1);
 
-        this.myCursorTargetCollisionCollider = 2; // box
-        this.myCursorTargetCollisionGroup = 7; //keep this in sync with ConsoleVRSetup
+        this.myCursorTargetCollisionCollider = 2; // Box
+        this.myCursorTargetCollisionGroup = 7; // Keep this in sync with ConsoleVRSetup
         this.myCursorTargetCollisionThickness = 0.001;
 
         this.myDefaultTextColor = vec4_create(255 / 255, 255 / 255, 255 / 255, 1);
 
-        this.myTextAlignment = 2; // center
-        this.myTextJustification = 2; // middle
+        this.myTextAlignment = 2; // Center
+        this.myTextJustification = 2; // Middle
         this.myTextColor = this.myDefaultTextColor;
 
         this.myMessageTypeColors = [];
@@ -29,23 +29,23 @@ export class ConsoleVRWidgetSetup {
         this.myMessageTypeColors[ConsoleVRWidgetMessageType.WARN] = vec4_create(250 / 255, 220 / 255, 40 / 255, 1);
         this.myMessageTypeColors[ConsoleVRWidgetMessageType.DEBUG] = vec4_create(60 / 255, 200 / 255, 255 / 255, 1);
 
-        //Messages
+        // Messages
         this.myMessagesPanelPosition = vec3_create(0, 0.075, 0);
 
         this.myMessagesBackgroundScale = vec3_create(0.34, 0.15, 1);
 
         {
             let xPaddingPercentage = 0.03;
-            let yPaddingPercentage = xPaddingPercentage * this.myMessagesBackgroundScale[0] / this.myMessagesBackgroundScale[1] * 0.8; //a bit less padding
+            let yPaddingPercentage = xPaddingPercentage * this.myMessagesBackgroundScale[0] / this.myMessagesBackgroundScale[1] * 0.8; // A bit less padding
             let xPosition = -this.myMessagesBackgroundScale[0] + this.myMessagesBackgroundScale[0] * xPaddingPercentage;
             let yPosition = this.myMessagesBackgroundScale[1] - this.myMessagesBackgroundScale[1] * yPaddingPercentage;
             this.myMessagesTextsPanelPosition = vec3_create(xPosition, yPosition, 0.007);
         }
         this.myMessagesTextsPanelScale = vec3_create(0.1, 0.1, 0.1);
 
-        this.myMessagesTextStartString = ".\n"; // to avoid issue with text component padding
-        this.myMessagesTextAlignment = 1; // left
-        this.myMessagesTextJustification = 3; // top
+        this.myMessagesTextStartString = ".\n"; // To avoid issue with text component padding
+        this.myMessagesTextAlignment = 1; // Left
+        this.myMessagesTextJustification = 3; // Top
 
         this.myMessagesTextPositions = [];
         this.myMessagesTextPositions[ConsoleVRWidgetMessageType.LOG] = vec3_create(0, 0, 0.00001);
@@ -59,7 +59,7 @@ export class ConsoleVRWidgetSetup {
         this.myMessagesTextColors[ConsoleVRWidgetMessageType.WARN] = this.myMessageTypeColors[ConsoleVRWidgetMessageType.WARN];
         this.myMessagesTextColors[ConsoleVRWidgetMessageType.DEBUG] = this.myMessageTypeColors[ConsoleVRWidgetMessageType.DEBUG];
 
-        //Buttons     
+        // Buttons     
         this.myButtonsPanelPosition = vec3_create(0, -0.11, 0.015);
 
         this.myButtonBackgroundScale = vec3_create(0.04, 0.02, 1);
@@ -91,11 +91,11 @@ export class ConsoleVRWidgetSetup {
         this.myFilterButtonsTextLabel[ConsoleVRWidgetMessageType.WARN] = "warn";
         this.myFilterButtonsTextLabel[ConsoleVRWidgetMessageType.DEBUG] = "debug";
 
-        //Buttons positioning
+        // Buttons positioning
         {
             let numberOfButtons = 7;
             let buttonsHorizontalSpace = Math.max(0.68, this.myButtonBackgroundScale[0] * numberOfButtons);
-            //2 at start, 3 between filters, 4 spaces between filter and clear and 4 spaces between clear and up/down, 1 space between up and down, 1 at end
+            // 2 at start, 3 between filters, 4 spaces between filter and clear and 4 spaces between clear and up/down, 1 space between up and down, 1 at end
             let numberOfSpacesBetweenButtons = 2 + 3 + 4 + 4 + 1 + 2;
             let spaceWidth = Math.max((buttonsHorizontalSpace - numberOfButtons * this.myButtonBackgroundScale[0] * 2) / numberOfSpacesBetweenButtons, 0);
             let halfButtonWidth = this.myButtonBackgroundScale[0];
@@ -112,28 +112,28 @@ export class ConsoleVRWidgetSetup {
             this.myDownButtonPosition = [this.myUpButtonPosition[0] + halfButtonWidth + spaceWidth + halfButtonWidth, 0, 0];
         }
 
-        //Notify Icon
+        // Notify Icon
         this.myNotifyIconBackgroundScale = vec3_create(0.01, 0.01, 1);
 
         this.myNotifyIconPanelPositions = [];
         this.myNotifyIconPanelPositions[ToolHandedness.NONE] = vec3_create(0, 0, 0);
         this.myNotifyIconPanelPositions[ToolHandedness.NONE][0] = -this.myMessagesBackgroundScale[0] + this.myNotifyIconBackgroundScale[0] + 0.01;
         this.myNotifyIconPanelPositions[ToolHandedness.NONE][1] = -this.myMessagesBackgroundScale[1] + this.myNotifyIconBackgroundScale[1] + 0.01;
-        this.myNotifyIconPanelPositions[ToolHandedness.NONE][2] = this.myMessagesTextsPanelPosition[2] - 0.00001; //prevent glitches with text
+        this.myNotifyIconPanelPositions[ToolHandedness.NONE][2] = this.myMessagesTextsPanelPosition[2] - 0.00001; // Prevent glitches with text
 
         this.myNotifyIconPanelPositions[ToolHandedness.LEFT] = this.myNotifyIconPanelPositions[ToolHandedness.NONE];
 
         this.myNotifyIconPanelPositions[ToolHandedness.RIGHT] = this.myNotifyIconPanelPositions[ToolHandedness.NONE];
 
         this.myNotifyIconCursorTargetPosition = vec3_create(0, 0, 0);
-        this.myNotifyIconCursorTargetPosition[2] = this.myButtonsPanelPosition[2] + this.myButtonTextPosition[2] - this.myMessagesTextsPanelPosition[2]; // a little behind the button target to avoid hiding it
+        this.myNotifyIconCursorTargetPosition[2] = this.myButtonsPanelPosition[2] + this.myButtonTextPosition[2] - this.myMessagesTextsPanelPosition[2]; // A little behind the button target to avoid hiding it
 
         this.myNotifyIconCollisionExtents = this.myNotifyIconBackgroundScale.pp_clone();
         this.myNotifyIconCollisionExtents[2] = this.myCursorTargetCollisionThickness;
 
         this.myNotifyIconColor = vec4_create(210 / 255, 210 / 255, 210 / 255, 1);
 
-        //Pointer
+        // Pointer
         this.myPointerCollisionCollider = this.myCursorTargetCollisionCollider;
         this.myPointerCollisionGroup = this.myCursorTargetCollisionGroup;
 
@@ -145,7 +145,7 @@ export class ConsoleVRWidgetSetup {
 
         this.myPointerCursorTargetPosition = vec3_create(0, 0, 0);
         this.myPointerCursorTargetPosition[1] = (this.myMessagesPanelPosition[1] + this.myMessagesBackgroundScale[1]) - this.myPointerCollisionExtents[1];
-        this.myPointerCursorTargetPosition[2] = this.myButtonsPanelPosition[2] + this.myButtonTextPosition[2] - 0.0001; // a little behind the button target to avoid hiding it
+        this.myPointerCursorTargetPosition[2] = this.myButtonsPanelPosition[2] + this.myButtonTextPosition[2] - 0.0001; // A little behind the button target to avoid hiding it
     }
 
     _initializeRuntimeSetup() {
@@ -153,10 +153,10 @@ export class ConsoleVRWidgetSetup {
         this.myAssertStartString = "Assertion failed:";
 
         this.myMaxCharactersPerLine = 100;
-        this.myMaxLineSplits = 50; //prevent infinite splitting
+        this.myMaxLineSplits = 50; // Prevent infinite splitting
         this.myMaxLines = 22;
         this.myMaxMessages = 2000;
-        this.myMaxMessagesDeletePad = 2000; // to prevent deleting at every message, delay the delete after the limit is exceed by this value
+        this.myMaxMessagesDeletePad = 2000; // To prevent deleting at every message, delay the delete after the limit is exceed by this value
 
         this.myLinesBetweenMessages = 1;
 

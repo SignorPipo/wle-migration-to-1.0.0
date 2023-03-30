@@ -26,7 +26,7 @@ CollisionCheck.prototype._updateSurfaceInfo = function () {
         feetPosition = offsetTransformQuat.quat2_getPosition(feetPosition);
 
         let height = collisionCheckParams.myHeight;
-        height = height - 0.00001; // this makes it easier to setup things at the same exact height of a character so that it can go under it
+        height = height - 0.00001; // This makes it easier to setup things at the same exact height of a character so that it can go under it
         if (height < 0.00001) {
             height = 0;
         }
@@ -310,7 +310,7 @@ CollisionCheck.prototype._adjustVerticalMovementWithSurface = function () {
             } else if (!sameSignThanExtra && (
                 collisionRuntimeParams.myHorizontalMovementHasAdjustedVerticalMovementBasedOnGroundPerceivedAngleUphill ||
                 collisionRuntimeParams.myHorizontalMovementHasAdjustedVerticalMovementBasedOnCeilingPerceivedAngleUphill)) {
-                // do not add for downhill, since it means the vertical movement was about to go away from surface and u should not cancel that
+                // Do not add for downhill, since it means the vertical movement was about to go away from surface and u should not cancel that
                 outAdjustedVerticalMovement = verticalMovement.vec3_add(extraVerticalMovement, outAdjustedVerticalMovement);
             } else {
                 collisionRuntimeParams.myHorizontalMovementHasAdjustedVerticalMovementBasedOnCeilingPerceivedAngleUphill = false;
@@ -423,7 +423,7 @@ CollisionCheck.prototype._adjustHorizontalMovementWithSurface = function () {
     }
 }();
 
-// useless now
+// Useless now
 CollisionCheck.prototype._computeExtraSurfaceVerticalMovement = function () {
     let direction = vec3_create();
     let tempVector = vec3_create();

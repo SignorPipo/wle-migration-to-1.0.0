@@ -101,7 +101,7 @@ export function initMouseLookComponentModPrototype() {
 
             if (this.active && (this.mouseDown || !this.requireMouseDown)) {
 
-                viewForward = this.object.pp_getBackward(viewForward); // the view "real" forward is actually the backward
+                viewForward = this.object.pp_getBackward(viewForward); // The view "real" forward is actually the backward
                 viewUp = this.object.pp_getUp(viewUp);
 
                 referenceUp.vec3_set(0, 1, 0);

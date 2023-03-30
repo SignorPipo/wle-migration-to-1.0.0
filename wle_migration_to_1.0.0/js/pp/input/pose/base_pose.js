@@ -15,7 +15,7 @@ export class BasePoseParams {
 }
 
 // BasePose transform is local by default (as if the parent/reference object was the identity transform)
-// you can use setReferenceObject if you want the BasePose to return the transform in world space 
+// You can use setReferenceObject if you want the BasePose to return the transform in world space 
 export class BasePose {
 
     constructor(basePoseParams = new BasePoseParams()) {
@@ -48,7 +48,7 @@ export class BasePose {
         return this._myEngine;
     }
 
-    // if the reference object is set, the transform will be converted using it as a parent,
+    // If the reference object is set, the transform will be converted using it as a parent,
     // otherwise the transform will be local, as if the parent/reference object was the identity transform
     setReferenceObject(referenceObject) {
         this._myReferenceObject = referenceObject;
@@ -87,7 +87,7 @@ export class BasePose {
     }
 
     getPosition() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getRotation() {
@@ -104,7 +104,7 @@ export class BasePose {
     }
 
     getRotationQuat() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getTransform() {
@@ -112,15 +112,15 @@ export class BasePose {
     }
 
     getTransformMatrix() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getTransformQuat() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getLinearVelocity() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getAngularVelocity() {
@@ -128,11 +128,11 @@ export class BasePose {
     }
 
     getAngularVelocityDegrees() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getAngularVelocityRadians() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     isValid() {
@@ -204,7 +204,7 @@ export class BasePose {
             try {
                 xrPose = this._getPose(xrFrame);
             } catch (error) {
-                // not handled, pose will be null
+                // Not handled, pose will be null
             }
 
             if (xrPose) {
@@ -246,7 +246,7 @@ export class BasePose {
 
                 this._myIsValid = true;
             } else {
-                // keep previous position and rotation but reset velocity because reasons
+                // Keep previous position and rotation but reset velocity because reasons
 
                 if (updateVelocity) {
                     this._myLinearVelocity[0] = 0;
@@ -265,7 +265,7 @@ export class BasePose {
 
             this._updateHook(dt, updateVelocity, xrPose);
         } else {
-            // keep previous position and rotation but reset velocity because reasons
+            // Keep previous position and rotation but reset velocity because reasons
 
             if (updateVelocity) {
                 this._myLinearVelocity[0] = 0;
@@ -325,7 +325,7 @@ export class BasePose {
     }
 
     _computeEmulatedAngularVelocity() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

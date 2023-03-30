@@ -28,10 +28,10 @@ export class VisualLineParams {
 
         this.myThickness = 0.005;
 
-        this.myMesh = null;         // the mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCylinder
+        this.myMesh = null;         // The mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCylinder
 
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
-        this.myColor = null;        // if this is set and material is null, it will use the default flat opaque material with this color
+        this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
@@ -49,7 +49,7 @@ export class VisualLineParams {
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -148,7 +148,7 @@ export class VisualLine {
     }
 
     _refresh() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

@@ -53,7 +53,7 @@ PlayerLocomotionTeleportState.prototype._checkTeleportAsMovement = function () {
         feetPosition = feetTransformQuat.quat2_getPosition(feetPosition);
         feetRotationQuat = feetTransformQuat.quat2_getRotationQuat(feetRotationQuat);
 
-        // first try a normal teleport
+        // First try a normal teleport
         feetUp = feetRotationQuat.quat_getUp(feetUp);
         teleportFeetForward = teleportPosition.vec3_sub(feetPosition, teleportFeetForward).vec3_removeComponentAlongAxis(feetUp, teleportFeetForward);
         teleportFeetForward.vec3_normalize(teleportFeetForward);
@@ -66,7 +66,7 @@ PlayerLocomotionTeleportState.prototype._checkTeleportAsMovement = function () {
 
         this._checkTeleport(teleportPosition, teleportFeetTransformQuat, collisionRuntimeParams, checkTeleportCollisionRuntimeParams);
 
-        // if teleport is ok then we can check movement knowing we have to move toward the teleported position (which has also snapped/fixed the position)
+        // If teleport is ok then we can check movement knowing we have to move toward the teleported position (which has also snapped/fixed the position)
         if (!collisionRuntimeParams.myTeleportCanceled) {
             let teleportMovementValid = false;
 
@@ -142,7 +142,7 @@ PlayerLocomotionTeleportState.prototype._teleportToPosition = function () {
                 this._myTeleportParams.myPlayerHeadManager.rotateFeetQuat(teleportRotation);
             }
         } else {
-            //should teleport then rotate
+            // Should teleport then rotate
             this._myTeleportParams.myPlayerTransformManager.teleportTransformQuat(newFeetTransformQuat, collisionRuntimeParams, forceTeleport);
         }
     };

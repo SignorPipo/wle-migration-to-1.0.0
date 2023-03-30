@@ -29,7 +29,7 @@ export class VisualTextParams {
 
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myDefaultTextMaterial
 
-        this.myColor = null;        // if this is set and material is null, it will use the default text material with this color
+        this.myColor = null;        // If this is set and material is null, it will use the default text material with this color
 
         this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
@@ -38,7 +38,7 @@ export class VisualTextParams {
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

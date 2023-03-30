@@ -143,7 +143,7 @@ export class RaycastResults {
     }
 
     copy(result) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     reset() {

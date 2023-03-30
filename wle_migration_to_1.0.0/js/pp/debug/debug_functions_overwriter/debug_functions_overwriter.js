@@ -1,7 +1,7 @@
-// #TODO add getter/setter accessors overwrite
-// #TODO if both a class and the parent class are in the list, they should be overwritten in parent first order
-// #TODO how to overwrite class and objects from modules?
-// #TODO some functions, like glMatrix.vec3.copy, are defined as getter, how to overwrite them?
+// #TODO Add getter/setter accessors overwrite
+// #TODO If both a class and the parent class are in the list, they should be overwritten in parent first order
+// #TODO How to overwrite class and objects from modules?
+// #TODO Some functions, like glMatrix.vec3.copy, are defined as getter, how to overwrite them?
 
 import { JSUtils } from "../../cauldron/utils/js_utils";
 
@@ -18,33 +18,33 @@ export class DebugFunctionsOverwriterParams {
         // You can also count the call to a specific function, but it must be reachable from window, no reference way
         // It's mostly for global functions, which could be tracked anyway using window as object reference
 
-        this.myExcludeConstructors = false;      // constructor calls count can be a problem for some classes (like Array)
+        this.myExcludeConstructors = false;      // Constructor calls count can be a problem for some classes (like Array)
         this.myExcludeJSObjectFunctions = false;
 
-        this.myFunctionNamesToInclude = [];     // empty means every function is included, can be a regex (. must be escaped with \\.)
-        this.myFunctionNamesToExclude = [];     // empty means no function is excluded, can be a regex (. must be escaped with \\.)
+        this.myFunctionNamesToInclude = [];     // Empty means every function is included, can be a regex (. must be escaped with \\.)
+        this.myFunctionNamesToExclude = [];     // Empty means no function is excluded, can be a regex (. must be escaped with \\.)
 
-        // these can be used if u want to have a bit more control on function name filtering
-        this.myFunctionPathsToInclude = [];         // empty means every function is included, can be a regex (. must be escaped with \\.)
-        this.myFunctionPathsToExclude = [];         // empty means no function is excluded, can be a regex (. must be escaped with \\.)
+        // These can be used if u want to have a bit more control on function name filtering
+        this.myFunctionPathsToInclude = [];         // Empty means every function is included, can be a regex (. must be escaped with \\.)
+        this.myFunctionPathsToExclude = [];         // Empty means no function is excluded, can be a regex (. must be escaped with \\.)
 
-        this.myObjectAddObjectDescendantsDepthLevel = 0;        // you can specify if you want to also count the OBJECT descendants of the objects you have specified
-        this.myObjectAddClassDescendantsDepthLevel = 0;       // you can specify if you want to also count the CLASS descendants of the objects you have specified
-        // the depth level specify how deep in the hierarchy, level 0 means no recursion, 1 only children, 2 also grand children, and so on
+        this.myObjectAddObjectDescendantsDepthLevel = 0;      // You can specify if you want to also count the OBJECT descendants of the objects you have specified
+        this.myObjectAddClassDescendantsDepthLevel = 0;       // You can specify if you want to also count the CLASS descendants of the objects you have specified
+        // The depth level specify how deep in the hierarchy, level 0 means no recursion, 1 only children, 2 also grand children, and so on
         // -1 to select all the hierarchy
 
-        // these filters are only useful if u are doing recursion
-        this.myObjectNamesToInclude = [];           // empty means every object is included, can be a regex (. must be escaped with \\.)
-        this.myObjectNamesToExclude = [];           // empty means no object is excluded, can be a regex (. must be escaped with \\.)
+        // These filters are only useful if u are doing recursion
+        this.myObjectNamesToInclude = [];           // Empty means every object is included, can be a regex (. must be escaped with \\.)
+        this.myObjectNamesToExclude = [];           // Empty means no object is excluded, can be a regex (. must be escaped with \\.)
 
-        this.myClassNamesToInclude = [];            // empty means every class is included, can be a regex (. must be escaped with \\.)
-        this.myClassNamesToExclude = [];            // empty means no class is excluded, can be a regex (. must be escaped with \\.)
+        this.myClassNamesToInclude = [];            // Empty means every class is included, can be a regex (. must be escaped with \\.)
+        this.myClassNamesToExclude = [];            // Empty means no class is excluded, can be a regex (. must be escaped with \\.)
 
-        this.myObjectPathsToInclude = [];           // empty means every object is included, can be a regex (. must be escaped with \\.)
-        this.myObjectPathsToExclude = [];           // empty means no object is excluded, can be a regex (. must be escaped with \\.)
+        this.myObjectPathsToInclude = [];           // Empty means every object is included, can be a regex (. must be escaped with \\.)
+        this.myObjectPathsToExclude = [];           // Empty means no object is excluded, can be a regex (. must be escaped with \\.)
 
-        this.myClassPathsToInclude = [];            // empty means every class is included, can be a regex (. must be escaped with \\.)
-        this.myClassPathsToExclude = [];            // empty means no class is excluded, can be a regex (. must be escaped with \\.)
+        this.myClassPathsToInclude = [];            // Empty means every class is included, can be a regex (. must be escaped with \\.)
+        this.myClassPathsToExclude = [];            // Empty means no class is excluded, can be a regex (. must be escaped with \\.)
 
         // Tricks
         // - you can specify an object/class/function as a pair [object, "name"] instead of just object
@@ -136,7 +136,7 @@ export class DebugFunctionsOverwriter {
         if (isValidReferencePath && isValidReferenceName) {
             let propertyNames = JSUtils.getObjectPropertyNames(reference);
             if (propertyNames.pp_hasEqual("constructor")) {
-                propertyNames.unshift("constructor"); // be sure it's added first to spot bugs, not important that it appears twice in the list
+                propertyNames.unshift("constructor"); // Be sure it's added first to spot bugs, not important that it appears twice in the list
             }
 
             for (let propertyName of propertyNames) {
@@ -416,7 +416,7 @@ export class DebugFunctionsOverwriter {
     }
 
     _isJSObjectFunction(propertyName) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

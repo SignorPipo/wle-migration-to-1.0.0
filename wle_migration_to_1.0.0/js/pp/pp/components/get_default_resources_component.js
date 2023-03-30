@@ -22,7 +22,7 @@ export class GetDefaultResourcesComponent extends Component {
     init() {
         this._myDefaultResources = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasDefaultResources(this.engine)) {
             this._myDefaultResources = new DefaultResources();
             this._myDefaultResources.myMeshes.myPlane = MeshUtils.cloneMesh(this._myPlane);

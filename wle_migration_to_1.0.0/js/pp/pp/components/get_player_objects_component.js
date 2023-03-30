@@ -7,7 +7,7 @@ export class GetPlayerObjectsComponent extends Component {
     static TypeName = "pp-get-player-objects";
     static Properties = {
         _myPlayer: { type: Type.Object },
-        _myPlayerPivot: { type: Type.Object },   // if u don't have a pivot under the player you set this to null, by default will be the same as the player
+        _myPlayerPivot: { type: Type.Object },   // If u don't have a pivot under the player you set this to null, by default will be the same as the player
         _myCameraNonVR: { type: Type.Object },
         _myEyeLeft: { type: Type.Object },
         _myEyeRight: { type: Type.Object },
@@ -21,7 +21,7 @@ export class GetPlayerObjectsComponent extends Component {
     init() {
         this._myPlayerObjects = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasPlayerObjects(this.engine)) {
             this._myPlayerObjects = new PlayerObjects();
 

@@ -29,10 +29,10 @@ export class VisualTorusParams {
         this.mySegmentsAmount = 12;
         this.mySegmentThickness = 0.05;
 
-        this.mySegmentMesh = null;  // the mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCylinder
+        this.mySegmentMesh = null;  // The mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCylinder
 
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
-        this.myColor = null;        // if this is set and material is null, it will use the default flat opaque material with this color
+        this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
@@ -41,7 +41,7 @@ export class VisualTorusParams {
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -176,7 +176,7 @@ export class VisualTorus {
     }
 
     _refresh() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

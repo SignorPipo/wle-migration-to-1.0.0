@@ -9,7 +9,7 @@ export class DebugManagerComponent extends Component {
     init() {
         this._myDebugManager = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasDebugManager(this.engine)) {
             this._myDebugManager = new DebugManager(this.engine);
 

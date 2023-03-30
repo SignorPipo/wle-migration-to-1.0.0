@@ -13,7 +13,7 @@ export let MouseButtonID = {
     RIGHT: 2
 };
 
-// #TODO refactor Mouse/Keyboard/Gamepad and create a sort of parent ButtonHandler that have the base ButtonInfo and all of them inherit
+// #TODO Refactor Mouse/Keyboard/Gamepad and create a sort of parent ButtonHandler that have the base ButtonInfo and all of them inherit
 export class Mouse {
 
     constructor(engine = getMainEngine()) {
@@ -68,7 +68,7 @@ export class Mouse {
         this._myOnPointerEnterCallback = this._onPointerEnter.bind(this);
         document.body.addEventListener("pointerenter", this._myOnPointerEnterCallback);
 
-        // these are needed to being able to detect for example left and right click together, pointer only allow one down at a time
+        // These are needed to being able to detect for example left and right click together, pointer only allow one down at a time
         this._myOnMouseDownCallback = this._onMouseAction.bind(this, this._onPointerDown.bind(this));
         document.body.addEventListener("mousedown", this._myOnMouseDownCallback);
         this._myOnMouseUpCallback = this._onMouseAction.bind(this, this._onPointerUp.bind(this));
@@ -182,7 +182,7 @@ export class Mouse {
         return this.isInsideView() && this._myLastValidPointerEvent != null && this._myLastValidPointerEvent.target == this._myEngine.canvas;
     }
 
-    // the origin and direction are set by the mouse
+    // The origin and direction are set by the mouse
     raycastWorld(raycastSetup, raycastResults = new RaycastResults()) {
         this.getOriginWorld(raycastSetup.myOrigin);
         this.getDirectionWorld(raycastSetup.myDirection);
@@ -218,7 +218,7 @@ export class Mouse {
 
     getOriginWorld(out = vec3_create()) {
         if (XRUtils.isSessionActive(this._myEngine)) {
-            getPlayerObjects(this._myEngine).myEyeLeft.pp_getPosition(out); // in theory mouse should not be used inside the session, but may make sense for AR which uses eye left
+            getPlayerObjects(this._myEngine).myEyeLeft.pp_getPosition(out); // In theory mouse should not be used inside the session, but may make sense for AR which uses eye left
         } else {
             getPlayerObjects(this._myEngine).myCameraNonVR.pp_getPosition(out);
         }
@@ -281,7 +281,7 @@ export class Mouse {
         return this._myLastValidPointerEvent;
     }
 
-    // can be used to specify that only some pointerType are valid (eg: mouse, touch, pen) or just some target (eg: this._myEngine.canvas)
+    // Can be used to specify that only some pointerType are valid (eg: mouse, touch, pen) or just some target (eg: this._myEngine.canvas)
     addPointerEventValidCallback(id, callback) {
         this._myPointerEventValidCallbacks.set(id, callback);
     }
@@ -470,7 +470,7 @@ export class Mouse {
     }
 
     _isMouseAllowed() {
-        // mouse events are valid only if the last pointer event was a mouse (id==1)
+        // Mouse events are valid only if the last pointer event was a mouse (id==1)
         return this._myLastValidPointerEvent != null && this._myLastValidPointerEvent.pointerId == 1;
     }
 

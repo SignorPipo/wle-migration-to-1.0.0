@@ -1,4 +1,4 @@
-// even if this can be sued to generally fade, it should be called collision obscure to hint that is meant for collision obscuring
+// Even if this can be sued to generally fade, it should be called collision obscure to hint that is meant for collision obscuring
 
 import { Timer } from "../../../../../cauldron/cauldron/timer";
 import { FSM } from "../../../../../cauldron/fsm/fsm";
@@ -10,7 +10,7 @@ import { EasingFunction } from "../../../../../plugin/js/extensions/math_extensi
 import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getDefaultResources } from "../../../../../pp/default_resources_global";
 
-// occlude
+// Occlude
 export class PlayerObscureManagerParams {
 
     constructor(engine = getMainEngine()) {
@@ -30,7 +30,7 @@ export class PlayerObscureManagerParams {
         this.myDistanceToStartObscureWhenFloating = 0;
         this.myDistanceToStartObscureWhenFar = 0;
 
-        this.myRelativeDistanceToMaxObscureWhenHeadColliding = 0; // relative to the start distance, 1 means that in 1 meters after it started it will be completely obscured
+        this.myRelativeDistanceToMaxObscureWhenHeadColliding = 0; // Relative to the start distance, 1 means that in 1 meters after it started it will be completely obscured
         this.myRelativeDistanceToMaxObscureWhenBodyColliding = 0;
         this.myRelativeDistanceToMaxObscureWhenFloating = 0;
         this.myRelativeDistanceToMaxObscureWhenFar = 0;
@@ -251,9 +251,9 @@ export class PlayerObscureManager {
         if (this._myObscurelevelOverride != null) {
             this._myTargetObscureLevel = this._myObscurelevelOverride;
         } else {
-            // #TODO check if VALID head is colliding, in that case use max obscure level
-            // this prevent being able to see when resetting head to real even though real is colliding
-            // for example if u stand up and go with the head in the ceiling and reset by moving
+            // #TODO Check if VALID head is colliding, in that case use max obscure level
+            // This prevent being able to see when resetting head to real even though real is colliding
+            // For example if u stand up and go with the head in the ceiling and reset by moving
             if (this._myParams.myPlayerTransformManager.isHeadColliding()) {
                 let distance = this._myParams.myPlayerTransformManager.getDistanceToRealHead();
                 let relativeDistance = distance - this._myParams.myDistanceToStartObscureWhenHeadColliding;

@@ -30,7 +30,7 @@ export class EasyTuneBaseWidgetSetup {
         return -this._mySideButtonPanelHalfWidth;
     }
 
-    // small Z offset to avoid glitching with other widgets
+    // Small Z offset to avoid glitching with other widgets
     _getPivotZOffset() {
         return 0;
     }
@@ -157,7 +157,7 @@ export class EasyTuneBaseWidgetSetup {
         this.myPointerCollisionExtents = this.myBackBackgroundScale.pp_clone();
         this.myPointerCollisionExtents[2] = this.myCursorTargetCollisionThickness;
         this.myPointerCursorTargetPosition = this.myBackPanelPosition.pp_clone();
-        this.myPointerCursorTargetPosition[2] = this._myColliderZOffset - 0.0001; // a little behind the button target to avoid hiding it
+        this.myPointerCursorTargetPosition[2] = this._myColliderZOffset - 0.0001; // A little behind the button target to avoid hiding it
     }
 
     _initializeRuntimeSetup() {

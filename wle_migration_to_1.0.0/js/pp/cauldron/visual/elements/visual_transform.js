@@ -33,7 +33,7 @@ export class VisualTransformParams {
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -136,7 +136,7 @@ export class VisualTransform {
     }
 
     _refresh() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

@@ -282,9 +282,9 @@ export function initObjectExtensionProtoype() {
 
     let objectExtension = {};
 
-    //GETTER
+    // GETTER
 
-    //Position
+    // Position
 
     objectExtension.pp_getPosition = function pp_getPosition(position) {
         return this.pp_getPositionWorld(position);
@@ -300,7 +300,7 @@ export function initObjectExtensionProtoype() {
         return position;
     };
 
-    //Rotation
+    // Rotation
 
     objectExtension.pp_getRotation = function pp_getRotation(rotation) {
         return this.pp_getRotationWorld(rotation);
@@ -321,7 +321,7 @@ export function initObjectExtensionProtoype() {
         return this.pp_getRotationWorldQuat(rotation);
     };
 
-    //Rotation World
+    // Rotation World
 
     objectExtension.pp_getRotationWorld = function pp_getRotationWorld(rotation) {
         return this.pp_getRotationWorldDegrees(rotation);
@@ -358,7 +358,7 @@ export function initObjectExtensionProtoype() {
         return rotation;
     };
 
-    //Rotation Local
+    // Rotation Local
 
     objectExtension.pp_getRotationLocal = function pp_getRotationLocal(rotation) {
         return this.pp_getRotationLocalDegrees(rotation);
@@ -395,7 +395,7 @@ export function initObjectExtensionProtoype() {
         return rotation;
     };
 
-    //Scale
+    // Scale
 
     objectExtension.pp_getScale = function pp_getScale(scale) {
         return this.pp_getScaleWorld(scale);
@@ -411,7 +411,7 @@ export function initObjectExtensionProtoype() {
         return scale;
     };
 
-    //Transform
+    // Transform
 
     objectExtension.pp_getTransform = function pp_getTransform(transform) {
         return this.pp_getTransformWorld(transform);
@@ -425,7 +425,7 @@ export function initObjectExtensionProtoype() {
         return this.pp_getTransformWorldQuat(transform);
     };
 
-    //Transform World
+    // Transform World
 
     objectExtension.pp_getTransformWorld = function pp_getTransformWorld(transform) {
         return this.pp_getTransformWorldMatrix(transform);
@@ -448,7 +448,7 @@ export function initObjectExtensionProtoype() {
         return transform;
     };
 
-    //Transform Local
+    // Transform Local
 
     objectExtension.pp_getTransformLocal = function (transform) {
         return this.pp_getTransformLocalMatrix(transform);
@@ -471,7 +471,7 @@ export function initObjectExtensionProtoype() {
         return transform;
     };
 
-    //Axes
+    // Axes
 
     objectExtension.pp_getAxes = function pp_getAxes(axes) {
         return this.pp_getAxesWorld(axes);
@@ -491,7 +491,7 @@ export function initObjectExtensionProtoype() {
         return axes;
     };
 
-    //Forward
+    // Forward
 
     objectExtension.pp_getForward = function pp_getForward(forward) {
         return this.pp_getForwardWorld(forward);
@@ -519,7 +519,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Backward
+    // Backward
 
     objectExtension.pp_getBackward = function pp_getBackward(backward) {
         return this.pp_getBackwardWorld(backward);
@@ -547,7 +547,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Up
+    // Up
 
     objectExtension.pp_getUp = function pp_getUp(up) {
         return this.pp_getUpWorld(up);
@@ -575,7 +575,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Down
+    // Down
 
     objectExtension.pp_getDown = function pp_getDown(down) {
         return this.pp_getDownWorld(down);
@@ -603,7 +603,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Left
+    // Left
 
     objectExtension.pp_getLeft = function pp_getLeft(left) {
         return this.pp_getLeftWorld(left);
@@ -631,7 +631,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Right
+    // Right
 
     objectExtension.pp_getRight = function pp_getRight(right) {
         return this.pp_getRightWorld(right);
@@ -659,9 +659,9 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //SETTER
+    // SETTER
 
-    //Position
+    // Position
 
     objectExtension.pp_setPosition = function pp_setPosition(position) {
         this.pp_setPositionWorld(position);
@@ -675,7 +675,7 @@ export function initObjectExtensionProtoype() {
         this.setTranslationLocal(position);
     };
 
-    //Rotation
+    // Rotation
 
     objectExtension.pp_setRotation = function pp_setRotation(rotation) {
         this.pp_setRotationWorld(rotation);
@@ -696,7 +696,7 @@ export function initObjectExtensionProtoype() {
         this.pp_setRotationWorldQuat(rotation);
     };
 
-    //Rotation World
+    // Rotation World
 
     objectExtension.pp_setRotationWorld = function pp_setRotationWorld(rotation) {
         this.pp_setRotationWorldDegrees(rotation);
@@ -732,7 +732,7 @@ export function initObjectExtensionProtoype() {
         this.rotationWorld = rotation;
     };
 
-    //Rotation Local
+    // Rotation Local
 
     objectExtension.pp_setRotationLocal = function pp_setRotationLocal(rotation) {
         this.pp_setRotationLocalDegrees(rotation);
@@ -768,7 +768,7 @@ export function initObjectExtensionProtoype() {
         this.rotationLocal = rotation;
     };
 
-    //Scale
+    // Scale
 
     objectExtension.pp_setScale = function pp_setScale(scale) {
         this.pp_setScaleWorld(scale);
@@ -798,7 +798,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Axes    
+    // Axes    
 
     objectExtension.pp_setAxes = function pp_setAxes(left, up, forward) {
         this.pp_setAxesWorld(left, up, forward);
@@ -824,7 +824,7 @@ export function initObjectExtensionProtoype() {
         }
     };
 
-    //Forward
+    // Forward
 
     objectExtension.pp_setForward = function pp_setForward(forward, up, left) {
         this.pp_setForwardWorld(forward, up, left);
@@ -848,7 +848,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Backward
+    // Backward
 
     objectExtension.pp_setBackward = function pp_setBackward(backward, up, left) {
         this.pp_setBackwardWorld(backward, up, left);
@@ -872,7 +872,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Up
+    // Up
 
     objectExtension.pp_setUp = function pp_setUp(up, forward, left) {
         this.pp_setUpWorld(up, forward, left);
@@ -896,7 +896,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Down
+    // Down
 
     objectExtension.pp_setDown = function pp_setDown(down, forward, left) {
         this.pp_setDownWorld(down, forward, left);
@@ -920,7 +920,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Left
+    // Left
 
     objectExtension.pp_setLeft = function pp_setLeft(left, up, forward) {
         this.pp_setLeftWorld(left, up, forward);
@@ -944,7 +944,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Right
+    // Right
 
     objectExtension.pp_setRight = function pp_setRight(right, up, forward) {
         this.pp_setRightWorld(right, up, forward);
@@ -968,7 +968,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Transform
+    // Transform
 
     objectExtension.pp_setTransform = function pp_setTransform(transform) {
         this.pp_setTransformWorld(transform);
@@ -982,7 +982,7 @@ export function initObjectExtensionProtoype() {
         this.pp_setTransformWorldQuat(transform);
     };
 
-    //Transform World
+    // Transform World
 
     objectExtension.pp_setTransformWorld = function pp_setTransformWorld(transform) {
         return this.pp_setTransformWorldMatrix(transform);
@@ -1012,7 +1012,7 @@ export function initObjectExtensionProtoype() {
         this.transformWorld = transform;
     };
 
-    //Transform Local
+    // Transform Local
 
     objectExtension.pp_setTransformLocal = function pp_setTransformLocal(transform) {
         return this.pp_setTransformLocalMatrix(transform);
@@ -1042,9 +1042,9 @@ export function initObjectExtensionProtoype() {
         this.transformLocal = transform;
     };
 
-    //RESET
+    // RESET
 
-    //Position
+    // Position
 
     objectExtension.pp_resetPosition = function pp_resetPosition() {
         this.pp_resetPositionWorld();
@@ -1064,7 +1064,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotation
+    // Rotation
 
     objectExtension.pp_resetRotation = function pp_resetRotation() {
         this.pp_resetRotationWorld();
@@ -1084,7 +1084,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Scale
+    // Scale
 
     objectExtension.pp_resetScale = function pp_resetScale() {
         this.pp_resetScaleWorld();
@@ -1104,7 +1104,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Transform
+    // Transform
 
     objectExtension.pp_resetTransform = function pp_resetTransform() {
         this.pp_resetTransformWorld();
@@ -1122,9 +1122,9 @@ export function initObjectExtensionProtoype() {
         this.pp_resetPositionLocal();
     };
 
-    //TRANSFORMATIONS
+    // TRANSFORMATIONS
 
-    //Translate
+    // Translate
 
     objectExtension.pp_translate = function pp_translate(translation) {
         this.pp_translateWorld(translation);
@@ -1142,7 +1142,7 @@ export function initObjectExtensionProtoype() {
         this.translateObject(translation);
     };
 
-    //Translate Axis
+    // Translate Axis
 
     objectExtension.pp_translateAxis = function pp_translateAxis(amount, direction) {
         this.pp_translateAxisWorld(amount, direction);
@@ -1172,7 +1172,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate
+    // Rotate
 
     objectExtension.pp_rotate = function pp_rotate(rotation) {
         this.pp_rotateWorld(rotation);
@@ -1194,7 +1194,7 @@ export function initObjectExtensionProtoype() {
         this.pp_rotateWorldQuat(rotation);
     };
 
-    //Rotate World
+    // Rotate World
 
     objectExtension.pp_rotateWorld = function pp_rotateWorld(rotation) {
         this.pp_rotateWorldDegrees(rotation);
@@ -1237,7 +1237,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Local
+    // Rotate Local
 
     objectExtension.pp_rotateLocal = function pp_rotateLocal(rotation) {
         this.pp_rotateLocalDegrees(rotation);
@@ -1280,7 +1280,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Object
+    // Rotate Object
 
     objectExtension.pp_rotateObject = function pp_rotateObject(rotation) {
         this.pp_rotateObjectDegrees(rotation);
@@ -1317,7 +1317,7 @@ export function initObjectExtensionProtoype() {
         this.rotateObject(rotation);
     };
 
-    //Rotate Axis
+    // Rotate Axis
 
     objectExtension.pp_rotateAxis = function pp_rotateAxis(angle, axis) {
         this.pp_rotateAxisWorld(angle, axis);
@@ -1331,7 +1331,7 @@ export function initObjectExtensionProtoype() {
         this.pp_rotateAxisWorldRadians(angle, axis);
     };
 
-    //Rotate Axis World
+    // Rotate Axis World
 
     objectExtension.pp_rotateAxisWorld = function pp_rotateAxisWorld(angle, axis) {
         this.pp_rotateAxisWorldDegrees(angle, axis);
@@ -1349,7 +1349,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Axis Local
+    // Rotate Axis Local
 
     objectExtension.pp_rotateAxisLocal = function pp_rotateAxisLocal(angle, axis) {
         this.pp_rotateAxisLocalDegrees(angle, axis);
@@ -1367,7 +1367,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Axis Object
+    // Rotate Axis Object
 
     objectExtension.pp_rotateAxisObject = function pp_rotateAxisObject(angle, axis) {
         this.pp_rotateAxisObjectDegrees(angle, axis);
@@ -1385,7 +1385,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Around
+    // Rotate Around
 
     objectExtension.pp_rotateAround = function pp_rotateAround(rotation, origin) {
         this.pp_rotateAroundWorld(rotation, origin);
@@ -1407,7 +1407,7 @@ export function initObjectExtensionProtoype() {
         this.pp_rotateAroundWorldQuat(rotation, origin);
     };
 
-    //Rotate Around World
+    // Rotate Around World
 
     objectExtension.pp_rotateAroundWorld = function pp_rotateAroundWorld(rotation, origin) {
         this.pp_rotateAroundWorldDegrees(rotation, origin);
@@ -1449,7 +1449,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Around Local
+    // Rotate Around Local
 
     objectExtension.pp_rotateAroundLocal = function pp_rotateAroundLocal(rotation, origin) {
         this.pp_rotateAroundLocalDegrees(rotation, origin);
@@ -1491,7 +1491,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Around Object
+    // Rotate Around Object
 
     objectExtension.pp_rotateAroundObject = function pp_rotateAroundObject(rotation, origin) {
         this.pp_rotateAroundObjectDegrees(rotation, origin);
@@ -1533,7 +1533,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Around Axis
+    // Rotate Around Axis
 
     objectExtension.pp_rotateAroundAxis = function pp_rotateAroundAxis(angle, axis, origin) {
         this.pp_rotateAroundAxisWorld(angle, axis, origin);
@@ -1547,7 +1547,7 @@ export function initObjectExtensionProtoype() {
         this.pp_rotateAroundAxisWorldRadians(angle, axis, origin);
     };
 
-    //Rotate Around Axis World
+    // Rotate Around Axis World
 
     objectExtension.pp_rotateAroundAxisWorld = function pp_rotateAroundAxisWorld(angle, axis, origin) {
         this.pp_rotateAroundAxisWorldDegrees(angle, axis, origin);
@@ -1573,7 +1573,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Around Axis Local
+    // Rotate Around Axis Local
 
     objectExtension.pp_rotateAroundAxisLocal = function pp_rotateAroundAxisLocal(angle, axis, origin) {
         this.pp_rotateAroundAxisLocalDegrees(angle, axis, origin);
@@ -1593,7 +1593,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Rotate Around Axis Object
+    // Rotate Around Axis Object
 
     objectExtension.pp_rotateAroundAxisObject = function pp_rotateAroundAxisObject(angle, axis, origin) {
         this.pp_rotateAroundAxisObjectDegrees(angle, axis, origin);
@@ -1613,10 +1613,10 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Scale
+    // Scale
 
-    //For now it does not really make sense in wle to scale in world space or parent space
-    //so there is no pp_scale default function
+    // For now it does not really make sense in wle to scale in world space or parent space
+    // so there is no pp_scale default function
 
     objectExtension.pp_scaleObject = function () {
         let vector = vec3_create();
@@ -1630,7 +1630,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Look At
+    // Look At
 
     objectExtension.pp_lookAt = function pp_lookAt(position, up) {
         this.pp_lookAtWorld(position, up);
@@ -1672,9 +1672,9 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //EXTRA
+    // EXTRA
 
-    //Parent
+    // Parent
 
     objectExtension.pp_setParent = function () {
         let position = vec3_create();
@@ -1699,7 +1699,7 @@ export function initObjectExtensionProtoype() {
         return this.parent;
     };
 
-    //Convert Vector Object World
+    // Convert Vector Object World
 
     objectExtension.pp_convertPositionObjectToWorld = function () {
         let matrix = mat4_create();
@@ -1739,7 +1739,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Convert Vector Local World
+    // Convert Vector Local World
 
     objectExtension.pp_convertPositionLocalToWorld = function pp_convertPositionLocalToWorld(position, resultPosition = vec3_create()) {
         if (this.pp_getParent()) {
@@ -1777,9 +1777,9 @@ export function initObjectExtensionProtoype() {
         return resultDirection;
     };
 
-    //Convert Vector Local Object
+    // Convert Vector Local Object
 
-    //I need to use the converson to world and then local also use the parent scale that changes the position in local space
+    // I need to use the converson to world and then local also use the parent scale that changes the position in local space
 
     objectExtension.pp_convertPositionObjectToLocal = function pp_convertPositionObjectToLocal(position, resultPosition = vec3_create()) {
         this.pp_convertPositionObjectToWorld(position, resultPosition);
@@ -1805,7 +1805,7 @@ export function initObjectExtensionProtoype() {
         return resultDirection;
     };
 
-    //Convert Transform Object World
+    // Convert Transform Object World
 
     objectExtension.pp_convertTransformObjectToWorld = function pp_convertTransformObjectToWorld(transform, resultTransform) {
         return this.pp_convertTransformObjectToWorldMatrix(transform, resultTransform);
@@ -1904,7 +1904,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Convert Transform Local World
+    // Convert Transform Local World
 
     objectExtension.pp_convertTransformLocalToWorld = function pp_convertTransformLocalToWorld(transform, resultTransform) {
         return this.pp_convertTransformLocalToWorldMatrix(transform, resultTransform);
@@ -1950,9 +1950,9 @@ export function initObjectExtensionProtoype() {
         return resultTransform;
     };
 
-    //Convert Transform Object Local
+    // Convert Transform Object Local
 
-    //I need to use the converson to world and then local also use the parent scale that changes the position in local space
+    // I need to use the converson to world and then local also use the parent scale that changes the position in local space
 
     objectExtension.pp_convertTransformObjectToLocal = function pp_convertTransformObjectToLocal(transform, resultTransform) {
         return this.pp_convertTransformObjectToLocalMatrix(transform, resultTransform);
@@ -1986,7 +1986,7 @@ export function initObjectExtensionProtoype() {
         return resultTransform;
     };
 
-    //Component
+    // Component
 
     objectExtension.pp_addComponent = function pp_addComponent(type, paramsOrActive, active = null) {
         let params = null;
@@ -2090,7 +2090,7 @@ export function initObjectExtensionProtoype() {
         return getComponentsObjects(objects, type);
     };
 
-    //Active
+    // Active
 
     objectExtension.pp_setActive = function pp_setActive(active, applyToHierarchy = true) {
         if (applyToHierarchy) {
@@ -2137,7 +2137,7 @@ export function initObjectExtensionProtoype() {
         setActiveObjects(objects, active);
     };
 
-    //Uniform Scale
+    // Uniform Scale
 
     objectExtension.pp_hasUniformScale = function pp_hasUniformScale() {
         return this.pp_hasUniformScaleWorld();
@@ -2159,7 +2159,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Clone
+    // Clone
 
     objectExtension.pp_clone = function () {
         let scale = vec3_create();
@@ -2331,7 +2331,7 @@ export function initObjectExtensionProtoype() {
         return isCloneable;
     };
 
-    //To String
+    // To String
 
     objectExtension.pp_toString = function pp_toString() {
         return this.pp_toStringCompact();
@@ -2477,7 +2477,7 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    //Get By Name
+    // Get By Name
 
     objectExtension.pp_getObjectByName = function pp_getObjectByName(name) {
         return this.pp_getObjectByNameHierarchy(name);
@@ -2553,7 +2553,7 @@ export function initObjectExtensionProtoype() {
         return getObjectsByNameObjects(objects, name);
     }
 
-    //Get Hierarchy
+    // Get Hierarchy
 
     objectExtension.pp_getHierarchy = function pp_getHierarchy() {
         return this.pp_getHierarchyBreadth();
@@ -2620,7 +2620,7 @@ export function initObjectExtensionProtoype() {
         return this;
     };
 
-    //Cauldron
+    // Cauldron
 
     objectExtension.pp_addObject = function pp_addObject() {
         return this.pp_getEngine().scene.addObject(this);

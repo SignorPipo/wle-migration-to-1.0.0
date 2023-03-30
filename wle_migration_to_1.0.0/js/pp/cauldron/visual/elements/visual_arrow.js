@@ -29,11 +29,11 @@ export class VisualArrowParams {
 
         this.myThickness = 0.005;
 
-        this.myLineMesh = null;     // the mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCylinder
-        this.myArrowMesh = null;    // the mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCone
+        this.myLineMesh = null;     // The mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCylinder
+        this.myArrowMesh = null;    // The mesh is scaled along up axis, null means it will default on myDefaultResources.myMeshes.myCone
 
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
-        this.myColor = null;        // if this is set and material is null, it will use the default flat opaque material with this color
+        this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = getVisualData(engine).myRootObject;
         this.myIsLocal = false;
@@ -51,7 +51,7 @@ export class VisualArrowParams {
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -157,7 +157,7 @@ export class VisualArrow {
     }
 
     _refresh() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

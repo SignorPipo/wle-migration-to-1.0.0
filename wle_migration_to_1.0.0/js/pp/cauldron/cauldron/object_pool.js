@@ -2,18 +2,18 @@ export class ObjectPoolParams {
 
     constructor() {
         this.myInitialPoolSize = 0;
-        this.myAmountToAddWhenEmpty = 0;        //If all the objects are busy, this amount will be added to the pool
-        this.myPercentageToAddWhenEmpty = 0;    //If all the objects are busy, this percentage of the current pool size will be added to the pool        
+        this.myAmountToAddWhenEmpty = 0;        // If all the objects are busy, this amount will be added to the pool
+        this.myPercentageToAddWhenEmpty = 0;    // If all the objects are busy, this percentage of the current pool size will be added to the pool        
 
         this.myCloneParams = undefined;
 
-        this.myOptimizeObjectsAllocation = true;    //If true it will pre-allocate the memory before adding new objects to the pool
+        this.myOptimizeObjectsAllocation = true;    // If true it will pre-allocate the memory before adding new objects to the pool
 
-        //These extra functions can be used if u want to use the pool with objects that are not from WL (WL.Object)
-        this.myCloneCallback = undefined;                       //Signature: callback(object, cloneParams) -> clonedObject
-        this.mySetActiveCallback = undefined;                   //Signature: callback(object, active)
-        this.myEqualCallback = undefined;                       //Signature: callback(firstObject, secondObject) -> bool
-        this.myOptimizeObjectsAllocationCallback = undefined;   //Signature: callback(object, numberOfObjectsToAllocate)
+        // These extra functions can be used if u want to use the pool with objects that are not from WL (WL Object)
+        this.myCloneCallback = undefined;                       // Signature: callback(object, cloneParams) -> clonedObject
+        this.mySetActiveCallback = undefined;                   // Signature: callback(object, active)
+        this.myEqualCallback = undefined;                       // Signature: callback(firstObject, secondObject) -> bool
+        this.myOptimizeObjectsAllocationCallback = undefined;   // Signature: callback(object, numberOfObjectsToAllocate)
 
         this.myEnableDebugLog = true;
     }
@@ -41,7 +41,7 @@ export class ObjectPool {
             object = this._myAvailableObjects.shift();
         }
 
-        //object could still be null if the amountToAdd is 0
+        // Object could still be null if the amountToAdd is 0
         if (object != null) {
             this._myBusyObjects.push(object);
         }

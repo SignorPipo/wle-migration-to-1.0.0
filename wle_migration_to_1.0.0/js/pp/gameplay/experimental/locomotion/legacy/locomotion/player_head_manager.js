@@ -20,7 +20,7 @@ export class PlayerHeadManagerParams {
 
         this.myExitSessionResyncHeight = false;
         this.myExitSessionResyncVerticalAngle = false;
-        this.myExitSessionRemoveRightTilt = false; // for now right tilt is removed even if this setting is false, if the vertical angle has to be adjusted
+        this.myExitSessionRemoveRightTilt = false; // For now right tilt is removed even if this setting is false, if the vertical angle has to be adjusted
         this.myExitSessionAdjustMaxVerticalAngle = false;
         this.myExitSessionMaxVerticalAngle = 0;
 
@@ -34,7 +34,7 @@ export class PlayerHeadManagerParams {
         this.myRotateFeetKeepUp = false;
 
         this.myForeheadExtraHeight = 0;
-        // can be used to always add a bit of height, for example to compensate the fact 
+        // Can be used to always add a bit of height, for example to compensate the fact 
         // that the default height is actually the eye height and you may want to also add a forehead offset
 
         this.myEngine = engine;
@@ -43,7 +43,7 @@ export class PlayerHeadManagerParams {
     }
 }
 
-// could be intended as the generic player body manager (maybe with hands and stuff also)
+// Could be intended as the generic player body manager (maybe with hands and stuff also)
 export class PlayerHeadManager {
 
     constructor(params = new PlayerHeadManagerParams()) {
@@ -56,7 +56,7 @@ export class PlayerHeadManager {
         this._myCurrentHeadTransformQuat = quat2_create();
         this._myPreviousHeadTransformQuat = quat2_create();
 
-        this._myDelaySessionChangeResyncCounter = 0; // needed because VR head takes some frames to get the tracked position
+        this._myDelaySessionChangeResyncCounter = 0; // Needed because VR head takes some frames to get the tracked position
         this._myDelayBlurEndResyncCounter = 0;
         this._myDelayBlurEndResyncTimer = new Timer(5, false);
         this._myVisibilityHidden = false;
@@ -109,11 +109,11 @@ export class PlayerHeadManager {
     }
 
     getHeightEyes() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getTransformFeetQuat(outTransformFeetQuat = quat2_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getTransformHeadQuat(outTransformFeetQuat = quat2_create()) {
@@ -121,7 +121,7 @@ export class PlayerHeadManager {
     }
 
     getPositionFeet(outPositionFeet = vec3_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getPositionHead(outPositionHead = vec3_create()) {
@@ -129,7 +129,7 @@ export class PlayerHeadManager {
     }
 
     getRotationFeetQuat(outRotationFeetQuat = quat_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getRotationHeadQuat(outRotationHeadQuat = quat_create()) {
@@ -163,7 +163,7 @@ export class PlayerHeadManager {
     }
 
     moveFeet(movement) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     moveHead(movement) {
@@ -171,24 +171,24 @@ export class PlayerHeadManager {
     }
 
     teleportPositionHead(teleportPosition) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     teleportPositionFeet(teleportPosition) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     teleportPlayerToHeadTransformQuat(headTransformQuat) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     rotateFeetQuat(rotationQuat, keepUpOverride = null) {
-        // implemented outside class definition 
+        // Implemented outside class definition 
     }
 
     rotateHeadQuat(rotationQuat) {
-        // #TODO rotate feet with this and then rotate head freely if possible
-        // implemented outside class definition 
+        // #TODO Rotate feet with this and then rotate head freely if possible
+        // Implemented outside class definition 
     }
 
     canRotateFeet() {
@@ -200,19 +200,19 @@ export class PlayerHeadManager {
     }
 
     setRotationFeetQuat(rotationQuat, keepUpOverride = null) {
-        // implemented outside class definition 
+        // Implemented outside class definition 
     }
 
     setRotationHeadQuat() {
-        // implemented outside class definition 
+        // Implemented outside class definition 
     }
 
     lookAtFeet(position, up = null, keepUpOverride = null) {
-        // implemented outside class definition 
+        // Implemented outside class definition 
     }
 
     lookToFeet(direction, up = null, keepUpOverride = null) {
-        // implemented outside class definition 
+        // Implemented outside class definition 
     }
 
     lookAtHead(position, up = null) {
@@ -243,7 +243,7 @@ export class PlayerHeadManager {
             }
         }
 
-        // not really used since visibility hidden end is not considered a special case anymore
+        // Not really used since visibility hidden end is not considered a special case anymore
         if (this._myDelayBlurEndResyncTimer.isRunning()) {
             if (this._myDelayBlurEndResyncCounter > 0) {
                 this._myDelayBlurEndResyncCounter--;
@@ -303,7 +303,7 @@ PlayerHeadManager.prototype.getRotationFeetQuat = function () {
         playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
         headForward = this._myCurrentHead.pp_getForward(headForward);
 
-        // feet are considered to always be flat on the player up
+        // Feet are considered to always be flat on the player up
         let angleWithUp = headForward.vec3_angle(playerUp);
         let mingAngle = 10;
         if (angleWithUp < mingAngle) {
@@ -463,7 +463,7 @@ PlayerHeadManager.prototype.teleportPlayerToHeadTransformQuat = function () {
 
         playerForward = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getForward(playerForward);
         headForward = headTransformQuat.quat2_getForward(headForward);
-        headForwardNegated = headForward.vec3_negate(headForwardNegated); // the head is rotated 180 degrees from the player for rendering reasons
+        headForwardNegated = headForward.vec3_negate(headForwardNegated); // The head is rotated 180 degrees from the player for rendering reasons
 
         rotationToPerform = playerForward.vec3_rotationToPivotedQuat(headForwardNegated, playerUp, rotationToPerform);
 
@@ -529,7 +529,7 @@ PlayerHeadManager.prototype._getPositionHeight = function () {
     };
 }();
 
-// #TODO what happens if the player go in the blurred state before wle has loaded?
+// #TODO What happens if the player go in the blurred state before wle has loaded?
 PlayerHeadManager.prototype._onXRSessionStart = function () {
     return function _onXRSessionStart(manualStart, session) {
         this._myBlurRecoverHeadTransform = null;
@@ -647,9 +647,9 @@ PlayerHeadManager.prototype._onXRSessionBlurEnd = function () {
                 if (this._myParams.myBlurEndResyncEnabled && this._myBlurRecoverHeadTransform != null && this._mySessionActive) {
                     this._myDelayBlurEndResyncCounter = this._myResyncCounterFrames;
                     if (this._myVisibilityHidden) {
-                        // this._myDelayBlurEndResyncTimer.start();
+                        //this._myDelayBlurEndResyncTimer.start();
 
-                        // this was added because on the end of hidden u can have the resync delay cause of the guardian resync
+                        // This was added because on the end of hidden u can have the resync delay cause of the guardian resync
                         // but I just decided to skip this since it's not reliable and the guardian resync can happen in other cases
                         // with no notification anyway
                     }
@@ -810,8 +810,8 @@ PlayerHeadManager.prototype._sessionChangeResync = function () {
                         let angleForwardUp = resyncHeadForward.vec3_angle(playerUp);
                         let negateAngle = 45;
                         if (angleForwardUp > (180 - negateAngle) || angleForwardUp < negateAngle) {
-                            // this way I get a good fixed result for both head upside down and head rotated on forward
-                            // when the head is looking down and a bit backward (more than 135 degrees), I want the forward to actually
+                            // This way I get a good fixed result for both head upside down and head rotated on forward
+                            // When the head is looking down and a bit backward (more than 135 degrees), I want the forward to actually
                             // be the opposite because it's like u rotate back the head up and look forward again
                             fixedHeadRight.vec3_negate(fixedHeadRight);
                         }
@@ -872,7 +872,7 @@ PlayerHeadManager.prototype._resyncHeadRotationForward = function () {
         fixedResyncHeadRotation.quat_setUp(playerUp, resyncHeadForward);
 
         if (!resyncHeadUp.vec3_isConcordant(playerUp)) {
-            //if it was upside down, it's like it has to rotate the neck back up,so the forward is actually on the opposite side
+            // If it was upside down, it's like it has to rotate the neck back up,so the forward is actually on the opposite side
             fixedResyncHeadRotation.quat_rotateAxis(180, playerUp, fixedResyncHeadRotation);
         }
 

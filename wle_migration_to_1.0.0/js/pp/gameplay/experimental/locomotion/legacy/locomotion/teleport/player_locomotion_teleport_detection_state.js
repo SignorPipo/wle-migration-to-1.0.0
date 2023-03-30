@@ -21,7 +21,7 @@ export class PlayerLocomotionTeleportDetectionParams {
         this.myMaxDistance = 0;
         this.myMaxHeightDifference = 0;
         this.myGroundAngleToIgnoreUpward = 0;
-        // this can be used to make it so the teleport position is valid on a steeper angle when going downward by setting the higher value on the collision params
+        // This can be used to make it so the teleport position is valid on a steeper angle when going downward by setting the higher value on the collision params
         // and then use this to specify that when going upward u want it to be less, basically to be able to teleprot down a cliff even on a steep ground
         // that would not let you go up
         this.myMustBeOnGround = false;
@@ -34,7 +34,7 @@ export class PlayerLocomotionTeleportDetectionParams {
 
         this.myTeleportParableStartReferenceObject = null;
 
-        // used if reference is null
+        // Used if reference is null
         this.myTeleportParableStartPositionOffset = vec3_create(0, -0.04, 0.08);
         this.myTeleportParableStartRotationOffset = vec3_create(30, 0, 0);
 
@@ -47,7 +47,7 @@ export class PlayerLocomotionTeleportDetectionParams {
 
         this.myTeleportFeetPositionMustBeVisible = false;
         this.myTeleportHeadPositionMustBeVisible = false;
-        this.myTeleportHeadOrFeetPositionMustBeVisible = false; // wins over previous parameters
+        this.myTeleportHeadOrFeetPositionMustBeVisible = false; // Wins over previous parameters
 
         this.myVisibilityCheckRadius = 0.05;
         this.myVisibilityCheckFeetPositionVerticalOffset = 0.1;
@@ -589,7 +589,7 @@ PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = function 
             playerUp = this._myTeleportParams.myPlayerHeadManager.getPlayer().pp_getUp(playerUp);
 
             if (true || hit.myNormal.vec3_isConcordant(playerUp)) {
-                // #TODO when the flags on the physx will be available just check that the hit object physx has the floor flag
+                // #TODO When the flags on the physx will be available just check that the hit object physx has the floor flag
 
                 raycastSetup.myPhysics = this._myTeleportParams.myEngine.physics
 

@@ -418,7 +418,7 @@ export class CleanedPlayerLocomotion {
     _setupCollisionCheckParamsTeleport() {
         this._myCollisionCheckParamsTeleport = CollisionCheckUtils.generate360TeleportParamsFromMovementParams(this._myCollisionCheckParamsMovement);
 
-        // increased so to let teleport on steep slopes from above (from below is fixed through detection myGroundAngleToIgnoreUpward)
+        // Increased so to let teleport on steep slopes from above (from below is fixed through detection myGroundAngleToIgnoreUpward)
         this._myCollisionCheckParamsTeleport.myGroundAngleToIgnore = 61;
         this._myCollisionCheckParamsTeleport.myTeleportMustBeOnIgnorableGroundAngle = true;
         this._myCollisionCheckParamsTeleport.myTeleportMustBeOnGround = true;
@@ -438,13 +438,13 @@ export class CleanedPlayerLocomotion {
             return newFeetPosition;
         }*/
 
-        // this is needed for when u want to perform the teleport as a movement
-        // maybe this should be another set of collsion check params copied from the smooth ones?
-        // when you teleport as move, u check with the teleport for the position, and this other params for the move, so that u can use a smaller
+        // This is needed for when u want to perform the teleport as a movement
+        // Maybe this should be another set of collsion check params copied from the smooth ones?
+        // When you teleport as move, u check with the teleport for the position, and this other params for the move, so that u can use a smaller
         // cone, and sliding if desired
-        // if nothing is specified it's copied from the teleport and if greater than 90 cone is tuned down, and also the below settings are applied
+        // If nothing is specified it's copied from the teleport and if greater than 90 cone is tuned down, and also the below settings are applied
 
-        // you could also do this if u want to perform the teleport as movement, instead of using the smooth
+        // You could also do this if u want to perform the teleport as movement, instead of using the smooth
         // but this will make even the final teleport check be halved
         //this._myCollisionCheckParamsTeleport.myHalfConeAngle = 90;
         //this._myCollisionCheckParamsTeleport.myHalfConeSliceAmount = 3;
@@ -456,7 +456,7 @@ export class CleanedPlayerLocomotion {
     }
 
     _fixAlmostUp() {
-        // get rotation on y and adjust if it's slightly tilted when it's almsot 0,1,0
+        // Get rotation on y and adjust if it's slightly tilted when it's almsot 0,1,0
 
         let defaultUp = vec3_create(0, 1, 0);
         let angleWithDefaultUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp().vec3_angle(defaultUp);

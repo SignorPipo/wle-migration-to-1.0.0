@@ -86,7 +86,7 @@ export function convertCharacterCollisionResultsToCollisionRuntimeParams(charact
     characterCollisionResults.myTransformResults.myStartTransformQuat.quat2_getForward(outCollisionRuntimeParams.myOriginalForward);
     characterCollisionResults.myTransformResults.myStartTransformQuat.quat2_getUp(outCollisionRuntimeParams.myOriginalUp);
 
-    //ok: outCollisionRuntimeParams.myOriginalHeight = characterCollisionResults.myOriginalHeight;
+    // Ok: outCollisionRuntimeParams.myOriginalHeight = characterCollisionResults.myOriginalHeight;
 
     outCollisionRuntimeParams.myOriginalMovement.vec3_copy(characterCollisionResults.myMovementResults.myStartMovement);
     outCollisionRuntimeParams.myFixedMovement.vec3_copy(characterCollisionResults.myMovementResults.myEndMovement);
@@ -139,7 +139,7 @@ export function convertCharacterCollisionResultsToCollisionRuntimeParams(charact
     outCollisionRuntimeParams.myHorizontalMovementHasAdjustedVerticalMovementBasedOnCeilingPerceivedAngleUphill = characterCollisionResults.myCeilingResults.myHasHorizontalMovementAdjustedVerticalMovementBasedOnSurfacePerceivedAngleUphill;
     outCollisionRuntimeParams.myVerticalMovementHasAdjustedHorizontalMovementBasedOnCeilingAngleDownhill = characterCollisionResults.myCeilingResults.myHasVerticalMovementAdjustedHorizontalMovementBasedOnSurfaceAngleDownhill;
 
-    //ok: outCollisionRuntimeParams.myHasReducedVerticalMovement = characterCollisionResults.myVerticalMovementResults.myHasMovementBeenReduced;
+    // Ok: outCollisionRuntimeParams.myHasReducedVerticalMovement = characterCollisionResults.myVerticalMovementResults.myHasMovementBeenReduced;
 
     outCollisionRuntimeParams.myIsSliding = characterCollisionResults.myWallSlideResults.myHasSlid;
     outCollisionRuntimeParams.mySlidingMovementAngle = characterCollisionResults.myWallSlideResults.mySlideMovementAngle;

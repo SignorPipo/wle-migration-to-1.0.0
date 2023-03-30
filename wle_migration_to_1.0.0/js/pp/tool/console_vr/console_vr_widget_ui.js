@@ -36,7 +36,7 @@ export class ConsoleVRWidgetUI {
         this.myPivotObject.pp_setActive(visible);
     }
 
-    //Skeleton
+    // Skeleton
     _createSkeleton() {
         this.myPivotObject = this._myParentObject.pp_addObject();
 
@@ -95,7 +95,7 @@ export class ConsoleVRWidgetUI {
         this.myPointerCursorTarget = this.myPivotObject.pp_addObject();
     }
 
-    //Transforms
+    // Transforms
     _setTransforms() {
         this.myPivotObject.pp_markDirty();
 
@@ -122,7 +122,7 @@ export class ConsoleVRWidgetUI {
     _setButtonsTransforms() {
         this.myButtonsPanel.pp_setPositionLocal(this._mySetup.myButtonsPanelPosition);
 
-        //Filter Buttons
+        // Filter Buttons
         for (let key in ConsoleVRWidgetMessageType) {
             this.myFilterButtonsPanels[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myFilterButtonsPositions[ConsoleVRWidgetMessageType[key]]);
 
@@ -134,7 +134,7 @@ export class ConsoleVRWidgetUI {
             this.myFilterButtonsCursorTargets[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
         }
 
-        //Clear
+        // Clear
         {
             this.myClearButtonPanel.pp_setPositionLocal(this._mySetup.myClearButtonPosition);
 
@@ -146,7 +146,7 @@ export class ConsoleVRWidgetUI {
             this.myClearButtonCursorTarget.pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
         }
 
-        //Up
+        // Up
         {
             this.myUpButtonPanel.pp_setPositionLocal(this._mySetup.myUpButtonPosition);
 
@@ -158,7 +158,7 @@ export class ConsoleVRWidgetUI {
             this.myUpButtonCursorTarget.pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
         }
 
-        //Down
+        // Down
         {
             this.myDownButtonPanel.pp_setPositionLocal(this._mySetup.myDownButtonPosition);
 
@@ -175,7 +175,7 @@ export class ConsoleVRWidgetUI {
         this.myPointerCursorTarget.pp_setPositionLocal(this._mySetup.myPointerCursorTargetPosition);
     }
 
-    //Components
+    // Components
     _addComponents() {
         this._addMessagesComponents();
         this._addButtonsComponents();
@@ -216,14 +216,14 @@ export class ConsoleVRWidgetUI {
     }
 
     _addButtonsComponents() {
-        //worship the code copy pasteness
+        // Worship the code copy pasteness
 
         this.myFilterButtonsBackgroundComponents = [];
         this.myFilterButtonsTextComponents = [];
         this.myFilterButtonsCursorTargetComponents = [];
         this.myFilterButtonsCollisionComponents = [];
 
-        //Filter Buttons
+        // Filter Buttons
         for (let key in ConsoleVRWidgetMessageType) {
             let buttonBackgroundMeshComp = this.myFilterButtonsBackgrounds[ConsoleVRWidgetMessageType[key]].pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
@@ -248,7 +248,7 @@ export class ConsoleVRWidgetUI {
             this.myFilterButtonsCollisionComponents[ConsoleVRWidgetMessageType[key]] = buttonCollisionComp;
         }
 
-        //Clear 
+        // Clear 
         {
             let buttonBackgroundMeshComp = this.myClearButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
@@ -272,7 +272,7 @@ export class ConsoleVRWidgetUI {
             this.myClearButtonCollisionComponent = buttonCollisionComp;
         }
 
-        //Up 
+        // Up 
         {
             let buttonBackgroundMeshComp = this.myUpButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
@@ -296,7 +296,7 @@ export class ConsoleVRWidgetUI {
             this.myUpButtonCollisionComponent = buttonCollisionComp;
         }
 
-        //Down 
+        // Down 
         {
             let buttonBackgroundMeshComp = this.myDownButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;

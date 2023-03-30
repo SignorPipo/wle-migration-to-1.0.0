@@ -9,7 +9,7 @@ export class CharacterCollisionSystemComponent extends Component {
     init() {
         this._myCharacterCollisionSystem = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasCharacterCollisionSystem(this.engine)) {
             this._myCharacterCollisionSystem = new CharacterCollisionSystem(this.engine);
 

@@ -58,7 +58,7 @@ export function initComponentCloneMod() {
         return clonedComponent;
     };
 
-    // #TODO not completed, missing flags like gravity or groups
+    // #TODO Not completed, missing flags like gravity or groups
     PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
         let componentParams = {
             "static": this.static,

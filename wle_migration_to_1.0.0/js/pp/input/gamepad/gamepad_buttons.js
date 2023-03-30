@@ -13,14 +13,14 @@ export let GamepadButtonID = {
 export let GamepadButtonEvent = {
     PRESS_START: 0,
     PRESS_END: 1,
-    PRESSED: 2,         //Every frame that it is pressed
-    NOT_PRESSED: 3,     //Every frame that it is not pressed
+    PRESSED: 2,         // Every frame that it is pressed
+    NOT_PRESSED: 3,     // Every frame that it is not pressed
     TOUCH_START: 4,
     TOUCH_END: 5,
-    TOUCHED: 6,         //Every frame that it is touched
-    NOT_TOUCHED: 7,     //Every frame that it is not touched
+    TOUCHED: 6,         // Every frame that it is touched
+    NOT_TOUCHED: 7,     // Every frame that it is not touched
     VALUE_CHANGED: 8,
-    ALWAYS: 9           //Every frame
+    ALWAYS: 9           // Every frame
 };
 
 export let GamepadAxesID = {

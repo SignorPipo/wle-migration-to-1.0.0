@@ -10,17 +10,17 @@ export class WidgetFrameSetup {
     }
 
     _initializeBuildSetup(widgetLetterID, buttonsColumnIndex) {
-        //General
+        // General
         this.myBackgroundColor = vec4_create(46 / 255, 46 / 255, 46 / 255, 1);
 
-        this.myCursorTargetCollisionCollider = 2; // box
+        this.myCursorTargetCollisionCollider = 2; // Box
         this.myCursorTargetCollisionGroup = 7;
         this.myCursorTargetCollisionThickness = 0.001;
 
         this.myDefaultTextColor = vec4_create(255 / 255, 255 / 255, 255 / 255, 1);
 
-        this.myTextAlignment = 2; // center
-        this.myTextJustification = 2; // middle
+        this.myTextAlignment = 2; // Center
+        this.myTextJustification = 2; // Middle
         this.myTextColor = this.myDefaultTextColor;
 
         this.myButtonTextScale = vec3_create(0.18, 0.18, 0.18);

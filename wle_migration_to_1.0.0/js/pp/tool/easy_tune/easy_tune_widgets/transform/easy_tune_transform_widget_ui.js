@@ -198,7 +198,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
     }
 
     _setTransformHook() {
-        //Position
+        // Position
 
         this.myPositionPanel.pp_setPositionLocal(this._mySetup.myPositionPanelPosition);
         this.myPositionLabelText.pp_scaleObject(this._mySetup.myComponentLabelTextScale);
@@ -661,7 +661,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
     }
 
     _addStepComponents() {
-        //Position
+        // Position
         this.myPositionStepTextComponent = this.myPositionStepText.pp_addComponent(TextComponent);
         this._setupTextComponent(this.myPositionStepTextComponent);
         this.myPositionStepTextComponent.text = " ";
@@ -672,7 +672,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
         this.myPositionStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
-        //Increase/Decrease
+        // Increase/Decrease
         this.myPositionStepIncreaseButtonBackgroundComponent = this.myPositionStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myPositionStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myPositionStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
@@ -703,7 +703,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
         this.myPositionStepDecreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myPositionStepDecreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        //Rotation
+        // Rotation
         this.myRotationStepTextComponent = this.myRotationStepText.pp_addComponent(TextComponent);
         this._setupTextComponent(this.myRotationStepTextComponent);
         this.myRotationStepTextComponent.text = " ";
@@ -714,7 +714,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
         this.myRotationStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
-        //Increase/Decrease
+        // Increase/Decrease
         this.myRotationStepIncreaseButtonBackgroundComponent = this.myRotationStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myRotationStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myRotationStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
@@ -745,7 +745,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
         this.myRotationStepDecreaseButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myRotationStepDecreaseButtonCollisionComponent.extents = this._mySetup.mySideButtonCollisionExtents;
 
-        //Scale
+        // Scale
         this.myScaleStepTextComponent = this.myScaleStepText.pp_addComponent(TextComponent);
         this._setupTextComponent(this.myScaleStepTextComponent);
         this.myScaleStepTextComponent.text = " ";
@@ -756,7 +756,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
         this.myScaleStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myScaleStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
-        //Increase/Decrease
+        // Increase/Decrease
         this.myScaleStepIncreaseButtonBackgroundComponent = this.myScaleStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myScaleStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myScaleStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();

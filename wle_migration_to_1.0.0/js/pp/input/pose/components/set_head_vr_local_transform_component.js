@@ -27,7 +27,7 @@ export class SetHeadVRLocalTransformComponent extends Component {
     }
 
     onPoseUpdated() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

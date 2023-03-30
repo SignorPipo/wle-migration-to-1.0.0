@@ -107,7 +107,7 @@ export class VirtualGamepadVirtualButton {
     }
 
     _build(buttonElementParent, virtualButtonHandedness, virtualButtonIndex) {
-        // setup variables used for the sizes and the like
+        // Setup variables used for the sizes and the like
 
         let buttonSize = this._myVirtualGamepadParams.myButtonSize * this._myVirtualGamepadParams.myInterfaceScale;
         let buttonsRingRadius = this._myVirtualGamepadParams.myButtonsRingRadius * this._myVirtualGamepadParams.myInterfaceScale;
@@ -136,7 +136,7 @@ export class VirtualGamepadVirtualButton {
 
         let counterAngle = 360 - currentAngle;
 
-        // actual button creation
+        // Actual button creation
 
         let buttonPivot = document.createElement("div");
         buttonPivot.style.position = "absolute";

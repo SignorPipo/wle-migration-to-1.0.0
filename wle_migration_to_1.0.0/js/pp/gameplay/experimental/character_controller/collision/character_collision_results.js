@@ -32,11 +32,11 @@ export class CharacterCollisionResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -67,11 +67,11 @@ export class CharacterCollisionSurfaceInfo {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -79,17 +79,17 @@ export class CharacterCollisionWallSlideResults {
 
     constructor() {
         this.myHasSlid = false;
-        this.mySlideMovementAngle = 0;          // signed angle between the start movement and the wall slide movement, basically telling you how much u had to change direction to slide
-        this.mySlideMovementWallAngle = 0;      // signed angle between the inverted surface normal and the wall slide movement
+        this.mySlideMovementAngle = 0;          // Signed angle between the start movement and the wall slide movement, basically telling you how much u had to change direction to slide
+        this.mySlideMovementWallAngle = 0;      // Signed angle between the inverted surface normal and the wall slide movement
         this.myWallNormal = vec3_create();
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -101,11 +101,11 @@ export class CharacterCollisionTransformResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -120,11 +120,11 @@ export class CharacterCollisionMovementResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -137,11 +137,11 @@ export class CharacterCollisionTeleportResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -154,11 +154,11 @@ export class CharacterCollisionCheckTransformResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -173,11 +173,11 @@ export class CharacterCollisionSurfaceResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -191,11 +191,11 @@ export class CharacterCollisionSplitMovementResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -206,11 +206,11 @@ export class CharacterCollisionDebugResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 
@@ -234,11 +234,11 @@ export class CharacterCollisionInternalResults {
     }
 
     reset() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

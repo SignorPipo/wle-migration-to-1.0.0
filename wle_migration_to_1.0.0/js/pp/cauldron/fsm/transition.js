@@ -8,13 +8,13 @@
 
 export class Transition {
 
-    //Called if this is used as an init transition for the fsm
+    // Called if this is used as an init transition for the fsm
     performInit(fsm, initState, ...args) {
 
     }
 
-    //Called when performing a transition
-    //You can find the from and to states inside the transition params
+    // Called when performing a transition
+    // You can find the from and to states inside the transition params
     perform(fsm, transition, ...args) {
     }
 }

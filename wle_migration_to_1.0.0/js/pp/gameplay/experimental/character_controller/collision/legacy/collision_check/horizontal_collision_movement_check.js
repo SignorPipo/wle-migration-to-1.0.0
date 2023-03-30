@@ -29,9 +29,9 @@ CollisionCheck.prototype._horizontalMovementCheck = function () {
     let leftRadialDirection = vec3_create();
     let rightRadialDirection = vec3_create();
     return function _horizontalMovementCheck(movement, originalFeetPosition, originalHeight, feetPosition, height, up, collisionCheckParams, collisionRuntimeParams) {
-        // #TODO add a flag in the params to specify if u want to allow movement inside collision (to hope that it will end up in a non collision position)
-        // also vertical check should check all hits like the position check
-        // for now is ok as it is, the movement check is not as important and could also be disabled it the movement per frame is very small
+        // #TODO Add a flag in the params to specify if u want to allow movement inside collision (to hope that it will end up in a non collision position)
+        // Also vertical check should check all hits like the position check
+        // For now is ok as it is, the movement check is not as important and could also be disabled it the movement per frame is very small
 
         this._myDebugActive = collisionCheckParams.myDebugActive && collisionCheckParams.myDebugHorizontalMovementActive;
 
@@ -53,7 +53,7 @@ CollisionCheck.prototype._horizontalMovementCheck = function () {
             leftRadialDirection = movementDirection.vec3_rotateAxis(halfConeAngle, up, leftRadialDirection);
             rightRadialDirection = movementDirection.vec3_rotateAxis(-halfConeAngle, up, rightRadialDirection);
             for (let i = 1; i <= collisionCheckParams.myHorizontalMovementRadialStepAmount; i++) {
-                // left
+                // Left
                 {
                     let currentStep = i * steplength;
                     let tempCheckPosition = _localGetCachedCheckPosition();
@@ -62,7 +62,7 @@ CollisionCheck.prototype._horizontalMovementCheck = function () {
                     checkPositions.push(currentCheckPosition);
                 }
 
-                // right
+                // Right
                 {
                     let currentStep = i * steplength;
                     let tempCheckPosition = _localGetCachedCheckPosition();
@@ -73,14 +73,14 @@ CollisionCheck.prototype._horizontalMovementCheck = function () {
             }
         }
 
-        // if result is inside a collision it's ignored, so that at least you can exit it before seeing if the new position works now
+        // If result is inside a collision it's ignored, so that at least you can exit it before seeing if the new position works now
 
         let groundObjectsToIgnore = null;
         let ceilingObjectsToIgnore = null;
         let groundCeilingObjectsToIgnore = null;
 
         if (collisionCheckParams.myGroundAngleToIgnore > 0) {
-            // gather ground objects to ignore
+            // Gather ground objects to ignore
             groundObjectsToIgnore = _localGroundObjectsToIgnore;
             groundObjectsToIgnore.length = 0;
             groundCeilingObjectsToIgnore = _localGroundCeilingObjectsToIgnore;
@@ -98,7 +98,7 @@ CollisionCheck.prototype._horizontalMovementCheck = function () {
         }
 
         if (collisionCheckParams.myCeilingAngleToIgnore > 0) {
-            // gather ceiling objects to ignore
+            // Gather ceiling objects to ignore
             if (!collisionRuntimeParams.myIsCollidingHorizontally && collisionCheckParams.myCheckHeight) {
                 ceilingObjectsToIgnore = _localCeilingObjectsToIgnore;
                 ceilingObjectsToIgnore.length = 0;
@@ -120,7 +120,7 @@ CollisionCheck.prototype._horizontalMovementCheck = function () {
             let groundCeilingCheckIsFine = true;
 
             if (groundCeilingObjectsToIgnore != null) {
-                // check that the ceiling objects ignored by the ground are the correct ones, that is the one ignored by the upper check
+                // Check that the ceiling objects ignored by the ground are the correct ones, that is the one ignored by the upper check
                 for (let object of groundCeilingObjectsToIgnore) {
                     if (!ceilingObjectsToIgnore.pp_hasEqual(object, objectsEqualCallback)) {
                         groundCeilingCheckIsFine = false;
@@ -149,8 +149,8 @@ CollisionCheck.prototype._horizontalMovementCheck = function () {
             for (let i = 0; i <= heightStepAmount; i++) {
                 currentHeightOffset = heightStep.vec3_scale(i, currentHeightOffset);
 
-                // we can skip the ground check since we have already done that, but if there was an error do it again with the proper set of objects to ignore
-                // the ceiling check can always be ignored, it used the proper ground objects already
+                // We can skip the ground check since we have already done that, but if there was an error do it again with the proper set of objects to ignore
+                // The ceiling check can always be ignored, it used the proper ground objects already
                 if (collisionCheckParams.myCheckHeightTopMovement || i == 0) {
                     if ((i != 0 && i != heightStepAmount) ||
                         (i == 0 && !groundCeilingCheckIsFine) ||
@@ -403,7 +403,7 @@ CollisionCheck.prototype._horizontalMovementHorizontalCheck = function () {
                     if (collisionCheckParams.myHorizontalMovementCheckDiagonalOutward) {
                         firstMovementPosition = firstPosition.vec3_add(movementStep, firstMovementPosition);
 
-                        //#TODO ignore hits if inside could be a paramter, so you can specify if u want to be able to exit from a collision
+                        // #TODO Ignore hits if inside could be a paramter, so you can specify if u want to be able to exit from a collision
                         isHorizontalCheckOk = this._horizontalCheckRaycast(secondPosition, firstMovementPosition, movementDirection, up,
                             true, ignoreGroundAngleCallback, ignoreCeilingAngleCallback,
                             feetPosition, true,

@@ -38,27 +38,27 @@ export class PlayerLocomotionTeleportParable {
     }
 
     getPosition(positionIndex, outPosition = vec3_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getDistance(positionIndex) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getPositionIndexByDistance(distance) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getPositionByDistance(distance, outPosition = vec3_create()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getDistanceOverFlatDistance(flatDistance, maxParableDistance) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     getFlatDistanceOverDistance(distance) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

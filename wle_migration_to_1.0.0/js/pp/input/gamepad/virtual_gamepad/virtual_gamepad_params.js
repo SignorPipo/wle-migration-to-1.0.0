@@ -20,7 +20,7 @@ export class VirtualGamepadThumbstickParams {
         this.myReleaseTransitionSeconds = 0.2;
         this.myMoveTransitionSeconds = 0;
 
-        this.myIncludeBackgroundToDetection = false; // you can press the background of the icon to move the thumbstick, makes it harder to miss it
+        this.myIncludeBackgroundToDetection = false; // You can press the background of the icon to move the thumbstick, makes it harder to miss it
 
         this.myIconParams = new VirtualGamepadIconParams();
     }
@@ -31,7 +31,7 @@ export class VirtualGamepadParams {
     constructor(engine = getMainEngine()) {
         this.myShowOnDesktop = false;
         this.myShowOnMobile = false;
-        this.myShowOnHeadset = false;   // not 100% reliable, this is true if the device supports vr and it is desktop
+        this.myShowOnHeadset = false;   // Not 100% reliable, this is true if the device supports vr and it is desktop
 
         this.myAutoUpdateVisibility = false;
 
@@ -40,8 +40,8 @@ export class VirtualGamepadParams {
         this.myInterfaceScale = 1;
         this.myMarginScale = 1;
 
-        this.myReleaseOnPointerLeave = true;            // if mouse leaves the canvas it will be like it was released
-        this.myStopPropagatingMouseDownEvents = true;   // this can be used to make it so the rest of the game will ignore clicks on the virtual gamepad
+        this.myReleaseOnPointerLeave = true;            // If mouse leaves the canvas it will be like it was released
+        this.myStopPropagatingMouseDownEvents = true;   // This can be used to make it so the rest of the game will ignore clicks on the virtual gamepad
 
         // Advanced Params
 
@@ -92,7 +92,7 @@ export class VirtualGamepadParams {
 
         this.myFontSize = 0;
 
-        this.myMinSizeMultiplier = 0;  // can be used to specify a min size based on the view width for when the view is in portrait mode
+        this.myMinSizeMultiplier = 0;  // Can be used to specify a min size based on the view width for when the view is in portrait mode
 
         this.myDisableMouseHoverWhenPressed = false;
 

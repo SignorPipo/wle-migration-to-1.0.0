@@ -1,6 +1,6 @@
 import { EasingFunction } from "../../../plugin/js/extensions/math_extension";
 
-//You can just put startNumber if u want a number that doesn't actually change -> new NumberOverValue(0)
+// You can just put startNumber if u want a number that doesn't actually change -> new NumberOverValue(0)
 export class NumberOverValue {
 
     constructor(startNumber, endNumber = null, startInterpolationValue = 0, endInterpolationValue = 0, easingFunction = EasingFunction.linear, roundingFunction = null) {
@@ -15,7 +15,7 @@ export class NumberOverValue {
         this._myEndInterpolationValue = endInterpolationValue;
 
         this._myEasingFunction = easingFunction;
-        this._myRoundingFunction = roundingFunction; // function(numberToRound, startNumber = null, endNumber = null), Math.round/floor/ceil can be used, must return an int
+        this._myRoundingFunction = roundingFunction; // Signature: function(numberToRound, startNumber = null, endNumber = null) -> int, Math.round/floor/ceil can be used
     }
 
     get(interpolationValue) {
@@ -97,7 +97,7 @@ export class IntOverValue extends NumberOverValue {
     }
 }
 
-//You can just put startRange if u want a range that doesn't actually change -> new NumberOverValue([1,25])
+// You can just put startRange if u want a range that doesn't actually change -> new NumberOverValue([1,25])
 export class NumberRangeOverValue {
 
     constructor(startRange, endRange = null, startInterpolationValue = 0, endInterpolationValue = 0, easingFunction = EasingFunction.linear, roundingFunction = null) {
@@ -108,7 +108,7 @@ export class NumberRangeOverValue {
         this._myStartNumberOverValue = new NumberOverValue(startRange[0], endRange[0], startInterpolationValue, endInterpolationValue, easingFunction, roundingFunction);
         this._myEndNumberOverValue = new NumberOverValue(startRange[1], endRange[1], startInterpolationValue, endInterpolationValue, easingFunction, roundingFunction);
 
-        this._myRoundingFunction = roundingFunction; // function(numberToRound, startNumber = null, endNumber = null), Math.round/floor/ceil can be used, must return an int
+        this._myRoundingFunction = roundingFunction; // Signature: function(numberToRound, startNumber = null, endNumber = null) -> int, Math.round/floor/ceil can be used
     }
 
     get(interpolationValue) {

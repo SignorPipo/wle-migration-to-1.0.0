@@ -31,7 +31,7 @@ export class CharacterCollisionSystem {
     }
 
     checkTeleportToPosition(teleportPosition, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     checkTeleportToTransform(teleportTransformQuat, currentTransformQuat, characterColliderSetup, prevCharacterCollisionResults, outCharacterCollisionResults = new CharacterCollisionResults()) {

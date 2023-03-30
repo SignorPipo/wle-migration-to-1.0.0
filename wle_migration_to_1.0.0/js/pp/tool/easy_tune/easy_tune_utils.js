@@ -21,7 +21,7 @@ export function refreshEasyTuneWidget(engine = getMainEngine()) {
 }
 
 // fileURL can contain parameters inside brackets, like {param}
-// those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
+// Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
 export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultValueOnImport = false, onSuccessCallback = null, onFailureCallback = null, engine = getMainEngine()) {
     if (fileURL == null || fileURL.length == 0) {
         if (navigator.clipboard) {
@@ -112,7 +112,7 @@ export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultVal
 }
 
 // fileURL can contain parameters inside brackets, like {param}
-// those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
+// Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
 export function exportEasyTuneVariables(fileURL = null, onSuccessCallback = null, onFailureCallback = null, engine = getMainEngine()) {
     let jsonVariables = getEasyTuneVariables(engine).toJSON();
 

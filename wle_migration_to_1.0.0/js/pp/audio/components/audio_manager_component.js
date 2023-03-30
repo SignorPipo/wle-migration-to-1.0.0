@@ -9,7 +9,7 @@ export class AudioManagerComponent extends Component {
     init() {
         this._myAudioManager = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasAudioManager(this.engine)) {
             this._myAudioManager = new AudioManager();
 

@@ -19,7 +19,7 @@ export class InputManagerComponent extends Component {
     init() {
         this._myInputManager = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasInputManager(this.engine)) {
             this._myInputManager = new InputManager(this.engine);
 

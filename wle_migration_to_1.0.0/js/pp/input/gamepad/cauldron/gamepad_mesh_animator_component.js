@@ -94,7 +94,7 @@ export class GamepadMeshAnimatorComponent extends Component {
     }
 
     _thumbstickPressedStart() {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     _thumbstickPressedEnd(buttonInfo, gamepad) {
@@ -171,7 +171,7 @@ export class GamepadMeshAnimatorComponent extends Component {
 GamepadMeshAnimatorComponent.prototype._thumbstickPressedStart = function () {
     let upTranslation = vec3_create();
     return function _thumbstickPressedStart(buttonInfo, gamepad) {
-        // since thumbstick object rotate you need to specifically use its original up to translate it
+        // Since thumbstick object rotate you need to specifically use its original up to translate it
         this._myThumbstickOriginalUp.vec3_scale(-this._myThumbstickPressOffset, upTranslation);
         this._myThumbstick.pp_translateLocal(upTranslation);
     };

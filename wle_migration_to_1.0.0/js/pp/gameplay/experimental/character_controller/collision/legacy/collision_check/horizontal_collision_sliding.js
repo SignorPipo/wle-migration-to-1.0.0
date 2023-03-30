@@ -343,7 +343,7 @@ CollisionCheck.prototype._internalHorizontalSlide = function () {
                 minAngle = 0;
             } else {
                 if (Math.abs(maxAngle) < Math.abs(minAngle)) {
-                    // this should only happens because of the 90 degrees adjustment
+                    // This should only happens because of the 90 degrees adjustment
                     //console.error("90 adjust");
                     minAngle = 0;
                 }
@@ -442,7 +442,7 @@ CollisionCheck.prototype._horizontalCheckBetterSlideNormal = function () {
     let newFixedFeetPosition = vec3_create();
     let newFeetPosition = vec3_create();
     return function _horizontalCheckBetterSlideNormal(movement, originalFeetPosition, originalHeight, feetPosition, height, up, forward, collisionCheckParams, collisionRuntimeParams) {
-        //check for a better slide hit position and normal
+        // Check for a better slide hit position and normal
 
         movementDirection = movement.vec3_normalize(movementDirection);
 
@@ -459,7 +459,7 @@ CollisionCheck.prototype._horizontalCheckBetterSlideNormal = function () {
         /* if (fixedMovement.vec3_angle(movementDirection) >= 0.00001 || fixedMovement.vec3_length() > movement.vec3_length() + 0.00001) {
             console.error("ERROR, project function should return a smaller movement in the same direction",
                 fixedMovement.vec3_angle(movementDirection), fixedMovement.vec3_length(), movement.vec3_length());
-            //maybe epsilon could be 0.0001? is higher but still 10 times less then a millimiter
+            // Maybe epsilon could be 0.0001? is higher but still 10 times less then a millimiter
         } */
 
         if (fixedMovement.vec3_isConcordant(movementDirection)) {
@@ -509,7 +509,7 @@ CollisionCheck.prototype._isSlidingNormalValid = function () {
 
         // I wanted to check if the normal angle was not concordant and thought that in that case it shouldn't slide but it turns out it makes sense
         // even for back hits which either can't resolve or at least makes me slide out of collision
-        // at least a check for the normal to be not up is ok
+        // At least a check for the normal to be not up is ok
 
         return isValid;
     };

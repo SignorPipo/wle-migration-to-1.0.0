@@ -9,7 +9,7 @@ export class DebugFunctionsPerformanceAnalyzerParams extends DebugFunctionsOverw
         this.myExecutionTimeAnalysisEnabled = true;
 
         this.myAddPathPrefixToFunctionID = true;
-        // this works at best when the object/class is specified as path
+        // This works at best when the object/class is specified as path
         // since with reference it's not possible to get the full path or get the variable name of the reference
 
         this.myFilterDebugFunctionsPerformanceAnalyzerClasses = true;
@@ -293,8 +293,8 @@ export class DebugFunctionsPerformanceAnalyzer extends DebugFunctionsOverwriter 
                     let executionTimes = this._myExecutionTimes;
 
                     let originalFunction = reference[propertyName];
-                    let functionCallOverhead = 0.000175;     // ms taken by an analyzed function that is empty
-                    let overheadError = 0.00035;        // ms to add to adjust a bit for window.performance.now() max precision which is 0.0005
+                    let functionCallOverhead = 0.000175;    // ms taken by an analyzed function that is empty
+                    let overheadError = 0.00035;            // ms to add to adjust a bit for window.performance.now() max precision which is 0.0005
 
                     let executionTimeAnalysisEnabled = this._myParams.myExecutionTimeAnalysisEnabled;
 

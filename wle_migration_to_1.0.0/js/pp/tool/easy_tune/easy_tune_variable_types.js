@@ -115,7 +115,7 @@ export class EasyTuneVariableArray extends EasyTuneVariable {
     }
 }
 
-//NUMBER
+// NUMBER
 
 export class EasyTuneNumberArray extends EasyTuneVariableArray {
 
@@ -199,7 +199,7 @@ export class EasyTuneIntArray extends EasyTuneNumberArray {
     }
 }
 
-//BOOL
+// BOOL
 
 export class EasyTuneBoolArray extends EasyTuneVariableArray {
 
@@ -227,7 +227,7 @@ export class EasyTuneBool extends EasyTuneBoolArray {
     }
 }
 
-//EASY TUNE EASY TRANSFORM
+// EASY TUNE EASY TRANSFORM
 
 export class EasyTuneTransform extends EasyTuneVariable {
 

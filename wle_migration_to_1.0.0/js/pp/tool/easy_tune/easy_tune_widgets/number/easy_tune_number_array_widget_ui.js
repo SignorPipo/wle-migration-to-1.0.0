@@ -178,7 +178,7 @@ export class EasyTuneNumberArrayWidgetUI extends EasyTuneBaseWidgetUI {
         this.myStepCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
         this.myStepCollisionComponent.extents = this._mySetup.myStepCollisionExtents;
 
-        //Increase/Decrease
+        // Increase/Decrease
         this.myStepIncreaseButtonBackgroundComponent = this.myStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();

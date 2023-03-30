@@ -62,7 +62,7 @@ CollisionCheck.prototype._horizontalPositionCheck = function () {
         let groundCeilingObjectsToIgnore = null;
 
         if (collisionCheckParams.myGroundAngleToIgnore > 0) {
-            // gather ground objects to ignore
+            // Gather ground objects to ignore
             groundObjectsToIgnore = _localGroundObjectsToIgnore;
             groundObjectsToIgnore.length = 0;
             groundCeilingObjectsToIgnore = _localGroundCeilingObjectsToIgnore;
@@ -80,7 +80,7 @@ CollisionCheck.prototype._horizontalPositionCheck = function () {
         }
 
         if (collisionCheckParams.myCeilingAngleToIgnore > 0) {
-            // gather ceiling objects to ignore
+            // Gather ceiling objects to ignore
             if (!collisionRuntimeParams.myIsCollidingHorizontally && collisionCheckParams.myCheckHeight) {
                 ceilingObjectsToIgnore = _localCeilingObjectsToIgnore;
                 ceilingObjectsToIgnore.length = 0;
@@ -102,7 +102,7 @@ CollisionCheck.prototype._horizontalPositionCheck = function () {
             let groundCeilingCheckIsFine = true;
 
             if (groundCeilingObjectsToIgnore != null) {
-                // check that the ceiling objects ignored by the ground are the correct ones, that is the one ignored by the upper check
+                // Check that the ceiling objects ignored by the ground are the correct ones, that is the one ignored by the upper check
                 for (let object of groundCeilingObjectsToIgnore) {
                     if (!ceilingObjectsToIgnore.pp_hasEqual(object, objectsEqualCallback)) {
                         groundCeilingCheckIsFine = false;
@@ -131,8 +131,8 @@ CollisionCheck.prototype._horizontalPositionCheck = function () {
             for (let i = 0; i <= heightStepAmount; i++) {
                 currentHeightOffset = heightStep.vec3_scale(i, currentHeightOffset);
 
-                // we can skip the ground check since we have already done that, but if there was an error do it again with the proper set of objects to ignore
-                // the ceiling check can always be ignored, it used the proper ground objects already
+                // We can skip the ground check since we have already done that, but if there was an error do it again with the proper set of objects to ignore
+                // The ceiling check can always be ignored, it used the proper ground objects already
                 if (collisionCheckParams.myCheckHeightTopPosition || i == 0) {
                     if ((i != 0 && i != heightStepAmount) ||
                         (i == 0 && !groundCeilingCheckIsFine) ||
@@ -148,7 +148,7 @@ CollisionCheck.prototype._horizontalPositionCheck = function () {
 
                 if (i > 0) {
                     if (collisionCheckParams.myCheckHeightVerticalPosition) {
-                        // this offset is a workaround for objects that in the editor are aligned but due to clamp get a bit tilted when in the game
+                        // This offset is a workaround for objects that in the editor are aligned but due to clamp get a bit tilted when in the game
                         // and therefore trying an horizontal cast on the vertical hit position could result in hitting the bottom which in theory should be parallel and therefore not possible
                         let hitHeightOffsetEpsilonValue = 0.0001;
 

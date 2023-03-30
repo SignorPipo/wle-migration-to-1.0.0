@@ -42,7 +42,7 @@ export class VisualRaycastParams {
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

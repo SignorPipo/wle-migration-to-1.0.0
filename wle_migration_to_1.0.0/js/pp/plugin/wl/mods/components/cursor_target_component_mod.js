@@ -19,7 +19,7 @@ export function initCursorTargetComponentModPrototype() {
         this.downOnHoverFunctions = [];
         this.upWithNoDownFunctions = [];
 
-        this.isSurface = false; // just a way to specify if this target is just used as a surface between buttons 
+        this.isSurface = false; // Just a way to specify if this target is just used as a surface between buttons 
     };
 
     CursorTarget.prototype.onHover = function onHover(object, cursor) {

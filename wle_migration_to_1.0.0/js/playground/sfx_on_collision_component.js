@@ -28,7 +28,7 @@ export class SFXOnCollisionComponent extends Component {
         }
 
         this._myLastLastGrabbed = this._myLastGrabbed;
-        this._myLastGrabbed = this._myGrabbable.isGrabbed(); // fix a physX bug that trigger a collision start when kinematic is changed
+        this._myLastGrabbed = this._myGrabbable.isGrabbed(); // Fix a physX bug that trigger a collision start when kinematic is changed
     }
 
     pp_clone(targetObject) {

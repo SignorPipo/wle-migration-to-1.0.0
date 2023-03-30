@@ -21,14 +21,14 @@ export class VirtualGamepadIconParams {
 
         this.myOverallHoveredBrightness = 1;
 
-        // if icon type is label
+        // If icon type is label
 
         this.myLabel = "";
         this.myLabelFontSize = 0;
         this.myLabelFontFamily = "";
         this.myLabelFontWeight = "";
 
-        // if icon type is image
+        // If icon type is image
 
         this.myImageURL = "";
         this.myImagePressedBrightness = 1;

@@ -15,7 +15,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         _myTargetFrameRateThreshold: { type: Type.Int, default: 3 },
         _myStartPlaneCount: { type: Type.Int, default: 1 },
         _myPlaneTriangles: { type: Type.Int, default: 100 },
-        _mySecondsBeforeDoubling: { type: Type.Float, default: 0.5 },       // higher gives a better frame rate evaluation
+        _mySecondsBeforeDoubling: { type: Type.Float, default: 0.5 },       // Higher gives a better frame rate evaluation
         _myDTHistoryToIgnorePercentage: { type: Type.Float, default: 0.25 },
         _myCloneMaterial: { type: Type.Bool, default: false },
         _myCloneMesh: { type: Type.Bool, default: false },
@@ -90,7 +90,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                     this._myFirstTime = false;
                 } else {
 
-                    // if there is not lag, the current plane count is a good lower limit, otherwise the current count is now a upper threshold, we have to search below it
+                    // If there is not lag, the current plane count is a good lower limit, otherwise the current count is now a upper threshold, we have to search below it
                     let isLagging = false;
                     if (frameRate < this._myStableFrameRate - this._myTargetFrameRateThreshold) {
                         this._myUpperLimit = this._myCurrentPlanes;
@@ -123,19 +123,19 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
                     let reset = false;
 
-                    // check if the binary search is completed
+                    // Check if the binary search is completed
                     if ((this._myUpperLimit > 0 &&
                         (!isLagging && (this._myUpperLimit - this._myLowerLimit) <= Math.max(2, 1000 / this._myRealTrianglesAmount)) ||
                         (isLagging && (this._myUpperLimit - this._myLowerLimit) <= 1)) ||
                         (!isLagging && this._myMaxPlanesReached)) {
                         if (frameRate < this._myStableFrameRate - this._myTargetFrameRateThreshold) {
-                            // going a bit back with the binary search, maybe the lower limit was not lower after all cause of a bad assumption of average FPS
+                            // Going a bit back with the binary search, maybe the lower limit was not lower after all cause of a bad assumption of average FPS
                             this._myLowerLimit = Math.max(1, Math.floor(this._myUpperLimit / 2.5));
                             this._myUpperLimit = 0;
                             reset = true;
 
                             if (this._myEnableLog) {
-                                // reset
+                                // Reset
                                 console.log("Rst - Triangles:", this._myCurrentPlanes * this._myRealTrianglesAmount, "- Planes:", this._myCurrentPlanes, "- Frame Rate:", frameRate);
                             }
                         } else {
@@ -171,7 +171,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                     }
 
                     if (!this._myIsDone) {
-                        // sort of binary search, if there is no upper limit yet, just double
+                        // Sort of binary search, if there is no upper limit yet, just double
                         if (this._myUpperLimit > 0) {
                             this._myCurrentPlanes = Math.floor((this._myUpperLimit + this._myLowerLimit) / 2);
                             this._myCurrentPlanes = Math.max(this._myCurrentPlanes, 1);

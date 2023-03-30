@@ -52,7 +52,7 @@ export class CollisionCheck {
         this._move(movement, transformQuat, collisionCheckParams, collisionRuntimeParams);
     }
 
-    //#TODO add teleport position/transform and return originalteleportransform
+    // #TODO Add teleport position/transform and return originalteleportransform
     // instead of position old transform / new transform
     teleport(position, transformQuat, collisionCheckParams, collisionRuntimeParams) {
         this._teleport(position, transformQuat, collisionCheckParams, collisionRuntimeParams);
@@ -114,7 +114,7 @@ export class CollisionCheck {
     }
 
     _raycastAndDebug(origin, direction, distance, ignoreHitsInsideCollision, isHorizontal, collisionCheckParams, collisionRuntimeParams) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 };
 
@@ -139,7 +139,7 @@ CollisionCheck.prototype._raycastAndDebug = function () {
         if (true) {
             raycastResult = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResult);
         } else {
-            // quick debug to remove raycasts and/or let all raycasts fail
+            // Quick debug to remove raycasts and/or let all raycasts fail
 
             let raycastAlways = false;
             if (raycastAlways || !this._myRaycastResult.isColliding()) {

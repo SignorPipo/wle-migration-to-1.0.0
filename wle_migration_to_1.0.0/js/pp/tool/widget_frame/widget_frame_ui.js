@@ -100,7 +100,7 @@ export class WidgetFrameUI {
         }
     }
 
-    //Skeleton
+    // Skeleton
     _createSkeleton() {
         this.myFixForwardObject = this._myParentObject.pp_addObject();
         this.myFixForwardObject.pp_rotateObject(vec3_create(0, 180, 0));
@@ -125,7 +125,7 @@ export class WidgetFrameUI {
 
     }
 
-    //Transforms
+    // Transforms
     _setTransforms() {
         this.myPivotObject.pp_markDirty();
 
@@ -143,7 +143,7 @@ export class WidgetFrameUI {
         this.myPinButtonCursorTarget.pp_setPositionLocal(this._mySetup.myPinButtonCursorTargetPosition);
     }
 
-    //Components
+    // Components
     _addComponents() {
         this.myVisibilityButtonBackgroundComponent = this.myVisibilityButtonBackground.pp_addComponent(MeshComponent);
         this.myVisibilityButtonBackgroundComponent.mesh = this._myPlaneMesh;

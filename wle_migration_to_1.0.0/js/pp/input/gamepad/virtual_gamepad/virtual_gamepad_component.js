@@ -9,9 +9,9 @@ import { VirtualGamepadParams } from "./virtual_gamepad_params";
 export class VirtualGamepadComponent extends Component {
     static TypeName = "pp-virtual-gamepad";
     static Properties = {
-        _myShowOnDesktop: { type: Type.Bool, default: false },   // you may have to enable headset too
+        _myShowOnDesktop: { type: Type.Bool, default: false },   // You may have to enable headset too
         _myShowOnMobile: { type: Type.Bool, default: true },
-        _myShowOnHeadset: { type: Type.Bool, default: false },   // not 100% reliable, this is true if the device supports vr and it is desktop
+        _myShowOnHeadset: { type: Type.Bool, default: false },   // Not 100% reliable, this is true if the device supports vr and it is desktop
         _myAddToUniversalGamepad: { type: Type.Bool, default: true },
         _myOpacity: { type: Type.Float, default: 0.5 },
         _myIconColor: { type: Type.String, default: "#e0e0e0" },

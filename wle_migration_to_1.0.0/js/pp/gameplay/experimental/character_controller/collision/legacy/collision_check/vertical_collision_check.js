@@ -33,7 +33,7 @@ CollisionCheck.prototype._verticalCheck = function () {
             if (!canStay) {
                 outFixedMovement.vec3_zero();
 
-                // #TODO probably this should not be reset, you should be required to check if the movement was ok to be sure this values have a meaning
+                // #TODO Probably this should not be reset, you should be required to check if the movement was ok to be sure this values have a meaning
                 collisionRuntimeParams.myHasSnappedOnGround = false;
                 collisionRuntimeParams.myHasSnappedOnCeiling = false;
                 collisionRuntimeParams.myHasPoppedOutGround = false;

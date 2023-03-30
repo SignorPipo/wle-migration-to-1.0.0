@@ -68,12 +68,12 @@ export class PhysicsCollisionCollector {
         }
     }
 
-    //Set to true only if u are going to actually update this object and don't want to lose any collision start/end events prior to updating the first time after activation
+    // Set to true only if u are going to actually update this object and don't want to lose any collision start/end events prior to updating the first time after activation
     setUpdateActive(active) {
         this._myUpdateActive = active;
     }
 
-    //Update is not mandatory, use it only if u want to access collisions start and end
+    // Update is not mandatory, use it only if u want to access collisions start and end
     update(dt) {
         if (!this._myIsActive) {
             return;

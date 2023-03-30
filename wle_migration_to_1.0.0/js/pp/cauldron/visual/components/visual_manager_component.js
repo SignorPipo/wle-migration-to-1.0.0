@@ -12,14 +12,14 @@ export class VisualManagerComponent extends Component {
     init() {
         this._myVisualManager = null;
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasVisualManager(this.engine)) {
             this._myVisualManager = new VisualManager(this.engine);
 
             setVisualManager(this._myVisualManager, this.engine);
         }
 
-        // prevents double global from same engine
+        // Prevents double global from same engine
         if (!hasVisualData(this.engine)) {
             this._myVisualData = new VisualData();
             this._myVisualData.myRootObject = this.engine.scene.pp_addObject();

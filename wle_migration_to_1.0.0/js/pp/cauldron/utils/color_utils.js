@@ -1,4 +1,4 @@
-//RGB is in [0,1], alpha is not changed
+// RGB is in [0,1], alpha is not changed
 export function rgbToHsv(rgb) {
     let hsv = rgb.pp_clone();
 
@@ -26,7 +26,7 @@ export function rgbToHsv(rgb) {
     return hsv;
 }
 
-//alpha is not changed
+// Alpha is not changed
 export function hsvToRgb(hsv) {
     let rgb = hsv.pp_clone();
 

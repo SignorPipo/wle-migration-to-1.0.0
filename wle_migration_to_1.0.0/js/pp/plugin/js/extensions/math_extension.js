@@ -98,12 +98,12 @@ export function initMathExtensionStatic() {
         return clampedNewValue;
     };
 
-    //Range is [start, end)
+    // Range is [start, end)
     mathExtension.pp_random = function pp_random(start = 0, end = 1) {
         return Math.random() * (end - start) + start;
     };
 
-    //Range is [start, end]
+    // Range is [start, end]
     mathExtension.pp_randomInt = function pp_randomInt(start, end) {
         let min = Math.min(start, end);
         let max = Math.max(start, end);
@@ -114,12 +114,12 @@ export function initMathExtensionStatic() {
         return this.pp_randomInt(0, 1) == 0;
     };
 
-    //Return 1 or -1
+    // Return 1 or -1
     mathExtension.pp_randomSign = function pp_randomSign() {
         return (Math.random() < 0.5) ? 1 : -1;
     };
 
-    //You give it a list of parameters and returns one
+    // You give it a list of parameters and returns one
     mathExtension.pp_randomPick = function pp_randomPick(...args) {
         let random = null;
 
@@ -187,14 +187,14 @@ export function initMathExtensionStatic() {
         return this.pp_toRadians(this.pp_angleDistanceSignedDegrees(this.pp_toDegrees(from), this.pp_toDegrees(to)));
     };
 
-    //Clamp the angle to -180/+180, so that, for example, 270 will be -90
-    //if usePositiveRange is true, the angle will be clamped to 0/360
+    // Clamp the angle to -180/+180, so that, for example, 270 will be -90
+    // If usePositiveRange is true, the angle will be clamped to 0/360
     mathExtension.pp_angleClamp = function pp_angleClamp(angle, usePositiveRange = false) {
         return this.pp_angleClampDegrees(angle, usePositiveRange);
     };
 
-    //Clamp the angle to -180/+180, so that, for example, 270 will be -90
-    //if usePositiveRange is true, the angle will be clamped to 0/360
+    // Clamp the angle to -180/+180, so that, for example, 270 will be -90
+    // If usePositiveRange is true, the angle will be clamped to 0/360
     mathExtension.pp_angleClampDegrees = function pp_angleClampDegrees(angle, usePositiveRange = false) {
         let clampedAngle = angle % 360;
 
@@ -211,14 +211,14 @@ export function initMathExtensionStatic() {
         return clampedAngle;
     };
 
-    //Clamp the angle to -Pi/+Pi, so that, for example, 270 will be -90
-    //if usePositiveRange is true, the angle will be clamped to 0/2Pi
+    // Clamp the angle to -Pi/+Pi, so that, for example, 270 will be -90
+    // If usePositiveRange is true, the angle will be clamped to 0/2Pi
     mathExtension.pp_angleClampRadians = function pp_angleClampRadians(angle, usePositiveRange = false) {
         return this.pp_toRadians(this.pp_angleClampDegrees(this.pp_toDegrees(angle), usePositiveRange));
     };
 
-    //The range goes from start to end by going toward the positive direction (if useShortestAngle is false)
-    //[20,300] is a 280 degrees range, [300, 20] is an 80 degrees range, [-150,-170] = [210, 190] is a 240 degrees range, [0, -10] = [0, 350] is a 350 degrees range
+    // The range goes from start to end by going toward the positive direction (if useShortestAngle is false)
+    // [20,300] is a 280 degrees range, [300, 20] is an 80 degrees range, [-150,-170] = [210, 190] is a 240 degrees range, [0, -10] = [0, 350] is a 350 degrees range
     mathExtension.pp_isInsideAngleRange = function pp_isInsideAngleRange(angle, start, end, useShortestAngle = false) {
         return this.pp_isInsideAngleRangeDegrees(angle, start, end, useShortestAngle);
     };

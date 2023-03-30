@@ -54,7 +54,7 @@ export class ToolCursorComponent extends Component {
                 "cursorObject": this._myCursorMeshobject
             });
 
-            this._myCursorComponentVR.rayCastMode = 0; //collision
+            this._myCursorComponentVR.rayCastMode = 0; // Collision
             if (this._myPulseOnHover) {
                 this._myCursorComponentVR.globalTarget.addHoverFunction(this._pulseOnHover.bind(this));
             }
@@ -68,7 +68,7 @@ export class ToolCursorComponent extends Component {
                 "handedness": this._myHandedness + 1
             });
 
-            this._myCursorComponentNonVR.rayCastMode = 0; //collision
+            this._myCursorComponentNonVR.rayCastMode = 0; // Collision
             if (this._myPulseOnHover) {
                 this._myCursorComponentNonVR.globalTarget.addHoverFunction(this._pulseOnHover.bind(this));
             }
@@ -105,7 +105,7 @@ export class ToolCursorComponent extends Component {
     }
 
     update(dt) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     _isUsingHand() {

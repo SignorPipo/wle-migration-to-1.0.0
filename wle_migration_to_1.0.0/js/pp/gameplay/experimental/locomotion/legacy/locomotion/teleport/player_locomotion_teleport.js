@@ -28,13 +28,13 @@ export class PlayerLocomotionTeleportParams {
         this.myPerformTeleportAsMovement = false;
         this.myTeleportAsMovementMaxDistanceFromTeleportPosition = 0.001;
         this.myTeleportAsMovementMaxSteps = 2;
-        // when checking teleport as movement u may need to move more times to get to the position due to snap and gravity
-        // this specifies how many movement u can try to get to the teleport position
+        // When checking teleport as movement u may need to move more times to get to the position due to snap and gravity
+        // This specifies how many movement u can try to get to the teleport position
 
         this.myTeleportAsMovementRemoveVerticalMovement = true;
-        // this can be used to remove the vertical movement from the difference from the current and teleport position so that u can apply just
+        // This can be used to remove the vertical movement from the difference from the current and teleport position so that u can apply just
         // the gravity as vertical movement
-        this.myTeleportAsMovementExtraVerticalMovementPerMeter = 1; // this simulate the gravity for the teleport movement
+        this.myTeleportAsMovementExtraVerticalMovementPerMeter = 1; // This simulate the gravity for the teleport movement
 
         this.myStickIdleThreshold = 0.1;
 
@@ -112,7 +112,7 @@ export class PlayerLocomotionTeleport extends PlayerLocomotionMovement {
 
         this._myFSM.update(dt);
 
-        // no gravity if teleporting
+        // No gravity if teleporting
         if (this._myTeleportParams.myAdjustPositionEveryFrame || this._myTeleportParams.myGravityAcceleration != 0) {
             this._applyGravity(dt);
         }
@@ -164,7 +164,7 @@ PlayerLocomotionTeleport.prototype._applyGravity = function () {
     let gravityMovement = vec3_create();
     let feetTransformQuat = quat2_create();
     return function _applyGravity(dt) {
-        // if gravity is zero it's still important to move to remain snapped and gather proper surface data even when not teleporting
+        // If gravity is zero it's still important to move to remain snapped and gather proper surface data even when not teleporting
 
         playerUp = this._myTeleportParams.myPlayerHeadManager.getPlayer().pp_getUp(playerUp);
 

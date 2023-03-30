@@ -27,7 +27,7 @@ export class DefaultResourcesMaterials {
 
     constructor() {
         this.myFlatOpaque = null;
-        this.myFlatTransparentNoDepth = null; // for now the pipeline needs to be the last one to make this work properly
+        this.myFlatTransparentNoDepth = null; // For now the pipeline needs to be the last one to make this work properly
         this.myPhongOpaque = null;
         this.myText = null;
     }

@@ -21,8 +21,8 @@ export function getSimultaneousTouchMaxDelay() {
 
 
 // gamepadButtonIDsList is a sequence of a gamepads and a list of buttonIDs like this ([gamepad1, squeeze, top, select], [gamepad2, bottom, squeeze, select], ...)
-// if the first parameter is a number it's used as multiplePressCount
-// if the buttonIDs list is empty for a given gamepad, it means that every button will be included
+// If the first parameter is a number it's used as multiplePressCount
+// If the buttonIDs list is empty for a given gamepad, it means that every button will be included
 export function isAnyButtonPressStart(...gamepadButtonIDsList) {
     let multiplePressCount = null;
     let realGamepadButtonIDsList = gamepadButtonIDsList;
@@ -61,8 +61,8 @@ export function isAnyButtonPressStart(...gamepadButtonIDsList) {
 }
 
 // gamepadButtonIDsList is a sequence of a gamepads and a list of buttonIDs like this ([gamepad1, squeeze, top, select], [gamepad2, bottom, squeeze, select], ...)
-// if the first parameter is a number it's used as multiplePressCount
-// if the buttonIDs list is empty for a given gamepad, it means that every button will be included
+// If the first parameter is a number it's used as multiplePressCount
+// If the buttonIDs list is empty for a given gamepad, it means that every button will be included
 export function areButtonsPressStart(...gamepadButtonIDsList) {
     let multiplePressCount = null;
     let realGamepadButtonIDsList = gamepadButtonIDsList;

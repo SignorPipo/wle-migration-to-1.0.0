@@ -33,7 +33,7 @@ export class VisualMeshParams {
     }
 
     copy(other) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 }
 

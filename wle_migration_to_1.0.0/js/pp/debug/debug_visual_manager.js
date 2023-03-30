@@ -1,3 +1,4 @@
+import { Alignment, Justification } from "@wonderlandengine/api";
 import { VisualArrowParams } from "../cauldron/visual/elements/visual_arrow";
 import { VisualLineParams } from "../cauldron/visual/elements/visual_line";
 import { VisualPointParams } from "../cauldron/visual/elements/visual_point";
@@ -25,7 +26,7 @@ export class DebugVisualManager extends VisualManager {
     }
 
     drawLineEnd(lifetimeSeconds, start, end, color = vec4_create(0, 1, 0, 1), thickness = 0.005) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     drawArrow(lifetimeSeconds, start, direction, length, color = vec4_create(0, 1, 0, 1), thickness = 0.005) {
@@ -40,7 +41,7 @@ export class DebugVisualManager extends VisualManager {
     }
 
     drawArrowEnd(lifetimeSeconds, start, end, color = vec4_create(0, 1, 0, 1), thickness = 0.005) {
-        // implemented outside class definition
+        // Implemented outside class definition
     }
 
     drawPoint(lifetimeSeconds, position, color = vec4_create(0, 1, 0, 1), radius = 0.005) {
@@ -52,7 +53,7 @@ export class DebugVisualManager extends VisualManager {
         this.draw(visualParams, lifetimeSeconds);
     }
 
-    drawText(lifetimeSeconds, text, transform, color = vec4_create(0, 1, 0, 1), alignment = WL.Alignment.Center, justification = WL.Justification.Middle) {
+    drawText(lifetimeSeconds, text, transform, color = vec4_create(0, 1, 0, 1), alignment = Alignment.Center, justification = Justification.Middle) {
         let visualParams = new VisualTextParams(this._myEngine);
         visualParams.myText = text;
         visualParams.myAlignment = alignment;

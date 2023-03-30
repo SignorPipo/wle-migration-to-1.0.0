@@ -5,10 +5,10 @@ import { getMainEngine } from "../wl/engine_globals";
 export class MeshCreationVertexParams {
 
     constructor() {
-        this.myPosition = null;             // vec3
-        this.myTextureCoordinates = null;   // vec2
-        this.myNormal = null;               // vec3
-        this.myColor = null;                // vec4
+        this.myPosition = null;             // @Vec3
+        this.myTextureCoordinates = null;   // @Vec2
+        this.myNormal = null;               // @Vec3
+        this.myColor = null;                // @Vec4
     }
 }
 
@@ -39,7 +39,7 @@ export function createPlaneMesh() {
 
         vertexParams.myPosition = new vec3_create();
         vertexParams.myPosition[0] = -1 + (i & 1) * 2;
-        vertexParams.myPosition[1] = -1 + ((i & 2) >> 1) * 2; // this is a quick way to have positions (-1,-1) (1,-1) (1,-1) (1,1)
+        vertexParams.myPosition[1] = -1 + ((i & 2) >> 1) * 2; // This is a quick way to have positions (-1,-1) (1,-1) (1,-1) (1,1)
         vertexParams.myPosition[2] = 0;
 
         vertexParams.myTextureCoordinates = new vec2_create();

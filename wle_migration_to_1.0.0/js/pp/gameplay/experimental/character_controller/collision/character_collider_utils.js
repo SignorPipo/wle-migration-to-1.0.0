@@ -141,7 +141,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHeightVerticalCheckEnabled = true;
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionHeightVerticalCheckEnabled = true;
 
-        // activate based on speed?
+        // Activate based on speed?
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckEnabled = false;
 
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionCheckEnabled = true;

@@ -180,7 +180,7 @@ PlayerLocomotionRotate.prototype._rotateHeadVertically = function () {
                 if (Math.abs(axes[1]) > this._myParams.mySnapTurnActivateThreshold) {
                     angleToRotate = Math.pp_sign(axes[1]) * this._myParams.mySnapTurnAngle;
 
-                    // adjust rotation to closest snap step
+                    // Adjust rotation to closest snap step
 
                     let angleWithUp = Math.pp_angleClamp(headUp.vec3_angleSigned(referenceUp, referenceRight));
                     let snapStep = Math.round(angleWithUp / this._myParams.mySnapTurnAngle);

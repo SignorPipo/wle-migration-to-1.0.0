@@ -100,17 +100,17 @@ CollisionCheck.prototype._horizontalCheckRaycast = function () {
             let directionOffsetEpsilonValue = 0.0001;
             direction = direction.vec3_componentAlongAxis(up, direction);
             if (!direction.vec3_isZero(0.000001)) {
-                // if the check has an up part move the hit a bit on the that direction
+                // If the check has an up part move the hit a bit on the that direction
                 direction.vec3_normalize(direction);
                 direction.vec3_scale(directionOffsetEpsilonValue, direction);
 
-                // this offset is a workaround for objects that in the editor are aligned but due to clamp get a bit tilted when in the game
+                // This offset is a workaround for objects that in the editor are aligned but due to clamp get a bit tilted when in the game
                 // and therefore trying an horizontal cast on the vertical hit position could result in hitting the bottom which in theory should be parallel and therefore not possible
                 fixedFeetPosition.vec3_add(direction, fixedFeetPosition);
                 fixedHitPosition.vec3_add(direction, fixedHitPosition);
             }
 
-            // move the hit a bit further to prevent miss
+            // Move the hit a bit further to prevent miss
             direction = fixedHitPosition.vec3_sub(fixedFeetPosition, direction);
             direction.vec3_normalize(direction);
             direction.vec3_scale(directionOffsetEpsilonValue, direction);
@@ -245,7 +245,7 @@ CollisionCheck.prototype._ignoreSurfaceAngle = function () {
                 }
             }
         } else if (ignoreHitsInsideCollisionIfObjectToIgnore) {
-            // #TODO when raycast pierce will work, if it gives the normal even when inside check if the angle is ok and only ignore if that's the case
+            // #TODO When raycast pierce will work, if it gives the normal even when inside check if the angle is ok and only ignore if that's the case
             if (objectsToIgnore == null || objectsToIgnore.pp_hasEqual(hit.myObject, objectsEqualCallback)) {
                 isIgnorable = true;
             }

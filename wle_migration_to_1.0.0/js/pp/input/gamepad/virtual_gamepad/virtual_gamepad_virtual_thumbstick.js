@@ -149,7 +149,7 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     _build(thumbstickElementParent, virtualThumbstickHandedness) {
-        // setup variables used for the sizes and the like
+        // Setup variables used for the sizes and the like
 
         let thumbstickSize = this._myVirtualGamepadParams.myThumbstickSize * this._myVirtualGamepadParams.myInterfaceScale;
 
@@ -159,7 +159,7 @@ export class VirtualGamepadVirtualThumbstick {
 
         let minSizeMultiplier = Math.max(1, this._myVirtualGamepadParams.myMinSizeMultiplier / this._myVirtualGamepadParams.myInterfaceScale);
 
-        // actual thumbstick creation
+        // Actual thumbstick creation
 
         let thumbstickContainer = document.createElement("div");
         thumbstickContainer.style.position = "absolute";
