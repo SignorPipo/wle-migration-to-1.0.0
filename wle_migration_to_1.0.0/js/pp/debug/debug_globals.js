@@ -1,6 +1,7 @@
 import { getMainEngine } from "../cauldron/wl/engine_globals";
 
 let _myDebugManagers = new WeakMap();
+let _myDebugEnableds = new WeakMap();
 
 export function getDebugManager(engine = getMainEngine()) {
     return _myDebugManagers.get(engine);
@@ -25,4 +26,20 @@ export function getDebugVisualManager(engine = getMainEngine()) {
     }
 
     return null;
+}
+
+export function isDebugEnabled(engine = getMainEngine()) {
+    return _myDebugEnableds.get(engine);
+}
+
+export function setDebugEnabled(debugEnabled, engine = getMainEngine()) {
+    _myDebugEnableds.set(engine, debugEnabled);
+}
+
+export function removeDebugEnabled(engine = getMainEngine()) {
+    _myDebugEnableds.delete(engine);
+}
+
+export function hasDebugEnabled(engine = getMainEngine()) {
+    return _myDebugEnableds.has(engine);
 }

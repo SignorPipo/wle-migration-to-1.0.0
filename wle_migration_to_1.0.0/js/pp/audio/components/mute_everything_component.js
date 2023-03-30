@@ -3,9 +3,13 @@ import { Howler } from "howler";
 
 export class MuteEverythingComponent extends Component {
     static TypeName = "pp-mute-everything";
-    static Properties = {};
+    static Properties = {
+        _myMuted: { type: Type.Bool, default: true }
+    };
 
     start() {
-        Howler.mute(true);
+        if (this._myMuted) {
+            Howler.mute(true);
+        }
     }
 }
