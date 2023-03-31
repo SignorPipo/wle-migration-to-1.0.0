@@ -90,7 +90,6 @@
         - pp_getObjectsByName  / pp_getObjectsByNameHierarchy / pp_getObjectsByNameDescendants / pp_getObjectsByNameChildren
         
         - pp_getObjectByID  / pp_getObjectByIDHierarchy / pp_getObjectByIDDescendants / pp_getObjectByIDChildren
-        - pp_getObjectsByID  / pp_getObjectsByIDHierarchy / pp_getObjectsByIDDescendants / pp_getObjectsByIDChildren
 
         - pp_getHierarchy / pp_getHierarchyBreadth / pp_getHierarchyDepth 
         - pp_getDescendants / pp_getDescendantsBreadth / pp_getDescendantsDepth 
@@ -115,7 +114,6 @@
         - getObjectByNameObjects
         - getObjectsByNameObjects
         - getObjectByIDObjects
-        - getObjectsByIDObjects
 */
 
 import { Object as WLObject } from "@wonderlandengine/api";
@@ -191,18 +189,6 @@ export function getObjectByIDObjects(objects, id) {
     }
 
     return objectFound;
-}
-
-export function getObjectsByIDObjects(objects, id) {
-    let objectsFound = [];
-
-    for (let object of objects) {
-        if (object.pp_getID() == id) {
-            objectsFound.push(object);
-        }
-    }
-
-    return objectsFound;
 }
 
 export class CloneParams {
@@ -2620,43 +2606,6 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_getObjectByIDChildren = function pp_getObjectByIDChildren(id) {
         let objects = this.pp_getChildren();
         return getObjectByIDObjects(objects, id);
-    }
-
-    objectExtension.pp_getObjectsByID = function pp_getObjectsByID(id) {
-        return this.pp_getObjectsByIDHierarchy(id);
-    }
-
-    objectExtension.pp_getObjectsByIDHierarchy = function pp_getObjectsByIDHierarchy(id) {
-        return this.pp_getObjectsByIDHierarchyBreadth(id);
-    }
-
-    objectExtension.pp_getObjectsByIDHierarchyBreadth = function pp_getObjectsByIDHierarchyBreadth(id) {
-        let objects = this.pp_getHierarchyBreadth();
-        return getObjectsByIDObjects(objects, id);
-    }
-
-    objectExtension.pp_getObjectsByIDHierarchyDepth = function pp_getObjectsByIDHierarchyDepth(id) {
-        let objects = this.pp_getHierarchyDepth();
-        return getObjectsByIDObjects(objects, id);
-    }
-
-    objectExtension.pp_getObjectsByIDDescendants = function pp_getObjectsByIDDescendants(id) {
-        return this.pp_getObjectsByIDDescendantsBreadth(id);
-    }
-
-    objectExtension.pp_getObjectsByIDDescendantsBreadth = function pp_getObjectsByIDDescendantsBreadth(id) {
-        let objects = this.pp_getDescendantsBreadth();
-        return getObjectsByIDObjects(objects, id);
-    }
-
-    objectExtension.pp_getObjectsByIDDescendantsDepth = function pp_getObjectsByIDDescendantsDepth(id) {
-        let objects = this.pp_getDescendantsDepth();
-        return getObjectsByIDObjects(objects, id);
-    }
-
-    objectExtension.pp_getObjectsByIDChildren = function pp_getObjectsByIDChildren(id) {
-        let objects = this.pp_getChildren();
-        return getObjectsByIDObjects(objects, id);
     }
 
     // Get Hierarchy

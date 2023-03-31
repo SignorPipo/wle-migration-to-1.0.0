@@ -17,7 +17,6 @@
         - pp_getObjectsByName
         
         - pp_getObjectByID
-        - pp_getObjectsByID
         
         - pp_toString / pp_toStringCompact / pp_toStringExtended
 
@@ -119,18 +118,6 @@ export function initSceneExtensionPrototype() {
 
     sceneExtension.pp_getObjectByIDDepth = function pp_getObjectByIDDepth(id) {
         return this.pp_getRoot().pp_getObjectByIDHierarchyDepth(id);
-    }
-
-    sceneExtension.pp_getObjectsByID = function pp_getObjectsByID(id) {
-        return this.pp_getObjectsByIDBreadth(id);
-    }
-
-    sceneExtension.pp_getObjectsByIDBreadth = function pp_getObjectsByIDBreadth(id) {
-        return this.pp_getRoot().pp_getObjectsByIDHierarchyBreadth(id);
-    }
-
-    sceneExtension.pp_getObjectsByIDDepth = function pp_getObjectsByIDDepth(id) {
-        return this.pp_getRoot().pp_getObjectsByIDHierarchyDepth(id);
     }
 
     // To String
