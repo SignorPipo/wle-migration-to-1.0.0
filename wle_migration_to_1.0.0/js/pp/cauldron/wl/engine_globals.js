@@ -1,7 +1,7 @@
 let _myMainEngine = null;
 let _myEngines = [];
 
-export function easySetupEngineGlobal(engine) {
+export function initEngine(engine) {
     if (engine != null) {
         addEngine(engine);
         if (getMainEngine() == null) {
