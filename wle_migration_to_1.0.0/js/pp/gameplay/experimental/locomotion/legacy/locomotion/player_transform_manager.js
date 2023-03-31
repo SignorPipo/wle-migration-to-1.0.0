@@ -542,7 +542,7 @@ export class PlayerTransformManager {
         params.myDebugMovementActive = false;
     }
 
-    _onXRSessionStart(manualStart, session) {
+    _onXRSessionStart(manualCall, session) {
         if (this._myParams.myResetToValidOnEnterSession) {
             this._myResetRealOnSynced = true;
         }

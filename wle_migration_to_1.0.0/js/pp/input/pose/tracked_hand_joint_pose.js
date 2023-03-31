@@ -45,7 +45,7 @@ export class TrackedHandJointPose extends BasePose {
         }
     }
 
-    _onXRSessionStartHook(manualStart, session) {
+    _onXRSessionStartHook(manualCall, session) {
         session.addEventListener("inputsourceschange", function (event) {
             if (event.removed) {
                 for (let item of event.removed) {
@@ -66,7 +66,7 @@ export class TrackedHandJointPose extends BasePose {
             }
         }.bind(this));
 
-        if (manualStart && this._myInputSource == null && session.inputSources) {
+        if (manualCall && this._myInputSource == null && session.inputSources) {
             for (let item of session.inputSources) {
                 if (item.handedness == this._myHandedness) {
                     if (InputUtils.getInputSourceType(item) == InputSourceType.TRACKED_HAND) {

@@ -527,7 +527,7 @@ PlayerHeadManager.prototype._getPositionHeight = function () {
 
 // #TODO What happens if the player go in the blurred state before wle has loaded?
 PlayerHeadManager.prototype._onXRSessionStart = function () {
-    return function _onXRSessionStart(manualStart, session) {
+    return function _onXRSessionStart(manualCall, session) {
         this._myBlurRecoverHeadTransform = null;
         this._myVisibilityHidden = false;
 
@@ -557,7 +557,7 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
             }
         }.bind(this));
 
-        if (this._myParams.mySessionChangeResyncEnabled && !manualStart && this._myActive) {
+        if (this._myParams.mySessionChangeResyncEnabled && !manualCall && this._myActive) {
             if (this._myDelaySessionChangeResyncCounter == 0) {
                 let previousHeadObject = this._myCurrentHead;
                 this._mySessionChangeResyncHeadTransform = previousHeadObject.pp_getTransformQuat();

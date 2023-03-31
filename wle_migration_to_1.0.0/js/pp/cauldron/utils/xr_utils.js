@@ -24,16 +24,16 @@ export function unregisterSessionEndEventListener(id, engine = getMainEngine()) 
     return engine.onXRSessionEnd.remove(id);
 }
 
-export function registerSessionStartEndEventListeners(id, startCallback, endCallback, callSessionStartIfSessionAlreadyActive = false, addManualStartFlag = false, engine = getMainEngine()) {
+export function registerSessionStartEndEventListeners(id, startCallback, endCallback, callSessionStartIfSessionAlreadyActive = false, addManualCallFlag = false, engine = getMainEngine()) {
     if (callSessionStartIfSessionAlreadyActive && isSessionActive(engine)) {
-        if (addManualStartFlag) {
+        if (addManualCallFlag) {
             startCallback(true, getSession(engine));
         } else {
             startCallback(getSession(engine));
         }
     }
 
-    if (addManualStartFlag) {
+    if (addManualCallFlag) {
         registerSessionStartEventListener(id, startCallback.bind(undefined, false), engine);
     } else {
         registerSessionStartEventListener(id, startCallback, engine);

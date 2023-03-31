@@ -176,7 +176,7 @@ export class BasePose {
     _updateHook(dt, updateVelocity, xrPose) {
     }
 
-    _onXRSessionStartHook(manualStart, session) {
+    _onXRSessionStartHook(manualCall, session) {
 
     }
 
@@ -294,7 +294,7 @@ export class BasePose {
         }
     }
 
-    _onXRSessionStart(manualStart, session) {
+    _onXRSessionStart(manualCall, session) {
         session.requestReferenceSpace(XRUtils.getReferenceSpaceType(this._myEngine)).then(function (referenceSpace) {
             this._myReferenceSpace = referenceSpace;
 
@@ -303,7 +303,7 @@ export class BasePose {
             }
         }.bind(this));
 
-        this._onXRSessionStartHook(manualStart, session);
+        this._onXRSessionStartHook(manualCall, session);
     }
 
     _onXRSessionEnd() {

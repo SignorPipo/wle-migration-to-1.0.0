@@ -411,9 +411,9 @@ export class CleanedPlayerTransformManager {
         params.myDebugMovementActive = false;
     }
 
-    _onXRSessionStart(manualStart, session) {
+    _onXRSessionStart(manualCall, session) {
         if (this._myActive) {
-            if (this._myParams.myResetToValidOnEnterSession && !manualStart) {
+            if (this._myParams.myResetToValidOnEnterSession && !manualCall) {
                 this._myResetRealOnSynced = true;
             }
         }

@@ -57,7 +57,7 @@ export class HandPose extends BasePose {
         return xrFrame.getPose(this._myInputSource.gripSpace, this._myReferenceSpace);
     }
 
-    _onXRSessionStartHook(manualStart, session) {
+    _onXRSessionStartHook(manualCall, session) {
         session.addEventListener("inputsourceschange", function (event) {
             if (event.removed) {
                 for (let item of event.removed) {
@@ -77,7 +77,7 @@ export class HandPose extends BasePose {
             }
         }.bind(this));
 
-        if (manualStart && this._myInputSource == null && session.inputSources) {
+        if (manualCall && this._myInputSource == null && session.inputSources) {
             for (let item of session.inputSources) {
                 if (item.handedness == this._myHandedness) {
                     this._myInputSource = item;
