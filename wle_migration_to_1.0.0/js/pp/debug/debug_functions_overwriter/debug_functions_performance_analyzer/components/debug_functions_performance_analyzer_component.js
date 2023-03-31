@@ -33,7 +33,9 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
         _myObjectAddObjectDescendantsDepthLevel: { type: Type.Int, default: 0 },
         _myObjectAddClassDescendantsDepthLevel: { type: Type.Int, default: 0 },
         _myClearConsoleBeforeLog: { type: Type.Bool, default: false },
-        _myResetMaxResultsShortcutEnabled: { type: Type.Bool, default: false }
+        _myResetMaxResultsShortcutEnabled: { type: Type.Bool, default: false },
+        _myClassesByReference: { type: Type.Enum, values: ["Code Driven"], default: "Code Driven" },
+        _myObjectsByReference: { type: Type.Enum, values: ["Code Driven"], default: "Code Driven" }
     };
 
     init() {
@@ -132,8 +134,8 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
 
         functionsPerformanceAnalyzerParams.myExecutionTimeAnalysisEnabled = this._myLogTotalExecutionTimeResults || this._myLogTotalExecutionTimePercentageResults || this._myLogAverageExecutionTimeResults;
 
-        functionsPerformanceAnalyzerParams.myClassesByReference = (this._myClassesByReference != null) ? this._myClassesByReference : [];
-        functionsPerformanceAnalyzerParams.myObjectsByReference = (this._myObjectsByReference != null) ? this._myObjectsByReference : [];
+        functionsPerformanceAnalyzerParams.myClassesByReference = (this._myClassesByReference != 0) ? this._myClassesByReference : [];
+        functionsPerformanceAnalyzerParams.myObjectsByReference = (this._myObjectsByReference != 0) ? this._myObjectsByReference : [];
 
         this._myFunctionsPerformanceAnalyzer = new DebugFunctionsPerformanceAnalyzer(functionsPerformanceAnalyzerParams);
         this._myFunctionsPerformanceAnalyzer.overwriteFunctions();

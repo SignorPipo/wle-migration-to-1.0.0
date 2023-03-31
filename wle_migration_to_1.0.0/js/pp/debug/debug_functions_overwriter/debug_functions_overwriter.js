@@ -328,7 +328,12 @@ export class DebugFunctionsOverwriter {
                 objectLevel + 1 <= this._myParams.myObjectAddObjectDescendantsDepthLevel || this._myParams.myObjectAddObjectDescendantsDepthLevel == -1) ||
                 objectLevel + 1 <= this._myParams.myObjectAddClassDescendantsDepthLevel || this._myParams.myObjectAddClassDescendantsDepthLevel == -1) {
 
-                let propertyNames = JSUtils.getObjectPropertyNames(object);
+                let propertyNames = null;
+                try {
+                    propertyNames = JSUtils.getObjectPropertyNames(object);
+                } catch (error) {
+                    continue;
+                }
 
                 for (let propertyName of propertyNames) {
                     let objectProperty = null;
@@ -355,6 +360,8 @@ export class DebugFunctionsOverwriter {
                             currentName = propertyName;
                             currentPath = objectPath + "." + currentName;
                         }
+                        currentName = propertyName;
+                        currentPath = objectPath + "." + currentName;
                     } else {
                         currentName = propertyName;
                         currentPath = currentName;

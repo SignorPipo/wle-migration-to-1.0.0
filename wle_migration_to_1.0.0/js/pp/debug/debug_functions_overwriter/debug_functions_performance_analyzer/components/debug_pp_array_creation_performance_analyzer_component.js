@@ -1,7 +1,7 @@
 import { Component, Type } from "@wonderlandengine/api";
 import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
 
-export class DebugPPArrayCreationPerformanceAnalyzerComponent extends Component {
+class DebugPPArrayCreationPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-pp-array-creation-performance-analyzer";
     static Properties = {
         _myDelayStart: { type: Type.Float, default: 0.0 },

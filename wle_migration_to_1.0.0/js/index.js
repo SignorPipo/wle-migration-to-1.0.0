@@ -15,7 +15,6 @@ import * as API from "@wonderlandengine/api"; // Deprecated: Backward compatibil
 
 /* wle:auto-imports:start */
 import {ConsoleVRToolComponent} from './pp/index.js';
-import {DebugArrayFunctionsPerformanceAnalyzerComponent} from './pp/index.js';
 import {EasyTuneToolComponent} from './pp/index.js';
 import {GamepadMeshAnimatorComponent} from './pp/index.js';
 import {PPGatewayComponent} from './pp/index.js';
@@ -73,7 +72,6 @@ if (vrButton) {
 
 /* wle:auto-register:start */
 engine.registerComponent(ConsoleVRToolComponent);
-engine.registerComponent(DebugArrayFunctionsPerformanceAnalyzerComponent);
 engine.registerComponent(EasyTuneToolComponent);
 engine.registerComponent(GamepadMeshAnimatorComponent);
 engine.registerComponent(PPGatewayComponent);

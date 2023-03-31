@@ -4,7 +4,6 @@ import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_pe
 export class DebugWLFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-wl-functions-performance-analyzer";
     static Properties = {
-        _myAnalyzeWLObjects: { type: Type.Bool, default: false },
         _myDelayStart: { type: Type.Float, default: 0.0 },
         _myLogFunction: { type: Type.Enum, values: ["Log", "Error", "Warn", "Debug"], default: "Log" },
         _mySecondsBetweenLogs: { type: Type.Float, default: 1.0 },
@@ -45,8 +44,8 @@ export class DebugWLFunctionsPerformanceAnalyzerComponent extends Component {
             _myExcludeConstructors: this._myExcludeConstructors,
             _myExcludeJSObjectFunctions: true,
             _myAddPathPrefixToFunctionID: true,
-            _myObjectAddObjectDescendantsDepthLevel: this._myAnalyzeWLObjects ? 1 : 0,
-            _myObjectAddClassDescendantsDepthLevel: 3,
+            _myObjectAddObjectDescendantsDepthLevel: 1,
+            _myObjectAddClassDescendantsDepthLevel: 1,
             _myClearConsoleBeforeLog: this._myClearConsoleBeforeLog,
             _myResetMaxResultsShortcutEnabled: this._myResetMaxResultsShortcutEnabled
         });
