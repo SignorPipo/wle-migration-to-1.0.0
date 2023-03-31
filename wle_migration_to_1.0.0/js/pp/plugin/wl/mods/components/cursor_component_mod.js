@@ -69,12 +69,9 @@ export function initCursorComponentModPrototype() {
         this.cursorPos = vec3_create();
         this.hoveringObject = null;
 
-        let onXRSessionStart = this.setupVREvents.bind(this);
-        this.engine.onXRSessionStart.push(onXRSessionStart);
-
+        XRUtils.registerSessionStartEventListener(this, this.setupVREvents.bind(this), this.engine);
         this.onDestroyCallbacks.push(() => {
-            let index = this.engine.onXRSessionStart.indexOf(onXRSessionStart);
-            if (index >= 0) this.engine.onXRSessionStart.splice(index, 1);
+            XRUtils.unregisterSessionStartEventListener(this, this.engine);
         });
 
         this.showRay = true;

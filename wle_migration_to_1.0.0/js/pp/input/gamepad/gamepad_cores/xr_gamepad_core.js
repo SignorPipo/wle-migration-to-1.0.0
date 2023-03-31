@@ -28,11 +28,7 @@ export class XRGamepadCore extends GamepadCore {
     }
 
     _startHook() {
-        if (XRUtils.isSessionActive(this.getEngine())) {
-            this._onXRSessionStart(XRUtils.getSession(this.getEngine()));
-        }
-        this.getEngine().onXRSessionStart.push(this._onXRSessionStart.bind(this));
-        this.getEngine().onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
+        XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this.getEngine());
     }
 
     _preUpdateHook(dt) {

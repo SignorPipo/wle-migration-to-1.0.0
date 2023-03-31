@@ -8,6 +8,45 @@ export function isSessionActive(engine = getMainEngine()) {
     return getSession(engine) != null;
 }
 
+export function registerSessionStartEventListener(id, callback, engine = getMainEngine()) {
+    engine.onXRSessionStart.add(callback, { id: id });
+}
+
+export function unregisterSessionStartEventListener(id, engine = getMainEngine()) {
+    engine.onXRSessionStart.remove(id);
+}
+
+export function registerSessionEndEventListener(id, callback, engine = getMainEngine()) {
+    engine.onXRSessionEnd.add(callback, { id: id });
+}
+
+export function unregisterSessionEndEventListener(id, engine = getMainEngine()) {
+    return engine.onXRSessionEnd.remove(id);
+}
+
+export function registerSessionStartEndEventListeners(id, startCallback, endCallback, callSessionStartIfSessionAlreadyActive = false, addManualStartFlag = false, engine = getMainEngine()) {
+    if (callSessionStartIfSessionAlreadyActive && isSessionActive(engine)) {
+        if (addManualStartFlag) {
+            startCallback(true, getSession(engine));
+        } else {
+            startCallback(getSession(engine));
+        }
+    }
+
+    if (addManualStartFlag) {
+        registerSessionStartEventListener(id, startCallback.bind(undefined, false), engine);
+    } else {
+        registerSessionStartEventListener(id, startCallback, engine);
+    }
+
+    registerSessionEndEventListener(id, endCallback, engine);
+}
+
+export function unregisterSessionStartEndEventListeners(id, engine = getMainEngine()) {
+    unregisterSessionStartEventListener(id, engine);
+    unregisterSessionEndEventListener(id, engine);
+}
+
 export function isReferenceSpaceLocalFloor(engine = getMainEngine()) {
     return !["local", "viewer"].includes(getReferenceSpaceType(engine));
 }
@@ -48,6 +87,12 @@ export function isDeviceEmulated() {
 export let XRUtils = {
     getSession,
     isSessionActive,
+    registerSessionStartEventListener,
+    unregisterSessionStartEventListener,
+    registerSessionEndEventListener,
+    unregisterSessionEndEventListener,
+    registerSessionStartEndEventListeners,
+    unregisterSessionStartEndEventListeners,
     isReferenceSpaceLocalFloor,
     getReferenceSpaceType,
     getFrame,

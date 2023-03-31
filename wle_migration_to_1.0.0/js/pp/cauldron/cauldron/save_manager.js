@@ -17,11 +17,7 @@ export class SaveManager {
 
         this._myCacheDefaultValueOnFail = true;
 
-        if (XRUtils.isSessionActive(this._myEngine)) {
-            this._onXRSessionStart(XRUtils.getSession(this._myEngine));
-        }
-        this._myEngine.onXRSessionStart.push(this._onXRSessionStart.bind(this));
-        this._myEngine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
+        XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this._myEngine);
 
         this._myClearCallbacks = new Map();                 // Signature: callback()
         this._myDeleteCallbacks = new Map();                // Signature: callback(id)

@@ -10,6 +10,7 @@ import { Direction2DTo3DConverter, Direction2DTo3DConverterParams } from "../../
 import { PlayerLocomotionDirectionReferenceType } from "./player_locomotion";
 import { getCollisionCheck } from "./player_locomotion_component";
 import { PlayerLocomotionMovement } from "./player_locomotion_movement";
+import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
 
 export class PlayerLocomotionSmoothParams {
 
@@ -77,11 +78,7 @@ export class PlayerLocomotionSmooth extends PlayerLocomotionMovement {
 
         this._myLocomotionRuntimeParams.myIsFlying = false;
 
-        if (XRUtils.isSessionActive(this._myParams.myEngine)) {
-            this._onXRSessionStart(XRUtils.getSession(this._myParams.myEngine));
-        }
-        this._myParams.myEngine.onXRSessionStart.push(this._onXRSessionStart.bind(this));
-        this._myParams.myEngine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
+        XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this._myParams.myEngine);
     }
 
     update(dt) {

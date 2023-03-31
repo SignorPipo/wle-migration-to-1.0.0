@@ -181,11 +181,7 @@ export class PlayerTransformManager {
     start() {
         this.resetToReal(true);
 
-        if (XRUtils.isSessionActive(this._myParams.myEngine)) {
-            this._onXRSessionStart(true, XRUtils.getSession(this._myParams.myEngine));
-        }
-        this._myParams.myEngine.onXRSessionStart.push(this._onXRSessionStart.bind(this, false));
-        this._myParams.myEngine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
+        XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this._myParams.myEngine);
     }
 
     // update should be before to check the new valid transform and if the head new transform is fine

@@ -15,11 +15,7 @@ export class SetPlayerHeightComponent extends Component {
 
         this._myHeightSetOnce = false;
 
-        if (XRUtils.getSession(this.engine)) {
-            this._onXRSessionStart(XRUtils.getSession(this.engine));
-        }
-        this.engine.onXRSessionStart.push(this._onXRSessionStart.bind(this));
-        this.engine.onXRSessionEnd.push(this._onXRSessionEnd.bind(this));
+        XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this.engine);
     }
 
     _onXRSessionStart() {
