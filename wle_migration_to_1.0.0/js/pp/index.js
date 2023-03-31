@@ -1,5 +1,6 @@
 //  PP
 export * from "./pp/init_pp";
+export * from "./pp/register_pp_components";
 export * from "./pp/player_objects";
 export * from "./pp/player_objects_global";
 export * from "./pp/default_resources";
@@ -95,6 +96,7 @@ export * from "./cauldron/visual/elements/visual_torus";
 export * from "./cauldron/visual/components/visual_manager_component";
 
 export * from "./cauldron/wl/engine_globals";
+export * from "./cauldron/wl/register_wl_components";
 export * from "./cauldron/wl/components/add_wl_to_window_component";
 
 //	DEBUG

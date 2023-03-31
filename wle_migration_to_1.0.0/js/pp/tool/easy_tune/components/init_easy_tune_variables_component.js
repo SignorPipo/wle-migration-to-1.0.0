@@ -4,16 +4,20 @@ import { EasyTuneVariables } from "../easy_tune_variables";
 
 export class InitEasyTuneVariablesComponent extends Component {
     static TypeName = "pp-init-easy-tune-variables";
-    static Properties = {};
+    static Properties = {
+        _myInit: { type: Type.Bool, default: true }
+    };
 
     init() {
         this._myEasyTuneVariables = null;
 
-        // Prevents double global from same engine
-        if (!hasEasyTuneVariables(this.engine)) {
-            this._myEasyTuneVariables = new EasyTuneVariables();
+        if (this._myInit) {
+            // Prevents double global from same engine
+            if (!hasEasyTuneVariables(this.engine)) {
+                this._myEasyTuneVariables = new EasyTuneVariables();
 
-            setEasyTuneVariables(this._myEasyTuneVariables, this.engine);
+                setEasyTuneVariables(this._myEasyTuneVariables, this.engine);
+            }
         }
     }
 

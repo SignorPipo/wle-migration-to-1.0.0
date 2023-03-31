@@ -4,16 +4,20 @@ import { getConsoleVR, hasConsoleVR, removeConsoleVR, setConsoleVR } from "../co
 
 export class InitConsoleVRComponent extends Component {
     static TypeName = "pp-init-console-vr";
-    static Properties = {};
+    static Properties = {
+        _myInit: { type: Type.Bool, default: true }
+    };
 
     init() {
         this._myConsoleVR = null;
 
-        // Prevents double global from same engine
-        if (!hasConsoleVR(this.engine)) {
-            this._myConsoleVR = new ConsoleVR();
+        if (this._myInit) {
+            // Prevents double global from same engine
+            if (!hasConsoleVR(this.engine)) {
+                this._myConsoleVR = new ConsoleVR();
 
-            setConsoleVR(this._myConsoleVR, this.engine);
+                setConsoleVR(this._myConsoleVR, this.engine);
+            }
         }
     }
 

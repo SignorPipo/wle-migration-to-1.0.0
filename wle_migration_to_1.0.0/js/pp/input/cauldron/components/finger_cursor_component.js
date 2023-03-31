@@ -1,4 +1,4 @@
-import { CollisionComponent, Component, Type } from "@wonderlandengine/api";
+import { Collider, CollisionComponent, Component, Type } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
@@ -38,7 +38,7 @@ export class FingerCursorComponent extends Component {
         }
 
         this._myCollisionComponent = this._myCursorObject.pp_addComponent(CollisionComponent);
-        this._myCollisionComponent.collider = this.engine.Collider.Sphere;
+        this._myCollisionComponent.collider = Collider.Sphere;
         this._myCollisionComponent.group = 1 << this._myCollisionGroup;
         this._myCollisionComponent.extents = vec3_create(this._myCollisionSize, this._myCollisionSize, this._myCollisionSize);
 

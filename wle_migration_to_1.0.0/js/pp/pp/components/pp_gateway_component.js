@@ -9,6 +9,7 @@ import { EnableToolsComponent } from "../../tool/cauldron/components/enable_tool
 import { EnableDebugsComponent } from "../../debug/components/enable_debugs_component";
 import { GetDefaultResourcesComponent } from "./get_default_resources_component";
 import { GetPlayerObjectsComponent } from "./get_player_objects_component";
+import { InitEasyTuneVariablesComponent } from "../../tool/easy_tune/components/init_easy_tune_variables_component";
 
 export class PPGatewayComponent extends Component {
     static TypeName = "pp-gateway";
@@ -17,6 +18,7 @@ export class PPGatewayComponent extends Component {
         _myEnableTools: { type: Type.Bool, default: true },
         _myAddPPToWindow: { type: Type.Bool, default: true },
         _myAddWLToWindow: { type: Type.Bool, default: true },
+        _myInitEasyTuneVariables: { type: Type.Bool, default: true },
         ...InputManagerComponent.Properties,
         ...AudioManagerComponent.Properties,
         ...VisualManagerComponent.Properties,
@@ -46,6 +48,11 @@ export class PPGatewayComponent extends Component {
             this._myAddWLToWindowComponent = this.object.pp_addComponent(AddWLToWindowComponent, false);
         }
 
+        this._myInitEasyTuneVariablesComponent = null;
+        if (this._myInitEasyTuneVariables) {
+            this._myInitEasyTuneVariablesComponent = this.object.pp_addComponent(InitEasyTuneVariablesComponent, false);
+        }
+
         this._myInputManagerComponent = this.object.pp_addComponent(InputManagerComponent, this._getProperties(InputManagerComponent.Properties));
         this._myAudioManagerComponent = this.object.pp_addComponent(AudioManagerComponent, false);
         this._myVisualManagerComponent = this.object.pp_addComponent(VisualManagerComponent, false);
@@ -70,6 +77,10 @@ export class PPGatewayComponent extends Component {
 
         if (this._myAddWLToWindowComponent != null) {
             this._myAddWLToWindowComponent.active = true;
+        }
+
+        if (this._myInitEasyTuneVariablesComponent != null) {
+            this._myInitEasyTuneVariablesComponent.active = true;
         }
 
         this._myInputManagerComponent.active = true;
