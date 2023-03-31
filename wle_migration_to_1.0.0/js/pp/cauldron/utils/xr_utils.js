@@ -5,7 +5,7 @@ export function getSession(engine = getMainEngine()) {
 }
 
 export function isSessionActive(engine = getMainEngine()) {
-    return engine.xrSession != null;
+    return getSession(engine) != null;
 }
 
 export function isReferenceSpaceLocalFloor(engine = getMainEngine()) {
@@ -13,7 +13,11 @@ export function isReferenceSpaceLocalFloor(engine = getMainEngine()) {
 }
 
 export function getReferenceSpaceType(engine = getMainEngine()) {
-    return engine.wasm.WebXR.refSpace;
+    return getWebXR(engine).refSpace;
+}
+
+export function getWebXR(engine = getMainEngine()) {
+    return engine.wasm.WebXR;
 }
 
 export function getFrame(engine = getMainEngine()) {
