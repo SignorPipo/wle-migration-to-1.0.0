@@ -114,6 +114,7 @@
         - getObjectByNameObjects
         - getObjectsByNameObjects
         - getObjectByIDObjects
+        - getObjectsByIDObjects
 */
 
 import { Object as WLObject } from "@wonderlandengine/api";
@@ -153,13 +154,18 @@ export function setActiveObjects(objects, active) {
     }
 }
 
-export function getObjectByNameObjects(objects, name) {
+export function getObjectByNameObjects(objects, name, index = 0) {
     let objectFound = null;
 
+    let currentIndex = index;
     for (let object of objects) {
         if (object.pp_getName() == name) {
-            objectFound = object;
-            break;
+            if (currentIndex == 0) {
+                objectFound = object;
+                break;
+            }
+
+            currentIndex--;
         }
     }
 
@@ -178,17 +184,34 @@ export function getObjectsByNameObjects(objects, name) {
     return objectsFound;
 }
 
-export function getObjectByIDObjects(objects, id) {
+export function getObjectByIDObjects(objects, id, index = 0) {
     let objectFound = null;
 
+    let currentIndex = index;
     for (let object of objects) {
         if (object.pp_getID() == id) {
-            objectFound = object;
-            break;
+            if (currentIndex == 0) {
+                objectFound = object;
+                break;
+            }
+
+            currentIndex--;
         }
     }
 
     return objectFound;
+}
+
+export function getObjectsByIDObjects(objects, id) {
+    let objectsFound = [];
+
+    for (let object of objects) {
+        if (object.pp_getID() == id) {
+            objectsFound.push(object);
+        }
+    }
+
+    return objectsFound;
 }
 
 export class CloneParams {
@@ -2493,43 +2516,43 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    // Get By Name
+    // Get Object By Name
 
-    objectExtension.pp_getObjectByName = function pp_getObjectByName(name) {
-        return this.pp_getObjectByNameHierarchy(name);
+    objectExtension.pp_getObjectByName = function pp_getObjectByName(name, index = 0) {
+        return this.pp_getObjectByNameHierarchy(name, index);
     }
 
-    objectExtension.pp_getObjectByNameHierarchy = function pp_getObjectByNameHierarchy(name) {
-        return this.pp_getObjectByNameHierarchyBreadth(name);
+    objectExtension.pp_getObjectByNameHierarchy = function pp_getObjectByNameHierarchy(name, index = 0) {
+        return this.pp_getObjectByNameHierarchyBreadth(name, index);
     }
 
-    objectExtension.pp_getObjectByNameHierarchyBreadth = function pp_getObjectByNameHierarchyBreadth(name) {
+    objectExtension.pp_getObjectByNameHierarchyBreadth = function pp_getObjectByNameHierarchyBreadth(name, index = 0) {
         let objects = this.pp_getHierarchyBreadth();
-        return getObjectByNameObjects(objects, name);
+        return getObjectByNameObjects(objects, name, index);
     }
 
-    objectExtension.pp_getObjectByNameHierarchyDepth = function pp_getObjectByNameHierarchyDepth(name) {
+    objectExtension.pp_getObjectByNameHierarchyDepth = function pp_getObjectByNameHierarchyDepth(name, index = 0) {
         let objects = this.pp_getHierarchyDepth();
-        return getObjectByNameObjects(objects, name);
+        return getObjectByNameObjects(objects, name, index);
     }
 
-    objectExtension.pp_getObjectByNameDescendants = function pp_getObjectByNameDescendants(name) {
-        return this.pp_getObjectByNameDescendantsBreadth(name);
+    objectExtension.pp_getObjectByNameDescendants = function pp_getObjectByNameDescendants(name, index = 0) {
+        return this.pp_getObjectByNameDescendantsBreadth(name, index);
     }
 
-    objectExtension.pp_getObjectByNameDescendantsBreadth = function pp_getObjectByNameDescendantsBreadth(name) {
+    objectExtension.pp_getObjectByNameDescendantsBreadth = function pp_getObjectByNameDescendantsBreadth(name, index = 0) {
         let objects = this.pp_getDescendantsBreadth();
-        return getObjectByNameObjects(objects, name);
+        return getObjectByNameObjects(objects, name, index);
     }
 
-    objectExtension.pp_getObjectByNameDescendantsDepth = function pp_getObjectByNameDescendantsDepth(name) {
+    objectExtension.pp_getObjectByNameDescendantsDepth = function pp_getObjectByNameDescendantsDepth(name, index = 0) {
         let objects = this.pp_getDescendantsDepth();
-        return getObjectByNameObjects(objects, name);
+        return getObjectByNameObjects(objects, name, index);
     }
 
-    objectExtension.pp_getObjectByNameChildren = function pp_getObjectByNameChildren(name) {
+    objectExtension.pp_getObjectByNameChildren = function pp_getObjectByNameChildren(name, index = 0) {
         let objects = this.pp_getChildren();
-        return getObjectByNameObjects(objects, name);
+        return getObjectByNameObjects(objects, name, index);
     }
 
     objectExtension.pp_getObjectsByName = function pp_getObjectsByName(name) {
@@ -2569,7 +2592,7 @@ export function initObjectExtensionProtoype() {
         return getObjectsByNameObjects(objects, name);
     }
 
-    // Get By ID
+    // Get Object By ID
 
     objectExtension.pp_getObjectByID = function pp_getObjectByID(id) {
         return this.pp_getObjectByIDHierarchy(id);

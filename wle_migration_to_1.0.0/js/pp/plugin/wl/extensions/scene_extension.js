@@ -80,33 +80,33 @@ export function initSceneExtensionPrototype() {
         return this.pp_getRoot().pp_getComponentsHierarchyDepth(type);
     }
 
-    // Get By Name
+    // Get Object By Name
 
-    sceneExtension.pp_getObjectByName = function pp_getObjectByName(name) {
-        return this.pp_getObjectByNameBreadth(name);
+    sceneExtension.pp_getObjectByName = function pp_getObjectByName(name, index = 0) {
+        return this.pp_getObjectByNameBreadth(name, index);
     }
 
-    sceneExtension.pp_getObjectByNameBreadth = function pp_getObjectByNameBreadth(name) {
-        return this.pp_getRoot().pp_getObjectByNameHierarchyBreadth(name);
+    sceneExtension.pp_getObjectByNameBreadth = function pp_getObjectByNameBreadth(name, index = 0) {
+        return this.pp_getRoot().pp_getObjectByNameHierarchyBreadth(name, index);
     }
 
-    sceneExtension.pp_getObjectByNameDepth = function pp_getObjectByNameDepth(name) {
-        return this.pp_getRoot().pp_getObjectByNameHierarchyDepth(name);
+    sceneExtension.pp_getObjectByNameDepth = function pp_getObjectByNameDepth(name, index = 0) {
+        return this.pp_getRoot().pp_getObjectByNameHierarchyDepth(name, index);
     }
 
-    sceneExtension.pp_getObjectsByName = function pp_getObjectsByName(name) {
-        return this.pp_getObjectsByNameBreadth(name);
+    sceneExtension.pp_getObjectsByName = function pp_getObjectsByName(name, index = 0) {
+        return this.pp_getObjectsByNameBreadth(name, index);
     }
 
-    sceneExtension.pp_getObjectsByNameBreadth = function pp_getObjectsByNameBreadth(name) {
-        return this.pp_getRoot().pp_getObjectsByNameHierarchyBreadth(name);
+    sceneExtension.pp_getObjectsByNameBreadth = function pp_getObjectsByNameBreadth(name, index = 0) {
+        return this.pp_getRoot().pp_getObjectsByNameHierarchyBreadth(name, index);
     }
 
-    sceneExtension.pp_getObjectsByNameDepth = function pp_getObjectsByNameDepth(name) {
-        return this.pp_getRoot().pp_getObjectsByNameHierarchyDepth(name);
+    sceneExtension.pp_getObjectsByNameDepth = function pp_getObjectsByNameDepth(name, index = 0) {
+        return this.pp_getRoot().pp_getObjectsByNameHierarchyDepth(name, index);
     }
 
-    // Get By ID
+    // Get Object By ID
 
     sceneExtension.pp_getObjectByID = function pp_getObjectByID(id) {
         return this.pp_getObjectByIDBreadth(id);
