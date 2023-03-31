@@ -2,6 +2,7 @@ import { Component, Type } from "@wonderlandengine/api";
 import { Timer } from "../../../../cauldron/cauldron/timer";
 import { getLeftGamepad } from "../../../../input/cauldron/input_globals";
 import { GamepadButtonID } from "../../../../input/gamepad/gamepad_buttons";
+import { isDebugEnabled } from "../../../debug_globals";
 import { DebugFunctionsPerformanceAnalysisResultsLogger, DebugFunctionsPerformanceAnalysisResultsLoggerParams } from "../debug_functions_performance_analysis_results_logger";
 import { DebugFunctionsPerformanceAnalyzer, DebugFunctionsPerformanceAnalyzerParams } from "../debug_functions_performance_analyzer";
 
@@ -36,37 +37,45 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
     };
 
     init() {
-        this._myFunctionsPerformanceAnalyzer = null;
-        this._myFunctionsPerformanceAnalysisResultsLogger = null;
+        this._myActive = false;
 
-        this._mySkipFirstUpdate = true;
-        this._myStartTimer = new Timer(this._myDelayStart);
-        if (this._myDelayStart == 0) {
-            this._myStartTimer.end();
-            this._mySkipFirstUpdate = false;
-            this._start();
+        if (isDebugEnabled(this.engine)) {
+            this._myActive = true;
+
+            this._myFunctionsPerformanceAnalyzer = null;
+            this._myFunctionsPerformanceAnalysisResultsLogger = null;
+
+            this._mySkipFirstUpdate = true;
+            this._myStartTimer = new Timer(this._myDelayStart);
+            if (this._myDelayStart == 0) {
+                this._myStartTimer.end();
+                this._mySkipFirstUpdate = false;
+                this._start();
+            }
         }
     }
 
     update(dt) {
-        if (this._mySkipFirstUpdate) {
-            this._mySkipFirstUpdate = false;
-            return;
-        }
-
-        if (this._myStartTimer.isRunning()) {
-            this._myStartTimer.update(dt);
-            if (this._myStartTimer.isDone()) {
-                this._start();
+        if (this._myActive) {
+            if (this._mySkipFirstUpdate) {
+                this._mySkipFirstUpdate = false;
+                return;
             }
-        } else {
-            this._myFunctionsPerformanceAnalysisResultsLogger.update(dt);
-            this._myFunctionsPerformanceAnalyzer.resetResults();
-        }
 
-        if (this._myResetMaxResultsShortcutEnabled) {
-            if (getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressEnd(3)) {
-                this._myFunctionsPerformanceAnalyzer.resetMaxResults();
+            if (this._myStartTimer.isRunning()) {
+                this._myStartTimer.update(dt);
+                if (this._myStartTimer.isDone()) {
+                    this._start();
+                }
+            } else {
+                this._myFunctionsPerformanceAnalysisResultsLogger.update(dt);
+                this._myFunctionsPerformanceAnalyzer.resetResults();
+            }
+
+            if (this._myResetMaxResultsShortcutEnabled) {
+                if (getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressEnd(3)) {
+                    this._myFunctionsPerformanceAnalyzer.resetMaxResults();
+                }
             }
         }
     }

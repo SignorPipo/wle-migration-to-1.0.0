@@ -13,7 +13,15 @@ export function isReferenceSpaceLocalFloor(engine = getMainEngine()) {
 }
 
 export function getReferenceSpaceType(engine = getMainEngine()) {
-    return getWebXR(engine).refSpace;
+    let refSpace = "local";
+
+    try {
+        refSpace = getWebXR(engine).refSpace;;
+    } catch (error) {
+
+    }
+
+    return refSpace;
 }
 
 export function getWebXR(engine = getMainEngine()) {

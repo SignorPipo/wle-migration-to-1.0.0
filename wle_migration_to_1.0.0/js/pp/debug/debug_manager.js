@@ -1,4 +1,5 @@
 import { getMainEngine } from "../cauldron/wl/engine_globals";
+import { isDebugEnabled } from "./debug_globals";
 import { DebugVisualManager } from "./debug_visual_manager";
 
 export class DebugManager {
@@ -17,6 +18,7 @@ export class DebugManager {
     }
 
     update(dt) {
+        this._myDebugVisualManager.setActive(isDebugEnabled(this._myEngine));
         this._myDebugVisualManager.update(dt);
     }
 }
