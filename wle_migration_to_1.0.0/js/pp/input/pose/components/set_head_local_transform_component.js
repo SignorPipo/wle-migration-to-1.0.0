@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { BasePoseParams } from "../base_pose";
@@ -7,9 +7,9 @@ import { HeadPose } from "../head_pose";
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {
-        _myCameraNonVR: { type: Type.Object },
-        _myFixForward: { type: Type.Bool, default: true },
-        _myUpdateOnViewReset: { type: Type.Bool, default: true }
+        _myCameraNonVR: Property.object(),
+        _myFixForward: Property.bool(true),
+        _myUpdateOnViewReset: Property.bool(true)
     };
 
     init() {

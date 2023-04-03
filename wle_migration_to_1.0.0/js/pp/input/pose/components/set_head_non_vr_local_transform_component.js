@@ -1,11 +1,11 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 
 export class SetHeadNonVRLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-non-vr-local-transform";
     static Properties = {
-        _myCameraNonVR: { type: Type.Object },
-        _myFixForward: { type: Type.Bool, default: true }
+        _myCameraNonVR: Property.object(),
+        _myFixForward: Property.bool(true)
     };
 
     start() {

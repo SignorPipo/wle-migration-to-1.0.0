@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { isToolEnabled } from "../../cauldron/tool_globals";
 import { ConsoleVRWidget, ConsoleVRWidgetAdditionalSetup } from "../console_vr_widget";
@@ -7,11 +7,11 @@ import { InitConsoleVRComponent } from "./init_console_vr_component";
 export class ConsoleVRToolComponent extends Component {
     static TypeName = "pp-console-vr-tool";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["None", "Left", "Right"], default: "None" },
-        _myOverrideBrowserConsole: { type: Type.Bool, default: true },
-        _myShowOnStart: { type: Type.Bool, default: false },
-        _myShowVisibilityButton: { type: Type.Bool, default: false },
-        _myPulseOnNewMessage: { type: Type.Enum, values: ["Never", "Always", "When Hidden"], default: "Never" }
+        _myHandedness: Property.enum(["None", "Left", "Right"], "None"),
+        _myOverrideBrowserConsole: Property.bool(true),
+        _myShowOnStart: Property.bool(false),
+        _myShowVisibilityButton: Property.bool(false),
+        _myPulseOnNewMessage: Property.enum(["Never", "Always", "When Hidden"], "Never")
     };
 
     init() {

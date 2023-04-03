@@ -1,4 +1,4 @@
-import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
+import { Component, Property, PhysXComponent } from "@wonderlandengine/api";
 import { getAudioManager } from "../pp/index";
 import { PhysicsCollisionCollector } from "../pp/index";
 import { GrabbableComponent } from "../pp/index";

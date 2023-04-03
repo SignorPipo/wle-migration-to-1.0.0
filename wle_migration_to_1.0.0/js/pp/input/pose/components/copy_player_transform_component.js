@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getPlayerObjects } from "../../../pp/player_objects_global";
 
 export class CopyPlayerTransformComponent extends Component {

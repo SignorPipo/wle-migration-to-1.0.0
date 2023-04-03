@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getPlayerObjects, hasPlayerObjects, removePlayerObjects, setPlayerObjects } from "../player_objects_global";
 import { PlayerObjects } from "../player_objects";
 import { Handedness } from "../../input/cauldron/input_types";
@@ -6,16 +6,16 @@ import { Handedness } from "../../input/cauldron/input_types";
 export class GetPlayerObjectsComponent extends Component {
     static TypeName = "pp-get-player-objects";
     static Properties = {
-        _myPlayer: { type: Type.Object },
-        _myPlayerPivot: { type: Type.Object },   // If u don't have a pivot under the player you set this to null, by default will be the same as the player
-        _myCameraNonVR: { type: Type.Object },
-        _myEyeLeft: { type: Type.Object },
-        _myEyeRight: { type: Type.Object },
-        _myHead: { type: Type.Object },
-        _myHeadNonVR: { type: Type.Object },
-        _myHeadVR: { type: Type.Object },
-        _myHandLeft: { type: Type.Object },
-        _myHandRight: { type: Type.Object }
+        _myPlayer: Property.object(),
+        _myPlayerPivot: Property.object(),   // If u don't have a pivot under the player you set this to null, by default will be the same as the player
+        _myCameraNonVR: Property.object(),
+        _myEyeLeft: Property.object(),
+        _myEyeRight: Property.object(),
+        _myHead: Property.object(),
+        _myHeadNonVR: Property.object(),
+        _myHeadVR: Property.object(),
+        _myHandLeft: Property.object(),
+        _myHandRight: Property.object()
     };
 
     init() {

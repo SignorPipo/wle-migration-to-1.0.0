@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { Timer } from "../pp/index";
 import { VisualMesh, VisualMeshParams } from "../pp/index";
 import { EasingFunction } from "../pp/index";
@@ -8,9 +8,9 @@ import { getPlayerObjects } from "../pp/index";
 export class FadeViewComponent extends Component {
     static TypeName = "fade-view";
     static Properties = {
-        _myColor: { type: Type.String, default: "0, 0, 0" },
-        _myTimeToFadeIn: { type: Type.Float, default: 0 },
-        _myStartDelay: { type: Type.Float, default: 0 }
+        _myColor: Property.string("0, 0, 0"),
+        _myTimeToFadeIn: Property.float(0),
+        _myStartDelay: Property.float(0)
     };
 
     start() {

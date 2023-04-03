@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { AddPPToWindowComponent } from "./add_pp_to_window_component";
 import { AudioManagerComponent } from "../../audio/components/audio_manager_component";
 import { VisualManagerComponent } from "../../cauldron/visual/components/visual_manager_component";
@@ -14,11 +14,11 @@ import { InitEasyTuneVariablesComponent } from "../../tool/easy_tune/components/
 export class PPGatewayComponent extends Component {
     static TypeName = "pp-gateway";
     static Properties = {
-        _myEnableDebugs: { type: Type.Bool, default: true },
-        _myEnableTools: { type: Type.Bool, default: true },
-        _myAddPPToWindow: { type: Type.Bool, default: true },
-        _myAddWLToWindow: { type: Type.Bool, default: true },
-        _myInitEasyTuneVariables: { type: Type.Bool, default: true },
+        _myEnableDebugs: Property.bool(true),
+        _myEnableTools: Property.bool(true),
+        _myAddPPToWindow: Property.bool(true),
+        _myAddWLToWindow: Property.bool(true),
+        _myInitEasyTuneVariables: Property.bool(true),
         ...InputManagerComponent.Properties,
         ...AudioManagerComponent.Properties,
         ...VisualManagerComponent.Properties,

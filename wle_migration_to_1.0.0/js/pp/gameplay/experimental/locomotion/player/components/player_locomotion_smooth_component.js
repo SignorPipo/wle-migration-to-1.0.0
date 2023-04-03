@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { PlayerLocomotionSmooth } from "../player_locomotion_smooth";
 
 export class PlayerLocomotionSmoothComponent extends Component {

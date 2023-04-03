@@ -1,11 +1,11 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { ConsoleVR } from "../console_vr";
 import { getConsoleVR, hasConsoleVR, removeConsoleVR, setConsoleVR } from "../console_vr_global";
 
 export class InitConsoleVRComponent extends Component {
     static TypeName = "pp-init-console-vr";
     static Properties = {
-        _myInit: { type: Type.Bool, default: true }
+        _myInit: Property.bool(true)
     };
 
     init() {

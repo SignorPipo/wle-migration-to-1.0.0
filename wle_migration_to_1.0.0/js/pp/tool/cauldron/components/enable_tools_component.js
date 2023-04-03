@@ -1,10 +1,10 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { hasToolEnabled, isToolEnabled, removeToolEnabled, setToolEnabled } from "../tool_globals";
 
 export class EnableToolsComponent extends Component {
     static TypeName = "pp-enable-tools";
     static Properties = {
-        _myEnable: { type: Type.Bool, default: true }
+        _myEnable: Property.bool(true)
     };
 
     init() {

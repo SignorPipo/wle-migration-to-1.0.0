@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getPlayerObjects } from "../../../pp/player_objects_global";
 import { ClassicGamepadCore } from "../../gamepad/gamepad_cores/classic_gamepad_core";
 import { KeyboardGamepadCore } from "../../gamepad/gamepad_cores/keyboard_gamepad_core";
@@ -11,9 +11,9 @@ import { Handedness } from "../input_types";
 export class InputManagerComponent extends Component {
     static TypeName = "pp-input-manager";
     static Properties = {
-        _myGamepadFixForward: { type: Type.Bool, default: true },
-        _myMousePreventContextMenu: { type: Type.Bool, default: true },
-        _myMousePreventMiddleButtonScroll: { type: Type.Bool, default: true }
+        _myGamepadFixForward: Property.bool(true),
+        _myMousePreventContextMenu: Property.bool(true),
+        _myMousePreventMiddleButtonScroll: Property.bool(true)
     };
 
     init() {

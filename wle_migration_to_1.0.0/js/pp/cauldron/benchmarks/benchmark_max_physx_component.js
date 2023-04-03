@@ -1,4 +1,4 @@
-import { Component, PhysXComponent, Type } from "@wonderlandengine/api";
+import { Component, PhysXComponent, Property } from "@wonderlandengine/api";
 import { getDebugVisualManager } from "../../debug/debug_globals";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { Timer } from "../cauldron/timer";
@@ -10,24 +10,24 @@ import { PhysicsUtils } from "../physics/physics_utils";
 export class BenchmarkMaxPhysXComponent extends Component {
     static TypeName = "pp-benchmark-max-physx";
     static Properties = {
-        _myStaticDomeSize: { type: Type.Float, default: 40 },
-        _myStaticPhysXCount: { type: Type.Int, default: 1000 },
-        _myDynamicDomeSize: { type: Type.Float, default: 80 },
-        _myDynamicPhysXCount: { type: Type.Int, default: 250 },
-        _myKinematicDomeSize: { type: Type.Float, default: 120 },
-        _myKinematicPhysXCount: { type: Type.Int, default: 250 },
-        _myRaycastCount: { type: Type.Int, default: 100 },
-        _myVisualizeRaycast: { type: Type.Bool, default: false },
-        _myVisualizeRaycastDelay: { type: Type.Float, default: 0.5 },
+        _myStaticDomeSize: Property.float(40),
+        _myStaticPhysXCount: Property.int(1000),
+        _myDynamicDomeSize: Property.float(80),
+        _myDynamicPhysXCount: Property.int(250),
+        _myKinematicDomeSize: Property.float(120),
+        _myKinematicPhysXCount: Property.int(250),
+        _myRaycastCount: Property.int(100),
+        _myVisualizeRaycast: Property.bool(false),
+        _myVisualizeRaycastDelay: Property.float(0.5),
 
         // You can use this to test with convex mesh, 
         // but u first need to add a physx with a convex mesh to the scene and read the shapeData index on the component to set it as _myShapeIndex
-        _myUseConvexMesh: { type: Type.Bool, default: false },
-        _myShapeIndex: { type: Type.Int, default: 0 },
-        _myShapeScaleMultiplier: { type: Type.Float, default: 1 }, // Used to adjust the scale of the convex mesh if too big or small based on how u imported it
+        _myUseConvexMesh: Property.bool(false),
+        _myShapeIndex: Property.int(0),
+        _myShapeScaleMultiplier: Property.float(1), // Used to adjust the scale of the convex mesh if too big or small based on how u imported it
 
-        _myLogActive: { type: Type.Bool, default: true },
-        _myClearConsoleBeforeLog: { type: Type.Bool, default: true }
+        _myLogActive: Property.bool(true),
+        _myClearConsoleBeforeLog: Property.bool(true)
     };
 
     start() {

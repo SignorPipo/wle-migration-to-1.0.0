@@ -1,4 +1,4 @@
-import { Collider, CollisionComponent, Component, Type } from "@wonderlandengine/api";
+import { Collider, CollisionComponent, Component, Property } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
@@ -9,11 +9,11 @@ import { InputUtils } from "../input_utils";
 export class FingerCursorComponent extends Component {
     static TypeName = "pp-finger-cursor";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myMultipleClicksEnabled: { type: Type.Bool, default: true },
-        _myCollisionGroup: { type: Type.Int, default: 1 },
-        _myCollisionSize: { type: Type.Float, default: 0.0125 },
-        _myCursorObject: { type: Type.Object, default: null }
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _myMultipleClicksEnabled: Property.bool(true),
+        _myCollisionGroup: Property.int(1),
+        _myCollisionSize: Property.float(0.0125),
+        _myCursorObject: Property.object(null)
     };
 
     init() {

@@ -1,10 +1,10 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { Timer } from "../pp/index";
 
 export class GrabbableSpawnerComponent extends Component {
     static TypeName = "grabbable-spawner";
     static Properties = {
-        _myPrototypesContainer: { type: Type.Object }
+        _myPrototypesContainer: Property.object()
     };
 
     start() {

@@ -1,13 +1,13 @@
-import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
+import { Component, Property, PhysXComponent } from "@wonderlandengine/api";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 
 export class GrabbableComponent extends Component {
     static TypeName = "pp-grabbable";
     static Properties = {
-        _myThrowLinearVelocityMultiplier: { type: Type.Float, default: 1 },
-        _myThrowAngularVelocityMultiplier: { type: Type.Float, default: 1 },
-        _myKinematicValueOnRelease: { type: Type.Enum, values: ["True", "False", "Own"], default: "False" },
-        _myParentOnRelease: { type: Type.Enum, values: ["Root", "Own"], default: "Own" }
+        _myThrowLinearVelocityMultiplier: Property.float(1),
+        _myThrowAngularVelocityMultiplier: Property.float(1),
+        _myKinematicValueOnRelease: Property.enum(["True", "False", "Own"], "False"),
+        _myParentOnRelease: Property.enum(["Root", "Own"], "Own")
     };
 
     init() {

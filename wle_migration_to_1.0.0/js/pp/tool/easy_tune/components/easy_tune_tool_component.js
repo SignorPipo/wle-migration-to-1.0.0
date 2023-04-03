@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { isToolEnabled } from "../../cauldron/tool_globals";
 import { getEasyTuneVariables } from "../easy_tune_globals";
@@ -9,15 +9,15 @@ import { InitEasyTuneVariablesComponent } from "./init_easy_tune_variables_compo
 export class EasyTuneToolComponent extends Component {
     static TypeName = "pp-easy-tune-tool";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["None", "Left", "Right"], default: "None" },
-        _myShowOnStart: { type: Type.Bool, default: false },
-        _myShowVisibilityButton: { type: Type.Bool, default: false },
-        _myGamepadScrollVariableEnabled: { type: Type.Bool, default: true },
-        _myVariablesImportExportButtonsEnabled: { type: Type.Bool, default: false },
-        _myVariablesImportURL: { type: Type.String, default: "" },   // The URL can contain parameters inside brackets, like {param}
-        _myVariablesExportURL: { type: Type.String, default: "" },   // Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
-        _myImportVariablesOnStart: { type: Type.Bool, default: false },
-        _myResetVariablesDefaultValueOnImport: { type: Type.Bool, default: false }
+        _myHandedness: Property.enum(["None", "Left", "Right"], "None"),
+        _myShowOnStart: Property.bool(false),
+        _myShowVisibilityButton: Property.bool(false),
+        _myGamepadScrollVariableEnabled: Property.bool(true),
+        _myVariablesImportExportButtonsEnabled: Property.bool(false),
+        _myVariablesImportURL: Property.string(""),   // The URL can contain parameters inside brackets, like {param}
+        _myVariablesExportURL: Property.string(""),   // Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
+        _myImportVariablesOnStart: Property.bool(false),
+        _myResetVariablesDefaultValueOnImport: Property.bool(false)
     };
 
     init() {

@@ -1,10 +1,10 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { hasDebugEnabled, isDebugEnabled, removeDebugEnabled, setDebugEnabled } from "../debug_globals";
 
 export class EnableDebugsComponent extends Component {
     static TypeName = "pp-enable-debugs";
     static Properties = {
-        _myEnable: { type: Type.Bool, default: true }
+        _myEnable: Property.bool(true),
     };
 
     init() {

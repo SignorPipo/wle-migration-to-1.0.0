@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { InputUtils } from "../../cauldron/input_utils";
 import { HandPose, HandPoseParams } from "../hand_pose";
@@ -6,9 +6,9 @@ import { HandPose, HandPoseParams } from "../hand_pose";
 export class SetHandLocalTransformComponent extends Component {
     static TypeName = "pp-set-hand-local-transform";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myFixForward: { type: Type.Bool, default: true },
-        _myUpdateOnViewReset: { type: Type.Bool, default: true }
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _myFixForward: Property.bool(true),
+        _myUpdateOnViewReset: Property.bool(true)
     };
 
     init() {

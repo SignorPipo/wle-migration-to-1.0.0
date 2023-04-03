@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getLeftGamepad, getRightGamepad } from "../../cauldron/input_globals";
 import { Handedness } from "../../cauldron/input_types";
 import { GamepadButtonID } from "../gamepad_buttons";
@@ -9,72 +9,72 @@ import { VirtualGamepadParams } from "./virtual_gamepad_params";
 export class VirtualGamepadComponent extends Component {
     static TypeName = "pp-virtual-gamepad";
     static Properties = {
-        _myShowOnDesktop: { type: Type.Bool, default: false },   // You may have to enable headset too
-        _myShowOnMobile: { type: Type.Bool, default: true },
-        _myShowOnHeadset: { type: Type.Bool, default: false },   // Not 100% reliable, this is true if the device supports VR and it is Desktop
-        _myAddToUniversalGamepad: { type: Type.Bool, default: true },
-        _myOpacity: { type: Type.Float, default: 0.5 },
-        _myIconColor: { type: Type.String, default: "#e0e0e0" },
-        _myBackgroundColor: { type: Type.String, default: "#616161" },
-        _myInterfaceScale: { type: Type.Float, default: 1 },
-        _myMarginScale: { type: Type.Float, default: 1 },
+        _myShowOnDesktop: Property.bool(false),   // You may have to enable headset too
+        _myShowOnMobile: Property.bool(true),
+        _myShowOnHeadset: Property.bool(false),   // Not 100% reliable, this is true if the device supports VR and it is Desktop
+        _myAddToUniversalGamepad: Property.bool(true),
+        _myOpacity: Property.float(0.5),
+        _myIconColor: Property.string("#e0e0e0"),
+        _myBackgroundColor: Property.string("#616161"),
+        _myInterfaceScale: Property.float(1),
+        _myMarginScale: Property.float(1),
 
-        ADVANCED_PARAMS_BELOW: { type: Type.String, default: "" },
+        ADVANCED_PARAMS_BELOW: Property.string(""),
 
-        _myLabelFontSize: { type: Type.Float, default: 2 },
-        _myLabelFontFamily: { type: Type.String, default: "sans-serif" },
-        _myLabelFontWeight: { type: Type.String, default: "bold" },
-        _myImagePressedBrightness: { type: Type.Float, default: 0.5 },
+        _myLabelFontSize: Property.float(2),
+        _myLabelFontFamily: Property.string("sans-serif"),
+        _myLabelFontWeight: Property.string("bold"),
+        _myImagePressedBrightness: Property.float(0.5),
 
-        _myLeftSelectButtonVisible: { type: Type.Bool, default: true },
-        _myLeftSelectButtonOrderIndex: { type: Type.Int, default: 1 },
-        _myLeftSelectButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Frame" },
-        _myLeftSelectButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myLeftSelectButtonVisible: Property.bool(true),
+        _myLeftSelectButtonOrderIndex: Property.int(1),
+        _myLeftSelectButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Frame"),
+        _myLeftSelectButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myLeftSqueezeButtonVisible: { type: Type.Bool, default: true },
-        _myLeftSqueezeButtonOrderIndex: { type: Type.Int, default: 0 },
-        _myLeftSqueezeButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Square" },
-        _myLeftSqueezeButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myLeftSqueezeButtonVisible: Property.bool(true),
+        _myLeftSqueezeButtonOrderIndex: Property.int(0),
+        _myLeftSqueezeButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Square"),
+        _myLeftSqueezeButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myLeftThumbstickButtonVisible: { type: Type.Bool, default: true },
-        _myLeftThumbstickButtonOrderIndex: { type: Type.Int, default: 4 },
-        _myLeftThumbstickButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Dot" },
-        _myLeftThumbstickButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myLeftThumbstickButtonVisible: Property.bool(true),
+        _myLeftThumbstickButtonOrderIndex: Property.int(4),
+        _myLeftThumbstickButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Dot"),
+        _myLeftThumbstickButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myLeftTopButtonVisible: { type: Type.Bool, default: true },
-        _myLeftTopButtonOrderIndex: { type: Type.Int, default: 2 },
-        _myLeftTopButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Circle" },
-        _myLeftTopButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myLeftTopButtonVisible: Property.bool(true),
+        _myLeftTopButtonOrderIndex: Property.int(2),
+        _myLeftTopButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Circle"),
+        _myLeftTopButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myLeftBottomButtonVisible: { type: Type.Bool, default: true },
-        _myLeftBottomButtonOrderIndex: { type: Type.Int, default: 3 },
-        _myLeftBottomButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Ring" },
-        _myLeftBottomButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myLeftBottomButtonVisible: Property.bool(true),
+        _myLeftBottomButtonOrderIndex: Property.int(3),
+        _myLeftBottomButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Ring"),
+        _myLeftBottomButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myRightSelectButtonVisible: { type: Type.Bool, default: true },
-        _myRightSelectButtonOrderIndex: { type: Type.Int, default: 1 },
-        _myRightSelectButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Frame" },
-        _myRightSelectButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myRightSelectButtonVisible: Property.bool(true),
+        _myRightSelectButtonOrderIndex: Property.int(1),
+        _myRightSelectButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Frame"),
+        _myRightSelectButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myRightSqueezeButtonVisible: { type: Type.Bool, default: true },
-        _myRightSqueezeButtonOrderIndex: { type: Type.Int, default: 0 },
-        _myRightSqueezeButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Square" },
-        _myRightSqueezeButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myRightSqueezeButtonVisible: Property.bool(true),
+        _myRightSqueezeButtonOrderIndex: Property.int(0),
+        _myRightSqueezeButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Square"),
+        _myRightSqueezeButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myRightThumbstickButtonVisible: { type: Type.Bool, default: true },
-        _myRightThumbstickButtonOrderIndex: { type: Type.Int, default: 4 },
-        _myRightThumbstickButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Dot" },
-        _myRightThumbstickButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myRightThumbstickButtonVisible: Property.bool(true),
+        _myRightThumbstickButtonOrderIndex: Property.int(4),
+        _myRightThumbstickButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Dot"),
+        _myRightThumbstickButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myRightTopButtonVisible: { type: Type.Bool, default: true },
-        _myRightTopButtonOrderIndex: { type: Type.Int, default: 2 },
-        _myRightTopButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Circle" },
-        _myRightTopButtonIconLabelOrImageUrl: { type: Type.String, default: "" },
+        _myRightTopButtonVisible: Property.bool(true),
+        _myRightTopButtonOrderIndex: Property.int(2),
+        _myRightTopButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Circle"),
+        _myRightTopButtonIconLabelOrImageUrl: Property.string(""),
 
-        _myRightBottomButtonVisible: { type: Type.Bool, default: true },
-        _myRightBottomButtonOrderIndex: { type: Type.Int, default: 3 },
-        _myRightBottomButtonIconType: { type: Type.Enum, values: ["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], default: "Ring" },
-        _myRightBottomButtonIconLabelOrImageUrl: { type: Type.String, default: "" }
+        _myRightBottomButtonVisible: Property.bool(true),
+        _myRightBottomButtonOrderIndex: Property.int(3),
+        _myRightBottomButtonIconType: Property.enum(["None", "Label", "Image", "Dot", "Circle", "Square", "Ring", "Frame"], "Ring"),
+        _myRightBottomButtonIconLabelOrImageUrl: Property.string("")
     };
 
     start() {

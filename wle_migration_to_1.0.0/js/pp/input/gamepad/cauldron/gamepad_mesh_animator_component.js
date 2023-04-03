@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getLeftGamepad, getRightGamepad } from "../../cauldron/input_globals";
 import { HandednessIndex } from "../../cauldron/input_types";
@@ -7,20 +7,20 @@ import { GamepadAxesEvent, GamepadAxesID, GamepadButtonEvent, GamepadButtonID } 
 export class GamepadMeshAnimatorComponent extends Component {
     static TypeName = "pp-gamepad-mesh-animator";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _mySelect: { type: Type.Object, default: null },
-        _mySqueeze: { type: Type.Object, default: null },
-        _myThumbstick: { type: Type.Object, default: null },
-        _myTopButton: { type: Type.Object, default: null },
-        _myBottomButton: { type: Type.Object, default: null },
-        _mySelectRotateAngle: { type: Type.Float, default: 15 },
-        _mySqueezeRotateAngle: { type: Type.Float, default: 11 },
-        _myThumbstickRotateAngle: { type: Type.Float, default: 15 },
-        _myThumbstickPressOffset: { type: Type.Float, default: 0.000625 },
-        _myTopButtonPressOffset: { type: Type.Float, default: 0.0015 },
-        _myBottomButtonPressOffset: { type: Type.Float, default: 0.0015 },
-        _myUsePressForSqueeze: { type: Type.Bool, default: false },
-        _mySqueezePressOffset: { type: Type.Float, default: 0.0015 }
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _mySelect: Property.object(null),
+        _mySqueeze: Property.object(null),
+        _myThumbstick: Property.object(null),
+        _myTopButton: Property.object(null),
+        _myBottomButton: Property.object(null),
+        _mySelectRotateAngle: Property.float(15),
+        _mySqueezeRotateAngle: Property.float(11),
+        _myThumbstickRotateAngle: Property.float(15),
+        _myThumbstickPressOffset: Property.float(0.000625),
+        _myTopButtonPressOffset: Property.float(0.0015),
+        _myBottomButtonPressOffset: Property.float(0.0015),
+        _myUsePressForSqueeze: Property.bool(false),
+        _mySqueezePressOffset: Property.float(0.0015)
     };
 
     start() {

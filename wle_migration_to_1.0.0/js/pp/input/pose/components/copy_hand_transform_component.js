@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getPlayerObjects } from "../../../pp/player_objects_global";
 import { Handedness } from "../../cauldron/input_types";
 import { InputUtils } from "../../cauldron/input_utils";
@@ -6,7 +6,7 @@ import { InputUtils } from "../../cauldron/input_utils";
 export class CopyHandTransformComponent extends Component {
     static TypeName = "pp-copy-hand-transform";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" }
+        _myHandedness: Property.enum(["Left", "Right"], "Left")
     };
 
     init() {

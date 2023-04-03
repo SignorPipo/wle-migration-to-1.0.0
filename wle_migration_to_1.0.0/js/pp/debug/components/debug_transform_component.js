@@ -1,12 +1,12 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { VisualTransform, VisualTransformParams } from "../../cauldron/visual/elements/visual_transform";
 import { isDebugEnabled } from "../debug_globals";
 
 export class DebugTransformComponent extends Component {
     static TypeName = "pp-debug-transform";
     static Properties = {
-        _myLength: { type: Type.Float, default: 0.1 },
-        _myThickness: { type: Type.Float, default: 0.005 }
+        _myLength: Property.float(0.1),
+        _myThickness: Property.float(0.005)
     };
 
     start() {

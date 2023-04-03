@@ -1,12 +1,12 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 
 export class SetPlayerHeightComponent extends Component {
     static TypeName = "pp-set-player-height";
     static Properties = {
-        _myEyesHeight: { type: Type.Float, default: 1.65 },
-        _mySetOnlyOnStart: { type: Type.Bool, default: false }
+        _myEyesHeight: Property.float(1.65),
+        _mySetOnlyOnStart: Property.bool(false)
     };
 
     start() {

@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { Timer } from "../pp/index";
 import { vec3_create } from "../pp/index";
 import { EasingFunction } from "../pp/index";
@@ -6,8 +6,8 @@ import { EasingFunction } from "../pp/index";
 export class ScaleOnSpawnComponent extends Component {
     static TypeName = "scale-on-spawn";
     static Properties = {
-        _myStartDelay: { type: Type.Float, default: 0.0 },
-        _myScaleDuration: { type: Type.Float, default: 0.0 }
+        _myStartDelay: Property.float(0.0),
+        _myScaleDuration: Property.float(0.0)
     };
 
     init() {

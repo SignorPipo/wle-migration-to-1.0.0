@@ -1,4 +1,4 @@
-import { Component, Type, PhysXComponent } from "@wonderlandengine/api";
+import { Component, Property, PhysXComponent } from "@wonderlandengine/api";
 import { PhysicsCollisionCollector } from "../../cauldron/physics/physics_collision_collector";
 import { getDebugVisualManager } from "../../debug/debug_globals";
 import { getLeftGamepad, getRightGamepad } from "../../input/cauldron/input_globals";
@@ -12,20 +12,20 @@ import { GrabbableComponent } from "./grabbable_component";
 export class GrabberHandComponent extends Component {
     static TypeName = "pp-grabber-hand";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myGrabButton: { type: Type.Enum, values: ["Select", "Squeeze", "Both", "Both Exclusive"], default: "Squeeze" }, // @"Both Exclusive" means u can use both buttons but you have to use the same button you grabbed with to throw
-        _mySnapOnPivot: { type: Type.Bool, default: false },
-        _myMaxNumberOfObjects: { type: Type.Int, default: 1 }, // How many objects you can grab at the same time
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _myGrabButton: Property.enum(["Select", "Squeeze", "Both", "Both Exclusive"], "Squeeze"), // @"Both Exclusive" means u can use both buttons but you have to use the same button you grabbed with to throw
+        _mySnapOnPivot: Property.bool(false),
+        _myMaxNumberOfObjects: Property.int(1), // How many objects you can grab at the same time
 
         // ADVANCED SETTINGS
-        _myThrowVelocitySource: { type: Type.Enum, values: ["Hand", "Grabbable"], default: "Hand" },
-        _myThrowLinearVelocityMultiplier: { type: Type.Float, default: 1 }, // Multiply the overall throw speed, so slow throws will be multiplied too
-        _myThrowMaxLinearSpeed: { type: Type.Float, default: 15 },
-        _myThrowAngularVelocityMultiplier: { type: Type.Float, default: 0.5 },
-        _myThrowMaxAngularSpeed: { type: Type.Float, default: 1080 }, // @Degrees
-        _myThrowLinearVelocityBoost: { type: Type.Float, default: 1.75 },   // This boost is applied from 0% to 100% based on how fast you throw, so slow throws are not affected
-        _myThrowLinearVelocityBoostMinSpeedThreshold: { type: Type.Float, default: 0.6 },   // 0% boost is applied if plain throw speed is under this value
-        _myThrowLinearVelocityBoostMaxSpeedThreshold: { type: Type.Float, default: 2.5 },   // 100% boost is applied if plain throw speed is over this value
+        _myThrowVelocitySource: Property.enum(["Hand", "Grabbable"], "Hand"),
+        _myThrowLinearVelocityMultiplier: Property.float(1), // Multiply the overall throw speed, so slow throws will be multiplied too
+        _myThrowMaxLinearSpeed: Property.float(15),
+        _myThrowAngularVelocityMultiplier: Property.float(0.5),
+        _myThrowMaxAngularSpeed: Property.float(1080), // @Degrees
+        _myThrowLinearVelocityBoost: Property.float(1.75),   // This boost is applied from 0% to 100% based on how fast you throw, so slow throws are not affected
+        _myThrowLinearVelocityBoostMinSpeedThreshold: Property.float(0.6),   // 0% boost is applied if plain throw speed is under this value
+        _myThrowLinearVelocityBoostMaxSpeedThreshold: Property.float(2.5),   // 100% boost is applied if plain throw speed is over this value
     };
 
     init() {

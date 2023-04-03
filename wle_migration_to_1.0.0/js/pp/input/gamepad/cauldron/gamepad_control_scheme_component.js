@@ -1,4 +1,4 @@
-import { Component, Type, MeshComponent, TextComponent, Alignment, Justification } from "@wonderlandengine/api";
+import { Component, Property, MeshComponent, TextComponent, Alignment, Justification } from "@wonderlandengine/api";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { Handedness } from "../../cauldron/input_types";
@@ -7,30 +7,30 @@ import { InputUtils } from "../../cauldron/input_utils";
 export class GamepadControlSchemeComponent extends Component {
     static TypeName = "pp-gamepad-control-scheme";
     static Properties = {
-        _myShowOnStart: { type: Type.Bool, default: true },
+        _myShowOnStart: Property.bool(true),
 
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
 
-        _mySelectText: { type: Type.String, default: "" },
-        _mySqueezeText: { type: Type.String, default: "" },
-        _myThumbstickText: { type: Type.String, default: "" },
-        _myBottomButtonText: { type: Type.String, default: "" },
-        _myTopButtonText: { type: Type.String, default: "" },
+        _mySelectText: Property.string(""),
+        _mySqueezeText: Property.string(""),
+        _myThumbstickText: Property.string(""),
+        _myBottomButtonText: Property.string(""),
+        _myTopButtonText: Property.string(""),
 
-        _mySelect: { type: Type.Object, default: null },
-        _mySqueeze: { type: Type.Object, default: null },
-        _myThumbstick: { type: Type.Object, default: null },
-        _myBottomButton: { type: Type.Object, default: null },
-        _myTopButton: { type: Type.Object, default: null },
+        _mySelect: Property.object(null),
+        _mySqueeze: Property.object(null),
+        _myThumbstick: Property.object(null),
+        _myBottomButton: Property.object(null),
+        _myTopButton: Property.object(null),
 
-        _myTextScaleMultiplier: { type: Type.Float, default: 1 },
-        _myTextOffsetMultiplier: { type: Type.Float, default: 1 },
-        _myLineLengthMultiplier: { type: Type.Float, default: 1 },
-        _myLineThicknessMultiplier: { type: Type.Float, default: 1 },
-        _myDistanceFromButtonsMultiplier: { type: Type.Float, default: 1 },
+        _myTextScaleMultiplier: Property.float(1),
+        _myTextOffsetMultiplier: Property.float(1),
+        _myLineLengthMultiplier: Property.float(1),
+        _myLineThicknessMultiplier: Property.float(1),
+        _myDistanceFromButtonsMultiplier: Property.float(1),
 
-        _myTextMaterial: { type: Type.Material },
-        _myLineMaterial: { type: Type.Material }
+        _myTextMaterial: Property.material(),
+        _myLineMaterial: Property.material()
     };
 
     start() {

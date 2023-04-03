@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { GrabberHandComponent } from "../../../../gameplay/grab_throw/grabber_hand_component";
 import { isToolEnabled } from "../../../cauldron/tool_globals";
 import { getEasyTuneTarget, removeEasyTuneTarget, setEasyTuneTarget } from "../../easy_tune_globals";

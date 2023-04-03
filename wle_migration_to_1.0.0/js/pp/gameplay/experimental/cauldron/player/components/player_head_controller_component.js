@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { PlayerHeadController } from "../player_head_controller";
 
 export class PlayerHeadControllerComponent extends Component {

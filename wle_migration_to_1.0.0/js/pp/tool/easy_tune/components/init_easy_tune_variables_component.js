@@ -1,11 +1,11 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getEasyTuneVariables, hasEasyTuneVariables, removeEasyTuneVariables, setEasyTuneVariables } from "../easy_tune_globals";
 import { EasyTuneVariables } from "../easy_tune_variables";
 
 export class InitEasyTuneVariablesComponent extends Component {
     static TypeName = "pp-init-easy-tune-variables";
     static Properties = {
-        _myInit: { type: Type.Bool, default: true }
+        _myInit: Property.bool(true)
     };
 
     init() {

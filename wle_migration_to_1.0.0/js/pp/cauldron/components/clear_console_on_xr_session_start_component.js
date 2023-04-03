@@ -1,19 +1,15 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { XRUtils } from "../utils/xr_utils";
 
 export class ClearConsoleOnXRSessionStartComponent extends Component {
     static TypeName = "pp-clear-console-on-xr-session-start";
     static Properties = {
-        _myClear: { type: Type.Bool, default: true },
-        _myFirstTimeOnly: { type: Type.Bool, default: true }
+        _myFirstTimeOnly: Property.bool(true)
     };
 
     start() {
-        if (this._myClear) {
-            this._myFirstTime = true;
-
-            XRUtils.registerSessionStartEventListener(this, this._onXRSessionStart.bind(this), this.engine);
-        }
+        this._myFirstTime = true;
+        XRUtils.registerSessionStartEventListener(this, this._onXRSessionStart.bind(this), this.engine);
     }
 
     _onXRSessionStart() {

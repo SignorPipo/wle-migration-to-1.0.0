@@ -1,4 +1,4 @@
-import { Component, MeshComponent, Type, ViewComponent } from "@wonderlandengine/api";
+import { Component, MeshComponent, Property, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { FingerCursorComponent } from "../../../input/cauldron/components/finger_cursor_component";
@@ -11,10 +11,10 @@ import { getPlayerObjects } from "../../../pp/player_objects_global";
 export class ToolCursorComponent extends Component {
     static TypeName = "pp-tool-cursor";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myApplyDefaultCursorOffset: { type: Type.Bool, default: true },
-        _myPulseOnHover: { type: Type.Bool, default: false },
-        _myShowFingerCursor: { type: Type.Bool, default: false }
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _myApplyDefaultCursorOffset: Property.bool(true),
+        _myPulseOnHover: Property.bool(false),
+        _myShowFingerCursor: Property.bool(false)
     }
 
     init() {

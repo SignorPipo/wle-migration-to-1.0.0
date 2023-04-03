@@ -1,4 +1,4 @@
-import { Component, MeshComponent, TextComponent, Type } from "@wonderlandengine/api";
+import { Component, MeshComponent, TextComponent, Property } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { CloneParams } from "../../plugin/wl/extensions/object_extension";
 import { Timer } from "../cauldron/timer";
@@ -11,24 +11,24 @@ import { EasyTransformComponent } from "../../tool/easy_tune/easy_object_tuners/
 export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     static TypeName = "pp-benchmark-max-visible-triangles";
     static Properties = {
-        _myTargetFrameRate: { type: Type.Int, default: -1 },                // -1 means it will auto detect it at start
-        _myTargetFrameRateThreshold: { type: Type.Int, default: 3 },
-        _myStartPlaneCount: { type: Type.Int, default: 1 },
-        _myPlaneTriangles: { type: Type.Int, default: 100 },
-        _mySecondsBeforeDoubling: { type: Type.Float, default: 0.5 },       // Higher gives a better frame rate evaluation
-        _myDTHistoryToIgnorePercentage: { type: Type.Float, default: 0.25 },
-        _myCloneMaterial: { type: Type.Bool, default: false },
-        _myCloneMesh: { type: Type.Bool, default: false },
+        _myTargetFrameRate: Property.int(-1),                // -1 means it will auto detect it at start
+        _myTargetFrameRateThreshold: Property.int(3),
+        _myStartPlaneCount: Property.int(1),
+        _myPlaneTriangles: Property.int(100),
+        _mySecondsBeforeDoubling: Property.float(0.5),       // Higher gives a better frame rate evaluation
+        _myDTHistoryToIgnorePercentage: Property.float(0.25),
+        _myCloneMaterial: Property.bool(false),
+        _myCloneMesh: Property.bool(false),
 
-        _myLogActive: { type: Type.Bool, default: true },
+        _myLogActive: Property.bool(true),
 
-        _myStartOnXRStart: { type: Type.Bool, default: false },
-        _myDisplayInFrontOfPlayer: { type: Type.Bool, default: true },
-        _myDisplayInFrontOfPlayerDistance: { type: Type.Float, default: 10 },
+        _myStartOnXRStart: Property.bool(false),
+        _myDisplayInFrontOfPlayer: Property.bool(true),
+        _myDisplayInFrontOfPlayerDistance: Property.float(10),
 
-        _myPlaneMaterial: { type: Type.Material },
-        _myBackgroundMaterial: { type: Type.Material },
-        _myTextMaterial: { type: Type.Material, default: null }
+        _myPlaneMaterial: Property.material(),
+        _myBackgroundMaterial: Property.material(),
+        _myTextMaterial: Property.material(null)
     };
 
     _start() {

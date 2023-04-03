@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { isToolEnabled } from "../../../cauldron/tool_globals";
 import { getEasyTuneTarget, getEasyTuneVariables, removeEasyTuneTarget, setEasyTuneTarget } from "../../easy_tune_globals";
 import { EasyTuneUtils } from "../../easy_tune_utils";
@@ -6,8 +6,8 @@ import { EasyTuneUtils } from "../../easy_tune_utils";
 export class EasySetTuneTargetChildNumberComponent extends Component {
     static TypeName = "pp-easy-set-tune-target-child-number";
     static Properties = {
-        _myVariableName: { type: Type.String, default: "" },
-        _mySetAsDefault: { type: Type.Bool, default: false },
+        _myVariableName: Property.string(""),
+        _mySetAsDefault: Property.bool(false),
     };
 
     start() {

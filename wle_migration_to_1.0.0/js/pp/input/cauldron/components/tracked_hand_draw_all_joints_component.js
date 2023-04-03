@@ -1,15 +1,15 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { TrackedHandJointID, TrackedHandJointIDIndex } from "../input_types";
 import { TrackedHandDrawJointComponent } from "./tracked_hand_draw_joint_component";
 
 export class TrackedHandDrawAllJointsComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-all-joints";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myFixForward: { type: Type.Bool, default: true },
-        _myHideMetacarpals: { type: Type.Bool, default: true },
-        _myJointMesh: { type: Type.Mesh },
-        _myJointMaterial: { type: Type.Material }
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _myFixForward: Property.bool(true),
+        _myHideMetacarpals: Property.bool(true),
+        _myJointMesh: Property.mesh(),
+        _myJointMaterial: Property.material()
     };
 
     start() {

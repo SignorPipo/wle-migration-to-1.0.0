@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../pp/default_resources_global";
 import { getPlayerObjects } from "../../pp/player_objects_global";
@@ -11,8 +11,8 @@ import { VisualText, VisualTextParams } from "../visual/elements/visual_text";
 export class ShowFPSComponent extends Component {
     static TypeName = "pp-show-fps";
     static Properties = {
-        _myRefreshSeconds: { type: Type.Float, default: 0.25 },
-        _myTextMaterial: { type: Type.Material }
+        _myRefreshSeconds: Property.float(0.25),
+        _myTextMaterial: Property.material()
     };
 
     start() {

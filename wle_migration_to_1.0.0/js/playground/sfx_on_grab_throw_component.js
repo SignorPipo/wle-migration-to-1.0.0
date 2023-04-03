@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getAudioManager } from "../pp/index";
 import { GrabberHandComponent } from "../pp/index";
 

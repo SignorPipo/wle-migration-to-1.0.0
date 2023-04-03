@@ -1,29 +1,29 @@
 
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
 
 export class DebugArrayFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-array-functions-performance-analyzer";
     static Properties = {
-        _myIncludeOnlyMainArrayTypes: { type: Type.Bool, default: true },
-        _myIncludeOnlyArrayExtensionFunctions: { type: Type.Bool, default: false },
-        _myDelayStart: { type: Type.Float, default: 0.0 },
-        _myLogFunction: { type: Type.Enum, values: ["Log", "Error", "Warn", "Debug"], default: "Log" },
-        _mySecondsBetweenLogs: { type: Type.Float, default: 1.0 },
-        _myLogMaxResults: { type: Type.Bool, default: false },
-        _myLogSortOrder: { type: Type.Enum, values: ["None", "Calls Count", "Total Execution Time", "Average Execution Time"], default: "None" },
-        _myLogCallsCountResults: { type: Type.Bool, default: true },
-        _myLogTotalExecutionTimeResults: { type: Type.Bool, default: true },
-        _myLogTotalExecutionTimePercentageResults: { type: Type.Bool, default: true },
-        _myLogAverageExecutionTimeResults: { type: Type.Bool, default: true },
-        _myLogMaxAmountOfFunctions: { type: Type.Int, default: -1 },
-        _myLogFunctionsWithCallsCountAbove: { type: Type.Int, default: -1 },
-        _myLogFunctionsWithTotalExecutionTimePercentageAbove: { type: Type.Float, default: -1 },
-        _myFunctionPathsToInclude: { type: Type.String, default: "" },
-        _myFunctionPathsToExclude: { type: Type.String, default: "" },
-        _myExcludeConstructors: { type: Type.Bool, default: false },
-        _myClearConsoleBeforeLog: { type: Type.Bool, default: false },
-        _myResetMaxResultsShortcutEnabled: { type: Type.Bool, default: false }
+        _myIncludeOnlyMainArrayTypes: Property.bool(true),
+        _myIncludeOnlyArrayExtensionFunctions: Property.bool(false),
+        _myDelayStart: Property.float(0.0),
+        _myLogFunction: Property.enum(["Log", "Error", "Warn", "Debug"], "Log"),
+        _mySecondsBetweenLogs: Property.float(1.0),
+        _myLogMaxResults: Property.bool(false),
+        _myLogSortOrder: Property.enum(["None", "Calls Count", "Total Execution Time", "Average Execution Time"], "None"),
+        _myLogCallsCountResults: Property.bool(true),
+        _myLogTotalExecutionTimeResults: Property.bool(true),
+        _myLogTotalExecutionTimePercentageResults: Property.bool(true),
+        _myLogAverageExecutionTimeResults: Property.bool(true),
+        _myLogMaxAmountOfFunctions: Property.int(-1),
+        _myLogFunctionsWithCallsCountAbove: Property.int(-1),
+        _myLogFunctionsWithTotalExecutionTimePercentageAbove: Property.float(-1),
+        _myFunctionPathsToInclude: Property.string(""),
+        _myFunctionPathsToExclude: Property.string(""),
+        _myExcludeConstructors: Property.bool(false),
+        _myClearConsoleBeforeLog: Property.bool(false),
+        _myResetMaxResultsShortcutEnabled: Property.bool(false)
     };
 
     init() {

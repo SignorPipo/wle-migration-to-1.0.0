@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { Timer } from "../../../../cauldron/cauldron/timer";
 import { getLeftGamepad } from "../../../../input/cauldron/input_globals";
 import { GamepadButtonID } from "../../../../input/gamepad/gamepad_buttons";
@@ -9,33 +9,33 @@ import { DebugFunctionsPerformanceAnalyzer, DebugFunctionsPerformanceAnalyzerPar
 export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-functions-performance-analyzer";
     static Properties = {
-        _myObjectsByPath: { type: Type.String, default: "" },
-        _myClassesByPath: { type: Type.String, default: "" },
-        _myFunctionsByPath: { type: Type.String, default: "" },
-        _myDelayStart: { type: Type.Float, default: 0.0 },
-        _myLogTitle: { type: Type.String, default: "Functions Performance Analysis Results" },
-        _myLogFunction: { type: Type.Enum, values: ["Log", "Error", "Warn", "Debug"], default: "Log" },
-        _mySecondsBetweenLogs: { type: Type.Float, default: 1.0 },
-        _myLogMaxResults: { type: Type.Bool, default: false },
-        _myLogSortOrder: { type: Type.Enum, values: ["None", "Calls Count", "Total Execution Time", "Average Execution Time"], default: "None" },
-        _myLogCallsCountResults: { type: Type.Bool, default: true },
-        _myLogTotalExecutionTimeResults: { type: Type.Bool, default: true },
-        _myLogTotalExecutionTimePercentageResults: { type: Type.Bool, default: true },
-        _myLogAverageExecutionTimeResults: { type: Type.Bool, default: true },
-        _myLogMaxAmountOfFunctions: { type: Type.Int, default: -1 },
-        _myLogFunctionsWithCallsCountAbove: { type: Type.Int, default: -1 },
-        _myLogFunctionsWithTotalExecutionTimePercentageAbove: { type: Type.Float, default: -1 },
-        _myFunctionPathsToInclude: { type: Type.String, default: "" },
-        _myFunctionPathsToExclude: { type: Type.String, default: "" },
-        _myExcludeConstructors: { type: Type.Bool, default: false },
-        _myExcludeJSObjectFunctions: { type: Type.Bool, default: true },
-        _myAddPathPrefixToFunctionID: { type: Type.Bool, default: true },
-        _myObjectAddObjectDescendantsDepthLevel: { type: Type.Int, default: 0 },
-        _myObjectAddClassDescendantsDepthLevel: { type: Type.Int, default: 0 },
-        _myClearConsoleBeforeLog: { type: Type.Bool, default: false },
-        _myResetMaxResultsShortcutEnabled: { type: Type.Bool, default: false },
-        _myClassesByReference: { type: Type.Enum, values: ["Code Driven"], default: "Code Driven" },
-        _myObjectsByReference: { type: Type.Enum, values: ["Code Driven"], default: "Code Driven" }
+        _myObjectsByPath: Property.string(""),
+        _myClassesByPath: Property.string(""),
+        _myFunctionsByPath: Property.string(""),
+        _myDelayStart: Property.float(0.0),
+        _myLogTitle: Property.string("Functions Performance Analysis Results"),
+        _myLogFunction: Property.enum(["Log", "Error", "Warn", "Debug"], "Log"),
+        _mySecondsBetweenLogs: Property.float(1.0),
+        _myLogMaxResults: Property.bool(false),
+        _myLogSortOrder: Property.enum(["None", "Calls Count", "Total Execution Time", "Average Execution Time"], "None"),
+        _myLogCallsCountResults: Property.bool(true),
+        _myLogTotalExecutionTimeResults: Property.bool(true),
+        _myLogTotalExecutionTimePercentageResults: Property.bool(true),
+        _myLogAverageExecutionTimeResults: Property.bool(true),
+        _myLogMaxAmountOfFunctions: Property.int(-1),
+        _myLogFunctionsWithCallsCountAbove: Property.int(-1),
+        _myLogFunctionsWithTotalExecutionTimePercentageAbove: Property.float(-1),
+        _myFunctionPathsToInclude: Property.string(""),
+        _myFunctionPathsToExclude: Property.string(""),
+        _myExcludeConstructors: Property.bool(false),
+        _myExcludeJSObjectFunctions: Property.bool(true),
+        _myAddPathPrefixToFunctionID: Property.bool(true),
+        _myObjectAddObjectDescendantsDepthLevel: Property.int(0),
+        _myObjectAddClassDescendantsDepthLevel: Property.int(0),
+        _myClearConsoleBeforeLog: Property.bool(false),
+        _myResetMaxResultsShortcutEnabled: Property.bool(false),
+        _myClassesByReference: Property.enum(["Code Driven"], "Code Driven"),
+        _myObjectsByReference: Property.enum(["Code Driven"], "Code Driven")
     };
 
     init() {

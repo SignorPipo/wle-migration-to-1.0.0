@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { MeshUtils } from "../../cauldron/utils/mesh_utils";
 import { DefaultResources } from "../default_resources";
 import { getDefaultResources, hasDefaultResources, removeDefaultResources, setDefaultResources } from "../default_resources_global";
@@ -6,17 +6,17 @@ import { getDefaultResources, hasDefaultResources, removeDefaultResources, setDe
 export class GetDefaultResourcesComponent extends Component {
     static TypeName = "pp-get-default-resources";
     static Properties = {
-        _myPlane: { type: Type.Mesh },
-        _myCube: { type: Type.Mesh },
-        _mySphere: { type: Type.Mesh },
-        _myCone: { type: Type.Mesh },
-        _myCylinder: { type: Type.Mesh },
-        _myCircle: { type: Type.Mesh },
+        _myPlane: Property.mesh(),
+        _myCube: Property.mesh(),
+        _mySphere: Property.mesh(),
+        _myCone: Property.mesh(),
+        _myCylinder: Property.mesh(),
+        _myCircle: Property.mesh(),
 
-        _myFlatOpaque: { type: Type.Material },
-        _myFlatTransparentNoDepth: { type: Type.Material },
-        _myPhongOpaque: { type: Type.Material },
-        _myText: { type: Type.Material }
+        _myFlatOpaque: Property.material(),
+        _myFlatTransparentNoDepth: Property.material(),
+        _myPhongOpaque: Property.material(),
+        _myText: Property.material()
     };
 
     init() {

@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { vec4_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { VisualData } from "../visual_data";

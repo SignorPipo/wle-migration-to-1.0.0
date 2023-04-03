@@ -1,30 +1,30 @@
-import { AnimationComponent, CollisionComponent, Component, InputComponent, LightComponent, MeshComponent, TextComponent, Type, ViewComponent } from "@wonderlandengine/api";
+import { AnimationComponent, CollisionComponent, Component, InputComponent, LightComponent, MeshComponent, TextComponent, Property, ViewComponent } from "@wonderlandengine/api";
 import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
 import { Timer } from "../../../../cauldron/cauldron/timer";
 
 export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-wl-components-functions-performance-analyzer";
     static Properties = {
-        _myAnalyzeComponentTypes: { type: Type.Bool, default: true },
-        _myAnalyzeComponentInstances: { type: Type.Bool, default: false },
-        _myComponentInstanceID: { type: Type.Enum, values: ["Object ID", "Object Name", "Object ID - Object Name"], default: "Object ID - Object Name" },
-        _myDelayStart: { type: Type.Float, default: 0.0 },
-        _myLogFunction: { type: Type.Enum, values: ["Log", "Error", "Warn", "Debug"], default: "Log" },
-        _mySecondsBetweenLogs: { type: Type.Float, default: 1.0 },
-        _myLogMaxResults: { type: Type.Bool, default: false },
-        _myLogSortOrder: { type: Type.Enum, values: ["None", "Calls Count", "Total Execution Time", "Average Execution Time"], default: "None" },
-        _myLogCallsCountResults: { type: Type.Bool, default: true },
-        _myLogTotalExecutionTimeResults: { type: Type.Bool, default: true },
-        _myLogTotalExecutionTimePercentageResults: { type: Type.Bool, default: true },
-        _myLogAverageExecutionTimeResults: { type: Type.Bool, default: true },
-        _myLogMaxAmountOfFunctions: { type: Type.Int, default: -1 },
-        _myLogFunctionsWithCallsCountAbove: { type: Type.Int, default: -1 },
-        _myLogFunctionsWithTotalExecutionTimePercentageAbove: { type: Type.Float, default: -1 },
-        _myFunctionPathsToInclude: { type: Type.String, default: "" },
-        _myFunctionPathsToExclude: { type: Type.String, default: "" },
-        _myExcludeConstructors: { type: Type.Bool, default: false },
-        _myClearConsoleBeforeLog: { type: Type.Bool, default: false },
-        _myResetMaxResultsShortcutEnabled: { type: Type.Bool, default: false }
+        _myAnalyzeComponentTypes: Property.bool(true),
+        _myAnalyzeComponentInstances: Property.bool(false),
+        _myComponentInstanceID: Property.enum(["Object ID", "Object Name", "Object ID - Object Name"], "Object ID - Object Name"),
+        _myDelayStart: Property.float(0.0),
+        _myLogFunction: Property.enum(["Log", "Error", "Warn", "Debug"], "Log"),
+        _mySecondsBetweenLogs: Property.float(1.0),
+        _myLogMaxResults: Property.bool(false),
+        _myLogSortOrder: Property.enum(["None", "Calls Count", "Total Execution Time", "Average Execution Time"], "None"),
+        _myLogCallsCountResults: Property.bool(true),
+        _myLogTotalExecutionTimeResults: Property.bool(true),
+        _myLogTotalExecutionTimePercentageResults: Property.bool(true),
+        _myLogAverageExecutionTimeResults: Property.bool(true),
+        _myLogMaxAmountOfFunctions: Property.int(-1),
+        _myLogFunctionsWithCallsCountAbove: Property.int(-1),
+        _myLogFunctionsWithTotalExecutionTimePercentageAbove: Property.float(-1),
+        _myFunctionPathsToInclude: Property.string(""),
+        _myFunctionPathsToExclude: Property.string(""),
+        _myExcludeConstructors: Property.bool(false),
+        _myClearConsoleBeforeLog: Property.bool(false),
+        _myResetMaxResultsShortcutEnabled: Property.bool(false)
     };
 
     init() {

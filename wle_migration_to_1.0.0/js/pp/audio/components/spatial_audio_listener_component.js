@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { Howler } from "howler";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
@@ -6,7 +6,7 @@ import { vec3_create } from "../../plugin/js/extensions/array_extension";
 export class SpatialAudioListenerComponent extends Component {
     static TypeName = "pp-spatial-audio-listener";
     static Properties = {
-        _myActive: { type: Type.Enum, values: ["Always", "VR", "Non VR"], default: "Always" }
+        _myActive: Property.enum(["Always", "VR", "Non VR"], "Always")
     };
 
     init() {

@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { PhysicsLayerFlags } from "../../../../../cauldron/physics/physics_layer_flags";
 import { InputUtils } from "../../../../../input/cauldron/input_utils";
 import { CollisionCheck } from "../../../character_controller/collision/legacy/collision_check/collision_check";
@@ -18,28 +18,28 @@ export function setCollisionCheck(collisionCheck, engine = getMainEngine()) {
 export class PlayerLocomotionComponent extends Component {
     static TypeName = "pp-player-locomotion";
     static Properties = {
-        _myPhysicsBlockLayerFlags: { type: Type.String, default: "1, 0, 0, 0, 0, 0, 0, 0" },
-        _myMaxSpeed: { type: Type.Float, default: 2 },
-        _myMaxRotationSpeed: { type: Type.Float, default: 100 },
-        _myCharacterRadius: { type: Type.Float, default: 0.3 },
-        _myIsSnapTurn: { type: Type.Bool, default: true },
-        _mySnapTurnOnlyVR: { type: Type.Bool, default: true },
-        _mySnapTurnAngle: { type: Type.Float, default: 30 },
-        _mySnapTurnSpeedDegrees: { type: Type.Float, default: 0 },
-        _myFlyEnabled: { type: Type.Bool, default: false },
-        _myMinAngleToFlyUpNonVR: { type: Type.Float, default: 30 },
-        _myMinAngleToFlyDownNonVR: { type: Type.Float, default: 50 },
-        _myMinAngleToFlyUpVR: { type: Type.Float, default: 60 },
-        _myMinAngleToFlyDownVR: { type: Type.Float, default: 1 },
-        _myMinAngleToFlyRight: { type: Type.Float, default: 60 },
-        _myMainHand: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myVRDirectionReferenceType: { type: Type.Enum, values: ["Head", "Hand", "Custom Object"], default: "Hand" },
-        _myVRDirectionReferenceObject: { type: Type.Object },
-        _myTeleportParableStartReferenceObject: { type: Type.Object },
-        _myTeleportPositionObject: { type: Type.Object },
-        _myUseCleanedVersion: { type: Type.Bool, default: true },
-        _myMoveThroughCollisionShortcutEnabled: { type: Type.Bool, default: false },
-        _myMoveHeadShortcutEnabled: { type: Type.Bool, default: false }
+        _myPhysicsBlockLayerFlags: Property.string("1, 0, 0, 0, 0, 0, 0, 0"),
+        _myMaxSpeed: Property.float(2),
+        _myMaxRotationSpeed: Property.float(100),
+        _myCharacterRadius: Property.float(0.3),
+        _myIsSnapTurn: Property.bool(true),
+        _mySnapTurnOnlyVR: Property.bool(true),
+        _mySnapTurnAngle: Property.float(30),
+        _mySnapTurnSpeedDegrees: Property.float(0),
+        _myFlyEnabled: Property.bool(false),
+        _myMinAngleToFlyUpNonVR: Property.float(30),
+        _myMinAngleToFlyDownNonVR: Property.float(50),
+        _myMinAngleToFlyUpVR: Property.float(60),
+        _myMinAngleToFlyDownVR: Property.float(1),
+        _myMinAngleToFlyRight: Property.float(60),
+        _myMainHand: Property.enum(["Left", "Right"], "Left"),
+        _myVRDirectionReferenceType: Property.enum(["Head", "Hand", "Custom Object"], "Hand"),
+        _myVRDirectionReferenceObject: Property.object(),
+        _myTeleportParableStartReferenceObject: Property.object(),
+        _myTeleportPositionObject: Property.object(),
+        _myUseCleanedVersion: Property.bool(true),
+        _myMoveThroughCollisionShortcutEnabled: Property.bool(false),
+        _myMoveHeadShortcutEnabled: Property.bool(false)
     };
 
     start() {

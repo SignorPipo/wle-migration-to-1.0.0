@@ -1,11 +1,11 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { EasyTuneUtils } from "../easy_tune_utils";
 
 export class EasyTuneImportVariablesComponent extends Component {
     static TypeName = "pp-easy-tune-import-variables";
     static Properties = {
-        _myVariablesImportURL: { type: Type.String, default: "" },
-        _myResetVariablesDefaultValueOnImport: { type: Type.Bool, default: true }
+        _myVariablesImportURL: Property.string(""),
+        _myResetVariablesDefaultValueOnImport: Property.bool(true)
     };
 
     start() {

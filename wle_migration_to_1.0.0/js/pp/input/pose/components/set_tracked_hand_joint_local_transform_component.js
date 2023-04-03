@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { InputUtils } from "../../cauldron/input_utils";
 import { TrackedHandJointPose } from "../tracked_hand_joint_pose";
@@ -6,22 +6,20 @@ import { TrackedHandJointPose } from "../tracked_hand_joint_pose";
 export class SetTrackedHandJointLocalTransformComponent extends Component {
     static TypeName = "pp-set-tracked-hand-joint-local-transform";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myFixForward: { type: Type.Bool, default: true },
-        _myUpdateOnViewReset: { type: Type.Bool, default: true },
-        _mySetLocalScaleAsJointRadius: { type: Type.Bool, default: false },
-        _myJointID: {
-            type: Type.Enum, values:
-                [
-                    "Wrist",
-                    "Thumb Metacarpal", "Thumb Phalanx Proximal", "Thumb Phalanx Distal", "Thumb Tip",
-                    "Index Metacarpal", "Index Phalanx Proximal", "Index Phalanx Intermediate", "Index Phalanx Distal", "Index Tip",
-                    "Middle Metacarpal", "Middle Phalanx Proximal", "Middle Phalanx Intermediate", "Middle Phalanx Distal", "Middle Tip",
-                    "Ring Metacarpal", "Ring Phalanx Proximal", "Ring Phalanx Intermediate", "Ring Phalanx Distal", "Ring Tip",
-                    "Pinky Metacarpal", "Pinky Phalanx Proximal", "Pinky Phalanx Intermediate", "Pinky Phalanx Distal", "Pinky Tip"
-                ],
-            default: "Wrist"
-        }
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _myFixForward: Property.bool(true),
+        _myUpdateOnViewReset: Property.bool(true),
+        _mySetLocalScaleAsJointRadius: Property.bool(false),
+        _myJointID: Property.enum(
+            [
+                "Wrist",
+                "Thumb Metacarpal", "Thumb Phalanx Proximal", "Thumb Phalanx Distal", "Thumb Tip",
+                "Index Metacarpal", "Index Phalanx Proximal", "Index Phalanx Intermediate", "Index Phalanx Distal", "Index Tip",
+                "Middle Metacarpal", "Middle Phalanx Proximal", "Middle Phalanx Intermediate", "Middle Phalanx Distal", "Middle Tip",
+                "Ring Metacarpal", "Ring Phalanx Proximal", "Ring Phalanx Intermediate", "Ring Phalanx Distal", "Ring Tip",
+                "Pinky Metacarpal", "Pinky Phalanx Proximal", "Pinky Phalanx Intermediate", "Pinky Phalanx Distal", "Pinky Tip"
+            ],
+            "Wrist")
     };
 
     init() {

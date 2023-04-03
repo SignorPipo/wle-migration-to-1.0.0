@@ -1,4 +1,4 @@
-import { Component, Type, MeshComponent } from "@wonderlandengine/api";
+import { Component, Property, MeshComponent } from "@wonderlandengine/api";
 import { ObjectPoolParams } from "../pp/index";
 import { ObjectPoolsManager } from "../pp/index";
 import { CloneParams } from "../pp/index";
@@ -7,8 +7,8 @@ import { ParticleComponent } from "./particle_component";
 export class ParticlesSpawnerComponent extends Component {
     static TypeName = "particles-spawner";
     static Properties = {
-        _myParticlesContainer: { type: Type.Object },
-        _myRadius: { type: Type.Float, default: 0.25 }
+        _myParticlesContainer: Property.object(),
+        _myRadius: Property.float(0.25)
     };
 
     start() {

@@ -1,13 +1,13 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { isToolEnabled } from "../../../cauldron/tool_globals";
 import { EasyMeshAmbientFactor } from "../easy_mesh_ambient_factor";
 
 export class EasyMeshAmbientFactorComponent extends Component {
     static TypeName = "pp-easy-mesh-ambient-factor";
     static Properties = {
-        _myVariableName: { type: Type.String, default: "" },
-        _myUseTuneTarget: { type: Type.Bool, default: false },
-        _mySetAsDefault: { type: Type.Bool, default: false }
+        _myVariableName: Property.string(""),
+        _myUseTuneTarget: Property.bool(false),
+        _mySetAsDefault: Property.bool(false)
     };
 
     init() {

@@ -1,16 +1,16 @@
-import { Component, Type, TextComponent } from "@wonderlandengine/api";
+import { Component, Property, TextComponent } from "@wonderlandengine/api";
 import { CADummyServer } from "./ca_dummy_server";
 
 export class CADisplayLeaderboardComponent extends Component {
     static TypeName = "pp-ca-display-leaderboard";
     static Properties = {
-        _myLeaderboardID: { type: Type.String, default: "" },
-        _myIsLocal: { type: Type.Bool, default: false },
-        _myIsAscending: { type: Type.Bool, default: false },
-        _myScoresAmount: { type: Type.Int, default: 10 },
-        _myScoreFormat: { type: Type.Enum, values: ["Value", "Hours:Minutes:Seconds", "Minutes:Seconds", "Seconds", "Hours:Minutes", "Minutes"], default: "Value" },
-        _myPositionAndUsernameSeparator: { type: Type.String, default: " - " },
-        _myNumberOfLinesBetweenScores: { type: Type.Int, default: 1 }
+        _myLeaderboardID: Property.string(""),
+        _myIsLocal: Property.bool(false),
+        _myIsAscending: Property.bool(false),
+        _myScoresAmount: Property.int(10),
+        _myScoreFormat: Property.enum(["Value", "Hours:Minutes:Seconds", "Minutes:Seconds", "Seconds", "Hours:Minutes", "Minutes"], "Value"),
+        _myPositionAndUsernameSeparator: Property.string(" - "),
+        _myNumberOfLinesBetweenScores: Property.int(1)
     };
 
     start() {

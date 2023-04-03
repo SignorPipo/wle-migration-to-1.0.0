@@ -1,13 +1,13 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { TrackedHandPose, TrackedHandPoseParams } from "../../pose/tracked_hand_pose";
 import { InputUtils } from "../input_utils";
 
 export class TrackedHandDrawSkinComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-skin";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myFixForward: { type: Type.Bool, default: true },
-        _myHandSkin: { type: Type.Skin, default: null }
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _myFixForward: Property.bool(true),
+        _myHandSkin: Property.skin(null)
     };
 
     init() {

@@ -1,11 +1,11 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 
 export class SetActiveComponent extends Component {
     static TypeName = "pp-set-active";
     static Properties = {
-        _myActive: { type: Type.Bool, default: true },
-        _mySetActiveOn: { type: Type.Enum, values: ["Self", "Children", "Descendants", "Hierarchy"], default: "Hierarchy" },
-        _mySetActiveWhen: { type: Type.Enum, values: ["Init", "Start", "First Update"], default: "Init" }
+        _myActive: Property.bool(true),
+        _mySetActiveOn: Property.enum(["Self", "Children", "Descendants", "Hierarchy"], "Hierarchy"),
+        _mySetActiveWhen: Property.enum(["Init", "Start", "First Update"], "Init")
     };
 
     init() {

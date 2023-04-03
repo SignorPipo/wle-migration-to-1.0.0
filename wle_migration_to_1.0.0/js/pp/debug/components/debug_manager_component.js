@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { getDebugManager, hasDebugManager, removeDebugManager, setDebugManager } from "../debug_globals";
 import { DebugManager } from "../debug_manager";
 

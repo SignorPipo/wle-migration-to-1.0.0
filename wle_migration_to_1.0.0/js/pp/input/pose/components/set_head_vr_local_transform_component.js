@@ -1,4 +1,4 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { BasePoseParams } from "../base_pose";
 import { HeadPose } from "../head_pose";
@@ -6,8 +6,8 @@ import { HeadPose } from "../head_pose";
 export class SetHeadVRLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-vr-local-transform";
     static Properties = {
-        _myFixForward: { type: Type.Bool, default: true },
-        _myUpdateOnViewReset: { type: Type.Bool, default: true }
+        _myFixForward: Property.bool(true),
+        _myUpdateOnViewReset: Property.bool(true)
     };
 
     init() {

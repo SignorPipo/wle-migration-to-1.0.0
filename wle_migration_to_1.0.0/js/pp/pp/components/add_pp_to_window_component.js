@@ -1,10 +1,10 @@
-import { Component, Type } from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import * as PPAPI from "../../index";
 
 export class AddPPToWindowComponent extends Component {
     static TypeName = "pp-add-pp-to-window";
     static Properties = {
-        _myAdd: { type: Type.Bool, default: true }
+        _myAdd: Property.bool(true)
     };
 
     init() {

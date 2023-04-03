@@ -1,4 +1,4 @@
-import { Component, MeshComponent, Type } from "@wonderlandengine/api";
+import { Component, MeshComponent, Property } from "@wonderlandengine/api";
 import { BasePoseParams } from "../../pose/base_pose";
 import { TrackedHandJointPose } from "../../pose/tracked_hand_joint_pose";
 import { InputUtils } from "../input_utils";
@@ -6,22 +6,20 @@ import { InputUtils } from "../input_utils";
 export class TrackedHandDrawJointComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-joint";
     static Properties = {
-        _myHandedness: { type: Type.Enum, values: ["Left", "Right"], default: "Left" },
-        _myFixForward: { type: Type.Bool, default: true },
-        _myJointID: {
-            type: Type.Enum, values:
-                [
-                    "Wrist",
-                    "Thumb Metacarpal", "Thumb Phalanx Proximal", "Thumb Phalanx Distal", "Thumb Tip",
-                    "Index Metacarpal", "Index Phalanx Proximal", "Index Phalanx Intermediate", "Index Phalanx Distal", "Index Tip",
-                    "Middle Metacarpal", "Middle Phalanx Proximal", "Middle Phalanx Intermediate", "Middle Phalanx Distal", "Middle Tip",
-                    "Ring Metacarpal", "Ring Phalanx Proximal", "Ring Phalanx Intermediate", "Ring Phalanx Distal", "Ring Tip",
-                    "Pinky Metacarpal", "Pinky Phalanx Proximal", "Pinky Phalanx Intermediate", "Pinky Phalanx Distal", "Pinky Tip"
-                ],
-            default: "Wrist"
-        },
-        _myJointMesh: { type: Type.Mesh },
-        _myJointMaterial: { type: Type.Material }
+        _myHandedness: Property.enum(["Left", "Right"], "Left"),
+        _myFixForward: Property.bool(true),
+        _myJointID: Property.enum(
+            [
+                "Wrist",
+                "Thumb Metacarpal", "Thumb Phalanx Proximal", "Thumb Phalanx Distal", "Thumb Tip",
+                "Index Metacarpal", "Index Phalanx Proximal", "Index Phalanx Intermediate", "Index Phalanx Distal", "Index Tip",
+                "Middle Metacarpal", "Middle Phalanx Proximal", "Middle Phalanx Intermediate", "Middle Phalanx Distal", "Middle Tip",
+                "Ring Metacarpal", "Ring Phalanx Proximal", "Ring Phalanx Intermediate", "Ring Phalanx Distal", "Ring Tip",
+                "Pinky Metacarpal", "Pinky Phalanx Proximal", "Pinky Phalanx Intermediate", "Pinky Phalanx Distal", "Pinky Tip"
+            ],
+            "Wrist"),
+        _myJointMesh: Property.mesh(),
+        _myJointMaterial: Property.material()
     };
 
     init() {
