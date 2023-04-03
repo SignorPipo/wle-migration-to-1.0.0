@@ -1199,7 +1199,8 @@
                 "/js/lib/"
             ],
             "autoManageEntryPoint": true,
-            "bundlingType": "esbuild"
+            "bundlingType": "esbuild",
+            "esbuildFlags": "--format=esm --minify"
         },
         "vr": {
             "leftEyeObject": "26",
