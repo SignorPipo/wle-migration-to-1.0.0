@@ -149,10 +149,7 @@ export let cloneMesh = function () {
             return null;
         }
 
-        let clonedIndexData = new Uint32Array(mesh.indexData.length);
-        for (let i = 0; i < mesh.indexData.length; i++) {
-            clonedIndexData[i] = mesh.indexData[i];
-        }
+        let clonedIndexData = mesh.indexData.pp_clone();
 
         let clonedMesh = new Mesh(mesh.engine, {
             vertexCount: mesh.vertexCount,

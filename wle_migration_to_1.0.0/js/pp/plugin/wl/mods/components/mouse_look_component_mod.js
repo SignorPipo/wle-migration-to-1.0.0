@@ -69,6 +69,11 @@ export function initMouseLookComponentModPrototype() {
 
     // New Functions
 
+    MouseLookComponent.prototype.start = function start() { };
+    MouseLookComponent.prototype.onActivate = function onActivate() { };
+    MouseLookComponent.prototype.onDeactivate = function onDeactivate() { };
+    MouseLookComponent.prototype.onDestroy = function onDestroy() { };
+
     MouseLookComponent.prototype.update = function update(dt) {
         if (this.resetMovingTimer.isRunning()) {
             this.resetMovingTimer.update(dt);
