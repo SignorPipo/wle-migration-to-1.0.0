@@ -23,7 +23,7 @@ export class VisualManagerComponent extends Component {
         // Prevents double global from same engine
         if (!hasVisualData(this.engine)) {
             this._myVisualData = new VisualData();
-            this._myVisualData.myRootObject = getSceneObjects(this.engine).myScene.pp_addObject();
+            this._myVisualData.myDefaultParent = getSceneObjects(this.engine).myScene.pp_addObject();
 
             setVisualData(this._myVisualData, this.engine);
         }

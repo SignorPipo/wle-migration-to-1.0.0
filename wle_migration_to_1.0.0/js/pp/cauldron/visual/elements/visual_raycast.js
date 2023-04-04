@@ -27,7 +27,7 @@ export class VisualRaycastParams {
         this.myRayMaterial = null;
         this.myHitNormalMaterial = null;
 
-        this.myParent = getVisualData(engine).myRootObject;
+        this.myParent = getVisualData(engine).myDefaultParent;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.RAYCAST;

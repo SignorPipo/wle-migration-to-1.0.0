@@ -1,7 +1,7 @@
 export class VisualData {
 
     constructor() {
-        this.myRootObject = null;
+        this.myDefaultParent = null;
         this.myDefaultMaterials = new VisualDataMaterials();
     }
 }

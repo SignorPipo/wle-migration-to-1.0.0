@@ -29,7 +29,7 @@ export class VisualPointParams {
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = getVisualData(engine).myRootObject;
+        this.myParent = getVisualData(engine).myDefaultParent;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.POINT;
@@ -107,7 +107,7 @@ export class VisualPoint {
     }
 
     _build() {
-        this._myPointObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
+        this._myPointObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
 
         this._myPointMeshComponent = this._myPointObject.pp_addComponent(MeshComponent);
     }

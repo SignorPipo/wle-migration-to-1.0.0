@@ -196,7 +196,7 @@ PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = function (
             this._myValidVisualVerticalLine = new VisualLine(visualParams);
         }
 
-        this._myVisualTeleportPositionObject = getVisualData(this._myTeleportParams.myEngine).myRootObject.pp_addObject();
+        this._myVisualTeleportPositionObject = getVisualData(this._myTeleportParams.myEngine).myDefaultParent.pp_addObject();
 
         //getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Teleport Torus Radius", 0.175, 0.1, 3, undefined, undefined, this._myTeleportParams.myEngine));
         //getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneInt("Teleport Torus Segments", 24, 1, undefined, undefined, this._myTeleportParams.myEngine));

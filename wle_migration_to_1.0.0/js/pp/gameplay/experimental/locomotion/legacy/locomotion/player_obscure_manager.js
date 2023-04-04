@@ -306,7 +306,7 @@ export class PlayerObscureManager {
             this._myObscureMaterial.color = vec4_create(0, 0, 0, 1);
         }
 
-        this._myObscureParentObject = getVisualData(this._myParams.myEngine).myRootObject.pp_addObject();
+        this._myObscureParentObject = getVisualData(this._myParams.myEngine).myDefaultParent.pp_addObject();
 
         let obscureVisualParams = new VisualMeshParams(this._myParams.myEngine);
         obscureVisualParams.myMesh = getDefaultResources(this._myParams.myEngine).myMeshes.myInvertedSphere;

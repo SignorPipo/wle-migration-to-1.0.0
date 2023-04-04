@@ -36,7 +36,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
     }
 
     _start() {
-        this._myRootObject = this.object.pp_addObject();
+        this._myParentObject = this.object.pp_addObject();
 
         this._myRaycastSetup = new RaycastSetup(this.engine.physics);
         this._myRaycastResults = new RaycastResults();
@@ -279,7 +279,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
             scale *= this._myShapeScaleMultiplier;
         }
 
-        let physX = this._myRootObject.pp_addObject();
+        let physX = this._myParentObject.pp_addObject();
         physX.pp_setPosition(position);
 
         let physXComponent = physX.pp_addComponent(PhysXComponent, {

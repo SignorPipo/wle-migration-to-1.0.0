@@ -8,7 +8,7 @@ export class GrabbableComponent extends Component {
         _myThrowLinearVelocityMultiplier: Property.float(1),
         _myThrowAngularVelocityMultiplier: Property.float(1),
         _myKinematicValueOnRelease: Property.enum(["True", "False", "Own"], "False"),
-        _myParentOnRelease: Property.enum(["Root", "Own"], "Own")
+        _myParentOnRelease: Property.enum(["Scene", "Own"], "Own")
     };
 
     init() {

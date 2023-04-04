@@ -26,7 +26,7 @@ export class VisualTransformParams {
         this.myUpMaterial = null;
         this.myRightMaterial = null;
 
-        this.myParent = getVisualData(engine).myRootObject;
+        this.myParent = getVisualData(engine).myDefaultParent;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.TRANSFORM;

@@ -31,7 +31,7 @@ export class VisualTextParams {
 
         this.myColor = null;        // If this is set and material is null, it will use the default text material with this color
 
-        this.myParent = getVisualData(engine).myRootObject;
+        this.myParent = getVisualData(engine).myDefaultParent;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.TEXT;
@@ -139,7 +139,7 @@ export class VisualText {
     }
 
     _build() {
-        this._myTextObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
+        this._myTextObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
         this._myTextComponent = this._myTextObject.pp_addComponent(TextComponent);
     }
 

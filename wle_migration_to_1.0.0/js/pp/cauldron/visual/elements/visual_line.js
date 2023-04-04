@@ -33,7 +33,7 @@ export class VisualLineParams {
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = getVisualData(engine).myRootObject;
+        this.myParent = getVisualData(engine).myDefaultParent;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.LINE;
@@ -121,7 +121,7 @@ export class VisualLine {
     }
 
     _build() {
-        this._myLineRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
+        this._myLineRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
         this._myLineObject = this._myLineRootObject.pp_addObject();
 
         this._myLineMeshComponent = this._myLineObject.pp_addComponent(MeshComponent);

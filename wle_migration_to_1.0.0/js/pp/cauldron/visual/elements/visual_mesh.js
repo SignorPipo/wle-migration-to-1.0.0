@@ -26,7 +26,7 @@ export class VisualMeshParams {
         this.myMesh = null;
         this.myMaterial = null;
 
-        this.myParent = getVisualData(engine).myRootObject;
+        this.myParent = getVisualData(engine).myDefaultParent;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.MESH;
@@ -124,7 +124,7 @@ export class VisualMesh {
     }
 
     _build() {
-        this._myMeshObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
+        this._myMeshObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
 
         this._myMeshComponent = this._myMeshObject.pp_addComponent(MeshComponent);
     }

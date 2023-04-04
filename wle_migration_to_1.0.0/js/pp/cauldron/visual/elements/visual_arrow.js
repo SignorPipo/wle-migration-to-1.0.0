@@ -35,7 +35,7 @@ export class VisualArrowParams {
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = getVisualData(engine).myRootObject;
+        this.myParent = getVisualData(engine).myDefaultParent;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.ARROW;
@@ -130,7 +130,7 @@ export class VisualArrow {
     }
 
     _build() {
-        this._myArrowRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
+        this._myArrowRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
         this._myArrowObject = this._myArrowRootObject.pp_addObject();
 
         this._myArrowMeshComponent = this._myArrowObject.pp_addComponent(MeshComponent);
