@@ -16,5 +16,4 @@ export function initNumberExtensionPrototype() {
 
 
     ExtensionUtils.assignProperties(numberExtension, Number.prototype, false, true, true);
-
 }

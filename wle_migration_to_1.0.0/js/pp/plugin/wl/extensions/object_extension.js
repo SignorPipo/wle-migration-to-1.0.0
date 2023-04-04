@@ -2819,7 +2819,6 @@ export function initObjectExtensionProtoype() {
 
 
     ExtensionUtils.assignProperties(objectExtension, Object3D.prototype, false, true, true);
-
 }
 
 

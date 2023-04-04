@@ -143,5 +143,4 @@ export function initSceneExtensionPrototype() {
 
 
     ExtensionUtils.assignProperties(sceneExtension, Scene.prototype, false, true, true);
-
 }

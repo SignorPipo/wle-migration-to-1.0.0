@@ -254,5 +254,4 @@ export function initMathExtensionStatic() {
 
 
     ExtensionUtils.assignProperties(mathExtension, Math, false, true, true);
-
 }
