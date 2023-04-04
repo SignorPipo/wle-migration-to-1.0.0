@@ -136,7 +136,7 @@ export class VisualTorus {
     }
 
     _build() {
-        this._myTorusRootObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
+        this._myTorusRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
 
         this._fillSegmentList();
     }

@@ -121,7 +121,7 @@ export class VisualLine {
     }
 
     _build() {
-        this._myLineRootObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
+        this._myLineRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
         this._myLineObject = this._myLineRootObject.pp_addObject();
 
         this._myLineMeshComponent = this._myLineObject.pp_addComponent(MeshComponent);

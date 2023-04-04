@@ -13,7 +13,7 @@ export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotion
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 
-        this._myBlinkSphere = this._myTeleportParams.myEngine.scene.pp_addObject();
+        this._myBlinkSphere = getSceneObjects(this._myTeleportParams.myEngine).myScene.pp_addObject();
         this._myBlinkSphereMeshComponent = this._myBlinkSphere.pp_addComponent(MeshComponent);
         this._myBlinkSphereMeshComponent.mesh = getDefaultResources(this._myTeleportParams.myEngine).myMeshes.myInvertedSphere;
         this._myBlinkSphereMeshComponent.material = getDefaultResources(this._myTeleportParams.myEngine).myMaterials.myFlatTransparentNoDepth.clone();

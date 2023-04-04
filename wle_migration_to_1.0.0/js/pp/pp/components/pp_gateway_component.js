@@ -28,6 +28,9 @@ export class PPGatewayComponent extends Component {
     };
 
     init() {
+        this._myGetDefaultResourcesComponent = this.object.pp_addComponent(GetDefaultResourcesComponent, this._getProperties(GetDefaultResourcesComponent.Properties));
+        this._myGetSceneObjectsComponent = this.object.pp_addComponent(GetSceneObjectsComponent, this._getProperties(GetSceneObjectsComponent.Properties));
+
         this._myEnableDebugsComponent = null;
         if (this._myEnableDebugs) {
             this._myEnableDebugsComponent = this.object.pp_addComponent(EnableDebugsComponent, false);
@@ -57,12 +60,12 @@ export class PPGatewayComponent extends Component {
         this._myAudioManagerComponent = this.object.pp_addComponent(AudioManagerComponent, false);
         this._myVisualManagerComponent = this.object.pp_addComponent(VisualManagerComponent, false);
         this._myDebugManagerComponent = this.object.pp_addComponent(DebugManagerComponent, false);
-
-        this._myGetDefaultResourcesComponent = this.object.pp_addComponent(GetDefaultResourcesComponent, this._getProperties(GetDefaultResourcesComponent.Properties));
-        this._myGetSceneObjectsComponent = this.object.pp_addComponent(GetSceneObjectsComponent, this._getProperties(GetSceneObjectsComponent.Properties));
     }
 
     start() {
+        this._myGetDefaultResourcesComponent.active = true;
+        this._myGetSceneObjectsComponent.active = true;
+
         if (this._myEnableDebugsComponent != null) {
             this._myEnableDebugsComponent.active = true;
         }
@@ -87,9 +90,6 @@ export class PPGatewayComponent extends Component {
         this._myAudioManagerComponent.active = true;
         this._myVisualManagerComponent.active = true;
         this._myDebugManagerComponent.active = true;
-
-        this._myGetDefaultResourcesComponent.active = true;
-        this._myGetSceneObjectsComponent.active = true;
     }
 
     _getProperties(propertiesToGet, active = false) {

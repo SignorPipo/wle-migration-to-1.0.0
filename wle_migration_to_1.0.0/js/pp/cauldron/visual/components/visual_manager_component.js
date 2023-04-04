@@ -4,6 +4,7 @@ import { getDefaultResources } from "../../../pp/default_resources_global";
 import { VisualData } from "../visual_data";
 import { getVisualData, getVisualManager, hasVisualData, hasVisualManager, removeVisualData, removeVisualManager, setVisualData, setVisualManager } from "../visual_globals";
 import { VisualManager } from "../visual_manager";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualManagerComponent extends Component {
     static TypeName = "pp-visual-manager";
@@ -22,7 +23,7 @@ export class VisualManagerComponent extends Component {
         // Prevents double global from same engine
         if (!hasVisualData(this.engine)) {
             this._myVisualData = new VisualData();
-            this._myVisualData.myRootObject = this.engine.scene.pp_addObject();
+            this._myVisualData.myRootObject = getSceneObjects(this.engine).myScene.pp_addObject();
 
             setVisualData(this._myVisualData, this.engine);
         }

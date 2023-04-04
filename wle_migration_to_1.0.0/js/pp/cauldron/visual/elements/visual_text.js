@@ -139,7 +139,7 @@ export class VisualText {
     }
 
     _build() {
-        this._myTextObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
+        this._myTextObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
         this._myTextComponent = this._myTextObject.pp_addComponent(TextComponent);
     }
 

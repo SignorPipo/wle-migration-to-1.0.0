@@ -130,7 +130,7 @@ export class VisualArrow {
     }
 
     _build() {
-        this._myArrowRootObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
+        this._myArrowRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
         this._myArrowObject = this._myArrowRootObject.pp_addObject();
 
         this._myArrowMeshComponent = this._myArrowObject.pp_addComponent(MeshComponent);

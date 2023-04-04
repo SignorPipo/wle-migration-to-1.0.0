@@ -107,7 +107,7 @@ export class VisualPoint {
     }
 
     _build() {
-        this._myPointObject = this._myParams.myParent.pp_getEngine().scene.pp_addObject();
+        this._myPointObject = getVisualData(this._myParams.myParent.pp_getEngine()).myRootObject.pp_addObject();
 
         this._myPointMeshComponent = this._myPointObject.pp_addComponent(MeshComponent);
     }
