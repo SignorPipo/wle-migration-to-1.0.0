@@ -6,6 +6,7 @@ import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { TimerState } from "../../../../../../cauldron/fsm/states/timer_state";
 import { NumberOverValue } from "../../../../../cauldron/cauldron/number_over_value";
 import { Timer } from "../../../../../../cauldron/cauldron/timer";
+import { getSceneObjects } from "../../../../../../pp/scene_objects_global";
 
 export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotionTeleportState {
 
@@ -67,7 +68,7 @@ export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotion
 
     end() {
         this._myBlinkSphere.pp_setActive(false);
-        this._myBlinkSphere.pp_setParent(null, false);
+        this._myBlinkSphere.pp_setParent(getSceneObjects(this._myTeleportParams.myEngine).myScene, false);
         this._myFSM.perform("stop");
     }
 

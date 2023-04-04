@@ -1,5 +1,6 @@
 import { Component, Property, PhysXComponent } from "@wonderlandengine/api";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
+import { getSceneObjects } from "../../pp/scene_objects_global";
 
 export class GrabbableComponent extends Component {
     static TypeName = "pp-grabbable";
@@ -136,7 +137,7 @@ export class GrabbableComponent extends Component {
 
     _release() {
         if (this._myParentOnRelease == 0) {
-            this.object.pp_setParent(null);
+            this.object.pp_setParent(getSceneObjects(this.engine).myScene);
         } else {
             this.object.pp_setParent(this._myOldParent);
         }

@@ -9,6 +9,7 @@ import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/ar
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
 import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getDefaultResources } from "../../../../../pp/default_resources_global";
+import { getSceneObjects } from "../../../../../pp/scene_objects_global";
 
 // Occlude
 export class PlayerObscureManagerParams {
@@ -334,7 +335,7 @@ export class PlayerObscureManager {
         if (visible) {
             this._myObscureParentObject.pp_setParent(this._myParams.myPlayerTransformManager.getHead(), false);
         } else {
-            this._myObscureParentObject.pp_setParent(null, false);
+            this._myObscureParentObject.pp_setParent(getSceneObjects(this._myParams.myEngine).myScene, false);
         }
     }
 }

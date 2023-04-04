@@ -1,7 +1,7 @@
 import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { InputUtils } from "../../input/cauldron/input_utils";
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
-import { getPlayerObjects } from "../../pp/scene_objects_global";
+import { getPlayerObjects, getSceneObjects } from "../../pp/scene_objects_global";
 import { MeshComponent, CollisionComponent, TextComponent } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
@@ -54,7 +54,7 @@ export class WidgetFrameUI {
         if (pinned != this._myIsPinned) {
             this._myIsPinned = pinned;
             if (this._myIsPinned) {
-                this.myPivotObject.pp_setParent(null);
+                this.myPivotObject.pp_setParent(getSceneObjects(this._myEngine).myScene);
             } else {
                 this.myPivotObject.pp_setParent(this.myFixForwardObject);
 
