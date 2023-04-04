@@ -1,7 +1,7 @@
 import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { InputUtils } from "../../input/cauldron/input_utils";
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
-import { getPlayerObjects } from "../../pp/player_objects_global";
+import { getPlayerObjects } from "../../pp/scene_objects_global";
 import { MeshComponent, CollisionComponent, TextComponent } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";

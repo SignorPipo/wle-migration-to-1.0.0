@@ -8,7 +8,7 @@ import { InputManagerComponent } from "../../input/cauldron/components/input_man
 import { EnableToolsComponent } from "../../tool/cauldron/components/enable_tools_component";
 import { EnableDebugsComponent } from "../../debug/components/enable_debugs_component";
 import { GetDefaultResourcesComponent } from "./get_default_resources_component";
-import { GetPlayerObjectsComponent } from "./get_player_objects_component";
+import { GetSceneObjectsComponent } from "./get_scene_objects_component";
 import { InitEasyTuneVariablesComponent } from "../../tool/easy_tune/components/init_easy_tune_variables_component";
 
 export class PPGatewayComponent extends Component {
@@ -23,7 +23,7 @@ export class PPGatewayComponent extends Component {
         ...AudioManagerComponent.Properties,
         ...VisualManagerComponent.Properties,
         ...DebugManagerComponent.Properties,
-        ...GetPlayerObjectsComponent.Properties,
+        ...GetSceneObjectsComponent.Properties,
         ...GetDefaultResourcesComponent.Properties
     };
 
@@ -59,7 +59,7 @@ export class PPGatewayComponent extends Component {
         this._myDebugManagerComponent = this.object.pp_addComponent(DebugManagerComponent, false);
 
         this._myGetDefaultResourcesComponent = this.object.pp_addComponent(GetDefaultResourcesComponent, this._getProperties(GetDefaultResourcesComponent.Properties));
-        this._myGetPlayerObjectsComponent = this.object.pp_addComponent(GetPlayerObjectsComponent, this._getProperties(GetPlayerObjectsComponent.Properties));
+        this._myGetSceneObjectsComponent = this.object.pp_addComponent(GetSceneObjectsComponent, this._getProperties(GetSceneObjectsComponent.Properties));
     }
 
     start() {
@@ -89,7 +89,7 @@ export class PPGatewayComponent extends Component {
         this._myDebugManagerComponent.active = true;
 
         this._myGetDefaultResourcesComponent.active = true;
-        this._myGetPlayerObjectsComponent.active = true;
+        this._myGetSceneObjectsComponent.active = true;
     }
 
     _getProperties(propertiesToGet, active = false) {

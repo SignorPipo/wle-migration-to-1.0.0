@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getPlayerObjects } from "../../../pp/player_objects_global";
+import { getPlayerObjects } from "../../../pp/scene_objects_global";
 
 export class CopyPlayerPivotTransformComponent extends Component {
     static TypeName = "pp-copy-player-pivot-transform";

@@ -1,7 +1,7 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../pp/default_resources_global";
-import { getPlayerObjects } from "../../pp/player_objects_global";
+import { getPlayerObjects } from "../../pp/scene_objects_global";
 import { getEasyTuneVariables } from "../../tool/easy_tune/easy_tune_globals";
 import { EasyTuneNumber } from "../../tool/easy_tune/easy_tune_variable_types";
 import { Timer } from "../cauldron/timer";

@@ -21,6 +21,7 @@ export function hasDebugManager(engine = getMainEngine()) {
 
 export function getDebugVisualManager(engine = getMainEngine()) {
     let debugManager = getDebugManager(engine);
+
     if (debugManager != null) {
         return debugManager.getDebugVisualManager();
     }

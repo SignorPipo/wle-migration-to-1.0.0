@@ -1,3 +1,12 @@
+export class SceneObjects {
+
+    constructor() {
+        this.myScene = null;
+
+        this.myPlayerObjects = new PlayerObjects();
+    }
+}
+
 export class PlayerObjects {
 
     constructor() {

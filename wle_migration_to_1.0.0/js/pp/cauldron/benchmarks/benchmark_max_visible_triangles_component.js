@@ -4,7 +4,7 @@ import { CloneParams } from "../../plugin/wl/extensions/object_extension";
 import { Timer } from "../cauldron/timer";
 import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParams, MeshUtils } from "../utils/mesh_utils";
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
-import { getPlayerObjects } from "../../pp/player_objects_global";
+import { getPlayerObjects } from "../../pp/scene_objects_global";
 import { XRUtils } from "../utils/xr_utils";
 import { EasyTransformComponent } from "../../tool/easy_tune/easy_object_tuners/components/easy_transform_component";
 

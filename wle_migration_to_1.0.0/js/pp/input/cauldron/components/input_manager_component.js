@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getPlayerObjects } from "../../../pp/player_objects_global";
+import { getPlayerObjects } from "../../../pp/scene_objects_global";
 import { ClassicGamepadCore } from "../../gamepad/gamepad_cores/classic_gamepad_core";
 import { KeyboardGamepadCore } from "../../gamepad/gamepad_cores/keyboard_gamepad_core";
 import { XRGamepadCore } from "../../gamepad/gamepad_cores/xr_gamepad_core";
