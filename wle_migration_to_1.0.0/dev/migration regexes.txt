@@ -1,0 +1,21 @@
+Find: WL\.registerComponent\('(.*)',\s*\{([\n|\s|\S|.]*)\}, \{\n([\n|\s|\S|.]*)\}\);
+Replace: 
+import { Component, Type } from "@wonderlandengine/api";
+
+export class EnableToolsComponent extends Component {
+    static TypeName = "$1";
+    static Properties = {$2};
+	
+    $3}
+	
+Find: , Type
+Replace: , Property
+
+Find: \{ type: Type.(\w+), default: (.*) \}
+Replace: Property.\l$1($2)
+
+Find: \{ type: Type.(\w+) \}
+Replace: Property.\l$1()
+
+Find: \{ type: Type.(\w+), values: (.*), default: (.*) \}
+Replace: Property.\l$1($2, $3)

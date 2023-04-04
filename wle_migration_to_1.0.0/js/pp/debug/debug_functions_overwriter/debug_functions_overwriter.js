@@ -350,16 +350,6 @@ export class DebugFunctionsOverwriter {
                     let currentPath = "";
                     let currentName = "";
                     if (objectPath != null) {
-                        if (objectPath == "_WL._components" && (objectProperty._type != null)) {
-                            currentName = "[" + propertyName + "]" + "{\"" + objectProperty._type + "\"}";
-                            currentPath = objectPath + currentName;
-                        } else if (objectPath == "_WL._componentTypes" && (objectProperty.TypeName != null)) {
-                            currentName = objectProperty.TypeName;
-                            currentPath = objectPath + "[\"" + currentName + "\"]";
-                        } else {
-                            currentName = propertyName;
-                            currentPath = objectPath + "." + currentName;
-                        }
                         currentName = propertyName;
                         currentPath = objectPath + "." + currentName;
                     } else {

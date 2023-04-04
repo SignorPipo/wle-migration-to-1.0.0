@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { Timer } from "../pp/index";
+import { Timer, vec3_create, vec4_create } from "../pp/index";
 import { VisualMesh, VisualMeshParams } from "../pp/index";
 import { EasingFunction } from "../pp/index";
 import { getDefaultResources } from "../pp/index";

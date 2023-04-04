@@ -1,18 +1,18 @@
 {
-  "name": "wle_migration_to_1.0.0",
-  "version": "1.0.0",
-  "author": "Pipo",
-  "type": "module",
-  "peerDependencies": {
-    "@wonderlandengine/api": "^1.0.0-rc.2",
-    "@wonderlandengine/components": "^1.0.0-rc.2",
-    "gl-matrix": "^3.4.3",
-    "howler": "^2.2.3"
-  },
-  "devDependencies": {
-    "esbuild": "^0.14.54"
-  },
-  "scripts": {
-    "build": "esbuild ./js/index.js --minify --sourcemap --bundle --outfile=\"deploy/wle_migration_to_1.0.0-bundle.js\""
-  }
+    "name": "wle_migration_to_1.0.0",
+    "version": "1.0.0",
+    "author": "Pipo",
+    "type": "module",
+    "peerDependencies": {
+        "@wonderlandengine/api": "^1.0.0-rc.2",
+        "@wonderlandengine/components": "^1.0.0-rc.2",
+        "gl-matrix": "^3.4.3",
+        "howler": "^2.2.3"
+    },
+    "devDependencies": {
+        "esbuild": "^0.14.54"
+    },
+    "scripts": {
+        "build": "esbuild ./js/index.js --minify --sourcemap --bundle --outfile=\"deploy/wle_migration_to_1.0.0-bundle.js\""
+    }
 }

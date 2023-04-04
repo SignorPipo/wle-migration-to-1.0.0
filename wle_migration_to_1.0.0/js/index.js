@@ -23,6 +23,7 @@ import {ConsoleVRToolComponent} from './pp/index.js';
 import {EasyTuneToolComponent} from './pp/index.js';
 import {GamepadMeshAnimatorComponent} from './pp/index.js';
 import {PPGatewayComponent} from './pp/index.js';
+import {GrabbableComponent} from './pp/index.js';
 import {GrabberHandComponent} from './pp/index.js';
 import {MuteEverythingComponent} from './pp/index.js';
 import {PlayerLocomotionComponent} from './pp/index.js';
@@ -35,6 +36,8 @@ import {SwitchHandObjectComponent} from './pp/index.js';
 import {ToolCursorComponent} from './pp/index.js';
 import {TrackedHandDrawAllJointsComponent} from './pp/index.js';
 import {VirtualGamepadComponent} from './pp/index.js';
+import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
+import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
 import {WaveMovementComponent} from './playground/wave_movement_component.js';
@@ -42,6 +45,7 @@ import {WaveMovementComponent} from './playground/wave_movement_component.js';
 
 import { loadRuntime } from "@wonderlandengine/api";
 import { initPP } from "./pp/index.js";
+import { initPlayground } from "./playground/init_playground.js";
 
 /* wle:auto-constants:start */
 const ProjectName = 'wle_migration_to_1.0.0';
@@ -91,6 +95,7 @@ engine.registerComponent(ConsoleVRToolComponent);
 engine.registerComponent(EasyTuneToolComponent);
 engine.registerComponent(GamepadMeshAnimatorComponent);
 engine.registerComponent(PPGatewayComponent);
+engine.registerComponent(GrabbableComponent);
 engine.registerComponent(GrabberHandComponent);
 engine.registerComponent(MuteEverythingComponent);
 engine.registerComponent(PlayerLocomotionComponent);
@@ -103,12 +108,15 @@ engine.registerComponent(SwitchHandObjectComponent);
 engine.registerComponent(ToolCursorComponent);
 engine.registerComponent(TrackedHandDrawAllJointsComponent);
 engine.registerComponent(VirtualGamepadComponent);
+engine.registerComponent(ScaleOnSpawnComponent);
+engine.registerComponent(SFXOnCollisionComponent);
 engine.registerComponent(SFXOnGrabThrowComponent);
 engine.registerComponent(TargetHitCheckComponent);
 engine.registerComponent(WaveMovementComponent);
 /* wle:auto-register:end */
 
 initPP(engine);
+initPlayground(engine);
 
 engine.scene.load(`${ProjectName}.bin`);
 

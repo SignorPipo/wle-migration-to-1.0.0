@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { vec3_create } from "../pp/index";
+import { Timer, vec3_create } from "../pp/index";
 import { EasingFunction } from "../pp/index";
 
 export class ParticleComponent extends Component {

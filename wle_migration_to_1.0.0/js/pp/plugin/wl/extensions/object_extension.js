@@ -1654,7 +1654,7 @@ export function initObjectExtensionProtoype() {
 
     // Scale
 
-    // For now it does not really make sense in wle to scale in world space or parent space
+    // For now it does not really make sense in WL to scale in world space or parent space
     // so there is no pp_scale default function
 
     objectExtension.pp_scaleObject = function () {
@@ -1719,8 +1719,8 @@ export function initObjectExtensionProtoype() {
         let position = vec3_create();
         let rotation = quat_create();
         let scale = vec3_create();
-        return function pp_setParent(newParent, keepTransform = true) {
-            if (!keepTransform) {
+        return function pp_setParent(newParent, keepTransformWorld = true) {
+            if (!keepTransformWorld) {
                 this.parent = newParent;
             } else {
                 this.pp_getPositionWorld(position);
@@ -2217,7 +2217,7 @@ export function initObjectExtensionProtoype() {
                     let parent = cloneData[0];
                     let objectToClone = cloneData[1];
 
-                    let currentClonedObject = parent.pp_addObject();
+                    let currentClonedObject = (parent != null) ? parent.pp_addObject() : this.pp_getEngine().scene.pp_addObject();
                     currentClonedObject.pp_setName(objectToClone.pp_getName());
 
                     currentClonedObject.pp_setScaleLocal(objectToClone.pp_getScaleLocal(scale));
