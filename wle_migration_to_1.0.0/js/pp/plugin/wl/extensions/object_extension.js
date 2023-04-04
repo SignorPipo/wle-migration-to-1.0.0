@@ -117,7 +117,7 @@
         - getObjectsByIDObjects
 */
 
-import { Object as WLObject } from "@wonderlandengine/api";
+import { Object3D } from "@wonderlandengine/api";
 import { ExtensionUtils } from "../../utils/extension_utils";
 import { vec3_create, quat_create, quat2_create, mat3_create, mat4_create } from "../../js/extensions/array_extension";
 
@@ -2818,7 +2818,7 @@ export function initObjectExtensionProtoype() {
 
 
 
-    ExtensionUtils.assignProperties(objectExtension, WLObject.prototype, false, true, true);
+    ExtensionUtils.assignProperties(objectExtension, Object3D.prototype, false, true, true);
 
 }
 
