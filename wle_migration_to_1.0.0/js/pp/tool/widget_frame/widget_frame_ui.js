@@ -54,7 +54,7 @@ export class WidgetFrameUI {
         if (pinned != this._myIsPinned) {
             this._myIsPinned = pinned;
             if (this._myIsPinned) {
-                this.myPivotObject.pp_setParent(getSceneObjects(this._myEngine).myScene);
+                this.myPivotObject.pp_setParent(getSceneObjects(this._myEngine).myTools);
             } else {
                 this.myPivotObject.pp_setParent(this.myFixForwardObject);
 

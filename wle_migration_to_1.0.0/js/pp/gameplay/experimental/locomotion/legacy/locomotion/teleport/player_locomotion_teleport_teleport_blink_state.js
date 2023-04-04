@@ -6,14 +6,14 @@ import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { TimerState } from "../../../../../../cauldron/fsm/states/timer_state";
 import { NumberOverValue } from "../../../../../cauldron/cauldron/number_over_value";
 import { Timer } from "../../../../../../cauldron/cauldron/timer";
-import { getSceneObjects } from "../../../../../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
 
 export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotionTeleportState {
 
     constructor(teleportParams, teleportRuntimeParams, locomotionRuntimeParams) {
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 
-        this._myBlinkSphere = getSceneObjects(this._myTeleportParams.myEngine).myScene.pp_addObject();
+        this._myBlinkSphere = getPlayerObjects(this._myTeleportParams.myEngine).myPlayerCauldron.pp_addObject();
         this._myBlinkSphereMeshComponent = this._myBlinkSphere.pp_addComponent(MeshComponent);
         this._myBlinkSphereMeshComponent.mesh = getDefaultResources(this._myTeleportParams.myEngine).myMeshes.myInvertedSphere;
         this._myBlinkSphereMeshComponent.material = getDefaultResources(this._myTeleportParams.myEngine).myMaterials.myFlatTransparentNoDepth.clone();
@@ -68,7 +68,7 @@ export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotion
 
     end() {
         this._myBlinkSphere.pp_setActive(false);
-        this._myBlinkSphere.pp_setParent(getSceneObjects(this._myTeleportParams.myEngine).myScene, false);
+        this._myBlinkSphere.pp_setParent(getPlayerObjects(this._myTeleportParams.myEngine).myPlayerCauldron, false);
         this._myFSM.perform("stop");
     }
 

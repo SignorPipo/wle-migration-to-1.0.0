@@ -17,6 +17,7 @@ import { getVisualData } from "../visual_globals";
 import { Alignment, Justification, TextComponent } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { VisualElementType } from "./visual_element_types";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualTextParams {
 
@@ -31,7 +32,7 @@ export class VisualTextParams {
 
         this.myColor = null;        // If this is set and material is null, it will use the default text material with this color
 
-        this.myParent = getVisualData(engine).myDefaultParent;
+        this.myParent = getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.TEXT;
@@ -139,7 +140,7 @@ export class VisualText {
     }
 
     _build() {
-        this._myTextObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
+        this._myTextObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
         this._myTextComponent = this._myTextObject.pp_addComponent(TextComponent);
     }
 

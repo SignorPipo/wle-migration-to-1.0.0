@@ -17,6 +17,7 @@ import { getVisualData } from "../visual_globals";
 import { MeshComponent } from "@wonderlandengine/api";
 import { VisualElementType } from "./visual_element_types";
 import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualPointParams {
 
@@ -29,7 +30,7 @@ export class VisualPointParams {
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = getVisualData(engine).myDefaultParent;
+        this.myParent = getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.POINT;
@@ -107,7 +108,7 @@ export class VisualPoint {
     }
 
     _build() {
-        this._myPointObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
+        this._myPointObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
 
         this._myPointMeshComponent = this._myPointObject.pp_addComponent(MeshComponent);
     }

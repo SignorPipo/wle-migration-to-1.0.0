@@ -31,12 +31,17 @@ export class GetSceneObjectsComponent extends Component {
 
             this._mySceneObjects.myPlayerObjects.myPlayer = this._myPlayer;
             this._mySceneObjects.myPlayerObjects.myPlayerPivot = this._myPlayerPivot;
+
             this._mySceneObjects.myPlayerObjects.myCameraNonVR = this._myCameraNonVR;
+
+            this._mySceneObjects.myPlayerObjects.myEyeLeft = this._myEyeLeft;
+            this._mySceneObjects.myPlayerObjects.myEyeRight = this._myEyeRight;
+
+
             this._mySceneObjects.myPlayerObjects.myHead = this._myHead;
             this._mySceneObjects.myPlayerObjects.myHeadNonVR = this._myHeadNonVR;
             this._mySceneObjects.myPlayerObjects.myHeadVR = this._myHeadVR;
-            this._mySceneObjects.myPlayerObjects.myEyeLeft = this._myEyeLeft;
-            this._mySceneObjects.myPlayerObjects.myEyeRight = this._myEyeRight;
+
             this._mySceneObjects.myPlayerObjects.myHandLeft = this._myHandLeft;
             this._mySceneObjects.myPlayerObjects.myHandRight = this._myHandRight;
 
@@ -51,6 +56,20 @@ export class GetSceneObjectsComponent extends Component {
             if (this._mySceneObjects.myPlayerObjects.myPlayerPivot == null) {
                 this._mySceneObjects.myPlayerObjects.myPlayerPivot = this._mySceneObjects.myPlayerObjects.myPlayer;
             }
+
+            this._mySceneObjects.myCauldron = this._mySceneObjects.myScene.pp_addObject();
+            this._mySceneObjects.myCauldron.pp_setName("Cauldron");
+            this._mySceneObjects.myDynamics = this._mySceneObjects.myScene.pp_addObject();
+            this._mySceneObjects.myDynamics.pp_setName("Dynamics");
+            this._mySceneObjects.myParticles = this._mySceneObjects.myScene.pp_addObject();
+            this._mySceneObjects.myParticles.pp_setName("Particles");
+            this._mySceneObjects.myVisualElements = this._mySceneObjects.myScene.pp_addObject();
+            this._mySceneObjects.myVisualElements.pp_setName("Visual Elements");
+            this._mySceneObjects.myTools = this._mySceneObjects.myScene.pp_addObject();
+            this._mySceneObjects.myTools.pp_setName("Tools");
+
+            this._mySceneObjects.myPlayerObjects.myPlayerCauldron = this._mySceneObjects.myPlayerObjects.myPlayer.pp_addObject();
+            this._mySceneObjects.myPlayerObjects.myPlayerCauldron.pp_setName("Player Cauldron");
 
             setSceneObjects(this._mySceneObjects, this.engine);
         }

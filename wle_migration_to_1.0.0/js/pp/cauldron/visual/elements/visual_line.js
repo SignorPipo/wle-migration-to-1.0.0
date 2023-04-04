@@ -18,6 +18,7 @@ import { getVisualData } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { MeshComponent } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualLineParams {
 
@@ -33,7 +34,7 @@ export class VisualLineParams {
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = getVisualData(engine).myDefaultParent;
+        this.myParent = getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.LINE;
@@ -121,7 +122,7 @@ export class VisualLine {
     }
 
     _build() {
-        this._myLineRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
+        this._myLineRootObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
         this._myLineObject = this._myLineRootObject.pp_addObject();
 
         this._myLineMeshComponent = this._myLineObject.pp_addComponent(MeshComponent);

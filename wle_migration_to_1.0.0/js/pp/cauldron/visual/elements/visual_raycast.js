@@ -13,6 +13,7 @@ import { getVisualData } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualArrow, VisualArrowParams } from "./visual_arrow";
 import { getMainEngine } from "../../wl/engine_globals";
+import { GetSceneObjectsComponent } from "../../../pp/components/get_scene_objects_component";
 
 export class VisualRaycastParams {
 
@@ -27,7 +28,7 @@ export class VisualRaycastParams {
         this.myRayMaterial = null;
         this.myHitNormalMaterial = null;
 
-        this.myParent = getVisualData(engine).myDefaultParent;
+        this.myParent = GetSceneObjectsComponent(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.RAYCAST;

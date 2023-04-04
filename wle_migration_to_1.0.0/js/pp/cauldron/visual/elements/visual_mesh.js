@@ -17,6 +17,7 @@ import { getVisualData } from "../visual_globals";
 import { MeshComponent } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { VisualElementType } from "./visual_element_types";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualMeshParams {
 
@@ -26,7 +27,7 @@ export class VisualMeshParams {
         this.myMesh = null;
         this.myMaterial = null;
 
-        this.myParent = getVisualData(engine).myDefaultParent;
+        this.myParent = getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.MESH;
@@ -124,7 +125,7 @@ export class VisualMesh {
     }
 
     _build() {
-        this._myMeshObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
+        this._myMeshObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
 
         this._myMeshComponent = this._myMeshObject.pp_addComponent(MeshComponent);
     }

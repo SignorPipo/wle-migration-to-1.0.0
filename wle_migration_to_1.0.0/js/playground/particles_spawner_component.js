@@ -30,7 +30,7 @@ export class ParticlesSpawnerComponent extends Component {
             let particle = this._myParticles[i].pp_clone(cloneParams);
             particle.pp_addComponent(ParticleComponent);
             particle.pp_setActive(false);
-            particle.pp_setParent(getSceneObjects(this.engine).myScene);
+            particle.pp_setParent(getSceneObjects(this.engine).myParticles);
 
             this._myObjectPoolsManager.addPool(i, particle, poolParams);
         }

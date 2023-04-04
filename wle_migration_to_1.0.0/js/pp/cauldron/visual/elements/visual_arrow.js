@@ -19,6 +19,7 @@ import { getVisualData } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualLine, VisualLineParams } from "./visual_line";
 import { MeshComponent } from "@wonderlandengine/api";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualArrowParams {
 
@@ -35,7 +36,7 @@ export class VisualArrowParams {
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = getVisualData(engine).myDefaultParent;
+        this.myParent = getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.ARROW;
@@ -130,7 +131,7 @@ export class VisualArrow {
     }
 
     _build() {
-        this._myArrowRootObject = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultParent.pp_addObject();
+        this._myArrowRootObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
         this._myArrowObject = this._myArrowRootObject.pp_addObject();
 
         this._myArrowMeshComponent = this._myArrowObject.pp_addComponent(MeshComponent);

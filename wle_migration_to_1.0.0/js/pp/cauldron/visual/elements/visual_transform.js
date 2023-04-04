@@ -10,6 +10,7 @@ let visualTransform = new VisualTransform(visualParams);
 */
 
 import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualData } from "../visual_globals";
 import { VisualArrow, VisualArrowParams } from "./visual_arrow";
@@ -26,7 +27,7 @@ export class VisualTransformParams {
         this.myUpMaterial = null;
         this.myRightMaterial = null;
 
-        this.myParent = getVisualData(engine).myDefaultParent;
+        this.myParent = getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.TRANSFORM;

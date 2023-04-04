@@ -4,12 +4,11 @@ import { Timer } from "../../../../../cauldron/cauldron/timer";
 import { FSM } from "../../../../../cauldron/fsm/fsm";
 import { MaterialUtils } from "../../../../../cauldron/utils/material_utils";
 import { VisualMesh, VisualMeshParams } from "../../../../../cauldron/visual/elements/visual_mesh";
-import { getVisualData } from "../../../../../cauldron/visual/visual_globals";
 import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
 import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getDefaultResources } from "../../../../../pp/default_resources_global";
-import { getSceneObjects } from "../../../../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../../../../pp/scene_objects_global";
 
 // Occlude
 export class PlayerObscureManagerParams {
@@ -306,7 +305,7 @@ export class PlayerObscureManager {
             this._myObscureMaterial.color = vec4_create(0, 0, 0, 1);
         }
 
-        this._myObscureParentObject = getVisualData(this._myParams.myEngine).myDefaultParent.pp_addObject();
+        this._myObscureParentObject = getPlayerObjects(this._myParams.myEngine).myPlayerCauldron.pp_addObject();
 
         let obscureVisualParams = new VisualMeshParams(this._myParams.myEngine);
         obscureVisualParams.myMesh = getDefaultResources(this._myParams.myEngine).myMeshes.myInvertedSphere;
@@ -335,7 +334,7 @@ export class PlayerObscureManager {
         if (visible) {
             this._myObscureParentObject.pp_setParent(this._myParams.myPlayerTransformManager.getHead(), false);
         } else {
-            this._myObscureParentObject.pp_setParent(getSceneObjects(this._myParams.myEngine).myScene, false);
+            this._myObscureParentObject.pp_setParent(getPlayerObjects(this._myParams.myEngine).myPlayerCauldron, false);
         }
     }
 }

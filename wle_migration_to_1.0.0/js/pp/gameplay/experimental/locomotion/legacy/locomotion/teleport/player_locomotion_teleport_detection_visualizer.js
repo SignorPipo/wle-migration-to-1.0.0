@@ -1,10 +1,10 @@
 import { VisualLine, VisualLineParams } from "../../../../../../cauldron/visual/elements/visual_line";
 import { VisualPoint, VisualPointParams } from "../../../../../../cauldron/visual/elements/visual_point";
 import { VisualTorus, VisualTorusParams } from "../../../../../../cauldron/visual/elements/visual_torus";
-import { getVisualData } from "../../../../../../cauldron/visual/visual_globals";
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../../../../../pp/default_resources_global";
+import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
 import { getEasyTuneVariables } from "../../../../../../tool/easy_tune/easy_tune_globals";
 import { EasyTuneInt, EasyTuneNumber } from "../../../../../../tool/easy_tune/easy_tune_variable_types";
 
@@ -196,7 +196,7 @@ PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = function (
             this._myValidVisualVerticalLine = new VisualLine(visualParams);
         }
 
-        this._myVisualTeleportPositionObject = getVisualData(this._myTeleportParams.myEngine).myDefaultParent.pp_addObject();
+        this._myVisualTeleportPositionObject = getPlayerObjects(this._myTeleportParams.myEngine).myPlayerCauldron.pp_addObject();
 
         //getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Teleport Torus Radius", 0.175, 0.1, 3, undefined, undefined, this._myTeleportParams.myEngine));
         //getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneInt("Teleport Torus Segments", 24, 1, undefined, undefined, this._myTeleportParams.myEngine));

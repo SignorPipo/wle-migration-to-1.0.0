@@ -137,7 +137,7 @@ export class GrabbableComponent extends Component {
 
     _release() {
         if (this._myParentOnRelease == 0) {
-            this.object.pp_setParent(getSceneObjects(this.engine).myScene);
+            this.object.pp_setParent(getSceneObjects(this.engine).myDynamics);
         } else {
             this.object.pp_setParent(this._myOldParent);
         }
