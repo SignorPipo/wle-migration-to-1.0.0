@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "author": "Pipo",
     "type": "module",
-    "peerDependencies": {
+    "dependencies": {
         "@wonderlandengine/api": "^1.0.0-rc.2",
         "@wonderlandengine/components": "^1.0.0-rc.2",
         "gl-matrix": "^3.4.3",
