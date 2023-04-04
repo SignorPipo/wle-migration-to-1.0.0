@@ -14,34 +14,34 @@
 import * as API from "@wonderlandengine/api"; // Deprecated: Backward compatibility.
 
 /* wle:auto-imports:start */
-import {FadeViewComponent} from './playground/fade_view_component.js';
-import {GrabbableSpawnerComponent} from './playground/grabbable_spawner_component.js';
-import {LoadAudioComponent} from './playground/load_audio_component.js';
-import {MouseLookComponent} from '@wonderlandengine/components';
-import {ParticlesSpawnerComponent} from './playground/particles_spawner_component.js';
-import {PlayMusicComponent} from './playground/play_music_component.js';
-import {ConsoleVRToolComponent} from './pp/index.js';
-import {EasyTuneToolComponent} from './pp/index.js';
-import {GamepadMeshAnimatorComponent} from './pp/index.js';
-import {PPGatewayComponent} from './pp/index.js';
-import {GrabbableComponent} from './pp/index.js';
-import {GrabberHandComponent} from './pp/index.js';
-import {MuteEverythingComponent} from './pp/index.js';
-import {PlayerLocomotionComponent} from './pp/index.js';
-import {SetHandLocalTransformComponent} from './pp/index.js';
-import {SetHeadLocalTransformComponent} from './pp/index.js';
-import {SetHeadNonVRLocalTransformComponent} from './pp/index.js';
-import {SetHeadVRLocalTransformComponent} from './pp/index.js';
-import {SpatialAudioListenerComponent} from './pp/index.js';
-import {SwitchHandObjectComponent} from './pp/index.js';
-import {ToolCursorComponent} from './pp/index.js';
-import {TrackedHandDrawAllJointsComponent} from './pp/index.js';
-import {VirtualGamepadComponent} from './pp/index.js';
-import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
-import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
-import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
-import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
-import {WaveMovementComponent} from './playground/wave_movement_component.js';
+import { FadeViewComponent } from './playground/fade_view_component.js';
+import { GrabbableSpawnerComponent } from './playground/grabbable_spawner_component.js';
+import { LoadAudioComponent } from './playground/load_audio_component.js';
+import { MouseLookComponent } from '@wonderlandengine/components';
+import { ParticlesSpawnerComponent } from './playground/particles_spawner_component.js';
+import { PlayMusicComponent } from './playground/play_music_component.js';
+import { ConsoleVRToolComponent } from './pp/index.js';
+import { EasyTuneToolComponent } from './pp/index.js';
+import { GamepadMeshAnimatorComponent } from './pp/index.js';
+import { PPGatewayComponent } from './pp/index.js';
+import { GrabbableComponent } from './pp/index.js';
+import { GrabberHandComponent } from './pp/index.js';
+import { MuteEverythingComponent } from './pp/index.js';
+import { PlayerLocomotionComponent } from './pp/index.js';
+import { SetHandLocalTransformComponent } from './pp/index.js';
+import { SetHeadLocalTransformComponent } from './pp/index.js';
+import { SetHeadNonVRLocalTransformComponent } from './pp/index.js';
+import { SetHeadVRLocalTransformComponent } from './pp/index.js';
+import { SpatialAudioListenerComponent } from './pp/index.js';
+import { SwitchHandObjectComponent } from './pp/index.js';
+import { ToolCursorComponent } from './pp/index.js';
+import { TrackedHandDrawAllJointsComponent } from './pp/index.js';
+import { VirtualGamepadComponent } from './pp/index.js';
+import { ScaleOnSpawnComponent } from './playground/scale_on_spawn_component.js';
+import { SFXOnCollisionComponent } from './playground/sfx_on_collision_component.js';
+import { SFXOnGrabThrowComponent } from './playground/sfx_on_grab_throw_component.js';
+import { TargetHitCheckComponent } from './playground/target_hit_check_component.js';
+import { WaveMovementComponent } from './playground/wave_movement_component.js';
 /* wle:auto-imports:end */
 
 import { loadRuntime } from "@wonderlandengine/api";
@@ -59,18 +59,9 @@ const engine = await loadRuntime(RuntimeBaseName, {
     physx: WithPhysX,
     loader: WithLoader
 });
+
 Object.assign(engine, API); // Deprecated: Backward compatibility.
 window.WL = engine; // Deprecated: Backward compatibility.
-
-Object.defineProperty(API.Object.prototype, "engine", {
-    get: function () { return this._engine; }
-});
-Object.defineProperty(API.Scene.prototype, "engine", {
-    get: function () { return this._engine; }
-});
-Object.defineProperty(API.Mesh.prototype, "engine", {
-    get: function () { return this._engine; }
-});
 
 engine.onSceneLoaded.push(() => {
     const el = document.getElementById("version");
