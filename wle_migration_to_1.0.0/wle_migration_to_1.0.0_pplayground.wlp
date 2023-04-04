@@ -2542,22 +2542,6 @@
             }
         }
     },
-    "textures": {
-        "t0": {
-            "link": {
-                "name": "DefaultTexture",
-                "file": "default"
-            }
-        }
-    },
-    "images": {
-        "f0": {
-            "link": {
-                "name": "DefaultImage",
-                "file": "default"
-            }
-        }
-    },
     "materials": {
         "DefaultFontMaterial": {
             "link": {
@@ -2884,6 +2868,151 @@
             }
         }
     },
+    "settings": {
+        "project": {
+            "name": "wle_migration_to_1.0.0",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        },
+        "rendering": {
+            "clearColor": [
+                0.4235294,
+                1.0,
+                0.8705882,
+                1.0
+            ]
+        },
+        "runtime": {
+            "xrButtonColor": "white",
+            "webxr": {
+                "optionalFeatures": {
+                    "hand-tracking": true
+                }
+            },
+            "viewObject": "21"
+        },
+        "scripting": {
+            "sourcePaths": [
+                "js/index.js",
+                "js",
+                "js/pp",
+                "js/pp/pp",
+                "js/pp/pp/components",
+                "js/pp/plugin",
+                "js/pp/plugin/utils",
+                "js/pp/plugin/js",
+                "js/pp/plugin/js/extensions",
+                "js/pp/plugin/wl",
+                "js/pp/plugin/wl/extensions",
+                "js/pp/plugin/wl/mods",
+                "js/pp/plugin/wl/mods/components",
+                "js/pp/audio",
+                "js/pp/audio/howler",
+                "js/pp/audio/components",
+                "js/pp/cauldron",
+                "js/pp/cauldron/benchmarks",
+                "js/pp/cauldron/cauldron",
+                "js/pp/cauldron/components",
+                "js/pp/cauldron/physics",
+                "js/pp/cauldron/utils",
+                "js/pp/cauldron/visual",
+                "js/pp/cauldron/visual/components",
+                "js/pp/cauldron/visual/elements",
+                "js/pp/cauldron/wl",
+                "js/pp/cauldron/wl/components",
+                "js/pp/debug",
+                "js/pp/debug/components",
+                "js/pp/debug/debug_functions_overwriter",
+                "js/pp/debug/debug_functions_overwriter/debug_functions_performance_analyzer",
+                "js/pp/debug/debug_functions_overwriter/debug_functions_performance_analyzer/components",
+                "js/pp/gameplay",
+                "js/pp/gameplay/cauldron",
+                "js/pp/gameplay/cauldron/cauldron",
+                "js/pp/gameplay/experimental",
+                "js/pp/gameplay/experimental/cauldron",
+                "js/pp/gameplay/experimental/cauldron/player",
+                "js/pp/gameplay/experimental/cauldron/player/components",
+                "js/pp/gameplay/experimental/character_controller",
+                "js/pp/gameplay/experimental/character_controller/collision",
+                "js/pp/gameplay/experimental/character_controller/collision/components",
+                "js/pp/gameplay/experimental/character_controller/collision/legacy",
+                "js/pp/gameplay/experimental/character_controller/collision/legacy/collision_check",
+                "js/pp/gameplay/experimental/character_controller/components",
+                "js/pp/gameplay/experimental/character_controller/player",
+                "js/pp/gameplay/experimental/character_controller/player/components",
+                "js/pp/gameplay/experimental/locomotion",
+                "js/pp/gameplay/experimental/locomotion/cauldron",
+                "js/pp/gameplay/experimental/locomotion/cauldron/components",
+                "js/pp/gameplay/experimental/locomotion/legacy",
+                "js/pp/gameplay/experimental/locomotion/legacy/locomotion",
+                "js/pp/gameplay/experimental/locomotion/legacy/locomotion/cleaned",
+                "js/pp/gameplay/experimental/locomotion/legacy/locomotion/teleport",
+                "js/pp/gameplay/experimental/locomotion/player",
+                "js/pp/gameplay/experimental/locomotion/player/components",
+                "js/pp/gameplay/experimental/locomotion/player/teleport",
+                "js/pp/gameplay/grab_throw",
+                "js/pp/gameplay/integrations",
+                "js/pp/gameplay/integrations/construct_arcade",
+                "js/pp/input",
+                "js/pp/input/cauldron",
+                "js/pp/input/cauldron/components",
+                "js/pp/input/gamepad",
+                "js/pp/input/gamepad/cauldron",
+                "js/pp/input/gamepad/gamepad_cores",
+                "js/pp/input/gamepad/virtual_gamepad",
+                "js/pp/input/pose",
+                "js/pp/input/pose/components",
+                "js/pp/tool",
+                "js/pp/tool/cauldron",
+                "js/pp/tool/cauldron/cauldron",
+                "js/pp/tool/cauldron/components",
+                "js/pp/tool/widget_frame",
+                "js/pp/tool/console_vr",
+                "js/pp/tool/console_vr/components",
+                "js/pp/tool/easy_tune",
+                "js/pp/tool/easy_tune/components",
+                "js/pp/tool/easy_tune/easy_object_tuners",
+                "js/pp/tool/easy_tune/easy_object_tuners/components",
+                "js/pp/tool/easy_tune/easy_tune_widgets",
+                "js/pp/tool/easy_tune/easy_tune_widgets/base",
+                "js/pp/tool/easy_tune/easy_tune_widgets/bool",
+                "js/pp/tool/easy_tune/easy_tune_widgets/none",
+                "js/pp/tool/easy_tune/easy_tune_widgets/number",
+                "js/pp/tool/easy_tune/easy_tune_widgets/transform",
+                "js/playground"
+            ],
+            "bundlingType": "esbuild",
+            "libraryPaths": [
+                "/js/lib/"
+            ]
+        },
+        "vr": {
+            "leftEyeObject": "26",
+            "rightEyeObject": "27"
+        },
+        "editor": {
+            "camera": {
+                "near": 0.0099999,
+                "far": 10000.0
+            }
+        },
+        "physx": {
+            "enable": true,
+            "groupNames": {
+                "0": "Player",
+                "1": "Solid",
+                "2": "Interactable",
+                "3": "Group 3",
+                "4": "Group 4",
+                "5": "Group 5",
+                "6": "Group 6",
+                "7": "Group 7"
+            }
+        }
+    },
     "animations": {},
     "skins": {},
     "pipelines": {
@@ -3005,150 +3134,8 @@
             "blendEqAlpha": "max"
         }
     },
-    "settings": {
-        "project": {
-            "name": "wle_migration_to_1.0.0",
-            "version": [
-                1,
-                0,
-                0
-            ]
-        },
-        "rendering": {
-            "clearColor": [
-                0.4235294,
-                1.0,
-                0.8705882,
-                1.0
-            ]
-        },
-        "runtime": {
-            "xrButtonColor": "white",
-            "webxr": {
-                "optionalFeatures": {
-                    "hand-tracking": true
-                }
-            },
-            "viewObject": "21"
-        },
-        "scripting": {
-            "sourcePaths": [
-                "js/index.js",
-                "js/pp",
-                "js/pp/pp",
-                "js/pp/pp/components",
-                "js/pp/plugin",
-                "js/pp/plugin/utils",
-                "js/pp/plugin/js",
-                "js/pp/plugin/js/extensions",
-                "js/pp/plugin/wl",
-                "js/pp/plugin/wl/extensions",
-                "js/pp/plugin/wl/mods",
-                "js/pp/plugin/wl/mods/components",
-                "js/pp/audio",
-                "js/pp/audio/howler",
-                "js/pp/audio/components",
-                "js/pp/cauldron",
-                "js/pp/cauldron/benchmarks",
-                "js/pp/cauldron/cauldron",
-                "js/pp/cauldron/components",
-                "js/pp/cauldron/physics",
-                "js/pp/cauldron/utils",
-                "js/pp/cauldron/visual",
-                "js/pp/cauldron/visual/components",
-                "js/pp/cauldron/visual/elements",
-                "js/pp/cauldron/wl",
-                "js/pp/cauldron/wl/components",
-                "js/pp/debug",
-                "js/pp/debug/components",
-                "js/pp/debug/debug_functions_overwriter",
-                "js/pp/debug/debug_functions_overwriter/debug_functions_performance_analyzer",
-                "js/pp/debug/debug_functions_overwriter/debug_functions_performance_analyzer/components",
-                "js/pp/gameplay",
-                "js/pp/gameplay/cauldron",
-                "js/pp/gameplay/cauldron/cauldron",
-                "js/pp/gameplay/experimental",
-                "js/pp/gameplay/experimental/cauldron",
-                "js/pp/gameplay/experimental/cauldron/player",
-                "js/pp/gameplay/experimental/cauldron/player/components",
-                "js/pp/gameplay/experimental/character_controller",
-                "js/pp/gameplay/experimental/character_controller/collision",
-                "js/pp/gameplay/experimental/character_controller/collision/components",
-                "js/pp/gameplay/experimental/character_controller/collision/legacy",
-                "js/pp/gameplay/experimental/character_controller/collision/legacy/collision_check",
-                "js/pp/gameplay/experimental/character_controller/components",
-                "js/pp/gameplay/experimental/character_controller/player",
-                "js/pp/gameplay/experimental/character_controller/player/components",
-                "js/pp/gameplay/experimental/locomotion",
-                "js/pp/gameplay/experimental/locomotion/cauldron",
-                "js/pp/gameplay/experimental/locomotion/cauldron/components",
-                "js/pp/gameplay/experimental/locomotion/legacy",
-                "js/pp/gameplay/experimental/locomotion/legacy/locomotion",
-                "js/pp/gameplay/experimental/locomotion/legacy/locomotion/cleaned",
-                "js/pp/gameplay/experimental/locomotion/legacy/locomotion/teleport",
-                "js/pp/gameplay/experimental/locomotion/player",
-                "js/pp/gameplay/experimental/locomotion/player/components",
-                "js/pp/gameplay/experimental/locomotion/player/teleport",
-                "js/pp/gameplay/grab_throw",
-                "js/pp/gameplay/integrations",
-                "js/pp/gameplay/integrations/construct_arcade",
-                "js/pp/input",
-                "js/pp/input/cauldron",
-                "js/pp/input/cauldron/components",
-                "js/pp/input/gamepad",
-                "js/pp/input/gamepad/cauldron",
-                "js/pp/input/gamepad/gamepad_cores",
-                "js/pp/input/gamepad/virtual_gamepad",
-                "js/pp/input/pose",
-                "js/pp/input/pose/components",
-                "js/pp/tool",
-                "js/pp/tool/cauldron",
-                "js/pp/tool/cauldron/cauldron",
-                "js/pp/tool/cauldron/components",
-                "js/pp/tool/widget_frame",
-                "js/pp/tool/console_vr",
-                "js/pp/tool/console_vr/components",
-                "js/pp/tool/easy_tune",
-                "js/pp/tool/easy_tune/components",
-                "js/pp/tool/easy_tune/easy_object_tuners",
-                "js/pp/tool/easy_tune/easy_object_tuners/components",
-                "js/pp/tool/easy_tune/easy_tune_widgets",
-                "js/pp/tool/easy_tune/easy_tune_widgets/base",
-                "js/pp/tool/easy_tune/easy_tune_widgets/bool",
-                "js/pp/tool/easy_tune/easy_tune_widgets/none",
-                "js/pp/tool/easy_tune/easy_tune_widgets/number",
-                "js/pp/tool/easy_tune/easy_tune_widgets/transform",
-                "js/playground"
-            ],
-            "libraryPaths": [
-                "/js/lib/"
-            ],
-            "bundlingType": "esbuild"
-        },
-        "vr": {
-            "leftEyeObject": "26",
-            "rightEyeObject": "27"
-        },
-        "editor": {
-            "camera": {
-                "near": 0.0099999,
-                "far": 10000.0
-            }
-        },
-        "physx": {
-            "enable": true,
-            "groupNames": {
-                "0": "Player",
-                "1": "Solid",
-                "2": "Interactable",
-                "3": "Group 3",
-                "4": "Group 4",
-                "5": "Group 5",
-                "6": "Group 6",
-                "7": "Group 7"
-            }
-        }
-    },
+    "textures": {},
+    "images": {},
     "files": [
         "assets/models/pp/meta_quest_1_gamepads_credits_Jezza3D.fbx",
         "assets/models/pp/wondermelon.fbx"

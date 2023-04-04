@@ -658,22 +658,6 @@
             }
         }
     },
-    "textures": {
-        "t0": {
-            "link": {
-                "name": "DefaultTexture",
-                "file": "default"
-            }
-        }
-    },
-    "images": {
-        "f0": {
-            "link": {
-                "name": "DefaultImage",
-                "file": "default"
-            }
-        }
-    },
     "materials": {
         "DefaultFontMaterial": {
             "link": {
@@ -976,8 +960,7 @@
                 "js/pp/tool/easy_tune/easy_tune_widgets/bool",
                 "js/pp/tool/easy_tune/easy_tune_widgets/none",
                 "js/pp/tool/easy_tune/easy_tune_widgets/number",
-                "js/pp/tool/easy_tune/easy_tune_widgets/transform",
-                "js/playground"
+                "js/pp/tool/easy_tune/easy_tune_widgets/transform"
             ],
             "bundlingType": "esbuild",
             "libraryPaths": [
