@@ -10,7 +10,6 @@ import { CharacterColliderSetupSimplifiedCreationAccuracyLevel, CharacterCollide
 import { CollisionCheckBridge } from "../../../../character_controller/collision/collision_check_bridge";
 import { CollisionCheckUtils } from "../../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
-import { LocomotionUtils } from "../locomotion_utils";
 import { PlayerHeadManager, PlayerHeadManagerParams } from "../player_head_manager";
 import { PlayerLocomotionMovementRuntimeParams } from "../player_locomotion_movement";
 import { PlayerLocomotionRotate, PlayerLocomotionRotateParams } from "../player_locomotion_rotate";
@@ -172,7 +171,7 @@ export class CleanedPlayerLocomotion {
             params.mySnapTurnOnlyVR = this._myParams.mySnapTurnOnlyVR;
             params.mySnapTurnAngle = this._myParams.mySnapTurnAngle;
 
-            if (this._myParams.mySnapTurnSpeedDegrees > LocomotionUtils.EPSILON) {
+            if (this._myParams.mySnapTurnSpeedDegrees > Math.PP_EPSILON) {
                 params.mySmoothSnapActive = true;
                 params.mySmoothSnapSpeedDegrees = this._myParams.mySnapTurnSpeedDegrees;
             } else {

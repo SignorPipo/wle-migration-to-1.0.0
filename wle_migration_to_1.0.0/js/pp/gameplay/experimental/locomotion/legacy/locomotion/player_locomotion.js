@@ -9,7 +9,6 @@ import { GamepadButtonID } from "../../../../../input/gamepad/gamepad_buttons";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
 import { CollisionCheckUtils } from "../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../character_controller/collision/legacy/collision_check/collision_params";
-import { LocomotionUtils } from "./locomotion_utils";
 import { PlayerHeadManager, PlayerHeadManagerParams } from "./player_head_manager";
 import { PlayerLocomotionMovementRuntimeParams } from "./player_locomotion_movement";
 import { PlayerLocomotionRotate, PlayerLocomotionRotateParams } from "./player_locomotion_rotate";
@@ -219,7 +218,7 @@ export class PlayerLocomotion {
             params.mySnapTurnOnlyVR = this._myParams.mySnapTurnOnlyVR;
             params.mySnapTurnAngle = this._myParams.mySnapTurnAngle;
 
-            if (this._myParams.mySnapTurnSpeedDegrees > LocomotionUtils.EPSILON) {
+            if (this._myParams.mySnapTurnSpeedDegrees > Math.PP_EPSILON) {
                 params.mySmoothSnapActive = true;
                 params.mySmoothSnapSpeedDegrees = this._myParams.mySnapTurnSpeedDegrees;
             } else {

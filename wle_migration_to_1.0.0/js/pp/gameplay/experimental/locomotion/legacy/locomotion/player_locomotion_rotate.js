@@ -4,7 +4,6 @@ import { getGamepads } from "../../../../../input/cauldron/input_globals";
 import { Handedness } from "../../../../../input/cauldron/input_types";
 import { GamepadAxesID } from "../../../../../input/gamepad/gamepad_buttons";
 import { quat_create, vec3_create } from "../../../../../plugin/js/extensions/array_extension";
-import { LocomotionUtils } from "./locomotion_utils";
 
 export class PlayerLocomotionRotateParams {
 
@@ -113,20 +112,20 @@ PlayerLocomotionRotate.prototype._rotateHeadHorizontally = function () {
 
         if (this._mySmoothSnapHorizontalRunning) {
             let angleToRotate = Math.pp_sign(this._mySmoothSnapHorizontalAngleToPerform) * (this._myParams.mySmoothSnapSpeedDegrees * dt);
-            if (Math.abs(angleToRotate) > Math.abs(this._mySmoothSnapHorizontalAngleToPerform) - LocomotionUtils.EPSILON) {
+            if (Math.abs(angleToRotate) > Math.abs(this._mySmoothSnapHorizontalAngleToPerform) - Math.PP_EPSILON) {
                 angleToRotate = this._mySmoothSnapHorizontalAngleToPerform;
             }
 
             headRotation.quat_fromAxis(angleToRotate, playerUp);
             this._mySmoothSnapHorizontalAngleToPerform -= angleToRotate;
 
-            if (Math.abs(this._mySmoothSnapHorizontalAngleToPerform) < LocomotionUtils.EPSILON) {
+            if (Math.abs(this._mySmoothSnapHorizontalAngleToPerform) < Math.PP_EPSILON) {
                 this._mySmoothSnapHorizontalRunning = false;
                 this._mySmoothSnapHorizontalAngleToPerform = 0;
             }
         }
 
-        if (headRotation.quat_getAngle() > LocomotionUtils.EPSILON_DEGREES) {
+        if (headRotation.quat_getAngle() > Math.PP_EPSILON_DEGREES) {
             this._myParams.myPlayerTransformManager.rotateQuat(headRotation);
         }
     };
@@ -192,7 +191,7 @@ PlayerLocomotionRotate.prototype._rotateHeadVertically = function () {
                         } else {
                             angleToRotate = (-Math.pp_sign(angleToAlign) * this._myParams.mySnapTurnAngle) + angleToAlign;
                         }
-                    } else if (Math.abs(angleToAlign) > LocomotionUtils.EPSILON_DEGREES) {
+                    } else if (Math.abs(angleToAlign) > Math.PP_EPSILON_DEGREES) {
                         angleToRotate += angleToAlign;
                     }
 
@@ -208,13 +207,13 @@ PlayerLocomotionRotate.prototype._rotateHeadVertically = function () {
 
         if (this._mySmoothSnapVerticalRunning) {
             angleToRotate = Math.pp_sign(this._mySmoothSnapVerticalAngleToPerform) * (this._myParams.mySmoothSnapSpeedDegrees * dt);
-            if (Math.abs(angleToRotate) > Math.abs(this._mySmoothSnapVerticalAngleToPerform) - LocomotionUtils.EPSILON) {
+            if (Math.abs(angleToRotate) > Math.abs(this._mySmoothSnapVerticalAngleToPerform) - Math.PP_EPSILON) {
                 angleToRotate = this._mySmoothSnapVerticalAngleToPerform;
             }
 
             this._mySmoothSnapVerticalAngleToPerform -= angleToRotate;
 
-            if (Math.abs(this._mySmoothSnapVerticalAngleToPerform) < LocomotionUtils.EPSILON) {
+            if (Math.abs(this._mySmoothSnapVerticalAngleToPerform) < Math.PP_EPSILON) {
                 this._mySmoothSnapVerticalRunning = false;
                 this._mySmoothSnapVerticalAngleToPerform = 0;
             }

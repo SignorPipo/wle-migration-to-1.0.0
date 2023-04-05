@@ -113,7 +113,6 @@ export * from "./gameplay/experimental/locomotion/cauldron/global_gravity_global
 export * from "./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_locomotion_cleaned";
 export * from "./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_locomotion_smooth_cleaned";
 export * from "./gameplay/experimental/locomotion/legacy/locomotion/cleaned/player_transform_manager_cleaned";
-export * from "./gameplay/experimental/locomotion/legacy/locomotion/locomotion_utils";
 export * from "./gameplay/experimental/locomotion/legacy/locomotion/player_head_manager";
 export * from "./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion";
 export * from "./gameplay/experimental/locomotion/legacy/locomotion/player_locomotion_component";
