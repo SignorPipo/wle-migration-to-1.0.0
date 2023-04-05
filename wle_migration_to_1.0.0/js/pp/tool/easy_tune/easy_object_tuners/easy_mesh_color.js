@@ -44,7 +44,7 @@ export class EasyMeshColor extends EasyObjectTuner {
                 if (this._myColorModel == 0) {
                     color = ColorUtils.rgbCodeToHuman(color);
                 } else {
-                    color = ColorUtils.hsvCodeToHuman(ColorUtils.rgbToHsv(color));
+                    color = ColorUtils.hsvCodeToHuman(ColorUtils.rgbToHSV(color));
                 }
             } else {
                 color = [meshMaterial[this._myColorVariableNames[this._myColorType]]];
@@ -71,7 +71,7 @@ export class EasyMeshColor extends EasyObjectTuner {
             if (this._myColorModel == 0) {
                 color = ColorUtils.rgbHumanToCode(color);
             } else {
-                color = ColorUtils.hsvToRgb(ColorUtils.hsvHumanToCode(color));
+                color = ColorUtils.hsvToRGB(ColorUtils.hsvHumanToCode(color));
             }
         }
 
@@ -84,7 +84,7 @@ export class EasyMeshColor extends EasyObjectTuner {
             if ((getRightGamepad(this._myEngine).getButtonInfo(GamepadButtonID.TOP_BUTTON).isPressStart() && getLeftGamepad(this._myEngine).getButtonInfo(GamepadButtonID.TOP_BUTTON).myIsPressed) ||
                 (getLeftGamepad(this._myEngine).getButtonInfo(GamepadButtonID.TOP_BUTTON).isPressStart() && getRightGamepad(this._myEngine).getButtonInfo(GamepadButtonID.TOP_BUTTON).myIsPressed)) {
 
-                let hsvColor = ColorUtils.color1To255(ColorUtils.rgbToHsv(color));
+                let hsvColor = ColorUtils.color1To255(ColorUtils.rgbToHSV(color));
                 let rgbColor = ColorUtils.color1To255(color);
 
                 console.log("RGB:", rgbColor.vec_toString(0), "- HSV:", hsvColor.vec_toString(0));

@@ -1,5 +1,5 @@
 // RGB is in [0,1], alpha is not changed
-export function rgbToHsv(rgb) {
+export function rgbToHSV(rgb) {
     let hsv = rgb.pp_clone();
 
     let r = rgb[0];
@@ -27,7 +27,7 @@ export function rgbToHsv(rgb) {
 }
 
 // Alpha is not changed
-export function hsvToRgb(hsv) {
+export function hsvToRGB(hsv) {
     let rgb = hsv.pp_clone();
 
     let h = hsv[0];
@@ -97,8 +97,8 @@ export function color1To255(color) {
 
 
 export let ColorUtils = {
-    rgbToHsv,
-    hsvToRgb,
+    rgbToHSV,
+    hsvToRGB,
     rgbCodeToHuman,
     rgbHumanToCode,
     hsvCodeToHuman,
