@@ -29,12 +29,12 @@ export class FingerCursorComponent extends Component {
     }
 
     start() {
-        this._myCursorObjectRoot = this.object.pp_addObject();
+        this._myCursorParentObject = this.object.pp_addObject();
 
         if (this._myCursorObject == null) {
-            this._myCursorObject = this._myCursorObjectRoot.pp_addObject();
+            this._myCursorObject = this._myCursorParentObject.pp_addObject();
         } else {
-            this._myCursorObject.pp_setParent(this._myCursorObjectRoot);
+            this._myCursorObject.pp_setParent(this._myCursorParentObject);
         }
 
         this._myCollisionComponent = this._myCursorObject.pp_addComponent(CollisionComponent);
@@ -54,7 +54,7 @@ export class FingerCursorComponent extends Component {
             this._myTripleClickTimer -= dt;
         }
 
-        this._myCursorObjectRoot.pp_setTransformQuat(getPlayerObjects(this.engine).myPlayerPivot.pp_getTransformQuat());
+        this._myCursorParentObject.pp_setTransformQuat(getPlayerObjects(this.engine).myPlayerPivot.pp_getTransformQuat());
         this._updateHand();
 
         if (this._myHandInputSource) {
@@ -117,11 +117,11 @@ export class FingerCursorComponent extends Component {
     }
 
     onActivate() {
-        this._myCursorObjectRoot.pp_setActive(true);
+        this._myCursorParentObject.pp_setActive(true);
     }
 
     onDeactivate() {
-        this._myCursorObjectRoot.pp_setActive(false);
+        this._myCursorParentObject.pp_setActive(false);
     }
 
     _updateHand() {

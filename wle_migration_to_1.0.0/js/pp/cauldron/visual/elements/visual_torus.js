@@ -56,7 +56,7 @@ export class VisualTorus {
 
         this._myDirty = false;
 
-        this._myTorusRootObject = null;
+        this._myTorusParentObject = null;
 
         this._myVisualSegmentList = [];
 
@@ -137,7 +137,7 @@ export class VisualTorus {
     }
 
     _build() {
-        this._myTorusRootObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
+        this._myTorusParentObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
 
         this._fillSegmentList();
     }
@@ -157,7 +157,7 @@ export class VisualTorus {
             visualSegment.setAutoRefresh(false);
             visualSegment.setVisible(false);
 
-            visualSegment.getParams().myParent = this._myTorusRootObject;
+            visualSegment.getParams().myParent = this._myTorusParentObject;
             visualSegment.getParams().myIsLocal = true;
 
             this._myVisualSegmentList.push(visualSegment);
@@ -202,12 +202,12 @@ VisualTorus.prototype._refresh = function () {
             visualSegment.setVisible(false);
         }
 
-        this._myTorusRootObject.pp_setParent(this._myParams.myParent, false);
+        this._myTorusParentObject.pp_setParent(this._myParams.myParent, false);
 
         if (this._myParams.myIsLocal) {
-            this._myTorusRootObject.pp_setTransformLocal(this._myParams.myTransform);
+            this._myTorusParentObject.pp_setTransformLocal(this._myParams.myTransform);
         } else {
-            this._myTorusRootObject.pp_setTransform(this._myParams.myTransform);
+            this._myTorusParentObject.pp_setTransform(this._myParams.myTransform);
         }
 
         let sliceAngle = 2 * Math.PI / this._myParams.mySegmentsAmount;

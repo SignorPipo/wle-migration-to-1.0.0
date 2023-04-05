@@ -64,7 +64,7 @@ export class VisualLine {
 
         this._myDirty = false;
 
-        this._myLineRootObject = null;
+        this._myLineParentObject = null;
         this._myLineObject = null;
         this._myLineMeshComponent = null;
 
@@ -79,7 +79,7 @@ export class VisualLine {
     setVisible(visible) {
         if (this._myVisible != visible) {
             this._myVisible = visible;
-            this._myLineRootObject.pp_setActive(visible);
+            this._myLineParentObject.pp_setActive(visible);
         }
     }
 
@@ -122,8 +122,8 @@ export class VisualLine {
     }
 
     _build() {
-        this._myLineRootObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
-        this._myLineObject = this._myLineRootObject.pp_addObject();
+        this._myLineParentObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
+        this._myLineObject = this._myLineParentObject.pp_addObject();
 
         this._myLineMeshComponent = this._myLineObject.pp_addComponent(MeshComponent);
     }
@@ -163,12 +163,12 @@ VisualLine.prototype._refresh = function () {
 
     let forward = vec3_create(0, 1, 0);
     return function _refresh() {
-        this._myLineRootObject.pp_setParent(this._myParams.myParent, false);
+        this._myLineParentObject.pp_setParent(this._myParams.myParent, false);
 
         if (this._myParams.myIsLocal) {
-            this._myLineRootObject.pp_setPositionLocal(this._myParams.myStart);
+            this._myLineParentObject.pp_setPositionLocal(this._myParams.myStart);
         } else {
-            this._myLineRootObject.pp_setPosition(this._myParams.myStart);
+            this._myLineParentObject.pp_setPosition(this._myParams.myStart);
         }
 
         scaleLine.vec3_set(this._myParams.myThickness / 2, this._myParams.myLength / 2, this._myParams.myThickness / 2);

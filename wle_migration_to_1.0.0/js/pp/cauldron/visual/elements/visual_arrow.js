@@ -69,7 +69,7 @@ export class VisualArrow {
         this._myVisualLine = new VisualLine(new VisualLineParams(this._myParams.myParent.pp_getEngine()));
         this._myVisualLine.setAutoRefresh(false);
 
-        this._myArrowRootObject = null;
+        this._myArrowParentObject = null;
         this._myArrowObject = null;
         this._myArrowMeshComponent = null;
 
@@ -85,7 +85,7 @@ export class VisualArrow {
         if (this._myVisible != visible) {
             this._myVisible = visible;
             this._myVisualLine.setVisible(visible);
-            this._myArrowRootObject.pp_setActive(visible);
+            this._myArrowParentObject.pp_setActive(visible);
         }
     }
 
@@ -131,8 +131,8 @@ export class VisualArrow {
     }
 
     _build() {
-        this._myArrowRootObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
-        this._myArrowObject = this._myArrowRootObject.pp_addObject();
+        this._myArrowParentObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
+        this._myArrowObject = this._myArrowParentObject.pp_addObject();
 
         this._myArrowMeshComponent = this._myArrowObject.pp_addComponent(MeshComponent);
     }
@@ -168,27 +168,27 @@ export class VisualArrow {
 
 VisualArrow.prototype._refresh = function () {
     let end = vec3_create();
-    let translateRoot = vec3_create();
+    let translateParent = vec3_create();
     let scaleArrow = vec3_create();
     let direction = vec3_create();
 
     let forward = vec3_create(0, 1, 0);
     return function _refresh() {
-        this._myArrowRootObject.pp_setParent(this._myParams.myParent, false);
+        this._myArrowParentObject.pp_setParent(this._myParams.myParent, false);
 
         this._myParams.myDirection.vec3_scale(Math.max(0.001, this._myParams.myLength - this._myParams.myThickness * 4), end);
         end.vec3_add(this._myParams.myStart, end);
 
         if (this._myParams.myIsLocal) {
-            this._myArrowRootObject.pp_setPositionLocal(end);
-            this._myArrowRootObject.pp_setUpLocal(this._myParams.myDirection, forward);
+            this._myArrowParentObject.pp_setPositionLocal(end);
+            this._myArrowParentObject.pp_setUpLocal(this._myParams.myDirection, forward);
         } else {
-            this._myArrowRootObject.pp_setPosition(end);
-            this._myArrowRootObject.pp_setUp(this._myParams.myDirection, forward);
+            this._myArrowParentObject.pp_setPosition(end);
+            this._myArrowParentObject.pp_setUp(this._myParams.myDirection, forward);
         }
 
-        translateRoot.vec3_set(0, this._myParams.myThickness * 2 - 0.00001, 0);
-        this._myArrowRootObject.pp_translateObject(translateRoot);
+        translateParent.vec3_set(0, this._myParams.myThickness * 2 - 0.00001, 0);
+        this._myArrowParentObject.pp_translateObject(translateParent);
 
         scaleArrow.vec3_set(this._myParams.myThickness * 1.25, this._myParams.myThickness * 2, this._myParams.myThickness * 1.25);
         if (this._myParams.myIsLocal) {

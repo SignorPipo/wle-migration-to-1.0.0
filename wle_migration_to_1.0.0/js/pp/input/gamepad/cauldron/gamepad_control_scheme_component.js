@@ -199,14 +199,14 @@ export class GamepadControlSchemeComponent extends Component {
         let length = lineDirection.vec3_length();
         lineDirection.vec3_normalize(lineDirection);
 
-        lineRootObject = parentObject.pp_addObject();
-        lineObject = lineRootObject.pp_addObject();
+        let lineParentObject = parentObject.pp_addObject();
+        lineObject = lineParentObject.pp_addObject();
 
         let lineMesh = lineObject.pp_addComponent(MeshComponent);
         lineMesh.mesh = getDefaultMeshes(this.engine).myCylinder;
         lineMesh.material = this._myLineMaterialFinal;
 
-        lineRootObject.pp_setPositionLocal(start);
+        lineParentObject.pp_setPositionLocal(start);
 
         let thickness = 0.001 * this._myLineThicknessMultiplier;
         lineObject.pp_scaleObject(vec3_create(thickness / 2, length / 2, thickness / 2));
