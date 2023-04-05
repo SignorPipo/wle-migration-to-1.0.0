@@ -200,7 +200,7 @@ export class GamepadControlSchemeComponent extends Component {
         lineDirection.vec3_normalize(lineDirection);
 
         let lineParentObject = parentObject.pp_addObject();
-        lineObject = lineParentObject.pp_addObject();
+        let lineObject = lineParentObject.pp_addObject();
 
         let lineMesh = lineObject.pp_addComponent(MeshComponent);
         lineMesh.mesh = getDefaultMeshes(this.engine).myCylinder;
