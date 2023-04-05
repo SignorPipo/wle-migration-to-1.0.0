@@ -189,18 +189,18 @@ export class FSM {
 
         switch (this._myPerformDelayedMode) {
             case PerformDelayedMode.QUEUE:
-                this._myPendingPerforms.push(new PendingPerform(transitionID, ...args));
+                this._myPendingPerforms.push(new _PendingPerform(transitionID, ...args));
                 performDelayed = true;
                 break;
             case PerformDelayedMode.KEEP_FIRST:
                 if (!this.hasPendingPerforms()) {
-                    this._myPendingPerforms.push(new PendingPerform(transitionID, ...args));
+                    this._myPendingPerforms.push(new _PendingPerform(transitionID, ...args));
                     performDelayed = true;
                 }
                 break;
             case PerformDelayedMode.KEEP_LAST:
                 this.resetPendingPerforms();
-                this._myPendingPerforms.push(new PendingPerform(transitionID, ...args));
+                this._myPendingPerforms.push(new _PendingPerform(transitionID, ...args));
                 performDelayed = true;
                 break;
         }
@@ -641,7 +641,7 @@ export class FSM {
     }
 }
 
-class PendingPerform {
+class _PendingPerform {
 
     constructor(transitionID, ...args) {
         this.myID = transitionID;

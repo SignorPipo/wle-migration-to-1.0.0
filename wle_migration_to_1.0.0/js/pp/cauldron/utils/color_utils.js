@@ -95,7 +95,6 @@ export function color1To255(color) {
     return result;
 }
 
-
 export let ColorUtils = {
     rgbToHSV,
     hsvToRGB,
