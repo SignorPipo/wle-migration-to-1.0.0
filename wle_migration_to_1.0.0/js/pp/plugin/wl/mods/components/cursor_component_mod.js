@@ -193,8 +193,8 @@ export function initCursorComponentModPrototype() {
                 /* Unhover previous, if exists */
                 if (this.hoveringObject) {
                     let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-                    if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
-                    this.globalTarget.onUnhover(this.hoveringObject, this);
+                    if (cursorTarget) cursorTarget.onUnhover.notify(this.hoveringObject, this);
+                    this.globalTarget.onUnhover.notify(this.hoveringObject, this);
                 }
 
                 hoveringObjectChanged = true;
@@ -205,47 +205,47 @@ export function initCursorComponentModPrototype() {
 
                 let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
                 if (cursorTarget) {
-                    cursorTarget.onHover(this.hoveringObject, this);
+                    cursorTarget.onHover.notify(this.hoveringObject, this);
                 }
-                this.globalTarget.onHover(this.hoveringObject, this);
+                this.globalTarget.onHover.notify(this.hoveringObject, this);
 
                 if (!this._isDown() && this.isRealDown) {
                     this.isDown = false;
                     this.lastIsDown = false;
                     this.isUpWithNoDown = false;
 
-                    if (cursorTarget) cursorTarget.onDownOnHover(this.hoveringObject, this);
-                    this.globalTarget.onDownOnHover(this.hoveringObject, this);
+                    if (cursorTarget) cursorTarget.onDownOnHover.notify(this.hoveringObject, this);
+                    this.globalTarget.onDownOnHover.notify(this.hoveringObject, this);
                 }
             }
 
             let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
 
             if (!hoveringObjectChanged && this._isMoving(rayHit.locations[0])) {
-                if (cursorTarget) cursorTarget.onMove(this.hoveringObject, this);
-                this.globalTarget.onMove(this.hoveringObject, this);
+                if (cursorTarget) cursorTarget.onMove.notify(this.hoveringObject, this);
+                this.globalTarget.onMove.notify(this.hoveringObject, this);
             }
 
             if (this._isDown()) {
                 /* Cursor down */
-                if (cursorTarget) cursorTarget.onDown(this.hoveringObject, this);
-                this.globalTarget.onDown(this.hoveringObject, this);
+                if (cursorTarget) cursorTarget.onDown.notify(this.hoveringObject, this);
+                this.globalTarget.onDown.notify(this.hoveringObject, this);
 
                 /* Click */
                 if (this.tripleClickTimer > 0 && this.multipleClickObject && this.multipleClickObject.pp_equals(this.hoveringObject)) {
-                    if (cursorTarget) cursorTarget.onTripleClick(this.hoveringObject, this);
-                    this.globalTarget.onTripleClick(this.hoveringObject, this);
+                    if (cursorTarget) cursorTarget.onTripleClick.notify(this.hoveringObject, this);
+                    this.globalTarget.onTripleClick.notify(this.hoveringObject, this);
 
                     this.tripleClickTimer = 0;
                 } else if (this.doubleClickTimer > 0 && this.multipleClickObject && this.multipleClickObject.pp_equals(this.hoveringObject)) {
-                    if (cursorTarget) cursorTarget.onDoubleClick(this.hoveringObject, this);
-                    this.globalTarget.onDoubleClick(this.hoveringObject, this);
+                    if (cursorTarget) cursorTarget.onDoubleClick.notify(this.hoveringObject, this);
+                    this.globalTarget.onDoubleClick.notify(this.hoveringObject, this);
 
                     this.tripleClickTimer = this.multipleClickDelay;
                     this.doubleClickTimer = 0;
                 } else {
-                    if (cursorTarget) cursorTarget.onClick(this.hoveringObject, this);
-                    this.globalTarget.onClick(this.hoveringObject, this);
+                    if (cursorTarget) cursorTarget.onClick.notify(this.hoveringObject, this);
+                    this.globalTarget.onClick.notify(this.hoveringObject, this);
 
                     this.tripleClickTimer = 0;
                     this.doubleClickTimer = this.multipleClickDelay;
@@ -254,19 +254,19 @@ export function initCursorComponentModPrototype() {
             } else {
                 /* Cursor up */
                 if (!this.isUpWithNoDown && !hoveringObjectChanged && this._isUp()) {
-                    if (cursorTarget) cursorTarget.onUp(this.hoveringObject, this);
-                    this.globalTarget.onUp(this.hoveringObject, this);
+                    if (cursorTarget) cursorTarget.onUp.notify(this.hoveringObject, this);
+                    this.globalTarget.onUp.notify(this.hoveringObject, this);
                 } else if (this.isUpWithNoDown || (hoveringObjectChanged && this._isUp())) {
-                    if (cursorTarget) cursorTarget.onUpWithNoDown(this.hoveringObject, this);
-                    this.globalTarget.onUpWithNoDown(this.hoveringObject, this);
+                    if (cursorTarget) cursorTarget.onUpWithNoDown.notify(this.hoveringObject, this);
+                    this.globalTarget.onUpWithNoDown.notify(this.hoveringObject, this);
                 }
             }
 
             this.prevHitLocationLocalToTarget = this.hoveringObject.pp_convertPositionWorldToLocal(rayHit.locations[0], this.prevHitLocationLocalToTarget);
         } else if (this.hoveringObject && (forceUnhover || rayHit.hitCount == 0)) {
             let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-            if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
-            this.globalTarget.onUnhover(this.hoveringObject, this);
+            if (cursorTarget) cursorTarget.onUnhover.notify(this.hoveringObject, this);
+            this.globalTarget.onUnhover.notify(this.hoveringObject, this);
 
             this.hoveringObject = null;
             if (this.styleCursor) document.body.style.cursor = "default";
@@ -453,8 +453,8 @@ export function initCursorComponentModPrototype() {
     Cursor.prototype.onDeactivate = function onDeactivate() {
         if (this.hoveringObject) {
             let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-            if (cursorTarget) cursorTarget.onUnhover(this.hoveringObject, this);
-            this.globalTarget.onUnhover(this.hoveringObject, this);
+            if (cursorTarget) cursorTarget.onUnhover.notify(this.hoveringObject, this);
+            this.globalTarget.onUnhover.notify(this.hoveringObject, this);
         }
 
         this.hoveringObject = null;

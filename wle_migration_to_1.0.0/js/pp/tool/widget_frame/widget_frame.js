@@ -75,13 +75,13 @@ export class WidgetFrame {
     _addListeners() {
         let ui = this._myUI;
 
-        ui.myPinButtonCursorTargetComponent.addClickFunction(this._togglePin.bind(this, true));
-        ui.myPinButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myPinButtonBackgroundComponent.material));
-        ui.myPinButtonCursorTargetComponent.addUnHoverFunction(this._pinUnHover.bind(this, ui.myPinButtonBackgroundComponent.material));
+        ui.myPinButtonCursorTargetComponent.onClick.add(this._togglePin.bind(this, true));
+        ui.myPinButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myPinButtonBackgroundComponent.material));
+        ui.myPinButtonCursorTargetComponent.onUnhover.add(this._pinUnHover.bind(this, ui.myPinButtonBackgroundComponent.material));
 
-        ui.myVisibilityButtonCursorTargetComponent.addClickFunction(this._toggleVisibility.bind(this, true, true));
-        ui.myVisibilityButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myVisibilityButtonBackgroundComponent.material));
-        ui.myVisibilityButtonCursorTargetComponent.addUnHoverFunction(this._visibilityUnHover.bind(this, ui.myVisibilityButtonBackgroundComponent.material));
+        ui.myVisibilityButtonCursorTargetComponent.onClick.add(this._toggleVisibility.bind(this, true, true));
+        ui.myVisibilityButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myVisibilityButtonBackgroundComponent.material));
+        ui.myVisibilityButtonCursorTargetComponent.onUnhover.add(this._visibilityUnHover.bind(this, ui.myVisibilityButtonBackgroundComponent.material));
     }
 
     _toggleVisibility(isButton, notify) {

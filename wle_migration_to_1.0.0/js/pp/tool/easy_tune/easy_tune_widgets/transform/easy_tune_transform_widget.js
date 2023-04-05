@@ -217,144 +217,144 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
     _addListenersHook() {
         let ui = this._myUI;
 
-        ui.myVariableLabelCursorTargetComponent.addClickFunction(this._resetAllValues.bind(this));
-        ui.myVariableLabelCursorTargetComponent.addHoverFunction(this._genericTextHover.bind(this, ui.myVariableLabelText));
-        ui.myVariableLabelCursorTargetComponent.addUnHoverFunction(this._genericTextUnHover.bind(this, ui.myVariableLabelText, this._mySetup.myVariableLabelTextScale));
+        ui.myVariableLabelCursorTargetComponent.onClick.add(this._resetAllValues.bind(this));
+        ui.myVariableLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myVariableLabelText));
+        ui.myVariableLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myVariableLabelText, this._mySetup.myVariableLabelTextScale));
 
-        ui.myPositionLabelCursorTargetComponent.addClickFunction(this._resetComponentValues.bind(this, 0));
-        ui.myPositionLabelCursorTargetComponent.addHoverFunction(this._genericTextHover.bind(this, ui.myPositionLabelText));
-        ui.myPositionLabelCursorTargetComponent.addUnHoverFunction(this._genericTextUnHover.bind(this, ui.myPositionLabelText, this._mySetup.myComponentLabelTextScale));
+        ui.myPositionLabelCursorTargetComponent.onClick.add(this._resetComponentValues.bind(this, 0));
+        ui.myPositionLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myPositionLabelText));
+        ui.myPositionLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myPositionLabelText, this._mySetup.myComponentLabelTextScale));
         for (let i = 0; i < 3; i++) {
-            ui.myPositionIncreaseButtonCursorTargetComponents[i].addDownFunction(this._setValueEditIntensity.bind(this, 0, i, 1));
-            ui.myPositionIncreaseButtonCursorTargetComponents[i].addDownOnHoverFunction(this._setValueEditIntensity.bind(this, 0, i, 1));
-            ui.myPositionIncreaseButtonCursorTargetComponents[i].addUpFunction(this._setValueEditIntensity.bind(this, 0, i, 0));
-            ui.myPositionIncreaseButtonCursorTargetComponents[i].addUpWithNoDownFunction(this._setValueEditIntensity.bind(this, 0, i, 0));
-            ui.myPositionIncreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._setValueEditIntensity.bind(this, 0, i, 0));
-            ui.myPositionDecreaseButtonCursorTargetComponents[i].addDownFunction(this._setValueEditIntensity.bind(this, 0, i, -1));
-            ui.myPositionDecreaseButtonCursorTargetComponents[i].addDownOnHoverFunction(this._setValueEditIntensity.bind(this, 0, i, -1));
-            ui.myPositionDecreaseButtonCursorTargetComponents[i].addUpFunction(this._setValueEditIntensity.bind(this, 0, i, 0));
-            ui.myPositionDecreaseButtonCursorTargetComponents[i].addUpWithNoDownFunction(this._setValueEditIntensity.bind(this, 0, i, 0));
-            ui.myPositionDecreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._setValueEditIntensity.bind(this, 0, i, 0));
+            ui.myPositionIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 0, i, 1));
+            ui.myPositionIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 0, i, 1));
+            ui.myPositionIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 0, i, 0));
+            ui.myPositionIncreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 0, i, 0));
+            ui.myPositionIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 0, i, 0));
+            ui.myPositionDecreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 0, i, -1));
+            ui.myPositionDecreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 0, i, -1));
+            ui.myPositionDecreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 0, i, 0));
+            ui.myPositionDecreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 0, i, 0));
+            ui.myPositionDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 0, i, 0));
 
-            ui.myPositionIncreaseButtonCursorTargetComponents[i].addHoverFunction(this._genericHover.bind(this, ui.myPositionIncreaseButtonBackgroundComponents[i].material));
-            ui.myPositionIncreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._genericUnHover.bind(this, ui.myPositionIncreaseButtonBackgroundComponents[i].material));
-            ui.myPositionDecreaseButtonCursorTargetComponents[i].addHoverFunction(this._genericHover.bind(this, ui.myPositionDecreaseButtonBackgroundComponents[i].material));
-            ui.myPositionDecreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._genericUnHover.bind(this, ui.myPositionDecreaseButtonBackgroundComponents[i].material));
+            ui.myPositionIncreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myPositionIncreaseButtonBackgroundComponents[i].material));
+            ui.myPositionIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myPositionIncreaseButtonBackgroundComponents[i].material));
+            ui.myPositionDecreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myPositionDecreaseButtonBackgroundComponents[i].material));
+            ui.myPositionDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myPositionDecreaseButtonBackgroundComponents[i].material));
 
-            ui.myPositionCursorTargetComponents[i].addClickFunction(this._resetValue.bind(this, 0, i));
-            ui.myPositionCursorTargetComponents[i].addHoverFunction(this._setValueEditActive.bind(this, 0, i, ui.myPositionTexts[i], true));
-            ui.myPositionCursorTargetComponents[i].addUnHoverFunction(this._setValueEditActive.bind(this, 0, i, ui.myPositionTexts[i], false));
+            ui.myPositionCursorTargetComponents[i].onClick.add(this._resetValue.bind(this, 0, i));
+            ui.myPositionCursorTargetComponents[i].onHover.add(this._setValueEditActive.bind(this, 0, i, ui.myPositionTexts[i], true));
+            ui.myPositionCursorTargetComponents[i].onUnhover.add(this._setValueEditActive.bind(this, 0, i, ui.myPositionTexts[i], false));
         }
 
-        ui.myRotationLabelCursorTargetComponent.addClickFunction(this._resetComponentValues.bind(this, 1));
-        ui.myRotationLabelCursorTargetComponent.addHoverFunction(this._genericTextHover.bind(this, ui.myRotationLabelText));
-        ui.myRotationLabelCursorTargetComponent.addUnHoverFunction(this._genericTextUnHover.bind(this, ui.myRotationLabelText, this._mySetup.myComponentLabelTextScale));
+        ui.myRotationLabelCursorTargetComponent.onClick.add(this._resetComponentValues.bind(this, 1));
+        ui.myRotationLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myRotationLabelText));
+        ui.myRotationLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myRotationLabelText, this._mySetup.myComponentLabelTextScale));
         for (let i = 0; i < 3; i++) {
-            ui.myRotationIncreaseButtonCursorTargetComponents[i].addDownFunction(this._setValueEditIntensity.bind(this, 1, i, 1));
-            ui.myRotationIncreaseButtonCursorTargetComponents[i].addDownOnHoverFunction(this._setValueEditIntensity.bind(this, 1, i, 1));
-            ui.myRotationIncreaseButtonCursorTargetComponents[i].addUpFunction(this._setValueEditIntensity.bind(this, 1, i, 0));
-            ui.myRotationIncreaseButtonCursorTargetComponents[i].addUpWithNoDownFunction(this._setValueEditIntensity.bind(this, 1, i, 0));
-            ui.myRotationIncreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._setValueEditIntensity.bind(this, 1, i, 0));
-            ui.myRotationDecreaseButtonCursorTargetComponents[i].addDownFunction(this._setValueEditIntensity.bind(this, 1, i, -1));
-            ui.myRotationDecreaseButtonCursorTargetComponents[i].addDownOnHoverFunction(this._setValueEditIntensity.bind(this, 1, i, -1));
-            ui.myRotationDecreaseButtonCursorTargetComponents[i].addUpFunction(this._setValueEditIntensity.bind(this, 1, i, 0));
-            ui.myRotationDecreaseButtonCursorTargetComponents[i].addUpWithNoDownFunction(this._setValueEditIntensity.bind(this, 1, i, 0));
-            ui.myRotationDecreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._setValueEditIntensity.bind(this, 1, i, 0));
+            ui.myRotationIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 1, i, 1));
+            ui.myRotationIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 1, i, 1));
+            ui.myRotationIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 1, i, 0));
+            ui.myRotationIncreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 1, i, 0));
+            ui.myRotationIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 1, i, 0));
+            ui.myRotationDecreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 1, i, -1));
+            ui.myRotationDecreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 1, i, -1));
+            ui.myRotationDecreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 1, i, 0));
+            ui.myRotationDecreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 1, i, 0));
+            ui.myRotationDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 1, i, 0));
 
-            ui.myRotationIncreaseButtonCursorTargetComponents[i].addHoverFunction(this._genericHover.bind(this, ui.myRotationIncreaseButtonBackgroundComponents[i].material));
-            ui.myRotationIncreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._genericUnHover.bind(this, ui.myRotationIncreaseButtonBackgroundComponents[i].material));
-            ui.myRotationDecreaseButtonCursorTargetComponents[i].addHoverFunction(this._genericHover.bind(this, ui.myRotationDecreaseButtonBackgroundComponents[i].material));
-            ui.myRotationDecreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._genericUnHover.bind(this, ui.myRotationDecreaseButtonBackgroundComponents[i].material));
+            ui.myRotationIncreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myRotationIncreaseButtonBackgroundComponents[i].material));
+            ui.myRotationIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myRotationIncreaseButtonBackgroundComponents[i].material));
+            ui.myRotationDecreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myRotationDecreaseButtonBackgroundComponents[i].material));
+            ui.myRotationDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myRotationDecreaseButtonBackgroundComponents[i].material));
 
-            ui.myRotationCursorTargetComponents[i].addClickFunction(this._resetValue.bind(this, 1, i));
-            ui.myRotationCursorTargetComponents[i].addHoverFunction(this._setValueEditActive.bind(this, 1, i, ui.myRotationTexts[i], true));
-            ui.myRotationCursorTargetComponents[i].addUnHoverFunction(this._setValueEditActive.bind(this, 1, i, ui.myRotationTexts[i], false));
+            ui.myRotationCursorTargetComponents[i].onClick.add(this._resetValue.bind(this, 1, i));
+            ui.myRotationCursorTargetComponents[i].onHover.add(this._setValueEditActive.bind(this, 1, i, ui.myRotationTexts[i], true));
+            ui.myRotationCursorTargetComponents[i].onUnhover.add(this._setValueEditActive.bind(this, 1, i, ui.myRotationTexts[i], false));
         }
 
-        ui.myScaleLabelCursorTargetComponent.addClickFunction(this._resetComponentValues.bind(this, 2));
-        ui.myScaleLabelCursorTargetComponent.addHoverFunction(this._genericTextHover.bind(this, ui.myScaleLabelText));
-        ui.myScaleLabelCursorTargetComponent.addUnHoverFunction(this._genericTextUnHover.bind(this, ui.myScaleLabelText, this._mySetup.myComponentLabelTextScale));
+        ui.myScaleLabelCursorTargetComponent.onClick.add(this._resetComponentValues.bind(this, 2));
+        ui.myScaleLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myScaleLabelText));
+        ui.myScaleLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myScaleLabelText, this._mySetup.myComponentLabelTextScale));
         for (let i = 0; i < 3; i++) {
-            ui.myScaleIncreaseButtonCursorTargetComponents[i].addDownFunction(this._setValueEditIntensity.bind(this, 2, i, 1));
-            ui.myScaleIncreaseButtonCursorTargetComponents[i].addDownOnHoverFunction(this._setValueEditIntensity.bind(this, 2, i, 1));
-            ui.myScaleIncreaseButtonCursorTargetComponents[i].addUpFunction(this._setValueEditIntensity.bind(this, 2, i, 0));
-            ui.myScaleIncreaseButtonCursorTargetComponents[i].addUpWithNoDownFunction(this._setValueEditIntensity.bind(this, 2, i, 0));
-            ui.myScaleIncreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._setValueEditIntensity.bind(this, 2, i, 0));
-            ui.myScaleDecreaseButtonCursorTargetComponents[i].addDownFunction(this._setValueEditIntensity.bind(this, 2, i, -1));
-            ui.myScaleDecreaseButtonCursorTargetComponents[i].addDownOnHoverFunction(this._setValueEditIntensity.bind(this, 2, i, -1));
-            ui.myScaleDecreaseButtonCursorTargetComponents[i].addUpFunction(this._setValueEditIntensity.bind(this, 2, i, 0));
-            ui.myScaleDecreaseButtonCursorTargetComponents[i].addUpWithNoDownFunction(this._setValueEditIntensity.bind(this, 2, i, 0));
-            ui.myScaleDecreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._setValueEditIntensity.bind(this, 2, i, 0));
+            ui.myScaleIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 2, i, 1));
+            ui.myScaleIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 2, i, 1));
+            ui.myScaleIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 2, i, 0));
+            ui.myScaleIncreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 2, i, 0));
+            ui.myScaleIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 2, i, 0));
+            ui.myScaleDecreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 2, i, -1));
+            ui.myScaleDecreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 2, i, -1));
+            ui.myScaleDecreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 2, i, 0));
+            ui.myScaleDecreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 2, i, 0));
+            ui.myScaleDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 2, i, 0));
 
-            ui.myScaleIncreaseButtonCursorTargetComponents[i].addHoverFunction(this._genericHover.bind(this, ui.myScaleIncreaseButtonBackgroundComponents[i].material));
-            ui.myScaleIncreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._genericUnHover.bind(this, ui.myScaleIncreaseButtonBackgroundComponents[i].material));
-            ui.myScaleDecreaseButtonCursorTargetComponents[i].addHoverFunction(this._genericHover.bind(this, ui.myScaleDecreaseButtonBackgroundComponents[i].material));
-            ui.myScaleDecreaseButtonCursorTargetComponents[i].addUnHoverFunction(this._genericUnHover.bind(this, ui.myScaleDecreaseButtonBackgroundComponents[i].material));
+            ui.myScaleIncreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myScaleIncreaseButtonBackgroundComponents[i].material));
+            ui.myScaleIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myScaleIncreaseButtonBackgroundComponents[i].material));
+            ui.myScaleDecreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myScaleDecreaseButtonBackgroundComponents[i].material));
+            ui.myScaleDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myScaleDecreaseButtonBackgroundComponents[i].material));
 
-            ui.myScaleCursorTargetComponents[i].addClickFunction(this._resetValue.bind(this, 2, i));
-            ui.myScaleCursorTargetComponents[i].addHoverFunction(this._setValueEditActive.bind(this, 2, i, ui.myScaleTexts[i], true));
-            ui.myScaleCursorTargetComponents[i].addUnHoverFunction(this._setValueEditActive.bind(this, 2, i, ui.myScaleTexts[i], false));
+            ui.myScaleCursorTargetComponents[i].onClick.add(this._resetValue.bind(this, 2, i));
+            ui.myScaleCursorTargetComponents[i].onHover.add(this._setValueEditActive.bind(this, 2, i, ui.myScaleTexts[i], true));
+            ui.myScaleCursorTargetComponents[i].onUnhover.add(this._setValueEditActive.bind(this, 2, i, ui.myScaleTexts[i], false));
         }
 
-        ui.myPositionStepCursorTargetComponent.addClickFunction(this._resetStep.bind(this, 0));
-        ui.myPositionStepCursorTargetComponent.addHoverFunction(this._setStepEditActive.bind(this, 0, ui.myPositionStepText, true));
-        ui.myPositionStepCursorTargetComponent.addUnHoverFunction(this._setStepEditActive.bind(this, 0, ui.myPositionStepText, false));
+        ui.myPositionStepCursorTargetComponent.onClick.add(this._resetStep.bind(this, 0));
+        ui.myPositionStepCursorTargetComponent.onHover.add(this._setStepEditActive.bind(this, 0, ui.myPositionStepText, true));
+        ui.myPositionStepCursorTargetComponent.onUnhover.add(this._setStepEditActive.bind(this, 0, ui.myPositionStepText, false));
 
-        ui.myPositionStepIncreaseButtonCursorTargetComponent.addDownFunction(this._setStepEditIntensity.bind(this, 0, 1));
-        ui.myPositionStepIncreaseButtonCursorTargetComponent.addDownOnHoverFunction(this._setStepEditIntensity.bind(this, 0, 1));
-        ui.myPositionStepIncreaseButtonCursorTargetComponent.addUpFunction(this._setStepEditIntensity.bind(this, 0, 0));
-        ui.myPositionStepIncreaseButtonCursorTargetComponent.addUpWithNoDownFunction(this._setStepEditIntensity.bind(this, 0, 0));
-        ui.myPositionStepIncreaseButtonCursorTargetComponent.addUnHoverFunction(this._setStepEditIntensity.bind(this, 0, 0));
-        ui.myPositionStepDecreaseButtonCursorTargetComponent.addDownFunction(this._setStepEditIntensity.bind(this, 0, -1));
-        ui.myPositionStepDecreaseButtonCursorTargetComponent.addDownOnHoverFunction(this._setStepEditIntensity.bind(this, 0, -1));
-        ui.myPositionStepDecreaseButtonCursorTargetComponent.addUpFunction(this._setStepEditIntensity.bind(this, 0, 0));
-        ui.myPositionStepDecreaseButtonCursorTargetComponent.addUpWithNoDownFunction(this._setStepEditIntensity.bind(this, 0, 0));
-        ui.myPositionStepDecreaseButtonCursorTargetComponent.addUnHoverFunction(this._setStepEditIntensity.bind(this, 0, 0));
+        ui.myPositionStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 0, 1));
+        ui.myPositionStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 0, 1));
+        ui.myPositionStepIncreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 0, 0));
+        ui.myPositionStepIncreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 0, 0));
+        ui.myPositionStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 0, 0));
+        ui.myPositionStepDecreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 0, -1));
+        ui.myPositionStepDecreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 0, -1));
+        ui.myPositionStepDecreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 0, 0));
+        ui.myPositionStepDecreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 0, 0));
+        ui.myPositionStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 0, 0));
 
-        ui.myPositionStepIncreaseButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myPositionStepIncreaseButtonBackgroundComponent.material));
-        ui.myPositionStepIncreaseButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myPositionStepIncreaseButtonBackgroundComponent.material));
-        ui.myPositionStepDecreaseButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myPositionStepDecreaseButtonBackgroundComponent.material));
-        ui.myPositionStepDecreaseButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myPositionStepDecreaseButtonBackgroundComponent.material));
+        ui.myPositionStepIncreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myPositionStepIncreaseButtonBackgroundComponent.material));
+        ui.myPositionStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myPositionStepIncreaseButtonBackgroundComponent.material));
+        ui.myPositionStepDecreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myPositionStepDecreaseButtonBackgroundComponent.material));
+        ui.myPositionStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myPositionStepDecreaseButtonBackgroundComponent.material));
 
-        ui.myRotationStepCursorTargetComponent.addClickFunction(this._resetStep.bind(this, 1));
-        ui.myRotationStepCursorTargetComponent.addHoverFunction(this._setStepEditActive.bind(this, 1, ui.myRotationStepText, true));
-        ui.myRotationStepCursorTargetComponent.addUnHoverFunction(this._setStepEditActive.bind(this, 1, ui.myRotationStepText, false));
+        ui.myRotationStepCursorTargetComponent.onClick.add(this._resetStep.bind(this, 1));
+        ui.myRotationStepCursorTargetComponent.onHover.add(this._setStepEditActive.bind(this, 1, ui.myRotationStepText, true));
+        ui.myRotationStepCursorTargetComponent.onUnhover.add(this._setStepEditActive.bind(this, 1, ui.myRotationStepText, false));
 
-        ui.myRotationStepIncreaseButtonCursorTargetComponent.addDownFunction(this._setStepEditIntensity.bind(this, 1, 1));
-        ui.myRotationStepIncreaseButtonCursorTargetComponent.addDownOnHoverFunction(this._setStepEditIntensity.bind(this, 1, 1));
-        ui.myRotationStepIncreaseButtonCursorTargetComponent.addUpFunction(this._setStepEditIntensity.bind(this, 1, 0));
-        ui.myRotationStepIncreaseButtonCursorTargetComponent.addUpWithNoDownFunction(this._setStepEditIntensity.bind(this, 1, 0));
-        ui.myRotationStepIncreaseButtonCursorTargetComponent.addUnHoverFunction(this._setStepEditIntensity.bind(this, 1, 0));
-        ui.myRotationStepDecreaseButtonCursorTargetComponent.addDownFunction(this._setStepEditIntensity.bind(this, 1, -1));
-        ui.myRotationStepDecreaseButtonCursorTargetComponent.addDownOnHoverFunction(this._setStepEditIntensity.bind(this, 1, -1));
-        ui.myRotationStepDecreaseButtonCursorTargetComponent.addUpFunction(this._setStepEditIntensity.bind(this, 1, 0));
-        ui.myRotationStepDecreaseButtonCursorTargetComponent.addUpWithNoDownFunction(this._setStepEditIntensity.bind(this, 1, 0));
-        ui.myRotationStepDecreaseButtonCursorTargetComponent.addUnHoverFunction(this._setStepEditIntensity.bind(this, 1, 0));
+        ui.myRotationStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 1, 1));
+        ui.myRotationStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 1, 1));
+        ui.myRotationStepIncreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 1, 0));
+        ui.myRotationStepIncreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 1, 0));
+        ui.myRotationStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 1, 0));
+        ui.myRotationStepDecreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 1, -1));
+        ui.myRotationStepDecreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 1, -1));
+        ui.myRotationStepDecreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 1, 0));
+        ui.myRotationStepDecreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 1, 0));
+        ui.myRotationStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 1, 0));
 
-        ui.myRotationStepIncreaseButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myRotationStepIncreaseButtonBackgroundComponent.material));
-        ui.myRotationStepIncreaseButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myRotationStepIncreaseButtonBackgroundComponent.material));
-        ui.myRotationStepDecreaseButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myRotationStepDecreaseButtonBackgroundComponent.material));
-        ui.myRotationStepDecreaseButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myRotationStepDecreaseButtonBackgroundComponent.material));
+        ui.myRotationStepIncreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myRotationStepIncreaseButtonBackgroundComponent.material));
+        ui.myRotationStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myRotationStepIncreaseButtonBackgroundComponent.material));
+        ui.myRotationStepDecreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myRotationStepDecreaseButtonBackgroundComponent.material));
+        ui.myRotationStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myRotationStepDecreaseButtonBackgroundComponent.material));
 
-        ui.myScaleStepCursorTargetComponent.addClickFunction(this._resetStep.bind(this, 2));
-        ui.myScaleStepCursorTargetComponent.addHoverFunction(this._setStepEditActive.bind(this, 2, ui.myScaleStepText, true));
-        ui.myScaleStepCursorTargetComponent.addUnHoverFunction(this._setStepEditActive.bind(this, 2, ui.myScaleStepText, false));
+        ui.myScaleStepCursorTargetComponent.onClick.add(this._resetStep.bind(this, 2));
+        ui.myScaleStepCursorTargetComponent.onHover.add(this._setStepEditActive.bind(this, 2, ui.myScaleStepText, true));
+        ui.myScaleStepCursorTargetComponent.onUnhover.add(this._setStepEditActive.bind(this, 2, ui.myScaleStepText, false));
 
-        ui.myScaleStepIncreaseButtonCursorTargetComponent.addDownFunction(this._setStepEditIntensity.bind(this, 2, 1));
-        ui.myScaleStepIncreaseButtonCursorTargetComponent.addDownOnHoverFunction(this._setStepEditIntensity.bind(this, 2, 1));
-        ui.myScaleStepIncreaseButtonCursorTargetComponent.addUpFunction(this._setStepEditIntensity.bind(this, 2, 0));
-        ui.myScaleStepIncreaseButtonCursorTargetComponent.addUpWithNoDownFunction(this._setStepEditIntensity.bind(this, 2, 0));
-        ui.myScaleStepIncreaseButtonCursorTargetComponent.addUnHoverFunction(this._setStepEditIntensity.bind(this, 2, 0));
-        ui.myScaleStepDecreaseButtonCursorTargetComponent.addDownFunction(this._setStepEditIntensity.bind(this, 2, -1));
-        ui.myScaleStepDecreaseButtonCursorTargetComponent.addDownOnHoverFunction(this._setStepEditIntensity.bind(this, 2, -1));
-        ui.myScaleStepDecreaseButtonCursorTargetComponent.addUpFunction(this._setStepEditIntensity.bind(this, 2, 0));
-        ui.myScaleStepDecreaseButtonCursorTargetComponent.addUpWithNoDownFunction(this._setStepEditIntensity.bind(this, 2, 0));
-        ui.myScaleStepDecreaseButtonCursorTargetComponent.addUnHoverFunction(this._setStepEditIntensity.bind(this, 2, 0));
+        ui.myScaleStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 2, 1));
+        ui.myScaleStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 2, 1));
+        ui.myScaleStepIncreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 2, 0));
+        ui.myScaleStepIncreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 2, 0));
+        ui.myScaleStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 2, 0));
+        ui.myScaleStepDecreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 2, -1));
+        ui.myScaleStepDecreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 2, -1));
+        ui.myScaleStepDecreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 2, 0));
+        ui.myScaleStepDecreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 2, 0));
+        ui.myScaleStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 2, 0));
 
-        ui.myScaleStepIncreaseButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myScaleStepIncreaseButtonBackgroundComponent.material));
-        ui.myScaleStepIncreaseButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myScaleStepIncreaseButtonBackgroundComponent.material));
-        ui.myScaleStepDecreaseButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myScaleStepDecreaseButtonBackgroundComponent.material));
-        ui.myScaleStepDecreaseButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myScaleStepDecreaseButtonBackgroundComponent.material));
+        ui.myScaleStepIncreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myScaleStepIncreaseButtonBackgroundComponent.material));
+        ui.myScaleStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myScaleStepIncreaseButtonBackgroundComponent.material));
+        ui.myScaleStepDecreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myScaleStepDecreaseButtonBackgroundComponent.material));
+        ui.myScaleStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myScaleStepDecreaseButtonBackgroundComponent.material));
 
     }
 

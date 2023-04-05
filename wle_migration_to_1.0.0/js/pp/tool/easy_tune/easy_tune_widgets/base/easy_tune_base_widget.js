@@ -227,29 +227,29 @@ export class EasyTuneBaseWidget {
     _addListeners() {
         let ui = this._myUI;
 
-        ui.myNextButtonCursorTargetComponent.addDownFunction(this._setScrollVariableActive.bind(this, true, 1, false));
-        ui.myNextButtonCursorTargetComponent.addDownOnHoverFunction(this._setScrollVariableActive.bind(this, true, 1, false));
-        ui.myNextButtonCursorTargetComponent.addUpFunction(this._setScrollVariableActive.bind(this, false, 0, false));
-        ui.myNextButtonCursorTargetComponent.addUpWithNoDownFunction(this._setScrollVariableActive.bind(this, false, 0, true));
-        ui.myNextButtonCursorTargetComponent.addUnHoverFunction(this._setScrollVariableActive.bind(this, false, 0, true));
-        ui.myNextButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myNextButtonBackgroundComponent.material));
-        ui.myNextButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myNextButtonBackgroundComponent.material));
+        ui.myNextButtonCursorTargetComponent.onDown.add(this._setScrollVariableActive.bind(this, true, 1, false));
+        ui.myNextButtonCursorTargetComponent.onDownOnHover.add(this._setScrollVariableActive.bind(this, true, 1, false));
+        ui.myNextButtonCursorTargetComponent.onUp.add(this._setScrollVariableActive.bind(this, false, 0, false));
+        ui.myNextButtonCursorTargetComponent.onUpWithNoDown.add(this._setScrollVariableActive.bind(this, false, 0, true));
+        ui.myNextButtonCursorTargetComponent.onUnhover.add(this._setScrollVariableActive.bind(this, false, 0, true));
+        ui.myNextButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myNextButtonBackgroundComponent.material));
+        ui.myNextButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myNextButtonBackgroundComponent.material));
 
-        ui.myPreviousButtonCursorTargetComponent.addDownFunction(this._setScrollVariableActive.bind(this, true, -1, false));
-        ui.myPreviousButtonCursorTargetComponent.addDownOnHoverFunction(this._setScrollVariableActive.bind(this, true, -1, false));
-        ui.myPreviousButtonCursorTargetComponent.addUpFunction(this._setScrollVariableActive.bind(this, false, 0, false));
-        ui.myPreviousButtonCursorTargetComponent.addUpWithNoDownFunction(this._setScrollVariableActive.bind(this, false, 0, true));
-        ui.myPreviousButtonCursorTargetComponent.addUnHoverFunction(this._setScrollVariableActive.bind(this, false, 0, true));
-        ui.myPreviousButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myPreviousButtonBackgroundComponent.material));
-        ui.myPreviousButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myPreviousButtonBackgroundComponent.material));
+        ui.myPreviousButtonCursorTargetComponent.onDown.add(this._setScrollVariableActive.bind(this, true, -1, false));
+        ui.myPreviousButtonCursorTargetComponent.onDownOnHover.add(this._setScrollVariableActive.bind(this, true, -1, false));
+        ui.myPreviousButtonCursorTargetComponent.onUp.add(this._setScrollVariableActive.bind(this, false, 0, false));
+        ui.myPreviousButtonCursorTargetComponent.onUpWithNoDown.add(this._setScrollVariableActive.bind(this, false, 0, true));
+        ui.myPreviousButtonCursorTargetComponent.onUnhover.add(this._setScrollVariableActive.bind(this, false, 0, true));
+        ui.myPreviousButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myPreviousButtonBackgroundComponent.material));
+        ui.myPreviousButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myPreviousButtonBackgroundComponent.material));
 
-        ui.myImportButtonCursorTargetComponent.addUpFunction(this._importVariables.bind(this));
-        ui.myImportButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myImportButtonBackgroundComponent.material));
-        ui.myImportButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myImportButtonBackgroundComponent.material));
+        ui.myImportButtonCursorTargetComponent.onUp.add(this._importVariables.bind(this));
+        ui.myImportButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myImportButtonBackgroundComponent.material));
+        ui.myImportButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myImportButtonBackgroundComponent.material));
 
-        ui.myExportButtonCursorTargetComponent.addUpFunction(this._exportVariables.bind(this));
-        ui.myExportButtonCursorTargetComponent.addHoverFunction(this._genericHover.bind(this, ui.myExportButtonBackgroundComponent.material));
-        ui.myExportButtonCursorTargetComponent.addUnHoverFunction(this._genericUnHover.bind(this, ui.myExportButtonBackgroundComponent.material));
+        ui.myExportButtonCursorTargetComponent.onUp.add(this._exportVariables.bind(this));
+        ui.myExportButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myExportButtonBackgroundComponent.material));
+        ui.myExportButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myExportButtonBackgroundComponent.material));
 
         this._addListenersHook();
     }

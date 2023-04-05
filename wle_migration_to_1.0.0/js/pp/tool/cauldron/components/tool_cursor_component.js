@@ -56,7 +56,7 @@ export class ToolCursorComponent extends Component {
 
             this._myCursorComponentVR.rayCastMode = 0; // Collision
             if (this._myPulseOnHover) {
-                this._myCursorComponentVR.globalTarget.addHoverFunction(this._pulseOnHover.bind(this));
+                this._myCursorComponentVR.globalTarget.onHover.add(this._pulseOnHover.bind(this));
             }
         }
 
@@ -70,7 +70,7 @@ export class ToolCursorComponent extends Component {
 
             this._myCursorComponentNonVR.rayCastMode = 0; // Collision
             if (this._myPulseOnHover) {
-                this._myCursorComponentNonVR.globalTarget.addHoverFunction(this._pulseOnHover.bind(this));
+                this._myCursorComponentNonVR.globalTarget.onHover.add(this._pulseOnHover.bind(this));
             }
             this._myCursorComponentNonVR.setViewComponent(getPlayerObjects(this.engine).myCameraNonVR.pp_getComponent(ViewComponent));
         }
