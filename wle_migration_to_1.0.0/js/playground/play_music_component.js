@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getAudioManager } from "../pp/index";
+import { getAudioManager } from "../pp";
 
 export class PlayMusicComponent extends Component {
     static TypeName = "play-music";

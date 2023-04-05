@@ -1,3 +1,6 @@
+Find: \},\n(\s+\w+): function
+Replace: }\n\n$1
+
 Find: WL\.registerComponent\('(.*)',\s*\{([\n|\s|\S|.]*)\}, \{\n([\n|\s|\S|.]*)\}\);
 Replace: 
 import { Component, Type } from "@wonderlandengine/api";
@@ -8,6 +11,9 @@ export class EnableToolsComponent extends Component {
 	
     $3}
 	
+Find: WL.Type
+Replace: Type
+
 Find: , Type
 Replace: , Property
 
@@ -19,3 +25,6 @@ Replace: Property.\l$1()
 
 Find: \{ type: Type.(\w+), values: (.*), default: (.*) \}
 Replace: Property.\l$1($2, $3)
+
+Find. onXRSession(\w+)\.push
+Replace: onXRSession$1.add

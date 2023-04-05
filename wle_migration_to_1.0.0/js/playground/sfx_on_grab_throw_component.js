@@ -1,6 +1,6 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getAudioManager } from "../pp/index";
-import { GrabberHandComponent } from "../pp/index";
+import { getAudioManager } from "../pp";
+import { GrabberHandComponent } from "../pp";
 
 export class SFXOnGrabThrowComponent extends Component {
     static TypeName = "sfx-on-grab-throw";

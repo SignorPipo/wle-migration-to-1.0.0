@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { Timer } from "../pp/index";
+import { Timer } from "../pp";
 
 export class GrabbableSpawnerComponent extends Component {
     static TypeName = "grabbable-spawner";

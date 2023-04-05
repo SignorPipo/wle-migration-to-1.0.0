@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import * as PPAPI from "../../index";
+import * as PPAPI from "../..";
 
 export class AddPPToWindowComponent extends Component {
     static TypeName = "pp-add-pp-to-window";

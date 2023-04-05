@@ -45,7 +45,7 @@ import {WaveMovementComponent} from './playground/wave_movement_component.js';
 /* wle:auto-imports:end */
 
 import { loadRuntime } from "@wonderlandengine/api";
-import { initPP } from "./pp/index.js";
+import { initPP } from "./pp";
 import { initPlayground } from "./playground/init_playground.js";
 
 /* wle:auto-constants:start */
