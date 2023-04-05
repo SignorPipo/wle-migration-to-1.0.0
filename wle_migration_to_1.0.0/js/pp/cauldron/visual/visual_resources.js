@@ -1,11 +1,11 @@
-export class VisualData {
+export class VisualResources {
 
     constructor() {
-        this.myDefaultMaterials = new VisualDataMaterials();
+        this.myDefaultMaterials = new VisualResourcesMaterials();
     }
 }
 
-export class VisualDataMaterials {
+export class VisualResourcesMaterials {
 
     constructor() {
         this.myMesh = null;

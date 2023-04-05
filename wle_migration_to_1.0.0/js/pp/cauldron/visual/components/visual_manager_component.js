@@ -1,8 +1,8 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { vec4_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultResources } from "../../../pp/default_resources_global";
-import { VisualData } from "../visual_data";
-import { getVisualData, getVisualManager, hasVisualData, hasVisualManager, removeVisualData, removeVisualManager, setVisualData, setVisualManager } from "../visual_globals";
+import { VisualResources } from "../visual_resources";
+import { getVisualResources, getVisualManager, hasVisualResources, hasVisualManager, removeVisualResources, removeVisualManager, setVisualResources, setVisualManager } from "../visual_globals";
 import { VisualManager } from "../visual_manager";
 import { getSceneObjects } from "../../../pp/scene_objects_global";
 
@@ -21,30 +21,30 @@ export class VisualManagerComponent extends Component {
         }
 
         // Prevents double global from same engine
-        if (!hasVisualData(this.engine)) {
-            this._myVisualData = new VisualData();
+        if (!hasVisualResources(this.engine)) {
+            this._myVisualResources = new VisualResources();
 
-            setVisualData(this._myVisualData, this.engine);
+            setVisualResources(this._myVisualResources, this.engine);
         }
     }
 
     start() {
-        if (this._myVisualData != null) {
-            this._myVisualData.myDefaultMaterials.myMesh = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+        if (this._myVisualResources != null) {
+            this._myVisualResources.myDefaultMaterials.myMesh = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
 
-            this._myVisualData.myDefaultMaterials.myText = getDefaultResources(this.engine).myMaterials.myText.clone();
+            this._myVisualResources.myDefaultMaterials.myText = getDefaultResources(this.engine).myMaterials.myText.clone();
 
-            this._myVisualData.myDefaultMaterials.myRight = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myRight.color = vec4_create(1, 0, 0, 1);
-            this._myVisualData.myDefaultMaterials.myUp = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myUp.color = vec4_create(0, 1, 0, 1);
-            this._myVisualData.myDefaultMaterials.myForward = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myForward.color = vec4_create(0, 0, 1, 1);
+            this._myVisualResources.myDefaultMaterials.myRight = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualResources.myDefaultMaterials.myRight.color = vec4_create(1, 0, 0, 1);
+            this._myVisualResources.myDefaultMaterials.myUp = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualResources.myDefaultMaterials.myUp.color = vec4_create(0, 1, 0, 1);
+            this._myVisualResources.myDefaultMaterials.myForward = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualResources.myDefaultMaterials.myForward.color = vec4_create(0, 0, 1, 1);
 
-            this._myVisualData.myDefaultMaterials.myRay = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myRay.color = vec4_create(0, 1, 0, 1);
-            this._myVisualData.myDefaultMaterials.myHitNormal = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            this._myVisualData.myDefaultMaterials.myHitNormal.color = vec4_create(1, 0, 0, 1);
+            this._myVisualResources.myDefaultMaterials.myRay = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualResources.myDefaultMaterials.myRay.color = vec4_create(0, 1, 0, 1);
+            this._myVisualResources.myDefaultMaterials.myHitNormal = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            this._myVisualResources.myDefaultMaterials.myHitNormal.color = vec4_create(1, 0, 0, 1);
         }
 
         if (this.myVisualManager != null) {
@@ -63,8 +63,8 @@ export class VisualManagerComponent extends Component {
             removeVisualManager(this.engine);
         }
 
-        if (this._myVisualData != null && getVisualData(this.engine) == this._myVisualData) {
-            removeVisualData(this.engine);
+        if (this._myVisualResources != null && getVisualResources(this.engine) == this._myVisualResources) {
+            removeVisualResources(this.engine);
         }
     }
 }

@@ -80,7 +80,7 @@ export * from "./cauldron/physics/physics_layer_flags";
 export * from "./cauldron/physics/physics_collision_collector";
 
 export * from "./cauldron/visual/visual_manager";
-export * from "./cauldron/visual/visual_data";
+export * from "./cauldron/visual/visual_resources";
 export * from "./cauldron/visual/visual_globals";
 
 export * from "./cauldron/visual/elements/visual_element_types";

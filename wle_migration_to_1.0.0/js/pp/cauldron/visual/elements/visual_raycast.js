@@ -9,7 +9,7 @@ let visualRaycast = new VisualRaycast(visualParams);
 */
 
 import { RaycastResults } from "../../physics/physics_raycast_data";
-import { getVisualData } from "../visual_globals";
+import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualArrow, VisualArrowParams } from "./visual_arrow";
 import { getMainEngine } from "../../wl/engine_globals";
@@ -167,7 +167,7 @@ export class VisualRaycast {
                 visualRaycastParams.myThickness = this._myParams.myThickness;
 
                 if (this._myParams.myRayMaterial == null) {
-                    visualRaycastParams.myMaterial = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myRay;
+                    visualRaycastParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myRay;
                 } else {
                     visualRaycastParams.myMaterial = this._myParams.myRayMaterial;
                 }
@@ -196,7 +196,7 @@ export class VisualRaycast {
                     visualRaycastHitParams.myThickness = this._myParams.myThickness;
 
                     if (this._myParams.myHitNormalMaterial == null) {
-                        visualRaycastHitParams.myMaterial = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myHitNormal;
+                        visualRaycastHitParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myHitNormal;
                     } else {
                         visualRaycastHitParams.myMaterial = this._myParams.myHitNormalMaterial;
                     }
@@ -219,7 +219,7 @@ export class VisualRaycast {
                 visualRaycastParams.myThickness = this._myParams.myThickness;
 
                 if (this._myParams.myRayMaterial == null) {
-                    visualRaycastParams.myMaterial = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myRay;
+                    visualRaycastParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myRay;
                 } else {
                     visualRaycastParams.myMaterial = this._myParams.myRayMaterial;
                 }

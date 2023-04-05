@@ -15,7 +15,7 @@ let visualArrow = new VisualArrow(visualParams);
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getDefaultResources } from "../../../pp/default_resources_global";
-import { getVisualData } from "../visual_globals";
+import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualLine, VisualLineParams } from "./visual_line";
 import { MeshComponent } from "@wonderlandengine/api";
@@ -205,7 +205,7 @@ VisualArrow.prototype._refresh = function () {
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myArrowMeshComponent.material = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
+                this._myArrowMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
                     this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();

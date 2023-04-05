@@ -14,7 +14,7 @@ let visualLine = new VisualLine(visualParams);
 
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualData } from "../visual_globals";
+import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { MeshComponent } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../pp/default_resources_global";
@@ -196,7 +196,7 @@ VisualLine.prototype._refresh = function () {
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myLineMeshComponent.material = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
+                this._myLineMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
                     this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();

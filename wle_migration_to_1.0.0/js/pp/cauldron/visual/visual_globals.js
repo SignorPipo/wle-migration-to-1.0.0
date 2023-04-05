@@ -1,22 +1,22 @@
 import { getMainEngine } from "../wl/engine_globals";
 
-let _myVisualDatas = new WeakMap();
+let _myVisualResourcesContainer = new WeakMap();
 let _myVisualManagers = new WeakMap();
 
-export function getVisualData(engine = getMainEngineinEngine()) {
-    return _myVisualDatas.get(engine);
+export function getVisualResources(engine = getMainEngineinEngine()) {
+    return _myVisualResourcesContainer.get(engine);
 }
 
-export function setVisualData(visualData, engine = getMainEngine()) {
-    _myVisualDatas.set(engine, visualData);
+export function setVisualResources(visualResources, engine = getMainEngine()) {
+    _myVisualResourcesContainer.set(engine, visualResources);
 }
 
-export function removeVisualData(engine = getMainEngine()) {
-    _myVisualDatas.delete(engine);
+export function removeVisualResources(engine = getMainEngine()) {
+    _myVisualResourcesContainer.delete(engine);
 }
 
-export function hasVisualData(engine = getMainEngine()) {
-    return _myVisualDatas.has(engine);
+export function hasVisualResources(engine = getMainEngine()) {
+    return _myVisualResourcesContainer.has(engine);
 }
 
 export function getVisualManager(engine = getMainEngine()) {

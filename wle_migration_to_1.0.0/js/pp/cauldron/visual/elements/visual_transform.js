@@ -12,7 +12,7 @@ let visualTransform = new VisualTransform(visualParams);
 import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getSceneObjects } from "../../../pp/scene_objects_global";
 import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualData } from "../visual_globals";
+import { getVisualResources } from "../visual_globals";
 import { VisualArrow, VisualArrowParams } from "./visual_arrow";
 import { VisualElementType } from "./visual_element_types";
 
@@ -177,7 +177,7 @@ VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myRightMaterial == null) {
-                visualArrowParams.myMaterial = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myRight;
+                visualArrowParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myRight;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myRightMaterial;
             }
@@ -196,7 +196,7 @@ VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myUpMaterial == null) {
-                visualArrowParams.myMaterial = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myUp;
+                visualArrowParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myUp;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myUpMaterial;
             }
@@ -215,7 +215,7 @@ VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myForwardMaterial == null) {
-                visualArrowParams.myMaterial = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myForward;
+                visualArrowParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myForward;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myForwardMaterial;
             }

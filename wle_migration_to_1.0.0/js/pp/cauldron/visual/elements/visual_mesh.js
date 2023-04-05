@@ -13,7 +13,7 @@ let visualMesh = new VisualMesh(visualParams);
 
 import { mat4_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualData } from "../visual_globals";
+import { getVisualResources } from "../visual_globals";
 import { MeshComponent } from "@wonderlandengine/api";
 import { getDefaultResources } from "../../../pp/default_resources_global";
 import { VisualElementType } from "./visual_element_types";
@@ -118,7 +118,7 @@ export class VisualMesh {
         }
 
         if (this._myParams.myMaterial == null) {
-            this._myMeshComponent.material = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
+            this._myMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
         } else {
             this._myMeshComponent.material = this._myParams.myMaterial;
         }

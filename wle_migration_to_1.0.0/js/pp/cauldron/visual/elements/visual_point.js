@@ -13,7 +13,7 @@ let visualPoint = new VisualPoint(visualParams);
 
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualData } from "../visual_globals";
+import { getVisualResources } from "../visual_globals";
 import { MeshComponent } from "@wonderlandengine/api";
 import { VisualElementType } from "./visual_element_types";
 import { getDefaultResources } from "../../../pp/default_resources_global";
@@ -165,7 +165,7 @@ VisualPoint.prototype._refresh = function () {
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myPointMeshComponent.material = getVisualData(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
+                this._myPointMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
                     this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();
