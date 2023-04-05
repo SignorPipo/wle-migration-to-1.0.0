@@ -1,4 +1,4 @@
-import { Component, Property } from "@wonderlandengine/api";
+import { Component } from "@wonderlandengine/api";
 import { AudioManager } from "../audio_manager";
 import { getAudioManager, hasAudioManager, removeAudioManager, setAudioManager } from "../audio_manager_global";
 

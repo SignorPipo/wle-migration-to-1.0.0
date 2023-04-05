@@ -1,4 +1,4 @@
-import { MeshComponent, CollisionComponent, TextComponent, PhysXComponent } from "@wonderlandengine/api";
+import { CollisionComponent, MeshComponent, PhysXComponent, TextComponent } from "@wonderlandengine/api";
 import { MeshUtils } from "../../../../cauldron/utils/mesh_utils";
 import { DeepCloneParams } from "../../extensions/object_extension";
 

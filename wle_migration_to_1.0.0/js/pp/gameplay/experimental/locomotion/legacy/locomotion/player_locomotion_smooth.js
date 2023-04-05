@@ -1,16 +1,16 @@
 import { Timer } from "../../../../../cauldron/cauldron/timer";
+import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
+import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getGamepads } from "../../../../../input/cauldron/input_globals";
 import { Handedness } from "../../../../../input/cauldron/input_types";
 import { InputUtils } from "../../../../../input/cauldron/input_utils";
 import { GamepadAxesID, GamepadButtonID } from "../../../../../input/gamepad/gamepad_buttons";
 import { quat2_create, vec3_create } from "../../../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getPlayerObjects } from "../../../../../pp/scene_objects_global";
 import { Direction2DTo3DConverter, Direction2DTo3DConverterParams } from "../../../../cauldron/cauldron/direction_2D_to_3D_converter";
 import { PlayerLocomotionDirectionReferenceType } from "./player_locomotion";
 import { getCollisionCheck } from "./player_locomotion_component";
 import { PlayerLocomotionMovement } from "./player_locomotion_movement";
-import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
 
 export class PlayerLocomotionSmoothParams {
 

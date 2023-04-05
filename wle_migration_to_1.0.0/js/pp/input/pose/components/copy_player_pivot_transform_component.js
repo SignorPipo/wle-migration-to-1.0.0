@@ -1,4 +1,4 @@
-import { Component, Property } from "@wonderlandengine/api";
+import { Component } from "@wonderlandengine/api";
 import { getPlayerObjects } from "../../../pp/scene_objects_global";
 
 export class CopyPlayerPivotTransformComponent extends Component {

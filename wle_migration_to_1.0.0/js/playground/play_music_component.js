@@ -1,4 +1,4 @@
-import { Component, Property } from "@wonderlandengine/api";
+import { Component } from "@wonderlandengine/api";
 import { getAudioManager } from "../pp";
 
 export class PlayMusicComponent extends Component {

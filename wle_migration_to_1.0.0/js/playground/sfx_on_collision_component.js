@@ -1,7 +1,5 @@
-import { Component, Property, PhysXComponent } from "@wonderlandengine/api";
-import { getAudioManager } from "../pp";
-import { PhysicsCollisionCollector } from "../pp";
-import { GrabbableComponent } from "../pp";
+import { Component, PhysXComponent } from "@wonderlandengine/api";
+import { GrabbableComponent, PhysicsCollisionCollector, getAudioManager } from "../pp";
 
 export class SFXOnCollisionComponent extends Component {
     static TypeName = "sfx-on-collision";

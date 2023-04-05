@@ -1,4 +1,4 @@
-import { Component, Property } from "@wonderlandengine/api";
+import { Component } from "@wonderlandengine/api";
 import { PlayerLocomotionRotate } from "../player_locomotion_rotate";
 
 export class PlayerLocomotionRotateComponent extends Component {

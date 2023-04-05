@@ -1,6 +1,6 @@
-import { AnimationComponent, CollisionComponent, Component, InputComponent, LightComponent, MeshComponent, TextComponent, Property, ViewComponent } from "@wonderlandengine/api";
-import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
+import { AnimationComponent, CollisionComponent, Component, InputComponent, LightComponent, MeshComponent, Property, TextComponent, ViewComponent } from "@wonderlandengine/api";
 import { Timer } from "../../../../cauldron/cauldron/timer";
+import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
 
 export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-wl-components-functions-performance-analyzer";

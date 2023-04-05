@@ -1,15 +1,15 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { AddPPToWindowComponent } from "./add_pp_to_window_component";
 import { AudioManagerComponent } from "../../audio/components/audio_manager_component";
 import { VisualManagerComponent } from "../../cauldron/visual/components/visual_manager_component";
 import { AddWLToWindowComponent } from "../../cauldron/wl/components/add_wl_to_window_component";
 import { DebugManagerComponent } from "../../debug/components/debug_manager_component";
+import { EnableDebugsComponent } from "../../debug/components/enable_debugs_component";
 import { InputManagerComponent } from "../../input/cauldron/components/input_manager_component";
 import { EnableToolsComponent } from "../../tool/cauldron/components/enable_tools_component";
-import { EnableDebugsComponent } from "../../debug/components/enable_debugs_component";
+import { InitEasyTuneVariablesComponent } from "../../tool/easy_tune/components/init_easy_tune_variables_component";
+import { AddPPToWindowComponent } from "./add_pp_to_window_component";
 import { GetDefaultResourcesComponent } from "./get_default_resources_component";
 import { GetSceneObjectsComponent } from "./get_scene_objects_component";
-import { InitEasyTuneVariablesComponent } from "../../tool/easy_tune/components/init_easy_tune_variables_component";
 
 export class PPGatewayComponent extends Component {
     static TypeName = "pp-gateway";

@@ -1,5 +1,4 @@
 import { Handedness } from "../../cauldron/input_types";
-import { HandPose } from "../../pose/hand_pose";
 import { GamepadButtonID } from "../gamepad_buttons";
 import { GamepadCore } from "./gamepad_core";
 

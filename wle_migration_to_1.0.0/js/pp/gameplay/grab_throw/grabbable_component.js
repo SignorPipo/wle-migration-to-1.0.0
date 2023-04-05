@@ -1,4 +1,4 @@
-import { Component, Property, PhysXComponent } from "@wonderlandengine/api";
+import { Component, PhysXComponent, Property } from "@wonderlandengine/api";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { getSceneObjects } from "../../pp/scene_objects_global";
 

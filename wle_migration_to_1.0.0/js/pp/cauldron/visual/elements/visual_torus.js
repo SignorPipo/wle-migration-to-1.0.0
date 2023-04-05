@@ -14,12 +14,12 @@ let visualTorus = new VisualTorus(visualParams);
 */
 
 import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../wl/engine_globals";
 import { getDefaultMaterials } from "../../../pp/default_resources_globals";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
+import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualLine, VisualLineParams } from "./visual_line";
-import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualTorusParams {
 

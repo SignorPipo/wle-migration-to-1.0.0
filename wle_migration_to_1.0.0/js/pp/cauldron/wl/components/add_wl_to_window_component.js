@@ -1,5 +1,5 @@
-import { Component, Property } from "@wonderlandengine/api";
 import * as WLAPI from "@wonderlandengine/api";
+import { Component, Property } from "@wonderlandengine/api";
 import * as WLComponents from "@wonderlandengine/components";
 
 export class AddWLToWindowComponent extends Component {

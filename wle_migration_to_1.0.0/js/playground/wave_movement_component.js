@@ -1,7 +1,5 @@
-import { Component, Property } from "@wonderlandengine/api";
-import { Timer } from "../pp";
-import { getEasyTuneVariables } from "../pp";
-import { EasyTuneNumber } from "../pp";
+import { Component } from "@wonderlandengine/api";
+import { EasyTuneNumber, Timer, getEasyTuneVariables } from "../pp";
 
 export class WaveMovementComponent extends Component {
     static TypeName = "wave-movement";

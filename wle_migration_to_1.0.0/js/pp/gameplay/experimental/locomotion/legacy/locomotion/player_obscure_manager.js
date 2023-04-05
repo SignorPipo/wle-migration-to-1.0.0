@@ -4,9 +4,9 @@ import { Timer } from "../../../../../cauldron/cauldron/timer";
 import { FSM } from "../../../../../cauldron/fsm/fsm";
 import { MaterialUtils } from "../../../../../cauldron/utils/material_utils";
 import { VisualMesh, VisualMeshParams } from "../../../../../cauldron/visual/elements/visual_mesh";
+import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getDefaultMaterials, getDefaultMeshes } from "../../../../../pp/default_resources_globals";
 import { getPlayerObjects } from "../../../../../pp/scene_objects_global";
 

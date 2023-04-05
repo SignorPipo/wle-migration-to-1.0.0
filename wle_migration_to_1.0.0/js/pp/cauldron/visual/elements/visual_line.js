@@ -12,13 +12,13 @@ or
 let visualLine = new VisualLine(visualParams);
 */
 
+import { MeshComponent } from "@wonderlandengine/api";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
+import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
-import { MeshComponent } from "@wonderlandengine/api";
-import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
-import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualLineParams {
 

@@ -11,13 +11,13 @@ or
 let visualText = new VisualText(visualParams);
 */
 
+import { Alignment, Justification, TextComponent } from "@wonderlandengine/api";
 import { mat4_create } from "../../../plugin/js/extensions/array_extension";
+import { getDefaultMaterials } from "../../../pp/default_resources_globals";
+import { getSceneObjects } from "../../../pp/scene_objects_global";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";
-import { Alignment, Justification, TextComponent } from "@wonderlandengine/api";
-import { getDefaultMaterials } from "../../../pp/default_resources_globals";
 import { VisualElementType } from "./visual_element_types";
-import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualTextParams {
 

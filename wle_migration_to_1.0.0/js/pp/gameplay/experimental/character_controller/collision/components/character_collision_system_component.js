@@ -1,4 +1,4 @@
-import { Component, Property } from "@wonderlandengine/api";
+import { Component } from "@wonderlandengine/api";
 import { CharacterCollisionSystem } from "../character_collision_system";
 import { getCharacterCollisionSystem, hasCharacterCollisionSystem, removeCharacterCollisionSystem, setCharacterCollisionSystem } from "../character_collision_system_global";
 

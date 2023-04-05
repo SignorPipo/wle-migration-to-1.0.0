@@ -1,12 +1,12 @@
 import { PhysXComponent } from "@wonderlandengine/api";
 import { FSM } from "../../../../../cauldron/fsm/fsm";
 import { PhysicsLayerFlags } from "../../../../../cauldron/physics/physics_layer_flags";
+import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getLeftGamepad } from "../../../../../input/cauldron/input_globals";
 import { Handedness } from "../../../../../input/cauldron/input_types";
 import { InputUtils } from "../../../../../input/cauldron/input_utils";
 import { GamepadButtonID } from "../../../../../input/gamepad/gamepad_buttons";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { CollisionCheckUtils } from "../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../character_controller/collision/legacy/collision_check/collision_params";
 import { LocomotionUtils } from "./locomotion_utils";

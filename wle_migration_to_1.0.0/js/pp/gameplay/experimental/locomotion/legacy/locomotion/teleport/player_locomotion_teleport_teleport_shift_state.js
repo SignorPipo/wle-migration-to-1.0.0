@@ -1,8 +1,6 @@
 import { Timer } from "../../../../../../cauldron/cauldron/timer";
 import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
-import { getEasyTuneVariables } from "../../../../../../tool/easy_tune/easy_tune_globals";
-import { EasyTuneNumber } from "../../../../../../tool/easy_tune/easy_tune_variable_types";
 import { PlayerLocomotionTeleportState } from "./player_locomotion_teleport_state";
 
 export class PlayerLocomotionTeleportTeleportShiftState extends PlayerLocomotionTeleportState {

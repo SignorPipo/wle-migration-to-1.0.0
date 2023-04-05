@@ -1,9 +1,9 @@
-import { Component, Property } from "@wonderlandengine/api";
+import { Component } from "@wonderlandengine/api";
 import { vec4_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultMaterials } from "../../../pp/default_resources_globals";
-import { VisualResources } from "../visual_resources";
-import { getVisualResources, getVisualManager, hasVisualResources, hasVisualManager, removeVisualResources, removeVisualManager, setVisualResources, setVisualManager } from "../visual_globals";
+import { getVisualManager, getVisualResources, hasVisualManager, hasVisualResources, removeVisualManager, removeVisualResources, setVisualManager, setVisualResources } from "../visual_globals";
 import { VisualManager } from "../visual_manager";
+import { VisualResources } from "../visual_resources";
 
 export class VisualManagerComponent extends Component {
     static TypeName = "pp-visual-manager";

@@ -5,8 +5,6 @@ import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { getDefaultMaterials } from "../../../../../../pp/default_resources_globals";
 import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
-import { getEasyTuneVariables } from "../../../../../../tool/easy_tune/easy_tune_globals";
-import { EasyTuneInt, EasyTuneNumber } from "../../../../../../tool/easy_tune/easy_tune_variable_types";
 
 export class PlayerLocomotionTeleportDetectionVisualizerParams {
 

@@ -1,6 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { getPlayerObjects } from "../../../pp/scene_objects_global";
-import { Handedness } from "../../cauldron/input_types";
 import { InputUtils } from "../../cauldron/input_utils";
 
 export class CopyHandTransformComponent extends Component {

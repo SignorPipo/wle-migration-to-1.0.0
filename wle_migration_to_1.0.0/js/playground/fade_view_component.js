@@ -1,8 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { Timer, getDefaultMaterials, getDefaultMeshes, vec3_create, vec4_create } from "../pp";
-import { VisualMesh, VisualMeshParams } from "../pp";
-import { EasingFunction } from "../pp";
-import { getPlayerObjects } from "../pp";
+import { EasingFunction, Timer, VisualMesh, VisualMeshParams, getDefaultMaterials, getDefaultMeshes, getPlayerObjects, vec3_create, vec4_create } from "../pp";
 
 export class FadeViewComponent extends Component {
     static TypeName = "fade-view";

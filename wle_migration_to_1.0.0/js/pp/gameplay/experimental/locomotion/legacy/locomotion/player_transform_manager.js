@@ -1,8 +1,8 @@
 import { PhysicsLayerFlags } from "../../../../../cauldron/physics/physics_layer_flags";
 import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
+import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getDebugVisualManager } from "../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { CollisionCheckUtils } from "../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../character_controller/collision/legacy/collision_check/collision_params";
 import { getCollisionCheck } from "./player_locomotion_component";

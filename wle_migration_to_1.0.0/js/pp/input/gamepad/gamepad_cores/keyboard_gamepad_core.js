@@ -1,7 +1,6 @@
 import { getKeyboard } from "../../cauldron/input_globals";
 import { Handedness } from "../../cauldron/input_types";
 import { KeyID } from "../../cauldron/keyboard";
-import { HandPose } from "../../pose/hand_pose";
 import { GamepadButtonID } from "../gamepad_buttons";
 import { GamepadCore } from "./gamepad_core";
 

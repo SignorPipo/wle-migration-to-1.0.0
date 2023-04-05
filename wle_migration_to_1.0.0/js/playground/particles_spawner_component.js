@@ -1,7 +1,5 @@
-import { Component, Property, MeshComponent } from "@wonderlandengine/api";
-import { ObjectPoolParams, getSceneObjects } from "../pp";
-import { ObjectPoolsManager } from "../pp";
-import { CloneParams } from "../pp";
+import { Component, MeshComponent, Property } from "@wonderlandengine/api";
+import { CloneParams, ObjectPoolParams, ObjectPoolsManager, getSceneObjects } from "../pp";
 import { ParticleComponent } from "./particle_component";
 
 export class ParticlesSpawnerComponent extends Component {

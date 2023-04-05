@@ -11,13 +11,13 @@ or
 let visualPoint = new VisualPoint(visualParams);
 */
 
-import { vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualResources } from "../visual_globals";
 import { MeshComponent } from "@wonderlandengine/api";
-import { VisualElementType } from "./visual_element_types";
+import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
 import { getSceneObjects } from "../../../pp/scene_objects_global";
+import { getMainEngine } from "../../wl/engine_globals";
+import { getVisualResources } from "../visual_globals";
+import { VisualElementType } from "./visual_element_types";
 
 export class VisualPointParams {
 

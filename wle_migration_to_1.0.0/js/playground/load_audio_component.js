@@ -1,6 +1,5 @@
-import { Component, Property } from "@wonderlandengine/api";
-import { getAudioManager } from "../pp";
-import { AudioSetup } from "../pp";
+import { Component } from "@wonderlandengine/api";
+import { AudioSetup, getAudioManager } from "../pp";
 
 export class LoadAudioComponent extends Component {
     static TypeName = "load-audio";

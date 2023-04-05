@@ -10,8 +10,8 @@ Bool Array:     getEasyTuneVariables().add(new EasyTuneBoolArray("Bool Array", [
 Transform:      getEasyTuneVariables().add(new EasyTuneTransform("Transform", mat4_create(), true));
 */
 
-import { mat4_create } from "../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
+import { mat4_create } from "../../plugin/js/extensions/array_extension";
 import { EasyTuneUtils } from "./easy_tune_utils";
 
 export let EasyTuneVariableType = {

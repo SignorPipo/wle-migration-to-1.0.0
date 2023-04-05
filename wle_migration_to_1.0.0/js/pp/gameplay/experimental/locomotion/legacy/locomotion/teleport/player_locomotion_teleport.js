@@ -1,11 +1,11 @@
 import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
+import { getMainEngine } from "../../../../../../cauldron/wl/engine_globals";
 import { getGamepads, getMouse } from "../../../../../../input/cauldron/input_globals";
 import { Handedness } from "../../../../../../input/cauldron/input_types";
 import { MouseButtonID } from "../../../../../../input/cauldron/mouse";
 import { GamepadAxesID } from "../../../../../../input/gamepad/gamepad_buttons";
 import { quat2_create, vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../../../../../../cauldron/wl/engine_globals";
 import { getCollisionCheck } from "../player_locomotion_component";
 import { PlayerLocomotionMovement } from "../player_locomotion_movement";
 import { PlayerLocomotionTeleportDetectionParams, PlayerLocomotionTeleportDetectionState } from "./player_locomotion_teleport_detection_state";

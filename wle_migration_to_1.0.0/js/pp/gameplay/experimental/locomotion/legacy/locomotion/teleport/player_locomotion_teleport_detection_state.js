@@ -8,8 +8,6 @@ import { MouseButtonID } from "../../../../../../input/cauldron/mouse";
 import { GamepadAxesID, GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
-import { getEasyTuneVariables } from "../../../../../../tool/easy_tune/easy_tune_globals";
-import { EasyTuneNumber } from "../../../../../../tool/easy_tune/easy_tune_variable_types";
 import { CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
 import { PlayerLocomotionTeleportDetectionVisualizer } from "./player_locomotion_teleport_detection_visualizer";
 import { PlayerLocomotionTeleportParable } from "./player_locomotion_teleport_parable";

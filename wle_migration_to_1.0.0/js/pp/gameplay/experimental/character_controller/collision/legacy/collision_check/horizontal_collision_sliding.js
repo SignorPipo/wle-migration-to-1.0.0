@@ -1,7 +1,5 @@
-import { VisualArrowParams } from "../../../../../../cauldron/visual/elements/visual_arrow";
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
-import { getDefaultMaterials } from "../../../../../../pp/default_resources_globals";
 import { CollisionCheck } from "./collision_check";
 
 CollisionCheck.prototype._horizontalSlide = function () {

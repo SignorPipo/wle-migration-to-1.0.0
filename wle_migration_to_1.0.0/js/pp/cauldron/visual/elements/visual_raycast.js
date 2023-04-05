@@ -8,12 +8,12 @@ or
 let visualRaycast = new VisualRaycast(visualParams);
 */
 
-import { RaycastResults } from "../../physics/physics_raycast_data";
-import { getVisualResources } from "../visual_globals";
-import { VisualElementType } from "./visual_element_types";
-import { VisualArrow, VisualArrowParams } from "./visual_arrow";
-import { getMainEngine } from "../../wl/engine_globals";
 import { getSceneObjects } from "../../../pp/scene_objects_global";
+import { RaycastResults } from "../../physics/physics_raycast_data";
+import { getMainEngine } from "../../wl/engine_globals";
+import { getVisualResources } from "../visual_globals";
+import { VisualArrow, VisualArrowParams } from "./visual_arrow";
+import { VisualElementType } from "./visual_element_types";
 
 export class VisualRaycastParams {
 

@@ -1,6 +1,6 @@
-import { initPlugins } from "../plugin/init_plugins";
 import { initEngine } from "../cauldron/wl/engine_globals";
 import { registerWLComponents } from "../cauldron/wl/register_wl_components";
+import { initPlugins } from "../plugin/init_plugins";
 import { registerPPComponents } from "./register_pp_components";
 
 export function initPP(engine) {

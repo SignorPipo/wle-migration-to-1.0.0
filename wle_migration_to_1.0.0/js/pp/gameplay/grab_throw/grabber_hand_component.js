@@ -1,4 +1,4 @@
-import { Component, Property, PhysXComponent } from "@wonderlandengine/api";
+import { Component, PhysXComponent, Property } from "@wonderlandengine/api";
 import { PhysicsCollisionCollector } from "../../cauldron/physics/physics_collision_collector";
 import { getDebugVisualManager } from "../../debug/debug_globals";
 import { getLeftGamepad, getRightGamepad } from "../../input/cauldron/input_globals";

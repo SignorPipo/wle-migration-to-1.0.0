@@ -1,6 +1,6 @@
+import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { getLeftGamepad, getRightGamepad } from "../../input/cauldron/input_globals";
 import { GamepadAxesID, GamepadButtonID } from "../../input/gamepad/gamepad_buttons";
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { ToolHandedness } from "../cauldron/tool_types";
 import { WidgetFrame } from "../widget_frame/widget_frame";
 import { getOriginalConsoleClear } from "./console_original_functions";
