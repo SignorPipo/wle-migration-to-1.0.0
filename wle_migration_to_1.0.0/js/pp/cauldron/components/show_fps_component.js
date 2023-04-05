@@ -1,6 +1,6 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
-import { getDefaultResources } from "../../pp/default_resources_global";
+import { getDefaultMaterials } from "../../pp/default_resources_globals";
 import { getPlayerObjects } from "../../pp/scene_objects_global";
 import { getEasyTuneVariables } from "../../tool/easy_tune/easy_tune_globals";
 import { EasyTuneNumber } from "../../tool/easy_tune/easy_tune_variable_types";
@@ -30,7 +30,7 @@ export class ShowFPSComponent extends Component {
         if (this._myTextMaterial != null) {
             visualParams.myMaterial = this._myTextMaterial.clone();
         } else {
-            visualParams.myMaterial = getDefaultResources(this.engine).myMaterials.myText.clone();
+            visualParams.myMaterial = getDefaultMaterials(this.engine).myText.clone();
             visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
         }
 

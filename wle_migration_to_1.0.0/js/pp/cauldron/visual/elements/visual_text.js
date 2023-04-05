@@ -15,7 +15,7 @@ import { mat4_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";
 import { Alignment, Justification, TextComponent } from "@wonderlandengine/api";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials } from "../../../pp/default_resources_globals";
 import { VisualElementType } from "./visual_element_types";
 import { getSceneObjects } from "../../../pp/scene_objects_global";
 
@@ -123,7 +123,7 @@ export class VisualText {
                 this._myTextComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myText;
             } else {
                 if (this._myTextMaterial == null) {
-                    this._myTextMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myText.clone();
+                    this._myTextMaterial = getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myText.clone();
                 }
                 this._myTextComponent.material = this._myTextMaterial;
                 this._myTextMaterial.color = this._myParams.myColor;

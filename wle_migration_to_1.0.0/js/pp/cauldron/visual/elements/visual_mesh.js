@@ -15,7 +15,7 @@ import { mat4_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";
 import { MeshComponent } from "@wonderlandengine/api";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMeshes } from "../../../pp/default_resources_globals";
 import { VisualElementType } from "./visual_element_types";
 import { getSceneObjects } from "../../../pp/scene_objects_global";
 
@@ -112,7 +112,7 @@ export class VisualMesh {
         }
 
         if (this._myParams.myMesh == null) {
-            this._myMeshComponent.mesh = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMeshes.mySphere;
+            this._myMeshComponent.mesh = getDefaultMeshes(this._myParams.myParent.pp_getEngine()).mySphere;
         } else {
             this._myMeshComponent.mesh = this._myParams.myMesh;
         }

@@ -17,3 +17,23 @@ export function removeDefaultResources(engine = getMainEngine()) {
 export function hasDefaultResources(engine = getMainEngine()) {
     return _myDefaultResourcesContainer.has(engine);
 }
+
+export function getDefaultMeshes(engine = getMainEngine()) {
+    let defaultResources = getDefaultResources(engine);
+
+    if (defaultResources != null) {
+        return defaultResources.myMeshes;
+    }
+
+    return null;
+}
+
+export function getDefaultMaterials(engine = getMainEngine()) {
+    let defaultResources = getDefaultResources(engine);
+
+    if (defaultResources != null) {
+        return defaultResources.myMaterials;
+    }
+
+    return null;
+}

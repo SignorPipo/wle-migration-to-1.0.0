@@ -15,7 +15,7 @@ let visualTorus = new VisualTorus(visualParams);
 
 import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials } from "../../../pp/default_resources_globals";
 import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualLine, VisualLineParams } from "./visual_line";
@@ -235,7 +235,7 @@ VisualTorus.prototype._refresh = function () {
                     visualSegmentParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
                 } else {
                     if (this._myFlatOpaqueMaterial == null) {
-                        this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();
+                        this._myFlatOpaqueMaterial = getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myFlatOpaque.clone();
                     }
                     visualSegmentParams.myMaterial = this._myFlatOpaqueMaterial;
                     this._myFlatOpaqueMaterial.color = this._myParams.myColor;

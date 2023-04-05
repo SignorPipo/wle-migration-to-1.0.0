@@ -7,7 +7,7 @@ import { VisualMesh, VisualMeshParams } from "../../../../../cauldron/visual/ele
 import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
 import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
-import { getDefaultResources } from "../../../../../pp/default_resources_global";
+import { getDefaultMaterials, getDefaultMeshes } from "../../../../../pp/default_resources_globals";
 import { getPlayerObjects } from "../../../../../pp/scene_objects_global";
 
 // Occlude
@@ -301,14 +301,14 @@ export class PlayerObscureManager {
         if (this._myParams.myObscureMaterial != null) {
             this._myObscureMaterial = this._myParams.myObscureMaterial;
         } else {
-            this._myObscureMaterial = getDefaultResources(this._myParams.myEngine).myMaterials.myFlatTransparentNoDepth.clone();
+            this._myObscureMaterial = getDefaultMaterials(this._myParams.myEngine).myFlatTransparentNoDepth.clone();
             this._myObscureMaterial.color = vec4_create(0, 0, 0, 1);
         }
 
         this._myObscureParentObject = getPlayerObjects(this._myParams.myEngine).myPlayerCauldron.pp_addObject();
 
         let obscureVisualParams = new VisualMeshParams(this._myParams.myEngine);
-        obscureVisualParams.myMesh = getDefaultResources(this._myParams.myEngine).myMeshes.myInvertedSphere;
+        obscureVisualParams.myMesh = getDefaultMeshes(this._myParams.myEngine).myInvertedSphere;
         obscureVisualParams.myMaterial = (this._myParams.myObscureMaterial != null) ? this._myParams.myObscureMaterial : this._myObscureMaterial;
         obscureVisualParams.myParent = this._myObscureParentObject;
         obscureVisualParams.myIsLocal = true;

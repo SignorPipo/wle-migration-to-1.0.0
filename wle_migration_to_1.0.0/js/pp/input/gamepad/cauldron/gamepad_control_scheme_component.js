@@ -1,6 +1,6 @@
 import { Component, Property, MeshComponent, TextComponent, Alignment, Justification } from "@wonderlandengine/api";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
 import { Handedness } from "../../cauldron/input_types";
 import { InputUtils } from "../../cauldron/input_utils";
 
@@ -34,8 +34,8 @@ export class GamepadControlSchemeComponent extends Component {
     };
 
     start() {
-        this._myTextMaterialFinal = (this._myTextMaterial != null) ? this._myTextMaterial : getDefaultResources(this.engine).myMaterials.myText.clone();
-        this._myLineMaterialFinal = (this._myLineMaterial != null) ? this._myLineMaterial : getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+        this._myTextMaterialFinal = (this._myTextMaterial != null) ? this._myTextMaterial : getDefaultMaterials(this.engine).myText.clone();
+        this._myLineMaterialFinal = (this._myLineMaterial != null) ? this._myLineMaterial : getDefaultMaterials(this.engine).myFlatOpaque.clone();
 
         this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
         this._myControlSchemeDirection = (this._myHandednessType == Handedness.LEFT) ? 1 : -1;
@@ -203,7 +203,7 @@ export class GamepadControlSchemeComponent extends Component {
         lineObject = lineRootObject.pp_addObject();
 
         let lineMesh = lineObject.pp_addComponent(MeshComponent);
-        lineMesh.mesh = getDefaultResources(this.engine).myMeshes.myCylinder;
+        lineMesh.mesh = getDefaultMeshes(this.engine).myCylinder;
         lineMesh.material = this._myLineMaterialFinal;
 
         lineRootObject.pp_setPositionLocal(start);

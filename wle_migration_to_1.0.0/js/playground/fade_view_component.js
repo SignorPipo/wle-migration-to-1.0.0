@@ -1,8 +1,7 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { Timer, vec3_create, vec4_create } from "../pp/index";
+import { Timer, getDefaultMaterials, getDefaultMeshes, vec3_create, vec4_create } from "../pp/index";
 import { VisualMesh, VisualMeshParams } from "../pp/index";
 import { EasingFunction } from "../pp/index";
-import { getDefaultResources } from "../pp/index";
 import { getPlayerObjects } from "../pp/index";
 
 export class FadeViewComponent extends Component {
@@ -23,13 +22,13 @@ export class FadeViewComponent extends Component {
         this._myColorVector[1] = parseInt(colorRGB[1]) / 255;
         this._myColorVector[2] = parseInt(colorRGB[2]) / 255;
 
-        this._myFadeMaterial = getDefaultResources(this.engine).myMaterials.myFlatTransparentNoDepth.clone();
+        this._myFadeMaterial = getDefaultMaterials(this.engine).myFlatTransparentNoDepth.clone();
         this._myFadeMaterial.color = this._myColorVector;
 
         this._myFadeParentObject = this.object.pp_addObject();
 
         let fadeVisualParams = new VisualMeshParams(this.engine);
-        fadeVisualParams.myMesh = getDefaultResources(this.engine).myMeshes.myInvertedSphere;
+        fadeVisualParams.myMesh = getDefaultMeshes(this.engine).myInvertedSphere;
         fadeVisualParams.myMaterial = this._myFadeMaterial;
         fadeVisualParams.myParent = this._myFadeParentObject;
         fadeVisualParams.myIsLocal = true;

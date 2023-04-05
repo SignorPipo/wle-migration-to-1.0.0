@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials } from "../../../pp/default_resources_globals";
 import { isToolEnabled } from "../../cauldron/tool_globals";
 import { ConsoleVRWidget, ConsoleVRWidgetAdditionalSetup } from "../console_vr_widget";
 import { InitConsoleVRComponent } from "./init_console_vr_component";
@@ -32,8 +32,8 @@ export class ConsoleVRToolComponent extends Component {
             additionalSetup.myShowOnStart = this._myShowOnStart;
             additionalSetup.myShowVisibilityButton = this._myShowVisibilityButton;
             additionalSetup.myPulseOnNewMessage = this._myPulseOnNewMessage;
-            additionalSetup.myPlaneMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            additionalSetup.myTextMaterial = getDefaultResources(this.engine).myMaterials.myText.clone();
+            additionalSetup.myPlaneMaterial = getDefaultMaterials(this.engine).myFlatOpaque.clone();
+            additionalSetup.myTextMaterial = getDefaultMaterials(this.engine).myText.clone();
 
             this._myWidget.start(this.object, additionalSetup);
 

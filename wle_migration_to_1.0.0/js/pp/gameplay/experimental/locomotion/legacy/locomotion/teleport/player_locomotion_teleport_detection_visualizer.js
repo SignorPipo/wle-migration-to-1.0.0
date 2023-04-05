@@ -3,7 +3,7 @@ import { VisualPoint, VisualPointParams } from "../../../../../../cauldron/visua
 import { VisualTorus, VisualTorusParams } from "../../../../../../cauldron/visual/elements/visual_torus";
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
-import { getDefaultResources } from "../../../../../../pp/default_resources_global";
+import { getDefaultMaterials } from "../../../../../../pp/default_resources_globals";
 import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
 import { getEasyTuneVariables } from "../../../../../../tool/easy_tune/easy_tune_globals";
 import { EasyTuneInt, EasyTuneNumber } from "../../../../../../tool/easy_tune/easy_tune_variable_types";
@@ -151,9 +151,9 @@ export class PlayerLocomotionTeleportDetectionVisualizer {
 PlayerLocomotionTeleportDetectionVisualizer.prototype._setupVisuals = function () {
     let innerTorusPosition = vec3_create();
     return function _setupVisuals() {
-        this._myTeleportParableValidMaterial = getDefaultResources(this._myTeleportParams.myEngine).myMaterials.myFlatOpaque.clone();
+        this._myTeleportParableValidMaterial = getDefaultMaterials(this._myTeleportParams.myEngine).myFlatOpaque.clone();
         this._myTeleportParableValidMaterial.color = vec4_create(0, 0.5, 1, 1);
-        this._myTeleportParableInvalidMaterial = getDefaultResources(this._myTeleportParams.myEngine).myMaterials.myFlatOpaque.clone();
+        this._myTeleportParableInvalidMaterial = getDefaultMaterials(this._myTeleportParams.myEngine).myFlatOpaque.clone();
         this._myTeleportParableInvalidMaterial.color = vec4_create(0.75, 0.05, 0, 1);
 
         this._myValidVisualLines = [];

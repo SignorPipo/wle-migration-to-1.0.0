@@ -1,7 +1,7 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { MeshUtils } from "../../cauldron/utils/mesh_utils";
 import { DefaultResources } from "../default_resources";
-import { getDefaultResources, hasDefaultResources, removeDefaultResources, setDefaultResources } from "../default_resources_global";
+import { getDefaultResources, hasDefaultResources, removeDefaultResources, setDefaultResources } from "../default_resources_globals";
 
 export class GetDefaultResourcesComponent extends Component {
     static TypeName = "pp-get-default-resources";

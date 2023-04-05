@@ -4,7 +4,7 @@ export * from "./pp/register_pp_components";
 export * from "./pp/scene_objects";
 export * from "./pp/scene_objects_global";
 export * from "./pp/default_resources";
-export * from "./pp/default_resources_global";
+export * from "./pp/default_resources_globals";
 
 export * from "./pp/components/pp_gateway_component";
 export * from "./pp/components/get_scene_objects_component";

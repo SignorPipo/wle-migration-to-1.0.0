@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials } from "../../../pp/default_resources_globals";
 import { isToolEnabled } from "../../cauldron/tool_globals";
 import { getEasyTuneVariables } from "../easy_tune_globals";
 import { EasyTuneUtils } from "../easy_tune_utils";
@@ -46,8 +46,8 @@ export class EasyTuneToolComponent extends Component {
             additionalSetup.myShowVisibilityButton = this._myShowVisibilityButton;
             additionalSetup.myAdditionalButtonsEnabled = true;
             additionalSetup.myGamepadScrollVariableEnabled = this._myGamepadScrollVariableEnabled;
-            additionalSetup.myPlaneMaterial = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
-            additionalSetup.myTextMaterial = getDefaultResources(this.engine).myMaterials.myText.clone();
+            additionalSetup.myPlaneMaterial = getDefaultMaterials(this.engine).myFlatOpaque.clone();
+            additionalSetup.myTextMaterial = getDefaultMaterials(this.engine).myText.clone();
 
             additionalSetup.myVariablesImportExportButtonsEnabled = this._myVariablesImportExportButtonsEnabled;
             additionalSetup.myVariablesImportCallback = function (onSuccessCallback, onFailureCallback) {

@@ -16,7 +16,7 @@ import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";
 import { MeshComponent } from "@wonderlandengine/api";
 import { VisualElementType } from "./visual_element_types";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
 import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualPointParams {
@@ -160,7 +160,7 @@ VisualPoint.prototype._refresh = function () {
         if (this._myParams.myMesh != null) {
             this._myPointMeshComponent.mesh = this._myParams.myMesh;
         } else {
-            this._myPointMeshComponent.mesh = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMeshes.mySphere;
+            this._myPointMeshComponent.mesh = getDefaultMeshes(this._myParams.myParent.pp_getEngine()).mySphere;
         }
 
         if (this._myParams.myMaterial == null) {
@@ -168,7 +168,7 @@ VisualPoint.prototype._refresh = function () {
                 this._myPointMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
-                    this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();
+                    this._myFlatOpaqueMaterial = getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myFlatOpaque.clone();
                 }
                 this._myPointMeshComponent.material = this._myFlatOpaqueMaterial;
                 this._myFlatOpaqueMaterial.color = this._myParams.myColor;

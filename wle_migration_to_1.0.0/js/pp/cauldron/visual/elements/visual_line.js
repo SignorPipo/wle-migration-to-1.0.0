@@ -17,7 +17,7 @@ import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { MeshComponent } from "@wonderlandengine/api";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
 import { getSceneObjects } from "../../../pp/scene_objects_global";
 
 export class VisualLineParams {
@@ -191,7 +191,7 @@ VisualLine.prototype._refresh = function () {
         if (this._myParams.myMesh != null) {
             this._myLineMeshComponent.mesh = this._myParams.myMesh;
         } else {
-            this._myLineMeshComponent.mesh = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMeshes.myCylinder;
+            this._myLineMeshComponent.mesh = getDefaultMeshes(this._myParams.myParent.pp_getEngine()).myCylinder;
         }
 
         if (this._myParams.myMaterial == null) {
@@ -199,7 +199,7 @@ VisualLine.prototype._refresh = function () {
                 this._myLineMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
-                    this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();
+                    this._myFlatOpaqueMaterial = getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myFlatOpaque.clone();
                 }
                 this._myLineMeshComponent.material = this._myFlatOpaqueMaterial;
                 this._myFlatOpaqueMaterial.color = this._myParams.myColor;

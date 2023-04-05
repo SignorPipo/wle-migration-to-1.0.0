@@ -14,7 +14,7 @@ let visualArrow = new VisualArrow(visualParams);
 
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../../wl/engine_globals";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
 import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualLine, VisualLineParams } from "./visual_line";
@@ -200,7 +200,7 @@ VisualArrow.prototype._refresh = function () {
         if (this._myParams.myArrowMesh != null) {
             this._myArrowMeshComponent.mesh = this._myParams.myArrowMesh;
         } else {
-            this._myArrowMeshComponent.mesh = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMeshes.myCone;
+            this._myArrowMeshComponent.mesh = getDefaultMeshes(this._myParams.myParent.pp_getEngine()).myCone;
         }
 
         if (this._myParams.myMaterial == null) {
@@ -208,7 +208,7 @@ VisualArrow.prototype._refresh = function () {
                 this._myArrowMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
-                    this._myFlatOpaqueMaterial = getDefaultResources(this._myParams.myParent.pp_getEngine()).myMaterials.myFlatOpaque.clone();
+                    this._myFlatOpaqueMaterial = getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myFlatOpaque.clone();
                 }
                 this._myArrowMeshComponent.material = this._myFlatOpaqueMaterial;
                 this._myFlatOpaqueMaterial.color = this._myParams.myColor;

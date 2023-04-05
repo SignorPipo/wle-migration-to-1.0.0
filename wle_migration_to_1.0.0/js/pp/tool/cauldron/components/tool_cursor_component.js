@@ -5,7 +5,7 @@ import { FingerCursorComponent } from "../../../input/cauldron/components/finger
 import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
 import { InputUtils } from "../../../input/cauldron/input_utils";
 import { quat2_create, vec3_create, vec4_create } from "../../../plugin/js/extensions/array_extension";
-import { getDefaultResources } from "../../../pp/default_resources_global";
+import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
 import { getPlayerObjects } from "../../../pp/scene_objects_global";
 
 export class ToolCursorComponent extends Component {
@@ -44,8 +44,8 @@ export class ToolCursorComponent extends Component {
             this._myCursorMeshobject.pp_setScale(this._myCursorMeshScale);
 
             let cursorMeshComponent = this._myCursorMeshobject.pp_addComponent(MeshComponent);
-            cursorMeshComponent.mesh = getDefaultResources(this.engine).myMeshes.mySphere;
-            cursorMeshComponent.material = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            cursorMeshComponent.mesh = getDefaultMeshes(this.engine).mySphere;
+            cursorMeshComponent.material = getDefaultMaterials(this.engine).myFlatOpaque.clone();
             cursorMeshComponent.material.color = this._myCursorColor;
 
             this._myCursorComponentVR = this._myCursorObjectVR.pp_addComponent(Cursor, {
@@ -82,8 +82,8 @@ export class ToolCursorComponent extends Component {
             fingerCursorMeshObject = this._myToolCursorObject.pp_addObject();
 
             let meshComponent = fingerCursorMeshObject.pp_addComponent(MeshComponent);
-            meshComponent.mesh = getDefaultResources(this.engine).myMeshes.mySphere;
-            meshComponent.material = getDefaultResources(this.engine).myMaterials.myFlatOpaque.clone();
+            meshComponent.mesh = getDefaultMeshes(this.engine).mySphere;
+            meshComponent.material = getDefaultMaterials(this.engine).myFlatOpaque.clone();
             meshComponent.material.color = this._myCursorColor;
 
             fingerCursorMeshObject.pp_setScale(fingerCollisionSize);

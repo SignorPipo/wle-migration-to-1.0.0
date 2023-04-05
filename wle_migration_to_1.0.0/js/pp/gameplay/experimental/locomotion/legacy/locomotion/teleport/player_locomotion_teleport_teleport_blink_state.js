@@ -1,6 +1,6 @@
 import { PlayerLocomotionTeleportState } from "./player_locomotion_teleport_state";
 import { MeshComponent } from "@wonderlandengine/api";
-import { getDefaultResources } from "../../../../../../pp/default_resources_global";
+import { getDefaultMaterials, getDefaultMeshes } from "../../../../../../pp/default_resources_globals";
 import { vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { TimerState } from "../../../../../../cauldron/fsm/states/timer_state";
@@ -15,8 +15,8 @@ export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotion
 
         this._myBlinkSphere = getPlayerObjects(this._myTeleportParams.myEngine).myPlayerCauldron.pp_addObject();
         this._myBlinkSphereMeshComponent = this._myBlinkSphere.pp_addComponent(MeshComponent);
-        this._myBlinkSphereMeshComponent.mesh = getDefaultResources(this._myTeleportParams.myEngine).myMeshes.myInvertedSphere;
-        this._myBlinkSphereMeshComponent.material = getDefaultResources(this._myTeleportParams.myEngine).myMaterials.myFlatTransparentNoDepth.clone();
+        this._myBlinkSphereMeshComponent.mesh = getDefaultMeshes(this._myTeleportParams.myEngine).myInvertedSphere;
+        this._myBlinkSphereMeshComponent.material = getDefaultMaterials(this._myTeleportParams.myEngine).myFlatTransparentNoDepth.clone();
         this._myBlinkSphereMaterialColor = vec4_create(
             this._myTeleportParams.myTeleportParams.myBlinkSphereColor[0] / 255,
             this._myTeleportParams.myTeleportParams.myBlinkSphereColor[1] / 255,
