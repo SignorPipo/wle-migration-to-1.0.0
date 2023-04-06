@@ -31,7 +31,7 @@ export class VirtualGamepadParams {
     constructor(engine = getMainEngine()) {
         this.myShowOnDesktop = false;
         this.myShowOnMobile = false;
-        this.myShowOnHeadset = false;   // Not 100% reliable, this is true if the device supports VR and it is Desktop
+        this.myShowOnHeadset = false;   // Not 100% reliable, this is true if the device supports XR and it is Desktop
 
         this.myAutoUpdateVisibility = false;
 

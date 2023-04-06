@@ -23,7 +23,7 @@ export class ConsoleVRWidgetUI {
         this._setTransforms();
         this._addComponents();
 
-        this._setTransformForNonVR();
+        this._setTransformForNonXR();
 
         XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this._myEngine);
     }
@@ -338,18 +338,18 @@ export class ConsoleVRWidgetUI {
     }
 
     _onXRSessionStart() {
-        this._setTransformForVR();
+        this._setTransformForXR();
     }
 
     _onXRSessionEnd() {
-        this._setTransformForNonVR();
+        this._setTransformForNonXR();
     }
 
-    _setTransformForVR() {
+    _setTransformForXR() {
         this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
     }
 
-    _setTransformForNonVR() {
+    _setTransformForNonXR() {
         this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[ToolHandedness.NONE]);
     }
 }

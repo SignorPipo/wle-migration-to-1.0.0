@@ -12,7 +12,7 @@ export function initCursorComponentModPrototype() {
     // Modified Functions
 
     Cursor.prototype.init = function init() {
-        /* VR session cache, in case in VR */
+        /* XR session cache, in case in XR */
         this.session = null;
         this.collisionMask = (1 << this.collisionGroup);
         this.maxDistance = 100;
@@ -69,7 +69,7 @@ export function initCursorComponentModPrototype() {
         this.cursorPos = vec3_create();
         this.hoveringObject = null;
 
-        XRUtils.registerSessionStartEventListener(this, this.setupVREvents.bind(this), this.engine);
+        XRUtils.registerSessionStartEventListener(this, this.setupXREvents.bind(this), this.engine);
         this.onDestroyCallbacks.push(() => {
             XRUtils.unregisterSessionStartEventListener(this, this.engine);
         });
@@ -131,7 +131,7 @@ export function initCursorComponentModPrototype() {
 
     Cursor.prototype.doUpdate = function () {
         return function doUpdate(doClick) {
-            /* If in VR, set the cursor ray based on object transform */
+            /* If in XR, set the cursor ray based on object transform */
             if (this.session) {
                 /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
                 if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
@@ -282,8 +282,8 @@ export function initCursorComponentModPrototype() {
         this.isUpWithNoDown = false;
     };
 
-    Cursor.prototype.setupVREvents = function setupVREvents(s) {
-        /* If in VR, one-time bind the listener */
+    Cursor.prototype.setupXREvents = function setupXREvents(s) {
+        /* If in XR, one-time bind the listener */
         this.session = s;
         let onSessionEnd = function (e) {
             /* Reset cache once the session ends to rebind select etc, in case

@@ -10,12 +10,12 @@ export class GetSceneObjectsComponent extends Component {
 
         _myPlayer: Property.object(),
         _myPlayerPivot: Property.object(),   // If u don't have a pivot under the player you set this to null, by default will be the same as the player
-        _myCameraNonVR: Property.object(),
+        _myCameraNonXR: Property.object(),
         _myEyeLeft: Property.object(),
         _myEyeRight: Property.object(),
         _myHead: Property.object(),
-        _myHeadNonVR: Property.object(),
-        _myHeadVR: Property.object(),
+        _myHeadNonXR: Property.object(),
+        _myHeadXR: Property.object(),
         _myHandLeft: Property.object(),
         _myHandRight: Property.object()
     };
@@ -32,15 +32,15 @@ export class GetSceneObjectsComponent extends Component {
             this._mySceneObjects.myPlayerObjects.myPlayer = this._myPlayer;
             this._mySceneObjects.myPlayerObjects.myPlayerPivot = this._myPlayerPivot;
 
-            this._mySceneObjects.myPlayerObjects.myCameraNonVR = this._myCameraNonVR;
+            this._mySceneObjects.myPlayerObjects.myCameraNonXR = this._myCameraNonXR;
 
             this._mySceneObjects.myPlayerObjects.myEyeLeft = this._myEyeLeft;
             this._mySceneObjects.myPlayerObjects.myEyeRight = this._myEyeRight;
 
 
             this._mySceneObjects.myPlayerObjects.myHead = this._myHead;
-            this._mySceneObjects.myPlayerObjects.myHeadNonVR = this._myHeadNonVR;
-            this._mySceneObjects.myPlayerObjects.myHeadVR = this._myHeadVR;
+            this._mySceneObjects.myPlayerObjects.myHeadNonXR = this._myHeadNonXR;
+            this._mySceneObjects.myPlayerObjects.myHeadXR = this._myHeadXR;
 
             this._mySceneObjects.myPlayerObjects.myHandLeft = this._myHandLeft;
             this._mySceneObjects.myPlayerObjects.myHandRight = this._myHandRight;

@@ -8,12 +8,12 @@
                     "pp-gateway": {
                         "_myPlayer": "19",
                         "_myPlayerPivot": "20",
-                        "_myCameraNonVR": "21",
+                        "_myCameraNonXR": "21",
                         "_myEyeLeft": "26",
                         "_myEyeRight": "27",
                         "_myHead": "74",
-                        "_myHeadNonVR": "71",
-                        "_myHeadVR": "25",
+                        "_myHeadNonXR": "71",
+                        "_myHeadXR": "25",
                         "_myHandLeft": "99",
                         "_myHandRight": "107",
                         "_myPlane": "p0",
@@ -87,7 +87,7 @@
             ]
         },
         "21": {
-            "name": "Camera Non VR",
+            "name": "Camera Non XR",
             "parent": "72",
             "components": [
                 {
@@ -130,14 +130,14 @@
             ]
         },
         "25": {
-            "name": "Head VR",
+            "name": "Head XR",
             "parent": "73",
             "components": [
                 {
                     "type": "pp-set-head-local-transform",
                     "pp-set-head-local-transform": {
-                        "_myCameraNonVR": "21",
-                        "_mySet": "VR"
+                        "_myCameraNonXR": "21",
+                        "_myXRMode": "XR"
                     }
                 }
             ]
@@ -251,14 +251,14 @@
             ]
         },
         "71": {
-            "name": "Head Non VR",
+            "name": "Head Non XR",
             "parent": "73",
             "components": [
                 {
                     "type": "pp-set-head-local-transform",
                     "pp-set-head-local-transform": {
-                        "_myCameraNonVR": "21",
-                        "_mySet": "Non VR"
+                        "_myCameraNonXR": "21",
+                        "_myXRMode": "Non XR"
                     }
                 }
             ]
@@ -278,8 +278,7 @@
                 {
                     "type": "pp-set-head-local-transform",
                     "pp-set-head-local-transform": {
-                        "_myNonVRCamera": "21",
-                        "_myCameraNonVR": "21"
+                        "_myCameraNonXR": "21"
                     }
                 },
                 {

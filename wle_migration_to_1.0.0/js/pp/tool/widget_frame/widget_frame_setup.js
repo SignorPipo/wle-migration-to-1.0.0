@@ -121,7 +121,7 @@ export class WidgetFrameSetup {
         this.myWidgetObjectTransforms[ToolInputSourceType.TRACKED_HAND][ToolHandedness.LEFT].myPosition = vec3_create(0.1, 0.23, -0.02);
         this.myWidgetObjectTransforms[ToolInputSourceType.TRACKED_HAND][ToolHandedness.RIGHT].myPosition = vec3_create(0.07, 0.23, -0.02);
 
-        this._myPivotObjectDistanceFromHeadNonVR = 0.6;
+        this._myPivotObjectDistanceFromHeadNonXR = 0.6;
     }
 
     _createDefaultObjectTransforms() {

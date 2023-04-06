@@ -32,7 +32,7 @@ export class WidgetFrameUI {
         this._setTransforms();
         this._addComponents();
 
-        this._setTransformForNonVR();
+        this._setTransformForNonXR();
 
         XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this._myEngine);
     }
@@ -59,7 +59,7 @@ export class WidgetFrameUI {
                 this.myPivotObject.pp_setParent(this.myFixForwardObject);
 
                 if (!XRUtils.isSessionActive(this._myEngine)) {
-                    this._setTransformForNonVR();
+                    this._setTransformForNonXR();
                 }
 
                 this._updateObjectsTransforms(true);
@@ -115,9 +115,9 @@ export class WidgetFrameUI {
         this.myPinButtonText = this.myPinButtonPanel.pp_addObject();
         this.myPinButtonCursorTarget = this.myPinButtonPanel.pp_addObject();
 
-        this.myNonVRParentObject = getPlayerObjects(this._myEngine).myCameraNonVR.pp_addObject();
-        this.myNonVRParentObject.pp_translateLocal(vec3_create(0, 0, -this._mySetup._myPivotObjectDistanceFromHeadNonVR));
-        this.myNonVRParentObject.pp_lookToLocal(vec3_create(0, 0, 1), vec3_create(0, 1, 0));
+        this.myNonXRParentObject = getPlayerObjects(this._myEngine).myCameraNonXR.pp_addObject();
+        this.myNonXRParentObject.pp_translateLocal(vec3_create(0, 0, -this._mySetup._myPivotObjectDistanceFromHeadNonXR));
+        this.myNonXRParentObject.pp_lookToLocal(vec3_create(0, 0, 1), vec3_create(0, 1, 0));
 
     }
 
@@ -185,14 +185,14 @@ export class WidgetFrameUI {
     _onXRSessionStart() {
         this.myVisibilityButtonPanel.pp_setActive(this._myVisibilityButtonVisible);
 
-        this._setTransformForVR();
+        this._setTransformForXR();
     }
 
     _onXRSessionEnd() {
-        this._setTransformForNonVR();
+        this._setTransformForNonXR();
     }
 
-    _setTransformForVR() {
+    _setTransformForXR() {
         this.myFixForwardObject.pp_setParent(this._myParentObject);
 
         this.myFixForwardObject.pp_resetTransformLocal();
@@ -201,9 +201,9 @@ export class WidgetFrameUI {
         this._updateObjectsTransforms(true);
     }
 
-    _setTransformForNonVR() {
+    _setTransformForNonXR() {
         if (!this._myIsPinned) {
-            this.myFixForwardObject.pp_setParent(this.myNonVRParentObject);
+            this.myFixForwardObject.pp_setParent(this.myNonXRParentObject);
             this.myFixForwardObject.pp_resetTransformLocal();
 
             this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);

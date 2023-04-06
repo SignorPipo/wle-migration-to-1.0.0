@@ -20,14 +20,14 @@ export class PlayerObjects {
         this.myPlayerCauldron = null;
         this.myPlayerPivot = null;
 
-        this.myCameraNonVR = null;
+        this.myCameraNonXR = null;
 
         this.myEyes = [];
         this.myEyeLeft = null;
         this.myEyeRight = null;
 
-        this.myHeadNonVR = null;
-        this.myHeadVR = null;
+        this.myHeadNonXR = null;
+        this.myHeadXR = null;
         this.myHead = null;
 
         this.myHands = [];

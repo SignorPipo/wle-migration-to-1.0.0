@@ -220,7 +220,7 @@ export class Mouse {
         if (XRUtils.isSessionActive(this._myEngine)) {
             getPlayerObjects(this._myEngine).myEyeLeft.pp_getPosition(out); // In theory mouse should not be used inside the session, but may make sense for AR which uses eye left
         } else {
-            getPlayerObjects(this._myEngine).myCameraNonVR.pp_getPosition(out);
+            getPlayerObjects(this._myEngine).myCameraNonXR.pp_getPosition(out);
         }
 
         return out;
@@ -237,7 +237,7 @@ export class Mouse {
         if (XRUtils.isSessionActive(this._myEngine)) {
             projectionMatrixInvert = getPlayerObjects(this._myEngine).myEyeLeft.pp_getComponent(ViewComponent).projectionMatrix.mat4_invert(projectionMatrixInvert);
         } else {
-            projectionMatrixInvert = getPlayerObjects(this._myEngine).myCameraNonVR.pp_getComponent(ViewComponent).projectionMatrix.mat4_invert(projectionMatrixInvert);
+            projectionMatrixInvert = getPlayerObjects(this._myEngine).myCameraNonXR.pp_getComponent(ViewComponent).projectionMatrix.mat4_invert(projectionMatrixInvert);
         }
 
         directionLocal.vec3_transformMat4(projectionMatrixInvert, directionLocal);
@@ -247,7 +247,7 @@ export class Mouse {
         if (XRUtils.isSessionActive(this._myEngine)) {
             directionWorld = directionLocal.vec3_transformQuat(getPlayerObjects(this._myEngine).myEyeLeft.pp_getRotationQuat(this._myRotationQuat), directionLocal);
         } else {
-            directionWorld = directionLocal.vec3_transformQuat(getPlayerObjects(this._myEngine).myCameraNonVR.pp_getRotationQuat(this._myRotationQuat), directionLocal);
+            directionWorld = directionLocal.vec3_transformQuat(getPlayerObjects(this._myEngine).myCameraNonXR.pp_getRotationQuat(this._myRotationQuat), directionLocal);
         }
 
         directionWorld.vec3_normalize(directionWorld);

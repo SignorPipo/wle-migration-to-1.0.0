@@ -11,7 +11,7 @@ export class VirtualGamepadComponent extends Component {
     static Properties = {
         _myShowOnDesktop: Property.bool(false),   // You may have to enable headset too
         _myShowOnMobile: Property.bool(true),
-        _myShowOnHeadset: Property.bool(false),   // Not 100% reliable, this is true if the device supports VR and it is Desktop
+        _myShowOnHeadset: Property.bool(false),   // Not 100% reliable, this is true if the device supports XR and it is Desktop
         _myAddToUniversalGamepad: Property.bool(true),
         _myOpacity: Property.float(0.5),
         _myIconColor: Property.string("#e0e0e0"),

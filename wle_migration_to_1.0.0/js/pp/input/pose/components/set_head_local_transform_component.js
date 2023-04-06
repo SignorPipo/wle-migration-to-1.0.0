@@ -7,8 +7,8 @@ import { HeadPose } from "../head_pose";
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {
-        _mySet: Property.enum(["Always", "Non VR", "VR"], "Always"),
-        _myCameraNonVR: Property.object(),
+        _myXRMode: Property.enum(["All", "Non XR", "XR"], "All"),
+        _myCameraNonXR: Property.object(),
         _myFixForward: Property.bool(true),
         _myUpdateOnViewReset: Property.bool(true)
     };
@@ -39,19 +39,19 @@ export class SetHeadLocalTransformComponent extends Component {
 // IMPLEMENTATION
 
 SetHeadLocalTransformComponent.prototype.update = function () {
-    let cameraNonVRRotation = quat_create();
-    let cameraNonVRUp = vec3_create();
-    let cameraNonVRPosition = vec3_create();
+    let cameraNonXRRotation = quat_create();
+    let cameraNonXRUp = vec3_create();
+    let cameraNonXRPosition = vec3_create();
     return function update(dt) {
-        if (XRUtils.isSessionActive(this.engine) && (this._mySet == 0 || this._mySet == 2)) {
+        if (XRUtils.isSessionActive(this.engine) && (this._myXRMode == 0 || this._myXRMode == 2)) {
             this._myHeadPose.update(dt);
-        } else if (!XRUtils.isSessionActive(this.engine) && (this._mySet == 0 || this._mySet == 1)) {
-            cameraNonVRRotation = this._myCameraNonVR.pp_getRotationLocalQuat(cameraNonVRRotation);
+        } else if (!XRUtils.isSessionActive(this.engine) && (this._myXRMode == 0 || this._myXRMode == 1)) {
+            cameraNonXRRotation = this._myCameraNonXR.pp_getRotationLocalQuat(cameraNonXRRotation);
             if (this._myFixForward) {
-                cameraNonVRRotation.quat_rotateAxisRadians(Math.PI, cameraNonVRRotation.quat_getUp(cameraNonVRUp), cameraNonVRRotation);
+                cameraNonXRRotation.quat_rotateAxisRadians(Math.PI, cameraNonXRRotation.quat_getUp(cameraNonXRUp), cameraNonXRRotation);
             }
-            this.object.pp_setPositionLocal(this._myCameraNonVR.pp_getPositionLocal(cameraNonVRPosition));
-            this.object.pp_setRotationLocalQuat(cameraNonVRRotation);
+            this.object.pp_setPositionLocal(this._myCameraNonXR.pp_getPositionLocal(cameraNonXRPosition));
+            this.object.pp_setRotationLocalQuat(cameraNonXRRotation);
         }
     };
 }();
@@ -59,7 +59,7 @@ SetHeadLocalTransformComponent.prototype.update = function () {
 SetHeadLocalTransformComponent.prototype.onPoseUpdated = function () {
     let headPoseTransform = quat2_create();
     return function onPoseUpdated() {
-        if (XRUtils.isSessionActive(this.engine) && (this._mySet == 0 || this._mySet == 2)) {
+        if (XRUtils.isSessionActive(this.engine) && (this._myXRMode == 0 || this._myXRMode == 2)) {
             this.object.pp_setTransformLocalQuat(this._myHeadPose.getTransformQuat(headPoseTransform));
         }
     }
