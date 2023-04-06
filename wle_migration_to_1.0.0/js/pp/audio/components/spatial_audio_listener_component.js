@@ -12,7 +12,15 @@ export class SpatialAudioListenerComponent extends Component {
         this._myUp = vec3_create();
     }
 
+    start() {
+        this._updateAudioListener();
+    }
+
     update(dt) {
+        this._updateAudioListener();
+    }
+
+    _updateAudioListener() {
         this.object.pp_getPosition(this._myOrigin);
         this.object.pp_getForward(this._myForward);
         this.object.pp_getUp(this._myUp);
