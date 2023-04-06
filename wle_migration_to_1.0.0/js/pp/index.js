@@ -16,7 +16,6 @@ export * from "./cauldron/cauldron/object_pool";
 export * from "./cauldron/cauldron/object_pools_manager";
 export * from "./cauldron/cauldron/save_manager";
 export * from "./cauldron/cauldron/timer";
-export * from "./cauldron/cauldron/xr_types";
 export * from "./cauldron/components/adjust_hierarchy_physx_scale_component";
 export * from "./cauldron/components/clear_console_on_xr_session_start_component";
 export * from "./cauldron/components/set_active_component";

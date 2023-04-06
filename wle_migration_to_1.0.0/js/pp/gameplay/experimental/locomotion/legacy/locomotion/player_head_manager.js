@@ -49,12 +49,12 @@ export class PlayerHeadManager {
     constructor(params = new PlayerHeadManagerParams()) {
         this._myParams = params;
 
-        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myHeadNonXR;
+        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myHead;
 
         this._mySessionChangeResyncHeadTransform = null;
         this._myBlurRecoverHeadTransform = null;
-        this._myCurrentHeadTransformQuat = quat2_create();
-        this._myPreviousHeadTransformQuat = quat2_create();
+        this._myCurrentHeadTransformLocalQuat = quat2_create();
+        this._myPreviousHeadTransformLocalQuat = quat2_create();
 
         this._myDelaySessionChangeResyncCounter = 0; // Needed because VR head takes some frames to get the tracked position
         this._myDelayBlurEndResyncCounter = 0;
@@ -253,8 +253,8 @@ export class PlayerHeadManager {
         }
 
         if (this.isSynced()) {
-            this._myPreviousHeadTransformQuat.quat2_copy(this._myCurrentHeadTransformQuat);
-            this._myCurrentHead.pp_getTransformQuat(this._myCurrentHeadTransformQuat);
+            this._myPreviousHeadTransformLocalQuat.quat2_copy(this._myCurrentHeadTransformLocalQuat);
+            this._myCurrentHead.pp_getTransformLocalQuat(this._myCurrentHeadTransformLocalQuat);
         }
 
         if (this._myParams.myDebugActive) {
@@ -559,8 +559,7 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
 
         if (this._myParams.mySessionChangeResyncEnabled && !manualCall && this._myActive) {
             if (this._myDelaySessionChangeResyncCounter == 0) {
-                let previousHeadObject = this._myCurrentHead;
-                this._mySessionChangeResyncHeadTransform = previousHeadObject.pp_getTransformQuat();
+                this._mySessionChangeResyncHeadTransform = this._getHeadTransformFromLocal(this._myPreviousHeadTransformLocalQuat);
             }
 
             this._myDelaySessionChangeResyncCounter = this._myResyncCounterFrames;
@@ -568,8 +567,6 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
             this._myDelaySessionChangeResyncCounter = 0;
             this._mySessionChangeResyncHeadTransform = null;
         }
-
-        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myHeadXR;
 
         this._mySessionActive = true;
         this._mySessionBlurred = false;
@@ -584,7 +581,7 @@ PlayerHeadManager.prototype._onXRSessionEnd = function () {
     return function _onXRSessionEnd(session) {
         if (this._myParams.mySessionChangeResyncEnabled && this._myActive) {
             if (this._myDelaySessionChangeResyncCounter == 0) {
-                let previousHeadTransform = this._myCurrentHead.pp_getTransformQuat();
+                let previousHeadTransform = this._getHeadTransformFromLocal(this._myPreviousHeadTransformLocalQuat);
 
                 if (this._myBlurRecoverHeadTransform != null) {
                     previousHeadTransform = this._myBlurRecoverHeadTransform;
@@ -605,8 +602,6 @@ PlayerHeadManager.prototype._onXRSessionEnd = function () {
         this._myDelayBlurEndResyncCounter = 0;
         this._myDelayBlurEndResyncTimer.reset();
 
-        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myHeadNonXR;
-
         this._mySessionActive = false;
         this._mySessionBlurred = false;
 
@@ -623,7 +618,7 @@ PlayerHeadManager.prototype._onXRSessionBlurStart = function () {
                 if (this._myDelaySessionChangeResyncCounter > 0) {
                     this._myBlurRecoverHeadTransform = this._mySessionChangeResyncHeadTransform;
                 } else {
-                    this._myBlurRecoverHeadTransform = this._myCurrentHead.pp_getTransformQuat();
+                    this._myBlurRecoverHeadTransform = this._getHeadTransformFromLocal(this._myPreviousHeadTransformLocalQuat);
                 }
             } else if (!this._mySessionActive || !this._myParams.myBlurEndResyncEnabled) {
                 this._myBlurRecoverHeadTransform = null;
@@ -667,7 +662,7 @@ PlayerHeadManager.prototype._onViewReset = function () {
     return function _onViewReset() {
         if (this._myActive) {
             if (this._myParams.myResetTransformOnViewResetEnabled && this._mySessionActive && this.isSynced()) {
-                this.teleportPlayerToHeadTransformQuat(this._myPreviousHeadTransformQuat);
+                this.teleportPlayerToHeadTransformQuat(this._getHeadTransformFromLocal(this._myPreviousHeadTransformLocalQuat));
             }
         }
     };
@@ -900,6 +895,12 @@ PlayerHeadManager.prototype._setPlayerPivotHeightOffset = function () {
             playerPivotPosition = getPlayerObjects(this._myParams.myEngine).myPlayerPivot.pp_getPositionLocal(playerPivotPosition);
             getPlayerObjects(this._myParams.myEngine).myPlayerPivot.pp_setPositionLocal([playerPivotPosition[0], offset - amountToRemove, playerPivotPosition[2]]);
         }
+    }
+}();
+
+PlayerHeadManager.prototype._getHeadTransformFromLocal = function () {
+    return function _getHeadTransformFromLocal(transformLocal) {
+        return this._myCurrentHead.pp_convertTransformLocalToWorldQuat(transformLocal);
     }
 }();
 

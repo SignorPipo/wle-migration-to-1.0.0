@@ -13,11 +13,9 @@ export class GetSceneObjectsComponent extends Component {
         _myCameraNonXR: Property.object(),
         _myEyeLeft: Property.object(),
         _myEyeRight: Property.object(),
-        _myHead: Property.object(),
-        _myHeadNonXR: Property.object(),
-        _myHeadXR: Property.object(),
         _myHandLeft: Property.object(),
-        _myHandRight: Property.object()
+        _myHandRight: Property.object(),
+        _myHead: Property.object()
     };
 
     init() {
@@ -37,11 +35,6 @@ export class GetSceneObjectsComponent extends Component {
             this._mySceneObjects.myPlayerObjects.myEyeLeft = this._myEyeLeft;
             this._mySceneObjects.myPlayerObjects.myEyeRight = this._myEyeRight;
 
-
-            this._mySceneObjects.myPlayerObjects.myHead = this._myHead;
-            this._mySceneObjects.myPlayerObjects.myHeadNonXR = this._myHeadNonXR;
-            this._mySceneObjects.myPlayerObjects.myHeadXR = this._myHeadXR;
-
             this._mySceneObjects.myPlayerObjects.myHandLeft = this._myHandLeft;
             this._mySceneObjects.myPlayerObjects.myHandRight = this._myHandRight;
 
@@ -52,6 +45,8 @@ export class GetSceneObjectsComponent extends Component {
             this._mySceneObjects.myPlayerObjects.myHands = [];
             this._mySceneObjects.myPlayerObjects.myHands[Handedness.LEFT] = this._myHandLeft;
             this._mySceneObjects.myPlayerObjects.myHands[Handedness.RIGHT] = this._myHandRight;
+
+            this._mySceneObjects.myPlayerObjects.myHead = this._myHead;
 
             if (this._mySceneObjects.myPlayerObjects.myPlayerPivot == null) {
                 this._mySceneObjects.myPlayerObjects.myPlayerPivot = this._mySceneObjects.myPlayerObjects.myPlayer;

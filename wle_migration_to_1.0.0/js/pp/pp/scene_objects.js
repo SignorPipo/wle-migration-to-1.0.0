@@ -26,12 +26,10 @@ export class PlayerObjects {
         this.myEyeLeft = null;
         this.myEyeRight = null;
 
-        this.myHeadNonXR = null;
-        this.myHeadXR = null;
-        this.myHead = null;
-
         this.myHands = [];
         this.myHandLeft = null;
         this.myHandRight = null;
+
+        this.myHead = null;
     }
 }

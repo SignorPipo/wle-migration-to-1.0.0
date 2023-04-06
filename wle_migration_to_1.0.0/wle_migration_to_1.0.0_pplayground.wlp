@@ -12,8 +12,6 @@
                         "_myEyeLeft": "26",
                         "_myEyeRight": "27",
                         "_myHead": "74",
-                        "_myHeadNonXR": "71",
-                        "_myHeadXR": "25",
                         "_myHandLeft": "99",
                         "_myHandRight": "107",
                         "_myPlane": "p0",
@@ -129,19 +127,6 @@
                 }
             ]
         },
-        "25": {
-            "name": "Head XR",
-            "parent": "73",
-            "components": [
-                {
-                    "type": "pp-set-head-local-transform",
-                    "pp-set-head-local-transform": {
-                        "_myCameraNonXR": "21",
-                        "_myXRMode": "XR"
-                    }
-                }
-            ]
-        },
         "26": {
             "name": "Eye Left",
             "parent": "22",
@@ -248,19 +233,6 @@
                 0.9999998,
                 0.9999994,
                 0.9999997
-            ]
-        },
-        "71": {
-            "name": "Head Non XR",
-            "parent": "73",
-            "components": [
-                {
-                    "type": "pp-set-head-local-transform",
-                    "pp-set-head-local-transform": {
-                        "_myCameraNonXR": "21",
-                        "_myXRMode": "Non XR"
-                    }
-                }
             ]
         },
         "72": {

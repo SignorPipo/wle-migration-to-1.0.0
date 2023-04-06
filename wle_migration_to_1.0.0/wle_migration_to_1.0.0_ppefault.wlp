@@ -12,8 +12,6 @@
                         "_myEyeLeft": "26",
                         "_myEyeRight": "27",
                         "_myHead": "74",
-                        "_myHeadNonXR": "71",
-                        "_myHeadXR": "25",
                         "_myHandRight": "107",
                         "_myHandLeft": "99",
                         "_myPlane": "p0",
@@ -83,19 +81,6 @@
                         "_myHandedness": "Right",
                         "_myGamepad": "106",
                         "_myTrackedHand": "108"
-                    }
-                }
-            ]
-        },
-        "25": {
-            "name": "Head XR",
-            "parent": "73",
-            "components": [
-                {
-                    "type": "pp-set-head-local-transform",
-                    "pp-set-head-local-transform": {
-                        "_myCameraNonXR": "21",
-                        "_myXRMode": "XR"
                     }
                 }
             ]
@@ -188,19 +173,6 @@
                 1.0,
                 1.0,
                 1.0
-            ]
-        },
-        "71": {
-            "name": "Head Non XR",
-            "parent": "73",
-            "components": [
-                {
-                    "type": "pp-set-head-local-transform",
-                    "pp-set-head-local-transform": {
-                        "_myCameraNonXR": "21",
-                        "_myXRMode": "Non XR"
-                    }
-                }
             ]
         },
         "72": {

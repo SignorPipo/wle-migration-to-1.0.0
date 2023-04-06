@@ -7,7 +7,6 @@ import { HeadPose } from "../head_pose";
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {
-        _myXRMode: Property.enum(["All", "Non XR", "XR"], "All"),
         _myCameraNonXR: Property.object(),
         _myFixForward: Property.bool(true),
         _myUpdateOnViewReset: Property.bool(true)
@@ -43,9 +42,9 @@ SetHeadLocalTransformComponent.prototype.update = function () {
     let cameraNonXRUp = vec3_create();
     let cameraNonXRPosition = vec3_create();
     return function update(dt) {
-        if (XRUtils.isSessionActive(this.engine) && (this._myXRMode == 0 || this._myXRMode == 2)) {
+        if (XRUtils.isSessionActive(this.engine)) {
             this._myHeadPose.update(dt);
-        } else if (!XRUtils.isSessionActive(this.engine) && (this._myXRMode == 0 || this._myXRMode == 1)) {
+        } else if (!XRUtils.isSessionActive(this.engine)) {
             cameraNonXRRotation = this._myCameraNonXR.pp_getRotationLocalQuat(cameraNonXRRotation);
             if (this._myFixForward) {
                 cameraNonXRRotation.quat_rotateAxisRadians(Math.PI, cameraNonXRRotation.quat_getUp(cameraNonXRUp), cameraNonXRRotation);
@@ -59,7 +58,7 @@ SetHeadLocalTransformComponent.prototype.update = function () {
 SetHeadLocalTransformComponent.prototype.onPoseUpdated = function () {
     let headPoseTransform = quat2_create();
     return function onPoseUpdated() {
-        if (XRUtils.isSessionActive(this.engine) && (this._myXRMode == 0 || this._myXRMode == 2)) {
+        if (XRUtils.isSessionActive(this.engine)) {
             this.object.pp_setTransformLocalQuat(this._myHeadPose.getTransformQuat(headPoseTransform));
         }
     }
