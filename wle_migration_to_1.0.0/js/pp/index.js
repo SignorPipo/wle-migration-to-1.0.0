@@ -183,8 +183,6 @@ export * from "./input/pose/components/copy_player_pivot_transform_component";
 export * from "./input/pose/components/copy_player_transform_component";
 export * from "./input/pose/components/set_hand_local_transform_component";
 export * from "./input/pose/components/set_head_local_transform_component";
-export * from "./input/pose/components/set_head_non_vr_local_transform_component";
-export * from "./input/pose/components/set_head_vr_local_transform_component";
 export * from "./input/pose/components/set_player_height_component";
 export * from "./input/pose/components/set_tracked_hand_joint_local_transform_component";
 export * from "./input/pose/hand_pose";

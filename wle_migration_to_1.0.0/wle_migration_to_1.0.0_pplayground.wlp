@@ -134,7 +134,11 @@
             "parent": "73",
             "components": [
                 {
-                    "type": "pp-set-head-vr-local-transform"
+                    "type": "pp-set-head-local-transform",
+                    "pp-set-head-local-transform": {
+                        "_myCameraNonVR": "21",
+                        "_mySet": "VR"
+                    }
                 }
             ]
         },
@@ -251,10 +255,10 @@
             "parent": "73",
             "components": [
                 {
-                    "type": "pp-set-head-non-vr-local-transform",
-                    "pp-set-head-non-vr-local-transform": {
-                        "_myNonVRCamera": "21",
-                        "_myCameraNonVR": "21"
+                    "type": "pp-set-head-local-transform",
+                    "pp-set-head-local-transform": {
+                        "_myCameraNonVR": "21",
+                        "_mySet": "Non VR"
                     }
                 }
             ]

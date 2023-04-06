@@ -6,7 +6,7 @@ import { vec3_create } from "../../plugin/js/extensions/array_extension";
 export class SpatialAudioListenerComponent extends Component {
     static TypeName = "pp-spatial-audio-listener";
     static Properties = {
-        _myActive: Property.enum(["Always", "VR", "Non VR"], "Always")
+        _myActive: Property.enum(["Always", "Non VR", "VR"], "Always")
     };
 
     init() {

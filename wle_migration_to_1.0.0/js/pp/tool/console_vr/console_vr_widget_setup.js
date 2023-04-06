@@ -45,8 +45,8 @@ export class ConsoleVRWidgetSetup {
         this.myMessagesTextsPanelScale = vec3_create(0.1, 0.1, 0.1);
 
         this.myMessagesTextStartString = ".\n"; // To avoid issue with text component padding
-        this.myMessagesTextAlignment = 1; // Left
-        this.myMessagesTextJustification = 3; // Top
+        this.myMessagesTextAlignment = Alignment.Left;
+        this.myMessagesTextJustification = Justification.Top;
 
         this.myMessagesTextPositions = [];
         this.myMessagesTextPositions[ConsoleVRWidgetMessageType.LOG] = vec3_create(0, 0, 0.00001);

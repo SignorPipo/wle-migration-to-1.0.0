@@ -7,6 +7,7 @@ import { HeadPose } from "../head_pose";
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {
+        _mySet: Property.enum(["Always", "Non VR", "VR"], "Always"),
         _myCameraNonVR: Property.object(),
         _myFixForward: Property.bool(true),
         _myUpdateOnViewReset: Property.bool(true)
@@ -42,9 +43,9 @@ SetHeadLocalTransformComponent.prototype.update = function () {
     let cameraNonVRUp = vec3_create();
     let cameraNonVRPosition = vec3_create();
     return function update(dt) {
-        if (XRUtils.isSessionActive(this.engine)) {
+        if (XRUtils.isSessionActive(this.engine) && (this._mySet == 0 || this._mySet == 2)) {
             this._myHeadPose.update(dt);
-        } else {
+        } else if (!XRUtils.isSessionActive(this.engine) && (this._mySet == 0 || this._mySet == 1)) {
             cameraNonVRRotation = this._myCameraNonVR.pp_getRotationLocalQuat(cameraNonVRRotation);
             if (this._myFixForward) {
                 cameraNonVRRotation.quat_rotateAxisRadians(Math.PI, cameraNonVRRotation.quat_getUp(cameraNonVRUp), cameraNonVRRotation);
@@ -58,7 +59,7 @@ SetHeadLocalTransformComponent.prototype.update = function () {
 SetHeadLocalTransformComponent.prototype.onPoseUpdated = function () {
     let headPoseTransform = quat2_create();
     return function onPoseUpdated() {
-        if (XRUtils.isSessionActive(this.engine)) {
+        if (XRUtils.isSessionActive(this.engine) && (this._mySet == 0 || this._mySet == 2)) {
             this.object.pp_setTransformLocalQuat(this._myHeadPose.getTransformQuat(headPoseTransform));
         }
     }

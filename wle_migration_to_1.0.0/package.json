@@ -4,7 +4,7 @@
     "author": "Pipo",
     "type": "module",
     "dependencies": {
-        "@wonderlandengine/api": "^1.0.0-rc.2",
+        "@wonderlandengine/api": "^1.0.0-rc.3",
         "@wonderlandengine/components": "^1.0.0-rc.3",
         "gl-matrix": "^3.4.3",
         "howler": "^2.2.3"
