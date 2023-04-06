@@ -1,5 +1,5 @@
 import { Timer } from "../../../../../cauldron/cauldron/timer";
-import { getReferenceSpaceType, XRUtils } from "../../../../../cauldron/utils/xr_utils";
+import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
 import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { getDebugVisualManager } from "../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
@@ -54,7 +54,6 @@ export class PlayerHeadManager {
         this._mySessionChangeResyncHeadTransform = null;
         this._myBlurRecoverHeadTransform = null;
         this._myCurrentHeadTransformLocalQuat = quat2_create();
-        this._myPreviousHeadTransformLocalQuat = quat2_create();
 
         this._myDelaySessionChangeResyncCounter = 0; // Needed because VR head takes some frames to get the tracked position
         this._myDelayBlurEndResyncCounter = 0;
@@ -253,7 +252,6 @@ export class PlayerHeadManager {
         }
 
         if (this.isSynced()) {
-            this._myPreviousHeadTransformLocalQuat.quat2_copy(this._myCurrentHeadTransformLocalQuat);
             this._myCurrentHead.pp_getTransformLocalQuat(this._myCurrentHeadTransformLocalQuat);
         }
 
@@ -535,7 +533,7 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
         this._myDelayBlurEndResyncCounter = 0;
         this._myDelayBlurEndResyncTimer.reset();
 
-        session.requestReferenceSpace(getReferenceSpaceType(this._myParams.myEngine)).then(function (referenceSpace) {
+        session.requestReferenceSpace(XRUtils.getReferenceSpaceType(this._myParams.myEngine)).then(function (referenceSpace) {
             if (referenceSpace.addEventListener != null) {
                 referenceSpace.addEventListener("reset", this._onViewReset.bind(this));
             }
@@ -662,7 +660,7 @@ PlayerHeadManager.prototype._onViewReset = function () {
     return function _onViewReset() {
         if (this._myActive) {
             if (this._myParams.myResetTransformOnViewResetEnabled && this._mySessionActive && this.isSynced()) {
-                this.teleportPlayerToHeadTransformQuat(this._getHeadTransformFromLocal(this._myPreviousHeadTransformLocalQuat));
+                this.teleportPlayerToHeadTransformQuat(this._getHeadTransformFromLocal(this._myCurrentHeadTransformLocalQuat));
             }
         }
     };

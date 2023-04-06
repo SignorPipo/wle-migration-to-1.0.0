@@ -8,8 +8,22 @@ export function isSessionActive(engine = getMainEngine()) {
     return getSession(engine) != null;
 }
 
-export function registerSessionStartEventListener(id, callback, engine = getMainEngine()) {
-    engine.onXRSessionStart.add(callback, { id: id });
+export function registerSessionStartEventListener(id, callback, manuallyCallSessionStartIfSessionAlreadyActive = false, addManualCallFlagToStartCallback = false, engine = getMainEngine()) {
+    if (callback != null) {
+        if (manuallyCallSessionStartIfSessionAlreadyActive && isSessionActive(engine)) {
+            if (addManualCallFlagToStartCallback) {
+                callback(true, getSession(engine));
+            } else {
+                callback(getSession(engine));
+            }
+        }
+
+        if (addManualCallFlagToStartCallback) {
+            engine.onXRSessionStart.add(callback.bind(undefined, false), { id: id });
+        } else {
+            engine.onXRSessionStart.add(callback, { id: id });
+        }
+    }
 }
 
 export function unregisterSessionStartEventListener(id, engine = getMainEngine()) {
@@ -17,7 +31,9 @@ export function unregisterSessionStartEventListener(id, engine = getMainEngine()
 }
 
 export function registerSessionEndEventListener(id, callback, engine = getMainEngine()) {
-    engine.onXRSessionEnd.add(callback, { id: id });
+    if (callback != null) {
+        engine.onXRSessionEnd.add(callback, { id: id });
+    }
 }
 
 export function unregisterSessionEndEventListener(id, engine = getMainEngine()) {
@@ -25,20 +41,7 @@ export function unregisterSessionEndEventListener(id, engine = getMainEngine()) 
 }
 
 export function registerSessionStartEndEventListeners(id, startCallback, endCallback, manuallyCallSessionStartIfSessionAlreadyActive = false, addManualCallFlagToStartCallback = false, engine = getMainEngine()) {
-    if (manuallyCallSessionStartIfSessionAlreadyActive && isSessionActive(engine)) {
-        if (addManualCallFlagToStartCallback) {
-            startCallback(true, getSession(engine));
-        } else {
-            startCallback(getSession(engine));
-        }
-    }
-
-    if (addManualCallFlagToStartCallback) {
-        registerSessionStartEventListener(id, startCallback.bind(undefined, false), engine);
-    } else {
-        registerSessionStartEventListener(id, startCallback, engine);
-    }
-
+    registerSessionStartEventListener(id, startCallback, manuallyCallSessionStartIfSessionAlreadyActive, addManualCallFlagToStartCallback, engine);
     registerSessionEndEventListener(id, endCallback, engine);
 }
 
