@@ -559,7 +559,7 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
 
         if (this._myParams.mySessionChangeResyncEnabled && !manualCall && this._myActive) {
             if (this._myDelaySessionChangeResyncCounter == 0) {
-                this._mySessionChangeResyncHeadTransform = this._getHeadTransformFromLocal(this._myPreviousHeadTransformLocalQuat);
+                this._mySessionChangeResyncHeadTransform = this._getHeadTransformFromLocal(this._myCurrentHeadTransformLocalQuat);
             }
 
             this._myDelaySessionChangeResyncCounter = this._myResyncCounterFrames;
@@ -581,7 +581,7 @@ PlayerHeadManager.prototype._onXRSessionEnd = function () {
     return function _onXRSessionEnd(session) {
         if (this._myParams.mySessionChangeResyncEnabled && this._myActive) {
             if (this._myDelaySessionChangeResyncCounter == 0) {
-                let previousHeadTransform = this._getHeadTransformFromLocal(this._myPreviousHeadTransformLocalQuat);
+                let previousHeadTransform = this._getHeadTransformFromLocal(this._myCurrentHeadTransformLocalQuat);
 
                 if (this._myBlurRecoverHeadTransform != null) {
                     previousHeadTransform = this._myBlurRecoverHeadTransform;
@@ -618,7 +618,7 @@ PlayerHeadManager.prototype._onXRSessionBlurStart = function () {
                 if (this._myDelaySessionChangeResyncCounter > 0) {
                     this._myBlurRecoverHeadTransform = this._mySessionChangeResyncHeadTransform;
                 } else {
-                    this._myBlurRecoverHeadTransform = this._getHeadTransformFromLocal(this._myPreviousHeadTransformLocalQuat);
+                    this._myBlurRecoverHeadTransform = this._getHeadTransformFromLocal(this._myCurrentHeadTransformLocalQuat);
                 }
             } else if (!this._mySessionActive || !this._myParams.myBlurEndResyncEnabled) {
                 this._myBlurRecoverHeadTransform = null;
