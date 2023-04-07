@@ -77,7 +77,11 @@ export function initComponentCloneMod() {
             "allowQuery": this.allowQuery,
             "allowSimulation": this.allowSimulation,
             "gravity": this.gravity,
-            "trigger": this.trigger
+            "trigger": this.trigger,
+            "blocksMask:": this.blocksMask,
+            "groupsMask:": this.groupsMask,
+            "linearLockAxis:": this.linearLockAxis,
+            "angularLockAxis:": this.angularLockAxis
         };
 
         if (!this.static) {
