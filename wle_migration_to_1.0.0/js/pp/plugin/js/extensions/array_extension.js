@@ -164,7 +164,7 @@
 */
 
 import * as glMatrix from "gl-matrix";
-import { ExtensionUtils } from "../../utils/extension_utils";
+import { PluginUtils } from "../../utils/plugin_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -2648,7 +2648,7 @@ export function initArrayExtensionProtoype() {
         Int16Array.prototype, Int32Array.prototype, Float32Array.prototype, Float64Array.prototype];
 
     for (let arrayPrototypeToExtend of arrayPrototypesToExtend) {
-        ExtensionUtils.assignProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
+        PluginUtils.assignProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
     }
 }
 

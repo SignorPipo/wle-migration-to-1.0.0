@@ -3,15 +3,18 @@ import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
 import { InputUtils } from "../../../../input/cauldron/input_utils";
 import { mat4_create, quat2_create, quat_create, vec3_create } from "../../../js/extensions/array_extension";
+import { PluginUtils } from "../../../utils/plugin_utils";
 
 export function initCursorComponentMod() {
     initCursorComponentModPrototype();
 }
 
 export function initCursorComponentModPrototype() {
+    let cursorComponentMod = {};
+
     // Modified Functions
 
-    Cursor.prototype.init = function init() {
+    cursorComponentMod.init = function init() {
         /* XR session cache, in case in XR */
         this.session = null;
         this.collisionMask = (1 << this.collisionGroup);
@@ -36,7 +39,7 @@ export function initCursorComponentModPrototype() {
         this.lastHeight = null;
     };
 
-    Cursor.prototype.start = function start() {
+    cursorComponentMod.start = function start() {
         if (this.handedness == 0) {
             let inputComp = this.object.pp_getComponent(InputComponent);
             if (!inputComp) {
@@ -89,14 +92,14 @@ export function initCursorComponentModPrototype() {
         this._setCursorVisibility(false);
     };
 
-    Cursor.prototype.onViewportResize = function onViewportResize() {
+    cursorComponentMod.onViewportResize = function onViewportResize() {
         if (!this.viewComponent) return;
         /* Projection matrix will change if the viewport is resized, which will affect the
          * projection matrix because of the aspect ratio. */
         this.viewComponent.projectionMatrix.mat4_invert(this.projectionMatrix);
     };
 
-    Cursor.prototype._setCursorRayTransform = function _setCursorRayTransform(hitPosition) {
+    cursorComponentMod._setCursorRayTransform = function _setCursorRayTransform(hitPosition) {
         if (!this.cursorRayObject) return;
         if (this.cursorRayScalingAxis != 4) {
             this.cursorRayObject.pp_resetScaleLocal();
@@ -110,14 +113,14 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    Cursor.prototype._setCursorVisibility = function _setCursorVisibility(visible) {
+    cursorComponentMod._setCursorVisibility = function _setCursorVisibility(visible) {
         this.visible = visible;
         if (!this.cursorObject) return;
 
         this.cursorObject.pp_setActive(visible);
     };
 
-    Cursor.prototype.update = function update(dt) {
+    cursorComponentMod.update = function update(dt) {
         if (this.doubleClickTimer > 0) {
             this.doubleClickTimer -= dt;
         }
@@ -129,7 +132,7 @@ export function initCursorComponentModPrototype() {
         this.doUpdate(false);
     };
 
-    Cursor.prototype.doUpdate = function () {
+    cursorComponentMod.doUpdate = function () {
         return function doUpdate(doClick) {
             /* If in XR, set the cursor ray based on object transform */
             if (this.session) {
@@ -186,7 +189,7 @@ export function initCursorComponentModPrototype() {
         };
     }();
 
-    Cursor.prototype.hoverBehaviour = function hoverBehaviour(rayHit, doClick, forceUnhover = false) {
+    cursorComponentMod.hoverBehaviour = function hoverBehaviour(rayHit, doClick, forceUnhover = false) {
         if (!forceUnhover && rayHit.hitCount > 0) {
             let hoveringObjectChanged = false;
             if (!this.hoveringObject || !this.hoveringObject.pp_equals(rayHit.objects[0])) {
@@ -282,7 +285,7 @@ export function initCursorComponentModPrototype() {
         this.isUpWithNoDown = false;
     };
 
-    Cursor.prototype.setupXREvents = function setupXREvents(s) {
+    cursorComponentMod.setupXREvents = function setupXREvents(s) {
         /* If in XR, one-time bind the listener */
         this.session = s;
         let onSessionEnd = function (e) {
@@ -311,10 +314,10 @@ export function initCursorComponentModPrototype() {
         this.onViewportResize();
     };
 
-    Cursor.prototype.onSelect = function onSelect(e) {
+    cursorComponentMod.onSelect = function onSelect(e) {
     };
 
-    Cursor.prototype.onSelectStart = function onSelectStart(e) {
+    cursorComponentMod.onSelectStart = function onSelectStart(e) {
         if (this.active) {
             this.arTouchDown = true;
             if (e.inputSource.handedness == this.handedness) {
@@ -327,7 +330,7 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    Cursor.prototype.onSelectEnd = function onSelectEnd(e) {
+    cursorComponentMod.onSelectEnd = function onSelectEnd(e) {
         if (this.active) {
             this.arTouchDown = false;
             if (e.inputSource.handedness == this.handedness) {
@@ -343,7 +346,7 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    Cursor.prototype.onPointerMove = function onPointerMove(e) {
+    cursorComponentMod.onPointerMove = function onPointerMove(e) {
         if (this.active) {
             /* Don't care about secondary pointers */
             if (this.pointerId != null && this.pointerId != e.pointerId) return;
@@ -361,10 +364,10 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    Cursor.prototype.onClick = function onClick(e) {
+    cursorComponentMod.onClick = function onClick(e) {
     };
 
-    Cursor.prototype.onPointerDown = function onPointerDown(e) {
+    cursorComponentMod.onPointerDown = function onPointerDown(e) {
         /* Don't care about secondary pointers or non-left clicks */
         if ((this.pointerId != null && this.pointerId != e.pointerId) || e.button !== 0) return;
 
@@ -387,7 +390,7 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    Cursor.prototype.onPointerUp = function onPointerUp(e) {
+    cursorComponentMod.onPointerUp = function onPointerUp(e) {
         /* Don't care about secondary pointers or non-left clicks */
         if ((this.pointerId != null && this.pointerId != e.pointerId) || e.button !== 0) return;
 
@@ -414,7 +417,7 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    Cursor.prototype.updateMousePos = function updateMousePos(clientX, clientY, w, h) {
+    cursorComponentMod.updateMousePos = function updateMousePos(clientX, clientY, w, h) {
         this.lastClientX = clientX;
         this.lastClientY = clientY;
         this.lastWidth = w;
@@ -427,7 +430,7 @@ export function initCursorComponentModPrototype() {
         return this.updateDirection();
     };
 
-    Cursor.prototype.updateDirection = function () {
+    cursorComponentMod.updateDirection = function () {
         let transformWorld = quat2_create();
         return function updateDirection() {
             this.object.pp_getPosition(this.origin);
@@ -450,7 +453,7 @@ export function initCursorComponentModPrototype() {
         };
     }();
 
-    Cursor.prototype.onDeactivate = function onDeactivate() {
+    cursorComponentMod.onDeactivate = function onDeactivate() {
         if (this.hoveringObject) {
             let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
             if (cursorTarget) cursorTarget.onUnhover.notify(this.hoveringObject, this);
@@ -477,7 +480,7 @@ export function initCursorComponentModPrototype() {
         this.lastHeight = null;
     };
 
-    Cursor.prototype.onActivate = function onActivate() {
+    cursorComponentMod.onActivate = function onActivate() {
         this.showRay = true;
 
         this.isDown = false;
@@ -485,13 +488,13 @@ export function initCursorComponentModPrototype() {
         this.isUpWithNoDown = false;
     };
 
-    Cursor.prototype.onDestroy = function onDestroy() {
+    cursorComponentMod.onDestroy = function onDestroy() {
         for (let f of this.onDestroyCallbacks) f();
     };
 
     // New Functions 
 
-    Cursor.prototype.setViewComponent = function setViewComponent(viewComponent) {
+    cursorComponentMod.setViewComponent = function setViewComponent(viewComponent) {
         this.viewComponent = viewComponent;
         /* If this object also has a view component, we will enable inverse-projected mouse clicks,
          * otherwise just use the objects transformation */
@@ -523,7 +526,7 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    Cursor.prototype.onPointerLeave = function onPointerLeave(e) {
+    cursorComponentMod.onPointerLeave = function onPointerLeave(e) {
         if (this.pointerId == null || this.pointerId == e.pointerId) {
             if (this.active) {
                 this.hoverBehaviour(null, false, true); // Trigger unhover
@@ -538,15 +541,15 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    Cursor.prototype._isDown = function _isDown() {
+    cursorComponentMod._isDown = function _isDown() {
         return this.isDown !== this.lastIsDown && this.isDown;
     };
 
-    Cursor.prototype._isUp = function _isUp() {
+    cursorComponentMod._isUp = function _isUp() {
         return this.isDown !== this.lastIsDown && !this.isDown;
     };
 
-    Cursor.prototype._isMoving = function () {
+    cursorComponentMod._isMoving = function () {
         let hitLocationLocalToTarget = vec3_create();
         return function _isMoving(hitLocation) {
             let isMoving = false;
@@ -563,9 +566,5 @@ export function initCursorComponentModPrototype() {
 
 
 
-    Object.defineProperty(Cursor.prototype, "setViewComponent", { enumerable: false });
-    Object.defineProperty(Cursor.prototype, "onPointerLeave", { enumerable: false });
-    Object.defineProperty(Cursor.prototype, "_isDown", { enumerable: false });
-    Object.defineProperty(Cursor.prototype, "_isMoving", { enumerable: false });
-    Object.defineProperty(Cursor.prototype, "_isUp", { enumerable: false });
+    PluginUtils.assignProperties(cursorComponentMod, Cursor.prototype, false, true, true);
 }

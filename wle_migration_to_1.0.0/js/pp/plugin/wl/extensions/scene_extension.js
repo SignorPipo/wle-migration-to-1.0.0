@@ -24,7 +24,7 @@
 */
 
 import { Scene } from "@wonderlandengine/api";
-import { ExtensionUtils } from "../../utils/extension_utils";
+import { PluginUtils } from "../../utils/plugin_utils";
 
 export function initSceneExtension(engine) {
     initSceneExtensionPrototype();
@@ -142,5 +142,5 @@ export function initSceneExtensionPrototype() {
 
 
 
-    ExtensionUtils.assignProperties(sceneExtension, Scene.prototype, false, true, true);
+    PluginUtils.assignProperties(sceneExtension, Scene.prototype, false, true, true);
 }

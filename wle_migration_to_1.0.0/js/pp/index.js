@@ -14,7 +14,7 @@ export * from "./pp/components/add_pp_to_window_component";
 //	PLUGIN
 export * from "./plugin/init_plugins";
 
-export * from "./plugin/utils/extension_utils";
+export * from "./plugin/utils/plugin_utils";
 
 export * from "./plugin/js/init_js_plugins";
 export * from "./plugin/js/extensions/init_js_extentions";

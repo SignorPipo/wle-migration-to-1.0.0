@@ -26,7 +26,7 @@
         - pp_isInsideAngleRange
 */
 
-import { ExtensionUtils } from "../../utils/extension_utils";
+import { PluginUtils } from "../../utils/plugin_utils";
 
 export function initMathExtension() {
     initMathExtensionStatic();
@@ -253,5 +253,5 @@ export function initMathExtensionStatic() {
 
 
 
-    ExtensionUtils.assignProperties(mathExtension, Math, false, true, true);
+    PluginUtils.assignProperties(mathExtension, Math, false, true, true);
 }

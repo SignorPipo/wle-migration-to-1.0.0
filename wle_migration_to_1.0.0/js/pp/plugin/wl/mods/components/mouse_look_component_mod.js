@@ -1,15 +1,18 @@
 import { MouseLookComponent } from "@wonderlandengine/components";
 import { Timer } from "../../../../cauldron/cauldron/timer";
 import { vec3_create } from "../../../js/extensions/array_extension";
+import { PluginUtils } from "../../../utils/plugin_utils";
 
 export function initMouseLookComponentMod() {
     initMouseLookComponentModPrototype();
 }
 
 export function initMouseLookComponentModPrototype() {
+    let mouseLookComponentMod = {};
+
     // Modified Functions
 
-    MouseLookComponent.prototype.init = function init() {
+    mouseLookComponentMod.init = function init() {
         this.pointerId = null;
         this.prevMoveEvent = null;
 
@@ -69,12 +72,12 @@ export function initMouseLookComponentModPrototype() {
 
     // New Functions
 
-    MouseLookComponent.prototype.start = function start() { };
-    MouseLookComponent.prototype.onActivate = function onActivate() { };
-    MouseLookComponent.prototype.onDeactivate = function onDeactivate() { };
-    MouseLookComponent.prototype.onDestroy = function onDestroy() { };
+    mouseLookComponentMod.start = function start() { };
+    mouseLookComponentMod.onActivate = function onActivate() { };
+    mouseLookComponentMod.onDeactivate = function onDeactivate() { };
+    mouseLookComponentMod.onDestroy = function onDestroy() { };
 
-    MouseLookComponent.prototype.update = function update(dt) {
+    mouseLookComponentMod.update = function update(dt) {
         if (this.resetMovingTimer.isRunning()) {
             this.resetMovingTimer.update(dt);
             if (this.resetMovingTimer.isDone()) {
@@ -92,7 +95,7 @@ export function initMouseLookComponentModPrototype() {
         }
     };
 
-    MouseLookComponent.prototype._onMove = function () {
+    mouseLookComponentMod._onMove = function () {
         let viewForward = vec3_create();
         let viewUp = vec3_create();
 
@@ -165,6 +168,5 @@ export function initMouseLookComponentModPrototype() {
 
 
 
-    Object.defineProperty(MouseLookComponent.prototype, "update", { enumerable: false });
-    Object.defineProperty(MouseLookComponent.prototype, "_onMove", { enumerable: false });
+    PluginUtils.assignProperties(mouseLookComponentMod, MouseLookComponent.prototype, false, true, true);
 }
