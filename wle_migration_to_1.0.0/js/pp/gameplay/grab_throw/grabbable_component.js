@@ -16,6 +16,10 @@ export class GrabbableComponent extends Component {
 
         this._myGrabber = null;
 
+        this._myOldParent = null;
+        this._myPhysX = null;
+        this._myOldKinematicValue = null;
+
         this._myGrabCallbacks = new Map();      // Signature: callback(grabber, grabbable)
         this._myThrowCallbacks = new Map();     // Signature: callback(grabber, grabbable)
         this._myReleaseCallbacks = new Map();   // Signature: callback(grabber, grabbable, isThrow)
@@ -24,7 +28,6 @@ export class GrabbableComponent extends Component {
     start() {
         this._myOldParent = this.object.pp_getParent();
         this._myPhysX = this.object.pp_getComponent(PhysXComponent);
-        this._myOldKinematicValue = null;
     }
 
     onDeactivate() {
@@ -160,12 +163,13 @@ export class GrabbableComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type);
-        clonedComponent.active = this.active;
+        let clonedComponent = targetObject.pp_addComponent(this.type, this);
 
-        clonedComponent._myThrowLinearVelocityMultiplier = this._myThrowLinearVelocityMultiplier;
-        clonedComponent._myThrowAngularVelocityMultiplier = this._myThrowAngularVelocityMultiplier;
-        clonedComponent._myKinematicValueOnRelease = this._myKinematicValueOnRelease;
+        // trigger start, which otherwise would be called later
+        if (!clonedComponent.active) {
+            clonedComponent.active = true;
+            clonedComponent.active = false;
+        }
 
         return clonedComponent;
     }

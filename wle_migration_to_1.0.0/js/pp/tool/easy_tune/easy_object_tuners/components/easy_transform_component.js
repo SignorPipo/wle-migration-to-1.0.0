@@ -37,15 +37,13 @@ export class EasyTransformComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, {
-            "_myVariableName": this._myVariableName,
-            "_mySetAsDefault": this._mySetAsDefault,
-            "_myUseTuneTarget": this._myUseTuneTarget,
-            "_myIsLocal": this._myIsLocal,
-            "_myScaleAsOne": this._myScaleAsOne,
-        });
+        let clonedComponent = targetObject.pp_addComponent(this.type, this);
 
-        clonedComponent.active = this.active;
+        // trigger start, which otherwise would be called later
+        if (!clonedComponent.active) {
+            clonedComponent.active = true;
+            clonedComponent.active = false;
+        }
 
         return clonedComponent;
     }

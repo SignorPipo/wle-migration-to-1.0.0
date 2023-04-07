@@ -30,13 +30,13 @@ export class ScaleOnSpawnComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type);
-        clonedComponent.active = this.active;
+        let clonedComponent = targetObject.pp_addComponent(this.type, this);
 
-        clonedComponent._myStartDelay = this._myStartDelay;
-        clonedComponent._myScaleDuration = this._myScaleDuration;
-
-        clonedComponent.start();
+        // trigger start, which otherwise would be called later
+        if (!clonedComponent.active) {
+            clonedComponent.active = true;
+            clonedComponent.active = false;
+        }
 
         return clonedComponent;
     }

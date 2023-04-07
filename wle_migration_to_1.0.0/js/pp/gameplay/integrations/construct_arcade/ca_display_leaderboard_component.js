@@ -1,5 +1,6 @@
 import { Component, Property, TextComponent } from "@wonderlandengine/api";
 import { CADummyServer } from "./ca_dummy_server";
+import { CAUtils } from "./ca_utils";
 
 export class CADisplayLeaderboardComponent extends Component {
     static TypeName = "pp-ca-display-leaderboard";
@@ -10,18 +11,23 @@ export class CADisplayLeaderboardComponent extends Component {
         _myScoresAmount: Property.int(10),
         _myScoreFormat: Property.enum(["Value", "Hours:Minutes:Seconds", "Minutes:Seconds", "Seconds", "Hours:Minutes", "Minutes"], "Value"),
         _myPositionAndUsernameSeparator: Property.string(" - "),
-        _myNumberOfLinesBetweenScores: Property.int(1)
+        _myNumberOfLinesBetweenScores: Property.int(1),
+        _myAddDefaultCADummyServer: Property.bool(false)
     };
 
-    start() {
+    init() {
         this._myNamesTextComponent = null;
         this._myScoresTextComponent = null;
 
         this._myStarted = false;
+    }
 
-        CAUtils.setDummyServer(new CADummyServer());
-        CAUtils.setUseDummyServerOnSDKMissing(true);
-        CAUtils.setUseDummyServerOnError(true);
+    start() {
+        if (this._myAddDefaultCADummyServer) {
+            CAUtils.setDummyServer(new CADummyServer());
+            CAUtils.setUseDummyServerOnSDKMissing(true);
+            CAUtils.setUseDummyServerOnError(true);
+        }
     }
 
     update(dt) {
@@ -136,13 +142,13 @@ export class CADisplayLeaderboardComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type);
-        clonedComponent.active = this.active;
+        let clonedComponent = targetObject.pp_addComponent(this.type, this);
 
-        clonedComponent._myLeaderboardID = this._myLeaderboardID;
-        clonedComponent._myIsLocal = this._myIsLocal;
-        clonedComponent._myPositionAndUsernameSeparator = this._myPositionAndUsernameSeparator;
-        clonedComponent._myNumberOfLinesBetweenScores = this._myNumberOfLinesBetweenScores;
+        // trigger start, which otherwise would be called later
+        if (!clonedComponent.active) {
+            clonedComponent.active = true;
+            clonedComponent.active = false;
+        }
 
         return clonedComponent;
     }

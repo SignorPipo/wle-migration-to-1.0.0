@@ -24,7 +24,7 @@ export class TargetHitCheckComponent extends Component {
             }
         }
 
-        //this._fun();
+        this._fun();
     }
 
     _strike(strikeSource) {
@@ -36,7 +36,7 @@ export class TargetHitCheckComponent extends Component {
     }
 
     _fun() {
-        if (getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressStart()) {
+        if (getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressed()) {
             this._myParticlesSpawner.spawn(this.object.pp_getPosition());
         }
     }
