@@ -17,7 +17,6 @@ export let MouseButtonID = {
 export class Mouse {
 
     constructor(engine = getMainEngine()) {
-
         this._myEngine = engine;
 
         this._myButtonInfos = new Map();
@@ -186,7 +185,7 @@ export class Mouse {
     raycastWorld(raycastSetup, raycastResults = new RaycastResults()) {
         this.getOriginWorld(raycastSetup.myOrigin);
         this.getDirectionWorld(raycastSetup.myDirection);
-        raycastResults = PhysicsUtils.raycast(raycastSetup, raycastResults);
+        raycastResults = PhysicsUtils.raycast(raycastSetup, raycastResults, this._myEngine.physics);
         return raycastResults;
     }
 

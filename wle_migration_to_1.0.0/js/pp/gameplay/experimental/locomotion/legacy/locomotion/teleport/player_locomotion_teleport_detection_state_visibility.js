@@ -90,7 +90,6 @@ PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = function (
         let distance = headPosition.vec3_distance(position);
 
         for (let checkPosition of checkPositions) {
-            raycastSetup.myPhysics = this._myTeleportParams.myEngine.physics;
             raycastSetup.myOrigin.vec3_copy(checkPosition);
             raycastSetup.myDirection.vec3_copy(fixedForward);
             raycastSetup.myDistance = distance;
@@ -104,7 +103,7 @@ PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = function (
 
             raycastSetup.myIgnoreHitsInsideCollision = true;
 
-            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
             if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugVisibilityActive) {
                 getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);

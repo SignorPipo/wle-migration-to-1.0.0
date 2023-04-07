@@ -262,8 +262,6 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
         let positionParableDistance = 0;
         prevParablePosition = this._myDetectionRuntimeParams.myParable.getPosition(currentPositionIndex - 1, prevParablePosition);
 
-        raycastSetup.myPhysics = this._myTeleportParams.myEngine.physics
-
         raycastSetup.myIgnoreHitsInsideCollision = true;
         raycastSetup.myBlockLayerFlags.setMask(this._myTeleportParams.myDetectionParams.myTeleportBlockLayerFlags.getMask());
 
@@ -282,7 +280,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
             raycastSetup.myDistance = raycastSetup.myDirection.vec3_length();
             raycastSetup.myDirection.vec3_normalize(raycastSetup.myDirection);
 
-            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
             if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                 getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
@@ -338,7 +336,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                     raycastSetup.myDirection.vec3_copy(verticalHitDirection);
                     raycastSetup.myDistance = bottomCheckMaxLength;
 
-                    raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                    raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
                     if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                         getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
@@ -367,7 +365,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                                 raycastSetup.myDirection.vec3_copy(verticalHitDirection);
                                 raycastSetup.myDistance = bottomCheckMaxLength;
 
-                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                                     getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
@@ -398,7 +396,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                                 raycastSetup.myDirection.vec3_copy(verticalHitDirection);
                                 raycastSetup.myDistance = bottomCheckMaxLength;
 
-                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                                     getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
@@ -430,7 +428,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                                 raycastSetup.myDirection.vec3_copy(verticalHitDirection);
                                 raycastSetup.myDistance = bottomCheckMaxLength;
 
-                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                                     getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
@@ -469,7 +467,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
             raycastSetup.myDirection.vec3_copy(verticalHitDirection);
             raycastSetup.myDistance = bottomCheckMaxLength;
 
-            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
             if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                 getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
@@ -498,7 +496,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                         raycastSetup.myDirection.vec3_copy(verticalHitDirection);
                         raycastSetup.myDistance = bottomCheckMaxLength;
 
-                        raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                        raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
                         if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                             getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
@@ -528,7 +526,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                         raycastSetup.myDirection.vec3_copy(verticalHitDirection);
                         raycastSetup.myDistance = bottomCheckMaxLength;
 
-                        raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                        raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
                         if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                             getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
@@ -589,8 +587,6 @@ PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = function 
             if (true || hit.myNormal.vec3_isConcordant(playerUp)) {
                 // #TODO When the flags on the physx will be available just check that the hit object physx has the floor flag
 
-                raycastSetup.myPhysics = this._myTeleportParams.myEngine.physics
-
                 raycastSetup.myIgnoreHitsInsideCollision = true;
                 raycastSetup.myBlockLayerFlags.setMask(this._myTeleportParams.myDetectionParams.myTeleportFloorLayerFlags.getMask());
 
@@ -605,7 +601,7 @@ PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = function 
                 raycastSetup.myDistance = distanceToCheck * 1.25;
                 raycastSetup.myDirection.vec3_normalize(raycastSetup.myDirection);
 
-                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult, this._myTeleportParams.myEngine.physics);
 
                 if (raycastResult.isColliding()) {
                     let floorHit = raycastResult.myHits.pp_first();

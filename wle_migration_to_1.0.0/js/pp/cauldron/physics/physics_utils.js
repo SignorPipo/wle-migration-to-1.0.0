@@ -1,4 +1,5 @@
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../wl/engine_globals";
 import { RaycastHit, RaycastResults, RaycastSetup } from "./physics_raycast_data";
 
 let _myLayerFlagsNames = ["0", "1", "2", "3", "4", "5", "6", "7"];
@@ -15,11 +16,11 @@ export let raycast = function () {
     let isInsideSubVector = vec3_create();
     let invertedRaycastDirection = vec3_create();
     let objectsEqualCallback = (first, second) => first.pp_equals(second);
-    return function raycast(raycastSetup, raycastResults = new RaycastResults()) {
-        let internalRaycastResults = raycastSetup.myPhysics.rayCast(raycastSetup.myOrigin, raycastSetup.myDirection, raycastSetup.myBlockLayerFlags.getMask(), raycastSetup.myDistance);
+    return function raycast(raycastSetup, raycastResults = new RaycastResults(), physics = getMainEngine()?.physics) {
+        let internalRaycastResults = physics.rayCast(raycastSetup.myOrigin, raycastSetup.myDirection, raycastSetup.myBlockLayerFlags.getMask(), raycastSetup.myDistance);
 
         if (raycastResults.myRaycastSetup == null) {
-            raycastResults.myRaycastSetup = new RaycastSetup(raycastSetup.myPhysics);
+            raycastResults.myRaycastSetup = new RaycastSetup();
         }
 
         raycastResults.myRaycastSetup.copy(raycastSetup);
