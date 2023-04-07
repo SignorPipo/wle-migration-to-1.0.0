@@ -4,7 +4,7 @@ import { CloneParams } from "../../plugin/wl/extensions/object_extension";
 import { getPlayerObjects } from "../../pp/scene_objects_global";
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
 import { Timer } from "../cauldron/timer";
-import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParams, MeshUtils } from "../utils/mesh_utils";
+import { MeshCreationSetup, MeshCreationTriangleSetup, MeshCreationVertexSetup, MeshUtils } from "../utils/mesh_utils";
 import { XRUtils } from "../utils/xr_utils";
 
 export class BenchmarkMaxVisibleTrianglesComponent extends Component {
@@ -19,7 +19,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         _myCloneMaterial: Property.bool(false),
         _myCloneMesh: Property.bool(false),
 
-        _myLogActive: Property.bool(true),
+        _myLogEnabled: Property.bool(true),
 
         _myStartOnXRStart: Property.bool(false),
         _myDisplayInFrontOfPlayer: Property.bool(true),
@@ -34,7 +34,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myBackgroundSize = 4;
         this._myBackgroundObject.pp_setActive(true);
         this._myBackgroundObject.pp_setScale(this._myBackgroundSize + 0.1);
-        this._myBackgroundObject.pp_translate(vec3_create(0, 0, -0.001));
+        this._myBackgroundObject.pp_translateLocal(vec3_create(0, 0, -0.001));
 
         this._myDoubleTimer = new Timer(this._mySecondsBeforeDoubling);
         this._myIsDone = false;
@@ -133,13 +133,13 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                             this._myUpperLimit = 0;
                             reset = true;
 
-                            if (this._myLogActive) {
+                            if (this._myLogEnabled) {
                                 // Reset
                                 console.log("Rst - Triangles:", this._myCurrentPlanes * this._myRealTrianglesAmount, "- Planes:", this._myCurrentPlanes, "- Frame Rate:", frameRate);
                             }
                         } else {
                             if (this._myMaxPlanesReached) {
-                                if (this._myLogActive) {
+                                if (this._myLogEnabled) {
                                     console.log("Aborted - Max Planes Reached");
 
                                     this._myDoneTextComponent.text = "Aborted - Max Planes Reached";
@@ -147,7 +147,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                             } else {
                                 this._displayPlanes(this._myLowerLimit);
 
-                                if (this._myLogActive) {
+                                if (this._myLogEnabled) {
                                     console.log("\nEnd - Triangles:", this._myLowerLimit * this._myRealTrianglesAmount, "- Planes:", this._myLowerLimit, "- Frame Rate:", frameRate);
                                     console.log("Plane Triangles (Adjusted):", this._myRealTrianglesAmount);
                                     console.log("Target Frame Rate:", this._myStableFrameRate, "- Threshold: ", (this._myStableFrameRate - this._myTargetFrameRateThreshold));
@@ -164,7 +164,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                     }
 
                     if (isLagging && !reset) {
-                        if (this._myLogActive) {
+                        if (this._myLogEnabled) {
                             console.log("Lag - Triangles:", this._myCurrentPlanes * this._myRealTrianglesAmount, "- Planes:", this._myCurrentPlanes, "- Frame Rate:", frameRate);
                         }
                     }
@@ -255,7 +255,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myBackgroundObject = this._myTrianglesObject.pp_addObject();
         {
             let meshComponent = this._myBackgroundObject.pp_addComponent(MeshComponent);
-            meshComponent.mesh = MeshUtils.createPlaneMesh();
+            meshComponent.mesh = MeshUtils.createPlaneMesh(this.engine);
             meshComponent.material = this._myBackgroundMaterial.clone();
         }
 
@@ -370,7 +370,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                         this._myStableFrameRate = this._myTargetFrameRate;
                     }
 
-                    if (this._myLogActive) {
+                    if (this._myLogEnabled) {
                         console.log("\nPlane Triangles (Adjusted):", this._myRealTrianglesAmount);
                         console.log("Target Frame Rate:", this._myStableFrameRate, "- Threshold: ", (this._myStableFrameRate - this._myTargetFrameRateThreshold));
                         console.log("");
@@ -424,7 +424,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             row--;
         }
 
-        let meshParams = new MeshCreationParams(this.engine);
+        let meshCreationSetup = new MeshCreationSetup();
 
         for (let i = 0; i < row + 1; i++) {
             for (let j = 0; j < column + 1; j++) {
@@ -432,44 +432,44 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                 let x = (2 / column) * j;
                 let y = (2 / row) * i;
 
-                let vertexParams = new MeshCreationVertexParams();
+                let vertexCreationSetup = new MeshCreationVertexSetup();
 
-                vertexParams.myPosition = vec3_create();
-                vertexParams.myPosition[0] = x - 1;
-                vertexParams.myPosition[1] = y - 1;
-                vertexParams.myPosition[2] = 0;
+                vertexCreationSetup.myPosition = vec3_create();
+                vertexCreationSetup.myPosition[0] = x - 1;
+                vertexCreationSetup.myPosition[1] = y - 1;
+                vertexCreationSetup.myPosition[2] = 0;
 
-                vertexParams.myTextureCoordinates = vec2_create();
-                vertexParams.myTextureCoordinates[0] = x / 2;
-                vertexParams.myTextureCoordinates[1] = y / 2;
+                vertexCreationSetup.myTextureCoordinates = vec2_create();
+                vertexCreationSetup.myTextureCoordinates[0] = x / 2;
+                vertexCreationSetup.myTextureCoordinates[1] = y / 2;
 
-                vertexParams.myNormal = vec3_create();
-                vertexParams.myNormal[0] = 0;
-                vertexParams.myNormal[1] = 0;
-                vertexParams.myNormal[2] = 1;
+                vertexCreationSetup.myNormal = vec3_create();
+                vertexCreationSetup.myNormal[0] = 0;
+                vertexCreationSetup.myNormal[1] = 0;
+                vertexCreationSetup.myNormal[2] = 1;
 
-                meshParams.myVertexes.push(vertexParams);
+                meshCreationSetup.myVertexes.push(vertexCreationSetup);
             }
         }
 
         for (let i = 0; i < row; i++) {
             for (let j = 0; j < column; j++) {
-                let firstTriangle = new MeshCreationTriangleParams();
+                let firstTriangle = new MeshCreationTriangleSetup();
                 firstTriangle.myIndexes[0] = (i * (column + 1)) + j;
                 firstTriangle.myIndexes[1] = (i * (column + 1)) + j + 1;
                 firstTriangle.myIndexes[2] = ((i + 1) * (column + 1)) + j;
 
-                let secondTriangle = new MeshCreationTriangleParams();
+                let secondTriangle = new MeshCreationTriangleSetup();
                 secondTriangle.myIndexes[0] = ((i + 1) * (column + 1)) + j;
                 secondTriangle.myIndexes[1] = (i * (column + 1)) + j + 1;
                 secondTriangle.myIndexes[2] = ((i + 1) * (column + 1)) + j + 1;
 
-                meshParams.myTriangles.push(firstTriangle);
-                meshParams.myTriangles.push(secondTriangle);
+                meshCreationSetup.myTriangles.push(firstTriangle);
+                meshCreationSetup.myTriangles.push(secondTriangle);
             }
         }
 
-        let mesh = MeshUtils.createMesh(meshParams);
+        let mesh = MeshUtils.createMesh(meshCreationSetup, this.engine);
 
         return mesh;
     }
