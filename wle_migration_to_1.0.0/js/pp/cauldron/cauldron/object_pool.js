@@ -5,12 +5,12 @@ export class ObjectPoolParams {
         this.myAmountToAddWhenEmpty = 0;        // If all the objects are busy, this amount will be added to the pool
         this.myPercentageToAddWhenEmpty = 0;    // If all the objects are busy, this percentage of the current pool size will be added to the pool        
 
-        this.myCloneParams = undefined;
+        this.myCloneSetup = undefined;
 
         this.myOptimizeObjectsAllocation = true;    // If true it will pre-allocate the memory before adding new objects to the pool
 
         // These extra functions can be used if u want to use the pool with objects that are not from WL (WL Object)
-        this.myCloneCallback = undefined;                       // Signature: callback(object, cloneParams) -> clonedObject
+        this.myCloneCallback = undefined;                       // Signature: callback(object, cloneSetup) -> clonedObject
         this.mySetActiveCallback = undefined;                   // Signature: callback(object, active)
         this.myEqualCallback = undefined;                       // Signature: callback(firstObject, secondObject) -> bool
         this.myOptimizeObjectsAllocationCallback = undefined;   // Signature: callback(object, numberOfObjectsToAllocate)
@@ -104,11 +104,11 @@ export class ObjectPool {
         let clone = null;
 
         if (this._myObjectPoolParams.myCloneCallback != null) {
-            clone = this._myObjectPoolParams.myCloneCallback(object, this._myObjectPoolParams.myCloneParams);
+            clone = this._myObjectPoolParams.myCloneCallback(object, this._myObjectPoolParams.myCloneSetup);
         } else if (object.pp_clone != null) {
-            clone = object.pp_clone(this._myObjectPoolParams.myCloneParams);
+            clone = object.pp_clone(this._myObjectPoolParams.myCloneSetup);
         } else if (object.clone != null) {
-            clone = object.clone(this._myObjectPoolParams.myCloneParams);
+            clone = object.clone(this._myObjectPoolParams.myCloneSetup);
         }
 
         if (clone == null) {

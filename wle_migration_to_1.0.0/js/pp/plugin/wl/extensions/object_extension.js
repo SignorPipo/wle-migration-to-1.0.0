@@ -214,7 +214,7 @@ export function getObjectsByIDObjects(objects, id) {
     return objectsFound;
 }
 
-export class CloneParams {
+export class CloneSetup {
 
     constructor() {
         this.myIgnoreNonCloneable = false;  // Ignores components that are not clonable
@@ -232,13 +232,13 @@ export class CloneParams {
         this.myUseWLClone = false;               // Use the WL component clone function 
         this.myUseWLCloneAsFallback = false;     // Use the WL component clone function as fallback only if pp_clone is not found on the component
 
-        this.myDeepCloneParams = new DeepCloneParams(); // Used to specify if the object must be deep cloned or not, you can also override the behavior for specific components and variables
+        this.myDeepCloneSetup = new DeepCloneSetup(); // Used to specify if the object must be deep cloned or not, you can also override the behavior for specific components and variables
 
-        this.myCustomCloneParams = new CustomCloneParams(); // This class can be filled with whatever custom paramater the component clone function could need
+        this.myCustomCloneSetup = new CustomCloneSetup(); // This class can be filled with whatever custom paramater the component clone function could need
     }
 }
 
-export class DeepCloneParams {
+export class DeepCloneSetup {
 
     constructor() {
         this._myDeepCloneObject = false;
@@ -294,7 +294,7 @@ export class DeepCloneParams {
     }
 }
 
-export class CustomCloneParams {
+export class CustomCloneSetup {
 
     constructor() {
         this._myParams = new Map();
@@ -2203,10 +2203,10 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_clone = function () {
         let scale = vec3_create();
         let transformQuat = quat2_create();
-        return function pp_clone(params = new CloneParams()) {
+        return function pp_clone(cloneSetup = new CloneSetup()) {
             let clonedObject = null;
 
-            if (this.pp_isCloneable(params)) {
+            if (this.pp_isCloneable(cloneSetup)) {
                 let objectsToCloneData = [];
                 objectsToCloneData.push([this.pp_getParent(), this]);
 
@@ -2223,21 +2223,21 @@ export function initObjectExtensionProtoype() {
                     currentClonedObject.pp_setScaleLocal(objectToClone.pp_getScaleLocal(scale));
                     currentClonedObject.pp_setTransformLocalQuat(objectToClone.pp_getTransformLocalQuat(transformQuat));
 
-                    if (!params.myIgnoreComponents) {
+                    if (!cloneSetup.myIgnoreComponents) {
                         objectsToCloneComponentsData.push([objectToClone, currentClonedObject]);
                     }
 
-                    if (!params.myIgnoreChildren) {
+                    if (!cloneSetup.myIgnoreChildren) {
                         for (let child of objectToClone.pp_getChildren()) {
                             let cloneChild = false;
-                            if (params.myChildrenToInclude.length > 0) {
-                                cloneChild = params.myChildrenToInclude.find(childToInclude => childToInclude.pp_equals(child)) != null;
+                            if (cloneSetup.myChildrenToInclude.length > 0) {
+                                cloneChild = cloneSetup.myChildrenToInclude.find(childToInclude => childToInclude.pp_equals(child)) != null;
                             } else {
-                                cloneChild = params.myChildrenToIgnore.find(childToIgnore => childToIgnore.pp_equals(child)) == null;
+                                cloneChild = cloneSetup.myChildrenToIgnore.find(childToIgnore => childToIgnore.pp_equals(child)) == null;
                             }
 
-                            if (cloneChild && params.myIgnoreChildCallback != null) {
-                                cloneChild = !params.myIgnoreChildCallback(child);
+                            if (cloneChild && cloneSetup.myIgnoreChildCallback != null) {
+                                cloneChild = !cloneSetup.myIgnoreChildCallback(child);
                             }
 
                             if (cloneChild) {
@@ -2260,16 +2260,16 @@ export function initObjectExtensionProtoype() {
 
                     let components = objectToClone.pp_getComponentsSelf();
                     for (let component of components) {
-                        if (component.pp_clone != null || params.myUseWLClone || params.myUseWLCloneAsFallback) {
+                        if (component.pp_clone != null || cloneSetup.myUseWLClone || cloneSetup.myUseWLCloneAsFallback) {
                             let cloneComponent = false;
-                            if (params.myComponentsToInclude.length > 0) {
-                                cloneComponent = params.myComponentsToInclude.indexOf(component.type) != -1;
+                            if (cloneSetup.myComponentsToInclude.length > 0) {
+                                cloneComponent = cloneSetup.myComponentsToInclude.indexOf(component.type) != -1;
                             } else {
-                                cloneComponent = params.myComponentsToIgnore.indexOf(component.type) == -1;
+                                cloneComponent = cloneSetup.myComponentsToIgnore.indexOf(component.type) == -1;
                             }
 
-                            if (cloneComponent && params.myIgnoreComponentCallback != null) {
-                                cloneComponent = !params.myIgnoreComponentCallback(component);
+                            if (cloneComponent && cloneSetup.myIgnoreComponentCallback != null) {
+                                cloneComponent = !cloneSetup.myIgnoreComponentCallback(component);
                             }
 
                             if (cloneComponent) {
@@ -2287,9 +2287,9 @@ export function initObjectExtensionProtoype() {
                     let currentClonedObject = cloneData[1];
                     let clonedComponent = null;
 
-                    if (!params.myUseWLClone && componentToClone.pp_clone != null) {
-                        clonedComponent = componentToClone.pp_clone(currentClonedObject, params.myDeepCloneParams, params.myCustomCloneParams);
-                    } else if (params.myUseWLClone || params.myUseWLCloneAsFallback) {
+                    if (!cloneSetup.myUseWLClone && componentToClone.pp_clone != null) {
+                        clonedComponent = componentToClone.pp_clone(currentClonedObject, cloneSetup.myDeepCloneSetup, cloneSetup.myCustomCloneSetup);
+                    } else if (cloneSetup.myUseWLClone || cloneSetup.myUseWLCloneAsFallback) {
                         clonedComponent = currentClonedObject.pp_addComponent(componentToClone.type, componentToClone);
                     }
 
@@ -2307,7 +2307,7 @@ export function initObjectExtensionProtoype() {
                     let componentToClone = cloneData[0];
                     let currentClonedComponent = cloneData[1];
 
-                    componentToClone.pp_clonePostProcess(currentClonedComponent, params.myDeepCloneParams, params.myCustomCloneParams);
+                    componentToClone.pp_clonePostProcess(currentClonedComponent, cloneSetup.myDeepCloneSetup, cloneSetup.myCustomCloneSetup);
                 }
             }
 
@@ -2315,8 +2315,8 @@ export function initObjectExtensionProtoype() {
         };
     }();
 
-    objectExtension.pp_isCloneable = function pp_isCloneable(params = new CloneParams()) {
-        if (params.myIgnoreNonCloneable || params.myIgnoreComponents || params.myUseWLClone || params.myUseWLCloneAsFallback) {
+    objectExtension.pp_isCloneable = function pp_isCloneable(cloneSetup = new CloneSetup()) {
+        if (cloneSetup.myIgnoreNonCloneable || cloneSetup.myIgnoreComponents || cloneSetup.myUseWLClone || cloneSetup.myUseWLCloneAsFallback) {
             return true;
         }
 
@@ -2331,14 +2331,14 @@ export function initObjectExtensionProtoype() {
             let components = this.pp_getComponentsSelf();
             for (let component of components) {
                 let cloneComponent = false;
-                if (params.myComponentsToInclude.length > 0) {
-                    cloneComponent = params.myComponentsToInclude.indexOf(component.type) != -1;
+                if (cloneSetup.myComponentsToInclude.length > 0) {
+                    cloneComponent = cloneSetup.myComponentsToInclude.indexOf(component.type) != -1;
                 } else {
-                    cloneComponent = params.myComponentsToIgnore.indexOf(component.type) == -1;
+                    cloneComponent = cloneSetup.myComponentsToIgnore.indexOf(component.type) == -1;
                 }
 
-                if (cloneComponent && params.myIgnoreComponentCallback != null) {
-                    cloneComponent = !params.myIgnoreComponentCallback(component);
+                if (cloneComponent && cloneSetup.myIgnoreComponentCallback != null) {
+                    cloneComponent = !cloneSetup.myIgnoreComponentCallback(component);
                 }
 
                 if (cloneComponent && component.pp_clone == null) {
@@ -2347,17 +2347,17 @@ export function initObjectExtensionProtoype() {
                 }
             }
 
-            if (isCloneable && !params.myIgnoreChildren) {
+            if (isCloneable && !cloneSetup.myIgnoreChildren) {
                 for (let child of object.pp_getChildren()) {
                     let cloneChild = false;
-                    if (params.myChildrenToInclude.length > 0) {
-                        cloneChild = params.myChildrenToInclude.find(childToInclude => childToInclude.pp_equals(child)) != null;
+                    if (cloneSetup.myChildrenToInclude.length > 0) {
+                        cloneChild = cloneSetup.myChildrenToInclude.find(childToInclude => childToInclude.pp_equals(child)) != null;
                     } else {
-                        cloneChild = params.myChildrenToIgnore.find(childToInclude => childToInclude.pp_equals(child)) == null;
+                        cloneChild = cloneSetup.myChildrenToIgnore.find(childToInclude => childToInclude.pp_equals(child)) == null;
                     }
 
-                    if (cloneChild && params.myIgnoreChildCallback != null) {
-                        cloneChild = !params.myIgnoreChildCallback(child);
+                    if (cloneChild && cloneSetup.myIgnoreChildCallback != null) {
+                        cloneChild = !cloneSetup.myIgnoreChildCallback(child);
                     }
 
                     if (cloneChild) {

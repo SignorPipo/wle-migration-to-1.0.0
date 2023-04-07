@@ -1,6 +1,6 @@
 import { Component, MeshComponent, Property, TextComponent } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
-import { CloneParams } from "../../plugin/wl/extensions/object_extension";
+import { CloneSetup } from "../../plugin/wl/extensions/object_extension";
 import { getPlayerObjects } from "../../pp/scene_objects_global";
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
 import { Timer } from "../cauldron/timer";
@@ -283,9 +283,9 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         }
         poolParams.myPercentageToAddWhenEmpty = 0;
         poolParams.myAmountToAddWhenEmpty = 10000;
-        poolParams.myCloneParams = new CloneParams();
-        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "material", this._myCloneMaterial);
-        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "mesh", this._myCloneMesh);
+        poolParams.myCloneSetup = new CloneSetup();
+        poolParams.myCloneSetup.myDeepCloneSetup.setDeepCloneComponentVariable(MeshComponent.TypeName, "material", this._myCloneMaterial);
+        poolParams.myCloneSetup.myDeepCloneSetup.setDeepCloneComponentVariable(MeshComponent.TypeName, "mesh", this._myCloneMesh);
         this._myPlanePool = new ObjectPool(this._myPlaneObject, poolParams);
 
         this._myBackgroundObject.pp_setActive(false);
