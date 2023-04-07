@@ -1,5 +1,6 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { EasingFunction, Timer, vec3_create } from "../pp";
+import { CloneUtils } from "../pp/cauldron/utils/clone_utils";
 
 export class ScaleOnSpawnComponent extends Component {
     static TypeName = "scale-on-spawn";
@@ -30,13 +31,7 @@ export class ScaleOnSpawnComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, this);
-
-        // trigger start, which otherwise would be called later
-        if (!clonedComponent.active) {
-            clonedComponent.active = true;
-            clonedComponent.active = false;
-        }
+        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
         return clonedComponent;
     }

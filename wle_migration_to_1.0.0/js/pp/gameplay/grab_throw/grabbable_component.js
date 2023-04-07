@@ -1,4 +1,5 @@
 import { Component, PhysXComponent, Property } from "@wonderlandengine/api";
+import { CloneUtils } from "../../cauldron/utils/clone_utils";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { getSceneObjects } from "../../pp/scene_objects_global";
 
@@ -163,13 +164,7 @@ export class GrabbableComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, this);
-
-        // trigger start, which otherwise would be called later
-        if (!clonedComponent.active) {
-            clonedComponent.active = true;
-            clonedComponent.active = false;
-        }
+        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
         return clonedComponent;
     }

@@ -1,17 +1,12 @@
 import { CollisionComponent, MeshComponent, PhysXComponent, TextComponent } from "@wonderlandengine/api";
+import { CloneUtils } from "../../../../cauldron/utils/clone_utils";
 import { MeshUtils } from "../../../../cauldron/utils/mesh_utils";
 import { DeepCloneParams } from "../../extensions/object_extension";
 
 export function initComponentCloneMod() {
 
     MeshComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, this);
-
-        // trigger start, which otherwise would be called later
-        if (!clonedComponent.active) {
-            clonedComponent.active = true;
-            clonedComponent.active = false;
-        }
+        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
         if (deepCloneParams.isDeepCloneComponentVariable(MeshComponent.TypeName, "material")) {
             clonedComponent.material = this.material.clone();
@@ -25,25 +20,13 @@ export function initComponentCloneMod() {
     };
 
     CollisionComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, this);
-
-        // trigger start, which otherwise would be called later
-        if (!clonedComponent.active) {
-            clonedComponent.active = true;
-            clonedComponent.active = false;
-        }
+        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
         return clonedComponent;
     };
 
     TextComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, this);
-
-        // trigger start, which otherwise would be called later
-        if (!clonedComponent.active) {
-            clonedComponent.active = true;
-            clonedComponent.active = false;
-        }
+        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
         if (deepCloneParams.isDeepCloneComponent(TextComponent.TypeName)) {
             clonedComponent.text = this.text.slice(0);
@@ -57,13 +40,7 @@ export function initComponentCloneMod() {
     };
 
     PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, this);
-
-        // trigger start, which otherwise would be called later
-        if (!clonedComponent.active) {
-            clonedComponent.active = true;
-            clonedComponent.active = false;
-        }
+        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
         return clonedComponent;
     };

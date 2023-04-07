@@ -1,4 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
+import { CloneUtils } from "../../../../cauldron/utils/clone_utils";
 import { isToolEnabled } from "../../../cauldron/tool_globals";
 import { EasyTransform } from "../easy_transform";
 
@@ -37,13 +38,7 @@ export class EasyTransformComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = targetObject.pp_addComponent(this.type, this);
-
-        // trigger start, which otherwise would be called later
-        if (!clonedComponent.active) {
-            clonedComponent.active = true;
-            clonedComponent.active = false;
-        }
+        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
         return clonedComponent;
     }
