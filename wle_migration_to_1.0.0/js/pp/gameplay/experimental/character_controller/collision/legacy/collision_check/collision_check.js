@@ -26,7 +26,7 @@ export class CollisionCheck {
     constructor(engine = getMainEngine()) {
         this._myEngine = engine;
 
-        this._myRaycastSetup = new RaycastSetup();
+        this._myRaycastSetup = new RaycastSetup(this._myEngine.physics);
         this._myRaycastResult = new RaycastResults();
         this._myFixRaycastResult = new RaycastResults();
 
@@ -137,13 +137,13 @@ CollisionCheck.prototype._raycastAndDebug = function () {
 
         let raycastResult = null;
         if (true) {
-            raycastResult = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResult, this._myEngine.physics);
+            raycastResult = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResult);
         } else {
             // Quick debug to remove raycasts and/or let all raycasts fail
 
             let raycastAlways = false;
             if (raycastAlways || !this._myRaycastResult.isColliding()) {
-                raycastResult = PhysicsUtils.raycast(this._myRaycastSetup, tempRaycastResult, this._myEngine.physics);
+                raycastResult = PhysicsUtils.raycast(this._myRaycastSetup, tempRaycastResult);
             }
 
             if (!this._myRaycastResult.isColliding() && tempRaycastResult.isColliding()) {

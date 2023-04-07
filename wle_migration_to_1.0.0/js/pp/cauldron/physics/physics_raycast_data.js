@@ -12,11 +12,12 @@ let raycastResults = PhysicsUtils.raycast(raycastSetup);
 */
 
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
+import { getMainEngine } from "../wl/engine_globals";
 import { PhysicsLayerFlags } from "./physics_layer_flags";
 
 export class RaycastSetup {
 
-    constructor() {
+    constructor(physics = (getMainEngine() != null) ? getMainEngine().physics : null) {
         this.myOrigin = vec3_create();
         this.myDirection = vec3_create();
         this.myDistance = 0;
@@ -25,6 +26,8 @@ export class RaycastSetup {
 
         this.myObjectsToIgnore = [];
         this.myIgnoreHitsInsideCollision = false;
+
+        this.myPhysics = physics;
     }
 
     copy(setup) {
@@ -36,6 +39,8 @@ export class RaycastSetup {
 
         this.myObjectsToIgnore.pp_copy(setup.myObjectsToIgnore);
         this.myIgnoreHitsInsideCollision = setup.myIgnoreHitsInsideCollision;
+
+        this.myPhysics = setup.myPhysics;
     }
 
     reset() {
@@ -202,7 +207,7 @@ RaycastResults.prototype.copy = function () {
             this.myRaycastSetup = null;
         } else {
             if (this.myRaycastSetup == null) {
-                this.myRaycastSetup = new RaycastSetup();
+                this.myRaycastSetup = new RaycastSetup(result.myRaycastSetup.myPhysics);
             }
 
             this.myRaycastSetup.copy(result.myRaycastSetup);

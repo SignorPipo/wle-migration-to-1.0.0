@@ -424,7 +424,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             row--;
         }
 
-        let meshCreationSetup = new MeshCreationSetup();
+        let meshCreationSetup = new MeshCreationSetup(this.engine);
 
         for (let i = 0; i < row + 1; i++) {
             for (let j = 0; j < column + 1; j++) {
@@ -469,7 +469,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             }
         }
 
-        let mesh = MeshUtils.createMesh(meshCreationSetup, this.engine);
+        let mesh = MeshUtils.createMesh(meshCreationSetup);
 
         return mesh;
     }

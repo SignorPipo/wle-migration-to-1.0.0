@@ -21,16 +21,18 @@ export class MeshCreationTriangleSetup {
 
 export class MeshCreationSetup {
 
-    constructor() {
+    constructor(engine = getMainEngine()) {
         this.myVertexes = [];
         this.myTriangles = [];
+
+        this.myEngine = engine;
     }
 }
 
 export function createPlaneMesh(engine = getMainEngine()) {
     let vertexCount = 4;
 
-    let meshSetup = new MeshCreationSetup();
+    let meshSetup = new MeshCreationSetup(engine);
 
     for (let i = 0; i < vertexCount; ++i) {
         let vertexSetup = new MeshCreationVertexSetup();
@@ -65,12 +67,12 @@ export function createPlaneMesh(engine = getMainEngine()) {
     meshSetup.myTriangles.push(firstTriangle);
     meshSetup.myTriangles.push(secondTriangle);
 
-    let mesh = createMesh(meshSetup, engine);
+    let mesh = createMesh(meshSetup);
 
     return mesh;
 }
 
-export function createMesh(meshCreationSetup, engine = getMainEngine()) {
+export function createMesh(meshCreationSetup) {
     let indexData = [];
     for (let triangle of meshCreationSetup.myTriangles) {
         indexData.push(triangle.myIndexes[0]);
@@ -82,7 +84,7 @@ export function createMesh(meshCreationSetup, engine = getMainEngine()) {
     indexDataUnsignedInt.pp_copy(indexData);
 
     let vertexCount = meshCreationSetup.myVertexes.length;
-    let mesh = new Mesh(engine, {
+    let mesh = new Mesh(meshCreationSetup.myEngine, {
         vertexCount: vertexCount,
         indexData: indexDataUnsignedInt,
         indexType: MeshIndexType.UnsignedInt,

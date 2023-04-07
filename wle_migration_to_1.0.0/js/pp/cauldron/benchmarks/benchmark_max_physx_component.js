@@ -38,7 +38,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
     _start() {
         this._myParentObject = this.object.pp_addObject();
 
-        this._myRaycastSetup = new RaycastSetup();
+        this._myRaycastSetup = new RaycastSetup(this.engine.physics);
         this._myRaycastResults = new RaycastResults();
 
         this._myStaticPhysXObjects = [];
@@ -179,7 +179,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
             this._myRaycastSetup.myDistance = distance;
             this._myRaycastSetup.myBlockLayerFlags.setAllFlagsActive();
 
-            let raycastResults = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResults, this.engine.physics);
+            let raycastResults = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResults);
 
             if (debugActive) {
                 getDebugVisualManager(this.engine).drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
