@@ -54,6 +54,9 @@ export class PlayerLocomotionParams {
 
         this.myTeleportPositionObject = null;
 
+        this.myDebugHorizontalEnabled = false;
+        this.myDebugVerticalEnabled = false;
+
         this.myMoveThroughCollisionShortcutEnabled = false;
         this.myMoveHeadShortcutEnabled = false;
 

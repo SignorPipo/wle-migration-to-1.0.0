@@ -37,6 +37,8 @@ export class PlayerLocomotionComponent extends Component {
         _myVRDirectionReferenceObject: Property.object(),
         _myTeleportParableStartReferenceObject: Property.object(),
         _myTeleportPositionObject: Property.object(),
+        _myDebugHorizontalEnabled: Property.bool(false),
+        _myDebugVerticalEnabled: Property.bool(false),
         _myUseCleanedVersion: Property.bool(true),
         _myMoveThroughCollisionShortcutEnabled: Property.bool(false),
         _myMoveHeadShortcutEnabled: Property.bool(false)
@@ -76,6 +78,9 @@ export class PlayerLocomotionComponent extends Component {
 
         params.myMoveThroughCollisionShortcutEnabled = this._myMoveThroughCollisionShortcutEnabled;
         params.myMoveHeadShortcutEnabled = this._myMoveHeadShortcutEnabled;
+
+        params.myDebugHorizontalEnabled = this._myDebugHorizontalEnabled;
+        params.myDebugVerticalEnabled = this._myDebugVerticalEnabled;
 
         params.myPhysicsBlockLayerFlags.copy(this._getPhysicsBlockLayersFlags());
 

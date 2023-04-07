@@ -1,5 +1,5 @@
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
-import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { CollisionCheck } from "./collision_check";
 
 CollisionCheck.prototype._horizontalSlide = function () {
