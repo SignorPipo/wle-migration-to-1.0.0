@@ -1,4 +1,5 @@
 import { FadeViewComponent } from "./fade_view_component";
+import { FunComponent } from "./fun_component";
 import { GrabbableSpawnerComponent } from "./grabbable_spawner_component";
 import { LoadAudioComponent } from "./load_audio_component";
 import { ParticleComponent } from "./particle_component";
@@ -26,4 +27,5 @@ export function registerPlaygroundComponents(engine) {
     engine.registerComponent(SFXOnGrabThrowComponent);
     engine.registerComponent(TargetHitCheckComponent);
     engine.registerComponent(WaveMovementComponent);
+    engine.registerComponent(FunComponent);
 }

@@ -1,5 +1,5 @@
 import { Component, PhysXComponent } from "@wonderlandengine/api";
-import { GamepadButtonID, GrabbableComponent, PhysicsCollisionCollector, getAudioManager, getLeftGamepad } from "../pp";
+import { GrabbableComponent, PhysicsCollisionCollector, getAudioManager } from "../pp";
 import { ParticlesSpawnerComponent } from "./particles_spawner_component";
 
 export class TargetHitCheckComponent extends Component {
@@ -23,8 +23,6 @@ export class TargetHitCheckComponent extends Component {
                 this._strike(collisionStart);
             }
         }
-
-        this._fun();
     }
 
     _strike(strikeSource) {
@@ -33,11 +31,5 @@ export class TargetHitCheckComponent extends Component {
         this._mySFX.play();
 
         this._myParticlesSpawner.spawn(strikeSource.pp_getPosition());
-    }
-
-    _fun() {
-        if (getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressed()) {
-            this._myParticlesSpawner.spawn(this.object.pp_getPosition());
-        }
     }
 }

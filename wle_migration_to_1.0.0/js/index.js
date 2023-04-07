@@ -15,6 +15,7 @@ import * as API from "@wonderlandengine/api"; // Deprecated: Backward compatibil
 
 /* wle:auto-imports:start */
 import {FadeViewComponent} from './playground/fade_view_component.js';
+import {FunComponent} from './playground/fun_component.js';
 import {GrabbableSpawnerComponent} from './playground/grabbable_spawner_component.js';
 import {LoadAudioComponent} from './playground/load_audio_component.js';
 import {MouseLookComponent} from '@wonderlandengine/components';
@@ -77,6 +78,7 @@ if (vrButton) {
 
 /* wle:auto-register:start */
 engine.registerComponent(FadeViewComponent);
+engine.registerComponent(FunComponent);
 engine.registerComponent(GrabbableSpawnerComponent);
 engine.registerComponent(LoadAudioComponent);
 engine.registerComponent(MouseLookComponent);
