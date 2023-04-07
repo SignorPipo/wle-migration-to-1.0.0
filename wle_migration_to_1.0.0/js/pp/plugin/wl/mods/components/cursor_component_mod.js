@@ -33,6 +33,8 @@ export function initCursorComponentModPrototype() {
 
         this.pointerId = null;
 
+        this.updatePointerStyle = false;
+
         this.lastClientX = null;
         this.lastClientY = null;
         this.lastWidth = null;
@@ -186,6 +188,8 @@ export function initCursorComponentModPrototype() {
             if (this.hoveringObject == null) {
                 this.pointerId = null;
             }
+
+            this.updatePointerStyle = false;
         };
     }();
 
@@ -204,13 +208,18 @@ export function initCursorComponentModPrototype() {
 
                 /* Hover new object */
                 this.hoveringObject = rayHit.objects[0];
-                if (this.styleCursor) document.body.style.cursor = "pointer";
 
                 let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
                 if (cursorTarget) {
                     cursorTarget.onHover.notify(this.hoveringObject, this);
                 }
                 this.globalTarget.onHover.notify(this.hoveringObject, this);
+
+                if (this.styleCursor && !this.isRealDown && cursorTarget != null && !cursorTarget.isSurface) {
+                    document.body.style.cursor = "pointer";
+                } else if (document.body.style.cursor == "pointer") {
+                    document.body.style.cursor = "default";
+                }
 
                 if (!this._isDown() && this.isRealDown) {
                     this.isDown = false;
@@ -219,6 +228,15 @@ export function initCursorComponentModPrototype() {
 
                     if (cursorTarget) cursorTarget.onDownOnHover.notify(this.hoveringObject, this);
                     this.globalTarget.onDownOnHover.notify(this.hoveringObject, this);
+                }
+            }
+
+            if (this.updatePointerStyle) {
+                let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
+                if (this.styleCursor && !this.isRealDown && cursorTarget != null && !cursorTarget.isSurface) {
+                    document.body.style.cursor = "pointer";
+                } else if (document.body.style.cursor == "pointer") {
+                    document.body.style.cursor = "default";
                 }
             }
 
@@ -272,7 +290,9 @@ export function initCursorComponentModPrototype() {
             this.globalTarget.onUnhover.notify(this.hoveringObject, this);
 
             this.hoveringObject = null;
-            if (this.styleCursor) document.body.style.cursor = "default";
+            if (this.styleCursor && !this.isRealDown) {
+                document.body.style.cursor = "default";
+            }
         }
 
         if (this.hoveringObject) {
@@ -412,6 +432,8 @@ export function initCursorComponentModPrototype() {
             } else {
                 this.pointerId = null;
             }
+
+            this.updatePointerStyle = true;
         } else {
             this.isRealDown = false;
         }
@@ -461,7 +483,9 @@ export function initCursorComponentModPrototype() {
         }
 
         this.hoveringObject = null;
-        if (this.styleCursor) document.body.style.cursor = "default";
+        if (this.styleCursor) {
+            document.body.style.cursor = "default";
+        }
 
         this.isDown = false;
         this.lastIsDown = false;
