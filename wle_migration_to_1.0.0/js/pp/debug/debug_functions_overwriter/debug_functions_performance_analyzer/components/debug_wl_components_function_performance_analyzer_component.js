@@ -1,6 +1,7 @@
 import { AnimationComponent, CollisionComponent, Component, InputComponent, LightComponent, MeshComponent, Property, TextComponent, ViewComponent } from "@wonderlandengine/api";
 import { Timer } from "../../../../cauldron/cauldron/timer";
 import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
+import { getWASM } from "../../../../cauldron/wl/engine_globals";
 
 export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-wl-components-functions-performance-analyzer";
@@ -94,18 +95,18 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
         ];
 
         for (let nativeComponentType of nativeComponentTypes) {
-            objectsByReference.push([Object.getPrototypeOf(this.engine._wrapComponent(nativeComponentType.TypeName, this.engine.wasm._typeIndexFor(nativeComponentType.TypeName), 0)),
+            objectsByReference.push([Object.getPrototypeOf(this.engine._wrapComponent(nativeComponentType.TypeName, getWASM(this.engine)._typeIndexFor(nativeComponentType.TypeName), 0)),
             "{\"" + nativeComponentType.TypeName + "\"}"]);
         }
 
-        for (let componentType of this.engine.wasm._componentTypes) {
+        for (let componentType of getWASM(this.engine)._componentTypes) {
             objectsByReference.push([componentType.prototype,
             "{\"" + componentType.TypeName + "\"}"]);
         }
     }
 
     _addComponentInstanceReferences(objectsByReference) {
-        for (let component of this.engine.wasm._components) {
+        for (let component of getWASM(this.engine)._components) {
             let id = "";
 
             switch (this._myComponentInstanceID) {

@@ -60,3 +60,23 @@ export function getPhysics(engine = getMainEngine()) {
 
     return physics;
 }
+
+export function getCanvas(engine = getMainEngine()) {
+    let canvas = null;
+
+    if (engine != null) {
+        canvas = engine.canvas;
+    }
+
+    return canvas;
+}
+
+export function getWASM(engine = getMainEngine()) {
+    let wasm = null;
+
+    if (engine != null) {
+        wasm = engine.wasm;
+    }
+
+    return wasm;
+}

@@ -1,7 +1,7 @@
 import { InputComponent, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
-import { getPhysics, getScene } from "../../../../cauldron/wl/engine_globals";
+import { getCanvas, getPhysics, getScene } from "../../../../cauldron/wl/engine_globals";
 import { InputUtils } from "../../../../input/cauldron/input_utils";
 import { mat4_create, quat2_create, quat_create, vec3_create } from "../../../js/extensions/array_extension";
 import { PluginUtils } from "../../../utils/plugin_utils";
@@ -525,15 +525,15 @@ export function initCursorComponentModPrototype() {
          * otherwise just use the objects transformation */
         if (this.viewComponent != null) {
             let onClick = this.onClick.bind(this);
-            this.engine.canvas.addEventListener("click", onClick);
+            getCanvas(this.engine).addEventListener("click", onClick);
             let onPointerDown = this.onPointerDown.bind(this);
-            this.engine.canvas.addEventListener("pointerdown", onPointerDown);
+            getCanvas(this.engine).addEventListener("pointerdown", onPointerDown);
             let onPointerMove = this.onPointerMove.bind(this);
-            this.engine.canvas.addEventListener("pointermove", onPointerMove);
+            getCanvas(this.engine).addEventListener("pointermove", onPointerMove);
             let onPointerUp = this.onPointerUp.bind(this);
-            this.engine.canvas.addEventListener("pointerup", onPointerUp);
+            getCanvas(this.engine).addEventListener("pointerup", onPointerUp);
             let onPointerLeave = this.onPointerLeave.bind(this);
-            this.engine.canvas.addEventListener("pointerleave", onPointerLeave);
+            getCanvas(this.engine).addEventListener("pointerleave", onPointerLeave);
 
             this.projectionMatrix = mat4_create();
             this.viewComponent.projectionMatrix.mat4_invert(this.projectionMatrix);
@@ -541,11 +541,11 @@ export function initCursorComponentModPrototype() {
             window.addEventListener("resize", onViewportResize);
 
             this.onDestroyCallbacks.push(() => {
-                this.engine.canvas.removeEventListener("click", onClick);
-                this.engine.canvas.removeEventListener("pointerdown", onPointerDown);
-                this.engine.canvas.removeEventListener("pointermove", onPointerMove);
-                this.engine.canvas.removeEventListener("pointerup", onPointerUp);
-                this.engine.canvas.removeEventListener("pointerleave", onPointerLeave);
+                getCanvas(this.engine).removeEventListener("click", onClick);
+                getCanvas(this.engine).removeEventListener("pointerdown", onPointerDown);
+                getCanvas(this.engine).removeEventListener("pointermove", onPointerMove);
+                getCanvas(this.engine).removeEventListener("pointerup", onPointerUp);
+                getCanvas(this.engine).removeEventListener("pointerleave", onPointerLeave);
                 window.removeEventListener("resize", onViewportResize);
             });
         }

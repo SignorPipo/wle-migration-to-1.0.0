@@ -3,7 +3,7 @@ import { Timer } from "../../cauldron/cauldron/timer";
 import { RaycastResults } from "../../cauldron/physics/physics_raycast_data";
 import { PhysicsUtils } from "../../cauldron/physics/physics_utils";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
+import { getCanvas, getMainEngine } from "../../cauldron/wl/engine_globals";
 import { mat4_create, quat_create, vec2_create, vec3_create } from "../../plugin/js/extensions/array_extension";
 import { getPlayerObjects } from "../../pp/scene_objects_global";
 
@@ -178,7 +178,7 @@ export class Mouse {
     }
 
     isTargetingRenderCanvas() {
-        return this.isInsideView() && this._myLastValidPointerEvent != null && this._myLastValidPointerEvent.target == this._myEngine.canvas;
+        return this.isInsideView() && this._myLastValidPointerEvent != null && this._myLastValidPointerEvent.target == getCanvas(this._myEngine);
     }
 
     // The origin and direction are set by the mouse
@@ -269,7 +269,7 @@ export class Mouse {
         let callbackID = "pp_internal_target_only_render_canvas_callback";
         if (targetOnlyRenderCanvas) {
             this.addPointerEventValidCallback(callbackID, function (event) {
-                return event.target == this._myEngine.canvas;
+                return event.target == getCanvas(this._myEngine);
             });
         } else {
             this.removePointerEventValidCallback(callbackID);
@@ -280,7 +280,7 @@ export class Mouse {
         return this._myLastValidPointerEvent;
     }
 
-    // Can be used to specify that only some pointerType are valid (eg: mouse, touch, pen) or just some target (eg: this._myEngine.canvas)
+    // Can be used to specify that only some pointerType are valid (eg: mouse, touch, pen) or just some target (eg: getCanvas(this._myEngine))
     addPointerEventValidCallback(id, callback) {
         this._myPointerEventValidCallbacks.set(id, callback);
     }

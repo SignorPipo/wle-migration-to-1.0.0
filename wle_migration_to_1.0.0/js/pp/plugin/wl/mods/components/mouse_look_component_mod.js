@@ -2,6 +2,7 @@ import { MouseLookComponent } from "@wonderlandengine/components";
 import { Timer } from "../../../../cauldron/cauldron/timer";
 import { vec3_create } from "../../../js/extensions/array_extension";
 import { PluginUtils } from "../../../utils/plugin_utils";
+import { getCanvas } from "../../../../cauldron/wl/engine_globals";
 
 export function initMouseLookComponentMod() {
     initMouseLookComponentModPrototype();
@@ -24,12 +25,12 @@ export function initMouseLookComponentModPrototype() {
 
         if (this.requireMouseDown) {
             if (this.mouseButtonIndex == 2) {
-                this.engine.canvas.addEventListener("contextmenu", function (event) {
+                getCanvas(this.engine).addEventListener("contextmenu", function (event) {
                     event.preventDefault();
                 }, false);
             }
 
-            this.engine.canvas.addEventListener("pointerdown", function (event) {
+            getCanvas(this.engine).addEventListener("pointerdown", function (event) {
                 if (this.pointerId != null) return;
 
                 if (!this.mouseDown) {
