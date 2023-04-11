@@ -30,7 +30,7 @@ export class Direction2DTo3DConverter {
         this._myLastValidFlatForward = vec3_create();
         this._myLastValidFlatRight = vec3_create();
 
-        // Setup
+        // Config
 
         this._myMinAngleToBeValid = 5;
     }

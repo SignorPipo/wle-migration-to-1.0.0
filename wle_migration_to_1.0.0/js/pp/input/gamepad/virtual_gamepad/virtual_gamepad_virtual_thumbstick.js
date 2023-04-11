@@ -149,7 +149,7 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     _build(thumbstickElementParent, virtualThumbstickHandedness) {
-        // Setup variables used for the sizes and the like
+        // Config variables used for the sizes and the like
 
         let thumbstickSize = this._myVirtualGamepadParams.myThumbstickSize * this._myVirtualGamepadParams.myInterfaceScale;
 

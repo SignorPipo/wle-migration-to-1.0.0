@@ -117,7 +117,7 @@ export class VirtualGamepadComponent extends Component {
             params.myAutoUpdateVisibility = false;
         }
 
-        this._advancedSetup(params);
+        this._advancedConfig(params);
 
         this._myVirtualGamepad = new VirtualGamepad(params);
         if (!params.myAutoUpdateVisibility) {
@@ -145,7 +145,7 @@ export class VirtualGamepadComponent extends Component {
         this._myVirtualGamepad.update(dt);
     }
 
-    _advancedSetup(params) {
+    _advancedConfig(params) {
         params.myButtonsOrder[Handedness.LEFT] = [null, null, null, null, null];
         params.myButtonsOrder[Handedness.RIGHT] = [null, null, null, null, null];
 

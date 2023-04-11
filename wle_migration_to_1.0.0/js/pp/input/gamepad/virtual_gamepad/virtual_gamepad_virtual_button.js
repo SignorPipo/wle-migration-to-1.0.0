@@ -107,7 +107,7 @@ export class VirtualGamepadVirtualButton {
     }
 
     _build(buttonElementParent, virtualButtonHandedness, virtualButtonIndex) {
-        // Setup variables used for the sizes and the like
+        // Config variables used for the sizes and the like
 
         let buttonSize = this._myVirtualGamepadParams.myButtonSize * this._myVirtualGamepadParams.myInterfaceScale;
         let buttonsRingRadius = this._myVirtualGamepadParams.myButtonsRingRadius * this._myVirtualGamepadParams.myInterfaceScale;

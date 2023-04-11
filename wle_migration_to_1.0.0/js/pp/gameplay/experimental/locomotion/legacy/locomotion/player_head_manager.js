@@ -67,7 +67,7 @@ export class PlayerHeadManager {
 
         this._myActive = true;
 
-        // Setup
+        // Config
 
         this._myResyncCounterFrames = 3;
         this._myIsSyncedDelayCounterFrames = 1;

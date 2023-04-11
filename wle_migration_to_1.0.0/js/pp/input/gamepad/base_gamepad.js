@@ -34,7 +34,7 @@ export class BaseGamepad {
 
         this._myPulseInfo = new GamepadPulseInfo();
 
-        // Setup
+        // Config
 
         this._myMultiplePressMaxDelay = 0.4;
         this._myMultipleTouchMaxDelay = 0.4;
