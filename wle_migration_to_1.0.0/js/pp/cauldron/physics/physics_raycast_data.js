@@ -12,12 +12,12 @@ let raycastResults = PhysicsUtils.raycast(raycastParams);
 */
 
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../wl/engine_globals";
+import { getPhysics } from "../wl/engine_globals";
 import { PhysicsLayerFlags } from "./physics_layer_flags";
 
 export class RaycastParams {
 
-    constructor(physics = (getMainEngine() != null) ? getMainEngine().physics : null) {
+    constructor(physics = getPhysics()) {
         this.myOrigin = vec3_create();
         this.myDirection = vec3_create();
         this.myDistance = 0;

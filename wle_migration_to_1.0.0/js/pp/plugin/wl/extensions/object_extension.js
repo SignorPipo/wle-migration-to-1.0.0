@@ -120,6 +120,7 @@
 import { Object3D } from "@wonderlandengine/api";
 import { mat3_create, mat4_create, quat2_create, quat_create, vec3_create } from "../../js/extensions/array_extension";
 import { PluginUtils } from "../../utils/plugin_utils";
+import { getScene } from "../../../cauldron/wl/engine_globals";
 
 export function initObjectExtension() {
     initObjectExtensionProtoype();
@@ -2217,7 +2218,7 @@ export function initObjectExtensionProtoype() {
                     let parent = cloneData[0];
                     let objectToClone = cloneData[1];
 
-                    let currentClonedObject = (parent != null) ? parent.pp_addObject() : this.pp_getEngine().scene.pp_addObject();
+                    let currentClonedObject = (parent != null) ? parent.pp_addObject() : getScene(this.pp_getEngine()).pp_addObject();
                     currentClonedObject.pp_setName(objectToClone.pp_getName());
 
                     currentClonedObject.pp_setScaleLocal(objectToClone.pp_getScaleLocal(scale));
@@ -2701,7 +2702,7 @@ export function initObjectExtensionProtoype() {
     // Cauldron
 
     objectExtension.pp_addObject = function pp_addObject() {
-        return this.pp_getEngine().scene.addObject(this);
+        return getScene(this.pp_getEngine()).addObject(this);
     };
 
     objectExtension.pp_getName = function pp_getName() {
@@ -2742,22 +2743,22 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_reserveObjectsSelf = function pp_reserveObjectsSelf(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapSelf();
-        _reserveObjects(count, componentsAmountMap, this.pp_getEngine().scene);
+        _reserveObjects(count, componentsAmountMap, getScene(this.pp_getEngine()));
     };
 
     objectExtension.pp_reserveObjectsHierarchy = function pp_reserveObjectsHierarchy(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapHierarchy();
-        _reserveObjects(count, componentsAmountMap, this.pp_getEngine().scene);
+        _reserveObjects(count, componentsAmountMap, getScene(this.pp_getEngine()));
     };
 
     objectExtension.pp_reserveObjectsDescendants = function pp_reserveObjectsDescendants(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapDescendants();
-        _reserveObjects(count, componentsAmountMap, this.pp_getEngine().scene);
+        _reserveObjects(count, componentsAmountMap, getScene(this.pp_getEngine()));
     };
 
     objectExtension.pp_reserveObjectsChildren = function pp_reserveObjectsChildren(count) {
         let componentsAmountMap = this.pp_getComponentsAmountMapChildren();
-        _reserveObjects(count, componentsAmountMap, this.pp_getEngine().scene);
+        _reserveObjects(count, componentsAmountMap, getScene(this.pp_getEngine()));
     };
 
     objectExtension.pp_getComponentsAmountMap = function pp_getComponentsAmountMap(amountMap = new Map()) {

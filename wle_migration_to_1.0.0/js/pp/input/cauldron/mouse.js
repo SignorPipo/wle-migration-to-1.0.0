@@ -185,7 +185,7 @@ export class Mouse {
     raycastWorld(raycastParams, raycastResults = new RaycastResults()) {
         this.getOriginWorld(raycastParams.myOrigin);
         this.getDirectionWorld(raycastParams.myDirection);
-        raycastResults = PhysicsUtils.raycast(raycastParams, raycastResults, this._myEngine.physics);
+        raycastResults = PhysicsUtils.raycast(raycastParams, raycastResults, getPhysics(this._myEngine));
         return raycastResults;
     }
 

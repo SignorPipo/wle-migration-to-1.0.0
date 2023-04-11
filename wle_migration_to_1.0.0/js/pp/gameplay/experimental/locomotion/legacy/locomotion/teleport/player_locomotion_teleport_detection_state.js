@@ -2,6 +2,7 @@ import { PhysicsLayerFlags } from "../../../../../../cauldron/physics/physics_la
 import { RaycastResults, RaycastParams } from "../../../../../../cauldron/physics/physics_raycast_data";
 import { PhysicsUtils } from "../../../../../../cauldron/physics/physics_utils";
 import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
+import { getPhysics } from "../../../../../../cauldron/wl/engine_globals";
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
 import { getGamepads, getMouse } from "../../../../../../input/cauldron/input_globals";
 import { MouseButtonID } from "../../../../../../input/cauldron/mouse";
@@ -264,7 +265,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
         raycastParams.myIgnoreHitsInsideCollision = true;
         raycastParams.myBlockLayerFlags.setMask(this._myTeleportParams.myDetectionParams.myTeleportBlockLayerFlags.getMask());
-        raycastParams.myPhysics = this._myTeleportParams.myEngine.physics;
+        raycastParams.myPhysics = getPhysics(this._myTeleportParams.myEngine);
 
         raycastParams.myObjectsToIgnore.pp_copy(this._myTeleportParams.myCollisionCheckParams.myHorizontalObjectsToIgnore);
         for (let objectToIgnore of this._myTeleportParams.myCollisionCheckParams.myVerticalObjectsToIgnore) {
@@ -590,7 +591,7 @@ PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = function 
 
                 raycastParams.myIgnoreHitsInsideCollision = true;
                 raycastParams.myBlockLayerFlags.setMask(this._myTeleportParams.myDetectionParams.myTeleportFloorLayerFlags.getMask());
-                raycastParams.myPhysics = this._myTeleportParams.myEngine.physics;
+                raycastParams.myPhysics = getPhysics(this._myTeleportParams.myEngine);
 
                 raycastParams.myObjectsToIgnore.pp_copy(this._myTeleportParams.myCollisionCheckParams.myHorizontalObjectsToIgnore);
                 for (let objectToIgnore of this._myTeleportParams.myCollisionCheckParams.myVerticalObjectsToIgnore) {

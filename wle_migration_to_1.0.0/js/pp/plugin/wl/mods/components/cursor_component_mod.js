@@ -1,6 +1,7 @@
 import { InputComponent, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
+import { getPhysics, getScene } from "../../../../cauldron/wl/engine_globals";
 import { InputUtils } from "../../../../input/cauldron/input_utils";
 import { mat4_create, quat2_create, quat_create, vec3_create } from "../../../js/extensions/array_extension";
 import { PluginUtils } from "../../../utils/plugin_utils";
@@ -149,8 +150,8 @@ export function initCursorComponentModPrototype() {
                     this.object.pp_getForward(this.direction);
                 }
                 let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                    this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
-                    this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
+                    getScene(this.engine).rayCast(this.origin, this.direction, this.collisionMask) :
+                    getPhysics(this.engine).rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
                 if (rayHit.hitCount > 0) {
                     this.cursorPos.set(rayHit.locations[0]);
@@ -462,8 +463,8 @@ export function initCursorComponentModPrototype() {
             this.direction.vec3_normalize(this.direction);
             this.direction.vec3_transformQuat(this.object.pp_getTransformQuat(transformWorld), this.direction);
             let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) :
-                this.engine.physics.rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
+                getScene(this.engine).rayCast(this.origin, this.direction, this.collisionMask) :
+                getPhysics(this.engine).rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
             if (rayHit.hitCount > 0) {
                 this.cursorPos.set(rayHit.locations[0]);

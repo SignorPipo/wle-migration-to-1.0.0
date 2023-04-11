@@ -5,6 +5,7 @@ import { Timer } from "../cauldron/timer";
 import { PhysicsCollisionCollector } from "../physics/physics_collision_collector";
 import { RaycastResults, RaycastParams } from "../physics/physics_raycast_data";
 import { PhysicsUtils } from "../physics/physics_utils";
+import { getPhysics } from "../wl/engine_globals";
 
 // Adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away
 export class BenchmarkMaxPhysXComponent extends Component {
@@ -38,7 +39,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
     _start() {
         this._myParentObject = this.object.pp_addObject();
 
-        this._myRaycastParams = new RaycastParams(this.engine.physics);
+        this._myRaycastParams = new RaycastParams(getPhysics(this.engine));
         this._myRaycastResults = new RaycastResults();
 
         this._myStaticPhysXObjects = [];

@@ -1,12 +1,12 @@
 import { Component } from "@wonderlandengine/api";
-import { GrabberHandComponent, getAudioManager } from "../pp";
+import { GrabberHandComponent, getAudioManager, getScene } from "../pp";
 
 export class SFXOnGrabThrowComponent extends Component {
     static TypeName = "sfx-on-grab-throw";
     static Properties = {};
 
     start() {
-        let grabbers = this.engine.scene.pp_getComponents(GrabberHandComponent);
+        let grabbers = getScene(this.engine).pp_getComponents(GrabberHandComponent);
 
         for (let grabber of grabbers) {
             grabber.registerGrabEventListener(this, this._onGrab.bind(this));

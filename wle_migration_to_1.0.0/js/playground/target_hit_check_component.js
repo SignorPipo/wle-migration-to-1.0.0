@@ -1,5 +1,5 @@
 import { Component, PhysXComponent } from "@wonderlandengine/api";
-import { GrabbableComponent, PhysicsCollisionCollector, getAudioManager } from "../pp";
+import { GrabbableComponent, PhysicsCollisionCollector, getAudioManager, getScene } from "../pp";
 import { ParticlesSpawnerComponent } from "./particles_spawner_component";
 
 export class TargetHitCheckComponent extends Component {
@@ -8,7 +8,7 @@ export class TargetHitCheckComponent extends Component {
 
     start() {
         this._myTrigger = this.object.pp_getComponent(PhysXComponent);
-        this._myParticlesSpawner = this.engine.scene.pp_getComponent(ParticlesSpawnerComponent);
+        this._myParticlesSpawner = getScene(this.engine).pp_getComponent(ParticlesSpawnerComponent);
         this._myCollisionsCollector = new PhysicsCollisionCollector(this._myTrigger, true);
 
         this._mySFX = getAudioManager(this.engine).createAudioPlayer("strike");

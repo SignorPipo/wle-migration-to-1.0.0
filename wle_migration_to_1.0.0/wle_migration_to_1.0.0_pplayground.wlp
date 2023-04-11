@@ -2878,7 +2878,6 @@
             "sourcePaths": [
                 "js/index.js",
                 "js",
-                "js/pp",
                 "js/pp/pp",
                 "js/pp/pp/components",
                 "js/pp/plugin",

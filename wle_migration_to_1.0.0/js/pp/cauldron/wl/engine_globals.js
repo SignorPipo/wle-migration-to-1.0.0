@@ -40,3 +40,23 @@ export function removeEngine(engine) {
 export function hasEngine(engine) {
     return _myEngines.indexOf(engine) >= 0;
 }
+
+export function getScene(engine = getMainEngine()) {
+    let scene = null;
+
+    if (engine != null) {
+        scene = engine.scene;
+    }
+
+    return scene;
+}
+
+export function getPhysics(engine = getMainEngine()) {
+    let physics = null;
+
+    if (engine != null) {
+        physics = engine.physics;
+    }
+
+    return physics;
+}

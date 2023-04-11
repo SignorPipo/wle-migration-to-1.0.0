@@ -1,6 +1,6 @@
 import { RaycastHit, RaycastResults, RaycastParams } from "../../../../../../cauldron/physics/physics_raycast_data";
 import { PhysicsUtils } from "../../../../../../cauldron/physics/physics_utils";
-import { getMainEngine } from "../../../../../../cauldron/wl/engine_globals";
+import { getMainEngine, getPhysics } from "../../../../../../cauldron/wl/engine_globals";
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
 import { vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { CollisionCheckParams, CollisionRuntimeParams } from "./collision_params";
@@ -26,7 +26,7 @@ export class CollisionCheck {
     constructor(engine = getMainEngine()) {
         this._myEngine = engine;
 
-        this._myRaycastParams = new RaycastParams(this._myEngine.physics);
+        this._myRaycastParams = new RaycastParams(getPhysics(this._myEngine));
         this._myRaycastResult = new RaycastResults();
         this._myFixRaycastResult = new RaycastResults();
 
