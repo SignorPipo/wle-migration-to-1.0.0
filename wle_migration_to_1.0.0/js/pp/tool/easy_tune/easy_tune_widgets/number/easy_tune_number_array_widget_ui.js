@@ -139,7 +139,7 @@ export class EasyTuneNumberArrayWidgetUI extends EasyTuneBaseWidgetUI {
 
             this.myValueIncreaseButtonBackgroundComponents[i] = this.myValueIncreaseButtonBackgrounds[i].pp_addComponent(MeshComponent);
             this.myValueIncreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
-            this.myValueIncreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            this.myValueIncreaseButtonBackgroundComponents[i].material = this._myParams.myPlaneMaterial.clone();
             this.myValueIncreaseButtonBackgroundComponents[i].material.color = this._myConfig.myBackgroundColor;
 
             this.myValueIncreaseButtonTextComponents[i] = this.myValueIncreaseButtonTexts[i].pp_addComponent(TextComponent);
@@ -154,7 +154,7 @@ export class EasyTuneNumberArrayWidgetUI extends EasyTuneBaseWidgetUI {
 
             this.myValueDecreaseButtonBackgroundComponents[i] = this.myValueDecreaseButtonBackgrounds[i].pp_addComponent(MeshComponent);
             this.myValueDecreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
-            this.myValueDecreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            this.myValueDecreaseButtonBackgroundComponents[i].material = this._myParams.myPlaneMaterial.clone();
             this.myValueDecreaseButtonBackgroundComponents[i].material.color = this._myConfig.myBackgroundColor;
 
             this.myValueDecreaseButtonTextComponents[i] = this.myValueDecreaseButtonTexts[i].pp_addComponent(TextComponent);
@@ -181,7 +181,7 @@ export class EasyTuneNumberArrayWidgetUI extends EasyTuneBaseWidgetUI {
         // Increase/Decrease
         this.myStepIncreaseButtonBackgroundComponent = this.myStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myStepIncreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myStepIncreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myStepIncreaseButtonTextComponent = this.myStepIncreaseButtonText.pp_addComponent(TextComponent);
@@ -196,7 +196,7 @@ export class EasyTuneNumberArrayWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myStepDecreaseButtonBackgroundComponent = this.myStepDecreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myStepDecreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myStepDecreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myStepDecreaseButtonTextComponent = this.myStepDecreaseButtonText.pp_addComponent(TextComponent);

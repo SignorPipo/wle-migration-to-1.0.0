@@ -11,10 +11,10 @@ export class EasyTuneBaseWidgetUI {
         this._myEngine = engine;
     }
 
-    build(parentObject, config, additionalSetup) {
+    build(parentObject, config, params) {
         this._myParentObject = parentObject;
         this._myConfig = config;
-        this._myAdditionalSetup = additionalSetup;
+        this._myParams = params;
 
         this._myImportExportButtonsActive = true;
 
@@ -118,7 +118,7 @@ export class EasyTuneBaseWidgetUI {
     // Transforms
 
     _setTransforms() {
-        this.myPivotObject.pp_setPositionLocal(this._myConfig.myPivotObjectPositions[this._myAdditionalSetup.myHandedness]);
+        this.myPivotObject.pp_setPositionLocal(this._myConfig.myPivotObjectPositions[this._myParams.myHandedness]);
 
         this.myBackPanel.pp_setPositionLocal(this._myConfig.myBackPanelPosition);
         this.myBackBackground.pp_scaleObject(this._myConfig.myBackBackgroundScale);
@@ -172,7 +172,7 @@ export class EasyTuneBaseWidgetUI {
     _addComponents() {
         this.myBackBackgroundComponent = this.myBackBackground.pp_addComponent(MeshComponent);
         this.myBackBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myBackBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myBackBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myBackBackgroundComponent.material.color = this._myConfig.myBackBackgroundColor;
 
         // Display
@@ -191,7 +191,7 @@ export class EasyTuneBaseWidgetUI {
 
         this.myNextButtonBackgroundComponent = this.myNextButtonBackground.pp_addComponent(MeshComponent);
         this.myNextButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myNextButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myNextButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myNextButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myNextButtonTextComponent = this.myNextButtonText.pp_addComponent(TextComponent);
@@ -206,7 +206,7 @@ export class EasyTuneBaseWidgetUI {
 
         this.myPreviousButtonBackgroundComponent = this.myPreviousButtonBackground.pp_addComponent(MeshComponent);
         this.myPreviousButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myPreviousButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myPreviousButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myPreviousButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myPreviousButtonTextComponent = this.myPreviousButtonText.pp_addComponent(TextComponent);
@@ -223,7 +223,7 @@ export class EasyTuneBaseWidgetUI {
 
         this.myImportButtonBackgroundComponent = this.myImportButtonBackground.pp_addComponent(MeshComponent);
         this.myImportButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myImportButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myImportButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myImportButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myImportButtonTextComponent = this.myImportButtonText.pp_addComponent(TextComponent);
@@ -238,7 +238,7 @@ export class EasyTuneBaseWidgetUI {
 
         this.myExportButtonBackgroundComponent = this.myExportButtonBackground.pp_addComponent(MeshComponent);
         this.myExportButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myExportButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myExportButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myExportButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myExportButtonTextComponent = this.myExportButtonText.pp_addComponent(TextComponent);
@@ -264,7 +264,7 @@ export class EasyTuneBaseWidgetUI {
     _setupTextComponent(textComponent) {
         textComponent.alignment = this._myConfig.myTextAlignment;
         textComponent.justification = this._myConfig.myTextJustification;
-        textComponent.material = this._myAdditionalSetup.myTextMaterial.clone();
+        textComponent.material = this._myParams.myTextMaterial.clone();
         textComponent.material.color = this._myConfig.myTextColor;
         textComponent.text = "";
     }
@@ -278,7 +278,7 @@ export class EasyTuneBaseWidgetUI {
     }
 
     _setTransformForXR() {
-        this.myPivotObject.pp_setPositionLocal(this._myConfig.myPivotObjectPositions[this._myAdditionalSetup.myHandedness]);
+        this.myPivotObject.pp_setPositionLocal(this._myConfig.myPivotObjectPositions[this._myParams.myHandedness]);
     }
 
     _setTransformForNonXR() {

@@ -26,8 +26,8 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         }
     }
 
-    _startHook(parentObject, additionalSetup) {
-        this._myUI.setAdditionalButtonsActive(additionalSetup.myAdditionalButtonsEnabled);
+    _startHook(parentObject, params) {
+        this._myUI.setAdditionalButtonsActive(params.myAdditionalButtonsEnabled);
     }
 
     _updateHook(dt) {

@@ -26,7 +26,7 @@ export class ToolCursorComponent extends Component {
         this._myCursorMeshScale = vec3_create(0.0025, 0.0025, 0.0025);
         this._myCursorColor = vec4_create(255 / 255, 255 / 255, 255 / 255, 1);
 
-        this._myCursorTargetCollisionGroup = 7;
+        this._myCursorTargetCollisionGroup = 7; // Keep this in sync with Widgets 
     }
 
     start() {

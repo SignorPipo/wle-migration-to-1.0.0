@@ -1,7 +1,7 @@
 import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
 import { GamepadAxesID, GamepadButtonID } from "../../../input/gamepad/gamepad_buttons";
 import { ToolHandedness } from "../../cauldron/tool_types";
-import { WidgetFrame } from "../../widget_frame/widget_frame";
+import { WidgetFrame, WidgetParams } from "../../widget_frame/widget_frame";
 import { EasyTuneVariableType } from "../easy_tune_variable_types";
 import { EasyTuneBaseWidgetParams } from "./base/easy_tune_base_widget";
 import { EasyTuneBoolArrayWidgetSelector } from "./bool/easy_tune_bool_array_widget_selector";
@@ -10,16 +10,15 @@ import { EasyTuneNoneWidget } from "./none/easy_tune_none_widget";
 import { EasyTuneNumberArrayWidgetSelector } from "./number/easy_tune_number_widget_selector";
 import { EasyTuneTransformWidget } from "./transform/easy_tune_transform_widget";
 
-export class EasyTuneWidgetAdditionalSetup {
+export class EasyTuneWidgetParams extends WidgetParams {
 
     constructor() {
-        this.myHandedness = ToolHandedness.NONE;
+        super();
+
         this.myShowOnStart = false;
         this.myShowVisibilityButton = false;
         this.myAdditionalButtonsEnabled = false;
         this.myGamepadScrollVariableEnabled = false;
-        this.myPlaneMaterial = null;
-        this.myTextMaterial = null;
 
         this.myVariablesImportExportButtonsEnabled = false;
         this.myVariablesImportCallback = null;   // Signature: callback()
@@ -37,7 +36,7 @@ export class EasyTuneWidget {
         this._myWidgetFrame.registerWidgetVisibleChangedEventListener(this, this._widgetVisibleChanged.bind(this));
 
         this._myConfig = new EasyTuneWidgetConfig();
-        this._myAdditionalSetup = null;
+        this._myParams = null;
 
         this._myWidgets = [];
 
@@ -84,7 +83,7 @@ export class EasyTuneWidget {
         return this._myWidgetFrame.isVisible();
     }
 
-    start(parentObject, additionalSetup, easyTuneVariables) {
+    start(parentObject, params, easyTuneVariables) {
         this._myRightGamepad = getRightGamepad(this._myEngine);
         this._myLeftGamepad = getLeftGamepad(this._myEngine);
         if (this._myConfig.myGamepadHandedness == ToolHandedness.RIGHT) {
@@ -95,9 +94,9 @@ export class EasyTuneWidget {
 
         this._myIsStarted = true;
 
-        this._myAdditionalSetup = additionalSetup;
+        this._myParams = params;
 
-        this._myWidgetFrame.start(parentObject, additionalSetup);
+        this._myWidgetFrame.start(parentObject, params);
 
         this._myEasyTuneVariables = easyTuneVariables;
         this._myEasyTuneLastSize = this._myEasyTuneVariables.length();
@@ -138,7 +137,7 @@ export class EasyTuneWidget {
                 this._myCurrentWidget.update(dt);
             }
 
-            if (this._myAdditionalSetup.myGamepadScrollVariableEnabled) {
+            if (this._myParams.myGamepadScrollVariableEnabled) {
                 this._updateGamepadScrollVariable(dt);
             }
         }
@@ -160,7 +159,7 @@ export class EasyTuneWidget {
 
         for (let widget of this._myWidgets) {
             if (widget != null) {
-                widget.start(this._myWidgetFrame.getWidgetObject(), this._myAdditionalSetup);
+                widget.start(this._myWidgetFrame.getWidgetObject(), this._myParams);
                 widget.setVisible(false);
                 widget.registerScrollVariableRequestEventListener(this, this._scrollVariable.bind(this));
             }
@@ -318,11 +317,11 @@ export class EasyTuneWidget {
     }
 
     _importVariables() {
-        this._myAdditionalSetup.myVariablesImportCallback(this._onImportSuccess.bind(this), this._onImportFailure.bind(this));
+        this._myParams.myVariablesImportCallback(this._onImportSuccess.bind(this), this._onImportFailure.bind(this));
     }
 
     _exportVariables() {
-        this._myAdditionalSetup.myVariablesExportCallback(this._onExportSuccess.bind(this), this._onExportFailure.bind(this));
+        this._myParams.myVariablesExportCallback(this._onExportSuccess.bind(this), this._onExportFailure.bind(this));
     }
 
     _onImportSuccess() {

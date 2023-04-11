@@ -1,6 +1,17 @@
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
+import { ToolHandedness } from "../cauldron/tool_types";
 import { WidgetFrameConfig } from "./widget_frame_config";
 import { WidgetFrameUI } from "./widget_frame_ui";
+
+export class WidgetParams {
+
+    constructor() {
+        this.myHandedness = ToolHandedness.NONE;
+
+        this.myPlaneMaterial = null;
+        this.myTextMaterial = null;
+    }
+}
 
 export class WidgetFrame {
 
@@ -9,7 +20,7 @@ export class WidgetFrame {
         this.myIsPinned = false;
 
         this._myConfig = new WidgetFrameConfig(widgetLetterID, buttonsColumnIndex);
-        this._myAdditionalSetup = null;
+        this._myParams = null;
 
         this._myUI = new WidgetFrameUI(engine);
         this._myShowVisibilityButton = false;
@@ -55,13 +66,13 @@ export class WidgetFrame {
         this._myPinChangedCallbacks.delete(id);
     }
 
-    start(parentObject, additionalSetup) {
-        this._myAdditionalSetup = additionalSetup;
+    start(parentObject, params) {
+        this._myParams = params;
 
-        this._myUI.build(parentObject, this._myConfig, additionalSetup);
-        this._myUI.setVisibilityButtonVisible(additionalSetup.myShowVisibilityButton);
-        this._myShowVisibilityButton = additionalSetup.myShowVisibilityButton;
-        if (!additionalSetup.myShowOnStart) {
+        this._myUI.build(parentObject, this._myConfig, params);
+        this._myUI.setVisibilityButtonVisible(params.myShowVisibilityButton);
+        this._myShowVisibilityButton = params.myShowVisibilityButton;
+        if (!params.myShowOnStart) {
             this._toggleVisibility(false, false);
         }
 

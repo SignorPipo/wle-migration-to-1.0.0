@@ -12,10 +12,10 @@ export class ConsoleVRWidgetUI {
         this._myEngine = engine;
     }
 
-    build(parentObject, config, additionalSetup) {
+    build(parentObject, config, params) {
         this._myParentObject = parentObject;
         this._myConfig = config;
-        this._myAdditionalSetup = additionalSetup;
+        this._myParams = params;
 
         this._myPlaneMesh = getDefaultMeshes(this._myEngine).myPlane;
 
@@ -110,7 +110,7 @@ export class ConsoleVRWidgetUI {
             this.myMessagesTexts[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._myConfig.myMessagesTextPositions[ConsoleVRWidgetMessageType[key]]);
         }
 
-        this.myNotifyIconPanel.pp_setPositionLocal(this._myConfig.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
+        this.myNotifyIconPanel.pp_setPositionLocal(this._myConfig.myNotifyIconPanelPositions[this._myParams.myHandedness]);
         this.myNotifyIconBackground.pp_scaleObject(this._myConfig.myNotifyIconBackgroundScale);
         this.myNotifyIconCursorTarget.pp_setPositionLocal(this._myConfig.myNotifyIconCursorTargetPosition);
     }
@@ -181,7 +181,7 @@ export class ConsoleVRWidgetUI {
     _addMessagesComponents() {
         let messagesBackgroundMeshComp = this.myMessagesBackground.pp_addComponent(MeshComponent);
         messagesBackgroundMeshComp.mesh = this._myPlaneMesh;
-        messagesBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        messagesBackgroundMeshComp.material = this._myParams.myPlaneMaterial.clone();
         messagesBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
         this.myMessagesTextComponents = [];
@@ -190,7 +190,7 @@ export class ConsoleVRWidgetUI {
 
             textComp.alignment = this._myConfig.myMessagesTextAlignment;
             textComp.justification = this._myConfig.myMessagesTextJustification;
-            textComp.material = this._myAdditionalSetup.myTextMaterial.clone();
+            textComp.material = this._myParams.myTextMaterial.clone();
             textComp.material.color = this._myConfig.myMessagesTextColors[ConsoleVRWidgetMessageType[key]];
             textComp.lineSpacing = 1.2;
             textComp.text = this._myConfig.myMessagesTextStartString;
@@ -200,7 +200,7 @@ export class ConsoleVRWidgetUI {
 
         this.myNotifyIconBackgroundComponent = this.myNotifyIconBackground.pp_addComponent(MeshComponent);
         this.myNotifyIconBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myNotifyIconBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myNotifyIconBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myNotifyIconBackgroundComponent.material.color = this._myConfig.myNotifyIconColor;
 
         this.myNotifyIconCursorTargetComponent = this.myNotifyIconCursorTarget.pp_addComponent(CursorTarget);
@@ -223,7 +223,7 @@ export class ConsoleVRWidgetUI {
         for (let key in ConsoleVRWidgetMessageType) {
             let buttonBackgroundMeshComp = this.myFilterButtonsBackgrounds[ConsoleVRWidgetMessageType[key]].pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
-            buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            buttonBackgroundMeshComp.material = this._myParams.myPlaneMaterial.clone();
             buttonBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
             let buttonTextComp = this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_addComponent(TextComponent);
@@ -248,7 +248,7 @@ export class ConsoleVRWidgetUI {
         {
             let buttonBackgroundMeshComp = this.myClearButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
-            buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            buttonBackgroundMeshComp.material = this._myParams.myPlaneMaterial.clone();
             buttonBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
             let buttonTextComp = this.myClearButtonText.pp_addComponent(TextComponent);
@@ -272,7 +272,7 @@ export class ConsoleVRWidgetUI {
         {
             let buttonBackgroundMeshComp = this.myUpButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
-            buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            buttonBackgroundMeshComp.material = this._myParams.myPlaneMaterial.clone();
             buttonBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
             let buttonTextComp = this.myUpButtonText.pp_addComponent(TextComponent);
@@ -296,7 +296,7 @@ export class ConsoleVRWidgetUI {
         {
             let buttonBackgroundMeshComp = this.myDownButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
-            buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            buttonBackgroundMeshComp.material = this._myParams.myPlaneMaterial.clone();
             buttonBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
             let buttonTextComp = this.myDownButtonText.pp_addComponent(TextComponent);
@@ -332,7 +332,7 @@ export class ConsoleVRWidgetUI {
     _setupButtonTextComponent(textComponent) {
         textComponent.alignment = this._myConfig.myTextAlignment;
         textComponent.justification = this._myConfig.myTextJustification;
-        textComponent.material = this._myAdditionalSetup.myTextMaterial.clone();
+        textComponent.material = this._myParams.myTextMaterial.clone();
         textComponent.material.color = this._myConfig.myTextColor;
         textComponent.text = "";
     }
@@ -346,7 +346,7 @@ export class ConsoleVRWidgetUI {
     }
 
     _setTransformForXR() {
-        this.myNotifyIconPanel.pp_setPositionLocal(this._myConfig.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
+        this.myNotifyIconPanel.pp_setPositionLocal(this._myConfig.myNotifyIconPanelPositions[this._myParams.myHandedness]);
     }
 
     _setTransformForNonXR() {

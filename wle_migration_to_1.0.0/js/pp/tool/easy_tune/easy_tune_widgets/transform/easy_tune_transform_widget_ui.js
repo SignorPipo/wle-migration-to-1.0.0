@@ -367,7 +367,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
             this.myPositionIncreaseButtonBackgroundComponents[i] = this.myPositionIncreaseButtonBackgrounds[i].pp_addComponent(MeshComponent);
             this.myPositionIncreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
-            this.myPositionIncreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            this.myPositionIncreaseButtonBackgroundComponents[i].material = this._myParams.myPlaneMaterial.clone();
             this.myPositionIncreaseButtonBackgroundComponents[i].material.color = this._myConfig.myBackgroundColor;
 
             this.myPositionIncreaseButtonTextComponents[i] = this.myPositionIncreaseButtonTexts[i].pp_addComponent(TextComponent);
@@ -382,7 +382,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
             this.myPositionDecreaseButtonBackgroundComponents[i] = this.myPositionDecreaseButtonBackgrounds[i].pp_addComponent(MeshComponent);
             this.myPositionDecreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
-            this.myPositionDecreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            this.myPositionDecreaseButtonBackgroundComponents[i].material = this._myParams.myPlaneMaterial.clone();
             this.myPositionDecreaseButtonBackgroundComponents[i].material.color = this._myConfig.myBackgroundColor;
 
             this.myPositionDecreaseButtonTextComponents[i] = this.myPositionDecreaseButtonTexts[i].pp_addComponent(TextComponent);
@@ -435,7 +435,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
             this.myRotationIncreaseButtonBackgroundComponents[i] = this.myRotationIncreaseButtonBackgrounds[i].pp_addComponent(MeshComponent);
             this.myRotationIncreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
-            this.myRotationIncreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            this.myRotationIncreaseButtonBackgroundComponents[i].material = this._myParams.myPlaneMaterial.clone();
             this.myRotationIncreaseButtonBackgroundComponents[i].material.color = this._myConfig.myBackgroundColor;
 
             this.myRotationIncreaseButtonTextComponents[i] = this.myRotationIncreaseButtonTexts[i].pp_addComponent(TextComponent);
@@ -450,7 +450,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
             this.myRotationDecreaseButtonBackgroundComponents[i] = this.myRotationDecreaseButtonBackgrounds[i].pp_addComponent(MeshComponent);
             this.myRotationDecreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
-            this.myRotationDecreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            this.myRotationDecreaseButtonBackgroundComponents[i].material = this._myParams.myPlaneMaterial.clone();
             this.myRotationDecreaseButtonBackgroundComponents[i].material.color = this._myConfig.myBackgroundColor;
 
             this.myRotationDecreaseButtonTextComponents[i] = this.myRotationDecreaseButtonTexts[i].pp_addComponent(TextComponent);
@@ -503,7 +503,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
             this.myScaleIncreaseButtonBackgroundComponents[i] = this.myScaleIncreaseButtonBackgrounds[i].pp_addComponent(MeshComponent);
             this.myScaleIncreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
-            this.myScaleIncreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            this.myScaleIncreaseButtonBackgroundComponents[i].material = this._myParams.myPlaneMaterial.clone();
             this.myScaleIncreaseButtonBackgroundComponents[i].material.color = this._myConfig.myBackgroundColor;
 
             this.myScaleIncreaseButtonTextComponents[i] = this.myScaleIncreaseButtonTexts[i].pp_addComponent(TextComponent);
@@ -518,7 +518,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
             this.myScaleDecreaseButtonBackgroundComponents[i] = this.myScaleDecreaseButtonBackgrounds[i].pp_addComponent(MeshComponent);
             this.myScaleDecreaseButtonBackgroundComponents[i].mesh = this._myPlaneMesh;
-            this.myScaleDecreaseButtonBackgroundComponents[i].material = this._myAdditionalSetup.myPlaneMaterial.clone();
+            this.myScaleDecreaseButtonBackgroundComponents[i].material = this._myParams.myPlaneMaterial.clone();
             this.myScaleDecreaseButtonBackgroundComponents[i].material.color = this._myConfig.myBackgroundColor;
 
             this.myScaleDecreaseButtonTextComponents[i] = this.myScaleDecreaseButtonTexts[i].pp_addComponent(TextComponent);
@@ -547,7 +547,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myPositionStepIncreaseButtonBackgroundComponent = this.myPositionStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myPositionStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myPositionStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myPositionStepIncreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myPositionStepIncreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myPositionStepIncreaseButtonTextComponent = this.myPositionStepIncreaseButtonText.pp_addComponent(TextComponent);
@@ -562,7 +562,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myPositionStepDecreaseButtonBackgroundComponent = this.myPositionStepDecreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myPositionStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myPositionStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myPositionStepDecreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myPositionStepDecreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myPositionStepDecreaseButtonTextComponent = this.myPositionStepDecreaseButtonText.pp_addComponent(TextComponent);
@@ -589,7 +589,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myRotationStepIncreaseButtonBackgroundComponent = this.myRotationStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myRotationStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myRotationStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myRotationStepIncreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myRotationStepIncreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myRotationStepIncreaseButtonTextComponent = this.myRotationStepIncreaseButtonText.pp_addComponent(TextComponent);
@@ -604,7 +604,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myRotationStepDecreaseButtonBackgroundComponent = this.myRotationStepDecreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myRotationStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myRotationStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myRotationStepDecreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myRotationStepDecreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myRotationStepDecreaseButtonTextComponent = this.myRotationStepDecreaseButtonText.pp_addComponent(TextComponent);
@@ -631,7 +631,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myScaleStepIncreaseButtonBackgroundComponent = this.myScaleStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myScaleStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myScaleStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myScaleStepIncreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myScaleStepIncreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myScaleStepIncreaseButtonTextComponent = this.myScaleStepIncreaseButtonText.pp_addComponent(TextComponent);
@@ -646,7 +646,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myScaleStepDecreaseButtonBackgroundComponent = this.myScaleStepDecreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myScaleStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myScaleStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myScaleStepDecreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myScaleStepDecreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myScaleStepDecreaseButtonTextComponent = this.myScaleStepDecreaseButtonText.pp_addComponent(TextComponent);
@@ -675,7 +675,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
         // Increase/Decrease
         this.myPositionStepIncreaseButtonBackgroundComponent = this.myPositionStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myPositionStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myPositionStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myPositionStepIncreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myPositionStepIncreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myPositionStepIncreaseButtonTextComponent = this.myPositionStepIncreaseButtonText.pp_addComponent(TextComponent);
@@ -690,7 +690,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myPositionStepDecreaseButtonBackgroundComponent = this.myPositionStepDecreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myPositionStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myPositionStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myPositionStepDecreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myPositionStepDecreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myPositionStepDecreaseButtonTextComponent = this.myPositionStepDecreaseButtonText.pp_addComponent(TextComponent);
@@ -717,7 +717,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
         // Increase/Decrease
         this.myRotationStepIncreaseButtonBackgroundComponent = this.myRotationStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myRotationStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myRotationStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myRotationStepIncreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myRotationStepIncreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myRotationStepIncreaseButtonTextComponent = this.myRotationStepIncreaseButtonText.pp_addComponent(TextComponent);
@@ -732,7 +732,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myRotationStepDecreaseButtonBackgroundComponent = this.myRotationStepDecreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myRotationStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myRotationStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myRotationStepDecreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myRotationStepDecreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myRotationStepDecreaseButtonTextComponent = this.myRotationStepDecreaseButtonText.pp_addComponent(TextComponent);
@@ -759,7 +759,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
         // Increase/Decrease
         this.myScaleStepIncreaseButtonBackgroundComponent = this.myScaleStepIncreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myScaleStepIncreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myScaleStepIncreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myScaleStepIncreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myScaleStepIncreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myScaleStepIncreaseButtonTextComponent = this.myScaleStepIncreaseButtonText.pp_addComponent(TextComponent);
@@ -774,7 +774,7 @@ export class EasyTuneTransformWidgetUI extends EasyTuneBaseWidgetUI {
 
         this.myScaleStepDecreaseButtonBackgroundComponent = this.myScaleStepDecreaseButtonBackground.pp_addComponent(MeshComponent);
         this.myScaleStepDecreaseButtonBackgroundComponent.mesh = this._myPlaneMesh;
-        this.myScaleStepDecreaseButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
+        this.myScaleStepDecreaseButtonBackgroundComponent.material = this._myParams.myPlaneMaterial.clone();
         this.myScaleStepDecreaseButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myScaleStepDecreaseButtonTextComponent = this.myScaleStepDecreaseButtonText.pp_addComponent(TextComponent);

@@ -2,23 +2,22 @@ import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { getLeftGamepad, getRightGamepad } from "../../input/cauldron/input_globals";
 import { GamepadAxesID, GamepadButtonID } from "../../input/gamepad/gamepad_buttons";
 import { ToolHandedness } from "../cauldron/tool_types";
-import { WidgetFrame } from "../widget_frame/widget_frame";
+import { WidgetFrame, WidgetParams } from "../widget_frame/widget_frame";
 import { getOriginalConsoleClear } from "./console_original_functions";
 import { getConsoleVR } from "./console_vr_global";
 import { ConsoleVRWidgetConsoleFunction, ConsoleVRWidgetMessageType, ConsoleVRWidgetPulseOnNewMessage, ConsoleVRWidgetSender } from "./console_vr_types";
 import { ConsoleVRWidgetConfig } from "./console_vr_widget_config";
 import { ConsoleVRWidgetUI } from "./console_vr_widget_ui";
 
-export class ConsoleVRWidgetAdditionalSetup {
+export class ConsoleVRWidgetParams extends WidgetParams {
 
     constructor() {
-        this.myHandedness = ToolHandedness.NONE;
+        super();
+
         this.myOverrideBrowserConsole = false;
         this.myShowOnStart = false;
         this.myShowVisibilityButton = false;
         this.myPulseOnNewMessage = ConsoleVRWidgetPulseOnNewMessage.NEVER;
-        this.myPlaneMaterial = null;
-        this.myTextMaterial = null;
     }
 }
 
@@ -57,7 +56,7 @@ export class ConsoleVRWidget {
         this._myWidgetFrame.registerWidgetVisibleChangedEventListener(this, this._widgetVisibleChanged.bind(this));
 
         this._myConfig = new ConsoleVRWidgetConfig();
-        this._myAdditionalSetup = null;
+        this._myParams = null;
 
         this._myUI = new ConsoleVRWidgetUI(engine);
 
@@ -95,15 +94,15 @@ export class ConsoleVRWidget {
         return this._myWidgetFrame.isVisible();
     }
 
-    start(parentObject, additionalSetup) {
+    start(parentObject, params) {
         this._myLeftGamepad = getLeftGamepad(this._myEngine);
         this._myRightGamepad = getRightGamepad(this._myEngine);
 
-        this._myAdditionalSetup = additionalSetup;
+        this._myParams = params;
 
-        this._myWidgetFrame.start(parentObject, additionalSetup);
+        this._myWidgetFrame.start(parentObject, params);
 
-        this._myUI.build(this._myWidgetFrame.getWidgetObject(), this._myConfig, additionalSetup);
+        this._myUI.build(this._myWidgetFrame.getWidgetObject(), this._myConfig, params);
         this._myUI.setVisible(this._myWidgetFrame.myIsWidgetVisible);
         this._setNotifyIconActive(false);
 
@@ -122,7 +121,7 @@ export class ConsoleVRWidget {
         this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.ASSERT] = console.assert;
         this._myOldBrowserConsoleClear = console.clear;
 
-        if (this._myAdditionalSetup.myOverrideBrowserConsole) {
+        if (this._myParams.myOverrideBrowserConsole) {
             console.log = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.LOG, ConsoleVRWidgetSender.BROWSER_CONSOLE);
             console.error = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.BROWSER_CONSOLE);
             console.warn = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.WARN, ConsoleVRWidgetSender.BROWSER_CONSOLE);
@@ -763,10 +762,10 @@ export class ConsoleVRWidget {
 
     _pulseGamepad() {
         if (this._myLeftGamepad && this._myRightGamepad) {
-            let pulseType = this._myAdditionalSetup.myPulseOnNewMessage;
+            let pulseType = this._myParams.myPulseOnNewMessage;
             let pulseEnabled = pulseType == ConsoleVRWidgetPulseOnNewMessage.ALWAYS || (!this._myWidgetFrame.myIsWidgetVisible && pulseType == ConsoleVRWidgetPulseOnNewMessage.WHEN_HIDDEN);
             if (pulseEnabled && this._myPulseTimer == 0) {
-                if (this._myAdditionalSetup.myHandedness == ToolHandedness.RIGHT) {
+                if (this._myParams.myHandedness == ToolHandedness.RIGHT) {
                     this._myRightGamepad.pulse(this._myConfig.myPulseIntensity, this._myConfig.myPulseDuration);
                 } else {
                     this._myLeftGamepad.pulse(this._myConfig.myPulseIntensity, this._myConfig.myPulseDuration);

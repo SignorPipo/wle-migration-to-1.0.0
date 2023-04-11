@@ -8,7 +8,7 @@ export class EasyTuneBaseArrayWidgetSelector {
         this._myParentObject = null;
 
         this._myParams = params;
-        this._myAdditionalSetup = null;
+        this._myParams = null;
 
         this._myWidgets = new Map();
 
@@ -95,9 +95,9 @@ export class EasyTuneBaseArrayWidgetSelector {
         this._myScrollVariableRequestCallbacks.delete(id);
     }
 
-    start(parentObject, additionalSetup) {
+    start(parentObject, params) {
         this._myParentObject = parentObject;
-        this._myAdditionalSetup = additionalSetup;
+        this._myParams = params;
 
         this._createWidget(1);
 
@@ -157,7 +157,7 @@ export class EasyTuneBaseArrayWidgetSelector {
 
     _createWidget(arraySize) {
         this._myWidgets.set(arraySize, this._getEasyTuneArrayWidget(arraySize));
-        this._myWidgets.get(arraySize).start(this._myParentObject, this._myAdditionalSetup);
+        this._myWidgets.get(arraySize).start(this._myParentObject, this._myParams);
         this._myWidgets.get(arraySize).setVisible(false);
         this._myWidgets.get(arraySize).registerScrollVariableRequestEventListener(this, this._scrollVariableRequest.bind(this));
     }

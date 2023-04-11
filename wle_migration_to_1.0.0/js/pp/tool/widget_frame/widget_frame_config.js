@@ -15,7 +15,7 @@ export class WidgetFrameConfig {
         this.myBackgroundColor = vec4_create(46 / 255, 46 / 255, 46 / 255, 1);
 
         this.myCursorTargetCollisionCollider = Collider.Box;
-        this.myCursorTargetCollisionGroup = 7;
+        this.myCursorTargetCollisionGroup = 7;  // Keep this in sync with Tool Cursor
         this.myCursorTargetCollisionThickness = 0.001;
 
         this.myDefaultTextColor = vec4_create(255 / 255, 255 / 255, 255 / 255, 1);

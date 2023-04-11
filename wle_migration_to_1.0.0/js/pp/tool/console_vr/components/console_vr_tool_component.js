@@ -1,7 +1,7 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { getDefaultMaterials } from "../../../pp/default_resources_globals";
 import { isToolEnabled } from "../../cauldron/tool_globals";
-import { ConsoleVRWidget, ConsoleVRWidgetAdditionalSetup } from "../console_vr_widget";
+import { ConsoleVRWidget, ConsoleVRWidgetParams } from "../console_vr_widget";
 import { InitConsoleVRComponent } from "./init_console_vr_component";
 
 export class ConsoleVRToolComponent extends Component {
@@ -26,16 +26,16 @@ export class ConsoleVRToolComponent extends Component {
 
     start() {
         if (isToolEnabled(this.engine)) {
-            let additionalSetup = new ConsoleVRWidgetAdditionalSetup(this.engine);
-            additionalSetup.myHandedness = [null, "left", "right"][this._myHandedness];
-            additionalSetup.myOverrideBrowserConsole = this._myOverrideBrowserConsole;
-            additionalSetup.myShowOnStart = this._myShowOnStart;
-            additionalSetup.myShowVisibilityButton = this._myShowVisibilityButton;
-            additionalSetup.myPulseOnNewMessage = this._myPulseOnNewMessage;
-            additionalSetup.myPlaneMaterial = getDefaultMaterials(this.engine).myFlatOpaque.clone();
-            additionalSetup.myTextMaterial = getDefaultMaterials(this.engine).myText.clone();
+            let params = new ConsoleVRWidgetParams(this.engine);
+            params.myHandedness = [null, "left", "right"][this._myHandedness];
+            params.myOverrideBrowserConsole = this._myOverrideBrowserConsole;
+            params.myShowOnStart = this._myShowOnStart;
+            params.myShowVisibilityButton = this._myShowVisibilityButton;
+            params.myPulseOnNewMessage = this._myPulseOnNewMessage;
+            params.myPlaneMaterial = getDefaultMaterials(this.engine).myFlatOpaque.clone();
+            params.myTextMaterial = getDefaultMaterials(this.engine).myText.clone();
 
-            this._myWidget.start(this.object, additionalSetup);
+            this._myWidget.start(this.object, params);
 
             this._myWidgetVisibleBackup = this._myWidget.isVisible();
             this._mySetVisibleNextUpdate = false;

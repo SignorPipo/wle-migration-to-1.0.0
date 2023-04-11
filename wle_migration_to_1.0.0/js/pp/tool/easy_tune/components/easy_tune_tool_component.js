@@ -3,7 +3,7 @@ import { getDefaultMaterials } from "../../../pp/default_resources_globals";
 import { isToolEnabled } from "../../cauldron/tool_globals";
 import { getEasyTuneVariables } from "../easy_tune_globals";
 import { EasyTuneUtils } from "../easy_tune_utils";
-import { EasyTuneWidget, EasyTuneWidgetAdditionalSetup } from "../easy_tune_widgets/easy_tune_widget";
+import { EasyTuneWidget, EasyTuneWidgetParams } from "../easy_tune_widgets/easy_tune_widget";
 import { InitEasyTuneVariablesComponent } from "./init_easy_tune_variables_component";
 
 export class EasyTuneToolComponent extends Component {
@@ -40,24 +40,24 @@ export class EasyTuneToolComponent extends Component {
 
     start() {
         if (isToolEnabled(this.engine)) {
-            let additionalSetup = new EasyTuneWidgetAdditionalSetup();
-            additionalSetup.myHandedness = [null, "left", "right"][this._myHandedness];
-            additionalSetup.myShowOnStart = this._myShowOnStart;
-            additionalSetup.myShowVisibilityButton = this._myShowVisibilityButton;
-            additionalSetup.myAdditionalButtonsEnabled = true;
-            additionalSetup.myGamepadScrollVariableEnabled = this._myGamepadScrollVariableEnabled;
-            additionalSetup.myPlaneMaterial = getDefaultMaterials(this.engine).myFlatOpaque.clone();
-            additionalSetup.myTextMaterial = getDefaultMaterials(this.engine).myText.clone();
+            let params = new EasyTuneWidgetParams();
+            params.myHandedness = [null, "left", "right"][this._myHandedness];
+            params.myShowOnStart = this._myShowOnStart;
+            params.myShowVisibilityButton = this._myShowVisibilityButton;
+            params.myAdditionalButtonsEnabled = true;
+            params.myGamepadScrollVariableEnabled = this._myGamepadScrollVariableEnabled;
+            params.myPlaneMaterial = getDefaultMaterials(this.engine).myFlatOpaque.clone();
+            params.myTextMaterial = getDefaultMaterials(this.engine).myText.clone();
 
-            additionalSetup.myVariablesImportExportButtonsEnabled = this._myVariablesImportExportButtonsEnabled;
-            additionalSetup.myVariablesImportCallback = function (onSuccessCallback, onFailureCallback) {
+            params.myVariablesImportExportButtonsEnabled = this._myVariablesImportExportButtonsEnabled;
+            params.myVariablesImportCallback = function (onSuccessCallback, onFailureCallback) {
                 EasyTuneUtils.importEasyTuneVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, onSuccessCallback, onFailureCallback, this.engine);
             }.bind(this);
-            additionalSetup.myVariablesExportCallback = function (onSuccessCallback, onFailureCallback) {
+            params.myVariablesExportCallback = function (onSuccessCallback, onFailureCallback) {
                 EasyTuneUtils.exportEasyTuneVariables(this._myVariablesExportURL, onSuccessCallback, onFailureCallback, this.engine);
             }.bind(this);
 
-            this._myWidget.start(this.object, additionalSetup, getEasyTuneVariables(this.engine));
+            this._myWidget.start(this.object, params, getEasyTuneVariables(this.engine));
 
             this._myWidgetVisibleBackup = this._myWidget.isVisible();
             this._mySetVisibleNextUpdate = false;

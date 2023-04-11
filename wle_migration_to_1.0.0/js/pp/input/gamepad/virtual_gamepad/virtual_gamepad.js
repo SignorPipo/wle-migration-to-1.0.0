@@ -145,7 +145,7 @@ export class VirtualGamepad {
     }
 
     _buildVirtualGamepad() {
-        this._documentBodySetup();
+        this._setupDocumentBody();
 
         this._myVirtualGamepadContainer = document.createElement("div");
         this._myVirtualGamepadContainer.style.display = "block";
@@ -189,7 +189,7 @@ export class VirtualGamepad {
         }
     }
 
-    _documentBodySetup() {
+    _setupDocumentBody() {
         document.body.style.overflow = "hidden";
         document.body.style.userSelect = "none";
         document.body.style.webkitUserSelect = "none";
