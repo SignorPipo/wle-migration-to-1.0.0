@@ -8,8 +8,8 @@ export class EasyTuneBaseWidgetSetup {
     }
 
     build() {
-        this._initializeBuildSetup();
-        this._initializeRuntimeSetup();
+        this._setupBuildConfig();
+        this._setupRuntimeConfig();
     }
 
     // Hooks
@@ -35,15 +35,15 @@ export class EasyTuneBaseWidgetSetup {
         return 0;
     }
 
-    _initializeBuildSetupHook() {
+    _setupBuildConfigHook() {
     }
 
-    _initializeRuntimeSetupHook() {
+    _setupRuntimeConfigHook() {
     }
 
     // Hooks end
 
-    _initializeBuildSetup() {
+    _setupBuildConfig() {
         // General
 
         this.myBackgroundColor = vec4_create(46 / 255, 46 / 255, 46 / 255, 1);
@@ -103,7 +103,7 @@ export class EasyTuneBaseWidgetSetup {
         this.myNextButtonText = ">";
         this.myPreviousButtonText = "<";
 
-        this._initializeBuildSetupHook();
+        this._setupBuildConfigHook();
 
         // Background
 
@@ -160,11 +160,11 @@ export class EasyTuneBaseWidgetSetup {
         this.myPointerCursorTargetPosition[2] = this._myColliderZOffset - 0.0001; // A little behind the button target to avoid hiding it
     }
 
-    _initializeRuntimeSetup() {
+    _setupRuntimeConfig() {
         this.myButtonHoverColor = vec4_create(150 / 255, 150 / 255, 150 / 255, 1);
 
         this.myScrollVariableDelay = 0.5;
 
-        this._initializeRuntimeSetupHook();
+        this._setupRuntimeConfigHook();
     }
 }

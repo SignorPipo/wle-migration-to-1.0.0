@@ -12,9 +12,9 @@ export class ConsoleVRWidgetUI {
         this._myEngine = engine;
     }
 
-    build(parentObject, setup, additionalSetup) {
+    build(parentObject, config, additionalSetup) {
         this._myParentObject = parentObject;
-        this._mySetup = setup;
+        this._myConfig = config;
         this._myAdditionalSetup = additionalSetup;
 
         this._myPlaneMesh = getDefaultMeshes(this._myEngine).myPlane;
@@ -101,74 +101,74 @@ export class ConsoleVRWidgetUI {
     }
 
     _setMessagesTransforms() {
-        this.myMessagesPanel.pp_setPositionLocal(this._mySetup.myMessagesPanelPosition);
-        this.myMessagesBackground.pp_scaleObject(this._mySetup.myMessagesBackgroundScale);
+        this.myMessagesPanel.pp_setPositionLocal(this._myConfig.myMessagesPanelPosition);
+        this.myMessagesBackground.pp_scaleObject(this._myConfig.myMessagesBackgroundScale);
 
-        this.myMessagesTextsPanel.pp_setPositionLocal(this._mySetup.myMessagesTextsPanelPosition);
-        this.myMessagesTextsPanel.pp_scaleObject(this._mySetup.myMessagesTextsPanelScale);
+        this.myMessagesTextsPanel.pp_setPositionLocal(this._myConfig.myMessagesTextsPanelPosition);
+        this.myMessagesTextsPanel.pp_scaleObject(this._myConfig.myMessagesTextsPanelScale);
         for (let key in ConsoleVRWidgetMessageType) {
-            this.myMessagesTexts[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myMessagesTextPositions[ConsoleVRWidgetMessageType[key]]);
+            this.myMessagesTexts[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._myConfig.myMessagesTextPositions[ConsoleVRWidgetMessageType[key]]);
         }
 
-        this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
-        this.myNotifyIconBackground.pp_scaleObject(this._mySetup.myNotifyIconBackgroundScale);
-        this.myNotifyIconCursorTarget.pp_setPositionLocal(this._mySetup.myNotifyIconCursorTargetPosition);
+        this.myNotifyIconPanel.pp_setPositionLocal(this._myConfig.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
+        this.myNotifyIconBackground.pp_scaleObject(this._myConfig.myNotifyIconBackgroundScale);
+        this.myNotifyIconCursorTarget.pp_setPositionLocal(this._myConfig.myNotifyIconCursorTargetPosition);
     }
 
     _setButtonsTransforms() {
-        this.myButtonsPanel.pp_setPositionLocal(this._mySetup.myButtonsPanelPosition);
+        this.myButtonsPanel.pp_setPositionLocal(this._myConfig.myButtonsPanelPosition);
 
         // Filter Buttons
         for (let key in ConsoleVRWidgetMessageType) {
-            this.myFilterButtonsPanels[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myFilterButtonsPositions[ConsoleVRWidgetMessageType[key]]);
+            this.myFilterButtonsPanels[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._myConfig.myFilterButtonsPositions[ConsoleVRWidgetMessageType[key]]);
 
-            this.myFilterButtonsBackgrounds[ConsoleVRWidgetMessageType[key]].pp_scaleObject(this._mySetup.myButtonBackgroundScale);
+            this.myFilterButtonsBackgrounds[ConsoleVRWidgetMessageType[key]].pp_scaleObject(this._myConfig.myButtonBackgroundScale);
 
-            this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myButtonTextPosition);
-            this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_scaleObject(this._mySetup.myButtonTextScale);
+            this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._myConfig.myButtonTextPosition);
+            this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_scaleObject(this._myConfig.myButtonTextScale);
 
-            this.myFilterButtonsCursorTargets[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
+            this.myFilterButtonsCursorTargets[ConsoleVRWidgetMessageType[key]].pp_setPositionLocal(this._myConfig.myButtonCursorTargetPosition);
         }
 
         // Clear
         {
-            this.myClearButtonPanel.pp_setPositionLocal(this._mySetup.myClearButtonPosition);
+            this.myClearButtonPanel.pp_setPositionLocal(this._myConfig.myClearButtonPosition);
 
-            this.myClearButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
+            this.myClearButtonBackground.pp_scaleObject(this._myConfig.myButtonBackgroundScale);
 
-            this.myClearButtonText.pp_setPositionLocal(this._mySetup.myButtonTextPosition);
-            this.myClearButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
+            this.myClearButtonText.pp_setPositionLocal(this._myConfig.myButtonTextPosition);
+            this.myClearButtonText.pp_scaleObject(this._myConfig.myButtonTextScale);
 
-            this.myClearButtonCursorTarget.pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
+            this.myClearButtonCursorTarget.pp_setPositionLocal(this._myConfig.myButtonCursorTargetPosition);
         }
 
         // Up
         {
-            this.myUpButtonPanel.pp_setPositionLocal(this._mySetup.myUpButtonPosition);
+            this.myUpButtonPanel.pp_setPositionLocal(this._myConfig.myUpButtonPosition);
 
-            this.myUpButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
+            this.myUpButtonBackground.pp_scaleObject(this._myConfig.myButtonBackgroundScale);
 
-            this.myUpButtonText.pp_setPositionLocal(this._mySetup.myButtonTextPosition);
-            this.myUpButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
+            this.myUpButtonText.pp_setPositionLocal(this._myConfig.myButtonTextPosition);
+            this.myUpButtonText.pp_scaleObject(this._myConfig.myButtonTextScale);
 
-            this.myUpButtonCursorTarget.pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
+            this.myUpButtonCursorTarget.pp_setPositionLocal(this._myConfig.myButtonCursorTargetPosition);
         }
 
         // Down
         {
-            this.myDownButtonPanel.pp_setPositionLocal(this._mySetup.myDownButtonPosition);
+            this.myDownButtonPanel.pp_setPositionLocal(this._myConfig.myDownButtonPosition);
 
-            this.myDownButtonBackground.pp_scaleObject(this._mySetup.myButtonBackgroundScale);
+            this.myDownButtonBackground.pp_scaleObject(this._myConfig.myButtonBackgroundScale);
 
-            this.myDownButtonText.pp_setPositionLocal(this._mySetup.myButtonTextPosition);
-            this.myDownButtonText.pp_scaleObject(this._mySetup.myButtonTextScale);
+            this.myDownButtonText.pp_setPositionLocal(this._myConfig.myButtonTextPosition);
+            this.myDownButtonText.pp_scaleObject(this._myConfig.myButtonTextScale);
 
-            this.myDownButtonCursorTarget.pp_setPositionLocal(this._mySetup.myButtonCursorTargetPosition);
+            this.myDownButtonCursorTarget.pp_setPositionLocal(this._myConfig.myButtonCursorTargetPosition);
         }
     }
 
     _setPointerTransform() {
-        this.myPointerCursorTarget.pp_setPositionLocal(this._mySetup.myPointerCursorTargetPosition);
+        this.myPointerCursorTarget.pp_setPositionLocal(this._myConfig.myPointerCursorTargetPosition);
     }
 
     // Components
@@ -182,18 +182,18 @@ export class ConsoleVRWidgetUI {
         let messagesBackgroundMeshComp = this.myMessagesBackground.pp_addComponent(MeshComponent);
         messagesBackgroundMeshComp.mesh = this._myPlaneMesh;
         messagesBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
-        messagesBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
+        messagesBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
         this.myMessagesTextComponents = [];
         for (let key in ConsoleVRWidgetMessageType) {
             let textComp = this.myMessagesTexts[ConsoleVRWidgetMessageType[key]].pp_addComponent(TextComponent);
 
-            textComp.alignment = this._mySetup.myMessagesTextAlignment;
-            textComp.justification = this._mySetup.myMessagesTextJustification;
+            textComp.alignment = this._myConfig.myMessagesTextAlignment;
+            textComp.justification = this._myConfig.myMessagesTextJustification;
             textComp.material = this._myAdditionalSetup.myTextMaterial.clone();
-            textComp.material.color = this._mySetup.myMessagesTextColors[ConsoleVRWidgetMessageType[key]];
+            textComp.material.color = this._myConfig.myMessagesTextColors[ConsoleVRWidgetMessageType[key]];
             textComp.lineSpacing = 1.2;
-            textComp.text = this._mySetup.myMessagesTextStartString;
+            textComp.text = this._myConfig.myMessagesTextStartString;
 
             this.myMessagesTextComponents[ConsoleVRWidgetMessageType[key]] = textComp;
         }
@@ -201,14 +201,14 @@ export class ConsoleVRWidgetUI {
         this.myNotifyIconBackgroundComponent = this.myNotifyIconBackground.pp_addComponent(MeshComponent);
         this.myNotifyIconBackgroundComponent.mesh = this._myPlaneMesh;
         this.myNotifyIconBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
-        this.myNotifyIconBackgroundComponent.material.color = this._mySetup.myNotifyIconColor;
+        this.myNotifyIconBackgroundComponent.material.color = this._myConfig.myNotifyIconColor;
 
         this.myNotifyIconCursorTargetComponent = this.myNotifyIconCursorTarget.pp_addComponent(CursorTarget);
 
         this.myNotifyIconCollisionComponent = this.myNotifyIconCursorTarget.pp_addComponent(CollisionComponent);
-        this.myNotifyIconCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
-        this.myNotifyIconCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
-        this.myNotifyIconCollisionComponent.extents = this._mySetup.myNotifyIconCollisionExtents;
+        this.myNotifyIconCollisionComponent.collider = this._myConfig.myCursorTargetCollisionCollider;
+        this.myNotifyIconCollisionComponent.group = 1 << this._myConfig.myCursorTargetCollisionGroup;
+        this.myNotifyIconCollisionComponent.extents = this._myConfig.myNotifyIconCollisionExtents;
     }
 
     _addButtonsComponents() {
@@ -224,19 +224,19 @@ export class ConsoleVRWidgetUI {
             let buttonBackgroundMeshComp = this.myFilterButtonsBackgrounds[ConsoleVRWidgetMessageType[key]].pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
             buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
-            buttonBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
+            buttonBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
             let buttonTextComp = this.myFilterButtonsTexts[ConsoleVRWidgetMessageType[key]].pp_addComponent(TextComponent);
             this._setupButtonTextComponent(buttonTextComp);
-            buttonTextComp.material.color = this._mySetup.myFilterButtonsTextColors[ConsoleVRWidgetMessageType[key]];
-            buttonTextComp.text = this._mySetup.myFilterButtonsTextLabel[ConsoleVRWidgetMessageType[key]];
+            buttonTextComp.material.color = this._myConfig.myFilterButtonsTextColors[ConsoleVRWidgetMessageType[key]];
+            buttonTextComp.text = this._myConfig.myFilterButtonsTextLabel[ConsoleVRWidgetMessageType[key]];
 
             let buttonCursorTargetComp = this.myFilterButtonsCursorTargets[ConsoleVRWidgetMessageType[key]].pp_addComponent(CursorTarget);
 
             let buttonCollisionComp = this.myFilterButtonsCursorTargets[ConsoleVRWidgetMessageType[key]].pp_addComponent(CollisionComponent);
-            buttonCollisionComp.collider = this._mySetup.myButtonsCollisionCollider;
-            buttonCollisionComp.group = 1 << this._mySetup.myButtonsCollisionGroup;
-            buttonCollisionComp.extents = this._mySetup.myButtonsCollisionExtents;
+            buttonCollisionComp.collider = this._myConfig.myButtonsCollisionCollider;
+            buttonCollisionComp.group = 1 << this._myConfig.myButtonsCollisionGroup;
+            buttonCollisionComp.extents = this._myConfig.myButtonsCollisionExtents;
 
             this.myFilterButtonsBackgroundComponents[ConsoleVRWidgetMessageType[key]] = buttonBackgroundMeshComp;
             this.myFilterButtonsTextComponents[ConsoleVRWidgetMessageType[key]] = buttonTextComp;
@@ -249,18 +249,18 @@ export class ConsoleVRWidgetUI {
             let buttonBackgroundMeshComp = this.myClearButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
             buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
-            buttonBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
+            buttonBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
             let buttonTextComp = this.myClearButtonText.pp_addComponent(TextComponent);
             this._setupButtonTextComponent(buttonTextComp);
-            buttonTextComp.text = this._mySetup.myClearButtonTextLabel;
+            buttonTextComp.text = this._myConfig.myClearButtonTextLabel;
 
             let buttonCursorTargetComp = this.myClearButtonCursorTarget.pp_addComponent(CursorTarget);
 
             let buttonCollisionComp = this.myClearButtonCursorTarget.pp_addComponent(CollisionComponent);
-            buttonCollisionComp.collider = this._mySetup.myButtonsCollisionCollider;
-            buttonCollisionComp.group = 1 << this._mySetup.myButtonsCollisionGroup;
-            buttonCollisionComp.extents = this._mySetup.myButtonsCollisionExtents;
+            buttonCollisionComp.collider = this._myConfig.myButtonsCollisionCollider;
+            buttonCollisionComp.group = 1 << this._myConfig.myButtonsCollisionGroup;
+            buttonCollisionComp.extents = this._myConfig.myButtonsCollisionExtents;
 
             this.myClearButtonBackgroundComponent = buttonBackgroundMeshComp;
             this.myClearButtonTextComponent = buttonTextComp;
@@ -273,18 +273,18 @@ export class ConsoleVRWidgetUI {
             let buttonBackgroundMeshComp = this.myUpButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
             buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
-            buttonBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
+            buttonBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
             let buttonTextComp = this.myUpButtonText.pp_addComponent(TextComponent);
             this._setupButtonTextComponent(buttonTextComp);
-            buttonTextComp.text = this._mySetup.myUpButtonTextLabel;
+            buttonTextComp.text = this._myConfig.myUpButtonTextLabel;
 
             let buttonCursorTargetComp = this.myUpButtonCursorTarget.pp_addComponent(CursorTarget);
 
             let buttonCollisionComp = this.myUpButtonCursorTarget.pp_addComponent(CollisionComponent);
-            buttonCollisionComp.collider = this._mySetup.myButtonsCollisionCollider;
-            buttonCollisionComp.group = 1 << this._mySetup.myButtonsCollisionGroup;
-            buttonCollisionComp.extents = this._mySetup.myButtonsCollisionExtents;
+            buttonCollisionComp.collider = this._myConfig.myButtonsCollisionCollider;
+            buttonCollisionComp.group = 1 << this._myConfig.myButtonsCollisionGroup;
+            buttonCollisionComp.extents = this._myConfig.myButtonsCollisionExtents;
 
             this.myUpButtonBackgroundComponent = buttonBackgroundMeshComp;
             this.myUpButtonTextComponent = buttonTextComp;
@@ -297,18 +297,18 @@ export class ConsoleVRWidgetUI {
             let buttonBackgroundMeshComp = this.myDownButtonBackground.pp_addComponent(MeshComponent);
             buttonBackgroundMeshComp.mesh = this._myPlaneMesh;
             buttonBackgroundMeshComp.material = this._myAdditionalSetup.myPlaneMaterial.clone();
-            buttonBackgroundMeshComp.material.color = this._mySetup.myBackgroundColor;
+            buttonBackgroundMeshComp.material.color = this._myConfig.myBackgroundColor;
 
             let buttonTextComp = this.myDownButtonText.pp_addComponent(TextComponent);
             this._setupButtonTextComponent(buttonTextComp);
-            buttonTextComp.text = this._mySetup.myDownButtonTextLabel;
+            buttonTextComp.text = this._myConfig.myDownButtonTextLabel;
 
             let buttonCursorTargetComp = this.myDownButtonCursorTarget.pp_addComponent(CursorTarget);
 
             let buttonCollisionComp = this.myDownButtonCursorTarget.pp_addComponent(CollisionComponent);
-            buttonCollisionComp.collider = this._mySetup.myButtonsCollisionCollider;
-            buttonCollisionComp.group = 1 << this._mySetup.myButtonsCollisionGroup;
-            buttonCollisionComp.extents = this._mySetup.myButtonsCollisionExtents;
+            buttonCollisionComp.collider = this._myConfig.myButtonsCollisionCollider;
+            buttonCollisionComp.group = 1 << this._myConfig.myButtonsCollisionGroup;
+            buttonCollisionComp.extents = this._myConfig.myButtonsCollisionExtents;
 
             this.myDownButtonBackgroundComponent = buttonBackgroundMeshComp;
             this.myDownButtonTextComponent = buttonTextComp;
@@ -322,18 +322,18 @@ export class ConsoleVRWidgetUI {
         this.myPointerCursorTargetComponent.isSurface = true;
 
         let collisionComp = this.myPointerCursorTarget.pp_addComponent(CollisionComponent);
-        collisionComp.collider = this._mySetup.myPointerCollisionCollider;
-        collisionComp.group = 1 << this._mySetup.myPointerCollisionGroup;
-        collisionComp.extents = this._mySetup.myPointerCollisionExtents;
+        collisionComp.collider = this._myConfig.myPointerCollisionCollider;
+        collisionComp.group = 1 << this._myConfig.myPointerCollisionGroup;
+        collisionComp.extents = this._myConfig.myPointerCollisionExtents;
 
         this.myPointerCollisionComponent = collisionComp;
     }
 
     _setupButtonTextComponent(textComponent) {
-        textComponent.alignment = this._mySetup.myTextAlignment;
-        textComponent.justification = this._mySetup.myTextJustification;
+        textComponent.alignment = this._myConfig.myTextAlignment;
+        textComponent.justification = this._myConfig.myTextJustification;
         textComponent.material = this._myAdditionalSetup.myTextMaterial.clone();
-        textComponent.material.color = this._mySetup.myTextColor;
+        textComponent.material.color = this._myConfig.myTextColor;
         textComponent.text = "";
     }
 
@@ -346,10 +346,10 @@ export class ConsoleVRWidgetUI {
     }
 
     _setTransformForXR() {
-        this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
+        this.myNotifyIconPanel.pp_setPositionLocal(this._myConfig.myNotifyIconPanelPositions[this._myAdditionalSetup.myHandedness]);
     }
 
     _setTransformForNonXR() {
-        this.myNotifyIconPanel.pp_setPositionLocal(this._mySetup.myNotifyIconPanelPositions[ToolHandedness.NONE]);
+        this.myNotifyIconPanel.pp_setPositionLocal(this._myConfig.myNotifyIconPanelPositions[ToolHandedness.NONE]);
     }
 }

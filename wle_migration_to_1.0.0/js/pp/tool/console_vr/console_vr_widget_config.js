@@ -3,14 +3,14 @@ import { vec3_create, vec4_create } from "../../plugin/js/extensions/array_exten
 import { ToolHandedness } from "../cauldron/tool_types";
 import { ConsoleVRWidgetMessageType } from "./console_vr_types";
 
-export class ConsoleVRWidgetSetup {
+export class ConsoleVRWidgetConfig {
 
     constructor() {
-        this._initializeBuildSetup();
-        this._initializeRuntimeSetup();
+        this._setupBuildConfig();
+        this._setupRuntimeConfig();
     }
 
-    _initializeBuildSetup() {
+    _setupBuildConfig() {
         // General
         this.myBackgroundColor = vec4_create(46 / 255, 46 / 255, 46 / 255, 1);
 
@@ -149,7 +149,7 @@ export class ConsoleVRWidgetSetup {
         this.myPointerCursorTargetPosition[2] = this.myButtonsPanelPosition[2] + this.myButtonTextPosition[2] - 0.0001; // A little behind the button target to avoid hiding it
     }
 
-    _initializeRuntimeSetup() {
+    _setupRuntimeConfig() {
         this.myTabString = "     ";
         this.myAssertStartString = "Assertion failed:";
 

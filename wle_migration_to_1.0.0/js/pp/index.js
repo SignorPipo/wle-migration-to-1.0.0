@@ -271,7 +271,7 @@ export * from "./tool/cauldron/tool_globals";
 export * from "./tool/cauldron/components/tool_cursor_component";
 export * from "./tool/cauldron/components/enable_tools_component";
 
-export * from "./tool/console_vr/console_vr_widget_setup";
+export * from "./tool/console_vr/console_vr_widget_config";
 export * from "./tool/console_vr/console_vr_widget_ui";
 export * from "./tool/console_vr/console_vr_widget";
 export * from "./tool/console_vr/console_vr";

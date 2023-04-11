@@ -6,11 +6,11 @@ export class WidgetFrameSetup {
 
     constructor(widgetLetterID, buttonsColumnIndex) {
 
-        this._initializeBuildSetup(widgetLetterID, buttonsColumnIndex);
-        this._initializeRuntimeSetup();
+        this._setupBuildConfig(widgetLetterID, buttonsColumnIndex);
+        this._setupRuntimeConfig();
     }
 
-    _initializeBuildSetup(widgetLetterID, buttonsColumnIndex) {
+    _setupBuildConfig(widgetLetterID, buttonsColumnIndex) {
         // General
         this.myBackgroundColor = vec4_create(46 / 255, 46 / 255, 46 / 255, 1);
 
@@ -80,7 +80,7 @@ export class WidgetFrameSetup {
         this.myPinButtonCollisionExtents[2] = this.myCursorTargetCollisionThickness;
     }
 
-    _initializeRuntimeSetup() {
+    _setupRuntimeConfig() {
         this._initializeObjectsTransforms();
 
         this.myButtonHoverColor = vec4_create(150 / 255, 150 / 255, 150 / 255, 1);

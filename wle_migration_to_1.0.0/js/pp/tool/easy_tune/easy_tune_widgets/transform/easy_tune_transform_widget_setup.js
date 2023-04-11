@@ -19,7 +19,7 @@ export class EasyTuneTransformWidgetSetup extends EasyTuneBaseWidgetSetup {
         return 0.00805713;
     }
 
-    _initializeBuildSetupHook() {
+    _setupBuildConfigHook() {
         this.myIncreaseButtonText = "+";
         this.myDecreaseButtonText = "-";
 
@@ -70,7 +70,7 @@ export class EasyTuneTransformWidgetSetup extends EasyTuneBaseWidgetSetup {
         this.myStepCollisionExtents[2] = this.myCursorTargetCollisionThickness;
     }
 
-    _initializeRuntimeSetupHook() {
+    _setupRuntimeConfigHook() {
         this.myTextHoverScaleMultiplier = vec3_create(1.25, 1.25, 1.25);
 
         this.myEditThumbstickMinThreshold = 0.35;

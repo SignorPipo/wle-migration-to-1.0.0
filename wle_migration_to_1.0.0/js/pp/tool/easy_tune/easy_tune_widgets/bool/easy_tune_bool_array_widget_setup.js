@@ -18,7 +18,7 @@ export class EasyTuneBoolArrayWidgetSetup extends EasyTuneBaseWidgetSetup {
         return 0.00802713;
     }
 
-    _initializeBuildSetupHook() {
+    _setupBuildConfigHook() {
         this.myIncreaseButtonText = "+";
         this.myDecreaseButtonText = "-";
 
@@ -42,7 +42,7 @@ export class EasyTuneBoolArrayWidgetSetup extends EasyTuneBaseWidgetSetup {
         }
     }
 
-    _initializeRuntimeSetupHook() {
+    _setupRuntimeConfigHook() {
         this.myTextHoverScaleMultiplier = vec3_create(1.25, 1.25, 1.25);
 
         this.myThumbstickToggleThreshold = 0.6;

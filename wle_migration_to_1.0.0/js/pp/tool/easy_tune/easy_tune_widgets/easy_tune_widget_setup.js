@@ -3,10 +3,10 @@ import { ToolHandedness } from "../../cauldron/tool_types";
 export class EasyTuneWidgetSetup {
 
     constructor() {
-        this._initializeRuntimeSetup();
+        this._setupRuntimeConfig();
     }
 
-    _initializeRuntimeSetup() {
+    _setupRuntimeConfig() {
         this.myGamepadHandedness = ToolHandedness.RIGHT;
 
         this.myScrollVariableDelay = 0.5;
