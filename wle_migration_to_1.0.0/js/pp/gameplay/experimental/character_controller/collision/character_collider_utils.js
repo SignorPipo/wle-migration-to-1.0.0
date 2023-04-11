@@ -1,7 +1,7 @@
 import { PhysicsLayerFlags } from "../../../../cauldron/physics/physics_layer_flags";
 import { CharacterColliderSetup, CharacterColliderSlideFlickerPreventionMode } from "./character_collider_setup";
 
-export let CharacterColliderSimplifiedCreationAccuracyLevel = {
+export let CharacterColliderSetupSimplifiedCreationAccuracyLevel = {
     VERY_LOW: 0,
     LOW: 1,
     MEDIUM: 2,
@@ -9,13 +9,13 @@ export let CharacterColliderSimplifiedCreationAccuracyLevel = {
     VERY_HIGH: 4
 };
 
-export class CharacterColliderSimplifiedCreationSetup {
+export class CharacterColliderSetupSimplifiedCreationParams {
 
     constructor() {
         this.myHeight = 0;
         this.myRadius = 0;
 
-        this.myAccuracyLevel = CharacterColliderSimplifiedCreationAccuracyLevel.VERY_LOW;
+        this.myAccuracyLevel = CharacterColliderSetupSimplifiedCreationAccuracyLevel.VERY_LOW;
 
         this.myIsPlayer = false;
 
@@ -135,7 +135,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
 
     // ACCURACY
 
-    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSimplifiedCreationAccuracyLevel.VERY_LOW) {
+    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSetupSimplifiedCreationAccuracyLevel.VERY_LOW) {
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckConeHalfAngle = 60;
 
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHeightVerticalCheckEnabled = true;
@@ -164,7 +164,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
         outCharacterColliderSetup.myVerticalCheckSetup.myVerticalCheckAllowHitsInsideCollisionIfOneValid = true;
     }
 
-    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSimplifiedCreationAccuracyLevel.LOW) {
+    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSetupSimplifiedCreationAccuracyLevel.LOW) {
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckEnabled = true;
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckRadialSteps = 1;
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHeightCheckSteps = 1;
@@ -190,7 +190,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
         outCharacterColliderSetup.myWallSlideSetup.myWallSlideMaxAttempts = 2;
     }
 
-    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSimplifiedCreationAccuracyLevel.MEDIUM) {
+    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSetupSimplifiedCreationAccuracyLevel.MEDIUM) {
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHeightHorizontalCheckEnabled = true;
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHorizontalDiagonalOutwardCheckEnabled = true;
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalDiagonalOutwardUpwardCheckEnabled = true;
@@ -219,7 +219,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
         }
     }
 
-    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSimplifiedCreationAccuracyLevel.HIGH) {
+    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSetupSimplifiedCreationAccuracyLevel.HIGH) {
         if (outCharacterColliderSetup.myWallSlideSetup.myWallSlideEnabled) {
             outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckGetBetterReferenceHit = true;
 
@@ -265,7 +265,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
         }
     }
 
-    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSimplifiedCreationAccuracyLevel.VERY_HIGH) {
+    if (simplifiedCreationParams.myAccuracyLevel >= CharacterColliderSetupSimplifiedCreationAccuracyLevel.VERY_HIGH) {
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHeightCheckSteps = 2;
 
         outCharacterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHorizontalRadialCheckEnabled = true;

@@ -1,5 +1,5 @@
 import { Component, MeshComponent, Property } from "@wonderlandengine/api";
-import { CloneSetup, ObjectPoolParams, ObjectPoolsManager, getSceneObjects } from "../pp";
+import { CloneParams, ObjectPoolParams, ObjectPoolsManager, getSceneObjects } from "../pp";
 import { ParticleComponent } from "./particle_component";
 
 export class ParticlesSpawnerComponent extends Component {
@@ -21,11 +21,11 @@ export class ParticlesSpawnerComponent extends Component {
 
         poolParams.myOptimizeObjectsAllocation = true;    // If true it will pre-allocate the memory before adding new objects to the pool
 
-        let cloneSetup = new CloneSetup();
-        cloneSetup.myComponentsToInclude.push(MeshComponent.TypeName);
+        let cloneParams = new CloneParams();
+        cloneParams.myComponentsToInclude.push(MeshComponent.TypeName);
 
         for (let i = 0; i < this._myParticles.length; i++) {
-            let particle = this._myParticles[i].pp_clone(cloneSetup);
+            let particle = this._myParticles[i].pp_clone(cloneParams);
             particle.pp_addComponent(ParticleComponent);
             particle.pp_setActive(false);
             particle.pp_setParent(getSceneObjects(this.engine).myParticles);

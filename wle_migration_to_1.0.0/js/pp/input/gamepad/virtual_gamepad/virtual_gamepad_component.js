@@ -79,7 +79,7 @@ export class VirtualGamepadComponent extends Component {
 
     start() {
         let params = new VirtualGamepadParams(this.engine);
-        params.defaultSetup();
+        params.defaultConfig();
 
         for (let handedness in params.myButtonParams) {
             for (let gamepadButtonID in params.myButtonParams[handedness]) {

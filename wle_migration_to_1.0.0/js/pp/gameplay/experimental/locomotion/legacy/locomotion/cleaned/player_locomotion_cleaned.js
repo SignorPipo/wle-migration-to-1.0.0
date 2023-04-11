@@ -6,7 +6,7 @@ import { GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../../plugin/js/extensions/math_extension";
 import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
-import { CharacterColliderSimplifiedCreationAccuracyLevel, CharacterColliderSimplifiedCreationSetup, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
+import { CharacterColliderSetupSimplifiedCreationAccuracyLevel, CharacterColliderSetupSimplifiedCreationParams, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
 import { CollisionCheckBridge } from "../../../../character_controller/collision/collision_check_bridge";
 import { CollisionCheckUtils } from "../../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
@@ -374,42 +374,42 @@ export class CleanedPlayerLocomotion {
     }
 
     _setupCollisionCheckParamsMovement() {
-        let simplifiedSetup = new CharacterColliderSimplifiedCreationSetup();
+        let simplifiedParams = new CharacterColliderSetupSimplifiedCreationParams();
 
-        simplifiedSetup.myHeight = 1.75;
-        simplifiedSetup.myRadius = this._myParams.myCharacterRadius;
+        simplifiedParams.myHeight = 1.75;
+        simplifiedParams.myRadius = this._myParams.myCharacterRadius;
 
-        simplifiedSetup.myAccuracyLevel = CharacterColliderSimplifiedCreationAccuracyLevel.HIGH;
+        simplifiedParams.myAccuracyLevel = CharacterColliderSetupSimplifiedCreationAccuracyLevel.HIGH;
 
-        simplifiedSetup.myIsPlayer = true;
+        simplifiedParams.myIsPlayer = true;
 
-        simplifiedSetup.myCheckOnlyFeet = false;
+        simplifiedParams.myCheckOnlyFeet = false;
 
-        simplifiedSetup.myAverageSpeed = this._myParams.myMaxSpeed;
+        simplifiedParams.myAverageSpeed = this._myParams.myMaxSpeed;
 
-        simplifiedSetup.myCanFly = this._myParams.myFlyEnabled;
+        simplifiedParams.myCanFly = this._myParams.myFlyEnabled;
 
-        simplifiedSetup.myShouldSlideAgainstWall = true;
+        simplifiedParams.myShouldSlideAgainstWall = true;
 
-        simplifiedSetup.myCollectGroundInfo = true;
-        simplifiedSetup.myShouldSnapOnGround = true;
-        simplifiedSetup.myMaxDistanceToSnapOnGround = 0.1;
-        simplifiedSetup.myMaxWalkableGroundAngle = 30;
-        simplifiedSetup.myMaxWalkableGroundStepHeight = 0.1;
-        simplifiedSetup.myShouldNotFallFromEdges = false;
+        simplifiedParams.myCollectGroundInfo = true;
+        simplifiedParams.myShouldSnapOnGround = true;
+        simplifiedParams.myMaxDistanceToSnapOnGround = 0.1;
+        simplifiedParams.myMaxWalkableGroundAngle = 30;
+        simplifiedParams.myMaxWalkableGroundStepHeight = 0.1;
+        simplifiedParams.myShouldNotFallFromEdges = false;
 
-        simplifiedSetup.myHorizontalCheckBlockLayerFlags.copy(this._myParams.myPhysicsBlockLayerFlags);
+        simplifiedParams.myHorizontalCheckBlockLayerFlags.copy(this._myParams.myPhysicsBlockLayerFlags);
         let physXComponents = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getComponents(PhysXComponent);
         for (let physXComponent of physXComponents) {
-            simplifiedSetup.myHorizontalCheckObjectsToIgnore.pp_pushUnique(physXComponent.object, (first, second) => first.pp_equals(second));
+            simplifiedParams.myHorizontalCheckObjectsToIgnore.pp_pushUnique(physXComponent.object, (first, second) => first.pp_equals(second));
         }
-        simplifiedSetup.myVerticalCheckBlockLayerFlags.copy(simplifiedSetup.myHorizontalCheckBlockLayerFlags);
-        simplifiedSetup.myVerticalCheckObjectsToIgnore.pp_copy(simplifiedSetup.myHorizontalCheckObjectsToIgnore);
+        simplifiedParams.myVerticalCheckBlockLayerFlags.copy(simplifiedParams.myHorizontalCheckBlockLayerFlags);
+        simplifiedParams.myVerticalCheckObjectsToIgnore.pp_copy(simplifiedParams.myHorizontalCheckObjectsToIgnore);
 
-        simplifiedSetup.myHorizontalCheckDebugActive = this._myParams.myDebugHorizontalEnabled;
-        simplifiedSetup.myVerticalCheckDebugActive = this._myParams.myDebugVerticalEnabled;
+        simplifiedParams.myHorizontalCheckDebugActive = this._myParams.myDebugHorizontalEnabled;
+        simplifiedParams.myVerticalCheckDebugActive = this._myParams.myDebugVerticalEnabled;
 
-        let colliderSetup = CharacterColliderUtils.createCharacterColliderSetupSimplified(simplifiedSetup);
+        let colliderSetup = CharacterColliderUtils.createCharacterColliderSetupSimplified(simplifiedParams);
 
         this._myCollisionCheckParamsMovement = CollisionCheckBridge.convertCharacterColliderSetupToCollisionCheckParams(colliderSetup, this._myCollisionCheckParamsMovement, this._myParams.myEngine);
     }

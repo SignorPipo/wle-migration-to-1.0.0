@@ -2,7 +2,7 @@ import { Mesh, MeshAttribute, MeshIndexType } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../wl/engine_globals";
 
-export class MeshCreationVertexSetup {
+export class MeshCreationVertexParams {
 
     constructor() {
         this.myPosition = null;             // @Vec3
@@ -12,14 +12,14 @@ export class MeshCreationVertexSetup {
     }
 }
 
-export class MeshCreationTriangleSetup {
+export class MeshCreationTriangleParams {
 
     constructor() {
         this.myIndexes = new Uint32Array(3);
     }
 }
 
-export class MeshCreationSetup {
+export class MeshCreationParams {
 
     constructor(engine = getMainEngine()) {
         this.myVertexes = [];
@@ -32,49 +32,49 @@ export class MeshCreationSetup {
 export function createPlaneMesh(engine = getMainEngine()) {
     let vertexCount = 4;
 
-    let meshSetup = new MeshCreationSetup(engine);
+    let meshCreationParams = new MeshCreationParams(engine);
 
     for (let i = 0; i < vertexCount; ++i) {
-        let vertexSetup = new MeshCreationVertexSetup();
+        let vertexCreationParams = new MeshCreationVertexParams();
 
-        vertexSetup.myPosition = new vec3_create();
-        vertexSetup.myPosition[0] = -1 + (i & 1) * 2;
-        vertexSetup.myPosition[1] = -1 + ((i & 2) >> 1) * 2; // This is a quick way to have positions (-1,-1) (1,-1) (1,-1) (1,1)
-        vertexSetup.myPosition[2] = 0;
+        vertexCreationParams.myPosition = new vec3_create();
+        vertexCreationParams.myPosition[0] = -1 + (i & 1) * 2;
+        vertexCreationParams.myPosition[1] = -1 + ((i & 2) >> 1) * 2; // This is a quick way to have positions (-1,-1) (1,-1) (1,-1) (1,1)
+        vertexCreationParams.myPosition[2] = 0;
 
-        vertexSetup.myTextureCoordinates = new vec2_create();
-        vertexSetup.myTextureCoordinates[0] = (i & 1);
-        vertexSetup.myTextureCoordinates[1] = ((i & 2) >> 1);
+        vertexCreationParams.myTextureCoordinates = new vec2_create();
+        vertexCreationParams.myTextureCoordinates[0] = (i & 1);
+        vertexCreationParams.myTextureCoordinates[1] = ((i & 2) >> 1);
 
-        vertexSetup.myNormal = new vec3_create();
-        vertexSetup.myNormal[0] = 0;
-        vertexSetup.myNormal[1] = 0;
-        vertexSetup.myNormal[2] = 1;
+        vertexCreationParams.myNormal = new vec3_create();
+        vertexCreationParams.myNormal[0] = 0;
+        vertexCreationParams.myNormal[1] = 0;
+        vertexCreationParams.myNormal[2] = 1;
 
-        meshSetup.myVertexes.push(vertexSetup);
+        meshCreationParams.myVertexes.push(vertexCreationParams);
     }
 
-    let firstTriangle = new MeshCreationTriangleSetup();
+    let firstTriangle = new MeshCreationTriangleParams();
     firstTriangle.myIndexes[0] = 0;
     firstTriangle.myIndexes[1] = 1;
     firstTriangle.myIndexes[2] = 2;
 
-    let secondTriangle = new MeshCreationTriangleSetup();
+    let secondTriangle = new MeshCreationTriangleParams();
     secondTriangle.myIndexes[0] = 2;
     secondTriangle.myIndexes[1] = 1;
     secondTriangle.myIndexes[2] = 3;
 
-    meshSetup.myTriangles.push(firstTriangle);
-    meshSetup.myTriangles.push(secondTriangle);
+    meshCreationParams.myTriangles.push(firstTriangle);
+    meshCreationParams.myTriangles.push(secondTriangle);
 
-    let mesh = createMesh(meshSetup);
+    let mesh = createMesh(meshCreationParams);
 
     return mesh;
 }
 
-export function createMesh(meshCreationSetup) {
+export function createMesh(meshCreationParams) {
     let indexData = [];
-    for (let triangle of meshCreationSetup.myTriangles) {
+    for (let triangle of meshCreationParams.myTriangles) {
         indexData.push(triangle.myIndexes[0]);
         indexData.push(triangle.myIndexes[1]);
         indexData.push(triangle.myIndexes[2]);
@@ -83,8 +83,8 @@ export function createMesh(meshCreationSetup) {
     let indexDataUnsignedInt = new Uint32Array(indexData.length);
     indexDataUnsignedInt.pp_copy(indexData);
 
-    let vertexCount = meshCreationSetup.myVertexes.length;
-    let mesh = new Mesh(meshCreationSetup.myEngine, {
+    let vertexCount = meshCreationParams.myVertexes.length;
+    let mesh = new Mesh(meshCreationParams.myEngine, {
         vertexCount: vertexCount,
         indexData: indexDataUnsignedInt,
         indexType: MeshIndexType.UnsignedInt,
@@ -119,8 +119,8 @@ export function createMesh(meshCreationSetup) {
         colorAttribute = null;
     }
 
-    for (let i = 0; i < meshCreationSetup.myVertexes.length; i++) {
-        let vertex = meshCreationSetup.myVertexes[i];
+    for (let i = 0; i < meshCreationParams.myVertexes.length; i++) {
+        let vertex = meshCreationParams.myVertexes[i];
         if (positionAttribute != null && vertex.myPosition) {
             positionAttribute.set(i, vertex.myPosition);
         }

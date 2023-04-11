@@ -1,10 +1,10 @@
 import { Component, MeshComponent, Property, TextComponent } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
-import { CloneSetup } from "../../plugin/wl/extensions/object_extension";
+import { CloneParams } from "../../plugin/wl/extensions/object_extension";
 import { getPlayerObjects } from "../../pp/scene_objects_global";
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
 import { Timer } from "../cauldron/timer";
-import { MeshCreationSetup, MeshCreationTriangleSetup, MeshCreationVertexSetup, MeshUtils } from "../utils/mesh_utils";
+import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParams, MeshUtils } from "../utils/mesh_utils";
 import { XRUtils } from "../utils/xr_utils";
 import { getDefaultMaterials } from "../../pp/default_resources_globals";
 
@@ -302,9 +302,9 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         }
         poolParams.myPercentageToAddWhenEmpty = 0;
         poolParams.myAmountToAddWhenEmpty = 10000;
-        poolParams.myCloneSetup = new CloneSetup();
-        poolParams.myCloneSetup.myDeepCloneSetup.setDeepCloneComponentVariable(MeshComponent.TypeName, "material", this._myCloneMaterial);
-        poolParams.myCloneSetup.myDeepCloneSetup.setDeepCloneComponentVariable(MeshComponent.TypeName, "mesh", this._myCloneMesh);
+        poolParams.myCloneParams = new CloneParams();
+        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "material", this._myCloneMaterial);
+        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "mesh", this._myCloneMesh);
         this._myPlanePool = new ObjectPool(this._myPlaneObject, poolParams);
 
         this._myBackgroundObject.pp_setActive(false);
@@ -443,7 +443,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             row--;
         }
 
-        let meshCreationSetup = new MeshCreationSetup(this.engine);
+        let meshCreationParams = new MeshCreationParams(this.engine);
 
         for (let i = 0; i < row + 1; i++) {
             for (let j = 0; j < column + 1; j++) {
@@ -451,44 +451,44 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                 let x = (2 / column) * j;
                 let y = (2 / row) * i;
 
-                let vertexCreationSetup = new MeshCreationVertexSetup();
+                let vertexCreationParams = new MeshCreationVertexParams();
 
-                vertexCreationSetup.myPosition = vec3_create();
-                vertexCreationSetup.myPosition[0] = x - 1;
-                vertexCreationSetup.myPosition[1] = y - 1;
-                vertexCreationSetup.myPosition[2] = 0;
+                vertexCreationParams.myPosition = vec3_create();
+                vertexCreationParams.myPosition[0] = x - 1;
+                vertexCreationParams.myPosition[1] = y - 1;
+                vertexCreationParams.myPosition[2] = 0;
 
-                vertexCreationSetup.myTextureCoordinates = vec2_create();
-                vertexCreationSetup.myTextureCoordinates[0] = x / 2;
-                vertexCreationSetup.myTextureCoordinates[1] = y / 2;
+                vertexCreationParams.myTextureCoordinates = vec2_create();
+                vertexCreationParams.myTextureCoordinates[0] = x / 2;
+                vertexCreationParams.myTextureCoordinates[1] = y / 2;
 
-                vertexCreationSetup.myNormal = vec3_create();
-                vertexCreationSetup.myNormal[0] = 0;
-                vertexCreationSetup.myNormal[1] = 0;
-                vertexCreationSetup.myNormal[2] = 1;
+                vertexCreationParams.myNormal = vec3_create();
+                vertexCreationParams.myNormal[0] = 0;
+                vertexCreationParams.myNormal[1] = 0;
+                vertexCreationParams.myNormal[2] = 1;
 
-                meshCreationSetup.myVertexes.push(vertexCreationSetup);
+                meshCreationParams.myVertexes.push(vertexCreationParams);
             }
         }
 
         for (let i = 0; i < row; i++) {
             for (let j = 0; j < column; j++) {
-                let firstTriangle = new MeshCreationTriangleSetup();
+                let firstTriangle = new MeshCreationTriangleParams();
                 firstTriangle.myIndexes[0] = (i * (column + 1)) + j;
                 firstTriangle.myIndexes[1] = (i * (column + 1)) + j + 1;
                 firstTriangle.myIndexes[2] = ((i + 1) * (column + 1)) + j;
 
-                let secondTriangle = new MeshCreationTriangleSetup();
+                let secondTriangle = new MeshCreationTriangleParams();
                 secondTriangle.myIndexes[0] = ((i + 1) * (column + 1)) + j;
                 secondTriangle.myIndexes[1] = (i * (column + 1)) + j + 1;
                 secondTriangle.myIndexes[2] = ((i + 1) * (column + 1)) + j + 1;
 
-                meshCreationSetup.myTriangles.push(firstTriangle);
-                meshCreationSetup.myTriangles.push(secondTriangle);
+                meshCreationParams.myTriangles.push(firstTriangle);
+                meshCreationParams.myTriangles.push(secondTriangle);
             }
         }
 
-        let mesh = MeshUtils.createMesh(meshCreationSetup);
+        let mesh = MeshUtils.createMesh(meshCreationParams);
 
         return mesh;
     }

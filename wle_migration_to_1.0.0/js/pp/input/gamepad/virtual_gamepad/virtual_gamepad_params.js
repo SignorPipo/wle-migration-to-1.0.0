@@ -99,7 +99,7 @@ export class VirtualGamepadParams {
         this.myEngine = engine;
     }
 
-    defaultSetup() {
+    defaultConfig() {
         this.myShowOnMobile = true;
         this.myAutoUpdateVisibility = true;
 
