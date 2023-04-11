@@ -22,9 +22,9 @@ export class WidgetFrameUI {
         this._myEngine = engine;
     }
 
-    build(parentObject, setup, additionalSetup) {
+    build(parentObject, config, additionalSetup) {
         this._myParentObject = parentObject;
-        this._mySetup = setup;
+        this._myConfig = config;
         this._myAdditionalSetup = additionalSetup;
         this._myPlaneMesh = getDefaultMeshes(this._myEngine).myPlane;
 
@@ -79,16 +79,16 @@ export class WidgetFrameUI {
                 this._myInputSourceType = inputSourceType;
 
                 if (!this._myIsPinned) {
-                    this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myPosition);
+                    this.myPivotObject.pp_setPositionLocal(this._myConfig.myPivotObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myPosition);
                     this.myPivotObject.pp_resetRotationLocal();
-                    this.myPivotObject.pp_rotateObjectQuat(this._mySetup.myPivotObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myRotation);
+                    this.myPivotObject.pp_rotateObjectQuat(this._myConfig.myPivotObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myRotation);
 
-                    this.myWidgetObject.pp_setPositionLocal(this._mySetup.myWidgetObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myPosition);
+                    this.myWidgetObject.pp_setPositionLocal(this._myConfig.myWidgetObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myPosition);
                     this.myWidgetObject.pp_resetRotationLocal();
-                    this.myWidgetObject.pp_rotateObjectQuat(this._mySetup.myWidgetObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myRotation);
+                    this.myWidgetObject.pp_rotateObjectQuat(this._myConfig.myWidgetObjectTransforms[this._myInputSourceType][this._myAdditionalSetup.myHandedness].myRotation);
 
-                    this.myVisibilityButtonPanel.pp_setPositionLocal(this._mySetup.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
-                    this.myPinButtonPanel.pp_setPositionLocal(this._mySetup.myPinButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
+                    this.myVisibilityButtonPanel.pp_setPositionLocal(this._myConfig.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
+                    this.myPinButtonPanel.pp_setPositionLocal(this._myConfig.myPinButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
                 }
             }
         } else {
@@ -116,7 +116,7 @@ export class WidgetFrameUI {
         this.myPinButtonCursorTarget = this.myPinButtonPanel.pp_addObject();
 
         this.myNonXRParentObject = getPlayerObjects(this._myEngine).myCameraNonXR.pp_addObject();
-        this.myNonXRParentObject.pp_translateLocal(vec3_create(0, 0, -this._mySetup._myPivotObjectDistanceFromHeadNonXR));
+        this.myNonXRParentObject.pp_translateLocal(vec3_create(0, 0, -this._myConfig._myPivotObjectDistanceFromHeadNonXR));
         this.myNonXRParentObject.pp_lookToLocal(vec3_create(0, 0, 1), vec3_create(0, 1, 0));
 
     }
@@ -125,18 +125,18 @@ export class WidgetFrameUI {
     _setTransforms() {
         this.myPivotObject.pp_markDirty();
 
-        this.myVisibilityButtonPanel.pp_setPositionLocal(this._mySetup.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
-        this.myVisibilityButtonBackground.pp_scaleObject(this._mySetup.myVisibilityButtonBackgroundScale);
-        this.myVisibilityButtonText.pp_setPositionLocal(this._mySetup.myVisibilityButtonTextPosition);
-        this.myVisibilityButtonText.pp_scaleObject(this._mySetup.myVisibilityButtonTextScale);
-        this.myVisibilityButtonCursorTarget.pp_setPositionLocal(this._mySetup.myVisibilityButtonCursorTargetPosition);
+        this.myVisibilityButtonPanel.pp_setPositionLocal(this._myConfig.myVisibilityButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
+        this.myVisibilityButtonBackground.pp_scaleObject(this._myConfig.myVisibilityButtonBackgroundScale);
+        this.myVisibilityButtonText.pp_setPositionLocal(this._myConfig.myVisibilityButtonTextPosition);
+        this.myVisibilityButtonText.pp_scaleObject(this._myConfig.myVisibilityButtonTextScale);
+        this.myVisibilityButtonCursorTarget.pp_setPositionLocal(this._myConfig.myVisibilityButtonCursorTargetPosition);
 
-        this.myPinButtonPanel.pp_setPositionLocal(this._mySetup.myPinButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
+        this.myPinButtonPanel.pp_setPositionLocal(this._myConfig.myPinButtonPosition[this._myAdditionalSetup.myHandedness].myPosition);
 
-        this.myPinButtonBackground.pp_scaleObject(this._mySetup.myFlagButtonBackgroundScale);
-        this.myPinButtonText.pp_setPositionLocal(this._mySetup.myFlagButtonTextPosition);
-        this.myPinButtonText.pp_scaleObject(this._mySetup.myFlagButtonTextScale);
-        this.myPinButtonCursorTarget.pp_setPositionLocal(this._mySetup.myPinButtonCursorTargetPosition);
+        this.myPinButtonBackground.pp_scaleObject(this._myConfig.myFlagButtonBackgroundScale);
+        this.myPinButtonText.pp_setPositionLocal(this._myConfig.myFlagButtonTextPosition);
+        this.myPinButtonText.pp_scaleObject(this._myConfig.myFlagButtonTextScale);
+        this.myPinButtonCursorTarget.pp_setPositionLocal(this._myConfig.myPinButtonCursorTargetPosition);
     }
 
     // Components
@@ -144,41 +144,41 @@ export class WidgetFrameUI {
         this.myVisibilityButtonBackgroundComponent = this.myVisibilityButtonBackground.pp_addComponent(MeshComponent);
         this.myVisibilityButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myVisibilityButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
-        this.myVisibilityButtonBackgroundComponent.material.color = this._mySetup.myBackgroundColor;
+        this.myVisibilityButtonBackgroundComponent.material.color = this._myConfig.myBackgroundColor;
 
         this.myVisibilityButtonTextComponent = this.myVisibilityButtonText.pp_addComponent(TextComponent);
         this._setupButtonTextComponent(this.myVisibilityButtonTextComponent);
-        this.myVisibilityButtonTextComponent.text = this._mySetup.myVisibilityButtonText;
+        this.myVisibilityButtonTextComponent.text = this._myConfig.myVisibilityButtonText;
 
         this.myVisibilityButtonCursorTargetComponent = this.myVisibilityButtonCursorTarget.pp_addComponent(CursorTarget);
         this.myVisibilityButtonCollisionComponent = this.myVisibilityButtonCursorTarget.pp_addComponent(CollisionComponent);
-        this.myVisibilityButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
-        this.myVisibilityButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
-        this.myVisibilityButtonCollisionComponent.extents = this._mySetup.myVisibilityButtonCollisionExtents;
+        this.myVisibilityButtonCollisionComponent.collider = this._myConfig.myCursorTargetCollisionCollider;
+        this.myVisibilityButtonCollisionComponent.group = 1 << this._myConfig.myCursorTargetCollisionGroup;
+        this.myVisibilityButtonCollisionComponent.extents = this._myConfig.myVisibilityButtonCollisionExtents;
 
         this.myPinButtonBackgroundComponent = this.myPinButtonBackground.pp_addComponent(MeshComponent);
         this.myPinButtonBackgroundComponent.mesh = this._myPlaneMesh;
         this.myPinButtonBackgroundComponent.material = this._myAdditionalSetup.myPlaneMaterial.clone();
-        this.myPinButtonBackgroundComponent.material.color = this._mySetup.myButtonDisabledBackgroundColor;
+        this.myPinButtonBackgroundComponent.material.color = this._myConfig.myButtonDisabledBackgroundColor;
 
         this.myPinButtonTextComponent = this.myPinButtonText.pp_addComponent(TextComponent);
         this._setupButtonTextComponent(this.myPinButtonTextComponent);
-        this.myPinButtonTextComponent.material.color = this._mySetup.myButtonDisabledTextColor;
-        this.myPinButtonTextComponent.text = this._mySetup.myPinButtonText;
+        this.myPinButtonTextComponent.material.color = this._myConfig.myButtonDisabledTextColor;
+        this.myPinButtonTextComponent.text = this._myConfig.myPinButtonText;
 
         this.myPinButtonCursorTargetComponent = this.myPinButtonCursorTarget.pp_addComponent(CursorTarget);
 
         this.myPinButtonCollisionComponent = this.myPinButtonCursorTarget.pp_addComponent(CollisionComponent);
-        this.myPinButtonCollisionComponent.collider = this._mySetup.myCursorTargetCollisionCollider;
-        this.myPinButtonCollisionComponent.group = 1 << this._mySetup.myCursorTargetCollisionGroup;
-        this.myPinButtonCollisionComponent.extents = this._mySetup.myPinButtonCollisionExtents;
+        this.myPinButtonCollisionComponent.collider = this._myConfig.myCursorTargetCollisionCollider;
+        this.myPinButtonCollisionComponent.group = 1 << this._myConfig.myCursorTargetCollisionGroup;
+        this.myPinButtonCollisionComponent.extents = this._myConfig.myPinButtonCollisionExtents;
     }
 
     _setupButtonTextComponent(textComponent) {
-        textComponent.alignment = this._mySetup.myTextAlignment;
-        textComponent.justification = this._mySetup.myTextJustification;
+        textComponent.alignment = this._myConfig.myTextAlignment;
+        textComponent.justification = this._myConfig.myTextJustification;
         textComponent.material = this._myAdditionalSetup.myTextMaterial.clone();
-        textComponent.material.color = this._mySetup.myTextColor;
+        textComponent.material.color = this._myConfig.myTextColor;
         textComponent.text = "";
     }
 
@@ -206,16 +206,16 @@ export class WidgetFrameUI {
             this.myFixForwardObject.pp_setParent(this.myNonXRParentObject);
             this.myFixForwardObject.pp_resetTransformLocal();
 
-            this.myPivotObject.pp_setPositionLocal(this._mySetup.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);
+            this.myPivotObject.pp_setPositionLocal(this._myConfig.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);
             this.myPivotObject.pp_resetRotationLocal();
-            this.myPivotObject.pp_rotateObjectQuat(this._mySetup.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myRotation);
+            this.myPivotObject.pp_rotateObjectQuat(this._myConfig.myPivotObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myRotation);
 
-            this.myWidgetObject.pp_setPositionLocal(this._mySetup.myWidgetObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);
+            this.myWidgetObject.pp_setPositionLocal(this._myConfig.myWidgetObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myPosition);
             this.myWidgetObject.pp_resetRotationLocal();
-            this.myWidgetObject.pp_rotateObjectQuat(this._mySetup.myWidgetObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myRotation);
+            this.myWidgetObject.pp_rotateObjectQuat(this._myConfig.myWidgetObjectTransforms[ToolInputSourceType.NONE][ToolHandedness.NONE].myRotation);
 
-            this.myVisibilityButtonPanel.pp_setPositionLocal(this._mySetup.myVisibilityButtonPosition[ToolHandedness.NONE].myPosition);
-            this.myPinButtonPanel.pp_setPositionLocal(this._mySetup.myPinButtonPosition[ToolHandedness.NONE].myPosition);
+            this.myVisibilityButtonPanel.pp_setPositionLocal(this._myConfig.myVisibilityButtonPosition[ToolHandedness.NONE].myPosition);
+            this.myPinButtonPanel.pp_setPositionLocal(this._myConfig.myPinButtonPosition[ToolHandedness.NONE].myPosition);
         }
     }
 }

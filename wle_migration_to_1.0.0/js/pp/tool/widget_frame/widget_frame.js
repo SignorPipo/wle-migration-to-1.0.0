@@ -1,5 +1,5 @@
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
-import { WidgetFrameSetup } from "./widget_frame_setup";
+import { WidgetFrameConfig } from "./widget_frame_config";
 import { WidgetFrameUI } from "./widget_frame_ui";
 
 export class WidgetFrame {
@@ -8,7 +8,7 @@ export class WidgetFrame {
         this.myIsWidgetVisible = true;
         this.myIsPinned = false;
 
-        this._mySetup = new WidgetFrameSetup(widgetLetterID, buttonsColumnIndex);
+        this._myConfig = new WidgetFrameConfig(widgetLetterID, buttonsColumnIndex);
         this._myAdditionalSetup = null;
 
         this._myUI = new WidgetFrameUI(engine);
@@ -58,7 +58,7 @@ export class WidgetFrame {
     start(parentObject, additionalSetup) {
         this._myAdditionalSetup = additionalSetup;
 
-        this._myUI.build(parentObject, this._mySetup, additionalSetup);
+        this._myUI.build(parentObject, this._myConfig, additionalSetup);
         this._myUI.setVisibilityButtonVisible(additionalSetup.myShowVisibilityButton);
         this._myShowVisibilityButton = additionalSetup.myShowVisibilityButton;
         if (!additionalSetup.myShowOnStart) {
@@ -92,14 +92,14 @@ export class WidgetFrame {
         let textMaterial = this._myUI.myVisibilityButtonTextComponent.material;
         let backgroundMaterial = this._myUI.myVisibilityButtonBackgroundComponent.material;
         if (this.myIsWidgetVisible) {
-            textMaterial.color = this._mySetup.myDefaultTextColor;
+            textMaterial.color = this._myConfig.myDefaultTextColor;
             if (!isButton) {
-                backgroundMaterial.color = this._mySetup.myBackgroundColor;
+                backgroundMaterial.color = this._myConfig.myBackgroundColor;
             }
         } else {
-            textMaterial.color = this._mySetup.myButtonDisabledTextColor;
+            textMaterial.color = this._myConfig.myButtonDisabledTextColor;
             if (!isButton) {
-                backgroundMaterial.color = this._mySetup.myButtonDisabledBackgroundColor;
+                backgroundMaterial.color = this._myConfig.myButtonDisabledBackgroundColor;
             }
         }
 
@@ -121,14 +121,14 @@ export class WidgetFrame {
             let textMaterial = this._myUI.myPinButtonTextComponent.material;
             let backgroundMaterial = this._myUI.myPinButtonBackgroundComponent.material;
             if (this.myIsPinned) {
-                textMaterial.color = this._mySetup.myDefaultTextColor;
+                textMaterial.color = this._myConfig.myDefaultTextColor;
                 if (!isButton) {
-                    backgroundMaterial.color = this._mySetup.myBackgroundColor;
+                    backgroundMaterial.color = this._myConfig.myBackgroundColor;
                 }
             } else {
-                textMaterial.color = this._mySetup.myButtonDisabledTextColor;
+                textMaterial.color = this._myConfig.myButtonDisabledTextColor;
                 if (!isButton) {
-                    backgroundMaterial.color = this._mySetup.myButtonDisabledBackgroundColor;
+                    backgroundMaterial.color = this._myConfig.myButtonDisabledBackgroundColor;
                 }
             }
 
@@ -139,22 +139,22 @@ export class WidgetFrame {
     }
 
     _genericHover(material) {
-        material.color = this._mySetup.myButtonHoverColor;
+        material.color = this._myConfig.myButtonHoverColor;
     }
 
     _visibilityUnHover(material) {
         if (this.myIsWidgetVisible) {
-            material.color = this._mySetup.myBackgroundColor;
+            material.color = this._myConfig.myBackgroundColor;
         } else {
-            material.color = this._mySetup.myButtonDisabledBackgroundColor;
+            material.color = this._myConfig.myButtonDisabledBackgroundColor;
         }
     }
 
     _pinUnHover(material) {
         if (this.myIsPinned) {
-            material.color = this._mySetup.myBackgroundColor;
+            material.color = this._myConfig.myBackgroundColor;
         } else {
-            material.color = this._mySetup.myButtonDisabledBackgroundColor;
+            material.color = this._myConfig.myButtonDisabledBackgroundColor;
         }
     }
 }

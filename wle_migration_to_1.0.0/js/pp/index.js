@@ -330,6 +330,6 @@ export * from "./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_
 export * from "./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget_ui";
 export * from "./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget_setup";
 
-export * from "./tool/widget_frame/widget_frame_setup";
+export * from "./tool/widget_frame/widget_frame_config";
 export * from "./tool/widget_frame/widget_frame_ui";
 export * from "./tool/widget_frame/widget_frame";
