@@ -74,7 +74,7 @@ export class VisualRaycast {
             this._myVisible = visible;
 
             if (this._myVisible) {
-                if (this._myParams.myRaycastResults.myRaycastSetup != null) {
+                if (this._myParams.myRaycastResults.myRaycastParams != null) {
                     this._myVisualRaycast.setVisible(true);
                 }
 
@@ -161,8 +161,8 @@ export class VisualRaycast {
 
             {
                 let visualRaycastParams = this._myVisualRaycast.getParams();
-                visualRaycastParams.myStart.vec3_copy(this._myParams.myRaycastResults.myRaycastSetup.myOrigin);
-                visualRaycastParams.myDirection.vec3_copy(this._myParams.myRaycastResults.myRaycastSetup.myDirection);
+                visualRaycastParams.myStart.vec3_copy(this._myParams.myRaycastResults.myRaycastParams.myOrigin);
+                visualRaycastParams.myDirection.vec3_copy(this._myParams.myRaycastResults.myRaycastParams.myDirection);
                 visualRaycastParams.myLength = raycastDistance;
                 visualRaycastParams.myThickness = this._myParams.myThickness;
 
@@ -210,12 +210,12 @@ export class VisualRaycast {
                 }
             }
 
-        } else if (this._myParams.myRaycastResults.myRaycastSetup != null) {
+        } else if (this._myParams.myRaycastResults.myRaycastParams != null) {
             {
                 let visualRaycastParams = this._myVisualRaycast.getParams();
-                visualRaycastParams.myStart.vec3_copy(this._myParams.myRaycastResults.myRaycastSetup.myOrigin);
-                visualRaycastParams.myDirection.vec3_copy(this._myParams.myRaycastResults.myRaycastSetup.myDirection);
-                visualRaycastParams.myLength = this._myParams.myRaycastResults.myRaycastSetup.myDistance;
+                visualRaycastParams.myStart.vec3_copy(this._myParams.myRaycastResults.myRaycastParams.myOrigin);
+                visualRaycastParams.myDirection.vec3_copy(this._myParams.myRaycastResults.myRaycastParams.myDirection);
+                visualRaycastParams.myLength = this._myParams.myRaycastResults.myRaycastParams.myDistance;
                 visualRaycastParams.myThickness = this._myParams.myThickness;
 
                 if (this._myParams.myRayMaterial == null) {

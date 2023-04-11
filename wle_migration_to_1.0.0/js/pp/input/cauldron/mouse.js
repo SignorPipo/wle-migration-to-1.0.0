@@ -182,10 +182,10 @@ export class Mouse {
     }
 
     // The origin and direction are set by the mouse
-    raycastWorld(raycastSetup, raycastResults = new RaycastResults()) {
-        this.getOriginWorld(raycastSetup.myOrigin);
-        this.getDirectionWorld(raycastSetup.myDirection);
-        raycastResults = PhysicsUtils.raycast(raycastSetup, raycastResults, this._myEngine.physics);
+    raycastWorld(raycastParams, raycastResults = new RaycastResults()) {
+        this.getOriginWorld(raycastParams.myOrigin);
+        this.getDirectionWorld(raycastParams.myDirection);
+        raycastResults = PhysicsUtils.raycast(raycastParams, raycastResults, this._myEngine.physics);
         return raycastResults;
     }
 

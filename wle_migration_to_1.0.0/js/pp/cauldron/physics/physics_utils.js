@@ -1,5 +1,5 @@
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
-import { RaycastHit, RaycastResults, RaycastSetup } from "./physics_raycast_data";
+import { RaycastHit, RaycastResults, RaycastParams } from "./physics_raycast_data";
 
 let _myLayerFlagsNames = ["0", "1", "2", "3", "4", "5", "6", "7"];
 
@@ -15,14 +15,14 @@ export let raycast = function () {
     let isInsideSubVector = vec3_create();
     let invertedRaycastDirection = vec3_create();
     let objectsEqualCallback = (first, second) => first.pp_equals(second);
-    return function raycast(raycastSetup, raycastResults = new RaycastResults()) {
-        let internalRaycastResults = raycastSetup.myPhysics.rayCast(raycastSetup.myOrigin, raycastSetup.myDirection, raycastSetup.myBlockLayerFlags.getMask(), raycastSetup.myDistance);
+    return function raycast(raycastParams, raycastResults = new RaycastResults()) {
+        let internalRaycastResults = raycastParams.myPhysics.rayCast(raycastParams.myOrigin, raycastParams.myDirection, raycastParams.myBlockLayerFlags.getMask(), raycastParams.myDistance);
 
-        if (raycastResults.myRaycastSetup == null) {
-            raycastResults.myRaycastSetup = new RaycastSetup(raycastSetup.myPhysics);
+        if (raycastResults.myRaycastParams == null) {
+            raycastResults.myRaycastParams = new RaycastParams(raycastParams.myPhysics);
         }
 
-        raycastResults.myRaycastSetup.copy(raycastSetup);
+        raycastResults.myRaycastParams.copy(raycastParams);
 
         let currentValidHitIndex = 0;
         let validHitsCount = 0;
@@ -34,15 +34,15 @@ export let raycast = function () {
             let locations = null;
             let normals = null;
 
-            invertedRaycastDirection = raycastSetup.myDirection.vec3_negate(invertedRaycastDirection);
+            invertedRaycastDirection = raycastParams.myDirection.vec3_negate(invertedRaycastDirection);
 
             for (let i = 0; i < hitCount; i++) {
-                if (raycastSetup.myObjectsToIgnore.length != 0) {
+                if (raycastParams.myObjectsToIgnore.length != 0) {
                     if (objects == null) {
                         objects = internalRaycastResults.objects;
                     }
 
-                    if (raycastSetup.myObjectsToIgnore.pp_hasEqual(objects[i], objectsEqualCallback)) {
+                    if (raycastParams.myObjectsToIgnore.pp_hasEqual(objects[i], objectsEqualCallback)) {
                         continue;
                     }
                 }
@@ -57,7 +57,7 @@ export let raycast = function () {
                         locations = internalRaycastResults.locations;
                     }
 
-                    isHitInsideCollision &&= raycastSetup.myOrigin.vec3_sub(locations[i], isInsideSubVector).vec3_isZero(Math.PP_EPSILON);
+                    isHitInsideCollision &&= raycastParams.myOrigin.vec3_sub(locations[i], isInsideSubVector).vec3_isZero(Math.PP_EPSILON);
 
                     if (isHitInsideCollision) {
                         if (!normals) {
@@ -68,7 +68,7 @@ export let raycast = function () {
                     }
                 }
 
-                if (!raycastSetup.myIgnoreHitsInsideCollision || !isHitInsideCollision) {
+                if (!raycastParams.myIgnoreHitsInsideCollision || !isHitInsideCollision) {
                     let hit = null;
 
                     if (currentValidHitIndex < raycastResults.myHits.length) {

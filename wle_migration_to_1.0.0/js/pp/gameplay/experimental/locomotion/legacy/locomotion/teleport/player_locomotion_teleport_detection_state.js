@@ -1,5 +1,5 @@
 import { PhysicsLayerFlags } from "../../../../../../cauldron/physics/physics_layer_flags";
-import { RaycastResults, RaycastSetup } from "../../../../../../cauldron/physics/physics_raycast_data";
+import { RaycastResults, RaycastParams } from "../../../../../../cauldron/physics/physics_raycast_data";
 import { PhysicsUtils } from "../../../../../../cauldron/physics/physics_utils";
 import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
@@ -236,7 +236,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
     let prevParablePosition = vec3_create();
     let parableFinalPosition = vec3_create();
 
-    let raycastSetup = new RaycastSetup();
+    let raycastParams = new RaycastParams();
     let raycastResult = new RaycastResults();
 
     let parableHitPosition = vec3_create();
@@ -262,13 +262,13 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
         let positionParableDistance = 0;
         prevParablePosition = this._myDetectionRuntimeParams.myParable.getPosition(currentPositionIndex - 1, prevParablePosition);
 
-        raycastSetup.myIgnoreHitsInsideCollision = true;
-        raycastSetup.myBlockLayerFlags.setMask(this._myTeleportParams.myDetectionParams.myTeleportBlockLayerFlags.getMask());
-        raycastSetup.myPhysics = this._myTeleportParams.myEngine.physics;
+        raycastParams.myIgnoreHitsInsideCollision = true;
+        raycastParams.myBlockLayerFlags.setMask(this._myTeleportParams.myDetectionParams.myTeleportBlockLayerFlags.getMask());
+        raycastParams.myPhysics = this._myTeleportParams.myEngine.physics;
 
-        raycastSetup.myObjectsToIgnore.pp_copy(this._myTeleportParams.myCollisionCheckParams.myHorizontalObjectsToIgnore);
+        raycastParams.myObjectsToIgnore.pp_copy(this._myTeleportParams.myCollisionCheckParams.myHorizontalObjectsToIgnore);
         for (let objectToIgnore of this._myTeleportParams.myCollisionCheckParams.myVerticalObjectsToIgnore) {
-            raycastSetup.myObjectsToIgnore.pp_pushUnique(objectToIgnore, objectsEqualCallback);
+            raycastParams.myObjectsToIgnore.pp_pushUnique(objectToIgnore, objectsEqualCallback);
         }
 
         let maxParableDistance = this._myTeleportParams.myDetectionParams.myMaxDistance * 2;
@@ -276,12 +276,12 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
         do {
             parablePosition = this._myDetectionRuntimeParams.myParable.getPosition(currentPositionIndex, parablePosition);
 
-            raycastSetup.myOrigin.vec3_copy(prevParablePosition);
-            raycastSetup.myDirection = parablePosition.vec3_sub(prevParablePosition, raycastSetup.myDirection);
-            raycastSetup.myDistance = raycastSetup.myDirection.vec3_length();
-            raycastSetup.myDirection.vec3_normalize(raycastSetup.myDirection);
+            raycastParams.myOrigin.vec3_copy(prevParablePosition);
+            raycastParams.myDirection = parablePosition.vec3_sub(prevParablePosition, raycastParams.myDirection);
+            raycastParams.myDistance = raycastParams.myDirection.vec3_length();
+            raycastParams.myDirection.vec3_normalize(raycastParams.myDirection);
 
-            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+            raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
             if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                 getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
@@ -313,7 +313,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
         if (raycastResult.isColliding()) {
             let hit = raycastResult.myHits.pp_first();
 
-            let hitParableDistance = positionParableDistance - (raycastSetup.myDistance - hit.myDistance);
+            let hitParableDistance = positionParableDistance - (raycastParams.myDistance - hit.myDistance);
 
             if (hitParableDistance <= fixedPositionParableDistance) {
                 hitCollisionValid = true;
@@ -333,11 +333,11 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                     verticalHitOrigin = hit.myPosition.vec3_add(hit.myNormal.vec3_scale(0.01, verticalHitOrigin), verticalHitOrigin);
                     verticalHitDirection = up.vec3_negate(verticalHitDirection);
 
-                    raycastSetup.myOrigin.vec3_copy(verticalHitOrigin);
-                    raycastSetup.myDirection.vec3_copy(verticalHitDirection);
-                    raycastSetup.myDistance = bottomCheckMaxLength;
+                    raycastParams.myOrigin.vec3_copy(verticalHitOrigin);
+                    raycastParams.myDirection.vec3_copy(verticalHitDirection);
+                    raycastParams.myDistance = bottomCheckMaxLength;
 
-                    raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                    raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
                     if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                         getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
@@ -362,14 +362,14 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                                 flatTeleportHorizontalHitNormal.vec3_normalize(flatTeleportHorizontalHitNormal);
 
                                 let backwardStep = this._myTeleportParams.myCollisionCheckParams.myRadius * 1.1;
-                                raycastSetup.myOrigin = verticalHitOrigin.vec3_add(flatTeleportHorizontalHitNormal.vec3_scale(backwardStep, raycastSetup.myOrigin), raycastSetup.myOrigin);
-                                raycastSetup.myDirection.vec3_copy(verticalHitDirection);
-                                raycastSetup.myDistance = bottomCheckMaxLength;
+                                raycastParams.myOrigin = verticalHitOrigin.vec3_add(flatTeleportHorizontalHitNormal.vec3_scale(backwardStep, raycastParams.myOrigin), raycastParams.myOrigin);
+                                raycastParams.myDirection.vec3_copy(verticalHitDirection);
+                                raycastParams.myDistance = bottomCheckMaxLength;
 
-                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                                raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                                    getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
+                                    getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                                 }
 
@@ -393,14 +393,14 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                                 flatParableHitNormal.vec3_normalize(flatParableHitNormal);
 
                                 let backwardStep = this._myTeleportParams.myCollisionCheckParams.myRadius * 1.1;
-                                raycastSetup.myOrigin = verticalHitOrigin.vec3_add(flatParableHitNormal.vec3_scale(backwardStep, raycastSetup.myOrigin), raycastSetup.myOrigin);
-                                raycastSetup.myDirection.vec3_copy(verticalHitDirection);
-                                raycastSetup.myDistance = bottomCheckMaxLength;
+                                raycastParams.myOrigin = verticalHitOrigin.vec3_add(flatParableHitNormal.vec3_scale(backwardStep, raycastParams.myOrigin), raycastParams.myOrigin);
+                                raycastParams.myDirection.vec3_copy(verticalHitDirection);
+                                raycastParams.myDistance = bottomCheckMaxLength;
 
-                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                                raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                                    getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
+                                    getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                                 }
 
@@ -425,14 +425,14 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                                 flatParableDirectionNegate.vec3_normalize(flatParableDirectionNegate);
 
                                 let backwardStep = this._myTeleportParams.myCollisionCheckParams.myRadius * 1.1;
-                                raycastSetup.myOrigin = verticalHitOrigin.vec3_add(flatParableDirectionNegate.vec3_scale(backwardStep, raycastSetup.myOrigin), raycastSetup.myOrigin);
-                                raycastSetup.myDirection.vec3_copy(verticalHitDirection);
-                                raycastSetup.myDistance = bottomCheckMaxLength;
+                                raycastParams.myOrigin = verticalHitOrigin.vec3_add(flatParableDirectionNegate.vec3_scale(backwardStep, raycastParams.myOrigin), raycastParams.myOrigin);
+                                raycastParams.myDirection.vec3_copy(verticalHitDirection);
+                                raycastParams.myDistance = bottomCheckMaxLength;
 
-                                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                                raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
                                 if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                                    getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
+                                    getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                                 }
 
@@ -464,11 +464,11 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
             verticalHitOrigin.vec3_copy(parableFinalPosition);
             verticalHitDirection = up.vec3_negate(verticalHitDirection);
 
-            raycastSetup.myOrigin.vec3_copy(verticalHitOrigin);
-            raycastSetup.myDirection.vec3_copy(verticalHitDirection);
-            raycastSetup.myDistance = bottomCheckMaxLength;
+            raycastParams.myOrigin.vec3_copy(verticalHitOrigin);
+            raycastParams.myDirection.vec3_copy(verticalHitDirection);
+            raycastParams.myDistance = bottomCheckMaxLength;
 
-            raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+            raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
             if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
                 getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
@@ -493,14 +493,14 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                         flatTeleportHorizontalHitNormal.vec3_normalize(flatTeleportHorizontalHitNormal);
 
                         let backwardStep = this._myTeleportParams.myCollisionCheckParams.myRadius * 1.1;
-                        raycastSetup.myOrigin = verticalHitOrigin.vec3_add(flatTeleportHorizontalHitNormal.vec3_scale(backwardStep, raycastSetup.myOrigin), raycastSetup.myOrigin);
-                        raycastSetup.myDirection.vec3_copy(verticalHitDirection);
-                        raycastSetup.myDistance = bottomCheckMaxLength;
+                        raycastParams.myOrigin = verticalHitOrigin.vec3_add(flatTeleportHorizontalHitNormal.vec3_scale(backwardStep, raycastParams.myOrigin), raycastParams.myOrigin);
+                        raycastParams.myDirection.vec3_copy(verticalHitDirection);
+                        raycastParams.myDistance = bottomCheckMaxLength;
 
-                        raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                        raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
                         if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                            getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
+                            getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                             getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                         }
 
@@ -523,14 +523,14 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
                         flatParableDirectionNegate.vec3_normalize(flatParableDirectionNegate);
 
                         let backwardStep = this._myTeleportParams.myCollisionCheckParams.myRadius * 1.1;
-                        raycastSetup.myOrigin = verticalHitOrigin.vec3_add(flatParableDirectionNegate.vec3_scale(backwardStep, raycastSetup.myOrigin), raycastSetup.myOrigin);
-                        raycastSetup.myDirection.vec3_copy(verticalHitDirection);
-                        raycastSetup.myDistance = bottomCheckMaxLength;
+                        raycastParams.myOrigin = verticalHitOrigin.vec3_add(flatParableDirectionNegate.vec3_scale(backwardStep, raycastParams.myOrigin), raycastParams.myOrigin);
+                        raycastParams.myDirection.vec3_copy(verticalHitDirection);
+                        raycastParams.myDistance = bottomCheckMaxLength;
 
-                        raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                        raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
                         if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
-                            getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastSetup.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
+                            getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                             getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                         }
 
@@ -572,7 +572,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportRotationVR = fun
 }();
 
 PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = function () {
-    let raycastSetup = new RaycastSetup();
+    let raycastParams = new RaycastParams();
     let raycastResult = new RaycastResults();
 
     let playerUp = vec3_create();
@@ -588,22 +588,22 @@ PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = function 
             if (true || hit.myNormal.vec3_isConcordant(playerUp)) {
                 // #TODO When the flags on the physx will be available just check that the hit object physx has the floor flag
 
-                raycastSetup.myIgnoreHitsInsideCollision = true;
-                raycastSetup.myBlockLayerFlags.setMask(this._myTeleportParams.myDetectionParams.myTeleportFloorLayerFlags.getMask());
-                raycastSetup.myPhysics = this._myTeleportParams.myEngine.physics;
+                raycastParams.myIgnoreHitsInsideCollision = true;
+                raycastParams.myBlockLayerFlags.setMask(this._myTeleportParams.myDetectionParams.myTeleportFloorLayerFlags.getMask());
+                raycastParams.myPhysics = this._myTeleportParams.myEngine.physics;
 
-                raycastSetup.myObjectsToIgnore.pp_copy(this._myTeleportParams.myCollisionCheckParams.myHorizontalObjectsToIgnore);
+                raycastParams.myObjectsToIgnore.pp_copy(this._myTeleportParams.myCollisionCheckParams.myHorizontalObjectsToIgnore);
                 for (let objectToIgnore of this._myTeleportParams.myCollisionCheckParams.myVerticalObjectsToIgnore) {
-                    raycastSetup.myObjectsToIgnore.pp_pushUnique(objectToIgnore, objectsEqualCallback);
+                    raycastParams.myObjectsToIgnore.pp_pushUnique(objectToIgnore, objectsEqualCallback);
                 }
 
                 let distanceToCheck = 0.01;
-                raycastSetup.myOrigin = hit.myPosition.vec3_add(hit.myNormal.vec3_scale(distanceToCheck, raycastSetup.myOrigin), raycastSetup.myOrigin);
-                raycastSetup.myDirection = hit.myNormal.vec3_negate(raycastSetup.myDirection);
-                raycastSetup.myDistance = distanceToCheck * 1.25;
-                raycastSetup.myDirection.vec3_normalize(raycastSetup.myDirection);
+                raycastParams.myOrigin = hit.myPosition.vec3_add(hit.myNormal.vec3_scale(distanceToCheck, raycastParams.myOrigin), raycastParams.myOrigin);
+                raycastParams.myDirection = hit.myNormal.vec3_negate(raycastParams.myDirection);
+                raycastParams.myDistance = distanceToCheck * 1.25;
+                raycastParams.myDirection.vec3_normalize(raycastParams.myDirection);
 
-                raycastResult = PhysicsUtils.raycast(raycastSetup, raycastResult);
+                raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
                 if (raycastResult.isColliding()) {
                     let floorHit = raycastResult.myHits.pp_first();

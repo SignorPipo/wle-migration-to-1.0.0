@@ -3,7 +3,7 @@ import { getDebugVisualManager } from "../../debug/debug_globals";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { Timer } from "../cauldron/timer";
 import { PhysicsCollisionCollector } from "../physics/physics_collision_collector";
-import { RaycastResults, RaycastSetup } from "../physics/physics_raycast_data";
+import { RaycastResults, RaycastParams } from "../physics/physics_raycast_data";
 import { PhysicsUtils } from "../physics/physics_utils";
 
 // Adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away
@@ -38,7 +38,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
     _start() {
         this._myParentObject = this.object.pp_addObject();
 
-        this._myRaycastSetup = new RaycastSetup(this.engine.physics);
+        this._myRaycastParams = new RaycastParams(this.engine.physics);
         this._myRaycastResults = new RaycastResults();
 
         this._myStaticPhysXObjects = [];
@@ -174,12 +174,12 @@ export class BenchmarkMaxPhysXComponent extends Component {
             let direction = [Math.pp_random(-1, 1), Math.pp_random(-1, 1), Math.pp_random(-1, 1)];
             direction.vec3_normalize(direction);
 
-            this._myRaycastSetup.myOrigin.vec3_copy(origin);
-            this._myRaycastSetup.myDirection.vec3_copy(direction);
-            this._myRaycastSetup.myDistance = distance;
-            this._myRaycastSetup.myBlockLayerFlags.setAllFlagsActive();
+            this._myRaycastParams.myOrigin.vec3_copy(origin);
+            this._myRaycastParams.myDirection.vec3_copy(direction);
+            this._myRaycastParams.myDistance = distance;
+            this._myRaycastParams.myBlockLayerFlags.setAllFlagsActive();
 
-            let raycastResults = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResults);
+            let raycastResults = PhysicsUtils.raycast(this._myRaycastParams, this._myRaycastResults);
 
             if (debugActive) {
                 getDebugVisualManager(this.engine).drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);

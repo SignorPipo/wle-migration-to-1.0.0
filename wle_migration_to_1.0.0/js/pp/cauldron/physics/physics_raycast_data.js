@@ -1,21 +1,21 @@
 /*
-let raycastSetup = new RaycastSetup();
+let raycastParams = new RaycastParams();
 
-raycastSetup.myOrigin.vec3_copy(origin);
-raycastSetup.myDirection.vec3_copy(direction);
-raycastSetup.myDistance = distance;
-raycastSetup.myBlockLayerFlags.setMask(flags);
-raycastSetup.myObjectsToIgnore.pp_clear();
-raycastSetup.myIgnoreHitsInsideCollision = false;
+raycastParams.myOrigin.vec3_copy(origin);
+raycastParams.myDirection.vec3_copy(direction);
+raycastParams.myDistance = distance;
+raycastParams.myBlockLayerFlags.setMask(flags);
+raycastParams.myObjectsToIgnore.pp_clear();
+raycastParams.myIgnoreHitsInsideCollision = false;
 
-let raycastResults = PhysicsUtils.raycast(raycastSetup);
+let raycastResults = PhysicsUtils.raycast(raycastParams);
 */
 
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { getMainEngine } from "../wl/engine_globals";
 import { PhysicsLayerFlags } from "./physics_layer_flags";
 
-export class RaycastSetup {
+export class RaycastParams {
 
     constructor(physics = (getMainEngine() != null) ? getMainEngine().physics : null) {
         this.myOrigin = vec3_create();
@@ -30,17 +30,17 @@ export class RaycastSetup {
         this.myPhysics = physics;
     }
 
-    copy(setup) {
-        this.myOrigin.vec3_copy(setup.myOrigin);
-        this.myDirection.vec3_copy(setup.myDirection);
-        this.myDistance = setup.myDistance;
+    copy(other) {
+        this.myOrigin.vec3_copy(other.myOrigin);
+        this.myDirection.vec3_copy(other.myDirection);
+        this.myDistance = other.myDistance;
 
-        this.myBlockLayerFlags.copy(setup.myBlockLayerFlags);
+        this.myBlockLayerFlags.copy(other.myBlockLayerFlags);
 
-        this.myObjectsToIgnore.pp_copy(setup.myObjectsToIgnore);
-        this.myIgnoreHitsInsideCollision = setup.myIgnoreHitsInsideCollision;
+        this.myObjectsToIgnore.pp_copy(other.myObjectsToIgnore);
+        this.myIgnoreHitsInsideCollision = other.myIgnoreHitsInsideCollision;
 
-        this.myPhysics = setup.myPhysics;
+        this.myPhysics = other.myPhysics;
     }
 
     reset() {
@@ -58,7 +58,7 @@ export class RaycastSetup {
 export class RaycastResults {
 
     constructor() {
-        this.myRaycastSetup = null;
+        this.myRaycastParams = null;
         this.myHits = [];
 
         this._myUnusedHits = null;
@@ -142,13 +142,13 @@ export class RaycastResults {
         this.myHits.pp_clear();
     }
 
-    copy(result) {
+    copy(other) {
         // Implemented outside class definition
     }
 
     reset() {
-        if (this.myRaycastSetup != null) {
-            this.myRaycastSetup.reset();
+        if (this.myRaycastParams != null) {
+            this.myRaycastParams.reset();
         }
 
         this.removeAllHits();
@@ -170,12 +170,12 @@ export class RaycastHit {
         return this.myObject != null;
     }
 
-    copy(hit) {
-        this.myPosition.vec3_copy(hit.myPosition);
-        this.myNormal.vec3_copy(hit.myNormal);
-        this.myDistance = hit.myDistance;
-        this.myObject = hit.myObject;
-        this.myIsInsideCollision = hit.myIsInsideCollision;
+    copy(other) {
+        this.myPosition.vec3_copy(other.myPosition);
+        this.myNormal.vec3_copy(other.myNormal);
+        this.myDistance = other.myDistance;
+        this.myObject = other.myObject;
+        this.myIsInsideCollision = other.myIsInsideCollision;
     }
 
     reset() {
@@ -202,28 +202,28 @@ RaycastResults.prototype.copy = function () {
         return currentElement;
     };
 
-    return function copy(result) {
-        if (result.myRaycastSetup == null) {
-            this.myRaycastSetup = null;
+    return function copy(other) {
+        if (other.myRaycastParams == null) {
+            this.myRaycastParams = null;
         } else {
-            if (this.myRaycastSetup == null) {
-                this.myRaycastSetup = new RaycastSetup(result.myRaycastSetup.myPhysics);
+            if (this.myRaycastParams == null) {
+                this.myRaycastParams = new RaycastParams(other.myRaycastParams.myPhysics);
             }
 
-            this.myRaycastSetup.copy(result.myRaycastSetup);
+            this.myRaycastParams.copy(other.myRaycastParams);
         }
 
-        if (this.myHits.length > result.myHits.length) {
+        if (this.myHits.length > other.myHits.length) {
             if (this._myUnusedHits == null) {
                 this._myUnusedHits = [];
             }
 
-            for (let i = 0; i < this.myHits.length - result.myHits.length; i++) {
+            for (let i = 0; i < this.myHits.length - other.myHits.length; i++) {
                 this._myUnusedHits.push(this.myHits.pop());
             }
-        } else if (this.myHits.length < result.myHits.length) {
+        } else if (this.myHits.length < other.myHits.length) {
             if (this._myUnusedHits != null) {
-                let length = Math.min(this._myUnusedHits.length, result.myHits.length - this.myHits.length);
+                let length = Math.min(this._myUnusedHits.length, other.myHits.length - this.myHits.length);
 
                 for (let i = 0; i < length; i++) {
                     this.myHits.push(this._myUnusedHits.pop());
@@ -231,6 +231,6 @@ RaycastResults.prototype.copy = function () {
             }
         }
 
-        this.myHits.pp_copy(result.myHits, copyHitCallback);
+        this.myHits.pp_copy(other.myHits, copyHitCallback);
     };
 }();

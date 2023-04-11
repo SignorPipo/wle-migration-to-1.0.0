@@ -1,4 +1,4 @@
-import { RaycastHit, RaycastResults, RaycastSetup } from "../../../../../../cauldron/physics/physics_raycast_data";
+import { RaycastHit, RaycastResults, RaycastParams } from "../../../../../../cauldron/physics/physics_raycast_data";
 import { PhysicsUtils } from "../../../../../../cauldron/physics/physics_utils";
 import { getMainEngine } from "../../../../../../cauldron/wl/engine_globals";
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
@@ -26,7 +26,7 @@ export class CollisionCheck {
     constructor(engine = getMainEngine()) {
         this._myEngine = engine;
 
-        this._myRaycastSetup = new RaycastSetup(this._myEngine.physics);
+        this._myRaycastParams = new RaycastParams(this._myEngine.physics);
         this._myRaycastResult = new RaycastResults();
         this._myFixRaycastResult = new RaycastResults();
 
@@ -121,29 +121,29 @@ export class CollisionCheck {
 CollisionCheck.prototype._raycastAndDebug = function () {
     let tempRaycastResult = new RaycastResults();
     return function _raycastAndDebug(origin, direction, distance, ignoreHitsInsideCollision, isHorizontal, collisionCheckParams, collisionRuntimeParams) {
-        this._myRaycastSetup.myOrigin.vec3_copy(origin);
-        this._myRaycastSetup.myDirection.vec3_copy(direction);
-        this._myRaycastSetup.myDistance = distance;
+        this._myRaycastParams.myOrigin.vec3_copy(origin);
+        this._myRaycastParams.myDirection.vec3_copy(direction);
+        this._myRaycastParams.myDistance = distance;
 
         if (isHorizontal) {
-            this._myRaycastSetup.myBlockLayerFlags.copy(collisionCheckParams.myHorizontalBlockLayerFlags);
-            this._myRaycastSetup.myObjectsToIgnore = collisionCheckParams.myHorizontalObjectsToIgnore;
+            this._myRaycastParams.myBlockLayerFlags.copy(collisionCheckParams.myHorizontalBlockLayerFlags);
+            this._myRaycastParams.myObjectsToIgnore = collisionCheckParams.myHorizontalObjectsToIgnore;
         } else {
-            this._myRaycastSetup.myBlockLayerFlags.copy(collisionCheckParams.myVerticalBlockLayerFlags);
-            this._myRaycastSetup.myObjectsToIgnore = collisionCheckParams.myVerticalObjectsToIgnore;
+            this._myRaycastParams.myBlockLayerFlags.copy(collisionCheckParams.myVerticalBlockLayerFlags);
+            this._myRaycastParams.myObjectsToIgnore = collisionCheckParams.myVerticalObjectsToIgnore;
         }
 
-        this._myRaycastSetup.myIgnoreHitsInsideCollision = ignoreHitsInsideCollision;
+        this._myRaycastParams.myIgnoreHitsInsideCollision = ignoreHitsInsideCollision;
 
         let raycastResult = null;
         if (true) {
-            raycastResult = PhysicsUtils.raycast(this._myRaycastSetup, this._myRaycastResult);
+            raycastResult = PhysicsUtils.raycast(this._myRaycastParams, this._myRaycastResult);
         } else {
             // Quick debug to remove raycasts and/or let all raycasts fail
 
             let raycastAlways = false;
             if (raycastAlways || !this._myRaycastResult.isColliding()) {
-                raycastResult = PhysicsUtils.raycast(this._myRaycastSetup, tempRaycastResult);
+                raycastResult = PhysicsUtils.raycast(this._myRaycastParams, tempRaycastResult);
             }
 
             if (!this._myRaycastResult.isColliding() && tempRaycastResult.isColliding()) {
