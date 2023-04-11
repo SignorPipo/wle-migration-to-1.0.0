@@ -1,7 +1,7 @@
 import { vec3_create } from "../../../../plugin/js/extensions/array_extension";
-import { EasyTuneBaseWidgetSetup } from "../base/easy_tune_base_widget_setup";
+import { EasyTuneBaseWidgetConfig } from "../base/easy_tune_base_widget_config";
 
-export class EasyTuneTransformWidgetSetup extends EasyTuneBaseWidgetSetup {
+export class EasyTuneTransformWidgetConfig extends EasyTuneBaseWidgetConfig {
 
     _getBackPanelMinY() {
         return super._getBackPanelMinY() + this.myPositionPanelPosition[1] + this.myStepPanelPosition[1];

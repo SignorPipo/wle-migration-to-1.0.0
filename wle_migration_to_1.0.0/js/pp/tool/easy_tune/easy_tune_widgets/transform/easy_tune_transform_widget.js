@@ -1,7 +1,7 @@
 import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
 import { GamepadAxesID } from "../../../../input/gamepad/gamepad_buttons";
 import { EasyTuneBaseWidget } from "../base/easy_tune_base_widget";
-import { EasyTuneTransformWidgetSetup } from "./easy_tune_transform_widget_setup";
+import { EasyTuneTransformWidgetConfig } from "./easy_tune_transform_widget_config";
 import { EasyTuneTransformWidgetUI } from "./easy_tune_transform_widget_ui";
 
 export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
@@ -11,7 +11,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
         this._myGamepad = gamepad;
 
-        this._mySetup = new EasyTuneTransformWidgetSetup();
+        this._myConfig = new EasyTuneTransformWidgetConfig();
         this._myUI = new EasyTuneTransformWidgetUI(engine);
 
         this._myValueButtonEditIntensity = 0;
@@ -55,17 +55,17 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         for (let i = 0; i < 3; i++) {
             this._myUI.myPositionTextComponents[i].text = this._myVariable.myPosition[i].toFixed(this._myVariable.myDecimalPlaces);
         }
-        this._myUI.myPositionStepTextComponent.text = this._mySetup.myStepStartString.concat(this._myVariable.myPositionStepPerSecond);
+        this._myUI.myPositionStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myPositionStepPerSecond);
 
         for (let i = 0; i < 3; i++) {
             this._myUI.myRotationTextComponents[i].text = this._myVariable.myRotation[i].toFixed(this._myVariable.myDecimalPlaces);
         }
-        this._myUI.myRotationStepTextComponent.text = this._mySetup.myStepStartString.concat(this._myVariable.myRotationStepPerSecond);
+        this._myUI.myRotationStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myRotationStepPerSecond);
 
         for (let i = 0; i < 3; i++) {
             this._myUI.myScaleTextComponents[i].text = this._myVariable.myScale[i].toFixed(this._myVariable.myDecimalPlaces);
         }
-        this._myUI.myScaleStepTextComponent.text = this._mySetup.myStepStartString.concat(this._myVariable.myScaleStepPerSecond);
+        this._myUI.myScaleStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myScaleStepPerSecond);
     }
 
     _startHook(parentObject, additionalSetup) {
@@ -82,8 +82,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         if (this._myGamepad) {
             let y = this._myGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes[1];
 
-            if (Math.abs(y) > this._mySetup.myEditThumbstickMinThreshold) {
-                let normalizedEditAmount = (Math.abs(y) - this._mySetup.myEditThumbstickMinThreshold) / (1 - this._mySetup.myEditThumbstickMinThreshold);
+            if (Math.abs(y) > this._myConfig.myEditThumbstickMinThreshold) {
+                let normalizedEditAmount = (Math.abs(y) - this._myConfig.myEditThumbstickMinThreshold) / (1 - this._myConfig.myEditThumbstickMinThreshold);
                 stickVariableIntensity = Math.sign(y) * normalizedEditAmount;
             }
         }
@@ -181,7 +181,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
                 amountToAdd = Math.sign(stepIntensity) * 1;
                 this._myStepFastEdit = false;
             } else {
-                amountToAdd = stepIntensity * this._mySetup.myStepMultiplierStepPerSecond * dt;
+                amountToAdd = stepIntensity * this._myConfig.myStepMultiplierStepPerSecond * dt;
             }
 
             this._myStepMultiplierValue += amountToAdd;
@@ -219,11 +219,11 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
         ui.myVariableLabelCursorTargetComponent.onClick.add(this._resetAllValues.bind(this));
         ui.myVariableLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myVariableLabelText));
-        ui.myVariableLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myVariableLabelText, this._mySetup.myVariableLabelTextScale));
+        ui.myVariableLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myVariableLabelText, this._myConfig.myVariableLabelTextScale));
 
         ui.myPositionLabelCursorTargetComponent.onClick.add(this._resetComponentValues.bind(this, 0));
         ui.myPositionLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myPositionLabelText));
-        ui.myPositionLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myPositionLabelText, this._mySetup.myComponentLabelTextScale));
+        ui.myPositionLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myPositionLabelText, this._myConfig.myComponentLabelTextScale));
         for (let i = 0; i < 3; i++) {
             ui.myPositionIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 0, i, 1));
             ui.myPositionIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 0, i, 1));
@@ -248,7 +248,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
         ui.myRotationLabelCursorTargetComponent.onClick.add(this._resetComponentValues.bind(this, 1));
         ui.myRotationLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myRotationLabelText));
-        ui.myRotationLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myRotationLabelText, this._mySetup.myComponentLabelTextScale));
+        ui.myRotationLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myRotationLabelText, this._myConfig.myComponentLabelTextScale));
         for (let i = 0; i < 3; i++) {
             ui.myRotationIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 1, i, 1));
             ui.myRotationIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 1, i, 1));
@@ -273,7 +273,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
         ui.myScaleLabelCursorTargetComponent.onClick.add(this._resetComponentValues.bind(this, 2));
         ui.myScaleLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myScaleLabelText));
-        ui.myScaleLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myScaleLabelText, this._mySetup.myComponentLabelTextScale));
+        ui.myScaleLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myScaleLabelText, this._myConfig.myComponentLabelTextScale));
         for (let i = 0; i < 3; i++) {
             ui.myScaleIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 2, i, 1));
             ui.myScaleIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 2, i, 1));
@@ -376,7 +376,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
                         break;
                 }
 
-                this._myValueButtonEditIntensityTimer = this._mySetup.myButtonEditDelay;
+                this._myValueButtonEditIntensityTimer = this._myConfig.myButtonEditDelay;
                 this._myValueEditIndex = index;
                 this._myComponentIndex = componentIndex;
             }
@@ -388,7 +388,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
     _setStepEditIntensity(index, value) {
         if (this._isActive() || value == 0) {
             if (value != 0) {
-                this._myStepButtonEditIntensityTimer = this._mySetup.myButtonEditDelay;
+                this._myStepButtonEditIntensityTimer = this._myConfig.myButtonEditDelay;
             }
 
             this._myStepButtonEditIntensity = value;
@@ -417,9 +417,9 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
                 this._myValueEditIndex = index;
                 this._myComponentIndex = componentIndex;
-                text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
+                text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
-                text.pp_setScaleWorld(this._mySetup.myValueTextScale);
+                text.pp_setScaleWorld(this._myConfig.myValueTextScale);
             }
 
             this._myValueEditActive = active;
@@ -429,9 +429,9 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
     _setStepEditActive(index, text, active) {
         if (this._isActive() || !active) {
             if (active) {
-                text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
+                text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
-                text.pp_setScaleWorld(this._mySetup.myStepTextScale);
+                text.pp_setScaleWorld(this._myConfig.myStepTextScale);
             }
 
             this._myStepEditActive = active;
@@ -499,21 +499,21 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         switch (index) {
             case 0:
                 this._myVariable.myPositionStepPerSecond = step;
-                this._myUI.myPositionStepTextComponent.text = this._mySetup.myStepStartString.concat(this._myVariable.myPositionStepPerSecond);
+                this._myUI.myPositionStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myPositionStepPerSecond);
                 break;
             case 1:
                 this._myVariable.myRotationStepPerSecond = step;
-                this._myUI.myRotationStepTextComponent.text = this._mySetup.myStepStartString.concat(this._myVariable.myRotationStepPerSecond);
+                this._myUI.myRotationStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myRotationStepPerSecond);
                 break;
             case 2:
                 this._myVariable.myScaleStepPerSecond = step;
-                this._myUI.myScaleStepTextComponent.text = this._mySetup.myStepStartString.concat(this._myVariable.myScaleStepPerSecond);
+                this._myUI.myScaleStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myScaleStepPerSecond);
                 break;
         }
     }
 
     _genericTextHover(text) {
-        text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
+        text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
     }
 
     _genericTextUnHover(text, originalScale) {

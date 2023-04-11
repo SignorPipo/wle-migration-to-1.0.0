@@ -1,7 +1,7 @@
 import { vec3_create } from "../../../../plugin/js/extensions/array_extension";
-import { EasyTuneBaseWidgetSetup } from "../base/easy_tune_base_widget_setup";
+import { EasyTuneBaseWidgetConfig } from "../base/easy_tune_base_widget_config";
 
-export class EasyTuneBoolArrayWidgetSetup extends EasyTuneBaseWidgetSetup {
+export class EasyTuneNumberArrayWidgetConfig extends EasyTuneBaseWidgetConfig {
 
     constructor(arraySize) {
         super();
@@ -10,12 +10,11 @@ export class EasyTuneBoolArrayWidgetSetup extends EasyTuneBaseWidgetSetup {
     }
 
     _getBackPanelMinY() {
-        let valuePanelLastPosition = (this.myValuePanelsPositions[this.myArraySize - 1]) ? this.myValuePanelsPositions[this.myArraySize - 1][1] : 0;
-        return super._getBackPanelMinY() + this.myValuesPanelPosition[1] + valuePanelLastPosition;
+        return this.myStepPanelPosition[1] - this._mySideButtonDistanceFromBorder * 1.25 - this.mySideButtonBackgroundScale[1];
     }
 
     _getPivotZOffset() {
-        return 0.00802713;
+        return 0.00803713;
     }
 
     _setupBuildConfigHook() {
@@ -40,12 +39,23 @@ export class EasyTuneBoolArrayWidgetSetup extends EasyTuneBaseWidgetSetup {
             this.myValuePanelsPositions[i] = this.myValuePanelsPositions[i - 1].pp_clone();
             this.myValuePanelsPositions[i][1] -= this._myDistanceBetweenValues;
         }
+
+        let valuePanelLastPosition = (this.myValuePanelsPositions[this.myArraySize - 1]) ? this.myValuePanelsPositions[this.myArraySize - 1][1] : 0;
+        this.myStepPanelPosition = [0, this.myDisplayPanelPosition[1] + this.myValuesPanelPosition[1] + valuePanelLastPosition - this._myValuePanelDistanceFromVariableLabelPanel, this._myPanelZOffset];
+        this.myStepTextScale = this.myLabelTextScale;
+        this.myStepStartString = "Step: ";
+
+        this.myStepCursorTargetPosition = vec3_create(0, 0, 0);
+        this.myStepCursorTargetPosition[2] = this._myColliderZOffset - this.myStepPanelPosition[2];
+        this.myStepCollisionExtents = vec3_create(0.065, 0.0175, 1);
+        this.myStepCollisionExtents[2] = this.myCursorTargetCollisionThickness;
     }
 
     _setupRuntimeConfigHook() {
         this.myTextHoverScaleMultiplier = vec3_create(1.25, 1.25, 1.25);
 
-        this.myThumbstickToggleThreshold = 0.6;
+        this.myEditThumbstickMinThreshold = 0.35;
+        this.myStepMultiplierStepPerSecond = 2.25;
         this.myButtonEditDelay = 0;
     }
 }

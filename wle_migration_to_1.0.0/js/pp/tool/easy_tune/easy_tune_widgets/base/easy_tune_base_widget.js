@@ -11,7 +11,7 @@ export class EasyTuneBaseWidgetParams {
 export class EasyTuneBaseWidget {
 
     constructor(params) {
-        this._mySetup = null;
+        this._myConfig = null;
         this._myUI = null;
 
         this._myParams = params;
@@ -69,7 +69,7 @@ export class EasyTuneBaseWidget {
     setScrollVariableActive(active, scrollDirection) {
         this._myScrollVariableActive = active;
         this._myScrollDirection = scrollDirection;
-        this._myScrollVariableTimer = this._mySetup.myScrollVariableDelay;
+        this._myScrollVariableTimer = this._myConfig.myScrollVariableDelay;
         this._myHasScrolled = false;
     }
 
@@ -97,31 +97,31 @@ export class EasyTuneBaseWidget {
             this.setScrollVariableActive(otherEasyTuneWidget.isScrollVariableActive(), otherEasyTuneWidget.getScrollVariableDirection());
         } else {
             this._myResetImportLabelTimer.reset();
-            this._myUI.myImportButtonTextComponent.text = this._mySetup.myImportButtonText;
+            this._myUI.myImportButtonTextComponent.text = this._myConfig.myImportButtonText;
 
             this._myResetExportLabelTimer.reset();
-            this._myUI.myExportButtonTextComponent.text = this._mySetup.myExportButtonText;
+            this._myUI.myExportButtonTextComponent.text = this._myConfig.myExportButtonText;
         }
     }
 
     onImportSuccess() {
-        this._myUI.myImportButtonTextComponent.text = this._mySetup.myImportSuccessButtonText;
-        this._myResetImportLabelTimer.start(this._mySetup.myImportExportResetLabelSeconds);
+        this._myUI.myImportButtonTextComponent.text = this._myConfig.myImportSuccessButtonText;
+        this._myResetImportLabelTimer.start(this._myConfig.myImportExportResetLabelSeconds);
     }
 
     onImportFailure() {
-        this._myUI.myImportButtonTextComponent.text = this._mySetup.myImportFailureButtonText;
-        this._myResetImportLabelTimer.start(this._mySetup.myImportExportResetLabelSeconds);
+        this._myUI.myImportButtonTextComponent.text = this._myConfig.myImportFailureButtonText;
+        this._myResetImportLabelTimer.start(this._myConfig.myImportExportResetLabelSeconds);
     }
 
     onExportSuccess() {
-        this._myUI.myExportButtonTextComponent.text = this._mySetup.myExportSuccessButtonText;
-        this._myResetExportLabelTimer.start(this._mySetup.myImportExportResetLabelSeconds);
+        this._myUI.myExportButtonTextComponent.text = this._myConfig.myExportSuccessButtonText;
+        this._myResetExportLabelTimer.start(this._myConfig.myImportExportResetLabelSeconds);
     }
 
     onExportFailure() {
-        this._myUI.myExportButtonTextComponent.text = this._mySetup.myExportFailureButtonText;
-        this._myResetExportLabelTimer.start(this._mySetup.myImportExportResetLabelSeconds);
+        this._myUI.myExportButtonTextComponent.text = this._myConfig.myExportFailureButtonText;
+        this._myResetExportLabelTimer.start(this._myConfig.myImportExportResetLabelSeconds);
     }
 
     registerScrollVariableRequestEventListener(id, callback) {
@@ -135,12 +135,12 @@ export class EasyTuneBaseWidget {
     start(parentObject, additionalSetup) {
         this._myAdditionalSetup = additionalSetup;
 
-        this._mySetup.build();
+        this._myConfig.build();
 
-        this._myResetImportLabelTimer.setDuration(this._mySetup.myImportExportResetLabelSeconds);
-        this._myResetExportLabelTimer.setDuration(this._mySetup.myImportExportResetLabelSeconds);
+        this._myResetImportLabelTimer.setDuration(this._myConfig.myImportExportResetLabelSeconds);
+        this._myResetExportLabelTimer.setDuration(this._myConfig.myImportExportResetLabelSeconds);
 
-        this._myUI.build(parentObject, this._mySetup, additionalSetup);
+        this._myUI.build(parentObject, this._myConfig, additionalSetup);
         this._myUI.setImportExportButtonsActive(this._myAdditionalSetup.myVariablesImportExportButtonsEnabled);
 
         this._startHook(parentObject, additionalSetup);
@@ -194,7 +194,7 @@ export class EasyTuneBaseWidget {
         if (this._myScrollVariableActive) {
             if (this._myScrollVariableTimer <= 0) {
                 this._scrollVariableRequest(this._myScrollDirection);
-                this._myScrollVariableTimer = this._mySetup.myScrollVariableDelay;
+                this._myScrollVariableTimer = this._myConfig.myScrollVariableDelay;
                 this._myHasScrolled = true;
             } else {
                 this._myScrollVariableTimer -= dt;
@@ -207,7 +207,7 @@ export class EasyTuneBaseWidget {
             this._myResetImportLabelTimer.update(dt);
             if (this._myResetImportLabelTimer.isDone()) {
                 this._myResetImportLabelTimer.reset();
-                this._myUI.myImportButtonTextComponent.text = this._mySetup.myImportButtonText;
+                this._myUI.myImportButtonTextComponent.text = this._myConfig.myImportButtonText;
             }
         }
 
@@ -215,7 +215,7 @@ export class EasyTuneBaseWidget {
             this._myResetExportLabelTimer.update(dt);
             if (this._myResetExportLabelTimer.isDone()) {
                 this._myResetExportLabelTimer.reset();
-                this._myUI.myExportButtonTextComponent.text = this._mySetup.myExportButtonText;
+                this._myUI.myExportButtonTextComponent.text = this._myConfig.myExportButtonText;
             }
         }
     }
@@ -276,16 +276,16 @@ export class EasyTuneBaseWidget {
     }
 
     _genericHover(material) {
-        material.color = this._mySetup.myButtonHoverColor;
+        material.color = this._myConfig.myButtonHoverColor;
     }
 
     _genericUnHover(material) {
-        material.color = this._mySetup.myBackgroundColor;
+        material.color = this._myConfig.myBackgroundColor;
     }
 
     _importVariables() {
-        if (this._myUI.myImportButtonTextComponent.text == this._mySetup.myImportButtonText) {
-            this._myUI.myImportButtonTextComponent.text = this._mySetup.myImportingButtonText;
+        if (this._myUI.myImportButtonTextComponent.text == this._myConfig.myImportButtonText) {
+            this._myUI.myImportButtonTextComponent.text = this._myConfig.myImportingButtonText;
             this._myResetImportLabelTimer.reset();
 
             this._myParams.myVariablesImportCallback();
@@ -293,8 +293,8 @@ export class EasyTuneBaseWidget {
     }
 
     _exportVariables() {
-        if (this._myUI.myExportButtonTextComponent.text == this._mySetup.myExportButtonText) {
-            this._myUI.myExportButtonTextComponent.text = this._mySetup.myExportingButtonText;
+        if (this._myUI.myExportButtonTextComponent.text == this._myConfig.myExportButtonText) {
+            this._myUI.myExportButtonTextComponent.text = this._myConfig.myExportingButtonText;
             this._myResetExportLabelTimer.reset();
 
             this._myParams.myVariablesExportCallback();

@@ -1,7 +1,7 @@
 import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
 import { GamepadAxesID } from "../../../../input/gamepad/gamepad_buttons";
 import { EasyTuneBaseWidget } from "../base/easy_tune_base_widget";
-import { EasyTuneNumberArrayWidgetSetup } from "./easy_tune_number_array_widget_setup";
+import { EasyTuneNumberArrayWidgetConfig } from "./easy_tune_number_array_widget_config";
 import { EasyTuneNumberArrayWidgetUI } from "./easy_tune_number_array_widget_ui";
 
 export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
@@ -11,7 +11,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
 
         this._myGamepad = gamepad;
 
-        this._mySetup = new EasyTuneNumberArrayWidgetSetup(arraySize);
+        this._myConfig = new EasyTuneNumberArrayWidgetConfig(arraySize);
         this._myUI = new EasyTuneNumberArrayWidgetUI(engine);
 
         this._myValueEditIndex = -1;
@@ -36,11 +36,11 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     }
 
     _refreshUIHook() {
-        for (let i = 0; i < this._mySetup.myArraySize; i++) {
+        for (let i = 0; i < this._myConfig.myArraySize; i++) {
             this._myUI.myValueTextComponents[i].text = this._myVariable.myValue[i].toFixed(this._myVariable.myDecimalPlaces);
         }
 
-        this._myUI.myStepTextComponent.text = this._mySetup.myStepStartString.concat(this._myVariable.myStepPerSecond);
+        this._myUI.myStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myStepPerSecond);
     }
 
 
@@ -58,8 +58,8 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
         if (this._myGamepad) {
             let y = this._myGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes[1];
 
-            if (Math.abs(y) > this._mySetup.myEditThumbstickMinThreshold) {
-                let normalizedEditAmount = (Math.abs(y) - this._mySetup.myEditThumbstickMinThreshold) / (1 - this._mySetup.myEditThumbstickMinThreshold);
+            if (Math.abs(y) > this._myConfig.myEditThumbstickMinThreshold) {
+                let normalizedEditAmount = (Math.abs(y) - this._myConfig.myEditThumbstickMinThreshold) / (1 - this._myConfig.myEditThumbstickMinThreshold);
                 stickVariableIntensity = Math.sign(y) * normalizedEditAmount;
             }
         }
@@ -94,7 +94,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
                 let newValue = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
                 let difference = newValue - this._myVariable.myValue[this._myValueEditIndex];
 
-                for (let i = 0; i < this._mySetup.myArraySize; i++) {
+                for (let i = 0; i < this._myConfig.myArraySize; i++) {
                     this._myVariable.myValue[i] = Math.round((this._myVariable.myValue[i] + difference) * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
 
                     if (this._myVariable.myMin != null && this._myVariable.myMax != null) {
@@ -142,7 +142,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
                 amountToAdd = Math.sign(stepIntensity) * 1;
                 this._myStepFastEdit = false;
             } else {
-                amountToAdd = stepIntensity * this._mySetup.myStepMultiplierStepPerSecond * dt;
+                amountToAdd = stepIntensity * this._myConfig.myStepMultiplierStepPerSecond * dt;
             }
 
             this._myStepMultiplierValue += amountToAdd;
@@ -166,9 +166,9 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
 
         ui.myVariableLabelCursorTargetComponent.onClick.add(this._resetAllValues.bind(this));
         ui.myVariableLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myVariableLabelText));
-        ui.myVariableLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myVariableLabelText, this._mySetup.myVariableLabelTextScale));
+        ui.myVariableLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myVariableLabelText, this._myConfig.myVariableLabelTextScale));
 
-        for (let i = 0; i < this._mySetup.myArraySize; i++) {
+        for (let i = 0; i < this._myConfig.myArraySize; i++) {
             ui.myValueIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, i, 1));
             ui.myValueIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, i, 1));
             ui.myValueIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, i, 0));
@@ -214,7 +214,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     _setValueEditIntensity(index, value) {
         if (this._isActive() || value == 0) {
             if (value != 0) {
-                this._myValueButtonEditIntensityTimer = this._mySetup.myButtonEditDelay;
+                this._myValueButtonEditIntensityTimer = this._myConfig.myButtonEditDelay;
                 this._myValueRealValue = this._myVariable.myValue[index];
                 this._myValueEditIndex = index;
             }
@@ -226,7 +226,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     _setStepEditIntensity(value) {
         if (this._isActive() || value == 0) {
             if (value != 0) {
-                this._myStepButtonEditIntensityTimer = this._mySetup.myButtonEditDelay;
+                this._myStepButtonEditIntensityTimer = this._myConfig.myButtonEditDelay;
             }
 
             this._myStepButtonEditIntensity = value;
@@ -238,9 +238,9 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
             if (active) {
                 this._myValueRealValue = this._myVariable.myValue[index];
                 this._myValueEditIndex = index;
-                text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
+                text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
-                text.pp_setScaleWorld(this._mySetup.myValueTextScale);
+                text.pp_setScaleWorld(this._myConfig.myValueTextScale);
             }
 
             this._myValueEditActive = active;
@@ -250,9 +250,9 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     _setStepEditActive(text, active) {
         if (this._isActive() || !active) {
             if (active) {
-                text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
+                text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
-                text.pp_setScaleWorld(this._mySetup.myStepTextScale);
+                text.pp_setScaleWorld(this._myConfig.myStepTextScale);
             }
 
             this._myStepEditActive = active;
@@ -267,7 +267,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     }
 
     _resetAllValues() {
-        for (let i = 0; i < this._mySetup.myArraySize; i++) {
+        for (let i = 0; i < this._myConfig.myArraySize; i++) {
             this._resetValue(i);
         }
     }
@@ -281,11 +281,11 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     _changeStep(step) {
         step = Math.pp_roundDecimal(step, 10);
         this._myVariable.myStepPerSecond = step;
-        this._myUI.myStepTextComponent.text = this._mySetup.myStepStartString.concat(this._myVariable.myStepPerSecond);
+        this._myUI.myStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myStepPerSecond);
     }
 
     _genericTextHover(text) {
-        text.pp_scaleObject(this._mySetup.myTextHoverScaleMultiplier);
+        text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
     }
 
     _genericTextUnHover(text, originalScale) {

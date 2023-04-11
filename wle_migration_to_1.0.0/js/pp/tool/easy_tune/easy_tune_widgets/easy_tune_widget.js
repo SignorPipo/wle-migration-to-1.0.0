@@ -5,7 +5,7 @@ import { WidgetFrame } from "../../widget_frame/widget_frame";
 import { EasyTuneVariableType } from "../easy_tune_variable_types";
 import { EasyTuneBaseWidgetParams } from "./base/easy_tune_base_widget";
 import { EasyTuneBoolArrayWidgetSelector } from "./bool/easy_tune_bool_array_widget_selector";
-import { EasyTuneWidgetSetup } from "./easy_tune_widget_setup";
+import { EasyTuneWidgetConfig } from "./easy_tune_widget_config";
 import { EasyTuneNoneWidget } from "./none/easy_tune_none_widget";
 import { EasyTuneNumberArrayWidgetSelector } from "./number/easy_tune_number_widget_selector";
 import { EasyTuneTransformWidget } from "./transform/easy_tune_transform_widget";
@@ -36,7 +36,7 @@ export class EasyTuneWidget {
         this._myWidgetFrame = new WidgetFrame("E", 1, engine);
         this._myWidgetFrame.registerWidgetVisibleChangedEventListener(this, this._widgetVisibleChanged.bind(this));
 
-        this._mySetup = new EasyTuneWidgetSetup();
+        this._myConfig = new EasyTuneWidgetConfig();
         this._myAdditionalSetup = null;
 
         this._myWidgets = [];
@@ -87,9 +87,9 @@ export class EasyTuneWidget {
     start(parentObject, additionalSetup, easyTuneVariables) {
         this._myRightGamepad = getRightGamepad(this._myEngine);
         this._myLeftGamepad = getLeftGamepad(this._myEngine);
-        if (this._mySetup.myGamepadHandedness == ToolHandedness.RIGHT) {
+        if (this._myConfig.myGamepadHandedness == ToolHandedness.RIGHT) {
             this._myGamepad = this._myRightGamepad;
-        } else if (this._mySetup.myGamepadHandedness == ToolHandedness.LEFT) {
+        } else if (this._myConfig.myGamepadHandedness == ToolHandedness.LEFT) {
             this._myGamepad = this._myLeftGamepad;
         }
 
@@ -126,9 +126,9 @@ export class EasyTuneWidget {
         }
 
         if (this._myWidgetFrame.myIsWidgetVisible && this._myEasyTuneVariables.length() > 0) {
-            if (this._mySetup.myRefreshVariablesDelay != null) {
+            if (this._myConfig.myRefreshVariablesDelay != null) {
                 this._myRefreshVariablesTimer += dt;
-                if (this._myRefreshVariablesTimer > this._mySetup.myRefreshVariablesDelay) {
+                if (this._myRefreshVariablesTimer > this._myConfig.myRefreshVariablesDelay) {
                     this._myRefreshVariablesTimer = 0;
                     this._refreshEasyTuneVariables();
                 }
@@ -252,20 +252,20 @@ export class EasyTuneWidget {
     }
 
     _updateGamepadScrollVariable(dt) {
-        if (this._myGamepad && (!this._mySetup.myScrollVariableButtonID || this._myGamepad.getButtonInfo(this._mySetup.myScrollVariableButtonID).myIsPressed)) {
+        if (this._myGamepad && (!this._myConfig.myScrollVariableButtonID || this._myGamepad.getButtonInfo(this._myConfig.myScrollVariableButtonID).myIsPressed)) {
             let x = this._myGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes[0];
             let y = this._myGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes[1];
-            if (Math.abs(x) > this._mySetup.myScrollVariableMinXThreshold && Math.abs(y) < this._mySetup.myScrollVariableMaxYThreshold) {
+            if (Math.abs(x) > this._myConfig.myScrollVariableMinXThreshold && Math.abs(y) < this._myConfig.myScrollVariableMaxYThreshold) {
                 this._myScrollVariableTimer += dt;
-                while (this._myScrollVariableTimer > this._mySetup.myScrollVariableDelay) {
-                    this._myScrollVariableTimer -= this._mySetup.myScrollVariableDelay;
+                while (this._myScrollVariableTimer > this._myConfig.myScrollVariableDelay) {
+                    this._myScrollVariableTimer -= this._myConfig.myScrollVariableDelay;
                     this._scrollVariable(Math.sign(x));
                 }
             } else {
-                this._myScrollVariableTimer = this._mySetup.myScrollVariableDelay;
+                this._myScrollVariableTimer = this._myConfig.myScrollVariableDelay;
             }
         } else {
-            this._myScrollVariableTimer = this._mySetup.myScrollVariableDelay;
+            this._myScrollVariableTimer = this._myConfig.myScrollVariableDelay;
         }
     }
 

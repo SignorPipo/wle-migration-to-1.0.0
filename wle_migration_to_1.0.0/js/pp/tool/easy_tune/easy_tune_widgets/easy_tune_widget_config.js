@@ -1,6 +1,6 @@
 import { ToolHandedness } from "../../cauldron/tool_types";
 
-export class EasyTuneWidgetSetup {
+export class EasyTuneWidgetConfig {
 
     constructor() {
         this._setupRuntimeConfig();

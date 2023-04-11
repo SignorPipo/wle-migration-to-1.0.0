@@ -310,25 +310,25 @@ export * from "./tool/easy_tune/easy_object_tuners/components/easy_text_color_co
 export * from "./tool/easy_tune/easy_object_tuners/components/easy_transform_component";
 
 export * from "./tool/easy_tune/easy_tune_widgets/easy_tune_widget";
-export * from "./tool/easy_tune/easy_tune_widgets/easy_tune_widget_setup";
+export * from "./tool/easy_tune/easy_tune_widgets/easy_tune_widget_config";
 export * from "./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget";
 export * from "./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_ui";
-export * from "./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_setup";
+export * from "./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_widget_config";
 export * from "./tool/easy_tune/easy_tune_widgets/base/easy_tune_base_array_widget_selector";
 export * from "./tool/easy_tune/easy_tune_widgets/bool/easy_tune_bool_array_widget";
 export * from "./tool/easy_tune/easy_tune_widgets/bool/easy_tune_bool_array_widget_ui";
-export * from "./tool/easy_tune/easy_tune_widgets/bool/easy_tune_bool_array_widget_setup";
+export * from "./tool/easy_tune/easy_tune_widgets/bool/easy_tune_bool_array_widget_config";
 export * from "./tool/easy_tune/easy_tune_widgets/bool/easy_tune_bool_array_widget_selector";
 export * from "./tool/easy_tune/easy_tune_widgets/none/easy_tune_none_widget";
 export * from "./tool/easy_tune/easy_tune_widgets/none/easy_tune_none_widget_ui";
-export * from "./tool/easy_tune/easy_tune_widgets/none/easy_tune_none_widget_setup";
+export * from "./tool/easy_tune/easy_tune_widgets/none/easy_tune_none_widget_config";
 export * from "./tool/easy_tune/easy_tune_widgets/number/easy_tune_number_array_widget";
 export * from "./tool/easy_tune/easy_tune_widgets/number/easy_tune_number_array_widget_ui";
-export * from "./tool/easy_tune/easy_tune_widgets/number/easy_tune_number_array_widget_setup";
+export * from "./tool/easy_tune/easy_tune_widgets/number/easy_tune_number_array_widget_config";
 export * from "./tool/easy_tune/easy_tune_widgets/number/easy_tune_number_widget_selector";
 export * from "./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget";
 export * from "./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget_ui";
-export * from "./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget_setup";
+export * from "./tool/easy_tune/easy_tune_widgets/transform/easy_tune_transform_widget_config";
 
 export * from "./tool/widget_frame/widget_frame_config";
 export * from "./tool/widget_frame/widget_frame_ui";

@@ -2,7 +2,7 @@ import { Alignment, Collider, Justification } from "@wonderlandengine/api";
 import { vec3_create, vec4_create } from "../../../../plugin/js/extensions/array_extension";
 import { ToolHandedness } from "../../../cauldron/tool_types";
 
-export class EasyTuneBaseWidgetSetup {
+export class EasyTuneBaseWidgetConfig {
 
     constructor() {
     }
