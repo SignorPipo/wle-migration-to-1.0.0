@@ -1,8 +1,8 @@
 import { MouseLookComponent } from "@wonderlandengine/components";
 import { Timer } from "../../../../cauldron/cauldron/timer";
+import { getCanvas } from "../../../../cauldron/wl/engine_globals";
 import { vec3_create } from "../../../js/extensions/array_extension";
 import { PluginUtils } from "../../../utils/plugin_utils";
-import { getCanvas } from "../../../../cauldron/wl/engine_globals";
 
 export function initMouseLookComponentMod() {
     initMouseLookComponentModPrototype();

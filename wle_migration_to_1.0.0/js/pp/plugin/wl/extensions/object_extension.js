@@ -118,9 +118,9 @@
 */
 
 import { Object3D } from "@wonderlandengine/api";
+import { getScene } from "../../../cauldron/wl/engine_globals";
 import { mat3_create, mat4_create, quat2_create, quat_create, vec3_create } from "../../js/extensions/array_extension";
 import { PluginUtils } from "../../utils/plugin_utils";
-import { getScene } from "../../../cauldron/wl/engine_globals";
 
 export function initObjectExtension() {
     initObjectExtensionProtoype();

@@ -3,7 +3,7 @@ import { getDebugVisualManager } from "../../debug/debug_globals";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { Timer } from "../cauldron/timer";
 import { PhysicsCollisionCollector } from "../physics/physics_collision_collector";
-import { RaycastResults, RaycastParams } from "../physics/physics_raycast_data";
+import { RaycastParams, RaycastResults } from "../physics/physics_raycast_data";
 import { PhysicsUtils } from "../physics/physics_utils";
 import { getPhysics } from "../wl/engine_globals";
 

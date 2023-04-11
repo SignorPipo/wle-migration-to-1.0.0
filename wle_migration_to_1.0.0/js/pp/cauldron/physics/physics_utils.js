@@ -1,5 +1,5 @@
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
-import { RaycastHit, RaycastResults, RaycastParams } from "./physics_raycast_data";
+import { RaycastHit, RaycastParams, RaycastResults } from "./physics_raycast_data";
 
 let _myLayerFlagsNames = ["0", "1", "2", "3", "4", "5", "6", "7"];
 

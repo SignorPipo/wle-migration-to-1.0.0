@@ -1,12 +1,12 @@
 import { Component, MeshComponent, Property, TextComponent } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { CloneParams } from "../../plugin/wl/extensions/object_extension";
+import { getDefaultMaterials } from "../../pp/default_resources_globals";
 import { getPlayerObjects } from "../../pp/scene_objects_global";
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
 import { Timer } from "../cauldron/timer";
 import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParams, MeshUtils } from "../utils/mesh_utils";
 import { XRUtils } from "../utils/xr_utils";
-import { getDefaultMaterials } from "../../pp/default_resources_globals";
 
 export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     static TypeName = "pp-benchmark-max-visible-triangles";

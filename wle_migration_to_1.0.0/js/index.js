@@ -41,10 +41,10 @@ import {ConsoleVRToolComponent} from './pp/tool/console_vr/components/console_vr
 import {EasyTuneToolComponent} from './pp/tool/easy_tune/components/easy_tune_tool_component.js';
 /* wle:auto-imports:end */
 
-import { loadRuntime } from '@wonderlandengine/api';
 import * as API from '@wonderlandengine/api'; // Deprecated: Backward compatibility.
-import { initPP } from './pp/index.js';
+import { loadRuntime } from '@wonderlandengine/api';
 import { initPlayground } from './playground/init_playground.js';
+import { initPP } from './pp/index.js';
 
 /* wle:auto-constants:start */
 const ProjectName = 'wle_migration_to_1.0.0';
