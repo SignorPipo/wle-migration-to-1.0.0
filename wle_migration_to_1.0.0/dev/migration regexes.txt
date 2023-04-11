@@ -2,10 +2,11 @@ Find: \},\n(\s+\w+): function
 Replace: }\n\n$1
 
 Find: WL\.registerComponent\('(.*)',\s*\{([\n|\s|\S|.]*)\}, \{\n([\n|\s|\S|.]*)\}\);
+Find: WL\.registerComponent\("(.*)",\s*\{([\n|\s|\S|.]*)\}, \{\n([\n|\s|\S|.]*)\}\);
 Replace: 
 import { Component, Type } from "@wonderlandengine/api";
 
-export class EnableToolsComponent extends Component {
+export class RComponent extends Component {
     static TypeName = "$1";
     static Properties = {$2};
 	

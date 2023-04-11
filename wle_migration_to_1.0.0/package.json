@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "author": "Pipo",
     "type": "module",
+    "license": "ISC",
     "dependencies": {
         "@wonderlandengine/api": "^1.0.0-rc.3",
         "@wonderlandengine/components": "^1.0.0-rc.3",
