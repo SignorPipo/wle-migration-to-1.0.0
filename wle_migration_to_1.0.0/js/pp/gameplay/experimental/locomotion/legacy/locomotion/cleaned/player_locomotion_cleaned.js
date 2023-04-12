@@ -6,7 +6,7 @@ import { GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../../plugin/js/extensions/math_extension";
 import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
-import { CharacterColliderSetupSimplifiedCreationAccuracyLevel, CharacterColliderSetupSimplifiedCreationParams, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
+import { CharacterColliderSetupSimplifiedCreationParams, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
 import { CollisionCheckBridge } from "../../../../character_controller/collision/collision_check_bridge";
 import { CollisionCheckUtils } from "../../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
