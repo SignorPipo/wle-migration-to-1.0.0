@@ -19,6 +19,7 @@ export class PlayerLocomotionComponent extends Component {
     static TypeName = "pp-player-locomotion";
     static Properties = {
         _myPhysicsBlockLayerFlags: Property.string("0, 0, 0, 0, 0, 0, 0, 0"),
+        _myDefaultHeight: Property.float(1.75),
         _myMaxSpeed: Property.float(2),
         _myMaxRotationSpeed: Property.float(100),
         _myCharacterRadius: Property.float(0.3),
@@ -49,6 +50,8 @@ export class PlayerLocomotionComponent extends Component {
         setCollisionCheck(new CollisionCheck(this.engine), this.engine);
 
         let params = new PlayerLocomotionParams(this.engine);
+        params.myDefaultHeight = this._myDefaultHeight;
+
         params.myMaxSpeed = this._myMaxSpeed;
         params.myMaxRotationSpeed = this._myMaxRotationSpeed;
 

@@ -26,6 +26,8 @@ export let PlayerLocomotionDirectionReferenceType = {
 export class PlayerLocomotionParams {
 
     constructor(engine = getMainEngine()) {
+        this.myDefaultHeight = 0;
+
         this.myMaxSpeed = 0;
         this.myMaxRotationSpeed = 0;
 
@@ -104,8 +106,8 @@ export class PlayerLocomotion {
             params.myExitSessionMaxVerticalAngle = 90;
 
             params.myHeightOffsetVRWithFloor = 0;
-            params.myHeightOffsetVRWithoutFloor = 1.75;
-            params.myHeightOffsetNonVR = 1.75;
+            params.myHeightOffsetVRWithoutFloor = this._myParams.myDefaultHeight;
+            params.myHeightOffsetNonVR = this._myParams.myDefaultHeight;
 
             params.myForeheadExtraHeight = this._myParams.myForeheadExtraHeight;
 
