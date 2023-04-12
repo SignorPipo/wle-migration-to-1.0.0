@@ -37,6 +37,8 @@ export class PlayerLocomotionParams {
         this.mySnapTurnSpeedDegrees = 0;
 
         this.myFlyEnabled = false;
+        this.myStartFlying = false;
+
         this.myMinAngleToFlyUpNonVR = 0;
         this.myMinAngleToFlyDownNonVR = 0;
         this.myMinAngleToFlyUpVR = 0;
@@ -82,6 +84,7 @@ export class PlayerLocomotion {
 
         this._myCollisionRuntimeParams = new CollisionRuntimeParams();
         this._myMovementRuntimeParams = new PlayerLocomotionMovementRuntimeParams();
+        this._myMovementRuntimeParams.myIsFlying = this._myParams.myStartFlying;
         this._myMovementRuntimeParams.myCollisionRuntimeParams = this._myCollisionRuntimeParams;
 
         {
