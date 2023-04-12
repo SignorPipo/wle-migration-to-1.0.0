@@ -29,7 +29,10 @@
                     }
                 },
                 {
-                    "type": "pp-virtual-gamepad"
+                    "type": "pp-virtual-gamepad",
+                    "pp-virtual-gamepad": {
+                        "_myShowOnDesktop": true
+                    }
                 }
             ]
         },
@@ -2869,7 +2872,12 @@
             "xrButtonColor": "white",
             "webxr": {
                 "optionalFeatures": {
-                    "hand-tracking": true
+                    "hand-tracking": true,
+                    "local-floor": true
+                },
+                "requiredFeatures": {
+                    "local-floor": false,
+                    "hand-tracking": false
                 }
             },
             "viewObject": "21"

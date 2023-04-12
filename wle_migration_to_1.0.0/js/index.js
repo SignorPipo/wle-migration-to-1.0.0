@@ -53,7 +53,7 @@ const WithPhysX = true;
 const WithLoader = false;
 const WebXRFramebufferScaleFactor = 1;
 const WebXRRequiredFeatures = ['local',];
-const WebXROptionalFeatures = ['local','hand-tracking','hit-test',];
+const WebXROptionalFeatures = ['local','local-floor','hand-tracking','hit-test',];
 /* wle:auto-constants:end */
 
 const engine = await loadRuntime(RuntimeBaseName, {
