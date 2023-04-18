@@ -38,6 +38,8 @@ export function initCursorComponentModPrototype() {
         this.lastClientY = null;
         this.lastWidth = null;
         this.lastHeight = null;
+
+        this.globalTarget = this.object.pp_addComponent(CursorTarget);
     };
 
     cursorComponentMod.start = function start() {
@@ -52,8 +54,6 @@ export function initCursorComponentModPrototype() {
         } else {
             this.handedness = InputUtils.getHandednessByIndex(this.handedness - 1);
         }
-
-        //this.globalTarget = this.object.pp_addComponent(CursorTarget);
 
         this.transformQuat = quat2_create();
         this.rotationQuat = quat_create();
