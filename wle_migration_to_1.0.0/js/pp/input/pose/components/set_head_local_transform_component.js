@@ -3,11 +3,11 @@ import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { BasePoseParams } from "../base_pose";
 import { HeadPose } from "../head_pose";
+import { getPlayerObjects } from "../../../pp/scene_objects_global";
 
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {
-        _myCameraNonXR: Property.object(),
         _myFixForward: Property.bool(true),
         _myUpdateOnViewReset: Property.bool(true)
     };
@@ -45,11 +45,13 @@ SetHeadLocalTransformComponent.prototype.update = function () {
         if (XRUtils.isSessionActive(this.engine)) {
             this._myHeadPose.update(dt);
         } else if (!XRUtils.isSessionActive(this.engine)) {
-            cameraNonXRRotation = this._myCameraNonXR.pp_getRotationLocalQuat(cameraNonXRRotation);
+            let cameraNonXR = getPlayerObjects(this.engine).myCameraNonXR;
+
+            cameraNonXRRotation = cameraNonXR.pp_getRotationLocalQuat(cameraNonXRRotation);
             if (this._myFixForward) {
                 cameraNonXRRotation.quat_rotateAxisRadians(Math.PI, cameraNonXRRotation.quat_getUp(cameraNonXRUp), cameraNonXRRotation);
             }
-            this.object.pp_setPositionLocal(this._myCameraNonXR.pp_getPositionLocal(cameraNonXRPosition));
+            this.object.pp_setPositionLocal(cameraNonXR.pp_getPositionLocal(cameraNonXRPosition));
             this.object.pp_setRotationLocalQuat(cameraNonXRRotation);
         }
     };

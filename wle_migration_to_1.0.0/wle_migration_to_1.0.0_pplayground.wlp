@@ -248,10 +248,7 @@
             "parent": "73",
             "components": [
                 {
-                    "type": "pp-set-head-local-transform",
-                    "pp-set-head-local-transform": {
-                        "_myCameraNonXR": "21"
-                    }
+                    "type": "pp-set-head-local-transform"
                 },
                 {
                     "type": "pp-spatial-audio-listener"

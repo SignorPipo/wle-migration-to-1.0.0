@@ -187,10 +187,7 @@
             "parent": "73",
             "components": [
                 {
-                    "type": "pp-set-head-local-transform",
-                    "pp-set-head-local-transform": {
-                        "_myCameraNonXR": "21"
-                    }
+                    "type": "pp-set-head-local-transform"
                 },
                 {
                     "type": "pp-spatial-audio-listener"
@@ -887,7 +884,17 @@
             }
         },
         "physx": {
-            "enable": true
+            "enable": true,
+            "groupNames": {
+                "0": "Player",
+                "1": "Solid",
+                "2": "Interactable",
+                "3": "Group 3",
+                "4": "Group 4",
+                "5": "Group 5",
+                "6": "Group 6",
+                "7": "Group 7"
+            }
         }
     },
     "animations": {},
