@@ -11,10 +11,16 @@ export class TargetHitCheckComponent extends Component {
         this._myParticlesSpawner = getScene(this.engine).pp_getComponent(ParticlesSpawnerComponent);
         this._myCollisionsCollector = new PhysicsCollisionCollector(this._myTrigger, true);
 
-        this._mySFX = getAudioManager(this.engine).createAudioPlayer("strike");
+        this._myStarted = false;
     }
 
     update(dt) {
+        if (!this._myStarted) {
+            this._mySFX = getAudioManager(this.engine).createAudioPlayer("strike");
+
+            this._myStarted = true;
+        }
+
         this._myCollisionsCollector.update(dt);
 
         let collisionsStart = this._myCollisionsCollector.getCollisionsStart();

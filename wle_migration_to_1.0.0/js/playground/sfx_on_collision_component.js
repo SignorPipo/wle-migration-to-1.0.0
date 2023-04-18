@@ -10,14 +10,20 @@ export class SFXOnCollisionComponent extends Component {
         this._myPhysX = this.object.pp_getComponent(PhysXComponent);
         this._myCollisionsCollector = new PhysicsCollisionCollector(this._myPhysX);
 
-        this._mySFX = getAudioManager(this.engine).createAudioPlayer("collision");
-
         this._myGrabbable = this.object.pp_getComponent(GrabbableComponent);
         this._myLastLastGrabbed = this._myGrabbable.isGrabbed();
         this._myLastGrabbed = this._myGrabbable.isGrabbed();
+
+        this._myStarted = false;
     }
 
     update(dt) {
+        if (!this._myStarted) {
+            this._mySFX = getAudioManager(this.engine).createAudioPlayer("collision");
+
+            this._myStarted = true;
+        }
+
         this._myCollisionsCollector.update(dt);
 
         if (this._myCollisionsCollector.getCollisionsStart().length > 0 && this._myLastLastGrabbed == this._myGrabbable.isGrabbed()) {

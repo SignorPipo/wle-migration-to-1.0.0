@@ -13,12 +13,18 @@ export class SFXOnGrabThrowComponent extends Component {
             grabber.registerThrowEventListener(this, this._onThrow.bind(this));
         }
 
-        let audioManager = getAudioManager(this.engine);
-        this._myGrabSFX = audioManager.createAudioPlayer("grab");
-        this._myThrowSFX = audioManager.createAudioPlayer("throw");
+        this._myStarted = false;
     }
 
     update(dt) {
+        if (!this._myStarted) {
+            let audioManager = getAudioManager(this.engine);
+
+            this._myGrabSFX = audioManager.createAudioPlayer("grab");
+            this._myThrowSFX = audioManager.createAudioPlayer("throw");
+
+            this._myStarted = true;
+        }
     }
 
     _onGrab(grabber, grabbable) {
