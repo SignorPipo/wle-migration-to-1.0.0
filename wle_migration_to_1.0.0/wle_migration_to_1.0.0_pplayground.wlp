@@ -2539,7 +2539,15 @@
         },
         "32": {
             "name": "Phong Opaque",
-            "pipeline": "13"
+            "pipeline": "13",
+            "Phong": {
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
+            }
         },
         "90": {
             "name": "Flat Transparent No Depth",
@@ -2558,14 +2566,19 @@
                 "file": "assets\\models\\pp\\meta_quest_1_gamepads_credits_Jezza3D.fbx"
             },
             "Phong": {
-                "ambientFactor": 0.05,
                 "specularColor": [
                     1.0,
                     1.0,
                     1.0,
                     0.4980392
                 ],
-                "shininess": 2
+                "shininess": 2,
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
             }
         },
         "112": {
@@ -2581,16 +2594,21 @@
                     1.0,
                     0.4980392
                 ],
-                "ambientFactor": 0.05
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
             }
         },
         "144": {
             "name": "Tracked Hand Joint",
             "Phong": {
                 "ambientColor": [
-                    0.0,
-                    0.0,
-                    0.0,
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
                     1.0
                 ],
                 "diffuseColor": [
@@ -2623,12 +2641,11 @@
                     1.0
                 ],
                 "ambientColor": [
-                    0.0,
-                    0.0,
-                    0.0,
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
                     1.0
                 ],
-                "ambientFactor": 0.5,
                 "shininess": 2,
                 "specularColor": [
                     1.0,
@@ -2642,9 +2659,9 @@
             "name": "Cyan",
             "Phong": {
                 "ambientColor": [
-                    0.0,
-                    0.0,
-                    0.0,
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
                     1.0
                 ],
                 "diffuseColor": [
@@ -2653,7 +2670,6 @@
                     0.8823529,
                     1.0
                 ],
-                "ambientFactor": 0.5,
                 "specularColor": [
                     1.0,
                     1.0,
@@ -2681,7 +2697,12 @@
                     0.3921568
                 ],
                 "shininess": 2,
-                "ambientFactor": 0.5
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
             }
         },
         "212": {
@@ -2703,7 +2724,12 @@
                     0.3921568
                 ],
                 "shininess": 2,
-                "ambientFactor": 0.5
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
             }
         },
         "213": {
@@ -2725,7 +2751,12 @@
                     0.3921568
                 ],
                 "shininess": 2,
-                "ambientFactor": 0.5
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
             }
         },
         "214": {
@@ -2746,8 +2777,13 @@
                     1.0,
                     0.3921568
                 ],
-                "ambientFactor": 0.5,
-                "shininess": 2
+                "shininess": 2,
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
             }
         }
     },

@@ -650,7 +650,15 @@
         },
         "32": {
             "name": "Phong Opaque",
-            "pipeline": "13"
+            "pipeline": "13",
+            "Phong": {
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
+            }
         },
         "90": {
             "name": "Flat Transparent No Depth",
@@ -669,14 +677,19 @@
                 "file": "assets\\models\\pp\\meta_quest_1_gamepads_credits_Jezza3D.fbx"
             },
             "Phong": {
-                "ambientFactor": 0.05,
                 "specularColor": [
                     1.0,
                     1.0,
                     1.0,
                     0.4980392
                 ],
-                "shininess": 2
+                "shininess": 2,
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
             }
         },
         "112": {
@@ -692,16 +705,21 @@
                     1.0,
                     0.4980392
                 ],
-                "ambientFactor": 0.05
+                "ambientColor": [
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
+                    1.0
+                ]
             }
         },
         "144": {
             "name": "Tracked Hand Joint",
             "Phong": {
                 "ambientColor": [
-                    0.0,
-                    0.0,
-                    0.0,
+                    0.4980392,
+                    0.4980392,
+                    0.4980392,
                     1.0
                 ],
                 "diffuseColor": [

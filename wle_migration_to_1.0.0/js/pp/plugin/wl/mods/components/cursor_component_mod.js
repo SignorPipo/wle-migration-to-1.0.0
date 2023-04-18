@@ -16,8 +16,6 @@ export function initCursorComponentModPrototype() {
     // Modified Functions
 
     cursorComponentMod.init = function init() {
-        /* XR session cache, in case in XR */
-        this.session = null;
         this.collisionMask = (1 << this.collisionGroup);
         this.maxDistance = 100;
 
@@ -55,7 +53,7 @@ export function initCursorComponentModPrototype() {
             this.handedness = InputUtils.getHandednessByIndex(this.handedness - 1);
         }
 
-        this.globalTarget = this.object.pp_addComponent(CursorTarget);
+        //this.globalTarget = this.object.pp_addComponent(CursorTarget);
 
         this.transformQuat = quat2_create();
         this.rotationQuat = quat_create();
@@ -138,7 +136,7 @@ export function initCursorComponentModPrototype() {
     cursorComponentMod.doUpdate = function () {
         return function doUpdate(doClick) {
             /* If in XR, set the cursor ray based on object transform */
-            if (this.session) {
+            if (XRUtils.isSessionActive(this.engine)) {
                 /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
                 if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
                     let p = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
@@ -308,11 +306,9 @@ export function initCursorComponentModPrototype() {
 
     cursorComponentMod.setupXREvents = function setupXREvents(s) {
         /* If in XR, one-time bind the listener */
-        this.session = s;
         let onSessionEnd = function (e) {
             /* Reset cache once the session ends to rebind select etc, in case
              * it starts again */
-            this.session = null;
         }.bind(this);
         s.addEventListener("end", onSessionEnd);
 
@@ -324,7 +320,7 @@ export function initCursorComponentModPrototype() {
         s.addEventListener("selectend", onSelectEnd);
 
         this.onDestroyCallbacks.push(() => {
-            if (!this.session) return;
+            if (!XRUtils.isSessionActive(this.engine)) return;
             s.removeEventListener("end", onSessionEnd);
             s.removeEventListener("select", onSelect);
             s.removeEventListener("selectstart", onSelectStart);
