@@ -41,7 +41,6 @@ import {TrackedHandDrawAllJointsComponent} from './pp/index.js';
 import {VirtualGamepadComponent} from './pp/index.js';
 /* wle:auto-imports:end */
 
-import * as API from '@wonderlandengine/api'; // Deprecated: Backward compatibility.
 import { loadRuntime } from '@wonderlandengine/api';
 import { initPlayground } from './playground/init_playground.js';
 import { initPP } from './pp/index.js';
@@ -60,8 +59,6 @@ const engine = await loadRuntime(RuntimeBaseName, {
     physx: WithPhysX,
     loader: WithLoader,
 });
-Object.assign(engine, API); // Deprecated: Backward compatibility.
-window.WL = engine; // Deprecated: Backward compatibility.
 
 engine.xrFramebufferScaleFactor = WebXRFramebufferScaleFactor;
 engine.onSceneLoaded.once(() => {
