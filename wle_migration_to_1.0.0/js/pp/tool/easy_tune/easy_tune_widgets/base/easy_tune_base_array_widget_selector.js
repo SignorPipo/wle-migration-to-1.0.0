@@ -26,7 +26,7 @@ export class EasyTuneBaseArrayWidgetSelector {
 
     setEasyTuneVariable(variable, appendToVariableName) {
         this._myVariable = variable;
-        this._myCurrentArraySize = this._myVariable._myValue.length;
+        this._myCurrentArraySize = this._myVariable.getValue().length;
         this._myAppendToVariableName = appendToVariableName;
 
         if (!this._myWidgets.has(this._myCurrentArraySize)) {
@@ -163,7 +163,7 @@ export class EasyTuneBaseArrayWidgetSelector {
     }
 
     _sizeChangedCheck() {
-        if (this._myVariable._myValue.length != this._myCurrentArraySize) {
+        if (this._myVariable.getValue().length != this._myCurrentArraySize) {
             this.setEasyTuneVariable(this._myVariable, this._myAppendToVariableName);
         }
     }

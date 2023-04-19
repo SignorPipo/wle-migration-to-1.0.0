@@ -18,16 +18,24 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         this._myValueButtonEditIntensity = 0;
         this._myValueButtonEditIntensityTimer = 0;
         this._myValueEditActive = false;
+
+        this._myTempValue = [];
     }
 
     _refreshUIHook() {
         for (let i = 0; i < this._myConfig.myArraySize; i++) {
-            this._myUI.myValueTextComponents[i].text = (this._myVariable._myValue[i]) ? "true" : "false";
+            this._myUI.myValueTextComponents[i].text = (this._myVariable.getValue()[i]) ? "true" : "false";
         }
     }
 
     _startHook(parentObject, params) {
         this._myUI.setAdditionalButtonsActive(params.myAdditionalButtonsEnabled);
+    }
+
+    _setEasyTuneVariableHook() {
+        if (this._myVariable != null) {
+            this._myTempValue.pp_copy(this._myVariable.getValue());
+        }
     }
 
     _updateHook(dt) {
@@ -53,7 +61,9 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         }
 
         if (Math.abs(valueIntensity) > this._myConfig.myThumbstickToggleThreshold) {
-            this._myVariable._myValue[this._myValueEditIndex] = valueIntensity > 0;
+            this._myTempValue.pp_copy(this._myVariable.getValue());
+            this._myTempValue[this._myValueEditIndex] = valueIntensity > 0;
+            this._myVariable.setValue(this._myTempValue);
             this._refreshUI();
         }
     }
@@ -114,8 +124,11 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
 
     _resetValue(index) {
         if (this._isActive()) {
-            this._myVariable._myValue[index] = this._myVariable.getDefaultValue()[index];
-            this._myUI.myValueTextComponents[index].text = (this._myVariable._myValue[index]) ? "true" : "false";
+            this._myTempValue.pp_copy(this._myVariable.getValue());
+            this._myTempValue[index] = this._myVariable.getDefaultValue()[index];
+            this._myVariable.setValue(this._myTempValue);
+
+            this._myUI.myValueTextComponents[index].text = (this._myVariable.getValue()[index]) ? "true" : "false";
         }
     }
 

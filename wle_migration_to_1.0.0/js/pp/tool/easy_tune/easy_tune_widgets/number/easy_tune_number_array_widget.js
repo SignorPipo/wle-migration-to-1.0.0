@@ -27,17 +27,19 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
         this._myValueRealValue = 0;
         this._myStepMultiplierValue = 0;
         this._myStepFastEdit = false;
+
+        this._myTempValue = [];
     }
 
     _setEasyTuneVariableHook() {
         if (this._myValueEditIndex >= 0) {
-            this._myValueRealValue = this._myVariable._myValue[this._myValueEditIndex];
+            this._myValueRealValue = this._myVariable.getValue()[this._myValueEditIndex];
         }
     }
 
     _refreshUIHook() {
         for (let i = 0; i < this._myConfig.myArraySize; i++) {
-            this._myUI.myValueTextComponents[i].text = this._myVariable._myValue[i].toFixed(this._myVariable._myDecimalPlaces);
+            this._myUI.myValueTextComponents[i].text = this._myVariable.getValue()[i].toFixed(this._myVariable._myDecimalPlaces);
         }
 
         this._myUI.myStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable._myStepPerSecond);
@@ -46,6 +48,12 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
 
     _startHook(parentObject, params) {
         this._myUI.setAdditionalButtonsActive(params.myAdditionalButtonsEnabled);
+    }
+
+    _setEasyTuneVariableHook() {
+        if (this._myVariable != null) {
+            this._myTempValue.pp_copy(this._myVariable.getValue());
+        }
     }
 
     _updateHook(dt) {
@@ -90,39 +98,43 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
 
             let decimalPlacesMultiplier = Math.pow(10, this._myVariable._myDecimalPlaces);
 
+            this._myTempValue.pp_copy(this._myVariable.getValue());
+
             if (this._myVariable._myEditAllValuesTogether) {
                 let newValue = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                let difference = newValue - this._myVariable._myValue[this._myValueEditIndex];
+                let difference = newValue - this._myTempValue[this._myValueEditIndex];
 
                 for (let i = 0; i < this._myConfig.myArraySize; i++) {
-                    this._myVariable._myValue[i] = Math.round((this._myVariable._myValue[i] + difference) * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                    this._myTempValue[i] = Math.round((this._myTempValue[i] + difference) * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
 
                     if (this._myVariable._myMin != null && this._myVariable._myMax != null) {
-                        this._myVariable._myValue[i] = Math.pp_clamp(this._myVariable._myValue[i], this._myVariable._myMin, this._myVariable._myMax);
+                        this._myTempValue[i] = Math.pp_clamp(this._myTempValue[i], this._myVariable._myMin, this._myVariable._myMax);
                     } else if (this._myVariable._myMin != null) {
-                        this._myVariable._myValue[i] = Math.max(this._myVariable._myValue[i], this._myVariable._myMin);
+                        this._myTempValue[i] = Math.max(this._myTempValue[i], this._myVariable._myMin);
                     } else if (this._myVariable._myMax != null) {
-                        this._myVariable._myValue[i] = Math.min(this._myVariable._myValue[i], this._myVariable._myMax);
+                        this._myTempValue[i] = Math.min(this._myTempValue[i], this._myVariable._myMax);
                     }
 
-                    this._myUI.myValueTextComponents[i].text = this._myVariable._myValue[i].toFixed(this._myVariable._myDecimalPlaces);
+                    this._myUI.myValueTextComponents[i].text = this._myTempValue[i].toFixed(this._myVariable._myDecimalPlaces);
                 }
 
             } else {
-                this._myVariable._myValue[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                this._myTempValue[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
 
                 if (this._myVariable._myMin != null && this._myVariable._myMax != null) {
-                    this._myVariable._myValue[this._myValueEditIndex] = Math.pp_clamp(this._myVariable._myValue[this._myValueEditIndex], this._myVariable._myMin, this._myVariable._myMax);
+                    this._myTempValue[this._myValueEditIndex] = Math.pp_clamp(this._myTempValue[this._myValueEditIndex], this._myVariable._myMin, this._myVariable._myMax);
                 } else if (this._myVariable._myMin != null) {
-                    this._myVariable._myValue[this._myValueEditIndex] = Math.max(this._myVariable._myValue[this._myValueEditIndex], this._myVariable._myMin);
+                    this._myTempValue[this._myValueEditIndex] = Math.max(this._myTempValue[this._myValueEditIndex], this._myVariable._myMin);
                 } else if (this._myVariable._myMax != null) {
-                    this._myVariable._myValue[this._myValueEditIndex] = Math.min(this._myVariable._myValue[this._myValueEditIndex], this._myVariable._myMax);
+                    this._myTempValue[this._myValueEditIndex] = Math.min(this._myTempValue[this._myValueEditIndex], this._myVariable._myMax);
                 }
 
-                this._myUI.myValueTextComponents[this._myValueEditIndex].text = this._myVariable._myValue[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
+                this._myUI.myValueTextComponents[this._myValueEditIndex].text = this._myTempValue[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
             }
+
+            this._myVariable.setValue(this._myTempValue);
         } else {
-            this._myValueRealValue = this._myVariable._myValue[this._myValueEditIndex];
+            this._myValueRealValue = this._myVariable.getValue()[this._myValueEditIndex];
         }
 
         let stepIntensity = 0;
@@ -215,7 +227,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
         if (this._isActive() || value == 0) {
             if (value != 0) {
                 this._myValueButtonEditIntensityTimer = this._myConfig.myButtonEditDelay;
-                this._myValueRealValue = this._myVariable._myValue[index];
+                this._myValueRealValue = this._myVariable.getValue()[index];
                 this._myValueEditIndex = index;
             }
 
@@ -236,7 +248,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     _setValueEditActive(index, text, active) {
         if (this._isActive() || !active) {
             if (active) {
-                this._myValueRealValue = this._myVariable._myValue[index];
+                this._myValueRealValue = this._myVariable.getValue()[index];
                 this._myValueEditIndex = index;
                 text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
@@ -261,8 +273,11 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
 
     _resetValue(index) {
         if (this._isActive()) {
-            this._myVariable._myValue[index] = this._myVariable.getDefaultValue()[index];
-            this._myUI.myValueTextComponents[index].text = this._myVariable._myValue[index].toFixed(this._myVariable._myDecimalPlaces);
+            this._myTempValue.pp_copy(this._myVariable.getValue());
+            this._myTempValue[index] = this._myVariable.getDefaultValue()[index];
+            this._myVariable.setValue(this._myTempValue);
+
+            this._myUI.myValueTextComponents[index].text = this._myVariable.getValue()[index].toFixed(this._myVariable._myDecimalPlaces);
         }
     }
 

@@ -1,5 +1,6 @@
 import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
 import { GamepadAxesID } from "../../../../input/gamepad/gamepad_buttons";
+import { mat4_create, vec3_create } from "../../../../plugin/js/extensions/array_extension";
 import { EasyTuneBaseWidget } from "../base/easy_tune_base_widget";
 import { EasyTuneTransformWidgetConfig } from "./easy_tune_transform_widget_config";
 import { EasyTuneTransformWidgetUI } from "./easy_tune_transform_widget_ui";
@@ -30,6 +31,11 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         this._myValueEditIndex = -1;
         this._myComponentIndex = 0;
         this._myStepIndex = 0;
+
+        this._myTempTransformValue = mat4_create();
+        this._myTempPositionValue = vec3_create();
+        this._myTempRotationValue = vec3_create();
+        this._myTempScaleValue = vec3_create();
     }
 
     _setEasyTuneVariableHook() {
@@ -72,6 +78,14 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         this._myUI.setAdditionalButtonsActive(params.myAdditionalButtonsEnabled);
     }
 
+    _setEasyTuneVariableHook() {
+        if (this._myVariable != null) {
+            this._myTempPositionValue.pp_copy(this._myVariable._myPosition);
+            this._myTempRotationValue.pp_copy(this._myVariable._myRotation);
+            this._myTempScaleValue.pp_copy(this._myVariable._myScale);
+        }
+    }
+
     _updateHook(dt) {
         this._updateValue(dt);
     }
@@ -100,6 +114,10 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         }
 
         if (valueIntensity != 0) {
+            this._myTempPositionValue.pp_copy(this._myVariable._myPosition);
+            this._myTempRotationValue.pp_copy(this._myVariable._myRotation);
+            this._myTempScaleValue.pp_copy(this._myVariable._myScale);
+
             let amountToAdd = valueIntensity * this._myComponentStepValue * dt;
 
             this._myValueRealValue += amountToAdd;
@@ -108,8 +126,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
             switch (this._myComponentIndex) {
                 case 0:
-                    this._myVariable._myPosition[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                    this._myUI.myPositionTextComponents[this._myValueEditIndex].text = this._myVariable._myPosition[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
+                    this._myTempPositionValue[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                    this._myUI.myPositionTextComponents[this._myValueEditIndex].text = this._myTempPositionValue[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 case 1:
                     if (this._myValueRealValue > 180) {
@@ -126,8 +144,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
                         this._myValueRealValue = 180 - this._myValueRealValue;
                     }
 
-                    this._myVariable._myRotation[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                    this._myUI.myRotationTextComponents[this._myValueEditIndex].text = this._myVariable._myRotation[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
+                    this._myTempRotationValue[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                    this._myUI.myRotationTextComponents[this._myValueEditIndex].text = this._myTempRotationValue[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 case 2:
                     if (this._myValueRealValue <= 0) {
@@ -136,20 +154,23 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
                     if (this._myVariable._myScaleAsOne) {
                         let newValue = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                        let difference = newValue - this._myVariable._myScale[this._myValueEditIndex];
+                        let difference = newValue - this._myTempScaleValue[this._myValueEditIndex];
 
                         for (let i = 0; i < 3; i++) {
-                            this._myVariable._myScale[i] = Math.round((this._myVariable._myScale[i] + difference) * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                            this._myVariable._myScale[i] = Math.max(this._myVariable._myScale[i], 1 / decimalPlacesMultiplier);
-                            this._myUI.myScaleTextComponents[i].text = this._myVariable._myScale[i].toFixed(this._myVariable._myDecimalPlaces);
+                            this._myTempScaleValue[i] = Math.round((this._myTempScaleValue[i] + difference) * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                            this._myTempScaleValue[i] = Math.max(this._myTempScaleValue[i], 1 / decimalPlacesMultiplier);
+                            this._myUI.myScaleTextComponents[i].text = this._myTempScaleValue[i].toFixed(this._myVariable._myDecimalPlaces);
                         }
                     } else {
-                        this._myVariable._myScale[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                        this._myVariable._myScale[this._myValueEditIndex] = Math.max(this._myVariable._myScale[this._myValueEditIndex], 1 / decimalPlacesMultiplier);
-                        this._myUI.myScaleTextComponents[this._myValueEditIndex].text = this._myVariable._myScale[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
+                        this._myTempScaleValue[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                        this._myTempScaleValue[this._myValueEditIndex] = Math.max(this._myTempScaleValue[this._myValueEditIndex], 1 / decimalPlacesMultiplier);
+                        this._myUI.myScaleTextComponents[this._myValueEditIndex].text = this._myTempScaleValue[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
                     }
                     break;
             }
+
+            this._myTempTransformValue.mat4_setPositionRotationDegreesScale(this._myTempPositionValue, this._myTempRotationValue, this._myTempScaleValue);
+            this._myVariable.setValue(this._myTempTransformValue);
         } else {
             switch (this._myComponentIndex) {
                 case 0:
@@ -441,22 +462,28 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
     _resetValue(componentIndex, index) {
         if (this._isActive()) {
+            this._myTempPositionValue.pp_copy(this._myVariable._myPosition);
+            this._myTempRotationValue.pp_copy(this._myVariable._myRotation);
+            this._myTempScaleValue.pp_copy(this._myVariable._myScale);
+
             switch (componentIndex) {
                 case 0:
-                    this._myVariable._myPosition[index] = this._myVariable._myDefaultPosition[index];
-                    this._myUI.myPositionTextComponents[index].text = this._myVariable._myPosition[index].toFixed(this._myVariable._myDecimalPlaces);
+                    this._myTempPositionValue[index] = this._myVariable._myDefaultPosition[index];
+                    this._myUI.myPositionTextComponents[index].text = this._myTempPositionValue[index].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 case 1:
-                    this._myVariable._myRotation[index] = this._myVariable._myDefaultRotation[index];
-                    this._myUI.myRotationTextComponents[index].text = this._myVariable._myRotation[index].toFixed(this._myVariable._myDecimalPlaces);
+                    this._myTempRotationValue[index] = this._myVariable._myDefaultRotation[index];
+                    this._myUI.myRotationTextComponents[index].text = this._myTempRotationValue[index].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 case 2:
-                    this._myVariable._myScale[index] = this._myVariable._myDefaultScale[index];
-                    this._myUI.myScaleTextComponents[index].text = this._myVariable._myScale[index].toFixed(this._myVariable._myDecimalPlaces);
+                    this._myTempScaleValue[index] = this._myVariable._myDefaultScale[index];
+                    this._myUI.myScaleTextComponents[index].text = this._myTempScaleValue[index].toFixed(this._myVariable._myDecimalPlaces);
                     break;
-                default:
-                    defaultValue = 0;
+
             }
+
+            this._myTempTransformValue.mat4_setPositionRotationDegreesScale(this._myTempPositionValue, this._myTempRotationValue, this._myTempScaleValue);
+            this._myVariable.setValue(this._myTempTransformValue);
         }
     }
 
