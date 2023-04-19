@@ -46,21 +46,22 @@ import { initPlayground } from './playground/init_playground.js';
 import { initPP } from './pp/index.js';
 
 /* wle:auto-constants:start */
-const ProjectName = 'wle_migration_to_1.0.0';
-const RuntimeBaseName = 'WonderlandRuntime';
-const WithPhysX = true;
-const WithLoader = false;
-const WebXRFramebufferScaleFactor = 1;
-const WebXRRequiredFeatures = ['local',];
-const WebXROptionalFeatures = ['local','local-floor','hand-tracking','hit-test',];
+const RuntimeOptions = {
+    physx: true,
+    loader: false,
+    xrFramebufferScaleFactor: 1,
+    canvas: 'canvas',
+};
+const Constants = {
+    ProjectName: 'wle_migration_to_1.0.0',
+    RuntimeBaseName: 'WonderlandRuntime',
+    WebXRRequiredFeatures: ['local',],
+    WebXROptionalFeatures: ['local','local-floor','hand-tracking','hit-test',],
+};
 /* wle:auto-constants:end */
 
-const engine = await loadRuntime(RuntimeBaseName, {
-    physx: WithPhysX,
-    loader: WithLoader,
-});
+const engine = await loadRuntime(Constants.RuntimeBaseName, RuntimeOptions);
 
-engine.xrFramebufferScaleFactor = WebXRFramebufferScaleFactor;
 engine.onSceneLoaded.once(() => {
     const el = document.getElementById('version');
     if (el) setTimeout(() => el.remove(), 2000);
@@ -70,7 +71,7 @@ engine.onSceneLoaded.once(() => {
 
 function requestSession(mode) {
     engine
-        .requestXRSession(mode, WebXRRequiredFeatures, WebXROptionalFeatures)
+        .requestXRSession(mode, Constants.WebXRRequiredFeatures, Constants.WebXROptionalFeatures)
         .catch((e) => console.error(e));
 }
 
@@ -127,7 +128,7 @@ engine.registerComponent(VirtualGamepadComponent);
 initPP(engine);
 initPlayground(engine);
 
-engine.scene.load(`${ProjectName}.bin`);
+engine.scene.load(`${Constants.ProjectName}.bin`);
 
 /* wle:auto-benchmark:start */
 /* wle:auto-benchmark:end */
