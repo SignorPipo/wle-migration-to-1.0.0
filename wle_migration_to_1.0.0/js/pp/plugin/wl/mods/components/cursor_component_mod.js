@@ -26,7 +26,7 @@ export function initCursorComponentModPrototype() {
 
         this.visible = false;
 
-        this.onDestroyCallbacks = [];
+        this.onDestroyListeners = [];
 
         this.prevHitLocationLocalToTarget = vec3_create();
 
@@ -74,7 +74,7 @@ export function initCursorComponentModPrototype() {
         this.hoveringObject = null;
 
         XRUtils.registerSessionStartEventListener(this, this.setupXREvents.bind(this), this.engine);
-        this.onDestroyCallbacks.push(() => {
+        this.onDestroyListeners.push(() => {
             XRUtils.unregisterSessionStartEventListener(this, this.engine);
         });
 
@@ -319,7 +319,7 @@ export function initCursorComponentModPrototype() {
         let onSelectEnd = this.onSelectEnd.bind(this);
         s.addEventListener("selectend", onSelectEnd);
 
-        this.onDestroyCallbacks.push(() => {
+        this.onDestroyListeners.push(() => {
             if (!XRUtils.isSessionActive(this.engine)) return;
             s.removeEventListener("end", onSessionEnd);
             s.removeEventListener("select", onSelect);
@@ -510,7 +510,7 @@ export function initCursorComponentModPrototype() {
     };
 
     cursorComponentMod.onDestroy = function onDestroy() {
-        for (let f of this.onDestroyCallbacks) f();
+        for (let f of this.onDestroyListeners) f();
     };
 
     // New Functions 
@@ -536,7 +536,7 @@ export function initCursorComponentModPrototype() {
             let onViewportResize = this.onViewportResize.bind(this);
             window.addEventListener("resize", onViewportResize);
 
-            this.onDestroyCallbacks.push(() => {
+            this.onDestroyListeners.push(() => {
                 getCanvas(this.engine).removeEventListener("click", onClick);
                 getCanvas(this.engine).removeEventListener("pointerdown", onPointerDown);
                 getCanvas(this.engine).removeEventListener("pointermove", onPointerMove);

@@ -49,9 +49,9 @@ export class AudioPlayer {
 
         this._myLastAudioID = null;
 
-        this._myCallbacks = new Map();
+        this._myAudioEventEmitters = new Map();
         for (let eventKey in AudioEvent) {
-            this._myCallbacks.set(AudioEvent[eventKey], new Emitter());    // Signature: callback(audioID)
+            this._myAudioEventEmitters.set(AudioEvent[eventKey], new Emitter());    // Signature: listener(audioID)
         }
 
         if (createAudio) {
@@ -195,12 +195,12 @@ export class AudioPlayer {
         return this._myAudioSetup.myRate;
     }
 
-    registerAudioEventListener(audioEvent, id, callback) {
-        this._myCallbacks.get(audioEvent).add(id, callback);
+    registerAudioEventListener(audioEvent, id, listener) {
+        this._myAudioEventEmitters.get(audioEvent).add(id, listener);
     }
 
     unregisterAudioEventListener(audioEvent, id) {
-        this._myCallbacks.get(audioEvent).remove(id);
+        this._myAudioEventEmitters.get(audioEvent).remove(id);
     }
 
     _addListeners() {
@@ -208,8 +208,8 @@ export class AudioPlayer {
             for (let eventKey in AudioEvent) {
                 let event = AudioEvent[eventKey];
                 this._myAudio.on(event, function (audioID) {
-                    let callbacks = this._myCallbacks.get(event);
-                    callbacks.notify(audioID);
+                    let emitter = this._myAudioEventEmitters.get(event);
+                    emitter.notify(audioID);
                 }.bind(this));
             }
         }

@@ -26,8 +26,8 @@ export class WidgetFrame {
         this._myUI = new WidgetFrameUI(engine);
         this._myShowVisibilityButton = false;
 
-        this._myWidgetVisibleChangedCallbacks = new Emitter();      // Signature: callback(isWidgetVisible)
-        this._myPinChangedCallbacks = new Emitter();                // Signature: callback(isPinned)
+        this._myWidgetVisibleChangedEmitter = new Emitter();      // Signature: listener(isWidgetVisible)
+        this._myPinChangedEmitter = new Emitter();                // Signature: listener(isPinned)
     }
 
     getWidgetObject() {
@@ -51,20 +51,20 @@ export class WidgetFrame {
         this._togglePin(false);
     }
 
-    registerWidgetVisibleChangedEventListener(id, callback) {
-        this._myWidgetVisibleChangedCallbacks.add(callback, { id: id });
+    registerWidgetVisibleChangedEventListener(id, listener) {
+        this._myWidgetVisibleChangedEmitter.add(listener, { id: id });
     }
 
     unregisterWidgetVisibleChangedEventListener(id) {
-        this._myWidgetVisibleChangedCallbacks.remove(id);
+        this._myWidgetVisibleChangedEmitter.remove(id);
     }
 
-    registerPinChangedEventListener(id, callback) {
-        this._myPinChangedCallbacks.add(callback, { id: id });
+    registerPinChangedEventListener(id, listener) {
+        this._myPinChangedEmitter.add(listener, { id: id });
     }
 
     unregisterPinChangedEventListener(id) {
-        this._myPinChangedCallbacks.remove(id);
+        this._myPinChangedEmitter.remove(id);
     }
 
     start(parentObject, params) {
@@ -116,7 +116,7 @@ export class WidgetFrame {
         }
 
         if (notify) {
-            this._myWidgetVisibleChangedCallbacks.notify(this.myIsWidgetVisible);
+            this._myWidgetVisibleChangedEmitter.notify(this.myIsWidgetVisible);
         }
 
         this._myUI.setVisibilityButtonVisible(this._myShowVisibilityButton);
@@ -142,7 +142,7 @@ export class WidgetFrame {
                 }
             }
 
-            this._myPinChangedCallbacks.notify(this.myIsPinned);
+            this._myPinChangedEmitter.notify(this.myIsPinned);
         }
     }
 

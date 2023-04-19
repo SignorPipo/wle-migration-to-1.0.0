@@ -1,4 +1,3 @@
-import { Emitter } from "@wonderlandengine/api";
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { getEasyTuneVariables } from "./easy_tune_globals";
 
@@ -7,13 +6,17 @@ let _myRefreshEasyTuneWidgetCallbacks = new WeakMap();
 
 export function setEasyTuneWidgetActiveVariable(variableName, engine = getMainEngine()) {
     if (_mySetEasyTuneWidgetActiveVariableCallbacks.has(engine)) {
-        _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).notify(variableName);
+        for (let callback of _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).values()) {
+            callback(variableName);
+        }
     }
 }
 
 export function refreshEasyTuneWidget(engine = getMainEngine()) {
     if (_myRefreshEasyTuneWidgetCallbacks.has(engine)) {
-        _myRefreshEasyTuneWidgetCallbacks.get(engine).notify();
+        for (let callback of _myRefreshEasyTuneWidgetCallbacks.get(engine).values()) {
+            callback();
+        }
     }
 }
 
@@ -189,29 +192,29 @@ export function exportEasyTuneVariables(fileURL = null, onSuccessCallback = null
 
 export function addSetEasyTuneWidgetActiveVariableCallback(id, callback, engine = getMainEngine()) {
     if (!_mySetEasyTuneWidgetActiveVariableCallbacks.has(engine)) {
-        _mySetEasyTuneWidgetActiveVariableCallbacks.set(engine, new Emitter());
+        _mySetEasyTuneWidgetActiveVariableCallbacks.set(engine, new Map());
     }
 
-    _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).add(callback, { id: id });
+    _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).set(id, callback);
 }
 
 export function removeSetEasyTuneWidgetActiveVariableCallback(id, engine = getMainEngine()) {
     if (_mySetEasyTuneWidgetActiveVariableCallbacks.has(engine)) {
-        _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).remove(id);
+        _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).delete(id);
     }
 }
 
 export function addRefreshEasyTuneWidgetCallback(id, callback, engine = getMainEngine()) {
     if (!_myRefreshEasyTuneWidgetCallbacks.has(engine)) {
-        _myRefreshEasyTuneWidgetCallbacks.set(engine, new Emitter());
+        _myRefreshEasyTuneWidgetCallbacks.set(engine, new Map());
     }
 
-    _myRefreshEasyTuneWidgetCallbacks.get(engine).add(callback, { id: id });
+    _myRefreshEasyTuneWidgetCallbacks.get(engine).set(id, callback);
 }
 
 export function removeRefreshEasyTuneWidgetCallback(id, engine = getMainEngine()) {
     if (_myRefreshEasyTuneWidgetCallbacks.has(engine)) {
-        _myRefreshEasyTuneWidgetCallbacks.get(engine).remove(id);
+        _myRefreshEasyTuneWidgetCallbacks.get(engine).delete(id);
     }
 }
 

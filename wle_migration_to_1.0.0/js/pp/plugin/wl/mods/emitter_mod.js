@@ -24,6 +24,10 @@ export function initEmitterModPrototype() {
         return index;
     };
 
+    emitterMod.pp_isEmpty = function pp_isEmpty() {
+        return this._listeners.length <= 0;
+    };
+
 
 
     PluginUtils.assignProperties(emitterMod, Emitter.prototype, false, true, true);

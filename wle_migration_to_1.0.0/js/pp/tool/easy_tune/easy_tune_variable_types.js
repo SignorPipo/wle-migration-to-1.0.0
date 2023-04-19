@@ -33,7 +33,7 @@ export class EasyTuneVariable {
 
         this._myIsActive = false;
 
-        this._myValueChangedCallbacks = new Emitter();      // Signature: callback(value, easyTuneVariables)
+        this._myValueChangedEmitter = new Emitter();      // Signature: listener(value, easyTuneVariables)
 
         this._myEngine = engine;
     }
@@ -66,7 +66,7 @@ export class EasyTuneVariable {
         EasyTuneUtils.refreshEasyTuneWidget(this._myEngine);
 
         if (valueChanged) {
-            this._triggerValueChangedCallback();
+            this._myValueChangedEmitter.notify(this.getValue(), this);
         }
     }
 
@@ -86,16 +86,12 @@ export class EasyTuneVariable {
         return JSON.stringify(this.getValue());
     }
 
-    registerValueChangedEventListener(id, callback) {
-        this._myValueChangedCallbacks.add(callback, { id: id });
+    registerValueChangedEventListener(id, listener) {
+        this._myValueChangedEmitter.add(listener, { id: id });
     }
 
     unregisterValueChangedEventListener(id) {
-        this._myValueChangedCallbacks.remove(id);
-    }
-
-    _triggerValueChangedCallback() {
-        this._myValueChangedCallbacks.notify(this.getValue(), this);
+        this._myValueChangedEmitter.remove(id);
     }
 }
 
@@ -123,7 +119,7 @@ export class EasyTuneVariableArray extends EasyTuneVariable {
         EasyTuneUtils.refreshEasyTuneWidget(this._myEngine);
 
         if (valueChanged) {
-            this._triggerValueChangedCallback();
+            this._myValueChangedEmitter.notify(this.getValue(), this);
         }
     }
 
@@ -327,7 +323,7 @@ export class EasyTuneTransform extends EasyTuneVariable {
         EasyTuneUtils.refreshEasyTuneWidget(this._myEngine);
 
         if (valueChanged) {
-            this._triggerValueChangedCallback();
+            this._myValueChangedEmitter.notify(this.getValue(), this);
         }
     }
 

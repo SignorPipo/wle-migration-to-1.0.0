@@ -22,7 +22,7 @@ export class EasyTuneBaseWidget {
 
         this._myIsVisible = true;
 
-        this._myScrollVariableRequestCallbacks = new Emitter();     // Signature: callback(scrollAmount)
+        this._myScrollVariableRequestEmitter = new Emitter();     // Signature: listener(scrollAmount)
 
         this._myAppendToVariableName = "";
 
@@ -125,12 +125,12 @@ export class EasyTuneBaseWidget {
         this._myResetExportLabelTimer.start(this._myConfig.myImportExportResetLabelSeconds);
     }
 
-    registerScrollVariableRequestEventListener(id, callback) {
-        this._myScrollVariableRequestCallbacks.add(callback, { id: id });
+    registerScrollVariableRequestEventListener(id, listener) {
+        this._myScrollVariableRequestEmitter.add(listener, { id: id });
     }
 
     unregisterScrollVariableRequestEventListener(id) {
-        this._myScrollVariableRequestCallbacks.remove(id);
+        this._myScrollVariableRequestEmitter.remove(id);
     }
 
     start(parentObject, params) {
@@ -270,7 +270,7 @@ export class EasyTuneBaseWidget {
 
     _scrollVariableRequest(amount) {
         if (this._isActive() && amount != 0) {
-            this._myScrollVariableRequestCallbacks.notify(amount);
+            this._myScrollVariableRequestEmitter.notify(amount);
         }
     }
 

@@ -20,19 +20,19 @@ export class SaveManager {
 
         XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this._myEngine);
 
-        this._myClearCallbacks = new Emitter();                 // Signature: callback()
-        this._myDeleteCallbacks = new Emitter();                // Signature: callback(id)
-        this._myDeleteIDCallbacks = new Map();                  // Signature: callback(id)
-        this._mySaveCallbacks = new Emitter();                  // Signature: callback(id, value)
-        this._mySaveValueChangedCallbacks = new Emitter();      // Signature: callback(id, value)
-        this._mySaveIDCallbacks = new Map();                    // Signature: callback(id, value)
-        this._mySaveValueChangedIDCallbacks = new Map();        // Signature: callback(id, value)
-        this._myCommitSaveCallbacks = new Emitter();            // Signature: callback(id, value, isCommitSaveDelayed, failed)
-        this._myCommitSaveIDCallbacks = new Map();              // Signature: callback(id, value, isCommitSaveDelayed, failed)
-        this._myCommitSavesCallbacks = new Emitter();           // Signature: callback(isCommitSavesDelayed, failed)
+        this._myClearEmitter = new Emitter();                   // Signature: listener()
+        this._myDeleteEmitter = new Emitter();                  // Signature: listener(id)
+        this._myDeleteIDEmitters = new Map();                   // Signature: listener(id)
+        this._mySaveEmitter = new Emitter();                    // Signature: listener(id, value)
+        this._mySaveValueChangedEmitter = new Emitter();        // Signature: listener(id, value)
+        this._mySaveIDEmitters = new Map();                     // Signature: listener(id, value)
+        this._mySaveValueChangedIDEmitters = new Map();         // Signature: listener(id, value)
+        this._myCommitSaveEmitter = new Emitter();              // Signature: listener(id, value, isCommitSaveDelayed, failed)
+        this._myCommitSaveIDEmitters = new Map();               // Signature: listener(id, value, isCommitSaveDelayed, failed)
+        this._myCommitSavesEmitter = new Emitter();             // Signature: listener(isCommitSavesDelayed, failed)
 
-        this._myLoadCallbacks = new Emitter();                      // Signature: callback(id, value, loadFromCache, failed)
-        this._myLoadIDCallbacks = new Map();                    // Signature: callback(id, value, loadFromCache, failed)
+        this._myLoadEmitter = new Emitter();                    // Signature: listener(id, value, loadFromCache, failed)
+        this._myLoadIDEmitters = new Map();                     // Signature: listener(id, value, loadFromCache, failed)
     }
 
     setCommitSavesDelay(delay) {
@@ -77,26 +77,26 @@ export class SaveManager {
                 let failed = this._commitSave(id, false);
 
                 let isCommitSaveDelayed = false;
-                this._myCommitSavesCallbacks.notify(isCommitSaveDelayed, failed);
+                this._myCommitSavesEmitter.notify(isCommitSaveDelayed, failed);
             }
         }
 
-        this._mySaveCallbacks.notify(id, value);
+        this._mySaveEmitter.notify(id, value);
 
-        if (this._mySaveIDCallbacks.size > 0) {
-            let callbacks = this._mySaveIDCallbacks.get(id);
-            if (callbacks != null) {
-                callbacks.notify(id, value);
+        if (this._mySaveIDEmitters.size > 0) {
+            let emitter = this._mySaveIDEmitters.get(id);
+            if (emitter != null) {
+                emitter.notify(id, value);
             }
         }
 
         if (!sameValue) {
-            this._mySaveValueChangedCallbacks.notify(id, value);
+            this._mySaveValueChangedEmitter.notify(id, value);
 
-            if (this._mySaveValueChangedIDCallbacks.size > 0) {
-                let callbacks = this._mySaveValueChangedIDCallbacks.get(id);
-                if (callbacks != null) {
-                    callbacks.notify(id, value);
+            if (this._mySaveValueChangedIDEmitters.size > 0) {
+                let emitter = this._mySaveValueChangedIDEmitters.get(id);
+                if (emitter != null) {
+                    emitter.notify(id, value);
                 }
             }
         }
@@ -116,7 +116,7 @@ export class SaveManager {
             this._myIDsToCommit = [];
 
             let isCommitSavesDelayed = true;
-            this._myCommitSavesCallbacks.notify(isCommitSavesDelayed, failed);
+            this._myCommitSavesEmitter.notify(isCommitSavesDelayed, failed);
         }
     }
 
@@ -128,12 +128,12 @@ export class SaveManager {
         this._mySaveCache.delete(id);
         SaveUtils.remove(id);
 
-        this._myDeleteCallbacks.notify(id);
+        this._myDeleteEmitter.notify(id);
 
-        if (this._myDeleteIDCallbacks.size > 0) {
-            let callbacks = this._myDeleteIDCallbacks.get(id);
-            if (callbacks != null) {
-                callbacks.notify(id);
+        if (this._myDeleteIDEmitters.size > 0) {
+            let emitter = this._myDeleteIDEmitters.get(id);
+            if (emitter != null) {
+                emitter.notify(id);
             }
         }
     }
@@ -142,7 +142,7 @@ export class SaveManager {
         this._mySaveCache.clear();
         SaveUtils.clear();
 
-        this._myClearCallbacks.notify();
+        this._myClearEmitter.notify();
     }
 
     load(id, defaultValue = null, overrideCacheEnabled = null) {
@@ -187,12 +187,12 @@ export class SaveManager {
             failed = true;
         }
 
-        this._myCommitSaveCallbacks.notify(id, value, isCommitSaveDelayed, failed);
+        this._myCommitSaveEmitter.notify(id, value, isCommitSaveDelayed, failed);
 
-        if (this._myCommitSaveIDCallbacks.size > 0) {
-            let callbacks = this._myCommitSaveIDCallbacks.get(id);
-            if (callbacks != null) {
-                callbacks.notify(id, value, isCommitSaveDelayed, failed);
+        if (this._myCommitSaveIDEmitters.size > 0) {
+            let emitter = this._myCommitSaveIDEmitters.get(id);
+            if (emitter != null) {
+                emitter.notify(id, value, isCommitSaveDelayed, failed);
             }
         }
 
@@ -238,12 +238,12 @@ export class SaveManager {
             }
         }
 
-        this._myLoadCallbacks.notify(id, value, loadFromCache, failed);
+        this._myLoadEmitter.notify(id, value, loadFromCache, failed);
 
-        if (this._myLoadIDCallbacks.size > 0) {
-            let callbacks = this._myLoadIDCallbacks.get(id);
-            if (callbacks != null) {
-                callbacks.notify(id, value, loadFromCache, failed);
+        if (this._myLoadIDEmitters.size > 0) {
+            let emitter = this._myLoadIDEmitters.get(id);
+            if (emitter != null) {
+                emitter.notify(id, value, loadFromCache, failed);
             }
         }
 
@@ -266,163 +266,163 @@ export class SaveManager {
         this.commitSaves();
     }
 
-    registerClearEventListener(callbackID, callback) {
-        this._myClearCallbacks.add(callback, { id: callbackID });
+    registerClearEventListener(listenerID, listener) {
+        this._myClearEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterClearEventListener(callbackID) {
-        this._myClearCallbacks.remove(callbackID);
+    unregisterClearEventListener(listenerID) {
+        this._myClearEmitter.remove(listenerID);
     }
 
-    registerDeleteEventListener(callbackID, callback) {
-        this._myDeleteCallbacks.add(callback, { id: callbackID });
+    registerDeleteEventListener(listenerID, listener) {
+        this._myDeleteEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterDeleteEventListener(callbackID) {
-        this._myDeleteCallbacks.remove(callbackID);
+    unregisterDeleteEventListener(listenerID) {
+        this._myDeleteEmitter.remove(listenerID);
     }
 
-    registerDeleteIDEventListener(valueID, callbackID, callback) {
-        let valueIDCallbacks = this._myDeleteIDCallbacks.get(valueID);
-        if (valueIDCallbacks == null) {
-            this._myDeleteIDCallbacks.set(valueID, new Map());
-            valueIDCallbacks = this._myDeleteIDCallbacks.get(valueID);
+    registerDeleteIDEventListener(valueID, listenerID, listener) {
+        let valueIDEmitter = this._myDeleteIDEmitters.get(valueID);
+        if (valueIDEmitter == null) {
+            this._myDeleteIDEmitters.set(valueID, new Map());
+            valueIDEmitter = this._myDeleteIDEmitters.get(valueID);
         }
 
-        valueIDCallbacks.add(callback, { id: callbackID });
+        valueIDEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterDeleteIDEventListener(valueID, callbackID) {
-        let valueIDCallbacks = this._myDeleteIDCallbacks.get(valueID);
-        if (valueIDCallbacks != null) {
-            valueIDCallbacks.remove(callbackID);
+    unregisterDeleteIDEventListener(valueID, listenerID) {
+        let valueIDEmitter = this._myDeleteIDEmitters.get(valueID);
+        if (valueIDEmitter != null) {
+            valueIDEmitter.remove(listenerID);
 
-            if (valueIDCallbacks.size <= 0) {
-                this._myDeleteIDCallbacks.delete(valueID);
+            if (valueIDEmitter.size <= 0) {
+                this._myDeleteIDEmitters.delete(valueID);
             }
         }
     }
 
-    registerSaveEventListener(callbackID, callback) {
-        this._mySaveCallbacks.add(callback, { id: callbackID });
+    registerSaveEventListener(listenerID, listener) {
+        this._mySaveEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterSaveEventListener(callbackID) {
-        this._mySaveCallbacks.remove(callbackID);
+    unregisterSaveEventListener(listenerID) {
+        this._mySaveEmitter.remove(listenerID);
     }
 
-    registerSaveIDEventListener(valueID, callbackID, callback) {
-        let valueIDCallbacks = this._mySaveIDCallbacks.get(valueID);
-        if (valueIDCallbacks == null) {
-            this._mySaveIDCallbacks.set(valueID, new Map());
-            valueIDCallbacks = this._mySaveIDCallbacks.get(valueID);
+    registerSaveIDEventListener(valueID, listenerID, listener) {
+        let valueIDEmitter = this._mySaveIDEmitters.get(valueID);
+        if (valueIDEmitter == null) {
+            this._mySaveIDEmitters.set(valueID, new Map());
+            valueIDEmitter = this._mySaveIDEmitters.get(valueID);
         }
 
-        valueIDCallbacks.add(callback, { id: callbackID });
+        valueIDEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterSaveIDEventListener(valueID, callbackID) {
-        let valueIDCallbacks = this._mySaveIDCallbacks.get(valueID);
-        if (valueIDCallbacks != null) {
-            valueIDCallbacks.remove(callbackID);
+    unregisterSaveIDEventListener(valueID, listenerID) {
+        let valueIDEmitter = this._mySaveIDEmitters.get(valueID);
+        if (valueIDEmitter != null) {
+            valueIDEmitter.remove(listenerID);
 
-            if (valueIDCallbacks.size <= 0) {
-                this._mySaveIDCallbacks.delete(valueID);
+            if (valueIDEmitter.size <= 0) {
+                this._mySaveIDEmitters.delete(valueID);
             }
         }
     }
 
-    registerSaveValueChangedEventListener(callbackID, callback) {
-        this._mySaveValueChangedCallbacks.add(callback, { id: callbackID });
+    registerSaveValueChangedEventListener(listenerID, listener) {
+        this._mySaveValueChangedEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterSaveValueChangedEventListener(callbackID) {
-        this._mySaveValueChangedCallbacks.remove(callbackID);
+    unregisterSaveValueChangedEventListener(listenerID) {
+        this._mySaveValueChangedEmitter.remove(listenerID);
     }
 
-    registerSaveValueChangedIDEventListener(valueID, callbackID, callback) {
-        let valueIDCallbacks = this._mySaveValueChangedIDCallbacks.get(valueID);
-        if (valueIDCallbacks == null) {
-            this._mySaveValueChangedIDCallbacks.set(valueID, new Map());
-            valueIDCallbacks = this._mySaveValueChangedIDCallbacks.get(valueID);
+    registerSaveValueChangedIDEventListener(valueID, listenerID, listener) {
+        let valueIDEmitter = this._mySaveValueChangedIDEmitters.get(valueID);
+        if (valueIDEmitter == null) {
+            this._mySaveValueChangedIDEmitters.set(valueID, new Map());
+            valueIDEmitter = this._mySaveValueChangedIDEmitters.get(valueID);
         }
 
-        valueIDCallbacks.add(callback, { id: callbackID });
+        valueIDEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterSaveValueChangedIDEventListener(valueID, callbackID) {
-        let valueIDCallbacks = this._mySaveValueChangedIDCallbacks.get(valueID);
-        if (valueIDCallbacks != null) {
-            valueIDCallbacks.remove(callbackID);
+    unregisterSaveValueChangedIDEventListener(valueID, listenerID) {
+        let valueIDEmitter = this._mySaveValueChangedIDEmitters.get(valueID);
+        if (valueIDEmitter != null) {
+            valueIDEmitter.remove(listenerID);
 
-            if (valueIDCallbacks.size <= 0) {
-                this._mySaveValueChangedIDCallbacks.delete(valueID);
+            if (valueIDEmitter.size <= 0) {
+                this._mySaveValueChangedIDEmitters.delete(valueID);
             }
         }
     }
 
-    registerCommitSavesEventListener(callbackID, callback) {
-        this._myCommitSavesCallbacks.add(callback, { id: callbackID });
+    registerCommitSavesEventListener(listenerID, listener) {
+        this._myCommitSavesEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterCommitSavesEventListener(callbackID) {
-        this._myCommitSavesCallbacks.remove(callbackID);
+    unregisterCommitSavesEventListener(listenerID) {
+        this._myCommitSavesEmitter.remove(listenerID);
     }
 
-    registerCommitSaveEventListener(callbackID, callback) {
-        this._myCommitSaveCallbacks.add(callback, { id: callbackID });
+    registerCommitSaveEventListener(listenerID, listener) {
+        this._myCommitSaveEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterCommitSaveEventListener(callbackID) {
-        this._myCommitSaveCallbacks.remove(callbackID);
+    unregisterCommitSaveEventListener(listenerID) {
+        this._myCommitSaveEmitter.remove(listenerID);
     }
 
-    registerCommitSaveIDEventListener(valueID, callbackID, callback) {
-        let valueIDCallbacks = this._myCommitSaveIDCallbacks.get(valueID);
-        if (valueIDCallbacks == null) {
-            this._myCommitSaveIDCallbacks.set(valueID, new Map());
-            valueIDCallbacks = this._myCommitSaveIDCallbacks.get(valueID);
+    registerCommitSaveIDEventListener(valueID, listenerID, listener) {
+        let valueIDEmitter = this._myCommitSaveIDEmitters.get(valueID);
+        if (valueIDEmitter == null) {
+            this._myCommitSaveIDEmitters.set(valueID, new Map());
+            valueIDEmitter = this._myCommitSaveIDEmitters.get(valueID);
         }
 
-        valueIDCallbacks.add(callback, { id: callbackID });
+        valueIDEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterCommitSaveIDEventListener(valueID, callbackID) {
-        let valueIDCallbacks = this._myCommitSaveIDCallbacks.get(valueID);
-        if (valueIDCallbacks != null) {
-            valueIDCallbacks.remove(callbackID);
+    unregisterCommitSaveIDEventListener(valueID, listenerID) {
+        let valueIDEmitter = this._myCommitSaveIDEmitters.get(valueID);
+        if (valueIDEmitter != null) {
+            valueIDEmitter.remove(listenerID);
 
-            if (valueIDCallbacks.size <= 0) {
-                this._myCommitSaveIDCallbacks.delete(valueID);
+            if (valueIDEmitter.size <= 0) {
+                this._myCommitSaveIDEmitters.delete(valueID);
             }
         }
     }
 
-    registerLoadEventListener(callbackID, callback) {
-        this._myLoadCallbacks.add(callback, { id: callbackID });
+    registerLoadEventListener(listenerID, listener) {
+        this._myLoadEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterLoadEventListener(callbackID) {
-        this._myLoadCallbacks.remove(callbackID);
+    unregisterLoadEventListener(listenerID) {
+        this._myLoadEmitter.remove(listenerID);
     }
 
-    registerLoadIDEventListener(valueID, callbackID, callback) {
-        let valueIDCallbacks = this._myLoadIDCallbacks.get(valueID);
-        if (valueIDCallbacks == null) {
-            this._myLoadIDCallbacks.set(valueID, new Map());
-            valueIDCallbacks = this._myLoadIDCallbacks.get(valueID);
+    registerLoadIDEventListener(valueID, listenerID, listener) {
+        let valueIDEmitter = this._myLoadIDEmitters.get(valueID);
+        if (valueIDEmitter == null) {
+            this._myLoadIDEmitters.set(valueID, new Map());
+            valueIDEmitter = this._myLoadIDEmitters.get(valueID);
         }
 
-        valueIDCallbacks.add(callback, { id: callbackID });
+        valueIDEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterLoadIDEventListener(valueID, callbackID) {
-        let valueIDCallbacks = this._myLoadIDCallbacks.get(valueID);
-        if (valueIDCallbacks != null) {
-            valueIDCallbacks.remove(callbackID);
+    unregisterLoadIDEventListener(valueID, listenerID) {
+        let valueIDEmitter = this._myLoadIDEmitters.get(valueID);
+        if (valueIDEmitter != null) {
+            valueIDEmitter.remove(listenerID);
 
-            if (valueIDCallbacks.size <= 0) {
-                this._myLoadIDCallbacks.delete(valueID);
+            if (valueIDEmitter.size <= 0) {
+                this._myLoadIDEmitters.delete(valueID);
             }
         }
     }

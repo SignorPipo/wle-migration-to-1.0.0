@@ -49,8 +49,8 @@ export class GrabberHandComponent extends Component {
 
         this._myThrowMaxAngularSpeedRadians = Math.pp_toRadians(this._myThrowMaxAngularSpeed);
 
-        this._myGrabCallbacks = new Emitter();      // Signature: callback(grabber, grabbable)
-        this._myThrowCallbacks = new Emitter();     // Signature: callback(grabber, grabbable)
+        this._myGrabEmitter = new Emitter();      // Signature: listener(grabber, grabbable)
+        this._myThrowEmitter = new Emitter();     // Signature: listener(grabber, grabbable)
 
         this._myDebugActive = false;
     }
@@ -91,20 +91,20 @@ export class GrabberHandComponent extends Component {
         return InputUtils.getHandednessByIndex(this._myHandedness);
     }
 
-    registerGrabEventListener(id, callback) {
-        this._myGrabCallbacks.add(callback, { id: id });
+    registerGrabEventListener(id, listener) {
+        this._myGrabEmitter.add(listener, { id: id });
     }
 
     unregisterGrabEventListener(id) {
-        this._myGrabCallbacks.remove(id);
+        this._myGrabEmitter.remove(id);
     }
 
-    registerThrowEventListener(id, callback) {
-        this._myThrowCallbacks.add(callback, { id: id });
+    registerThrowEventListener(id, listener) {
+        this._myThrowEmitter.add(listener, { id: id });
     }
 
     unregisterThrowEventListener(id) {
-        this._myThrowCallbacks.remove(id);
+        this._myThrowEmitter.remove(id);
     }
 
     onActivate() {
@@ -185,7 +185,7 @@ export class GrabberHandComponent extends Component {
                         grabbableToGrab.object.pp_resetPositionLocal();
                     }
 
-                    this._myGrabCallbacks.notify(this, grabbableToGrab);
+                    this._myGrabEmitter.notify(this, grabbableToGrab);
                 }
 
                 if (this._myGrabbables.length >= this._myMaxNumberOfObjects) {
@@ -224,7 +224,7 @@ export class GrabberHandComponent extends Component {
 
                     grabbable.throw(linearVelocity, angularVelocity);
 
-                    this._myThrowCallbacks.notify(this, grabbable);
+                    this._myThrowEmitter.notify(this, grabbable);
                 }
 
                 this._myGrabbables = [];

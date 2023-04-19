@@ -42,7 +42,7 @@ export class BasePose {
         this._myIsLinearVelocityEmulated = true;
         this._myIsAngularVelocityEmulated = true;
 
-        this._myPoseUpdatedCallbacks = new Emitter();   // Signature: callback(thisPose)
+        this._myPoseUpdatedEmitter = new Emitter();   // Signature: listener(thisPose)
     }
 
     getEngine() {
@@ -148,12 +148,12 @@ export class BasePose {
         return this._myIsAngularVelocityEmulated;
     }
 
-    registerPoseUpdatedEventListener(id, callback) {
-        this._myPoseUpdatedCallbacks.add(callback, { id: id });
+    registerPoseUpdatedEventListener(id, listener) {
+        this._myPoseUpdatedEmitter.add(listener, { id: id });
     }
 
     unregisterPoseUpdatedEventListener(id) {
-        this._myPoseUpdatedCallbacks.remove(id);
+        this._myPoseUpdatedEmitter.remove(id);
     }
 
     start() {
@@ -281,7 +281,7 @@ export class BasePose {
             this._updateHook(dt, updateVelocity, null);
         }
 
-        this._myPoseUpdatedCallbacks.notify(this);
+        this._myPoseUpdatedEmitter.notify(this);
     }
 
     _computeEmulatedLinearVelocity(dt) {

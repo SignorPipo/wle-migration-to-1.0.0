@@ -63,10 +63,10 @@ export class FSM {
         this._myPendingPerforms = [];
         this._myCurrentlyPerformedTransition = null;
 
-        this._myInitCallbacks = new Emitter();            // Signature: callback(fsm, initStateData, initTransitionObject, ...args)
-        this._myInitIDCallbacks = new Map();              // Signature: callback(fsm, initStateData, initTransitionObject, ...args)
-        this._myTransitionCallbacks = new Emitter();      // Signature: callback(fsm, fromStateData, toStateData, transitionData, performMode, ...args)
-        this._myTransitionIDCallbacks = [];               // Signature: callback(fsm, fromStateData, toStateData, transitionData, performMode, ...args)
+        this._myInitEmitter = new Emitter();             // Signature: listener(fsm, initStateData, initTransitionObject, ...args)
+        this._myInitIDEmitters = new Map();              // Signature: listener(fsm, initStateData, initTransitionObject, ...args)
+        this._myTransitionEmitter = new Emitter();       // Signature: listener(fsm, fromStateData, toStateData, transitionData, performMode, ...args)
+        this._myTransitionIDEmitters = [];               // Signature: listener(fsm, fromStateData, toStateData, transitionData, performMode, ...args)
     }
 
     addState(stateID, state = null) {
@@ -150,12 +150,12 @@ export class FSM {
 
             this._myCurrentStateData = initStateData;
 
-            this._myInitCallbacks.notify(this, initStateData, initTransitionObject, ...args);
+            this._myInitEmitter.notify(this, initStateData, initTransitionObject, ...args);
 
-            if (this._myInitIDCallbacks.size > 0) {
-                let callbacks = this._myInitIDCallbacks.get(initStateID);
-                if (callbacks != null) {
-                    callbacks.notify(this, initStateData, initTransitionObject, ...args);
+            if (this._myInitIDEmitters.size > 0) {
+                let emitter = this._myInitIDEmitters.get(initStateID);
+                if (emitter != null) {
+                    emitter.notify(this, initStateData, initTransitionObject, ...args);
                 }
             }
         } else if (this._myDebugLogActive) {
@@ -468,83 +468,83 @@ export class FSM {
         }
     }
 
-    registerInitEventListener(callbackID, callback) {
-        this._myInitCallbacks.add(callback, { id: callbackID });
+    registerInitEventListener(listenerID, listener) {
+        this._myInitEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterInitEventListener(callbackID) {
-        this._myInitCallbacks.remove(callbackID);
+    unregisterInitEventListener(listenerID) {
+        this._myInitEmitter.remove(listenerID);
     }
 
-    registerInitIDEventListener(initStateID, callbackID, callback) {
-        let initStateIDCallbacks = this._myInitIDCallbacks.get(initStateID);
-        if (initStateIDCallbacks == null) {
-            this._myInitIDCallbacks.set(initStateID, new Emitter());
-            initStateIDCallbacks = this._myInitIDCallbacks.get(initStateID);
+    registerInitIDEventListener(initStateID, listenerID, listener) {
+        let initStateIDEmitter = this._myInitIDEmitters.get(initStateID);
+        if (initStateIDEmitter == null) {
+            this._myInitIDEmitters.set(initStateID, new Emitter());
+            initStateIDEmitter = this._myInitIDEmitters.get(initStateID);
         }
 
-        initStateIDCallbacks.add(callback, { id: callbackID });
+        initStateIDEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterInitIDEventListener(initStateID, callbackID) {
-        let initStateIDCallbacks = this._myInitIDCallbacks.get(initStateID);
-        if (initStateIDCallbacks != null) {
-            initStateIDCallbacks.remove(callbackID);
+    unregisterInitIDEventListener(initStateID, listenerID) {
+        let initStateIDEmitter = this._myInitIDEmitters.get(initStateID);
+        if (initStateIDEmitter != null) {
+            initStateIDEmitter.remove(listenerID);
 
-            if (initStateIDCallbacks.size <= 0) {
-                this._myInitIDCallbacks.delete(initStateID);
+            if (initStateIDEmitter.pp_isEmpty()) {
+                this._myInitIDEmitters.delete(initStateID);
             }
         }
     }
 
-    registerTransitionEventListener(callbackID, callback) {
-        this._myTransitionCallbacks.add(callback, { id: callbackID });
+    registerTransitionEventListener(listenerID, listener) {
+        this._myTransitionEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterTransitionEventListener(callbackID) {
-        this._myTransitionCallbacks.remove(callbackID);
+    unregisterTransitionEventListener(listenerID) {
+        this._myTransitionEmitter.remove(listenerID);
     }
 
-    // The fsm IDs can be null, that means that the callback is called whenever only the valid IDs match
+    // The fsm IDs can be null, that means that the listener is called whenever only the valid IDs match
     // This let you register to all the transitions with a specific ID and from of a specific state but to every state (toStateID == null)
-    registerTransitionIDEventListener(fromStateID, toStateID, transitionID, callbackID, callback) {
-        let internalTransitionIDCallbacks = null;
-        for (let value of this._myTransitionIDCallbacks) {
+    registerTransitionIDEventListener(fromStateID, toStateID, transitionID, listenerID, listener) {
+        let internalTransitionIDEmitter = null;
+        for (let value of this._myTransitionIDEmitters) {
             if (value[0] == fromStateID && value[1] == toStateID && value[2] == transitionID) {
-                internalTransitionIDCallbacks = value[3];
+                internalTransitionIDEmitter = value[3];
                 break;
             }
         }
 
-        if (internalTransitionIDCallbacks == null) {
-            let transitionIDCallbacks = [];
-            transitionIDCallbacks[0] = fromStateID;
-            transitionIDCallbacks[1] = toStateID;
-            transitionIDCallbacks[2] = transitionID;
-            transitionIDCallbacks[3] = new Emitter();
+        if (internalTransitionIDEmitter == null) {
+            let transitionIDEmitter = [];
+            transitionIDEmitter[0] = fromStateID;
+            transitionIDEmitter[1] = toStateID;
+            transitionIDEmitter[2] = transitionID;
+            transitionIDEmitter[3] = new Emitter();
 
-            internalTransitionIDCallbacks = transitionIDCallbacks[3];
+            internalTransitionIDEmitter = transitionIDEmitter[3];
 
-            this._myTransitionIDCallbacks.push(transitionIDCallbacks);
+            this._myTransitionIDEmitters.push(transitionIDEmitter);
         }
 
-        internalTransitionIDCallbacks.add(callback, { id: callbackID });
+        internalTransitionIDEmitter.add(listener, { id: listenerID });
     }
 
-    unregisterTransitionIDEventListener(fromStateID, toStateID, transitionID, callbackID) {
-        let internalTransitionIDCallbacks = null;
-        for (let value of this._myTransitionIDCallbacks) {
+    unregisterTransitionIDEventListener(fromStateID, toStateID, transitionID, listenerID) {
+        let internalTransitionIDEmitter = null;
+        for (let value of this._myTransitionIDEmitters) {
             if (value[0] == fromStateID && value[1] == toStateID && value[2] == transitionID) {
-                internalTransitionIDCallbacks = value[3];
+                internalTransitionIDEmitter = value[3];
                 break;
             }
         }
 
-        if (internalTransitionIDCallbacks != null) {
-            internalTransitionIDCallbacks.remove(callbackID);
+        if (internalTransitionIDEmitter != null) {
+            internalTransitionIDEmitter.remove(listenerID);
 
-            if (internalTransitionIDCallbacks.size <= 0) {
-                this._myTransitionIDCallbacks.pp_remove(element => element[0] == fromStateID && element[1] == toStateID && element[2] == transitionID);
+            if (internalTransitionIDEmitter.pp_isEmpty()) {
+                this._myTransitionIDEmitters.pp_remove(element => element[0] == fromStateID && element[1] == toStateID && element[2] == transitionID);
             }
         }
     }
@@ -596,20 +596,20 @@ export class FSM {
 
                 this._myCurrentStateData = transitionToPerform.myToState;
 
-                this._myTransitionCallbacks.notify(this, fromState, toState, transitionToPerform, performMode, ...args);
+                this._myTransitionEmitter.notify(this, fromState, toState, transitionToPerform, performMode, ...args);
 
-                if (this._myTransitionIDCallbacks.length > 0) {
-                    let internalTransitionIDCallbacks = [];
-                    for (let value of this._myTransitionIDCallbacks) {
+                if (this._myTransitionIDEmitters.length > 0) {
+                    let internalTransitionIDEmitters = [];
+                    for (let value of this._myTransitionIDEmitters) {
                         if ((value[0] == null || value[0] == fromState.myID) &&
                             (value[1] == null || value[1] == toState.myID) &&
                             (value[2] == null || value[2] == transitionToPerform.myID)) {
-                            internalTransitionIDCallbacks.push(value[3]);
+                            internalTransitionIDEmitters.push(value[3]);
                         }
                     }
 
-                    for (let callbacks of this.internalTransitionIDCallbacks) {
-                        callbacks.notify(this, fromState, toState, transitionToPerform, performMode, ...args);
+                    for (let emitter of internalTransitionIDEmitters) {
+                        emitter.notify(this, fromState, toState, transitionToPerform, performMode, ...args);
                     }
                 }
 

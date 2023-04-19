@@ -17,19 +17,19 @@ export class BaseGamepad {
             this._myAxesInfos[GamepadAxesID[key]] = new GamepadAxesInfo(GamepadAxesID[key], this._myHandedness);
         }
 
-        this._myButtonCallbacks = [];   // Signature: callback(ButtonInfo, Gamepad)
+        this._myButtonEmitters = [];    // Signature: listener(ButtonInfo, Gamepad)
         for (let key in GamepadButtonID) {
-            this._myButtonCallbacks[GamepadButtonID[key]] = [];
+            this._myButtonEmitters[GamepadButtonID[key]] = [];
             for (let eventKey in GamepadButtonEvent) {
-                this._myButtonCallbacks[GamepadButtonID[key]][GamepadButtonEvent[eventKey]] = new Emitter();
+                this._myButtonEmitters[GamepadButtonID[key]][GamepadButtonEvent[eventKey]] = new Emitter();
             }
         }
 
-        this._myAxesCallbacks = [];   // Signature: callback(AxesInfo, Gamepad)
+        this._myAxesEmitters = [];      // Signature: listener(AxesInfo, Gamepad)
         for (let key in GamepadAxesID) {
-            this._myAxesCallbacks[GamepadAxesID[key]] = [];
+            this._myAxesEmitters[GamepadAxesID[key]] = [];
             for (let eventKey in GamepadAxesEvent) {
-                this._myAxesCallbacks[GamepadAxesID[key]][GamepadAxesEvent[eventKey]] = new Emitter();
+                this._myAxesEmitters[GamepadAxesID[key]][GamepadAxesEvent[eventKey]] = new Emitter();
             }
         }
 
@@ -49,24 +49,24 @@ export class BaseGamepad {
         return this._myButtonInfos[buttonID];
     }
 
-    registerButtonEventListener(buttonID, buttonEvent, id, callback) {
-        this._myButtonCallbacks[buttonID][buttonEvent].add(callback, { id: id });
+    registerButtonEventListener(buttonID, buttonEvent, id, listener) {
+        this._myButtonEmitters[buttonID][buttonEvent].add(listener, { id: id });
     }
 
     unregisterButtonEventListener(buttonID, buttonEvent, id) {
-        this._myButtonCallbacks[buttonID][buttonEvent].remove(id);
+        this._myButtonEmitters[buttonID][buttonEvent].remove(id);
     }
 
     getAxesInfo(axesID) {
         return this._myAxesInfos[axesID];
     }
 
-    registerAxesEventListener(axesID, axesEvent, id, callback) {
-        this._myAxesCallbacks[axesID][axesEvent].add(callback, { id: id });
+    registerAxesEventListener(axesID, axesEvent, id, listener) {
+        this._myAxesEmitters[axesID][axesEvent].add(listener, { id: id });
     }
 
     unregisterAxesEventListener(axesID, axesEvent, id) {
-        this._myAxesCallbacks[axesID][axesEvent].remove(id);
+        this._myAxesEmitters[axesID][axesEvent].remove(id);
     }
 
     pulse(intensity, duration = 0) {
@@ -266,55 +266,55 @@ export class BaseGamepad {
 
         for (let key in GamepadButtonID) {
             let buttonInfo = this._myButtonInfos[GamepadButtonID[key]];
-            let buttonCallbacks = this._myButtonCallbacks[GamepadButtonID[key]];
+            let buttonEventEmitters = this._myButtonEmitters[GamepadButtonID[key]];
 
             // PRESSED
             if (buttonInfo.myIsPressed && !buttonInfo.myPrevIsPressed) {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.PRESS_START];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.PRESS_START];
+                emitter.notify(buttonInfo, this);
             }
 
             if (!buttonInfo.myIsPressed && buttonInfo.myPrevIsPressed) {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.PRESS_END];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.PRESS_END];
+                emitter.notify(buttonInfo, this);
             }
 
             if (buttonInfo.myIsPressed) {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.PRESSED];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.PRESSED];
+                emitter.notify(buttonInfo, this);
             } else {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.NOT_PRESSED];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.NOT_PRESSED];
+                emitter.notify(buttonInfo, this);
             }
 
             // TOUCHED
             if (buttonInfo.myIsTouched && !buttonInfo.myPrevIsTouched) {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.TOUCH_START];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.TOUCH_START];
+                emitter.notify(buttonInfo, this);
             }
 
             if (!buttonInfo.myIsTouched && buttonInfo.myPrevIsTouched) {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.TOUCH_END];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.TOUCH_END];
+                emitter.notify(buttonInfo, this);
             }
 
             if (buttonInfo.myIsTouched) {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.TOUCHED];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.TOUCHED];
+                emitter.notify(buttonInfo, this);
             } else {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.NOT_TOUCHED];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.NOT_TOUCHED];
+                emitter.notify(buttonInfo, this);
             }
 
             // VALUE
             if (buttonInfo.myValue != buttonInfo.myPrevValue) {
-                let callbacks = buttonCallbacks[GamepadButtonEvent.VALUE_CHANGED];
-                this._triggerCallbacks(callbacks, buttonInfo);
+                let emitter = buttonEventEmitters[GamepadButtonEvent.VALUE_CHANGED];
+                emitter.notify(buttonInfo, this);
             }
 
             // ALWAYS
-            let callbacks = buttonCallbacks[GamepadButtonEvent.ALWAYS];
-            this._triggerCallbacks(callbacks, buttonInfo);
+            let emitter = buttonEventEmitters[GamepadButtonEvent.ALWAYS];
+            emitter.notify(buttonInfo, this);
         }
 
         this._mySelectStart = false;
@@ -345,30 +345,30 @@ export class BaseGamepad {
     _postUpdateAxesInfos() {
         for (let key in GamepadAxesID) {
             let axesInfo = this._myAxesInfos[GamepadAxesID[key]];
-            let axesCallbacks = this._myAxesCallbacks[GamepadAxesID[key]];
+            let axesEventEmitters = this._myAxesEmitters[GamepadAxesID[key]];
 
             // X CHANGED
             if (axesInfo.myAxes[0] != axesInfo.myPrevAxes[0]) {
-                let callbacks = axesCallbacks[GamepadAxesEvent.X_CHANGED];
-                this._triggerCallbacks(callbacks, axesInfo);
+                let emitter = axesEventEmitters[GamepadAxesEvent.X_CHANGED];
+                emitter.notify(axesInfo, this);
             }
 
             // Y CHANGED
             if (axesInfo.myAxes[1] != axesInfo.myPrevAxes[1]) {
-                let callbacks = axesCallbacks[GamepadAxesEvent.Y_CHANGED];
-                this._triggerCallbacks(callbacks, axesInfo);
+                let emitter = axesEventEmitters[GamepadAxesEvent.Y_CHANGED];
+                emitter.notify(axesInfo, this);
             }
 
             // AXES CHANGED
             if (axesInfo.myAxes[0] != axesInfo.myPrevAxes[0] ||
                 axesInfo.myAxes[1] != axesInfo.myPrevAxes[1]) {
-                let callbacks = axesCallbacks[GamepadAxesEvent.AXES_CHANGED];
-                this._triggerCallbacks(callbacks, axesInfo);
+                let emitter = axesEventEmitters[GamepadAxesEvent.AXES_CHANGED];
+                emitter.notify(axesInfo, this);
             }
 
             // ALWAYS        
-            let callbacks = axesCallbacks[GamepadAxesEvent.ALWAYS];
-            this._triggerCallbacks(callbacks, axesInfo);
+            let emitter = axesEventEmitters[GamepadAxesEvent.ALWAYS];
+            emitter.notify(axesInfo, this);
         }
     }
 
@@ -397,10 +397,6 @@ export class BaseGamepad {
             this._myPulseInfo.myIntensity = 0;
             this._myPulseInfo.myDuration = 0;
         }
-    }
-
-    _triggerCallbacks(callbacks, info) {
-        callbacks.notify(info, this);
     }
 
     _createButtonData() {

@@ -4,7 +4,7 @@ export class Timer {
 
     constructor(duration, autoStart = true) {
         this._myDuration = duration;
-        this._myOnEndCallbacks = new Emitter();     // Signature: callback()
+        this._myOnEndEmitter = new Emitter();     // Signature: listener()
 
         this._myDone = false;
         this._myJustDone = false;
@@ -91,12 +91,12 @@ export class Timer {
         }
     }
 
-    onEnd(callback, id = null) {
-        this._myOnEndCallbacks.add(callback, { id: id });
+    onEnd(listener, id = null) {
+        this._myOnEndEmitter.add(listener, { id: id });
     }
 
     unregisterOnEnd(id = null) {
-        this._myOnEndCallbacks.remove(id);
+        this._myOnEndEmitter.remove(id);
     }
 
     _done() {
@@ -104,6 +104,6 @@ export class Timer {
         this._myDone = true;
         this._myJustDone = true;
 
-        this._myOnEndCallbacks.notify();
+        this._myOnEndEmitter.notify();
     }
 }

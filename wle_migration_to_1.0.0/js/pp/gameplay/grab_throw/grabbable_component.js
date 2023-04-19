@@ -21,9 +21,9 @@ export class GrabbableComponent extends Component {
         this._myPhysX = null;
         this._myOldKinematicValue = null;
 
-        this._myGrabCallbacks = new Emitter();      // Signature: callback(grabber, grabbable)
-        this._myThrowCallbacks = new Emitter();     // Signature: callback(grabber, grabbable)
-        this._myReleaseCallbacks = new Emitter();   // Signature: callback(grabber, grabbable, isThrow)
+        this._myGrabEmitter = new Emitter();      // Signature: listener(grabber, grabbable)
+        this._myThrowEmitter = new Emitter();     // Signature: listener(grabber, grabbable)
+        this._myReleaseEmitter = new Emitter();   // Signature: listener(grabber, grabbable, isThrow)
     }
 
     start() {
@@ -49,7 +49,7 @@ export class GrabbableComponent extends Component {
 
         this._myIsGrabbed = true;
 
-        this._myGrabCallbacks.notify(grabber, this);
+        this._myGrabEmitter.notify(grabber, this);
     }
 
     throw(linearVelocity, angularVelocity) {
@@ -64,8 +64,8 @@ export class GrabbableComponent extends Component {
             this._myPhysX.angularVelocity = angularVelocity.vec3_scale(this._myThrowAngularVelocityMultiplier);
             //}
 
-            this._myThrowCallbacks.notify(grabber, this);
-            this._myReleaseCallbacks.notify(grabber, this, true);
+            this._myThrowEmitter.notify(grabber, this);
+            this._myReleaseEmitter.notify(grabber, this, true);
         }
     }
 
@@ -75,7 +75,7 @@ export class GrabbableComponent extends Component {
 
             this._release();
 
-            this._myReleaseCallbacks.notify(grabber, this, false);
+            this._myReleaseEmitter.notify(grabber, this, false);
         }
     }
 
@@ -115,28 +115,28 @@ export class GrabbableComponent extends Component {
         return this._myGrabber;
     }
 
-    registerGrabEventListener(id, callback) {
-        this._myGrabCallbacks.add(callback, { id: id });
+    registerGrabEventListener(id, listener) {
+        this._myGrabEmitter.add(listener, { id: id });
     }
 
     unregisterGrabEventListener(id) {
-        this._myGrabCallbacks.remove(id);
+        this._myGrabEmitter.remove(id);
     }
 
-    registerThrowEventListener(id, callback) {
-        this._myThrowCallbacks.add(callback, { id: id });
+    registerThrowEventListener(id, listener) {
+        this._myThrowEmitter.add(listener, { id: id });
     }
 
     unregisterThrowEventListener(id) {
-        this._myThrowCallbacks.remove(id);
+        this._myThrowEmitter.remove(id);
     }
 
-    registerReleaseEventListener(id, callback) {
-        this._myReleaseCallbacks.add(callback, { id: id });
+    registerReleaseEventListener(id, listener) {
+        this._myReleaseEmitter.add(listener, { id: id });
     }
 
     unregisterReleaseEventListener(id) {
-        this._myReleaseCallbacks.remove(id);
+        this._myReleaseEmitter.remove(id);
     }
 
     _release() {

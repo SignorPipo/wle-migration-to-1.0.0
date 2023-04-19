@@ -18,7 +18,7 @@ export class EasyTuneBaseArrayWidgetSelector {
 
         this._myAppendToVariableName = null;
 
-        this._myScrollVariableRequestCallbacks = new Emitter();     // Signature: callback(scrollAmount)
+        this._myScrollVariableRequestEmitter = new Emitter();     // Signature: listener(scrollAmount)
 
         this._myCurrentArraySize = null;
 
@@ -90,12 +90,12 @@ export class EasyTuneBaseArrayWidgetSelector {
         return this._myWidgets.get(this._myCurrentArraySize);
     }
 
-    registerScrollVariableRequestEventListener(id, callback) {
-        this._myScrollVariableRequestCallbacks.add(callback, { id: id });
+    registerScrollVariableRequestEventListener(id, listener) {
+        this._myScrollVariableRequestEmitter.add(listener, { id: id });
     }
 
     unregisterScrollVariableRequestEventListener(id) {
-        this._myScrollVariableRequestCallbacks.remove(id);
+        this._myScrollVariableRequestEmitter.remove(id);
     }
 
     start(parentObject, params) {
@@ -153,7 +153,7 @@ export class EasyTuneBaseArrayWidgetSelector {
     }
 
     _scrollVariableRequest(amount) {
-        this._myScrollVariableRequestCallbacks.notify(amount);
+        this._myScrollVariableRequestEmitter.notify(amount);
     }
 
     _createWidget(arraySize) {

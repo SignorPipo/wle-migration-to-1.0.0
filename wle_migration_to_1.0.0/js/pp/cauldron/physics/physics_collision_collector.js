@@ -25,9 +25,9 @@ export class PhysicsCollisionCollector {
 
         this._myTriggerDesyncFixDelay = new Timer(0.1);
 
-        this._myCollisionCallbacks = new Emitter();          // Signature: callback(thisPhysX, otherPhysX, collisionType)
-        this._myCollisionStartCallbacks = new Emitter();     // Signature: callback(thisPhysX, otherPhysX, collisionType)
-        this._myCollisionEndCallbacks = new Emitter();       // Signature: callback(thisPhysX, otherPhysX, collisionType)
+        this._myCollisionEmitter = new Emitter();          // Signature: listener(thisPhysX, otherPhysX, collisionType)
+        this._myCollisionStartEmitter = new Emitter();     // Signature: listener(thisPhysX, otherPhysX, collisionType)
+        this._myCollisionEndEmitter = new Emitter();       // Signature: listener(thisPhysX, otherPhysX, collisionType)
 
     }
 
@@ -103,28 +103,28 @@ export class PhysicsCollisionCollector {
         this._myDebugActive = active;
     }
 
-    registerCollisionEventListener(callbackID, callback) {
-        this._myCollisionCallbacks.add(callback, { id: callbackID });
+    registerCollisionEventListener(id, listener) {
+        this._myCollisionEmitter.add(listener, { id: id });
     }
 
-    unregisterCollisionEventListener(callbackID) {
-        this._myCollisionCallbacks.remove(callbackID);
+    unregisterCollisionEventListener(id) {
+        this._myCollisionEmitter.remove(id);
     }
 
-    registerCollisionStartEventListener(callbackID, callback) {
-        this._myCollisionStartCallbacks.add(callback, { id: callbackID });
+    registerCollisionStartEventListener(id, listener) {
+        this._myCollisionStartEmitter.add(listener, { id: id });
     }
 
-    unregisterCollisionStartEventListener(callbackID) {
-        this._myCollisionStartCallbacks.remove(callbackID);
+    unregisterCollisionStartEventListener(id) {
+        this._myCollisionStartEmitter.remove(id);
     }
 
-    registerCollisionEndEventListener(callbackID, callback) {
-        this._myCollisionEndCallbacks.add(callback, { id: callbackID });
+    registerCollisionEndEventListener(id, listener) {
+        this._myCollisionEndEmitter.add(listener, { id: id });
     }
 
-    unregisterCollisionEndEventListener(callbackID) {
-        this._myCollisionEndCallbacks.remove(callbackID);
+    unregisterCollisionEndEventListener(id) {
+        this._myCollisionEndEmitter.remove(id);
     }
 
     _onCollision(type, physXComponent) {
@@ -134,7 +134,7 @@ export class PhysicsCollisionCollector {
             this._onCollisionEnd(type, physXComponent);
         }
 
-        this._myCollisionCallbacks.notify(this._myPhysX, physXComponent, type);
+        this._myCollisionEmitter.notify(this._myPhysX, physXComponent, type);
     }
 
     _onCollisionStart(type, physXComponent) {
@@ -165,7 +165,7 @@ export class PhysicsCollisionCollector {
             console.log("Collision Start -", this._myCollisions.length);
         }
 
-        this._myCollisionStartCallbacks.notify(this._myPhysX, physXComponent, type);
+        this._myCollisionStartEmitter.notify(this._myPhysX, physXComponent, type);
     }
 
     _onCollisionEnd(type, physXComponent) {
@@ -199,10 +199,7 @@ export class PhysicsCollisionCollector {
             console.log("Collision End -", this._myCollisions.length);
         }
 
-        this._myCollisionEndCallbacks.notify(this._myPhysX, physXComponent, type);
-        if (this._myCollisionEndCallbacks.size > 0) {
-            this._myCollisionEndCallbacks.forEach(function (callback) { callback(this._myPhysX, physXComponent, type); });
-        }
+        this._myCollisionEndEmitter.notify(this._myPhysX, physXComponent, type);
     }
 
     _triggerDesyncFix(dt) {
