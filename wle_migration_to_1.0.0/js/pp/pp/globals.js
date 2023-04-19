@@ -1,4 +1,4 @@
-import * as AudioManagerGlobals from "../audio/audio_globals";
+import * as AudioGlobals from "../audio/audio_globals";
 import * as VisualGlobals from "../cauldron/visual/visual_globals";
 import * as EngineGlobals from "../cauldron/wl/engine_globals";
 import * as DebugGlobals from "../debug/debug_globals";
@@ -15,7 +15,7 @@ export let Globals = {
     ...EngineGlobals,
     ...SceneObjectsGlobals,
     ...DefaultResourcesGlobals,
-    ...AudioManagerGlobals,
+    ...AudioGlobals,
     ...VisualGlobals,
     ...DebugGlobals,
     ...CharacterCollisionSystemGlobals,

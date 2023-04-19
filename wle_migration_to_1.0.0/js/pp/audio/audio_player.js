@@ -1,6 +1,6 @@
+import { Emitter } from "@wonderlandengine/api";
 import { Howl } from "howler";
 import { AudioSetup } from "./audio_setup";
-import { Emitter } from "@wonderlandengine/api";
 
 export let AudioEvent = {
     END: "end",

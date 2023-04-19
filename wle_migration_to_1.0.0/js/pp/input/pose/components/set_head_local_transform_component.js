@@ -1,9 +1,9 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
+import { getPlayerObjects } from "../../../pp/scene_objects_globals";
 import { BasePoseParams } from "../base_pose";
 import { HeadPose } from "../head_pose";
-import { getPlayerObjects } from "../../../pp/scene_objects_globals";
 
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
