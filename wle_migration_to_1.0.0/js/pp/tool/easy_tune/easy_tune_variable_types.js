@@ -108,10 +108,6 @@ export class EasyTuneVariableArray extends EasyTuneVariable {
         EasyTuneVariableArray.prototype.setValue.call(this, value, true);
     }
 
-    getValue() {
-        return this._myValue;
-    }
-
     setValue(value, resetDefaultValue = false) {
         let valueChanged = this._myValue != null && !this._myValue.pp_equals(value);
 
