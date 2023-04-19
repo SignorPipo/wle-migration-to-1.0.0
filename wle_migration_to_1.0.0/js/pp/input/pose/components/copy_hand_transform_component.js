@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getPlayerObjects } from "../../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../../pp/scene_objects_globals";
 import { InputUtils } from "../../cauldron/input_utils";
 
 export class CopyHandTransformComponent extends Component {

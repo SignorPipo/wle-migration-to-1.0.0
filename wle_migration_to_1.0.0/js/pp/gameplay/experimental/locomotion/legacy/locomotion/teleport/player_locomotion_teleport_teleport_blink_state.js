@@ -4,7 +4,7 @@ import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { TimerState } from "../../../../../../cauldron/fsm/states/timer_state";
 import { vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { getDefaultMaterials, getDefaultMeshes } from "../../../../../../pp/default_resources_globals";
-import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../../../../../pp/scene_objects_globals";
 import { NumberOverValue } from "../../../../../cauldron/cauldron/number_over_value";
 import { PlayerLocomotionTeleportState } from "./player_locomotion_teleport_state";
 

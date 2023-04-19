@@ -1,7 +1,7 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { getDefaultMaterials } from "../../pp/default_resources_globals";
-import { getPlayerObjects } from "../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../pp/scene_objects_globals";
 import { Timer } from "../cauldron/timer";
 import { XRUtils } from "../utils/xr_utils";
 import { VisualText, VisualTextParams } from "../visual/elements/visual_text";

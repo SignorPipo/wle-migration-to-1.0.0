@@ -8,7 +8,7 @@ import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
 import { getDefaultMaterials, getDefaultMeshes } from "../../../../../pp/default_resources_globals";
-import { getPlayerObjects } from "../../../../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../../../../pp/scene_objects_globals";
 
 // Occlude
 export class PlayerObscureManagerParams {

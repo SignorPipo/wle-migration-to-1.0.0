@@ -1,8 +1,9 @@
 //  PP
 export * from "./pp/init_pp";
 export * from "./pp/register_pp_components";
+export * from "./pp/globals";
 export * from "./pp/scene_objects";
-export * from "./pp/scene_objects_global";
+export * from "./pp/scene_objects_globals";
 export * from "./pp/default_resources";
 export * from "./pp/default_resources_globals";
 
@@ -36,7 +37,7 @@ export * from "./plugin/wl/mods/components/mouse_look_component_mod";
 
 //	AUDIO
 export * from "./audio/audio_manager";
-export * from "./audio/audio_manager_global";
+export * from "./audio/audio_globals";
 export * from "./audio/audio_player";
 export * from "./audio/audio_setup";
 export * from "./audio/audio_utils";
@@ -161,7 +162,7 @@ export * from "./gameplay/experimental/character_controller/collision/character_
 export * from "./gameplay/experimental/character_controller/collision/character_collider_utils";
 export * from "./gameplay/experimental/character_controller/collision/character_collision_results";
 export * from "./gameplay/experimental/character_controller/collision/character_collision_system";
-export * from "./gameplay/experimental/character_controller/collision/character_collision_system_global";
+export * from "./gameplay/experimental/character_controller/collision/character_collision_system_globals";
 export * from "./gameplay/experimental/character_controller/collision/components/character_collision_system_component";
 
 export * from "./gameplay/experimental/character_controller/character_controller";
@@ -277,7 +278,7 @@ export * from "./tool/console_vr/console_vr_widget_ui";
 export * from "./tool/console_vr/console_vr_widget";
 export * from "./tool/console_vr/console_vr";
 export * from "./tool/console_vr/console_vr_types";
-export * from "./tool/console_vr/console_vr_global";
+export * from "./tool/console_vr/console_vr_globals";
 export * from "./tool/console_vr/console_original_functions";
 
 export * from "./tool/console_vr/components/console_vr_tool_component";

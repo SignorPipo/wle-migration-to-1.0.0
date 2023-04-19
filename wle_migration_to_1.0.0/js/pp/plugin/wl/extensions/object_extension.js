@@ -394,7 +394,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_getRotationWorldQuat = function pp_getRotationWorldQuat(rotation = quat_create()) {
-        this.getRotationWorld(rotation);
+        rotation.quat_copy(this.rotationWorld);
         return rotation;
     };
 
@@ -431,7 +431,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_getRotationLocalQuat = function pp_getRotationLocalQuat(rotation = quat_create()) {
-        this.getRotationLocal(rotation);
+        rotation.quat_copy(this.rotationLocal);
         return rotation;
     };
 
@@ -442,12 +442,12 @@ export function initObjectExtensionProtoype() {
     };
 
     objectExtension.pp_getScaleWorld = function pp_getScaleWorld(scale = vec3_create()) {
-        this.getScalingWorld(scale);
+        scale.vec3_copy(this.scalingWorld);
         return scale;
     };
 
     objectExtension.pp_getScaleLocal = function pp_getScaleLocal(scale = vec3_create()) {
-        this.getScalingLocal(scale);
+        scale.vec3_copy(this.scalingLocal);
         return scale;
     };
 
@@ -484,7 +484,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_getTransformWorldQuat = function pp_getTransformWorldQuat(transform = quat2_create()) {
-        this.getTransformWorld(transform);
+        transform.quat2_copy(this.transformWorld);
         return transform;
     };
 
@@ -507,7 +507,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_getTransformLocalQuat = function pp_getTransformLocalQuat(transform = quat2_create()) {
-        this.getTransformLocal(transform);
+        transform.quat2_copy(this.transformLocal);
         return transform;
     };
 
@@ -769,7 +769,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_setRotationWorldQuat = function pp_setRotationWorldQuat(rotation) {
-        this.setRotationWorld(rotation);
+        this.rotationWorld = rotation;
     };
 
     // Rotation Local
@@ -805,7 +805,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_setRotationLocalQuat = function pp_setRotationLocalQuat(rotation) {
-        this.setRotationLocal(rotation);
+        this.rotationLocal = rotation;
     };
 
     // Scale
@@ -818,10 +818,10 @@ export function initObjectExtensionProtoype() {
         let vector = vec3_create();
         return function pp_setScaleWorld(scale) {
             if (isNaN(scale)) {
-                this.setScalingWorld(scale);
+                this.scalingWorld = scale;
             } else {
                 vector.vec3_set(scale);
-                this.setScalingWorld(vector);
+                this.scalingWorld = vector;
             }
         };
     }();
@@ -830,10 +830,10 @@ export function initObjectExtensionProtoype() {
         let vector = vec3_create();
         return function pp_setScaleLocal(scale) {
             if (isNaN(scale)) {
-                this.setScalingLocal(scale);
+                this.scalingLocal = scale;
             } else {
                 vector.vec3_set(scale);
-                this.setScalingLocal(vector);
+                this.scalingLocal = vector;
             }
         };
     }();
@@ -1049,7 +1049,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_setTransformWorldQuat = function pp_setTransformWorldQuat(transform) {
-        this.setTransformWorld(transform);
+        this.transformWorld = transform;
     };
 
     // Transform Local
@@ -1079,7 +1079,7 @@ export function initObjectExtensionProtoype() {
     }();
 
     objectExtension.pp_setTransformLocalQuat = function pp_setTransformLocalQuat(transform) {
-        this.setTransformLocal(transform);
+        this.transformLocal = transform;
     };
 
     // RESET

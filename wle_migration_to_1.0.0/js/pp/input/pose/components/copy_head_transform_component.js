@@ -1,5 +1,5 @@
 import { Component } from "@wonderlandengine/api";
-import { getPlayerObjects } from "../../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../../pp/scene_objects_globals";
 
 export class CopyHeadTransformComponent extends Component {
     static TypeName = "pp-copy-head-transform";

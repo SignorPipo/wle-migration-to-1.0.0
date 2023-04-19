@@ -4,7 +4,7 @@ import { GamepadAxesID, GamepadButtonID } from "../../input/gamepad/gamepad_butt
 import { ToolHandedness } from "../cauldron/tool_types";
 import { WidgetFrame, WidgetParams } from "../widget_frame/widget_frame";
 import { getOriginalConsoleClear } from "./console_original_functions";
-import { getConsoleVR } from "./console_vr_global";
+import { getConsoleVR } from "./console_vr_globals";
 import { ConsoleVRWidgetConsoleFunction, ConsoleVRWidgetMessageType, ConsoleVRWidgetPulseOnNewMessage, ConsoleVRWidgetSender } from "./console_vr_types";
 import { ConsoleVRWidgetConfig } from "./console_vr_widget_config";
 import { ConsoleVRWidgetUI } from "./console_vr_widget_ui";

@@ -15,7 +15,7 @@ let visualTorus = new VisualTorus(visualParams);
 
 import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultMaterials } from "../../../pp/default_resources_globals";
-import { getSceneObjects } from "../../../pp/scene_objects_global";
+import { getSceneObjects } from "../../../pp/scene_objects_globals";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";
 import { VisualElementType } from "./visual_element_types";

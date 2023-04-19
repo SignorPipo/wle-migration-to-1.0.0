@@ -5,7 +5,7 @@ import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { InputUtils } from "../../input/cauldron/input_utils";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { getDefaultMeshes } from "../../pp/default_resources_globals";
-import { getPlayerObjects, getSceneObjects } from "../../pp/scene_objects_global";
+import { getPlayerObjects, getSceneObjects } from "../../pp/scene_objects_globals";
 import { ToolHandedness, ToolInputSourceType } from "../cauldron/tool_types";
 
 export class WidgetFrameUI {

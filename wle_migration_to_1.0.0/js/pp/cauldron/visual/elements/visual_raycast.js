@@ -8,7 +8,7 @@ or
 let visualRaycast = new VisualRaycast(visualParams);
 */
 
-import { getSceneObjects } from "../../../pp/scene_objects_global";
+import { getSceneObjects } from "../../../pp/scene_objects_globals";
 import { RaycastResults } from "../../physics/physics_raycast_data";
 import { getMainEngine } from "../../wl/engine_globals";
 import { getVisualResources } from "../visual_globals";

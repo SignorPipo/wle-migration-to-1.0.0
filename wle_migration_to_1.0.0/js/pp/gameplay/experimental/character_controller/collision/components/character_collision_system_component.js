@@ -1,6 +1,6 @@
 import { Component } from "@wonderlandengine/api";
 import { CharacterCollisionSystem } from "../character_collision_system";
-import { getCharacterCollisionSystem, hasCharacterCollisionSystem, removeCharacterCollisionSystem, setCharacterCollisionSystem } from "../character_collision_system_global";
+import { getCharacterCollisionSystem, hasCharacterCollisionSystem, removeCharacterCollisionSystem, setCharacterCollisionSystem } from "../character_collision_system_globals";
 
 export class CharacterCollisionSystemComponent extends Component {
     static TypeName = "pp-character-collision-system";

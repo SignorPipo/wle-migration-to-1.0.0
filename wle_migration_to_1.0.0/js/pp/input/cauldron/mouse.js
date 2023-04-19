@@ -5,7 +5,7 @@ import { PhysicsUtils } from "../../cauldron/physics/physics_utils";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { getCanvas, getMainEngine } from "../../cauldron/wl/engine_globals";
 import { mat4_create, quat_create, vec2_create, vec3_create } from "../../plugin/js/extensions/array_extension";
-import { getPlayerObjects } from "../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../pp/scene_objects_globals";
 
 export let MouseButtonID = {
     LEFT: 0,

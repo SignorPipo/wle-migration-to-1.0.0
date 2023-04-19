@@ -4,7 +4,7 @@ import { VisualTorus, VisualTorusParams } from "../../../../../../cauldron/visua
 import { getDebugVisualManager } from "../../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { getDefaultMaterials } from "../../../../../../pp/default_resources_globals";
-import { getPlayerObjects } from "../../../../../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../../../../../pp/scene_objects_globals";
 
 export class PlayerLocomotionTeleportDetectionVisualizerParams {
 

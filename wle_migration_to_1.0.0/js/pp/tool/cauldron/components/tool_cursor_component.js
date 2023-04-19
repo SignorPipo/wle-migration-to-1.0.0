@@ -6,7 +6,7 @@ import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_g
 import { InputUtils } from "../../../input/cauldron/input_utils";
 import { quat2_create, vec3_create, vec4_create } from "../../../plugin/js/extensions/array_extension";
 import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
-import { getPlayerObjects } from "../../../pp/scene_objects_global";
+import { getPlayerObjects } from "../../../pp/scene_objects_globals";
 
 export class ToolCursorComponent extends Component {
     static TypeName = "pp-tool-cursor";
