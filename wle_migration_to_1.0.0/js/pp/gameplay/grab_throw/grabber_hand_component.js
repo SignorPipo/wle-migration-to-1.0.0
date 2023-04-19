@@ -1,4 +1,4 @@
-import { Component, PhysXComponent, Property } from "@wonderlandengine/api";
+import { Component, Emitter, PhysXComponent, Property } from "@wonderlandengine/api";
 import { PhysicsCollisionCollector } from "../../cauldron/physics/physics_collision_collector";
 import { getDebugVisualManager } from "../../debug/debug_globals";
 import { getLeftGamepad, getRightGamepad } from "../../input/cauldron/input_globals";
@@ -49,8 +49,8 @@ export class GrabberHandComponent extends Component {
 
         this._myThrowMaxAngularSpeedRadians = Math.pp_toRadians(this._myThrowMaxAngularSpeed);
 
-        this._myGrabCallbacks = new Map();      // Signature: callback(grabber, grabbable)
-        this._myThrowCallbacks = new Map();     // Signature: callback(grabber, grabbable)
+        this._myGrabCallbacks = new Emitter();      // Signature: callback(grabber, grabbable)
+        this._myThrowCallbacks = new Emitter();     // Signature: callback(grabber, grabbable)
 
         this._myDebugActive = false;
     }
@@ -92,19 +92,19 @@ export class GrabberHandComponent extends Component {
     }
 
     registerGrabEventListener(id, callback) {
-        this._myGrabCallbacks.set(id, callback);
+        this._myGrabCallbacks.add(callback, { id: id });
     }
 
     unregisterGrabEventListener(id) {
-        this._myGrabCallbacks.delete(id);
+        this._myGrabCallbacks.remove(id);
     }
 
     registerThrowEventListener(id, callback) {
-        this._myThrowCallbacks.set(id, callback);
+        this._myThrowCallbacks.add(callback, { id: id });
     }
 
     unregisterThrowEventListener(id) {
-        this._myThrowCallbacks.delete(id);
+        this._myThrowCallbacks.remove(id);
     }
 
     onActivate() {
@@ -185,7 +185,7 @@ export class GrabberHandComponent extends Component {
                         grabbableToGrab.object.pp_resetPositionLocal();
                     }
 
-                    this._myGrabCallbacks.forEach(function (callback) { callback(this, grabbableToGrab); }.bind(this));
+                    this._myGrabCallbacks.notify(this, grabbableToGrab);
                 }
 
                 if (this._myGrabbables.length >= this._myMaxNumberOfObjects) {
@@ -224,7 +224,7 @@ export class GrabberHandComponent extends Component {
 
                     grabbable.throw(linearVelocity, angularVelocity);
 
-                    this._myThrowCallbacks.forEach(function (callback) { callback(this, grabbable); }.bind(this));
+                    this._myThrowCallbacks.notify(this, grabbable);
                 }
 
                 this._myGrabbables = [];

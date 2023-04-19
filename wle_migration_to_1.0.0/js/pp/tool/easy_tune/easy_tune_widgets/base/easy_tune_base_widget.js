@@ -1,3 +1,4 @@
+import { Emitter } from "@wonderlandengine/api";
 import { Timer } from "../../../../cauldron/cauldron/timer";
 
 export class EasyTuneBaseWidgetParams {
@@ -21,7 +22,7 @@ export class EasyTuneBaseWidget {
 
         this._myIsVisible = true;
 
-        this._myScrollVariableRequestCallbacks = new Map();     // Signature: callback(scrollAmount)
+        this._myScrollVariableRequestCallbacks = new Emitter();     // Signature: callback(scrollAmount)
 
         this._myAppendToVariableName = "";
 
@@ -125,11 +126,11 @@ export class EasyTuneBaseWidget {
     }
 
     registerScrollVariableRequestEventListener(id, callback) {
-        this._myScrollVariableRequestCallbacks.set(id, callback);
+        this._myScrollVariableRequestCallbacks.add(callback, { id: id });
     }
 
     unregisterScrollVariableRequestEventListener(id) {
-        this._myScrollVariableRequestCallbacks.delete(id);
+        this._myScrollVariableRequestCallbacks.remove(id);
     }
 
     start(parentObject, params) {
@@ -269,9 +270,7 @@ export class EasyTuneBaseWidget {
 
     _scrollVariableRequest(amount) {
         if (this._isActive() && amount != 0) {
-            for (let callback of this._myScrollVariableRequestCallbacks.values()) {
-                callback(amount);
-            }
+            this._myScrollVariableRequestCallbacks.notify(amount);
         }
     }
 

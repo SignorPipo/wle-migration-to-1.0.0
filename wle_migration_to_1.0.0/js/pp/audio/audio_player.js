@@ -1,5 +1,6 @@
 import { Howl } from "howler";
 import { AudioSetup } from "./audio_setup";
+import { Emitter } from "@wonderlandengine/api";
 
 export let AudioEvent = {
     END: "end",
@@ -50,7 +51,7 @@ export class AudioPlayer {
 
         this._myCallbacks = new Map();
         for (let eventKey in AudioEvent) {
-            this._myCallbacks.set(AudioEvent[eventKey], new Map());    // Signature: callback(audioID)
+            this._myCallbacks.set(AudioEvent[eventKey], new Emitter());    // Signature: callback(audioID)
         }
 
         if (createAudio) {
@@ -194,12 +195,12 @@ export class AudioPlayer {
         return this._myAudioSetup.myRate;
     }
 
-    registerAudioEventListener(audioEvent, listenerID, callback) {
-        this._myCallbacks.get(audioEvent).set(listenerID, callback);
+    registerAudioEventListener(audioEvent, id, callback) {
+        this._myCallbacks.get(audioEvent).add(id, callback);
     }
 
-    unregisterAudioEventListener(audioEvent, listenerID) {
-        this._myCallbacks.get(audioEvent).delete(listenerID);
+    unregisterAudioEventListener(audioEvent, id) {
+        this._myCallbacks.get(audioEvent).remove(id);
     }
 
     _addListeners() {
@@ -208,9 +209,7 @@ export class AudioPlayer {
                 let event = AudioEvent[eventKey];
                 this._myAudio.on(event, function (audioID) {
                     let callbacks = this._myCallbacks.get(event);
-                    for (let callback of callbacks.values()) {
-                        callback(audioID);
-                    }
+                    callbacks.notify(audioID);
                 }.bind(this));
             }
         }

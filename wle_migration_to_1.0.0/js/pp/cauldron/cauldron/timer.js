@@ -1,8 +1,10 @@
+import { Emitter } from "@wonderlandengine/api";
+
 export class Timer {
 
     constructor(duration, autoStart = true) {
         this._myDuration = duration;
-        this._myOnEndCallbacks = new Map();     // Signature: callback()
+        this._myOnEndCallbacks = new Emitter();     // Signature: callback()
 
         this._myDone = false;
         this._myJustDone = false;
@@ -90,21 +92,18 @@ export class Timer {
     }
 
     onEnd(callback, id = null) {
-        this._myOnEndCallbacks.set(id, callback);
+        this._myOnEndCallbacks.add(callback, { id: id });
     }
 
     unregisterOnEnd(id = null) {
-        this._myOnEndCallbacks.delete(id);
+        this._myOnEndCallbacks.remove(id);
     }
 
     _done() {
         this._myTimeLeft = 0;
         this._myDone = true;
         this._myJustDone = true;
-        if (this._myOnEndCallbacks.size > 0) {
-            for (let callback of this._myOnEndCallbacks.values()) {
-                callback();
-            }
-        }
+
+        this._myOnEndCallbacks.notify();
     }
 }

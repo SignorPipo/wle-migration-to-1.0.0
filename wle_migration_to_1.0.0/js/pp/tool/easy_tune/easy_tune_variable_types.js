@@ -10,6 +10,7 @@ Bool Array:     getEasyTuneVariables().add(new EasyTuneBoolArray("Bool Array", [
 Transform:      getEasyTuneVariables().add(new EasyTuneTransform("Transform", mat4_create(), true));
 */
 
+import { Emitter } from "@wonderlandengine/api";
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { mat4_create } from "../../plugin/js/extensions/array_extension";
 import { EasyTuneUtils } from "./easy_tune_utils";
@@ -32,7 +33,7 @@ export class EasyTuneVariable {
 
         this._myIsActive = false;
 
-        this._myValueChangedCallbacks = new Map();      // Signature: callback(value, easyTuneVariables)
+        this._myValueChangedCallbacks = new Emitter();      // Signature: callback(value, easyTuneVariables)
 
         this._myEngine = engine;
     }
@@ -86,17 +87,15 @@ export class EasyTuneVariable {
     }
 
     registerValueChangedEventListener(id, callback) {
-        this._myValueChangedCallbacks.set(id, callback);
+        this._myValueChangedCallbacks.add(callback, { id: id });
     }
 
     unregisterValueChangedEventListener(id) {
-        this._myValueChangedCallbacks.delete(id);
+        this._myValueChangedCallbacks.remove(id);
     }
 
     _triggerValueChangedCallback() {
-        if (this._myValueChangedCallbacks.size > 0) {
-            this._myValueChangedCallbacks.forEach(function (callback) { callback(this.getValue(), this); }.bind(this));
-        }
+        this._myValueChangedCallbacks.notify(this.getValue(), this);
     }
 }
 

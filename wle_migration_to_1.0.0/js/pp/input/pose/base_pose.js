@@ -1,3 +1,4 @@
+import { Emitter } from "@wonderlandengine/api";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { mat4_create, quat2_create, quat_create, vec3_create } from "../../plugin/js/extensions/array_extension";
@@ -41,7 +42,7 @@ export class BasePose {
         this._myIsLinearVelocityEmulated = true;
         this._myIsAngularVelocityEmulated = true;
 
-        this._myPoseUpdatedCallbacks = new Map();   // Signature: callback(thisPose)
+        this._myPoseUpdatedCallbacks = new Emitter();   // Signature: callback(thisPose)
     }
 
     getEngine() {
@@ -148,11 +149,11 @@ export class BasePose {
     }
 
     registerPoseUpdatedEventListener(id, callback) {
-        this._myPoseUpdatedCallbacks.set(id, callback);
+        this._myPoseUpdatedCallbacks.add(callback, { id: id });
     }
 
     unregisterPoseUpdatedEventListener(id) {
-        this._myPoseUpdatedCallbacks.delete(id);
+        this._myPoseUpdatedCallbacks.remove(id);
     }
 
     start() {
@@ -280,7 +281,7 @@ export class BasePose {
             this._updateHook(dt, updateVelocity, null);
         }
 
-        this._myPoseUpdatedCallbacks.forEach(function (callback) { callback(this); }.bind(this));
+        this._myPoseUpdatedCallbacks.notify(this);
     }
 
     _computeEmulatedLinearVelocity(dt) {

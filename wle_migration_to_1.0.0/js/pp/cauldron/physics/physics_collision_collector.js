@@ -1,4 +1,4 @@
-import { CollisionEventType, PhysXComponent } from "@wonderlandengine/api";
+import { CollisionEventType, Emitter, PhysXComponent } from "@wonderlandengine/api";
 import { Timer } from "../cauldron/timer";
 
 export class PhysicsCollisionCollector {
@@ -25,9 +25,9 @@ export class PhysicsCollisionCollector {
 
         this._myTriggerDesyncFixDelay = new Timer(0.1);
 
-        this._myCollisionCallbacks = new Map();          // Signature: callback(thisPhysX, otherPhysX, collisionType)
-        this._myCollisionStartCallbacks = new Map();     // Signature: callback(thisPhysX, otherPhysX, collisionType)
-        this._myCollisionEndCallbacks = new Map();       // Signature: callback(thisPhysX, otherPhysX, collisionType)
+        this._myCollisionCallbacks = new Emitter();          // Signature: callback(thisPhysX, otherPhysX, collisionType)
+        this._myCollisionStartCallbacks = new Emitter();     // Signature: callback(thisPhysX, otherPhysX, collisionType)
+        this._myCollisionEndCallbacks = new Emitter();       // Signature: callback(thisPhysX, otherPhysX, collisionType)
 
     }
 
@@ -104,42 +104,40 @@ export class PhysicsCollisionCollector {
     }
 
     registerCollisionEventListener(callbackID, callback) {
-        this._myCollisionCallbacks.set(callbackID, callback);
+        this._myCollisionCallbacks.add(callback, { id: callbackID });
     }
 
     unregisterCollisionEventListener(callbackID) {
-        this._myCollisionCallbacks.delete(callbackID);
+        this._myCollisionCallbacks.remove(callbackID);
     }
 
     registerCollisionStartEventListener(callbackID, callback) {
-        this._myCollisionStartCallbacks.set(callbackID, callback);
+        this._myCollisionStartCallbacks.add(callback, { id: callbackID });
     }
 
     unregisterCollisionStartEventListener(callbackID) {
-        this._myCollisionStartCallbacks.delete(callbackID);
+        this._myCollisionStartCallbacks.remove(callbackID);
     }
 
     registerCollisionEndEventListener(callbackID, callback) {
-        this._myCollisionEndCallbacks.set(callbackID, callback);
+        this._myCollisionEndCallbacks.add(callback, { id: callbackID });
     }
 
     unregisterCollisionEndEventListener(callbackID) {
-        this._myCollisionEndCallbacks.delete(callbackID);
+        this._myCollisionEndCallbacks.remove(callbackID);
     }
 
     _onCollision(type, physXComponent) {
         if (type == CollisionEventType.Touch || type == CollisionEventType.TriggerTouch) {
-            this._onCollisionStart(physXComponent);
+            this._onCollisionStart(type, physXComponent);
         } else if (type == CollisionEventType.TouchLost || type == CollisionEventType.TriggerTouchLost) {
-            this._onCollisionEnd(physXComponent);
+            this._onCollisionEnd(type, physXComponent);
         }
 
-        if (this._myCollisionCallbacks.size > 0) {
-            this._myCollisionCallbacks.forEach(function (callback) { callback(this._myPhysX, physXComponent, type); });
-        }
+        this._myCollisionCallbacks.notify(this._myPhysX, physXComponent, type);
     }
 
-    _onCollisionStart(physXComponent) {
+    _onCollisionStart(type, physXComponent) {
         if (this._myDebugActive) {
             let objectFound = false;
             for (let object of this._myCollisions) {
@@ -167,12 +165,10 @@ export class PhysicsCollisionCollector {
             console.log("Collision Start -", this._myCollisions.length);
         }
 
-        if (this._myCollisionStartCallbacks.size > 0) {
-            this._myCollisionStartCallbacks.forEach(function (callback) { callback(this._myPhysX, physXComponent, type); });
-        }
+        this._myCollisionStartCallbacks.notify(this._myPhysX, physXComponent, type);
     }
 
-    _onCollisionEnd(physXComponent) {
+    _onCollisionEnd(type, physXComponent) {
         if (this._myDebugActive) {
             let objectFound = false;
             for (let object of this._myCollisions) {
@@ -203,6 +199,7 @@ export class PhysicsCollisionCollector {
             console.log("Collision End -", this._myCollisions.length);
         }
 
+        this._myCollisionEndCallbacks.notify(this._myPhysX, physXComponent, type);
         if (this._myCollisionEndCallbacks.size > 0) {
             this._myCollisionEndCallbacks.forEach(function (callback) { callback(this._myPhysX, physXComponent, type); });
         }
@@ -224,7 +221,7 @@ export class PhysicsCollisionCollector {
                 for (let collision of collisionsToEnd) {
                     let physX = collision.pp_getComponentSelf(PhysXComponent);
                     if (physX) {
-                        this._onCollisionEnd(physX);
+                        this._onCollisionEnd(CollisionEventType.TriggerTouchLost, physX);
                     } else {
                         console.error("NO PHYSX, HOW?");
                     }

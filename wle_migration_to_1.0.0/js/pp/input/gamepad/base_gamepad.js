@@ -1,3 +1,4 @@
+import { Emitter } from "@wonderlandengine/api";
 import { vec2_create } from "../../plugin/js/extensions/array_extension";
 import { GamepadAxesEvent, GamepadAxesID, GamepadAxesInfo, GamepadButtonEvent, GamepadButtonID, GamepadButtonInfo, GamepadPulseInfo } from "./gamepad_buttons";
 
@@ -20,7 +21,7 @@ export class BaseGamepad {
         for (let key in GamepadButtonID) {
             this._myButtonCallbacks[GamepadButtonID[key]] = [];
             for (let eventKey in GamepadButtonEvent) {
-                this._myButtonCallbacks[GamepadButtonID[key]][GamepadButtonEvent[eventKey]] = new Map();
+                this._myButtonCallbacks[GamepadButtonID[key]][GamepadButtonEvent[eventKey]] = new Emitter();
             }
         }
 
@@ -28,7 +29,7 @@ export class BaseGamepad {
         for (let key in GamepadAxesID) {
             this._myAxesCallbacks[GamepadAxesID[key]] = [];
             for (let eventKey in GamepadAxesEvent) {
-                this._myAxesCallbacks[GamepadAxesID[key]][GamepadAxesEvent[eventKey]] = new Map();
+                this._myAxesCallbacks[GamepadAxesID[key]][GamepadAxesEvent[eventKey]] = new Emitter();
             }
         }
 
@@ -49,11 +50,11 @@ export class BaseGamepad {
     }
 
     registerButtonEventListener(buttonID, buttonEvent, id, callback) {
-        this._myButtonCallbacks[buttonID][buttonEvent].set(id, callback);
+        this._myButtonCallbacks[buttonID][buttonEvent].add(callback, { id: id });
     }
 
     unregisterButtonEventListener(buttonID, buttonEvent, id) {
-        this._myButtonCallbacks[buttonID][buttonEvent].delete(id);
+        this._myButtonCallbacks[buttonID][buttonEvent].remove(id);
     }
 
     getAxesInfo(axesID) {
@@ -61,11 +62,11 @@ export class BaseGamepad {
     }
 
     registerAxesEventListener(axesID, axesEvent, id, callback) {
-        this._myAxesCallbacks[axesID][axesEvent].set(id, callback);
+        this._myAxesCallbacks[axesID][axesEvent].add(callback, { id: id });
     }
 
     unregisterAxesEventListener(axesID, axesEvent, id) {
-        this._myAxesCallbacks[axesID][axesEvent].delete(id);
+        this._myAxesCallbacks[axesID][axesEvent].remove(id);
     }
 
     pulse(intensity, duration = 0) {
@@ -399,9 +400,7 @@ export class BaseGamepad {
     }
 
     _triggerCallbacks(callbacks, info) {
-        for (let callback of callbacks.values()) {
-            callback(info, this);
-        }
+        callbacks.notify(info, this);
     }
 
     _createButtonData() {

@@ -1,3 +1,4 @@
+import { Emitter } from "@wonderlandengine/api";
 import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { ToolHandedness } from "../cauldron/tool_types";
 import { WidgetFrameConfig } from "./widget_frame_config";
@@ -25,8 +26,8 @@ export class WidgetFrame {
         this._myUI = new WidgetFrameUI(engine);
         this._myShowVisibilityButton = false;
 
-        this._myWidgetVisibleChangedCallbacks = new Map();      // Signature: callback(isWidgetVisible)
-        this._myPinChangedCallbacks = new Map();                // Signature: callback(isPinned)
+        this._myWidgetVisibleChangedCallbacks = new Emitter();      // Signature: callback(isWidgetVisible)
+        this._myPinChangedCallbacks = new Emitter();                // Signature: callback(isPinned)
     }
 
     getWidgetObject() {
@@ -51,19 +52,19 @@ export class WidgetFrame {
     }
 
     registerWidgetVisibleChangedEventListener(id, callback) {
-        this._myWidgetVisibleChangedCallbacks.set(id, callback);
+        this._myWidgetVisibleChangedCallbacks.add(callback, { id: id });
     }
 
     unregisterWidgetVisibleChangedEventListener(id) {
-        this._myWidgetVisibleChangedCallbacks.delete(id);
+        this._myWidgetVisibleChangedCallbacks.remove(id);
     }
 
     registerPinChangedEventListener(id, callback) {
-        this._myPinChangedCallbacks.set(id, callback);
+        this._myPinChangedCallbacks.add(callback, { id: id });
     }
 
     unregisterPinChangedEventListener(id) {
-        this._myPinChangedCallbacks.delete(id);
+        this._myPinChangedCallbacks.remove(id);
     }
 
     start(parentObject, params) {
@@ -115,9 +116,7 @@ export class WidgetFrame {
         }
 
         if (notify) {
-            for (let callback of this._myWidgetVisibleChangedCallbacks.values()) {
-                callback(this.myIsWidgetVisible);
-            }
+            this._myWidgetVisibleChangedCallbacks.notify(this.myIsWidgetVisible);
         }
 
         this._myUI.setVisibilityButtonVisible(this._myShowVisibilityButton);
@@ -143,9 +142,7 @@ export class WidgetFrame {
                 }
             }
 
-            for (let callback of this._myPinChangedCallbacks.values()) {
-                callback(this.myIsPinned);
-            }
+            this._myPinChangedCallbacks.notify(this.myIsPinned);
         }
     }
 

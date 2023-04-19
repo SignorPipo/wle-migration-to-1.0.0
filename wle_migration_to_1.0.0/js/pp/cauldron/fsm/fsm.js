@@ -7,6 +7,8 @@
         function transition(fsm, transitionData)
 */
 
+import { Emitter } from "@wonderlandengine/api";
+
 export class StateData {
 
     constructor(stateID, stateObject) {
@@ -61,10 +63,10 @@ export class FSM {
         this._myPendingPerforms = [];
         this._myCurrentlyPerformedTransition = null;
 
-        this._myInitCallbacks = new Map();            // Signature: callback(fsm, initStateData, initTransitionObject, ...args)
-        this._myInitIDCallbacks = new Map();          // Signature: callback(fsm, initStateData, initTransitionObject, ...args)
-        this._myTransitionCallbacks = new Map();      // Signature: callback(fsm, fromStateData, toStateData, transitionData, performMode, ...args)
-        this._myTransitionIDCallbacks = [];           // Signature: callback(fsm, fromStateData, toStateData, transitionData, performMode, ...args)
+        this._myInitCallbacks = new Emitter();            // Signature: callback(fsm, initStateData, initTransitionObject, ...args)
+        this._myInitIDCallbacks = new Map();              // Signature: callback(fsm, initStateData, initTransitionObject, ...args)
+        this._myTransitionCallbacks = new Emitter();      // Signature: callback(fsm, fromStateData, toStateData, transitionData, performMode, ...args)
+        this._myTransitionIDCallbacks = [];               // Signature: callback(fsm, fromStateData, toStateData, transitionData, performMode, ...args)
     }
 
     addState(stateID, state = null) {
@@ -148,14 +150,12 @@ export class FSM {
 
             this._myCurrentStateData = initStateData;
 
-            if (this._myInitCallbacks.size > 0) {
-                this._myInitCallbacks.forEach(function (callback) { callback(this, initStateData, initTransitionObject, ...args); }.bind(this));
-            }
+            this._myInitCallbacks.notify(this, initStateData, initTransitionObject, ...args);
 
             if (this._myInitIDCallbacks.size > 0) {
                 let callbacks = this._myInitIDCallbacks.get(initStateID);
                 if (callbacks != null) {
-                    callbacks.forEach(function (callback) { callback(this, initStateData, initTransitionObject, ...args); }.bind(this));
+                    callbacks.notify(this, initStateData, initTransitionObject, ...args);
                 }
             }
         } else if (this._myDebugLogActive) {
@@ -469,27 +469,27 @@ export class FSM {
     }
 
     registerInitEventListener(callbackID, callback) {
-        this._myInitCallbacks.set(callbackID, callback);
+        this._myInitCallbacks.add(callback, { id: callbackID });
     }
 
     unregisterInitEventListener(callbackID) {
-        this._myInitCallbacks.delete(callbackID);
+        this._myInitCallbacks.remove(callbackID);
     }
 
     registerInitIDEventListener(initStateID, callbackID, callback) {
         let initStateIDCallbacks = this._myInitIDCallbacks.get(initStateID);
         if (initStateIDCallbacks == null) {
-            this._myInitIDCallbacks.set(initStateID, new Map());
+            this._myInitIDCallbacks.set(initStateID, new Emitter());
             initStateIDCallbacks = this._myInitIDCallbacks.get(initStateID);
         }
 
-        initStateIDCallbacks.set(callbackID, callback);
+        initStateIDCallbacks.add(callback, { id: callbackID });
     }
 
     unregisterInitIDEventListener(initStateID, callbackID) {
         let initStateIDCallbacks = this._myInitIDCallbacks.get(initStateID);
         if (initStateIDCallbacks != null) {
-            initStateIDCallbacks.delete(callbackID);
+            initStateIDCallbacks.remove(callbackID);
 
             if (initStateIDCallbacks.size <= 0) {
                 this._myInitIDCallbacks.delete(initStateID);
@@ -498,11 +498,11 @@ export class FSM {
     }
 
     registerTransitionEventListener(callbackID, callback) {
-        this._myTransitionCallbacks.set(callbackID, callback);
+        this._myTransitionCallbacks.add(callback, { id: callbackID });
     }
 
     unregisterTransitionEventListener(callbackID) {
-        this._myTransitionCallbacks.delete(callbackID);
+        this._myTransitionCallbacks.remove(callbackID);
     }
 
     // The fsm IDs can be null, that means that the callback is called whenever only the valid IDs match
@@ -521,14 +521,14 @@ export class FSM {
             transitionIDCallbacks[0] = fromStateID;
             transitionIDCallbacks[1] = toStateID;
             transitionIDCallbacks[2] = transitionID;
-            transitionIDCallbacks[3] = new Map();
+            transitionIDCallbacks[3] = new Emitter();
 
             internalTransitionIDCallbacks = transitionIDCallbacks[3];
 
             this._myTransitionIDCallbacks.push(transitionIDCallbacks);
         }
 
-        internalTransitionIDCallbacks.set(callbackID, callback);
+        internalTransitionIDCallbacks.add(callback, { id: callbackID });
     }
 
     unregisterTransitionIDEventListener(fromStateID, toStateID, transitionID, callbackID) {
@@ -541,7 +541,7 @@ export class FSM {
         }
 
         if (internalTransitionIDCallbacks != null) {
-            internalTransitionIDCallbacks.delete(callbackID);
+            internalTransitionIDCallbacks.remove(callbackID);
 
             if (internalTransitionIDCallbacks.size <= 0) {
                 this._myTransitionIDCallbacks.pp_remove(element => element[0] == fromStateID && element[1] == toStateID && element[2] == transitionID);
@@ -596,9 +596,7 @@ export class FSM {
 
                 this._myCurrentStateData = transitionToPerform.myToState;
 
-                if (this._myTransitionCallbacks.size > 0) {
-                    this._myTransitionCallbacks.forEach(function (callback) { callback(this, fromState, toState, transitionToPerform, performMode, ...args); }.bind(this));
-                }
+                this._myTransitionCallbacks.notify(this, fromState, toState, transitionToPerform, performMode, ...args);
 
                 if (this._myTransitionIDCallbacks.length > 0) {
                     let internalTransitionIDCallbacks = [];
@@ -611,7 +609,7 @@ export class FSM {
                     }
 
                     for (let callbacks of this.internalTransitionIDCallbacks) {
-                        callbacks.forEach(function (callback) { callback(this, fromState, toState, transitionToPerform, performMode, ...args); }.bind(this));
+                        callbacks.notify(this, fromState, toState, transitionToPerform, performMode, ...args);
                     }
                 }
 
