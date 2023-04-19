@@ -179,8 +179,8 @@ export class EasyTuneBaseWidget {
 
     _refreshUI() {
         if (this._myVariable) {
-            if (this._myVariable.myName != null) {
-                this._myUI.myVariableLabelTextComponent.text = this._myVariable.myName.concat(this._myAppendToVariableName);
+            if (this._myVariable.getName() != null) {
+                this._myUI.myVariableLabelTextComponent.text = this._myVariable.getName().concat(this._myAppendToVariableName);
             } else {
                 let name = "Unknown";
                 this._myUI.myVariableLabelTextComponent.text = name.concat(this._myAppendToVariableName);

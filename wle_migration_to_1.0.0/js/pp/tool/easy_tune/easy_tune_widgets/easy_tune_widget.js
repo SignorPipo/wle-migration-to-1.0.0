@@ -171,6 +171,9 @@ export class EasyTuneWidget {
     _selectCurrentWidget() {
         if (this._myEasyTuneVariables.length() <= 0) {
             return;
+        } else if (this._myCurrentVariable == null) {
+            this._myVariableNames = this._myEasyTuneVariables.getEasyTuneVariablesNames();
+            this._myCurrentVariable = this._myEasyTuneVariables.getEasyTuneVariable(this._myVariableNames[0]);
         }
 
         let prevWidget = null;
@@ -178,8 +181,8 @@ export class EasyTuneWidget {
             prevWidget = this._myCurrentWidget.getWidget();
         }
 
-        if (this._myCurrentVariable.myType in this._myWidgets) {
-            this._myCurrentWidget = this._myWidgets[this._myCurrentVariable.myType];
+        if (this._myCurrentVariable.getType() in this._myWidgets) {
+            this._myCurrentWidget = this._myWidgets[this._myCurrentVariable.getType()];
         } else {
             this._myCurrentWidget = this._myWidgets[EasyTuneVariableType.NONE];
         }
@@ -199,8 +202,8 @@ export class EasyTuneWidget {
         this._myEasyTuneLastSize = this._myEasyTuneVariables.length();
 
         if (this._myEasyTuneVariables.length() > 0) {
-            if (this._myCurrentVariable && this._myEasyTuneVariables.has(this._myCurrentVariable.myName)) {
-                this._myCurrentVariable = this._myEasyTuneVariables.getEasyTuneVariable(this._myCurrentVariable.myName);
+            if (this._myCurrentVariable && this._myEasyTuneVariables.has(this._myCurrentVariable.getName())) {
+                this._myCurrentVariable = this._myEasyTuneVariables.getEasyTuneVariable(this._myCurrentVariable.getName());
             } else {
                 this._myCurrentVariable = this._myEasyTuneVariables.getEasyTuneVariable(this._myVariableNames[0]);
             }
@@ -302,17 +305,17 @@ export class EasyTuneWidget {
     }
 
     _getVariableIndex(variable) {
-        let variableIndex = this._myVariableNames.indexOf(variable.myName);
+        let variableIndex = this._myVariableNames.indexOf(variable.getName());
         return variableIndex;
     }
 
     _updateActiveVariable() {
         this._myEasyTuneVariables.getEasyTuneVariablesList().forEach(function (value) {
-            value.myIsActive = false;
+            value._myIsActive = false;
         });
 
         if (this._myWidgetFrame.myIsWidgetVisible && this._myCurrentVariable) {
-            this._myCurrentVariable.myIsActive = true;
+            this._myCurrentVariable._myIsActive = true;
         }
     }
 

@@ -22,7 +22,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
 
     _refreshUIHook() {
         for (let i = 0; i < this._myConfig.myArraySize; i++) {
-            this._myUI.myValueTextComponents[i].text = (this._myVariable.myValue[i]) ? "true" : "false";
+            this._myUI.myValueTextComponents[i].text = (this._myVariable._myValue[i]) ? "true" : "false";
         }
     }
 
@@ -53,7 +53,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         }
 
         if (Math.abs(valueIntensity) > this._myConfig.myThumbstickToggleThreshold) {
-            this._myVariable.myValue[this._myValueEditIndex] = valueIntensity > 0;
+            this._myVariable._myValue[this._myValueEditIndex] = valueIntensity > 0;
             this._refreshUI();
         }
     }
@@ -105,7 +105,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
                 this._myValueEditIndex = index;
                 text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
-                text.pp_setScaleWorld(this._myConfig.myValueTextScale);
+                text.pp_setScaleLocal(this._myConfig.myValueTextScale);
             }
 
             this._myValueEditActive = active;
@@ -114,8 +114,8 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
 
     _resetValue(index) {
         if (this._isActive()) {
-            this._myVariable.myValue[index] = this._myVariable.myDefaultValue[index];
-            this._myUI.myValueTextComponents[index].text = (this._myVariable.myValue[index]) ? "true" : "false";
+            this._myVariable._myValue[index] = this._myVariable.getDefaultValue()[index];
+            this._myUI.myValueTextComponents[index].text = (this._myVariable._myValue[index]) ? "true" : "false";
         }
     }
 
@@ -130,6 +130,6 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
     }
 
     _genericTextUnHover(text, originalScale) {
-        text.pp_setScaleWorld(originalScale);
+        text.pp_setScaleLocal(originalScale);
     }
 }

@@ -1,3 +1,5 @@
+import { getMainEngine } from "../../cauldron/wl/engine_globals";
+
 let _myEasyTuneVariablesList = new WeakMap();
 let _myEasyTuneTargets = new WeakMap();
 

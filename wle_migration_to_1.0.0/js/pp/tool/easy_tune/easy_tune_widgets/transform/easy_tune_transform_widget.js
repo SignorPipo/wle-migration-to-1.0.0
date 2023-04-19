@@ -36,16 +36,16 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         if (this._myValueEditIndex >= 0) {
             switch (this._myComponentIndex) {
                 case 0:
-                    this._myValueRealValue = this._myVariable.myPosition[this._myValueEditIndex];
-                    this._myComponentStepValue = this._myVariable.myPositionStepPerSecond;
+                    this._myValueRealValue = this._myVariable._myPosition[this._myValueEditIndex];
+                    this._myComponentStepValue = this._myVariable._myPositionStepPerSecond;
                     break;
                 case 1:
-                    this._myValueRealValue = this._myVariable.myRotation[this._myValueEditIndex];
-                    this._myComponentStepValue = this._myVariable.myRotationStepPerSecond;
+                    this._myValueRealValue = this._myVariable._myRotation[this._myValueEditIndex];
+                    this._myComponentStepValue = this._myVariable._myRotationStepPerSecond;
                     break;
                 case 2:
-                    this._myValueRealValue = this._myVariable.myScale[this._myValueEditIndex];
-                    this._myComponentStepValue = this._myVariable.myScaleStepPerSecond;
+                    this._myValueRealValue = this._myVariable._myScale[this._myValueEditIndex];
+                    this._myComponentStepValue = this._myVariable._myScaleStepPerSecond;
                     break;
             }
         }
@@ -53,19 +53,19 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
     _refreshUIHook() {
         for (let i = 0; i < 3; i++) {
-            this._myUI.myPositionTextComponents[i].text = this._myVariable.myPosition[i].toFixed(this._myVariable.myDecimalPlaces);
+            this._myUI.myPositionTextComponents[i].text = this._myVariable._myPosition[i].toFixed(this._myVariable._myDecimalPlaces);
         }
-        this._myUI.myPositionStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myPositionStepPerSecond);
+        this._myUI.myPositionStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable._myPositionStepPerSecond);
 
         for (let i = 0; i < 3; i++) {
-            this._myUI.myRotationTextComponents[i].text = this._myVariable.myRotation[i].toFixed(this._myVariable.myDecimalPlaces);
+            this._myUI.myRotationTextComponents[i].text = this._myVariable._myRotation[i].toFixed(this._myVariable._myDecimalPlaces);
         }
-        this._myUI.myRotationStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myRotationStepPerSecond);
+        this._myUI.myRotationStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable._myRotationStepPerSecond);
 
         for (let i = 0; i < 3; i++) {
-            this._myUI.myScaleTextComponents[i].text = this._myVariable.myScale[i].toFixed(this._myVariable.myDecimalPlaces);
+            this._myUI.myScaleTextComponents[i].text = this._myVariable._myScale[i].toFixed(this._myVariable._myDecimalPlaces);
         }
-        this._myUI.myScaleStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myScaleStepPerSecond);
+        this._myUI.myScaleStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable._myScaleStepPerSecond);
     }
 
     _startHook(parentObject, params) {
@@ -104,12 +104,12 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
             this._myValueRealValue += amountToAdd;
 
-            let decimalPlacesMultiplier = Math.pow(10, this._myVariable.myDecimalPlaces);
+            let decimalPlacesMultiplier = Math.pow(10, this._myVariable._myDecimalPlaces);
 
             switch (this._myComponentIndex) {
                 case 0:
-                    this._myVariable.myPosition[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                    this._myUI.myPositionTextComponents[this._myValueEditIndex].text = this._myVariable.myPosition[this._myValueEditIndex].toFixed(this._myVariable.myDecimalPlaces);
+                    this._myVariable._myPosition[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                    this._myUI.myPositionTextComponents[this._myValueEditIndex].text = this._myVariable._myPosition[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 case 1:
                     if (this._myValueRealValue > 180) {
@@ -126,40 +126,40 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
                         this._myValueRealValue = 180 - this._myValueRealValue;
                     }
 
-                    this._myVariable.myRotation[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                    this._myUI.myRotationTextComponents[this._myValueEditIndex].text = this._myVariable.myRotation[this._myValueEditIndex].toFixed(this._myVariable.myDecimalPlaces);
+                    this._myVariable._myRotation[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                    this._myUI.myRotationTextComponents[this._myValueEditIndex].text = this._myVariable._myRotation[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 case 2:
                     if (this._myValueRealValue <= 0) {
                         this._myValueRealValue = 1 / decimalPlacesMultiplier;
                     }
 
-                    if (this._myVariable.myScaleAsOne) {
+                    if (this._myVariable._myScaleAsOne) {
                         let newValue = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                        let difference = newValue - this._myVariable.myScale[this._myValueEditIndex];
+                        let difference = newValue - this._myVariable._myScale[this._myValueEditIndex];
 
                         for (let i = 0; i < 3; i++) {
-                            this._myVariable.myScale[i] = Math.round((this._myVariable.myScale[i] + difference) * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                            this._myVariable.myScale[i] = Math.max(this._myVariable.myScale[i], 1 / decimalPlacesMultiplier);
-                            this._myUI.myScaleTextComponents[i].text = this._myVariable.myScale[i].toFixed(this._myVariable.myDecimalPlaces);
+                            this._myVariable._myScale[i] = Math.round((this._myVariable._myScale[i] + difference) * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                            this._myVariable._myScale[i] = Math.max(this._myVariable._myScale[i], 1 / decimalPlacesMultiplier);
+                            this._myUI.myScaleTextComponents[i].text = this._myVariable._myScale[i].toFixed(this._myVariable._myDecimalPlaces);
                         }
                     } else {
-                        this._myVariable.myScale[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
-                        this._myVariable.myScale[this._myValueEditIndex] = Math.max(this._myVariable.myScale[this._myValueEditIndex], 1 / decimalPlacesMultiplier);
-                        this._myUI.myScaleTextComponents[this._myValueEditIndex].text = this._myVariable.myScale[this._myValueEditIndex].toFixed(this._myVariable.myDecimalPlaces);
+                        this._myVariable._myScale[this._myValueEditIndex] = Math.round(this._myValueRealValue * decimalPlacesMultiplier + Number.EPSILON) / decimalPlacesMultiplier;
+                        this._myVariable._myScale[this._myValueEditIndex] = Math.max(this._myVariable._myScale[this._myValueEditIndex], 1 / decimalPlacesMultiplier);
+                        this._myUI.myScaleTextComponents[this._myValueEditIndex].text = this._myVariable._myScale[this._myValueEditIndex].toFixed(this._myVariable._myDecimalPlaces);
                     }
                     break;
             }
         } else {
             switch (this._myComponentIndex) {
                 case 0:
-                    this._myValueRealValue = this._myVariable.myPosition[this._myValueEditIndex];
+                    this._myValueRealValue = this._myVariable._myPosition[this._myValueEditIndex];
                     break;
                 case 1:
-                    this._myValueRealValue = this._myVariable.myRotation[this._myValueEditIndex];
+                    this._myValueRealValue = this._myVariable._myRotation[this._myValueEditIndex];
                     break;
                 case 2:
-                    this._myValueRealValue = this._myVariable.myScale[this._myValueEditIndex];
+                    this._myValueRealValue = this._myVariable._myScale[this._myValueEditIndex];
                     break;
             }
         }
@@ -189,13 +189,13 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
                 let stepValue = 0;
                 switch (this._myStepIndex) {
                     case 0:
-                        stepValue = this._myVariable.myPositionStepPerSecond;
+                        stepValue = this._myVariable._myPositionStepPerSecond;
                         break;
                     case 1:
-                        stepValue = this._myVariable.myRotationStepPerSecond;
+                        stepValue = this._myVariable._myRotationStepPerSecond;
                         break;
                     case 2:
-                        stepValue = this._myVariable.myScaleStepPerSecond;
+                        stepValue = this._myVariable._myScaleStepPerSecond;
                         break;
                     default:
                         stepValue = 0;
@@ -363,16 +363,16 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             if (value != 0) {
                 switch (componentIndex) {
                     case 0:
-                        this._myValueRealValue = this._myVariable.myPosition[index];
-                        this._myComponentStepValue = this._myVariable.myPositionStepPerSecond;
+                        this._myValueRealValue = this._myVariable._myPosition[index];
+                        this._myComponentStepValue = this._myVariable._myPositionStepPerSecond;
                         break;
                     case 1:
-                        this._myValueRealValue = this._myVariable.myRotation[index];
-                        this._myComponentStepValue = this._myVariable.myRotationStepPerSecond;
+                        this._myValueRealValue = this._myVariable._myRotation[index];
+                        this._myComponentStepValue = this._myVariable._myRotationStepPerSecond;
                         break;
                     case 2:
-                        this._myValueRealValue = this._myVariable.myScale[index];
-                        this._myComponentStepValue = this._myVariable.myScaleStepPerSecond;
+                        this._myValueRealValue = this._myVariable._myScale[index];
+                        this._myComponentStepValue = this._myVariable._myScaleStepPerSecond;
                         break;
                 }
 
@@ -402,16 +402,16 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             if (active) {
                 switch (componentIndex) {
                     case 0:
-                        this._myValueRealValue = this._myVariable.myPosition[index];
-                        this._myComponentStepValue = this._myVariable.myPositionStepPerSecond;
+                        this._myValueRealValue = this._myVariable._myPosition[index];
+                        this._myComponentStepValue = this._myVariable._myPositionStepPerSecond;
                         break;
                     case 1:
-                        this._myValueRealValue = this._myVariable.myRotation[index];
-                        this._myComponentStepValue = this._myVariable.myRotationStepPerSecond;
+                        this._myValueRealValue = this._myVariable._myRotation[index];
+                        this._myComponentStepValue = this._myVariable._myRotationStepPerSecond;
                         break;
                     case 2:
-                        this._myValueRealValue = this._myVariable.myScale[index];
-                        this._myComponentStepValue = this._myVariable.myScaleStepPerSecond;
+                        this._myValueRealValue = this._myVariable._myScale[index];
+                        this._myComponentStepValue = this._myVariable._myScaleStepPerSecond;
                         break;
                 }
 
@@ -419,7 +419,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
                 this._myComponentIndex = componentIndex;
                 text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
-                text.pp_setScaleWorld(this._myConfig.myValueTextScale);
+                text.pp_setScaleLocal(this._myConfig.myValueTextScale);
             }
 
             this._myValueEditActive = active;
@@ -431,7 +431,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             if (active) {
                 text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
-                text.pp_setScaleWorld(this._myConfig.myStepTextScale);
+                text.pp_setScaleLocal(this._myConfig.myStepTextScale);
             }
 
             this._myStepEditActive = active;
@@ -443,16 +443,16 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         if (this._isActive()) {
             switch (componentIndex) {
                 case 0:
-                    this._myVariable.myPosition[index] = this._myVariable.myDefaultPosition[index];
-                    this._myUI.myPositionTextComponents[index].text = this._myVariable.myPosition[index].toFixed(this._myVariable.myDecimalPlaces);
+                    this._myVariable._myPosition[index] = this._myVariable._myDefaultPosition[index];
+                    this._myUI.myPositionTextComponents[index].text = this._myVariable._myPosition[index].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 case 1:
-                    this._myVariable.myRotation[index] = this._myVariable.myDefaultRotation[index];
-                    this._myUI.myRotationTextComponents[index].text = this._myVariable.myRotation[index].toFixed(this._myVariable.myDecimalPlaces);
+                    this._myVariable._myRotation[index] = this._myVariable._myDefaultRotation[index];
+                    this._myUI.myRotationTextComponents[index].text = this._myVariable._myRotation[index].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 case 2:
-                    this._myVariable.myScale[index] = this._myVariable.myDefaultScale[index];
-                    this._myUI.myScaleTextComponents[index].text = this._myVariable.myScale[index].toFixed(this._myVariable.myDecimalPlaces);
+                    this._myVariable._myScale[index] = this._myVariable._myDefaultScale[index];
+                    this._myUI.myScaleTextComponents[index].text = this._myVariable._myScale[index].toFixed(this._myVariable._myDecimalPlaces);
                     break;
                 default:
                     defaultValue = 0;
@@ -477,13 +477,13 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             let defaultValue = 0;
             switch (index) {
                 case 0:
-                    defaultValue = this._myVariable.myDefaultPositionStepPerSecond;
+                    defaultValue = this._myVariable._myDefaultPositionStepPerSecond;
                     break;
                 case 1:
-                    defaultValue = this._myVariable.myDefaultRotationStepPerSecond;
+                    defaultValue = this._myVariable._myDefaultRotationStepPerSecond;
                     break;
                 case 2:
-                    defaultValue = this._myVariable.myDefaultScaleStepPerSecond;
+                    defaultValue = this._myVariable._myDefaultScaleStepPerSecond;
                     break;
                 default:
                     defaultValue = 0;
@@ -498,16 +498,16 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
         switch (index) {
             case 0:
-                this._myVariable.myPositionStepPerSecond = step;
-                this._myUI.myPositionStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myPositionStepPerSecond);
+                this._myVariable._myPositionStepPerSecond = step;
+                this._myUI.myPositionStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable._myPositionStepPerSecond);
                 break;
             case 1:
-                this._myVariable.myRotationStepPerSecond = step;
-                this._myUI.myRotationStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myRotationStepPerSecond);
+                this._myVariable._myRotationStepPerSecond = step;
+                this._myUI.myRotationStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable._myRotationStepPerSecond);
                 break;
             case 2:
-                this._myVariable.myScaleStepPerSecond = step;
-                this._myUI.myScaleStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable.myScaleStepPerSecond);
+                this._myVariable._myScaleStepPerSecond = step;
+                this._myUI.myScaleStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable._myScaleStepPerSecond);
                 break;
         }
     }
@@ -517,6 +517,6 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
     }
 
     _genericTextUnHover(text, originalScale) {
-        text.pp_setScaleWorld(originalScale);
+        text.pp_setScaleLocal(originalScale);
     }
 }
