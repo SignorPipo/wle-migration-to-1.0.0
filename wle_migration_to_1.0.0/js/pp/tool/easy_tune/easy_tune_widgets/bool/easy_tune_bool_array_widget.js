@@ -9,7 +9,10 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
     constructor(params, arraySize, gamepad, engine = getMainEngine()) {
         super(params);
 
-        this._myConfig = new EasyTuneBoolArrayWidgetConfig(arraySize);
+        this._myIsNonArray = arraySize == null;
+        this._myArraySize = this._myIsNonArray ? 1 : arraySize;
+
+        this._myConfig = new EasyTuneBoolArrayWidgetConfig(this._myArraySize);
         this._myUI = new EasyTuneBoolArrayWidgetUI(engine);
 
         this._myGamepad = gamepad;
@@ -20,11 +23,14 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         this._myValueEditActive = false;
 
         this._myTempValue = [];
+
+        this._myTempNonArrayValue = [0];
+        this._myTempNonArrayDefaultValue = [0];
     }
 
     _refreshUIHook() {
-        for (let i = 0; i < this._myConfig.myArraySize; i++) {
-            this._myUI.myValueTextComponents[i].text = (this._myVariable.getValue()[i]) ? "true" : "false";
+        for (let i = 0; i < this._myArraySize; i++) {
+            this._myUI.myValueTextComponents[i].text = (this._getVariableValue()[i]) ? "true" : "false";
         }
     }
 
@@ -34,7 +40,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
 
     _setEasyTuneVariableHook() {
         if (this._myVariable != null) {
-            this._myTempValue.pp_copy(this._myVariable.getValue());
+            this._myTempValue.pp_copy(this._getVariableValue());
         }
     }
 
@@ -61,9 +67,9 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         }
 
         if (Math.abs(valueIntensity) > this._myConfig.myThumbstickToggleThreshold) {
-            this._myTempValue.pp_copy(this._myVariable.getValue());
+            this._myTempValue.pp_copy(this._getVariableValue());
             this._myTempValue[this._myValueEditIndex] = valueIntensity > 0;
-            this._myVariable.setValue(this._myTempValue);
+            this._setVariableValue(this._myTempValue);
             this._refreshUI();
         }
     }
@@ -75,7 +81,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         ui.myVariableLabelCursorTargetComponent.onHover.add(this._genericTextHover.bind(this, ui.myVariableLabelText));
         ui.myVariableLabelCursorTargetComponent.onUnhover.add(this._genericTextUnHover.bind(this, ui.myVariableLabelText, this._myConfig.myVariableLabelTextScale));
 
-        for (let i = 0; i < this._myConfig.myArraySize; i++) {
+        for (let i = 0; i < this._myArraySize; i++) {
             ui.myValueIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, i, 1));
             ui.myValueIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, i, 1));
             ui.myValueIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, i, 0));
@@ -124,16 +130,16 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
 
     _resetValue(index) {
         if (this._isActive()) {
-            this._myTempValue.pp_copy(this._myVariable.getValue());
-            this._myTempValue[index] = this._myVariable.getDefaultValue()[index];
-            this._myVariable.setValue(this._myTempValue);
+            this._myTempValue.pp_copy(this._getVariableValue());
+            this._myTempValue[index] = this._getVariableDefaultValue()[index];
+            this._setVariableValue(this._myTempValue);
 
-            this._myUI.myValueTextComponents[index].text = (this._myVariable.getValue()[index]) ? "true" : "false";
+            this._myUI.myValueTextComponents[index].text = (this._getVariableValue()[index]) ? "true" : "false";
         }
     }
 
     _resetAllValues() {
-        for (let i = 0; i < this._myConfig.myArraySize; i++) {
+        for (let i = 0; i < this._myArraySize; i++) {
             this._resetValue(i);
         }
     }
@@ -144,5 +150,31 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
 
     _genericTextUnHover(text, originalScale) {
         text.pp_setScaleLocal(originalScale);
+    }
+
+    _getVariableValue() {
+        if (this._myIsNonArray) {
+            this._myTempNonArrayValue[0] = this._myVariable.getValue();
+            return this._myTempNonArrayValue;
+        }
+
+        return this._myVariable.getValue();
+    }
+
+    _getVariableDefaultValue() {
+        if (this._myIsNonArray) {
+            this._myTempNonArrayDefaultValue[0] = this._myVariable.getDefaultValue();
+            return this._myTempNonArrayDefaultValue;
+        }
+
+        return this._myVariable.getDefaultValue();
+    }
+
+    _setVariableValue(value) {
+        if (this._myIsNonArray) {
+            this._myVariable.setValue(value[0]);
+        } else {
+            this._myVariable.setValue(this._myTempValue);
+        }
     }
 }

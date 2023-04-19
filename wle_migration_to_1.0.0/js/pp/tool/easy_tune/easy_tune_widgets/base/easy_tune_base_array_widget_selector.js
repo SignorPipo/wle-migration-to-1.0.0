@@ -19,14 +19,16 @@ export class EasyTuneBaseArrayWidgetSelector {
 
         this._myScrollVariableRequestCallbacks = new Map();     // Signature: callback(scrollAmount)
 
-        this._myCurrentArraySize = 0;
+        this._myCurrentArraySize = null;
 
         this._myEngine = engine;
     }
 
     setEasyTuneVariable(variable, appendToVariableName) {
         this._myVariable = variable;
-        this._myCurrentArraySize = this._myVariable.getValue().length;
+
+        this._myCurrentArraySize = this._myVariable.getValue().length; // null for non array variable
+
         this._myAppendToVariableName = appendToVariableName;
 
         if (!this._myWidgets.has(this._myCurrentArraySize)) {

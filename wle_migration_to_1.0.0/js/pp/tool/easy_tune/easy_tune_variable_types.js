@@ -190,18 +190,27 @@ export class EasyTuneNumber extends EasyTuneNumberArray {
 
     constructor(name, value, stepPerSecond, decimalPlaces, min, max, engine) {
         super(name, [value], stepPerSecond, decimalPlaces, min, max, engine);
+
+        this._myTempValue = [0];
+        this._myTempDefaultValue = [0];
     }
 
     getValue() {
-        return this._myValue[0];
+        return super.getValue()[0];
     }
 
     setValue(value, resetDefaultValue = false) {
-        super.setValue([value], resetDefaultValue);
+        this._myTempValue[0] = value;
+        super.setValue(this._myTempValue, resetDefaultValue);
+    }
+
+    getDefaultValue() {
+        return super.getDefaultValue()[0];
     }
 
     setDefaultValue(value) {
-        super.setDefaultValue([value]);
+        this._myTempDefaultValue[0] = value;
+        super.setDefaultValue(this._myTempValue);
     }
 }
 
@@ -238,18 +247,27 @@ export class EasyTuneBool extends EasyTuneBoolArray {
 
     constructor(name, value, engine) {
         super(name, [value], engine);
+
+        this._myTempValue = [0];
+        this._myTempDefaultValue = [0];
     }
 
     getValue() {
-        return this._myValue[0];
+        return super.getValue()[0];
     }
 
     setValue(value, resetDefaultValue = false) {
-        super.setValue([value], resetDefaultValue);
+        this._myTempValue[0] = value;
+        super.setValue(this._myTempValue, resetDefaultValue);
+    }
+
+    getDefaultValue() {
+        return super.getDefaultValue()[0];
     }
 
     setDefaultValue(value) {
-        super.setDefaultValue([value]);
+        this._myTempDefaultValue[0] = value;
+        super.setDefaultValue(this._myTempValue);
     }
 }
 
