@@ -287,215 +287,215 @@ export let convertCharacterColliderSetupToCollisionCheckParams = function () {
     return function convertCharacterColliderSetupToCollisionCheckParams(characterColliderSetup, outCollisionCheckParams) {
         outCollisionCheckParams.myHeight = characterColliderSetup.myHeight;
 
-        outCollisionCheckParams.myRadius = characterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckConeRadius;
-        outCollisionCheckParams.myDistanceFromFeetToIgnore = characterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckFeetDistanceToIgnore;
-        outCollisionCheckParams.myDistanceFromHeadToIgnore = characterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckHeadDistanceToIgnore;
+        outCollisionCheckParams.myRadius = characterColliderSetup.myHorizontalCheckParams.myHorizontalCheckConeRadius;
+        outCollisionCheckParams.myDistanceFromFeetToIgnore = characterColliderSetup.myHorizontalCheckParams.myHorizontalCheckFeetDistanceToIgnore;
+        outCollisionCheckParams.myDistanceFromHeadToIgnore = characterColliderSetup.myHorizontalCheckParams.myHorizontalCheckHeadDistanceToIgnore;
 
-        outCollisionCheckParams.myHorizontalMovementCheckEnabled = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckEnabled = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementCheckEnabled;
 
-        outCollisionCheckParams.myHorizontalMovementStepEnabled = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckSplitMovementEnabled;
-        outCollisionCheckParams.myHorizontalMovementStepMaxLength = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckSplitMovementMaxStepLength;
+        outCollisionCheckParams.myHorizontalMovementStepEnabled = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementCheckSplitMovementEnabled;
+        outCollisionCheckParams.myHorizontalMovementStepMaxLength = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementCheckSplitMovementMaxStepLength;
 
-        outCollisionCheckParams.myHorizontalMovementRadialStepAmount = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckRadialSteps;
+        outCollisionCheckParams.myHorizontalMovementRadialStepAmount = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementCheckRadialSteps;
 
-        outCollisionCheckParams.myHorizontalMovementCheckDiagonalOutward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHorizontalDiagonalOutwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckDiagonalInward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHorizontalDiagonalInwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckStraight = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHorizontalStraightCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckHorizontalBorder = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHorizontalRadialCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalStraight = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalStraightCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalDiagonalUpwardOutward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalDiagonalOutwardUpwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalDiagonalUpwardInward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalDiagonalInwardUpwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalDiagonalDownwardOutward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalDiagonalOutwardDownwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalDiagonalDownwardInward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalDiagonalInwardDownwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalStraightDiagonalUpward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalStraightDiagonalUpwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalStraightDiagonalDownward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalStraightDiagonalDownwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalHorizontalBorderDiagonalOutward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalRadialDiagonalOutwardCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementCheckVerticalHorizontalBorderDiagonalInward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalRadialDiagonalInwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckDiagonalOutward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHorizontalDiagonalOutwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckDiagonalInward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHorizontalDiagonalInwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckStraight = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHorizontalStraightCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckHorizontalBorder = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHorizontalRadialCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalStraight = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalStraightCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalDiagonalUpwardOutward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalDiagonalOutwardUpwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalDiagonalUpwardInward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalDiagonalInwardUpwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalDiagonalDownwardOutward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalDiagonalOutwardDownwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalDiagonalDownwardInward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalDiagonalInwardDownwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalStraightDiagonalUpward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalStraightDiagonalUpwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalStraightDiagonalDownward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalStraightDiagonalDownwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalHorizontalBorderDiagonalOutward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalRadialDiagonalOutwardCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementCheckVerticalHorizontalBorderDiagonalInward = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalRadialDiagonalInwardCheckEnabled;
 
-        outCollisionCheckParams.myHorizontalMovementHorizontalStraightCentralCheckEnabled = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHorizontalStraightCentralCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementVerticalStraightCentralCheckEnabled = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalStraightCentralCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementVerticalStraightDiagonalUpwardCentralCheckEnabled = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalStraightDiagonalUpwardCentralCheckEnabled;
-        outCollisionCheckParams.myHorizontalMovementVerticalStraightDiagonalDownwardCentralCheckEnabled = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementVerticalStraightDiagonalDownwardCentralCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementHorizontalStraightCentralCheckEnabled = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHorizontalStraightCentralCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementVerticalStraightCentralCheckEnabled = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalStraightCentralCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementVerticalStraightDiagonalUpwardCentralCheckEnabled = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalStraightDiagonalUpwardCentralCheckEnabled;
+        outCollisionCheckParams.myHorizontalMovementVerticalStraightDiagonalDownwardCentralCheckEnabled = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementVerticalStraightDiagonalDownwardCentralCheckEnabled;
 
-        outCollisionCheckParams.myHorizontalPositionCheckEnabled = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionCheckEnabled;
+        outCollisionCheckParams.myHorizontalPositionCheckEnabled = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionCheckEnabled;
 
-        outCollisionCheckParams.myHalfConeAngle = characterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckConeHalfAngle;
-        outCollisionCheckParams.myHalfConeSliceAmount = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionCheckConeHalfSlices;
-        outCollisionCheckParams.myCheckConeBorder = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionHorizontalBorderCheckEnabled;
-        outCollisionCheckParams.myCheckConeRay = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionHorizontalRadialCheckEnabled;
-        outCollisionCheckParams.myHorizontalPositionCheckVerticalIgnoreHitsInsideCollision = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalCheckIgnoreHitsInsideCollision;
-        outCollisionCheckParams.myHorizontalPositionCheckVerticalDirectionType = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalCheckDirection;
+        outCollisionCheckParams.myHalfConeAngle = characterColliderSetup.myHorizontalCheckParams.myHorizontalCheckConeHalfAngle;
+        outCollisionCheckParams.myHalfConeSliceAmount = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionCheckConeHalfSlices;
+        outCollisionCheckParams.myCheckConeBorder = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionHorizontalBorderCheckEnabled;
+        outCollisionCheckParams.myCheckConeRay = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionHorizontalRadialCheckEnabled;
+        outCollisionCheckParams.myHorizontalPositionCheckVerticalIgnoreHitsInsideCollision = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalCheckIgnoreHitsInsideCollision;
+        outCollisionCheckParams.myHorizontalPositionCheckVerticalDirectionType = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalCheckDirection;
 
-        outCollisionCheckParams.myCheckHeight = characterColliderSetup.myHorizontalCheckSetup.myHorizontalHeightCheckEnabled;
+        outCollisionCheckParams.myCheckHeight = characterColliderSetup.myHorizontalCheckParams.myHorizontalHeightCheckEnabled;
 
-        outCollisionCheckParams.myCheckHeightVerticalMovement = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHeightVerticalCheckEnabled;
-        outCollisionCheckParams.myCheckHeightVerticalPosition = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionHeightVerticalCheckEnabled;
-        outCollisionCheckParams.myCheckHeightTopMovement = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHeightHorizontalCheckEnabled;
-        outCollisionCheckParams.myCheckHeightTopPosition = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionHeightHorizontalCheckEnabled;
-        outCollisionCheckParams.myCheckHeightConeOnCollision = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalCheckPerformHorizontalCheckOnHit;
-        outCollisionCheckParams.myCheckHeightConeOnCollisionKeepHit = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalCheckPerformHorizontalCheckOnHitKeepVerticalHitIfNoHorizontalHit;
+        outCollisionCheckParams.myCheckHeightVerticalMovement = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHeightVerticalCheckEnabled;
+        outCollisionCheckParams.myCheckHeightVerticalPosition = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionHeightVerticalCheckEnabled;
+        outCollisionCheckParams.myCheckHeightTopMovement = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHeightHorizontalCheckEnabled;
+        outCollisionCheckParams.myCheckHeightTopPosition = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionHeightHorizontalCheckEnabled;
+        outCollisionCheckParams.myCheckHeightConeOnCollision = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalCheckPerformHorizontalCheckOnHit;
+        outCollisionCheckParams.myCheckHeightConeOnCollisionKeepHit = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalCheckPerformHorizontalCheckOnHitKeepVerticalHitIfNoHorizontalHit;
 
-        outCollisionCheckParams.myHeightCheckStepAmountMovement = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementHeightCheckSteps;
-        outCollisionCheckParams.myHeightCheckStepAmountPosition = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionHeightCheckSteps;
-        outCollisionCheckParams.myCheckVerticalStraight = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalStraightCheckEnabled;
-        outCollisionCheckParams.myCheckVerticalDiagonalRayOutward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalRadialDiagonalOutwardCheckEnabled;
-        outCollisionCheckParams.myCheckVerticalDiagonalRayInward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalRadialDiagonalInwardCheckEnabled;
-        outCollisionCheckParams.myCheckVerticalDiagonalBorderOutward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalBorderDiagonalOutwardCheckEnabled;
-        outCollisionCheckParams.myCheckVerticalDiagonalBorderInward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalBorderDiagonalInwardCheckEnabled;
-        outCollisionCheckParams.myCheckVerticalDiagonalBorderRayOutward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalRadialBorderDiagonalOutwardCheckEnabled;
-        outCollisionCheckParams.myCheckVerticalDiagonalBorderRayInward = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalRadialBorderDiagonalInwardCheckEnabled;
-        outCollisionCheckParams.myCheckVerticalSearchFartherVerticalHit = characterColliderSetup.myHorizontalCheckSetup.myHorizontalPositionVerticalCheckGetFarthestHit;
+        outCollisionCheckParams.myHeightCheckStepAmountMovement = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHeightCheckSteps;
+        outCollisionCheckParams.myHeightCheckStepAmountPosition = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionHeightCheckSteps;
+        outCollisionCheckParams.myCheckVerticalStraight = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalStraightCheckEnabled;
+        outCollisionCheckParams.myCheckVerticalDiagonalRayOutward = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalRadialDiagonalOutwardCheckEnabled;
+        outCollisionCheckParams.myCheckVerticalDiagonalRayInward = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalRadialDiagonalInwardCheckEnabled;
+        outCollisionCheckParams.myCheckVerticalDiagonalBorderOutward = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalBorderDiagonalOutwardCheckEnabled;
+        outCollisionCheckParams.myCheckVerticalDiagonalBorderInward = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalBorderDiagonalInwardCheckEnabled;
+        outCollisionCheckParams.myCheckVerticalDiagonalBorderRayOutward = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalRadialBorderDiagonalOutwardCheckEnabled;
+        outCollisionCheckParams.myCheckVerticalDiagonalBorderRayInward = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalRadialBorderDiagonalInwardCheckEnabled;
+        outCollisionCheckParams.myCheckVerticalSearchFartherVerticalHit = characterColliderSetup.myHorizontalCheckParams.myHorizontalPositionVerticalCheckGetFarthestHit;
 
-        outCollisionCheckParams.myCheckHorizontalFixedForwardEnabled = characterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckFixedForwardEnabled;
-        outCollisionCheckParams.myCheckHorizontalFixedForward.vec3_copy(characterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckFixedForward);
+        outCollisionCheckParams.myCheckHorizontalFixedForwardEnabled = characterColliderSetup.myHorizontalCheckParams.myHorizontalCheckFixedForwardEnabled;
+        outCollisionCheckParams.myCheckHorizontalFixedForward.vec3_copy(characterColliderSetup.myHorizontalCheckParams.myHorizontalCheckFixedForward);
 
-        outCollisionCheckParams.myVerticalMovementCheckEnabled = characterColliderSetup.myVerticalCheckSetup.myVerticalMovementCheckEnabled;
-        outCollisionCheckParams.myVerticalPositionCheckEnabled = characterColliderSetup.myVerticalCheckSetup.myVerticalPositionCheckEnabled;
-        outCollisionCheckParams.myFeetRadius = characterColliderSetup.myVerticalCheckSetup.myVerticalCheckCircumferenceRadius;
+        outCollisionCheckParams.myVerticalMovementCheckEnabled = characterColliderSetup.myVerticalCheckParams.myVerticalMovementCheckEnabled;
+        outCollisionCheckParams.myVerticalPositionCheckEnabled = characterColliderSetup.myVerticalCheckParams.myVerticalPositionCheckEnabled;
+        outCollisionCheckParams.myFeetRadius = characterColliderSetup.myVerticalCheckParams.myVerticalCheckCircumferenceRadius;
 
-        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleDownhill = characterColliderSetup.myGroundSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhill;
-        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleUphill = characterColliderSetup.myGroundSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphill;
-        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleDownhillMaxAngle = characterColliderSetup.myGroundSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhillMaxSurfaceAngle;
-        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleUphillMaxAngle = characterColliderSetup.myGroundSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphillMaxSurfaceAngle;
-        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleDownhillMaxPerceivedAngle = characterColliderSetup.myGroundSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhillMaxSurfacePerceivedAngle;
-        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleUphillMaxPerceivedAngle = characterColliderSetup.myGroundSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphillMaxSurfacePerceivedAngle;
-        outCollisionCheckParams.myAdjustHorizontalMovementWithGroundAngleDownhill = characterColliderSetup.myGroundSetup.myVerticalMovementAdjustHorizontalMovementBasedOnSurfaceAngleDownhill;
-        outCollisionCheckParams.myAdjustHorizontalMovementWithGroundAngleDownhillMinAngle = characterColliderSetup.myGroundSetup.myVerticalMovementAdjustHorizontalMovementBasedOnSurfaceAngleDownhillMinSurfaceAngle;
+        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleDownhill = characterColliderSetup.myGroundParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhill;
+        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleUphill = characterColliderSetup.myGroundParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphill;
+        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleDownhillMaxAngle = characterColliderSetup.myGroundParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhillMaxSurfaceAngle;
+        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleUphillMaxAngle = characterColliderSetup.myGroundParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphillMaxSurfaceAngle;
+        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleDownhillMaxPerceivedAngle = characterColliderSetup.myGroundParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhillMaxSurfacePerceivedAngle;
+        outCollisionCheckParams.myAdjustVerticalMovementWithGroundAngleUphillMaxPerceivedAngle = characterColliderSetup.myGroundParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphillMaxSurfacePerceivedAngle;
+        outCollisionCheckParams.myAdjustHorizontalMovementWithGroundAngleDownhill = characterColliderSetup.myGroundParams.myVerticalMovementAdjustHorizontalMovementBasedOnSurfaceAngleDownhill;
+        outCollisionCheckParams.myAdjustHorizontalMovementWithGroundAngleDownhillMinAngle = characterColliderSetup.myGroundParams.myVerticalMovementAdjustHorizontalMovementBasedOnSurfaceAngleDownhillMinSurfaceAngle;
 
-        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleDownhill = characterColliderSetup.myCeilingSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhill;
-        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleUphill = characterColliderSetup.myCeilingSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphill;
-        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleDownhillMaxAngle = characterColliderSetup.myCeilingSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhillMaxSurfaceAngle;
-        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleUphillMaxAngle = characterColliderSetup.myCeilingSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphillMaxSurfaceAngle;
-        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleDownhillMaxPerceivedAngle = characterColliderSetup.myCeilingSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhillMaxSurfacePerceivedAngle;
-        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleUphillMaxPerceivedAngle = characterColliderSetup.myCeilingSetup.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphillMaxSurfacePerceivedAngle;
-        outCollisionCheckParams.myAdjustHorizontalMovementWithCeilingAngleDownhill = characterColliderSetup.myCeilingSetup.myVerticalMovementAdjustHorizontalMovementBasedOnSurfaceAngleDownhill;
-        outCollisionCheckParams.myAdjustHorizontalMovementWithCeilingAngleDownhillMinAngle = characterColliderSetup.myCeilingSetup.myVerticalMovementAdjustHorizontalMovementBasedOnSurfaceAngleDownhillMinSurfaceAngle;
+        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleDownhill = characterColliderSetup.myCeilingParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhill;
+        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleUphill = characterColliderSetup.myCeilingParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphill;
+        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleDownhillMaxAngle = characterColliderSetup.myCeilingParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhillMaxSurfaceAngle;
+        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleUphillMaxAngle = characterColliderSetup.myCeilingParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphillMaxSurfaceAngle;
+        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleDownhillMaxPerceivedAngle = characterColliderSetup.myCeilingParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleDownhillMaxSurfacePerceivedAngle;
+        outCollisionCheckParams.myAdjustVerticalMovementWithCeilingAngleUphillMaxPerceivedAngle = characterColliderSetup.myCeilingParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngleUphillMaxSurfacePerceivedAngle;
+        outCollisionCheckParams.myAdjustHorizontalMovementWithCeilingAngleDownhill = characterColliderSetup.myCeilingParams.myVerticalMovementAdjustHorizontalMovementBasedOnSurfaceAngleDownhill;
+        outCollisionCheckParams.myAdjustHorizontalMovementWithCeilingAngleDownhillMinAngle = characterColliderSetup.myCeilingParams.myVerticalMovementAdjustHorizontalMovementBasedOnSurfaceAngleDownhillMinSurfaceAngle;
 
-        outCollisionCheckParams.myCheckVerticalFixedForwardEnabled = characterColliderSetup.myVerticalCheckSetup.myVerticalCheckFixedForwardEnabled;
-        outCollisionCheckParams.myCheckVerticalFixedForward.vec3_copy(characterColliderSetup.myVerticalCheckSetup.myVerticalCheckFixedForward);
-        outCollisionCheckParams.myCheckVerticalBothDirection = characterColliderSetup.myVerticalCheckSetup.myVerticalMovementCheckPerformCheckOnBothSides;
+        outCollisionCheckParams.myCheckVerticalFixedForwardEnabled = characterColliderSetup.myVerticalCheckParams.myVerticalCheckFixedForwardEnabled;
+        outCollisionCheckParams.myCheckVerticalFixedForward.vec3_copy(characterColliderSetup.myVerticalCheckParams.myVerticalCheckFixedForward);
+        outCollisionCheckParams.myCheckVerticalBothDirection = characterColliderSetup.myVerticalCheckParams.myVerticalMovementCheckPerformCheckOnBothSides;
 
-        outCollisionCheckParams.myVerticalMovementReduceEnabled = characterColliderSetup.myVerticalCheckSetup.myVerticalMovementCheckReductionEnabled;
+        outCollisionCheckParams.myVerticalMovementReduceEnabled = characterColliderSetup.myVerticalCheckParams.myVerticalMovementCheckReductionEnabled;
 
-        outCollisionCheckParams.myGroundCircumferenceAddCenter = characterColliderSetup.myVerticalCheckSetup.myVerticalCheckCircumferenceCentralCheckEnabled;
-        outCollisionCheckParams.myGroundCircumferenceSliceAmount = characterColliderSetup.myVerticalCheckSetup.myVerticalCheckCircumferenceSlices;
-        outCollisionCheckParams.myGroundCircumferenceStepAmount = characterColliderSetup.myVerticalCheckSetup.myVerticalCheckCircumferenceRadialSteps;
-        outCollisionCheckParams.myGroundCircumferenceRotationPerStep = characterColliderSetup.myVerticalCheckSetup.myVerticalCheckCircumferenceRotationPerRadialStep;
-        outCollisionCheckParams.myVerticalAllowHitInsideCollisionIfOneOk = characterColliderSetup.myVerticalCheckSetup.myVerticalCheckAllowHitsInsideCollisionIfOneValid;
+        outCollisionCheckParams.myGroundCircumferenceAddCenter = characterColliderSetup.myVerticalCheckParams.myVerticalCheckCircumferenceCentralCheckEnabled;
+        outCollisionCheckParams.myGroundCircumferenceSliceAmount = characterColliderSetup.myVerticalCheckParams.myVerticalCheckCircumferenceSlices;
+        outCollisionCheckParams.myGroundCircumferenceStepAmount = characterColliderSetup.myVerticalCheckParams.myVerticalCheckCircumferenceRadialSteps;
+        outCollisionCheckParams.myGroundCircumferenceRotationPerStep = characterColliderSetup.myVerticalCheckParams.myVerticalCheckCircumferenceRotationPerRadialStep;
+        outCollisionCheckParams.myVerticalAllowHitInsideCollisionIfOneOk = characterColliderSetup.myVerticalCheckParams.myVerticalCheckAllowHitsInsideCollisionIfOneValid;
 
-        outCollisionCheckParams.myHorizontalBlockLayerFlags.copy(characterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckBlockLayerFlags);
-        outCollisionCheckParams.myVerticalBlockLayerFlags.copy(characterColliderSetup.myVerticalCheckSetup.myVerticalCheckBlockLayerFlags);
-        outCollisionCheckParams.myHorizontalObjectsToIgnore.pp_copy(characterColliderSetup.myHorizontalCheckSetup.myHorizontalCheckObjectsToIgnore);
-        outCollisionCheckParams.myVerticalObjectsToIgnore.pp_copy(characterColliderSetup.myVerticalCheckSetup.myVerticalCheckObjectsToIgnore);
+        outCollisionCheckParams.myHorizontalBlockLayerFlags.copy(characterColliderSetup.myHorizontalCheckParams.myHorizontalCheckBlockLayerFlags);
+        outCollisionCheckParams.myVerticalBlockLayerFlags.copy(characterColliderSetup.myVerticalCheckParams.myVerticalCheckBlockLayerFlags);
+        outCollisionCheckParams.myHorizontalObjectsToIgnore.pp_copy(characterColliderSetup.myHorizontalCheckParams.myHorizontalCheckObjectsToIgnore);
+        outCollisionCheckParams.myVerticalObjectsToIgnore.pp_copy(characterColliderSetup.myVerticalCheckParams.myVerticalCheckObjectsToIgnore);
 
-        outCollisionCheckParams.mySnapOnGroundEnabled = characterColliderSetup.myGroundSetup.mySurfaceSnapEnabled;
-        outCollisionCheckParams.mySnapOnGroundExtraDistance = characterColliderSetup.myGroundSetup.mySurfaceSnapMaxDistance;
-        outCollisionCheckParams.mySnapOnCeilingEnabled = characterColliderSetup.myCeilingSetup.mySurfaceSnapEnabled;
-        outCollisionCheckParams.mySnapOnCeilingExtraDistance = characterColliderSetup.myCeilingSetup.mySurfaceSnapMaxDistance;
+        outCollisionCheckParams.mySnapOnGroundEnabled = characterColliderSetup.myGroundParams.mySurfaceSnapEnabled;
+        outCollisionCheckParams.mySnapOnGroundExtraDistance = characterColliderSetup.myGroundParams.mySurfaceSnapMaxDistance;
+        outCollisionCheckParams.mySnapOnCeilingEnabled = characterColliderSetup.myCeilingParams.mySurfaceSnapEnabled;
+        outCollisionCheckParams.mySnapOnCeilingExtraDistance = characterColliderSetup.myCeilingParams.mySurfaceSnapMaxDistance;
 
-        outCollisionCheckParams.myGroundPopOutEnabled = characterColliderSetup.myGroundSetup.mySurfacePopOutEnabled;
-        outCollisionCheckParams.myGroundPopOutExtraDistance = characterColliderSetup.myGroundSetup.mySurfacePopOutMaxDistance;
-        outCollisionCheckParams.myCeilingPopOutEnabled = characterColliderSetup.myCeilingSetup.mySurfacePopOutEnabled;
-        outCollisionCheckParams.myCeilingPopOutExtraDistance = characterColliderSetup.myCeilingSetup.mySurfacePopOutMaxDistance;
+        outCollisionCheckParams.myGroundPopOutEnabled = characterColliderSetup.myGroundParams.mySurfacePopOutEnabled;
+        outCollisionCheckParams.myGroundPopOutExtraDistance = characterColliderSetup.myGroundParams.mySurfacePopOutMaxDistance;
+        outCollisionCheckParams.myCeilingPopOutEnabled = characterColliderSetup.myCeilingParams.mySurfacePopOutEnabled;
+        outCollisionCheckParams.myCeilingPopOutExtraDistance = characterColliderSetup.myCeilingParams.mySurfacePopOutMaxDistance;
 
-        outCollisionCheckParams.myGroundAngleToIgnore = characterColliderSetup.myGroundSetup.mySurfaceAngleToIgnore;
-        outCollisionCheckParams.myGroundAngleToIgnoreWithPerceivedAngle = characterColliderSetup.myGroundSetup.mySurfaceAngleToIgnoreWithSurfacePerceivedAngle;
-        outCollisionCheckParams.myCeilingAngleToIgnore = characterColliderSetup.myCeilingSetup.mySurfaceAngleToIgnore;
-        outCollisionCheckParams.myCeilingAngleToIgnoreWithPerceivedAngle = characterColliderSetup.myCeilingSetup.mySurfaceAngleToIgnoreWithSurfacePerceivedAngle;
+        outCollisionCheckParams.myGroundAngleToIgnore = characterColliderSetup.myGroundParams.mySurfaceAngleToIgnore;
+        outCollisionCheckParams.myGroundAngleToIgnoreWithPerceivedAngle = characterColliderSetup.myGroundParams.mySurfaceAngleToIgnoreWithSurfacePerceivedAngle;
+        outCollisionCheckParams.myCeilingAngleToIgnore = characterColliderSetup.myCeilingParams.mySurfaceAngleToIgnore;
+        outCollisionCheckParams.myCeilingAngleToIgnoreWithPerceivedAngle = characterColliderSetup.myCeilingParams.mySurfaceAngleToIgnoreWithSurfacePerceivedAngle;
 
-        outCollisionCheckParams.myHorizontalMovementGroundAngleIgnoreHeight = characterColliderSetup.myGroundSetup.myHorizontalMovementSurfaceAngleToIgnoreMaxVerticalDistance;
-        outCollisionCheckParams.myHorizontalMovementCeilingAngleIgnoreHeight = characterColliderSetup.myCeilingSetup.myHorizontalMovementSurfaceAngleToIgnoreMaxVerticalDistance;
-        outCollisionCheckParams.myHorizontalPositionGroundAngleIgnoreHeight = characterColliderSetup.myGroundSetup.myHorizontalPositionSurfaceAngleToIgnoreMaxVerticalDistance;
-        outCollisionCheckParams.myHorizontalPositionCeilingAngleIgnoreHeight = characterColliderSetup.myCeilingSetup.myHorizontalPositionSurfaceAngleToIgnoreMaxVerticalDistance;
+        outCollisionCheckParams.myHorizontalMovementGroundAngleIgnoreHeight = characterColliderSetup.myGroundParams.myHorizontalMovementSurfaceAngleToIgnoreMaxVerticalDistance;
+        outCollisionCheckParams.myHorizontalMovementCeilingAngleIgnoreHeight = characterColliderSetup.myCeilingParams.myHorizontalMovementSurfaceAngleToIgnoreMaxVerticalDistance;
+        outCollisionCheckParams.myHorizontalPositionGroundAngleIgnoreHeight = characterColliderSetup.myGroundParams.myHorizontalPositionSurfaceAngleToIgnoreMaxVerticalDistance;
+        outCollisionCheckParams.myHorizontalPositionCeilingAngleIgnoreHeight = characterColliderSetup.myCeilingParams.myHorizontalPositionSurfaceAngleToIgnoreMaxVerticalDistance;
 
-        outCollisionCheckParams.myHorizontalMovementGroundAngleIgnoreMaxMovementLeft = characterColliderSetup.myGroundSetup.myHorizontalMovementSurfaceAngleToIgnoreMaxHorizontalMovementLeft;
-        outCollisionCheckParams.myHorizontalMovementCeilingAngleIgnoreMaxMovementLeft = characterColliderSetup.myCeilingSetup.myHorizontalMovementSurfaceAngleToIgnoreMaxHorizontalMovementLeft;
+        outCollisionCheckParams.myHorizontalMovementGroundAngleIgnoreMaxMovementLeft = characterColliderSetup.myGroundParams.myHorizontalMovementSurfaceAngleToIgnoreMaxHorizontalMovementLeft;
+        outCollisionCheckParams.myHorizontalMovementCeilingAngleIgnoreMaxMovementLeft = characterColliderSetup.myCeilingParams.myHorizontalMovementSurfaceAngleToIgnoreMaxHorizontalMovementLeft;
 
-        outCollisionCheckParams.myComputeGroundInfoEnabled = characterColliderSetup.myGroundSetup.myCollectSurfaceInfo;
-        outCollisionCheckParams.myComputeCeilingInfoEnabled = characterColliderSetup.myCeilingSetup.myCollectSurfaceInfo;
-        outCollisionCheckParams.myDistanceToBeOnGround = characterColliderSetup.myGroundSetup.myIsOnSurfaceMaxOutsideDistance;
-        outCollisionCheckParams.myDistanceToComputeGroundInfo = characterColliderSetup.myGroundSetup.myCollectSurfaceNormalMaxOutsideDistance;
-        outCollisionCheckParams.myDistanceToBeOnCeiling = characterColliderSetup.myCeilingSetup.myIsOnSurfaceMaxOutsideDistance;
-        outCollisionCheckParams.myDistanceToComputeCeilingInfo = characterColliderSetup.myCeilingSetup.myCollectSurfaceNormalMaxOutsideDistance;
-        outCollisionCheckParams.myVerticalFixToBeOnGround = characterColliderSetup.myGroundSetup.myIsOnSurfaceMaxInsideDistance;
-        outCollisionCheckParams.myVerticalFixToComputeGroundInfo = characterColliderSetup.myGroundSetup.myCollectSurfaceNormalMaxInsideDistance;
-        outCollisionCheckParams.myVerticalFixToBeOnCeiling = characterColliderSetup.myCeilingSetup.myIsOnSurfaceMaxInsideDistance;
-        outCollisionCheckParams.myVerticalFixToComputeCeilingInfo = characterColliderSetup.myCeilingSetup.myCollectSurfaceNormalMaxInsideDistance;
+        outCollisionCheckParams.myComputeGroundInfoEnabled = characterColliderSetup.myGroundParams.myCollectSurfaceInfo;
+        outCollisionCheckParams.myComputeCeilingInfoEnabled = characterColliderSetup.myCeilingParams.myCollectSurfaceInfo;
+        outCollisionCheckParams.myDistanceToBeOnGround = characterColliderSetup.myGroundParams.myIsOnSurfaceMaxOutsideDistance;
+        outCollisionCheckParams.myDistanceToComputeGroundInfo = characterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxOutsideDistance;
+        outCollisionCheckParams.myDistanceToBeOnCeiling = characterColliderSetup.myCeilingParams.myIsOnSurfaceMaxOutsideDistance;
+        outCollisionCheckParams.myDistanceToComputeCeilingInfo = characterColliderSetup.myCeilingParams.myCollectSurfaceNormalMaxOutsideDistance;
+        outCollisionCheckParams.myVerticalFixToBeOnGround = characterColliderSetup.myGroundParams.myIsOnSurfaceMaxInsideDistance;
+        outCollisionCheckParams.myVerticalFixToComputeGroundInfo = characterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxInsideDistance;
+        outCollisionCheckParams.myVerticalFixToBeOnCeiling = characterColliderSetup.myCeilingParams.myIsOnSurfaceMaxInsideDistance;
+        outCollisionCheckParams.myVerticalFixToComputeCeilingInfo = characterColliderSetup.myCeilingParams.myCollectSurfaceNormalMaxInsideDistance;
 
-        outCollisionCheckParams.myGroundIsBaseInsideCollisionCheckEnabled = characterColliderSetup.myGroundSetup.myIsBaseInsideCollisionCheckEnabled;
-        outCollisionCheckParams.myCeilingIsBaseInsideCollisionCheckEnabled = characterColliderSetup.myCeilingSetup.myIsBaseInsideCollisionCheckEnabled;
-        outCollisionCheckParams.myIsOnGroundIfInsideHit = characterColliderSetup.myGroundSetup.myIsOnSurfaceIfBaseInsideCollision;
-        outCollisionCheckParams.myIsOnCeilingIfInsideHit = characterColliderSetup.myCeilingSetup.myIsOnSurfaceIfBaseInsideCollision;
+        outCollisionCheckParams.myGroundIsBaseInsideCollisionCheckEnabled = characterColliderSetup.myGroundParams.myIsBaseInsideCollisionCheckEnabled;
+        outCollisionCheckParams.myCeilingIsBaseInsideCollisionCheckEnabled = characterColliderSetup.myCeilingParams.myIsBaseInsideCollisionCheckEnabled;
+        outCollisionCheckParams.myIsOnGroundIfInsideHit = characterColliderSetup.myGroundParams.myIsOnSurfaceIfBaseInsideCollision;
+        outCollisionCheckParams.myIsOnCeilingIfInsideHit = characterColliderSetup.myCeilingParams.myIsOnSurfaceIfBaseInsideCollision;
 
-        outCollisionCheckParams.myFindGroundDistanceMaxOutsideDistance = characterColliderSetup.myGroundSetup.myFindSurfaceDistanceMaxOutsideDistance;
-        outCollisionCheckParams.myFindGroundDistanceMaxInsideDistance = characterColliderSetup.myGroundSetup.myFindSurfaceDistanceMaxInsideDistance;
-        outCollisionCheckParams.myFindCeilingDistanceMaxOutsideDistance = characterColliderSetup.myCeilingSetup.myFindSurfaceDistanceMaxOutsideDistance;
-        outCollisionCheckParams.myFindCeilingDistanceMaxInsideDistance = characterColliderSetup.myCeilingSetup.myFindSurfaceDistanceMaxInsideDistance;
+        outCollisionCheckParams.myFindGroundDistanceMaxOutsideDistance = characterColliderSetup.myGroundParams.myFindSurfaceDistanceMaxOutsideDistance;
+        outCollisionCheckParams.myFindGroundDistanceMaxInsideDistance = characterColliderSetup.myGroundParams.myFindSurfaceDistanceMaxInsideDistance;
+        outCollisionCheckParams.myFindCeilingDistanceMaxOutsideDistance = characterColliderSetup.myCeilingParams.myFindSurfaceDistanceMaxOutsideDistance;
+        outCollisionCheckParams.myFindCeilingDistanceMaxInsideDistance = characterColliderSetup.myCeilingParams.myFindSurfaceDistanceMaxInsideDistance;
 
-        outCollisionCheckParams.myAllowGroundSteepFix = characterColliderSetup.myGroundSetup.myHorizontalMovementAllowExitAttemptWhenOnNotIgnorableSurfacePerceivedAngle;
-        outCollisionCheckParams.myAllowCeilingSteepFix = characterColliderSetup.myCeilingSetup.myHorizontalMovementAllowExitAttemptWhenOnNotIgnorableSurfacePerceivedAngle;
+        outCollisionCheckParams.myAllowGroundSteepFix = characterColliderSetup.myGroundParams.myHorizontalMovementAllowExitAttemptWhenOnNotIgnorableSurfacePerceivedAngle;
+        outCollisionCheckParams.myAllowCeilingSteepFix = characterColliderSetup.myCeilingParams.myHorizontalMovementAllowExitAttemptWhenOnNotIgnorableSurfacePerceivedAngle;
 
-        outCollisionCheckParams.myMustStayOnGround = characterColliderSetup.myGroundSetup.myMovementMustStayOnSurface;
-        outCollisionCheckParams.myMustStayOnCeiling = characterColliderSetup.myCeilingSetup.myMovementMustStayOnSurface;
-        outCollisionCheckParams.myRegatherGroundInfoOnSurfaceCheckFail = characterColliderSetup.myGroundSetup.myRecollectSurfaceInfoOnSurfaceCheckFailed;
-        outCollisionCheckParams.myRegatherCeilingInfoOnSurfaceCheckFail = characterColliderSetup.myCeilingSetup.myRecollectSurfaceInfoOnSurfaceCheckFailed;
-        outCollisionCheckParams.myMustStayBelowIgnorableGroundAngleDownhill = characterColliderSetup.myGroundSetup.myMovementMustStayOnIgnorableSurfaceAngleDownhill;
-        outCollisionCheckParams.myMustStayBelowIgnorableCeilingAngleDownhill = characterColliderSetup.myCeilingSetup.myMovementMustStayOnIgnorableSurfaceAngleDownhill;
-        outCollisionCheckParams.myMustStayBelowGroundAngleDownhill = characterColliderSetup.myGroundSetup.myMovementMustStayOnSurfaceAngleDownhill;
-        outCollisionCheckParams.myMustStayBelowCeilingAngleDownhill = characterColliderSetup.myCeilingSetup.myMovementMustStayOnSurfaceAngleDownhill;
-        outCollisionCheckParams.myMovementMustStayOnGroundHitAngle = characterColliderSetup.myGroundSetup.myMovementMustStayOnSurfaceHitMaxAngle;
-        outCollisionCheckParams.myMovementMustStayOnCeilingHitAngle = characterColliderSetup.myCeilingSetup.myMovementMustStayOnSurfaceHitMaxAngle;
+        outCollisionCheckParams.myMustStayOnGround = characterColliderSetup.myGroundParams.myMovementMustStayOnSurface;
+        outCollisionCheckParams.myMustStayOnCeiling = characterColliderSetup.myCeilingParams.myMovementMustStayOnSurface;
+        outCollisionCheckParams.myRegatherGroundInfoOnSurfaceCheckFail = characterColliderSetup.myGroundParams.myRecollectSurfaceInfoOnSurfaceCheckFailed;
+        outCollisionCheckParams.myRegatherCeilingInfoOnSurfaceCheckFail = characterColliderSetup.myCeilingParams.myRecollectSurfaceInfoOnSurfaceCheckFailed;
+        outCollisionCheckParams.myMustStayBelowIgnorableGroundAngleDownhill = characterColliderSetup.myGroundParams.myMovementMustStayOnIgnorableSurfaceAngleDownhill;
+        outCollisionCheckParams.myMustStayBelowIgnorableCeilingAngleDownhill = characterColliderSetup.myCeilingParams.myMovementMustStayOnIgnorableSurfaceAngleDownhill;
+        outCollisionCheckParams.myMustStayBelowGroundAngleDownhill = characterColliderSetup.myGroundParams.myMovementMustStayOnSurfaceAngleDownhill;
+        outCollisionCheckParams.myMustStayBelowCeilingAngleDownhill = characterColliderSetup.myCeilingParams.myMovementMustStayOnSurfaceAngleDownhill;
+        outCollisionCheckParams.myMovementMustStayOnGroundHitAngle = characterColliderSetup.myGroundParams.myMovementMustStayOnSurfaceHitMaxAngle;
+        outCollisionCheckParams.myMovementMustStayOnCeilingHitAngle = characterColliderSetup.myCeilingParams.myMovementMustStayOnSurfaceHitMaxAngle;
 
-        outCollisionCheckParams.myTeleportMustBeOnIgnorableGroundAngle = characterColliderSetup.myGroundSetup.myTeleportMustBeOnIgnorableSurfaceAngle;
-        outCollisionCheckParams.myCheckTransformMustBeOnIgnorableGroundAngle = characterColliderSetup.myGroundSetup.myCheckTransformMustBeOnIgnorableSurfaceAngle;
-        outCollisionCheckParams.myTeleportMustBeOnIgnorableCeilingAngle = characterColliderSetup.myCeilingSetup.myTeleportMustBeOnIgnorableSurfaceAngle;
-        outCollisionCheckParams.myCheckTransformMustBeOnIgnorableCeilingAngle = characterColliderSetup.myCeilingSetup.myCheckTransformMustBeOnIgnorableSurfaceAngle;
+        outCollisionCheckParams.myTeleportMustBeOnIgnorableGroundAngle = characterColliderSetup.myGroundParams.myTeleportMustBeOnIgnorableSurfaceAngle;
+        outCollisionCheckParams.myCheckTransformMustBeOnIgnorableGroundAngle = characterColliderSetup.myGroundParams.myCheckTransformMustBeOnIgnorableSurfaceAngle;
+        outCollisionCheckParams.myTeleportMustBeOnIgnorableCeilingAngle = characterColliderSetup.myCeilingParams.myTeleportMustBeOnIgnorableSurfaceAngle;
+        outCollisionCheckParams.myCheckTransformMustBeOnIgnorableCeilingAngle = characterColliderSetup.myCeilingParams.myCheckTransformMustBeOnIgnorableSurfaceAngle;
 
-        outCollisionCheckParams.myTeleportMustBeOnGroundAngle = characterColliderSetup.myGroundSetup.myTeleportMustBeOnSurfaceAngle;
-        outCollisionCheckParams.myCheckTransformMustBeOnGroundAngle = characterColliderSetup.myGroundSetup.myCheckTransformMustBeOnSurfaceAngle;
-        outCollisionCheckParams.myTeleportMustBeOnCeilingAngle = characterColliderSetup.myCeilingSetup.myTeleportMustBeOnSurfaceAngle;
-        outCollisionCheckParams.myCheckTransformMustBeOnCeilingAngle = characterColliderSetup.myCeilingSetup.myCheckTransformMustBeOnSurfaceAngle;
+        outCollisionCheckParams.myTeleportMustBeOnGroundAngle = characterColliderSetup.myGroundParams.myTeleportMustBeOnSurfaceAngle;
+        outCollisionCheckParams.myCheckTransformMustBeOnGroundAngle = characterColliderSetup.myGroundParams.myCheckTransformMustBeOnSurfaceAngle;
+        outCollisionCheckParams.myTeleportMustBeOnCeilingAngle = characterColliderSetup.myCeilingParams.myTeleportMustBeOnSurfaceAngle;
+        outCollisionCheckParams.myCheckTransformMustBeOnCeilingAngle = characterColliderSetup.myCeilingParams.myCheckTransformMustBeOnSurfaceAngle;
 
-        outCollisionCheckParams.myTeleportMustBeOnGround = characterColliderSetup.myGroundSetup.myTeleportMustBeOnSurface;
-        outCollisionCheckParams.myCheckTransformMustBeOnGround = characterColliderSetup.myGroundSetup.myCheckTransformMustBeOnSurface;
-        outCollisionCheckParams.myTeleportMustBeOnCeiling = characterColliderSetup.myCeilingSetup.myTeleportMustBeOnSurface;
-        outCollisionCheckParams.myCheckTransformMustBeOnCeiling = characterColliderSetup.myCeilingSetup.myCheckTransformMustBeOnSurface;
+        outCollisionCheckParams.myTeleportMustBeOnGround = characterColliderSetup.myGroundParams.myTeleportMustBeOnSurface;
+        outCollisionCheckParams.myCheckTransformMustBeOnGround = characterColliderSetup.myGroundParams.myCheckTransformMustBeOnSurface;
+        outCollisionCheckParams.myTeleportMustBeOnCeiling = characterColliderSetup.myCeilingParams.myTeleportMustBeOnSurface;
+        outCollisionCheckParams.myCheckTransformMustBeOnCeiling = characterColliderSetup.myCeilingParams.myCheckTransformMustBeOnSurface;
 
-        outCollisionCheckParams.mySlidingEnabled = characterColliderSetup.myWallSlideSetup.myWallSlideEnabled;
-        outCollisionCheckParams.mySlidingHorizontalMovementCheckBetterNormal = characterColliderSetup.myHorizontalCheckSetup.myHorizontalMovementCheckGetBetterReferenceHit;
-        outCollisionCheckParams.mySlidingMaxAttempts = characterColliderSetup.myWallSlideSetup.myWallSlideMaxAttempts;
-        outCollisionCheckParams.mySlidingCheckBothDirections = characterColliderSetup.myWallSlideSetup.myCheckBothWallSlideDirections;
-        outCollisionCheckParams.mySlidingFlickeringPreventionType = characterColliderSetup.myWallSlideSetup.myWallSlideFlickerPreventionMode;
-        outCollisionCheckParams.mySlidingFlickeringPreventionCheckOnlyIfAlreadySliding = characterColliderSetup.myWallSlideSetup.myWallSlideFlickerPreventionCheckOnlyIfAlreadySliding;
-        outCollisionCheckParams.mySlidingFlickerPreventionCheckAnywayCounter = characterColliderSetup.myWallSlideSetup.myWallSlideFlickerPreventionForceCheckCounter;
-        outCollisionCheckParams.mySlidingAdjustSign90Degrees = characterColliderSetup.myWallSlideSetup.my90DegreesWallSlideAdjustDirectionSign;
+        outCollisionCheckParams.mySlidingEnabled = characterColliderSetup.myWallSlideParams.myWallSlideEnabled;
+        outCollisionCheckParams.mySlidingHorizontalMovementCheckBetterNormal = characterColliderSetup.myHorizontalCheckParams.myHorizontalMovementCheckGetBetterReferenceHit;
+        outCollisionCheckParams.mySlidingMaxAttempts = characterColliderSetup.myWallSlideParams.myWallSlideMaxAttempts;
+        outCollisionCheckParams.mySlidingCheckBothDirections = characterColliderSetup.myWallSlideParams.myCheckBothWallSlideDirections;
+        outCollisionCheckParams.mySlidingFlickeringPreventionType = characterColliderSetup.myWallSlideParams.myWallSlideFlickerPreventionMode;
+        outCollisionCheckParams.mySlidingFlickeringPreventionCheckOnlyIfAlreadySliding = characterColliderSetup.myWallSlideParams.myWallSlideFlickerPreventionCheckOnlyIfAlreadySliding;
+        outCollisionCheckParams.mySlidingFlickerPreventionCheckAnywayCounter = characterColliderSetup.myWallSlideParams.myWallSlideFlickerPreventionForceCheckCounter;
+        outCollisionCheckParams.mySlidingAdjustSign90Degrees = characterColliderSetup.myWallSlideParams.my90DegreesWallSlideAdjustDirectionSign;
 
-        outCollisionCheckParams.mySplitMovementEnabled = characterColliderSetup.mySplitMovementSetup.mySplitMovementEnabled;
-        outCollisionCheckParams.mySplitMovementMaxLength = characterColliderSetup.mySplitMovementSetup.mySplitMovementMaxStepLength;
-        outCollisionCheckParams.mySplitMovementMaxStepsEnabled = characterColliderSetup.mySplitMovementSetup.mySplitMovementMaxSteps != null;
-        outCollisionCheckParams.mySplitMovementMaxSteps = characterColliderSetup.mySplitMovementSetup.mySplitMovementMaxSteps;
-        outCollisionCheckParams.mySplitMovementStepEqualLength = characterColliderSetup.mySplitMovementSetup.mySplitMovementMaxStepLength == null;
-        outCollisionCheckParams.mySplitMovementStepEqualLengthMinLength = characterColliderSetup.mySplitMovementSetup.mySplitMovementMinStepLength;
-        outCollisionCheckParams.mySplitMovementStopWhenHorizontalMovementCanceled = characterColliderSetup.mySplitMovementSetup.mySplitMovementStopOnHorizontalMovementFailed;
-        outCollisionCheckParams.mySplitMovementStopWhenVerticalMovementCanceled = characterColliderSetup.mySplitMovementSetup.mySplitMovementStopOnVerticalMovementFailed;
-        outCollisionCheckParams.mySplitMovementStopCallback = characterColliderSetup.mySplitMovementSetup.mySplitMovementStopOnCallback;
-        outCollisionCheckParams.mySplitMovementStopReturnPrevious = characterColliderSetup.mySplitMovementSetup.mySplitMovementStopReturnPreviousResults;
+        outCollisionCheckParams.mySplitMovementEnabled = characterColliderSetup.mySplitMovementParams.mySplitMovementEnabled;
+        outCollisionCheckParams.mySplitMovementMaxLength = characterColliderSetup.mySplitMovementParams.mySplitMovementMaxStepLength;
+        outCollisionCheckParams.mySplitMovementMaxStepsEnabled = characterColliderSetup.mySplitMovementParams.mySplitMovementMaxSteps != null;
+        outCollisionCheckParams.mySplitMovementMaxSteps = characterColliderSetup.mySplitMovementParams.mySplitMovementMaxSteps;
+        outCollisionCheckParams.mySplitMovementStepEqualLength = characterColliderSetup.mySplitMovementParams.mySplitMovementMaxStepLength == null;
+        outCollisionCheckParams.mySplitMovementStepEqualLengthMinLength = characterColliderSetup.mySplitMovementParams.mySplitMovementMinStepLength;
+        outCollisionCheckParams.mySplitMovementStopWhenHorizontalMovementCanceled = characterColliderSetup.mySplitMovementParams.mySplitMovementStopOnHorizontalMovementFailed;
+        outCollisionCheckParams.mySplitMovementStopWhenVerticalMovementCanceled = characterColliderSetup.mySplitMovementParams.mySplitMovementStopOnVerticalMovementFailed;
+        outCollisionCheckParams.mySplitMovementStopCallback = characterColliderSetup.mySplitMovementParams.mySplitMovementStopOnCallback;
+        outCollisionCheckParams.mySplitMovementStopReturnPrevious = characterColliderSetup.mySplitMovementParams.mySplitMovementStopReturnPreviousResults;
 
-        outCollisionCheckParams.myPositionOffsetLocal.vec3_copy(characterColliderSetup.myAdditionalSetup.myPositionOffsetLocal);
-        outCollisionCheckParams.myRotationOffsetLocalQuat.quat_copy(characterColliderSetup.myAdditionalSetup.myRotationOffsetLocalQuat);
+        outCollisionCheckParams.myPositionOffsetLocal.vec3_copy(characterColliderSetup.myAdditionalParams.myPositionOffsetLocal);
+        outCollisionCheckParams.myRotationOffsetLocalQuat.quat_copy(characterColliderSetup.myAdditionalParams.myRotationOffsetLocalQuat);
 
-        outCollisionCheckParams.myDebugActive = characterColliderSetup.myDebugSetup.myVisualDebugActive;
+        outCollisionCheckParams.myDebugActive = characterColliderSetup.myDebugParams.myVisualDebugActive;
 
-        outCollisionCheckParams.myDebugHorizontalMovementActive = characterColliderSetup.myDebugSetup.myVisualDebugHorizontalMovementCheckActive;
-        outCollisionCheckParams.myDebugHorizontalPositionActive = characterColliderSetup.myDebugSetup.myVisualDebugHorizontalPositionCheckActive;
-        outCollisionCheckParams.myDebugVerticalMovementActive = characterColliderSetup.myDebugSetup.myVisualDebugVerticalMovementCheckActive;
-        outCollisionCheckParams.myDebugVerticalPositionActive = characterColliderSetup.myDebugSetup.myVisualDebugVerticalPositionCheckActive;
-        outCollisionCheckParams.myDebugSlidingActive = characterColliderSetup.myDebugSetup.myVisualDebugSlideActive;
+        outCollisionCheckParams.myDebugHorizontalMovementActive = characterColliderSetup.myDebugParams.myVisualDebugHorizontalMovementCheckActive;
+        outCollisionCheckParams.myDebugHorizontalPositionActive = characterColliderSetup.myDebugParams.myVisualDebugHorizontalPositionCheckActive;
+        outCollisionCheckParams.myDebugVerticalMovementActive = characterColliderSetup.myDebugParams.myVisualDebugVerticalMovementCheckActive;
+        outCollisionCheckParams.myDebugVerticalPositionActive = characterColliderSetup.myDebugParams.myVisualDebugVerticalPositionCheckActive;
+        outCollisionCheckParams.myDebugSlidingActive = characterColliderSetup.myDebugParams.myVisualDebugSlideActive;
 
-        outCollisionCheckParams.myDebugGroundInfoActive = characterColliderSetup.myDebugSetup.myVisualDebugGroundInfoActive;
-        outCollisionCheckParams.myDebugCeilingInfoActive = characterColliderSetup.myDebugSetup.myVisualDebugGroundInfoActive;
-        outCollisionCheckParams.myDebugRuntimeParamsActive = characterColliderSetup.myDebugSetup.myVisualDebugResultsActive;
-        outCollisionCheckParams.myDebugMovementActive = characterColliderSetup.myDebugSetup.myVisualDebugMovementActive;
+        outCollisionCheckParams.myDebugGroundInfoActive = characterColliderSetup.myDebugParams.myVisualDebugGroundInfoActive;
+        outCollisionCheckParams.myDebugCeilingInfoActive = characterColliderSetup.myDebugParams.myVisualDebugGroundInfoActive;
+        outCollisionCheckParams.myDebugRuntimeParamsActive = characterColliderSetup.myDebugParams.myVisualDebugResultsActive;
+        outCollisionCheckParams.myDebugMovementActive = characterColliderSetup.myDebugParams.myVisualDebugMovementActive;
 
         return outCollisionCheckParams;
     }

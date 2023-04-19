@@ -6,7 +6,7 @@ export class SetActiveComponent extends Component {
     static Properties = {
         _myActive: Property.bool(true),
         _mySetActiveOn: Property.enum(["Self", "Children", "Descendants", "Hierarchy"], "Hierarchy"),
-        _mySetActiveWhen: Property.enum(["Init", "Start", "First Update", "XR Start", "XR End", "First XR Start", "First XR End"], "Init")
+        _mySetActiveWhen: Property.enum(["Init", "Start", "First Update", "Enter XR", "Exit XR", "First Enter XR", "First Exit XR"], "Init")
     };
 
     init() {

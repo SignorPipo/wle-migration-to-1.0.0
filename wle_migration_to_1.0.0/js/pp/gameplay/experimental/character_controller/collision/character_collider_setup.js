@@ -6,19 +6,19 @@ export class CharacterColliderSetup {
     constructor() {
         this.myHeight = 0;
 
-        this.myHorizontalCheckSetup = new CharacterColliderHorizontalCheckSetup();
-        this.myVerticalCheckSetup = new CharacterColliderVerticalCheckSetup();
+        this.myHorizontalCheckParams = new CharacterColliderHorizontalCheckParams();
+        this.myVerticalCheckParams = new CharacterColliderVerticalCheckParams();
 
-        this.myWallSlideSetup = new CharacterColliderWallSlideSetup();
+        this.myWallSlideParams = new CharacterColliderWallSlideParams();
 
-        this.myGroundSetup = new CharacterColliderSurfaceSetup();
-        this.myCeilingSetup = new CharacterColliderSurfaceSetup();
+        this.myGroundParams = new CharacterColliderSurfaceParams();
+        this.myCeilingParams = new CharacterColliderSurfaceParams();
 
-        this.mySplitMovementSetup = new CharacterColliderSplitMovementSetup();
+        this.mySplitMovementParams = new CharacterColliderSplitMovementParams();
 
-        this.myAdditionalSetup = new CharacterColliderAdditionalSetup();
+        this.myAdditionalParams = new CharacterColliderAdditionalParams();
 
-        this.myDebugSetup = new CharacterColliderDebugSetup();
+        this.myDebugParams = new CharacterColliderDebugParams();
     }
 
     copy(other) {
@@ -41,7 +41,7 @@ export let CharacterColliderHorizontalPositionVerticalCheckDirection = {
     // and also myHorizontalPositionVerticalCheckIgnoreHitsInsideCollision = false
 };
 
-export class CharacterColliderHorizontalCheckSetup {
+export class CharacterColliderHorizontalCheckParams {
 
     constructor() {
         this.myHorizontalCheckConeRadius = 0;
@@ -133,7 +133,7 @@ export class CharacterColliderHorizontalCheckSetup {
     }
 }
 
-export class CharacterColliderVerticalCheckSetup {
+export class CharacterColliderVerticalCheckParams {
 
     constructor() {
         this.myVerticalCheckCircumferenceRadius = 0;
@@ -173,7 +173,7 @@ export let CharacterColliderSlideFlickerPreventionMode = {
     ALWAYS: 4                               // Less flicker than COLLISION_ANGLE_ABOVE_90_DEGREES_OR_MOVEMENT_ANGLE_ABOVE_85_DEGREES but more false positive
 };
 
-export class CharacterColliderWallSlideSetup {
+export class CharacterColliderWallSlideParams {
 
     constructor() {
         this.myWallSlideEnabled = false;
@@ -204,7 +204,7 @@ export class CharacterColliderWallSlideSetup {
     }
 }
 
-export class CharacterColliderSurfaceSetup {
+export class CharacterColliderSurfaceParams {
 
     constructor() {
         this.mySurfaceSnapEnabled = false;
@@ -281,7 +281,7 @@ export class CharacterColliderSurfaceSetup {
     }
 }
 
-export class CharacterColliderSplitMovementSetup {
+export class CharacterColliderSplitMovementParams {
 
     constructor() {
         this.mySplitMovementEnabled = false;
@@ -306,7 +306,7 @@ export class CharacterColliderSplitMovementSetup {
     }
 }
 
-export class CharacterColliderAdditionalSetup {
+export class CharacterColliderAdditionalParams {
 
     constructor() {
         this.myPositionOffsetLocal = vec3_create();
@@ -325,7 +325,7 @@ export class CharacterColliderAdditionalSetup {
     }
 }
 
-export class CharacterColliderDebugSetup {
+export class CharacterColliderDebugParams {
 
     constructor() {
         this.myVisualDebugActive = false;
@@ -358,22 +358,22 @@ export class CharacterColliderDebugSetup {
 CharacterColliderSetup.prototype.copy = function copy(other) {
     this.myHeight = other.myHeight;
 
-    this.myHorizontalCheckSetup.copy(other.myHorizontalCheckSetup);
-    this.myVerticalCheckSetup.copy(other.myVerticalCheckSetup);
+    this.myHorizontalCheckParams.copy(other.myHorizontalCheckParams);
+    this.myVerticalCheckParams.copy(other.myVerticalCheckParams);
 
-    this.myWallSlideSetup.copy(other.myWallSlideSetup);
+    this.myWallSlideParams.copy(other.myWallSlideParams);
 
-    this.myGroundSetup.copy(other.myGroundSetup);
-    this.myCeilingSetup.copy(other.myCeilingSetup);
+    this.myGroundParams.copy(other.myGroundParams);
+    this.myCeilingParams.copy(other.myCeilingParams);
 
-    this.mySplitMovementSetup.copy(other.mySplitMovementSetup);
+    this.mySplitMovementParams.copy(other.mySplitMovementParams);
 
-    this.myAdditionalSetup.copy(other.myAdditionalSetup);
+    this.myAdditionalParams.copy(other.myAdditionalParams);
 
-    this.myDebugSetup.copy(other.myDebugSetup);
+    this.myDebugParams.copy(other.myDebugParams);
 };
 
-CharacterColliderHorizontalCheckSetup.prototype.copy = function copy(other) {
+CharacterColliderHorizontalCheckParams.prototype.copy = function copy(other) {
     this.myHorizontalCheckConeRadius = other.myHorizontalCheckConeRadius;
     this.myHorizontalCheckConeHalfAngle = other.myHorizontalCheckConeHalfAngle;
 
@@ -451,7 +451,7 @@ CharacterColliderHorizontalCheckSetup.prototype.copy = function copy(other) {
     this.myHorizontalCheckObjectsToIgnore.pp_copy(other.myHorizontalCheckObjectsToIgnore);
 };
 
-CharacterColliderVerticalCheckSetup.prototype.copy = function copy(other) {
+CharacterColliderVerticalCheckParams.prototype.copy = function copy(other) {
     this.myVerticalCheckCircumferenceRadius = other.myVerticalCheckCircumferenceRadius;
 
     this.myVerticalCheckCircumferenceSlices = other.myVerticalCheckCircumferenceSlices;
@@ -474,7 +474,7 @@ CharacterColliderVerticalCheckSetup.prototype.copy = function copy(other) {
     this.myVerticalCheckObjectsToIgnore.pp_copy(other.myVerticalCheckObjectsToIgnore);
 };
 
-CharacterColliderWallSlideSetup.prototype.copy = function copy(other) {
+CharacterColliderWallSlideParams.prototype.copy = function copy(other) {
     this.myWallSlideEnabled = other.myWallSlideEnabled;
 
     this.myWallSlideMaxAttempts = other.myWallSlideMaxAttempts;
@@ -490,7 +490,7 @@ CharacterColliderWallSlideSetup.prototype.copy = function copy(other) {
     this.my90DegreesWallSlideAdjustDirectionSign = other.my90DegreesWallSlideAdjustDirectionSign;
 };
 
-CharacterColliderSurfaceSetup.prototype.copy = function copy(other) {
+CharacterColliderSurfaceParams.prototype.copy = function copy(other) {
     this.mySurfaceSnapEnabled = other.mySurfaceSnapEnabled;
     this.mySurfaceSnapMaxDistance = other.mySurfaceSnapMaxDistance;
 
@@ -547,7 +547,7 @@ CharacterColliderSurfaceSetup.prototype.copy = function copy(other) {
     this.myHorizontalMovementAllowExitAttemptWhenOnNotIgnorableSurfacePerceivedAngle = other.myHorizontalMovementAllowExitAttemptWhenOnNotIgnorableSurfacePerceivedAngle;
 };
 
-CharacterColliderSplitMovementSetup.prototype.copy = function copy(other) {
+CharacterColliderSplitMovementParams.prototype.copy = function copy(other) {
     this.mySplitMovementEnabled = other.mySplitMovementEnabled;
 
     this.mySplitMovementMaxSteps = other.mySplitMovementMaxSteps;
@@ -564,7 +564,7 @@ CharacterColliderSplitMovementSetup.prototype.copy = function copy(other) {
     this.mySplitMovementStopReturnPreviousResults = other.mySplitMovementStopReturnPreviousResults;
 };
 
-CharacterColliderAdditionalSetup.prototype.copy = function copy(other) {
+CharacterColliderAdditionalParams.prototype.copy = function copy(other) {
     this.myPositionOffsetLocal.vec3_copy(other.myPositionOffsetLocal);
     this.myRotationOffsetLocalQuat.quat_copy(other.myRotationOffsetLocalQuat);
 
@@ -575,7 +575,7 @@ CharacterColliderAdditionalSetup.prototype.copy = function copy(other) {
     */
 };
 
-CharacterColliderDebugSetup.prototype.copy = function copy(other) {
+CharacterColliderDebugParams.prototype.copy = function copy(other) {
     this.myVisualDebugActive = other.myVisualDebugActive;
 
     this.myVisualDebugMovementActive = other.myVisualDebugMovementActive;
