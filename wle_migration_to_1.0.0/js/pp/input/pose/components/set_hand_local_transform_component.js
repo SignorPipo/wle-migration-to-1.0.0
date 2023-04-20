@@ -12,7 +12,7 @@ export class SetHandLocalTransformComponent extends Component {
 
     start() {
         this._myHandPose = new HandPose(InputUtils.getHandednessByIndex(this._myHandedness), new HandPoseParams(this.engine));
-        this._myHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myHandPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
         this._myHandPose.start();
 
@@ -20,7 +20,7 @@ export class SetHandLocalTransformComponent extends Component {
     }
 
     update(dt) {
-        this._myHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myHandPose.update(dt);
     }
 

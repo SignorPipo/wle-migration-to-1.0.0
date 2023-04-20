@@ -11,7 +11,7 @@ export class SetHeadLocalTransformComponent extends Component {
 
     start() {
         this._myHeadPose = new HeadPose(new BasePoseParams(this.engine));
-        this._myHeadPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myHeadPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myHeadPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
         this._myHeadPose.start();
 
@@ -37,7 +37,7 @@ SetHeadLocalTransformComponent.prototype.update = function () {
     let cameraNonXRPosition = vec3_create();
     return function update(dt) {
         if (XRUtils.isSessionActive(this.engine)) {
-            this._myHeadPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+            this._myHeadPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
             this._myHeadPose.update(dt);
         } else if (!XRUtils.isSessionActive(this.engine)) {
             let cameraNonXR = Globals.getPlayerObjects(this.engine).myCameraNonXR;

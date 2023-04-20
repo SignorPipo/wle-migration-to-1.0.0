@@ -7,7 +7,7 @@ export class BasePoseParams {
 
     constructor(engine = Globals.getMainEngine()) {
         this.myReferenceObject = null;
-        this.myFixForward = true;
+        this.myForwardFixed = true;
         this.myUpdateOnViewReset = true;
         this.myForceEmulatedVelocities = false;
 
@@ -20,7 +20,7 @@ export class BasePoseParams {
 export class BasePose {
 
     constructor(basePoseParams = new BasePoseParams()) {
-        this._myFixForward = basePoseParams.myFixForward;
+        this._myForwardFixed = basePoseParams.myForwardFixed;
         this._myForceEmulatedVelocities = basePoseParams.myForceEmulatedVelocities;
         this._myUpdateOnViewReset = basePoseParams.myUpdateOnViewReset;
 
@@ -59,12 +59,12 @@ export class BasePose {
         return this._myReferenceObject;
     }
 
-    setFixForward(fixForward) {
-        this._myFixForward = fixForward;
+    setForwardFixed(forwardFixed) {
+        this._myForwardFixed = forwardFixed;
     }
 
-    isFixForward() {
-        return this._myFixForward;
+    isForwardFixed() {
+        return this._myForwardFixed;
     }
 
     setForceEmulatedVelocities(forceEmulatedVelocities) {
@@ -347,7 +347,7 @@ BasePose.prototype.getRotationQuat = function () {
     return function getRotationQuat() {
         rotationQuat.quat_copy(this._myRotationQuat);
 
-        if (this._myFixForward) {
+        if (this._myForwardFixed) {
             rotationQuat.quat_rotateAxisRadians(Math.PI, rotationQuat.quat_getUp(up), rotationQuat);
         }
 

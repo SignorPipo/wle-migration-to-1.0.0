@@ -105,7 +105,7 @@ HandPose.prototype.getRotationQuat = function () {
     return function getRotationQuat() {
         rotationQuat.quat_copy(this._myRotationQuat);
 
-        if (this._myFixForward) {
+        if (this._myForwardFixed) {
             rotationQuat.quat_rotateAxisRadians(Math.PI, rotationQuat.quat_getUp(up), rotationQuat);
         }
 

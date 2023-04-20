@@ -24,14 +24,14 @@ export class TrackedHandPose {
     constructor(handedness, trackedHandPoseParams = new TrackedHandPoseParams()) {
         this._myHandedness = handedness;
 
-        this._myFixForward = trackedHandPoseParams.myFixForward;
+        this._myForwardFixed = trackedHandPoseParams.myForwardFixed;
         this._myForceEmulatedVelocities = trackedHandPoseParams.myForceEmulatedVelocities;
         this._myReferenceObject = trackedHandPoseParams.myReferenceObject;
 
         this._myEngine = trackedHandPoseParams.myEngine;
 
         this._myTrackedHandJointPoseParams = new BasePoseParams(this._myEngine);
-        this._myTrackedHandJointPoseParams.myFixForward = this._myFixForward;
+        this._myTrackedHandJointPoseParams.myForwardFixed = this._myForwardFixed;
         this._myTrackedHandJointPoseParams.myForceEmulatedVelocities = this._myForceEmulatedVelocities;
         this._myTrackedHandJointPoseParams.myReferenceObject = this._myReferenceObject;
 
@@ -100,17 +100,17 @@ export class TrackedHandPose {
         return this._myReferenceObject;
     }
 
-    setFixForward(fixForward) {
-        this._myFixForward = fixForward;
-        this._myTrackedHandJointPoseParams.myFixForward = this._myFixForward;
+    setForwardFixed(forwardFixed) {
+        this._myForwardFixed = forwardFixed;
+        this._myTrackedHandJointPoseParams.myForwardFixed = this._myForwardFixed;
         for (let jointPoseKey in this._myTrackedHandJointPoseList) {
             let jointPose = this._myTrackedHandJointPoseList[jointPoseKey];
-            jointPose.setFixForward(fixForward);
+            jointPose.setForwardFixed(forwardFixed);
         }
     }
 
-    isFixForward() {
-        return this._myFixForward;
+    isForwardFixed() {
+        return this._myForwardFixed;
     }
 
     setForceEmulatedVelocities(forceEmulatedVelocities) {

@@ -26,7 +26,7 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
         this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
 
         this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessType, this._myJointIDInternal, new BasePoseParams(this.engine));
-        this._myTrackedHandJointPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandJointPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
         this._myTrackedHandJointPose.start();
 
@@ -34,7 +34,7 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
     }
 
     update(dt) {
-        this._myTrackedHandJointPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandJointPose.update(dt);
     }
 

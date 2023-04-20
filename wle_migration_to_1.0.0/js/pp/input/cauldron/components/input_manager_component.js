@@ -10,7 +10,7 @@ import { Handedness } from "../input_types";
 export class InputManagerComponent extends Component {
     static TypeName = "pp-input-manager";
     static Properties = {
-        _myPoseFixForward: Property.bool(true),
+        _myPoseForwardFixed: Property.bool(true),
         _myMousePreventContextMenu: Property.bool(true),
         _myMousePreventMiddleButtonScroll: Property.bool(true)
     };
@@ -28,7 +28,7 @@ export class InputManagerComponent extends Component {
 
         // Prevents double global from same engine
         if (!Globals.hasPoseForwardFixed(this.engine)) {
-            this._myPoseForwardFixed = this._myPoseFixForward;
+            this._myPoseForwardFixed = this._myPoseForwardFixed;
 
             Globals.setPoseForwardFixed(this._myPoseForwardFixed, this.engine);
         }
@@ -48,8 +48,8 @@ export class InputManagerComponent extends Component {
 
     update(dt) {
         if (this._myInputManager != null) {
-            this._myLeftHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
-            this._myRightHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+            this._myLeftHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
+            this._myRightHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
 
             this._myInputManager.update(dt);
         }
@@ -68,7 +68,7 @@ export class InputManagerComponent extends Component {
     _addGamepadCores() {
         let handPoseParams = new HandPoseParams(this.engine);
         handPoseParams.myReferenceObject = Globals.getPlayerObjects(this.engine).myPlayerPivot;
-        handPoseParams.myFixForward = Globals.isPoseForwardFixed(this.engine);
+        handPoseParams.myForwardFixed = Globals.isPoseForwardFixed(this.engine);
 
         this._myLeftHandPose = new HandPose(Handedness.LEFT, handPoseParams);
         this._myRightHandPose = new HandPose(Handedness.RIGHT, handPoseParams);

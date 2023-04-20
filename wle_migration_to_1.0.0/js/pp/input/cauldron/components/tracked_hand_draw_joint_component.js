@@ -27,14 +27,14 @@ export class TrackedHandDrawJointComponent extends Component {
         this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
 
         this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessType, this._myJointIDInternal, new BasePoseParams(this.engine));
-        this._myTrackedHandJointPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandJointPose.start();
 
         this._buildTrackedHandHierarchy();
     }
 
     update(dt) {
-        this._myTrackedHandJointPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandJointPose.update(dt);
         this._myJointMeshObject.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat());
         this._myJointMeshObject.pp_setScaleLocal(this._myTrackedHandJointPose.getJointRadius());

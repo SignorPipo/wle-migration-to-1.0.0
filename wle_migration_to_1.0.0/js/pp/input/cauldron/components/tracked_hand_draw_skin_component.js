@@ -14,14 +14,14 @@ export class TrackedHandDrawSkinComponent extends Component {
         this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
 
         this._myTrackedHandPose = new TrackedHandPose(this._myHandednessType, new TrackedHandPoseParams(true, this.engine));
-        this._myTrackedHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myTrackedHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandPose.start();
 
         this._prepareJoints();
     }
 
     update(dt) {
-        this._myTrackedHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
+        this._myTrackedHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandPose.update(dt);
 
         for (let i = 0; i < this._myJoints.length; i++) {
