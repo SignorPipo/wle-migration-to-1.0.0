@@ -4,16 +4,14 @@ import { Timer } from "../../../../../cauldron/cauldron/timer";
 import { FSM } from "../../../../../cauldron/fsm/fsm";
 import { MaterialUtils } from "../../../../../cauldron/utils/material_utils";
 import { VisualMesh, VisualMeshParams } from "../../../../../cauldron/visual/elements/visual_mesh";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
 import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
-import { getDefaultMaterials, getDefaultMeshes } from "../../../../../pp/default_resources_globals";
-import { getPlayerObjects } from "../../../../../pp/scene_objects_globals";
+import { Globals } from "../../../../../pp/globals";
 
 // Occlude
 export class PlayerObscureManagerParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myPlayerTransformManager = null;
 
         this.myObscureObject = null;
@@ -301,14 +299,14 @@ export class PlayerObscureManager {
         if (this._myParams.myObscureMaterial != null) {
             this._myObscureMaterial = this._myParams.myObscureMaterial;
         } else {
-            this._myObscureMaterial = getDefaultMaterials(this._myParams.myEngine).myFlatTransparentNoDepth.clone();
+            this._myObscureMaterial = Globals.getDefaultMaterials(this._myParams.myEngine).myFlatTransparentNoDepth.clone();
             this._myObscureMaterial.color = vec4_create(0, 0, 0, 1);
         }
 
-        this._myObscureParentObject = getPlayerObjects(this._myParams.myEngine).myPlayerCauldron.pp_addObject();
+        this._myObscureParentObject = Globals.getPlayerObjects(this._myParams.myEngine).myPlayerCauldron.pp_addObject();
 
         let obscureVisualParams = new VisualMeshParams(this._myParams.myEngine);
-        obscureVisualParams.myMesh = getDefaultMeshes(this._myParams.myEngine).myInvertedSphere;
+        obscureVisualParams.myMesh = Globals.getDefaultMeshes(this._myParams.myEngine).myInvertedSphere;
         obscureVisualParams.myMaterial = (this._myParams.myObscureMaterial != null) ? this._myParams.myObscureMaterial : this._myObscureMaterial;
         obscureVisualParams.myParent = this._myObscureParentObject;
         obscureVisualParams.myIsLocal = true;
@@ -334,7 +332,7 @@ export class PlayerObscureManager {
         if (visible) {
             this._myObscureParentObject.pp_setParent(this._myParams.myPlayerTransformManager.getHead(), false);
         } else {
-            this._myObscureParentObject.pp_setParent(getPlayerObjects(this._myParams.myEngine).myPlayerCauldron, false);
+            this._myObscureParentObject.pp_setParent(Globals.getPlayerObjects(this._myParams.myEngine).myPlayerCauldron, false);
         }
     }
 }

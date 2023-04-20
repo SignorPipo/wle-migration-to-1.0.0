@@ -1,12 +1,12 @@
-import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
 import { GamepadAxesID } from "../../../../input/gamepad/gamepad_buttons";
+import { Globals } from "../../../../pp/globals";
 import { EasyTuneBaseWidget } from "../base/easy_tune_base_widget";
 import { EasyTuneBoolArrayWidgetConfig } from "./easy_tune_bool_array_widget_config";
 import { EasyTuneBoolArrayWidgetUI } from "./easy_tune_bool_array_widget_ui";
 
 export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
 
-    constructor(params, arraySize, gamepad, engine = getMainEngine()) {
+    constructor(params, arraySize, gamepad, engine = Globals.getMainEngine()) {
         super(params);
 
         this._myIsNonArray = arraySize == null;

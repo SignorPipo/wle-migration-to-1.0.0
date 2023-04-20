@@ -1,9 +1,9 @@
 import { Emitter } from "@wonderlandengine/api";
-import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
+import { Globals } from "../../../../pp/globals";
 
 export class EasyTuneBaseArrayWidgetSelector {
 
-    constructor(params, gamepad, engine = getMainEngine()) {
+    constructor(params, gamepad, engine = Globals.getMainEngine()) {
         this._myGamepad = gamepad;
 
         this._myParentObject = null;

@@ -3,9 +3,8 @@ import { Timer } from "../../cauldron/cauldron/timer";
 import { RaycastResults } from "../../cauldron/physics/physics_raycast_data";
 import { PhysicsUtils } from "../../cauldron/physics/physics_utils";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
-import { getCanvas, getMainEngine } from "../../cauldron/wl/engine_globals";
 import { mat4_create, quat_create, vec2_create, vec3_create } from "../../plugin/js/extensions/array_extension";
-import { getPlayerObjects } from "../../pp/scene_objects_globals";
+import { Globals } from "../../pp/globals";
 
 export let MouseButtonID = {
     LEFT: 0,
@@ -16,7 +15,7 @@ export let MouseButtonID = {
 // #TODO Refactor Mouse/Keyboard/Gamepad and create a sort of parent ButtonHandler that have the base ButtonInfo and all of them inherit
 export class Mouse {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myEngine = engine;
 
         this._myButtonInfos = new Map();
@@ -178,14 +177,14 @@ export class Mouse {
     }
 
     isTargetingRenderCanvas() {
-        return this.isInsideView() && this._myLastValidPointerEvent != null && this._myLastValidPointerEvent.target == getCanvas(this._myEngine);
+        return this.isInsideView() && this._myLastValidPointerEvent != null && this._myLastValidPointerEvent.target == Globals.getCanvas(this._myEngine);
     }
 
     // The origin and direction are set by the mouse
     raycastWorld(raycastParams, raycastResults = new RaycastResults()) {
         this.getOriginWorld(raycastParams.myOrigin);
         this.getDirectionWorld(raycastParams.myDirection);
-        raycastResults = PhysicsUtils.raycast(raycastParams, raycastResults, getPhysics(this._myEngine));
+        raycastResults = PhysicsUtils.raycast(raycastParams, raycastResults, Globals.getPhysics(this._myEngine));
         return raycastResults;
     }
 
@@ -217,9 +216,9 @@ export class Mouse {
 
     getOriginWorld(out = vec3_create()) {
         if (XRUtils.isSessionActive(this._myEngine)) {
-            getPlayerObjects(this._myEngine).myEyeLeft.pp_getPosition(out); // In theory mouse should not be used inside the session, but may make sense for AR which uses eye left
+            Globals.getPlayerObjects(this._myEngine).myEyeLeft.pp_getPosition(out); // In theory mouse should not be used inside the session, but may make sense for AR which uses eye left
         } else {
-            getPlayerObjects(this._myEngine).myCameraNonXR.pp_getPosition(out);
+            Globals.getPlayerObjects(this._myEngine).myCameraNonXR.pp_getPosition(out);
         }
 
         return out;
@@ -234,9 +233,9 @@ export class Mouse {
 
         let projectionMatrixInvert = this._myProjectionMatrixInverse;
         if (XRUtils.isSessionActive(this._myEngine)) {
-            projectionMatrixInvert = getPlayerObjects(this._myEngine).myEyeLeft.pp_getComponent(ViewComponent).projectionMatrix.mat4_invert(projectionMatrixInvert);
+            projectionMatrixInvert = Globals.getPlayerObjects(this._myEngine).myEyeLeft.pp_getComponent(ViewComponent).projectionMatrix.mat4_invert(projectionMatrixInvert);
         } else {
-            projectionMatrixInvert = getPlayerObjects(this._myEngine).myCameraNonXR.pp_getComponent(ViewComponent).projectionMatrix.mat4_invert(projectionMatrixInvert);
+            projectionMatrixInvert = Globals.getPlayerObjects(this._myEngine).myCameraNonXR.pp_getComponent(ViewComponent).projectionMatrix.mat4_invert(projectionMatrixInvert);
         }
 
         directionLocal.vec3_transformMat4(projectionMatrixInvert, directionLocal);
@@ -244,9 +243,9 @@ export class Mouse {
 
         let directionWorld = directionLocal;
         if (XRUtils.isSessionActive(this._myEngine)) {
-            directionWorld = directionLocal.vec3_transformQuat(getPlayerObjects(this._myEngine).myEyeLeft.pp_getRotationQuat(this._myRotationQuat), directionLocal);
+            directionWorld = directionLocal.vec3_transformQuat(Globals.getPlayerObjects(this._myEngine).myEyeLeft.pp_getRotationQuat(this._myRotationQuat), directionLocal);
         } else {
-            directionWorld = directionLocal.vec3_transformQuat(getPlayerObjects(this._myEngine).myCameraNonXR.pp_getRotationQuat(this._myRotationQuat), directionLocal);
+            directionWorld = directionLocal.vec3_transformQuat(Globals.getPlayerObjects(this._myEngine).myCameraNonXR.pp_getRotationQuat(this._myRotationQuat), directionLocal);
         }
 
         directionWorld.vec3_normalize(directionWorld);
@@ -269,7 +268,7 @@ export class Mouse {
         let callbackID = "pp_internal_target_only_render_canvas_callback";
         if (targetOnlyRenderCanvas) {
             this.addPointerEventValidCallback(callbackID, function (event) {
-                return event.target == getCanvas(this._myEngine);
+                return event.target == Globals.getCanvas(this._myEngine);
             });
         } else {
             this.removePointerEventValidCallback(callbackID);
@@ -280,7 +279,7 @@ export class Mouse {
         return this._myLastValidPointerEvent;
     }
 
-    // Can be used to specify that only some pointerType are valid (eg: mouse, touch, pen) or just some target (eg: getCanvas(this._myEngine))
+    // Can be used to specify that only some pointerType are valid (eg: mouse, touch, pen) or just some target (eg: Globals.getCanvas(this._myEngine))
     addPointerEventValidCallback(id, callback) {
         this._myPointerEventValidCallbacks.set(id, callback);
     }

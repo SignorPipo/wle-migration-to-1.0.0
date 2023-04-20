@@ -1,18 +1,18 @@
 /*
 Easy Tune Variables Examples
 
-Number:         getEasyTuneVariables().add(new EasyTuneNumber("Float", 1.00, 0.1, 3));
-Number Array:   getEasyTuneVariables().add(new EasyTuneNumberArray("Float Array", [1.00, 2.00, 3.00], 0.1, 3));
-Int:            getEasyTuneVariables().add(new EasyTuneInt("Int", 1, 1));
-Int Array:      getEasyTuneVariables().add(new EasyTuneIntArray("Int Array", [1, 2, 3], 1));
-Bool:           getEasyTuneVariables().add(new EasyTuneBool("Bool", false));
-Bool Array:     getEasyTuneVariables().add(new EasyTuneBoolArray("Bool Array", [false, true, false]));
-Transform:      getEasyTuneVariables().add(new EasyTuneTransform("Transform", mat4_create(), true));
+Number:         Globals.getEasyTuneVariables().add(new EasyTuneNumber("Float", 1.00, 0.1, 3));
+Number Array:   Globals.getEasyTuneVariables().add(new EasyTuneNumberArray("Float Array", [1.00, 2.00, 3.00], 0.1, 3));
+Int:            Globals.getEasyTuneVariables().add(new EasyTuneInt("Int", 1, 1));
+Int Array:      Globals.getEasyTuneVariables().add(new EasyTuneIntArray("Int Array", [1, 2, 3], 1));
+Bool:           Globals.getEasyTuneVariables().add(new EasyTuneBool("Bool", false));
+Bool Array:     Globals.getEasyTuneVariables().add(new EasyTuneBoolArray("Bool Array", [false, true, false]));
+Transform:      Globals.getEasyTuneVariables().add(new EasyTuneTransform("Transform", mat4_create(), true));
 */
 
 import { Emitter } from "@wonderlandengine/api";
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { mat4_create } from "../../plugin/js/extensions/array_extension";
+import { Globals } from "../../pp/globals";
 import { EasyTuneUtils } from "./easy_tune_utils";
 
 export let EasyTuneVariableType = {
@@ -24,7 +24,7 @@ export let EasyTuneVariableType = {
 
 export class EasyTuneVariable {
 
-    constructor(name, type, engine = getMainEngine()) {
+    constructor(name, type, engine = Globals.getMainEngine()) {
         this._myName = name.slice(0);
         this._myType = type;
 

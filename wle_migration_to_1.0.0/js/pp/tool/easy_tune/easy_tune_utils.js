@@ -1,10 +1,9 @@
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
-import { getEasyTuneVariables } from "./easy_tune_globals";
+import { Globals } from "../../pp/globals";
 
 let _mySetEasyTuneWidgetActiveVariableCallbacks = new WeakMap();
 let _myRefreshEasyTuneWidgetCallbacks = new WeakMap();
 
-export function setEasyTuneWidgetActiveVariable(variableName, engine = getMainEngine()) {
+export function setEasyTuneWidgetActiveVariable(variableName, engine = Globals.getMainEngine()) {
     if (_mySetEasyTuneWidgetActiveVariableCallbacks.has(engine)) {
         for (let callback of _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).values()) {
             callback(variableName);
@@ -12,7 +11,7 @@ export function setEasyTuneWidgetActiveVariable(variableName, engine = getMainEn
     }
 }
 
-export function refreshEasyTuneWidget(engine = getMainEngine()) {
+export function refreshEasyTuneWidget(engine = Globals.getMainEngine()) {
     if (_myRefreshEasyTuneWidgetCallbacks.has(engine)) {
         for (let callback of _myRefreshEasyTuneWidgetCallbacks.get(engine).values()) {
             callback();
@@ -22,12 +21,12 @@ export function refreshEasyTuneWidget(engine = getMainEngine()) {
 
 // fileURL can contain parameters inside brackets, like {param}
 // Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
-export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultValueOnImport = false, onSuccessCallback = null, onFailureCallback = null, engine = getMainEngine()) {
+export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultValueOnImport = false, onSuccessCallback = null, onFailureCallback = null, engine = Globals.getMainEngine()) {
     if (fileURL == null || fileURL.length == 0) {
         if (navigator.clipboard) {
             navigator.clipboard.readText().then(
                 function (clipboard) {
-                    getEasyTuneVariables(engine).fromJSON(clipboard, resetVariablesDefaultValueOnImport);
+                    Globals.getEasyTuneVariables(engine).fromJSON(clipboard, resetVariablesDefaultValueOnImport);
 
                     refreshEasyTuneWidget(engine);
 
@@ -61,7 +60,7 @@ export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultVal
                 if (response.ok) {
                     response.text().then(
                         function (text) {
-                            getEasyTuneVariables(engine).fromJSON(text, resetVariablesDefaultValueOnImport);
+                            Globals.getEasyTuneVariables(engine).fromJSON(text, resetVariablesDefaultValueOnImport);
 
                             refreshEasyTuneWidget(engine);
 
@@ -113,8 +112,8 @@ export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultVal
 
 // fileURL can contain parameters inside brackets, like {param}
 // Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
-export function exportEasyTuneVariables(fileURL = null, onSuccessCallback = null, onFailureCallback = null, engine = getMainEngine()) {
-    let jsonVariables = getEasyTuneVariables(engine).toJSON();
+export function exportEasyTuneVariables(fileURL = null, onSuccessCallback = null, onFailureCallback = null, engine = Globals.getMainEngine()) {
+    let jsonVariables = Globals.getEasyTuneVariables(engine).toJSON();
 
     if (fileURL == null || fileURL.length == 0) {
         if (navigator.clipboard) {
@@ -190,7 +189,7 @@ export function exportEasyTuneVariables(fileURL = null, onSuccessCallback = null
     }
 }
 
-export function addSetEasyTuneWidgetActiveVariableCallback(id, callback, engine = getMainEngine()) {
+export function addSetEasyTuneWidgetActiveVariableCallback(id, callback, engine = Globals.getMainEngine()) {
     if (!_mySetEasyTuneWidgetActiveVariableCallbacks.has(engine)) {
         _mySetEasyTuneWidgetActiveVariableCallbacks.set(engine, new Map());
     }
@@ -198,13 +197,13 @@ export function addSetEasyTuneWidgetActiveVariableCallback(id, callback, engine 
     _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).set(id, callback);
 }
 
-export function removeSetEasyTuneWidgetActiveVariableCallback(id, engine = getMainEngine()) {
+export function removeSetEasyTuneWidgetActiveVariableCallback(id, engine = Globals.getMainEngine()) {
     if (_mySetEasyTuneWidgetActiveVariableCallbacks.has(engine)) {
         _mySetEasyTuneWidgetActiveVariableCallbacks.get(engine).delete(id);
     }
 }
 
-export function addRefreshEasyTuneWidgetCallback(id, callback, engine = getMainEngine()) {
+export function addRefreshEasyTuneWidgetCallback(id, callback, engine = Globals.getMainEngine()) {
     if (!_myRefreshEasyTuneWidgetCallbacks.has(engine)) {
         _myRefreshEasyTuneWidgetCallbacks.set(engine, new Map());
     }
@@ -212,7 +211,7 @@ export function addRefreshEasyTuneWidgetCallback(id, callback, engine = getMainE
     _myRefreshEasyTuneWidgetCallbacks.get(engine).set(id, callback);
 }
 
-export function removeRefreshEasyTuneWidgetCallback(id, engine = getMainEngine()) {
+export function removeRefreshEasyTuneWidgetCallback(id, engine = Globals.getMainEngine()) {
     if (_myRefreshEasyTuneWidgetCallbacks.has(engine)) {
         _myRefreshEasyTuneWidgetCallbacks.get(engine).delete(id);
     }

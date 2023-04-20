@@ -1,13 +1,13 @@
-import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
 import { GamepadAxesID } from "../../../../input/gamepad/gamepad_buttons";
 import { mat4_create, vec3_create } from "../../../../plugin/js/extensions/array_extension";
+import { Globals } from "../../../../pp/globals";
 import { EasyTuneBaseWidget } from "../base/easy_tune_base_widget";
 import { EasyTuneTransformWidgetConfig } from "./easy_tune_transform_widget_config";
 import { EasyTuneTransformWidgetUI } from "./easy_tune_transform_widget_ui";
 
 export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
 
-    constructor(params, gamepad, engine = getMainEngine()) {
+    constructor(params, gamepad, engine = Globals.getMainEngine()) {
         super(params);
 
         this._myGamepad = gamepad;

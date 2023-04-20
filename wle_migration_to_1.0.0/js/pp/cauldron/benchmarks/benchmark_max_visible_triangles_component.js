@@ -1,8 +1,7 @@
 import { Component, MeshComponent, Property, TextComponent } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { CloneParams } from "../../plugin/wl/extensions/object_extension";
-import { getDefaultMaterials } from "../../pp/default_resources_globals";
-import { getPlayerObjects } from "../../pp/scene_objects_globals";
+import { Globals } from "../../pp/globals";
 import { ObjectPool, ObjectPoolParams } from "../cauldron/object_pool";
 import { Timer } from "../cauldron/timer";
 import { MeshCreationParams, MeshCreationTriangleParams, MeshCreationVertexParams, MeshUtils } from "../utils/mesh_utils";
@@ -240,21 +239,21 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
     start() {
         if (this._myPlaneMaterial == null) {
-            this._myPlaneMaterial = getDefaultMaterials(this.engine).myPhongOpaque.clone();
+            this._myPlaneMaterial = Globals.getDefaultMaterials(this.engine).myPhongOpaque.clone();
             this._myPlaneMaterial.diffuseColor = vec4_create(0.95, 0.95, 0.95, 1);
             this._myPlaneMaterial.ambientColor = vec4_create(0, 0, 0, 1);
             this._myPlaneMaterial.ambientFactor = 0.5;
         }
 
         if (this._myBackgroundMaterial == null) {
-            this._myBackgroundMaterial = getDefaultMaterials(this.engine).myPhongOpaque.clone();
+            this._myBackgroundMaterial = Globals.getDefaultMaterials(this.engine).myPhongOpaque.clone();
             this._myBackgroundMaterial.diffuseColor = vec4_create(0.25, 0.25, 0.25, 1);
             this._myBackgroundMaterial.ambientColor = vec4_create(0, 0, 0, 1);
             this._myBackgroundMaterial.ambientFactor = 0.5;
         }
 
         if (this._myTextMaterial == null) {
-            this._myTextMaterial = getDefaultMaterials(this.engine).myText.clone();
+            this._myTextMaterial = Globals.getDefaultMaterials(this.engine).myText.clone();
         }
 
         this._myLagColor = vec4_create(0.6, 0, 0, 1);
@@ -264,7 +263,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         let parent = this.object;
         if (this._myDisplayInFrontOfPlayer) {
-            parent = getPlayerObjects().myHead.pp_addObject();
+            parent = Globals.getPlayerObjects().myHead.pp_addObject();
             parent.pp_rotateAxis(180, vec3_create(0, 1, 0));
             parent.pp_translateLocal(vec3_create(0, 0, this._myDisplayInFrontOfPlayerDistance));
         }

@@ -1,7 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getDefaultMaterials } from "../../../pp/default_resources_globals";
-import { isToolEnabled } from "../../cauldron/tool_globals";
-import { getEasyTuneVariables } from "../easy_tune_globals";
+import { Globals } from "../../../pp/globals";
 import { EasyTuneUtils } from "../easy_tune_utils";
 import { EasyTuneWidget, EasyTuneWidgetParams } from "../easy_tune_widgets/easy_tune_widget";
 import { InitEasyTuneVariablesComponent } from "./init_easy_tune_variables_component";
@@ -39,15 +37,15 @@ export class EasyTuneToolComponent extends Component {
     }
 
     start() {
-        if (isToolEnabled(this.engine)) {
+        if (Globals.isToolEnabled(this.engine)) {
             let params = new EasyTuneWidgetParams();
             params.myHandedness = [null, "left", "right"][this._myHandedness];
             params.myShowOnStart = this._myShowOnStart;
             params.myShowVisibilityButton = this._myShowVisibilityButton;
             params.myAdditionalButtonsEnabled = true;
             params.myGamepadScrollVariableEnabled = this._myGamepadScrollVariableEnabled;
-            params.myPlaneMaterial = getDefaultMaterials(this.engine).myFlatOpaque.clone();
-            params.myTextMaterial = getDefaultMaterials(this.engine).myText.clone();
+            params.myPlaneMaterial = Globals.getDefaultMaterials(this.engine).myFlatOpaque.clone();
+            params.myTextMaterial = Globals.getDefaultMaterials(this.engine).myText.clone();
 
             params.myVariablesImportExportButtonsEnabled = this._myVariablesImportExportButtonsEnabled;
             params.myVariablesImportCallback = function (onSuccessCallback, onFailureCallback) {
@@ -57,7 +55,7 @@ export class EasyTuneToolComponent extends Component {
                 EasyTuneUtils.exportEasyTuneVariables(this._myVariablesExportURL, onSuccessCallback, onFailureCallback, this.engine);
             }.bind(this);
 
-            this._myWidget.start(this.object, params, getEasyTuneVariables(this.engine));
+            this._myWidget.start(this.object, params, Globals.getEasyTuneVariables(this.engine));
 
             this._myWidgetVisibleBackup = this._myWidget.isVisible();
             this._mySetVisibleNextUpdate = false;
@@ -68,7 +66,7 @@ export class EasyTuneToolComponent extends Component {
     }
 
     update(dt) {
-        if (isToolEnabled(this.engine)) {
+        if (Globals.isToolEnabled(this.engine)) {
             if (this._myStarted) {
                 if (this._myFirstUpdate) {
                     this._myFirstUpdate = false;
@@ -89,7 +87,7 @@ export class EasyTuneToolComponent extends Component {
     }
 
     onActivate() {
-        if (isToolEnabled(this.engine)) {
+        if (Globals.isToolEnabled(this.engine)) {
             if (this._myStarted) {
                 this._mySetVisibleNextUpdate = true;
             }
@@ -97,7 +95,7 @@ export class EasyTuneToolComponent extends Component {
     }
 
     onDeactivate() {
-        if (isToolEnabled(this.engine)) {
+        if (Globals.isToolEnabled(this.engine)) {
             if (this._myStarted) {
                 this._myWidgetVisibleBackup = this._myWidget.isVisible();
 

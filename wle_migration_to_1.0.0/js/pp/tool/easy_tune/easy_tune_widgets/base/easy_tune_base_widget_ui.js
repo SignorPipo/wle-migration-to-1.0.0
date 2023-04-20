@@ -1,13 +1,12 @@
 import { CollisionComponent, MeshComponent, TextComponent } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../../../cauldron/wl/engine_globals";
-import { getDefaultMeshes } from "../../../../pp/default_resources_globals";
+import { Globals } from "../../../../pp/globals";
 import { ToolHandedness } from "../../../cauldron/tool_types";
 
 export class EasyTuneBaseWidgetUI {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myEngine = engine;
     }
 
@@ -18,7 +17,7 @@ export class EasyTuneBaseWidgetUI {
 
         this._myImportExportButtonsActive = true;
 
-        this._myPlaneMesh = getDefaultMeshes(this._myEngine).myPlane;
+        this._myPlaneMesh = Globals.getDefaultMeshes(this._myEngine).myPlane;
 
         this._buildHook();
 

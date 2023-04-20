@@ -1,4 +1,4 @@
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
+import { Globals } from "../../pp/globals";
 import { TrackedHandJointID } from "../cauldron/input_types";
 import { InputUtils } from "../cauldron/input_utils";
 import { BasePoseParams } from "./base_pose";
@@ -6,7 +6,7 @@ import { TrackedHandJointPose } from "./tracked_hand_joint_pose";
 
 export class TrackedHandPoseParams extends BasePoseParams {
 
-    constructor(addAllJointIDs = true, engine = getMainEngine()) {
+    constructor(addAllJointIDs = true, engine = Globals.getMainEngine()) {
         super(engine);
 
         this.myTrackedHandJointIDList = [];

@@ -5,7 +5,7 @@ visualParams.myDirection.vec3_copy(direction);
 visualParams.myLength = 0.2;
 visualParams.myMaterial = myDefaultResources.myMaterials.myFlatOpaque.clone();
 visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
-getVisualManager().draw(visualParams);
+Globals.getVisualManager().draw(visualParams);
 
 or
 
@@ -14,16 +14,13 @@ let visualArrow = new VisualArrow(visualParams);
 
 import { MeshComponent } from "@wonderlandengine/api";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
-import { getSceneObjects } from "../../../pp/scene_objects_globals";
-import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualResources } from "../visual_globals";
+import { Globals } from "../../../pp/globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualLine, VisualLineParams } from "./visual_line";
 
 export class VisualArrowParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myStart = vec3_create();
         this.myDirection = vec3_create(0, 0, 1);
         this.myLength = 0;
@@ -36,7 +33,7 @@ export class VisualArrowParams {
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = getSceneObjects(engine).myVisualElements;
+        this.myParent = Globals.getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.ARROW;
@@ -131,7 +128,7 @@ export class VisualArrow {
     }
 
     _build() {
-        this._myArrowParentObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
+        this._myArrowParentObject = Globals.getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
         this._myArrowObject = this._myArrowParentObject.pp_addObject();
 
         this._myArrowMeshComponent = this._myArrowObject.pp_addComponent(MeshComponent);
@@ -200,15 +197,15 @@ VisualArrow.prototype._refresh = function () {
         if (this._myParams.myArrowMesh != null) {
             this._myArrowMeshComponent.mesh = this._myParams.myArrowMesh;
         } else {
-            this._myArrowMeshComponent.mesh = getDefaultMeshes(this._myParams.myParent.pp_getEngine()).myCone;
+            this._myArrowMeshComponent.mesh = Globals.getDefaultMeshes(this._myParams.myParent.pp_getEngine()).myCone;
         }
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myArrowMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
+                this._myArrowMeshComponent.material = Globals.getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
             } else {
                 if (this._myFlatOpaqueMaterial == null) {
-                    this._myFlatOpaqueMaterial = getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myFlatOpaque.clone();
+                    this._myFlatOpaqueMaterial = Globals.getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myFlatOpaque.clone();
                 }
                 this._myArrowMeshComponent.material = this._myFlatOpaqueMaterial;
                 this._myFlatOpaqueMaterial.color = this._myParams.myColor;

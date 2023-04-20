@@ -4,7 +4,7 @@ visualParams.myTransform = transform;
 visualParams.myMesh = myDefaultResources.myMeshes.mySphere;
 visualParams.myMaterial = myDefaultResources.myMaterials.myFlatOpaque.clone();
 visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
-getVisualManager().draw(visualParams);
+Globals.getVisualManager().draw(visualParams);
 
 or
 
@@ -13,21 +13,18 @@ let visualMesh = new VisualMesh(visualParams);
 
 import { MeshComponent } from "@wonderlandengine/api";
 import { mat4_create } from "../../../plugin/js/extensions/array_extension";
-import { getDefaultMeshes } from "../../../pp/default_resources_globals";
-import { getSceneObjects } from "../../../pp/scene_objects_globals";
-import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualResources } from "../visual_globals";
+import { Globals } from "../../../pp/globals";
 import { VisualElementType } from "./visual_element_types";
 
 export class VisualMeshParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myTransform = mat4_create();
 
         this.myMesh = null;
         this.myMaterial = null;
 
-        this.myParent = getSceneObjects(engine).myVisualElements;
+        this.myParent = Globals.getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.MESH;
@@ -112,20 +109,20 @@ export class VisualMesh {
         }
 
         if (this._myParams.myMesh == null) {
-            this._myMeshComponent.mesh = getDefaultMeshes(this._myParams.myParent.pp_getEngine()).mySphere;
+            this._myMeshComponent.mesh = Globals.getDefaultMeshes(this._myParams.myParent.pp_getEngine()).mySphere;
         } else {
             this._myMeshComponent.mesh = this._myParams.myMesh;
         }
 
         if (this._myParams.myMaterial == null) {
-            this._myMeshComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
+            this._myMeshComponent.material = Globals.getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
         } else {
             this._myMeshComponent.material = this._myParams.myMaterial;
         }
     }
 
     _build() {
-        this._myMeshObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
+        this._myMeshObject = Globals.getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
 
         this._myMeshComponent = this._myMeshObject.pp_addComponent(MeshComponent);
     }

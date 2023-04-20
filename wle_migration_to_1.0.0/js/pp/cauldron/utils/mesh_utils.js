@@ -1,6 +1,6 @@
 import { Mesh, MeshAttribute, MeshIndexType } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
-import { getMainEngine } from "../wl/engine_globals";
+import { Globals } from "../../pp/globals";
 
 export class MeshCreationVertexParams {
 
@@ -21,7 +21,7 @@ export class MeshCreationTriangleParams {
 
 export class MeshCreationParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myVertexes = [];
         this.myTriangles = [];
 
@@ -29,7 +29,7 @@ export class MeshCreationParams {
     }
 }
 
-export function createPlaneMesh(engine = getMainEngine()) {
+export function createPlaneMesh(engine = Globals.getMainEngine()) {
     let vertexCount = 4;
 
     let meshCreationParams = new MeshCreationParams(engine);

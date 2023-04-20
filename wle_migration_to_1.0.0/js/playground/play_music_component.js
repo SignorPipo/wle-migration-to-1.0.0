@@ -1,5 +1,5 @@
 import { Component } from "@wonderlandengine/api";
-import { getAudioManager } from "../pp";
+import { Globals } from "../pp";
 
 export class PlayMusicComponent extends Component {
     static TypeName = "play-music";
@@ -11,7 +11,7 @@ export class PlayMusicComponent extends Component {
 
     update(dt) {
         if (!this._myStarted) {
-            this._myMusic = getAudioManager(this.engine).createAudioPlayer("playground_ambient");
+            this._myMusic = Globals.getAudioManager(this.engine).createAudioPlayer("playground_ambient");
             this._myMusic.play();
 
             this._myStarted = true;

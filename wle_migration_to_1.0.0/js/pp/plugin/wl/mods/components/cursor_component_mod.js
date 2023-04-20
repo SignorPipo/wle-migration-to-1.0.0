@@ -1,8 +1,8 @@
 import { InputComponent, ViewComponent } from "@wonderlandengine/api";
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
-import { getCanvas, getPhysics, getScene } from "../../../../cauldron/wl/engine_globals";
 import { InputUtils } from "../../../../input/cauldron/input_utils";
+import { Globals } from "../../../../pp/globals";
 import { mat4_create, quat2_create, quat_create, vec3_create } from "../../../js/extensions/array_extension";
 import { PluginUtils } from "../../../utils/plugin_utils";
 
@@ -148,8 +148,8 @@ export function initCursorComponentModPrototype() {
                     this.object.pp_getForward(this.direction);
                 }
                 let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                    getScene(this.engine).rayCast(this.origin, this.direction, this.collisionMask) :
-                    getPhysics(this.engine).rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
+                    Globals.getScene(this.engine).rayCast(this.origin, this.direction, this.collisionMask) :
+                    Globals.getPhysics(this.engine).rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
                 if (rayHit.hitCount > 0) {
                     this.cursorPos.set(rayHit.locations[0]);
@@ -459,8 +459,8 @@ export function initCursorComponentModPrototype() {
             this.direction.vec3_normalize(this.direction);
             this.direction.vec3_transformQuat(this.object.pp_getTransformQuat(transformWorld), this.direction);
             let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                getScene(this.engine).rayCast(this.origin, this.direction, this.collisionMask) :
-                getPhysics(this.engine).rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
+                Globals.getScene(this.engine).rayCast(this.origin, this.direction, this.collisionMask) :
+                Globals.getPhysics(this.engine).rayCast(this.origin, this.direction, this.collisionMask, this.maxDistance);
 
             if (rayHit.hitCount > 0) {
                 this.cursorPos.set(rayHit.locations[0]);
@@ -521,15 +521,15 @@ export function initCursorComponentModPrototype() {
          * otherwise just use the objects transformation */
         if (this.viewComponent != null) {
             let onClick = this.onClick.bind(this);
-            getCanvas(this.engine).addEventListener("click", onClick);
+            Globals.getCanvas(this.engine).addEventListener("click", onClick);
             let onPointerDown = this.onPointerDown.bind(this);
-            getCanvas(this.engine).addEventListener("pointerdown", onPointerDown);
+            Globals.getCanvas(this.engine).addEventListener("pointerdown", onPointerDown);
             let onPointerMove = this.onPointerMove.bind(this);
-            getCanvas(this.engine).addEventListener("pointermove", onPointerMove);
+            Globals.getCanvas(this.engine).addEventListener("pointermove", onPointerMove);
             let onPointerUp = this.onPointerUp.bind(this);
-            getCanvas(this.engine).addEventListener("pointerup", onPointerUp);
+            Globals.getCanvas(this.engine).addEventListener("pointerup", onPointerUp);
             let onPointerLeave = this.onPointerLeave.bind(this);
-            getCanvas(this.engine).addEventListener("pointerleave", onPointerLeave);
+            Globals.getCanvas(this.engine).addEventListener("pointerleave", onPointerLeave);
 
             this.projectionMatrix = mat4_create();
             this.viewComponent.projectionMatrix.mat4_invert(this.projectionMatrix);
@@ -537,11 +537,11 @@ export function initCursorComponentModPrototype() {
             window.addEventListener("resize", onViewportResize);
 
             this.onDestroyListeners.push(() => {
-                getCanvas(this.engine).removeEventListener("click", onClick);
-                getCanvas(this.engine).removeEventListener("pointerdown", onPointerDown);
-                getCanvas(this.engine).removeEventListener("pointermove", onPointerMove);
-                getCanvas(this.engine).removeEventListener("pointerup", onPointerUp);
-                getCanvas(this.engine).removeEventListener("pointerleave", onPointerLeave);
+                Globals.getCanvas(this.engine).removeEventListener("click", onClick);
+                Globals.getCanvas(this.engine).removeEventListener("pointerdown", onPointerDown);
+                Globals.getCanvas(this.engine).removeEventListener("pointermove", onPointerMove);
+                Globals.getCanvas(this.engine).removeEventListener("pointerup", onPointerUp);
+                Globals.getCanvas(this.engine).removeEventListener("pointerleave", onPointerLeave);
                 window.removeEventListener("resize", onViewportResize);
             });
         }

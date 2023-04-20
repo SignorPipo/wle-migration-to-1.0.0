@@ -1,10 +1,9 @@
-import { getMainEngine } from "../cauldron/wl/engine_globals";
-import { isDebugEnabled } from "./debug_globals";
+import { Globals } from "../pp/globals";
 import { DebugVisualManager } from "./debug_visual_manager";
 
 export class DebugManager {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myEngine = engine;
         this._myDebugVisualManager = new DebugVisualManager(this._myEngine);
     }
@@ -18,7 +17,7 @@ export class DebugManager {
     }
 
     update(dt) {
-        this._myDebugVisualManager.setActive(isDebugEnabled(this._myEngine));
+        this._myDebugVisualManager.setActive(Globals.isDebugEnabled(this._myEngine));
         this._myDebugVisualManager.update(dt);
     }
 }

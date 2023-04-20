@@ -4,7 +4,7 @@ visualParams.myText = text;
 visualParams.myTransform.mat4_copy(transform);
 visualParams.myMaterial = myDefaultResources.myMaterials.myText.clone();
 visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
-getVisualManager().draw(visualParams);
+Globals.getVisualManager().draw(visualParams);
 
 or
 
@@ -13,15 +13,12 @@ let visualText = new VisualText(visualParams);
 
 import { Alignment, Justification, TextComponent } from "@wonderlandengine/api";
 import { mat4_create } from "../../../plugin/js/extensions/array_extension";
-import { getDefaultMaterials } from "../../../pp/default_resources_globals";
-import { getSceneObjects } from "../../../pp/scene_objects_globals";
-import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualResources } from "../visual_globals";
+import { Globals } from "../../../pp/globals";
 import { VisualElementType } from "./visual_element_types";
 
 export class VisualTextParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myText = "";
         this.myAlignment = Alignment.Center;
         this.myJustification = Justification.Middle;
@@ -32,7 +29,7 @@ export class VisualTextParams {
 
         this.myColor = null;        // If this is set and material is null, it will use the default text material with this color
 
-        this.myParent = getSceneObjects(engine).myVisualElements;
+        this.myParent = Globals.getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.TEXT;
@@ -120,10 +117,10 @@ export class VisualText {
 
         if (this._myParams.myMaterial == null) {
             if (this._myParams.myColor == null) {
-                this._myTextComponent.material = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myText;
+                this._myTextComponent.material = Globals.getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myText;
             } else {
                 if (this._myTextMaterial == null) {
-                    this._myTextMaterial = getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myText.clone();
+                    this._myTextMaterial = Globals.getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myText.clone();
                 }
                 this._myTextComponent.material = this._myTextMaterial;
                 this._myTextMaterial.color = this._myParams.myColor;
@@ -140,7 +137,7 @@ export class VisualText {
     }
 
     _build() {
-        this._myTextObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
+        this._myTextObject = Globals.getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
         this._myTextComponent = this._myTextObject.pp_addComponent(TextComponent);
     }
 

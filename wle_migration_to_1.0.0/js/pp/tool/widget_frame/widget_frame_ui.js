@@ -1,16 +1,14 @@
 import { CollisionComponent, MeshComponent, TextComponent } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { InputUtils } from "../../input/cauldron/input_utils";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
-import { getDefaultMeshes } from "../../pp/default_resources_globals";
-import { getPlayerObjects, getSceneObjects } from "../../pp/scene_objects_globals";
+import { Globals } from "../../pp/globals";
 import { ToolHandedness, ToolInputSourceType } from "../cauldron/tool_types";
 
 export class WidgetFrameUI {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myInputSourceType = null;
 
         this._myParentObject = null;
@@ -26,7 +24,7 @@ export class WidgetFrameUI {
         this._myParentObject = parentObject;
         this._myConfig = config;
         this._myParams = params;
-        this._myPlaneMesh = getDefaultMeshes(this._myEngine).myPlane;
+        this._myPlaneMesh = Globals.getDefaultMeshes(this._myEngine).myPlane;
 
         this._createSkeleton();
         this._setTransforms();
@@ -54,7 +52,7 @@ export class WidgetFrameUI {
         if (pinned != this._myIsPinned) {
             this._myIsPinned = pinned;
             if (this._myIsPinned) {
-                this.myPivotObject.pp_setParent(getSceneObjects(this._myEngine).myTools);
+                this.myPivotObject.pp_setParent(Globals.getSceneObjects(this._myEngine).myTools);
             } else {
                 this.myPivotObject.pp_setParent(this.myFixForwardObject);
 
@@ -115,7 +113,7 @@ export class WidgetFrameUI {
         this.myPinButtonText = this.myPinButtonPanel.pp_addObject();
         this.myPinButtonCursorTarget = this.myPinButtonPanel.pp_addObject();
 
-        this.myNonXRParentObject = getPlayerObjects(this._myEngine).myCameraNonXR.pp_addObject();
+        this.myNonXRParentObject = Globals.getPlayerObjects(this._myEngine).myCameraNonXR.pp_addObject();
         this.myNonXRParentObject.pp_translateLocal(vec3_create(0, 0, -this._myConfig._myPivotObjectDistanceFromHeadNonXR));
         this.myNonXRParentObject.pp_lookToLocal(vec3_create(0, 0, 1), vec3_create(0, 1, 0));
 

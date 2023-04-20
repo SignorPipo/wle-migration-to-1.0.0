@@ -1,13 +1,12 @@
 import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
-import { getGamepads } from "../../../../../input/cauldron/input_globals";
 import { Handedness } from "../../../../../input/cauldron/input_types";
 import { GamepadAxesID } from "../../../../../input/gamepad/gamepad_buttons";
 import { quat_create, vec3_create } from "../../../../../plugin/js/extensions/array_extension";
+import { Globals } from "../../../../../pp/globals";
 
 export class PlayerLocomotionRotateParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myPlayerHeadManager = null;
 
         this.myMaxRotationSpeed = 0;
@@ -43,7 +42,7 @@ export class PlayerLocomotionRotate {
         this._mySmoothSnapVerticalRunning = false;
         this._mySmoothSnapVerticalAngleToPerform = 0;
 
-        //getEasyTuneVariables(this._myParams.myEngine).add(new EasyTuneNumber("Teleport Smooth Speed", this._myParams.mySmoothSnapSpeedDegrees, 10, 3, 0, undefined, this._myParams.myEngine));
+        //Globals.getEasyTuneVariables(this._myParams.myEngine).add(new EasyTuneNumber("Teleport Smooth Speed", this._myParams.mySmoothSnapSpeedDegrees, 10, 3, 0, undefined, this._myParams.myEngine));
     }
 
     start() {
@@ -58,7 +57,7 @@ export class PlayerLocomotionRotate {
     }
 
     update(dt) {
-        //this._myParams.mySmoothSnapSpeedDegrees = getEasyTuneVariables(this._myParams.myEngine).get("Teleport Smooth Speed");
+        //this._myParams.mySmoothSnapSpeedDegrees = Globals.getEasyTuneVariables(this._myParams.myEngine).get("Teleport Smooth Speed");
 
         this._rotateHeadHorizontally(dt);
 
@@ -80,7 +79,7 @@ PlayerLocomotionRotate.prototype._rotateHeadHorizontally = function () {
 
         headRotation.quat_identity();
 
-        let axes = getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
+        let axes = Globals.getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
 
         if (!this._myParams.myIsSnapTurn || (this._myParams.mySnapTurnOnlyVR && !XRUtils.isSessionActive(this._myParams.myEngine))) {
             if (Math.abs(axes[0]) > this._myParams.myRotationMinStickIntensityThreshold) {
@@ -160,7 +159,7 @@ PlayerLocomotionRotate.prototype._rotateHeadVertically = function () {
 
         referenceRight.vec3_normalize(referenceRight);
 
-        let axes = getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
+        let axes = Globals.getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
         let angleToRotate = 0;
 
         if (!this._myParams.myIsSnapTurn || (this._myParams.mySnapTurnOnlyVR && !XRUtils.isSessionActive(this._myParams.myEngine))) {

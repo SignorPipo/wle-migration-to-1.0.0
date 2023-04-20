@@ -2,11 +2,9 @@ import { Component, MeshComponent, Property, ViewComponent } from "@wonderlanden
 import { Cursor, CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { FingerCursorComponent } from "../../../input/cauldron/components/finger_cursor_component";
-import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
 import { InputUtils } from "../../../input/cauldron/input_utils";
 import { quat2_create, vec3_create, vec4_create } from "../../../plugin/js/extensions/array_extension";
-import { getDefaultMaterials, getDefaultMeshes } from "../../../pp/default_resources_globals";
-import { getPlayerObjects } from "../../../pp/scene_objects_globals";
+import { Globals } from "../../../pp/globals";
 
 export class ToolCursorComponent extends Component {
     static TypeName = "pp-tool-cursor";
@@ -44,8 +42,8 @@ export class ToolCursorComponent extends Component {
             this._myCursorMeshobject.pp_setScale(this._myCursorMeshScale);
 
             let cursorMeshComponent = this._myCursorMeshobject.pp_addComponent(MeshComponent);
-            cursorMeshComponent.mesh = getDefaultMeshes(this.engine).mySphere;
-            cursorMeshComponent.material = getDefaultMaterials(this.engine).myFlatOpaque.clone();
+            cursorMeshComponent.mesh = Globals.getDefaultMeshes(this.engine).mySphere;
+            cursorMeshComponent.material = Globals.getDefaultMaterials(this.engine).myFlatOpaque.clone();
             cursorMeshComponent.material.color = this._myCursorColor;
 
             this._myCursorComponentXR = this._myCursorObjectXR.pp_addComponent(Cursor, {
@@ -72,7 +70,7 @@ export class ToolCursorComponent extends Component {
             if (this._myPulseOnHover) {
                 this._myCursorComponentNonXR.globalTarget.onHover.add(this._pulseOnHover.bind(this));
             }
-            this._myCursorComponentNonXR.setViewComponent(getPlayerObjects(this.engine).myCameraNonXR.pp_getComponent(ViewComponent));
+            this._myCursorComponentNonXR.setViewComponent(Globals.getPlayerObjects(this.engine).myCameraNonXR.pp_getComponent(ViewComponent));
         }
 
         let fingerCursorMeshObject = null;
@@ -82,8 +80,8 @@ export class ToolCursorComponent extends Component {
             fingerCursorMeshObject = this._myToolCursorObject.pp_addObject();
 
             let meshComponent = fingerCursorMeshObject.pp_addComponent(MeshComponent);
-            meshComponent.mesh = getDefaultMeshes(this.engine).mySphere;
-            meshComponent.material = getDefaultMaterials(this.engine).myFlatOpaque.clone();
+            meshComponent.mesh = Globals.getDefaultMeshes(this.engine).mySphere;
+            meshComponent.material = Globals.getDefaultMaterials(this.engine).myFlatOpaque.clone();
             meshComponent.material.color = this._myCursorColor;
 
             fingerCursorMeshObject.pp_setScale(fingerCollisionSize);
@@ -129,12 +127,12 @@ export class ToolCursorComponent extends Component {
 
         if (targetComponent && !targetComponent.isSurface) {
             if (this._myHandedness == 0) {
-                if (getLeftGamepad(this.engine) != null) {
-                    getLeftGamepad(this.engine).pulse(0.4, 0);
+                if (Globals.getLeftGamepad(this.engine) != null) {
+                    Globals.getLeftGamepad(this.engine).pulse(0.4, 0);
                 }
             } else {
-                if (getRightGamepad(this.engine) != null) {
-                    getRightGamepad(this.engine).pulse(0.4, 0);
+                if (Globals.getRightGamepad(this.engine) != null) {
+                    Globals.getRightGamepad(this.engine).pulse(0.4, 0);
                 }
             }
         }
@@ -163,7 +161,7 @@ ToolCursorComponent.prototype.update = function () {
                 this._myCursorComponentNonXR.active = !isUsingHand;
                 this._myCursorComponentXR.active = false;
 
-                this._myCursorObjectNonXR.pp_setTransformQuat(getPlayerObjects(this.engine).myCameraNonXR.pp_getTransformQuat(transformQuat));
+                this._myCursorObjectNonXR.pp_setTransformQuat(Globals.getPlayerObjects(this.engine).myCameraNonXR.pp_getTransformQuat(transformQuat));
             }
         }
     };

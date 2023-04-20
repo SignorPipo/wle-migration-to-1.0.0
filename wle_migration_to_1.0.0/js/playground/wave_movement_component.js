@@ -1,5 +1,5 @@
 import { Component } from "@wonderlandengine/api";
-import { EasyTuneNumber, Timer, getEasyTuneVariables } from "../pp";
+import { EasyTuneNumber, Globals, Timer } from "../pp";
 
 export class WaveMovementComponent extends Component {
     static TypeName = "wave-movement";
@@ -24,7 +24,7 @@ export class WaveMovementComponent extends Component {
 
         this._myRandomSigns = [Math.pp_randomPick(-1, 1), Math.pp_randomPick(-1, 1), Math.pp_randomPick(-1, 1)];
 
-        getEasyTuneVariables(this.engine).add(new EasyTuneNumber("Wave Speed Multiplier", 1.00, 5, 3, undefined, undefined, this.engine));
+        Globals.getEasyTuneVariables(this.engine).add(new EasyTuneNumber("Wave Speed Multiplier", 1.00, 5, 3, undefined, undefined, this.engine));
     }
 
     update(dt) {
@@ -32,7 +32,7 @@ export class WaveMovementComponent extends Component {
             this._myStartTimer.update(dt);
         } else {
             for (let i = 0; i < this._myCurrentTimes.length; i++) {
-                this._myCurrentTimes[i] += dt * this._mySpeedMultipliers[i] * getEasyTuneVariables(this.engine).get("Wave Speed Multiplier");
+                this._myCurrentTimes[i] += dt * this._mySpeedMultipliers[i] * Globals.getEasyTuneVariables(this.engine).get("Wave Speed Multiplier");
             }
 
             this.object.pp_setPosition(this._myStartPosition);

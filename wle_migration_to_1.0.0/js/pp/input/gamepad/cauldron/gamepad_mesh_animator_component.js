@@ -1,6 +1,6 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getLeftGamepad, getRightGamepad } from "../../cauldron/input_globals";
+import { Globals } from "../../../pp/globals";
 import { HandednessIndex } from "../../cauldron/input_types";
 import { GamepadAxesEvent, GamepadAxesID, GamepadButtonEvent, GamepadButtonID } from "../gamepad_buttons";
 
@@ -26,9 +26,9 @@ export class GamepadMeshAnimatorComponent extends Component {
     start() {
         let gamepad = null;
         if (this._myHandedness == HandednessIndex.LEFT) {
-            gamepad = getLeftGamepad(this.engine);
+            gamepad = Globals.getLeftGamepad(this.engine);
         } else {
-            gamepad = getRightGamepad(this.engine);
+            gamepad = Globals.getRightGamepad(this.engine);
         }
 
         if (this._mySelect != null) {

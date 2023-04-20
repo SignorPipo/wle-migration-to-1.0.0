@@ -1,7 +1,7 @@
 import { Component, Emitter, PhysXComponent, Property } from "@wonderlandengine/api";
 import { CloneUtils } from "../../cauldron/utils/clone_utils";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
-import { getSceneObjects } from "../../pp/scene_objects_globals";
+import { Globals } from "../../pp/globals";
 
 export class GrabbableComponent extends Component {
     static TypeName = "pp-grabbable";
@@ -141,7 +141,7 @@ export class GrabbableComponent extends Component {
 
     _release() {
         if (this._myParentOnRelease == 0) {
-            this.object.pp_setParent(getSceneObjects(this.engine).myDynamics);
+            this.object.pp_setParent(Globals.getSceneObjects(this.engine).myDynamics);
         } else {
             this.object.pp_setParent(this._myOldParent);
         }

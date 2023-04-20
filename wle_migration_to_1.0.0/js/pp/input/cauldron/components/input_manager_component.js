@@ -1,10 +1,9 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getPlayerObjects } from "../../../pp/scene_objects_globals";
+import { Globals } from "../../../pp/globals";
 import { ClassicGamepadCore } from "../../gamepad/gamepad_cores/classic_gamepad_core";
 import { KeyboardGamepadCore } from "../../gamepad/gamepad_cores/keyboard_gamepad_core";
 import { XRGamepadCore } from "../../gamepad/gamepad_cores/xr_gamepad_core";
 import { HandPose, HandPoseParams } from "../../pose/hand_pose";
-import { hasInputManager, setInputManager } from "../input_globals";
 import { InputManager } from "../input_manager";
 import { Handedness } from "../input_types";
 
@@ -20,10 +19,10 @@ export class InputManagerComponent extends Component {
         this._myInputManager = null;
 
         // Prevents double global from same engine
-        if (!hasInputManager(this.engine)) {
+        if (!Globals.hasInputManager(this.engine)) {
             this._myInputManager = new InputManager(this.engine);
 
-            setInputManager(this._myInputManager, this.engine);
+            Globals.setInputManager(this._myInputManager, this.engine);
         }
     }
 
@@ -54,7 +53,7 @@ export class InputManagerComponent extends Component {
 
     _addGamepadCores() {
         let handPoseParams = new HandPoseParams(this.engine);
-        handPoseParams.myReferenceObject = getPlayerObjects(this.engine).myPlayerPivot;
+        handPoseParams.myReferenceObject = Globals.getPlayerObjects(this.engine).myPlayerPivot;
         handPoseParams.myFixForward = this._myGamepadFixForward;
         handPoseParams.myForceEmulatedVelocities = false;
 

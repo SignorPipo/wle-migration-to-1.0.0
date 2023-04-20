@@ -2,7 +2,7 @@
 let visualParams = new VisualTransformParams();
 visualParams.myTransform.mat4_copy(transform);
 visualParams.myLength = 0.2;
-getVisualManager().draw(visualParams);
+Globals.getVisualManager().draw(visualParams);
 
 or
 
@@ -10,15 +10,13 @@ let visualTransform = new VisualTransform(visualParams);
 */
 
 import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getSceneObjects } from "../../../pp/scene_objects_globals";
-import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualResources } from "../visual_globals";
+import { Globals } from "../../../pp/globals";
 import { VisualArrow, VisualArrowParams } from "./visual_arrow";
 import { VisualElementType } from "./visual_element_types";
 
 export class VisualTransformParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myTransform = mat4_create();
         this.myLength = 0.2;
         this.myThickness = 0.005;
@@ -27,7 +25,7 @@ export class VisualTransformParams {
         this.myUpMaterial = null;
         this.myRightMaterial = null;
 
-        this.myParent = getSceneObjects(engine).myVisualElements;
+        this.myParent = Globals.getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.TRANSFORM;
@@ -177,7 +175,7 @@ VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myRightMaterial == null) {
-                visualArrowParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myRight;
+                visualArrowParams.myMaterial = Globals.getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myRight;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myRightMaterial;
             }
@@ -196,7 +194,7 @@ VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myUpMaterial == null) {
-                visualArrowParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myUp;
+                visualArrowParams.myMaterial = Globals.getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myUp;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myUpMaterial;
             }
@@ -215,7 +213,7 @@ VisualTransform.prototype._refresh = function () {
             visualArrowParams.myThickness = this._myParams.myThickness;
 
             if (this._myParams.myForwardMaterial == null) {
-                visualArrowParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myForward;
+                visualArrowParams.myMaterial = Globals.getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myForward;
             } else {
                 visualArrowParams.myMaterial = this._myParams.myForwardMaterial;
             }

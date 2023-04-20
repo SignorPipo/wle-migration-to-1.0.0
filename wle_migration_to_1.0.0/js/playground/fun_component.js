@@ -1,5 +1,5 @@
 import { Component } from "@wonderlandengine/api";
-import { GamepadButtonID, getLeftGamepad, getScene } from "../pp";
+import { GamepadButtonID, Globals } from "../pp";
 import { ParticlesSpawnerComponent } from "./particles_spawner_component";
 
 export class FunComponent extends Component {
@@ -7,7 +7,7 @@ export class FunComponent extends Component {
     static Properties = {};
 
     start() {
-        this._myParticlesSpawner = getScene(this.engine).pp_getComponent(ParticlesSpawnerComponent);
+        this._myParticlesSpawner = Globals.getScene(this.engine).pp_getComponent(ParticlesSpawnerComponent);
     }
 
     update(dt) {
@@ -15,7 +15,7 @@ export class FunComponent extends Component {
     }
 
     _fun() {
-        if (getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressed()) {
+        if (Globals.getLeftGamepad(this.engine).getButtonInfo(GamepadButtonID.SELECT).isPressed()) {
             this._myParticlesSpawner.spawn(this.object.pp_getPosition());
         }
     }

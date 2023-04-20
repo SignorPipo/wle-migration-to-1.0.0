@@ -6,7 +6,7 @@ visualParams.mySegmentThickness = 0.05;
 visualParams.myTransform.mat4_copy(transform);
 visualParams.myMaterial = myDefaultResources.myMaterials.myFlatOpaque.clone();
 visualParams.myMaterial.color = vec4_create(1, 1, 1, 1);
-getVisualManager().draw(visualParams);
+Globals.getVisualManager().draw(visualParams);
 
 or
 
@@ -14,16 +14,13 @@ let visualTorus = new VisualTorus(visualParams);
 */
 
 import { mat4_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getDefaultMaterials } from "../../../pp/default_resources_globals";
-import { getSceneObjects } from "../../../pp/scene_objects_globals";
-import { getMainEngine } from "../../wl/engine_globals";
-import { getVisualResources } from "../visual_globals";
+import { Globals } from "../../../pp/globals";
 import { VisualElementType } from "./visual_element_types";
 import { VisualLine, VisualLineParams } from "./visual_line";
 
 export class VisualTorusParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myTransform = mat4_create();
         this.myRadius = 0;
 
@@ -35,7 +32,7 @@ export class VisualTorusParams {
         this.myMaterial = null;     // null means it will default on myDefaultResources.myMaterials.myFlatOpaque
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
-        this.myParent = getSceneObjects(engine).myVisualElements;
+        this.myParent = Globals.getSceneObjects(engine).myVisualElements;
         this.myIsLocal = false;
 
         this.myType = VisualElementType.TORUS;
@@ -137,7 +134,7 @@ export class VisualTorus {
     }
 
     _build() {
-        this._myTorusParentObject = getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
+        this._myTorusParentObject = Globals.getSceneObjects(this._myParams.myParent.pp_getEngine()).myVisualElements.pp_addObject();
 
         this._fillSegmentList();
     }
@@ -232,10 +229,10 @@ VisualTorus.prototype._refresh = function () {
 
             if (this._myParams.myMaterial == null) {
                 if (this._myParams.myColor == null) {
-                    visualSegmentParams.myMaterial = getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
+                    visualSegmentParams.myMaterial = Globals.getVisualResources(this._myParams.myParent.pp_getEngine()).myDefaultMaterials.myMesh;
                 } else {
                     if (this._myFlatOpaqueMaterial == null) {
-                        this._myFlatOpaqueMaterial = getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myFlatOpaque.clone();
+                        this._myFlatOpaqueMaterial = Globals.getDefaultMaterials(this._myParams.myParent.pp_getEngine()).myFlatOpaque.clone();
                     }
                     visualSegmentParams.myMaterial = this._myFlatOpaqueMaterial;
                     this._myFlatOpaqueMaterial.color = this._myParams.myColor;

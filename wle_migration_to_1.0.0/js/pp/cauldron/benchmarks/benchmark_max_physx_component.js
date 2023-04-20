@@ -1,11 +1,10 @@
 import { Component, PhysXComponent, Property } from "@wonderlandengine/api";
-import { getDebugVisualManager } from "../../debug/debug_globals";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
+import { Globals } from "../../pp/globals";
 import { Timer } from "../cauldron/timer";
 import { PhysicsCollisionCollector } from "../physics/physics_collision_collector";
 import { RaycastParams, RaycastResults } from "../physics/physics_raycast_data";
 import { PhysicsUtils } from "../physics/physics_utils";
-import { getPhysics } from "../wl/engine_globals";
 
 // Adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away
 export class BenchmarkMaxPhysXComponent extends Component {
@@ -39,7 +38,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
     _start() {
         this._myParentObject = this.object.pp_addObject();
 
-        this._myRaycastParams = new RaycastParams(getPhysics(this.engine));
+        this._myRaycastParams = new RaycastParams(Globals.getPhysics(this.engine));
         this._myRaycastResults = new RaycastResults();
 
         this._myStaticPhysXObjects = [];
@@ -183,7 +182,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
             let raycastResults = PhysicsUtils.raycast(this._myRaycastParams, this._myRaycastResults);
 
             if (debugActive) {
-                getDebugVisualManager(this.engine).drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
+                Globals.getDebugVisualManager(this.engine).drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
             }
         }
     }

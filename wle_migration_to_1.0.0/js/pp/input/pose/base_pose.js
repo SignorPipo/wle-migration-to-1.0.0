@@ -1,11 +1,11 @@
 import { Emitter } from "@wonderlandengine/api";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
 import { mat4_create, quat2_create, quat_create, vec3_create } from "../../plugin/js/extensions/array_extension";
+import { Globals } from "../../pp/globals";
 
 export class BasePoseParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myReferenceObject = null;
         this.myFixForward = true;
         this.myForceEmulatedVelocities = false;

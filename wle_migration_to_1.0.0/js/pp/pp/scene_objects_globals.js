@@ -1,25 +1,25 @@
-import { getMainEngine } from "../cauldron/wl/engine_globals";
+import { Globals } from "./globals";
 
 let _mySceneObjectsContainer = new WeakMap();
 
-export function getSceneObjects(engine = getMainEngine()) {
+export function getSceneObjects(engine = Globals.getMainEngine()) {
     return _mySceneObjectsContainer.get(engine);
 }
 
-export function setSceneObjects(sceneObjects, engine = getMainEngine()) {
+export function setSceneObjects(sceneObjects, engine = Globals.getMainEngine()) {
     _mySceneObjectsContainer.set(engine, sceneObjects);
 }
 
-export function removeSceneObjects(engine = getMainEngine()) {
+export function removeSceneObjects(engine = Globals.getMainEngine()) {
     _mySceneObjectsContainer.delete(engine);
 }
 
-export function hasSceneObjects(engine = getMainEngine()) {
+export function hasSceneObjects(engine = Globals.getMainEngine()) {
     return _mySceneObjectsContainer.has(engine);
 }
 
-export function getPlayerObjects(engine = getMainEngine()) {
-    let sceneObjects = getSceneObjects(engine);
+export function getPlayerObjects(engine = Globals.getMainEngine()) {
+    let sceneObjects = Globals.getSceneObjects(engine);
 
     if (sceneObjects != null) {
         return sceneObjects.myPlayerObjects;

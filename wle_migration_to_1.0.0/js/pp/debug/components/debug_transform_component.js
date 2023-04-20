@@ -1,6 +1,6 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { VisualTransform, VisualTransformParams } from "../../cauldron/visual/elements/visual_transform";
-import { isDebugEnabled } from "../debug_globals";
+import { Globals } from "../../pp/globals";
 
 export class DebugTransformComponent extends Component {
     static TypeName = "pp-debug-transform";
@@ -12,7 +12,7 @@ export class DebugTransformComponent extends Component {
     start() {
         this._myDebugVisualTransform = null;
 
-        if (isDebugEnabled(this.engine)) {
+        if (Globals.isDebugEnabled(this.engine)) {
             this._myDebugTransformParams = new VisualTransformParams(this.engine);
             this._myDebugTransformParams.myLength = this._myLength;
             this._myDebugTransformParams.myThickness = this._myThickness;
@@ -22,7 +22,7 @@ export class DebugTransformComponent extends Component {
     }
 
     update(dt) {
-        if (isDebugEnabled(this.engine)) {
+        if (Globals.isDebugEnabled(this.engine)) {
             if (this._myDebugVisualTransform != null) {
                 this.object.pp_getTransform(this._myDebugTransformParams.myTransform);
                 this._myDebugVisualTransform.paramsUpdated();

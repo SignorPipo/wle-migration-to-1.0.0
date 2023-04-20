@@ -1,12 +1,12 @@
 import { Emitter } from "@wonderlandengine/api";
+import { Globals } from "../../pp/globals";
 import { SaveUtils } from "../utils/save_utils";
 import { XRUtils } from "../utils/xr_utils";
-import { getMainEngine } from "../wl/engine_globals";
 import { Timer } from "./timer";
 
 export class SaveManager {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myEngine = engine;
 
         this._mySaveCache = new Map();

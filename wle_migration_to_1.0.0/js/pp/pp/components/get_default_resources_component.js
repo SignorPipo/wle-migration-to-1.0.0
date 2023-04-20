@@ -1,7 +1,7 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { MeshUtils } from "../../cauldron/utils/mesh_utils";
 import { DefaultResources } from "../default_resources";
-import { getDefaultResources, hasDefaultResources, removeDefaultResources, setDefaultResources } from "../default_resources_globals";
+import { Globals } from "../globals";
 
 export class GetDefaultResourcesComponent extends Component {
     static TypeName = "pp-get-default-resources";
@@ -23,7 +23,7 @@ export class GetDefaultResourcesComponent extends Component {
         this._myDefaultResources = null;
 
         // Prevents double global from same engine
-        if (!hasDefaultResources(this.engine)) {
+        if (!Globals.hasDefaultResources(this.engine)) {
             this._myDefaultResources = new DefaultResources();
             this._myDefaultResources.myMeshes.myPlane = MeshUtils.cloneMesh(this._myPlane);
             this._myDefaultResources.myMeshes.myCube = MeshUtils.cloneMesh(this._myCube);
@@ -53,13 +53,13 @@ export class GetDefaultResourcesComponent extends Component {
                 this._myDefaultResources.myMaterials.myText = this._myText.clone();
             }
 
-            setDefaultResources(this._myDefaultResources, this.engine);
+            Globals.setDefaultResources(this._myDefaultResources, this.engine);
         }
     }
 
     onDestroy() {
-        if (this._myDefaultResources != null && getDefaultResources(this.engine) == this._myDefaultResources) {
-            removeDefaultResources(this.engine);
+        if (this._myDefaultResources != null && Globals.getDefaultResources(this.engine) == this._myDefaultResources) {
+            Globals.removeDefaultResources(this.engine);
         }
     }
 }

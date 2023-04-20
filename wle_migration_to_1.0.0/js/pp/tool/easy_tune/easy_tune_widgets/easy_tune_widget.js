@@ -1,5 +1,5 @@
-import { getLeftGamepad, getRightGamepad } from "../../../input/cauldron/input_globals";
 import { GamepadAxesID, GamepadButtonID } from "../../../input/gamepad/gamepad_buttons";
+import { Globals } from "../../../pp/globals";
 import { ToolHandedness } from "../../cauldron/tool_types";
 import { WidgetFrame, WidgetParams } from "../../widget_frame/widget_frame";
 import { EasyTuneVariableType } from "../easy_tune_variable_types";
@@ -28,7 +28,7 @@ export class EasyTuneWidgetParams extends WidgetParams {
 
 export class EasyTuneWidget {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myIsStarted = false;
         this._myStartVariable = null;
 
@@ -84,8 +84,8 @@ export class EasyTuneWidget {
     }
 
     start(parentObject, params, easyTuneVariables) {
-        this._myRightGamepad = getRightGamepad(this._myEngine);
-        this._myLeftGamepad = getLeftGamepad(this._myEngine);
+        this._myRightGamepad = Globals.getRightGamepad(this._myEngine);
+        this._myLeftGamepad = Globals.getLeftGamepad(this._myEngine);
         if (this._myConfig.myGamepadHandedness == ToolHandedness.RIGHT) {
             this._myGamepad = this._myRightGamepad;
         } else if (this._myConfig.myGamepadHandedness == ToolHandedness.LEFT) {

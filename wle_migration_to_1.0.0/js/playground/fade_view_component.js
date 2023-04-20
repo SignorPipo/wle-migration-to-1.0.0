@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { EasingFunction, Timer, VisualMesh, VisualMeshParams, getDefaultMaterials, getDefaultMeshes, getPlayerObjects, vec3_create, vec4_create } from "../pp";
+import { EasingFunction, Globals, Timer, VisualMesh, VisualMeshParams, vec3_create, vec4_create } from "../pp";
 
 export class FadeViewComponent extends Component {
     static TypeName = "fade-view";
@@ -19,20 +19,20 @@ export class FadeViewComponent extends Component {
         this._myColorVector[1] = parseInt(colorRGB[1]) / 255;
         this._myColorVector[2] = parseInt(colorRGB[2]) / 255;
 
-        this._myFadeMaterial = getDefaultMaterials(this.engine).myFlatTransparentNoDepth.clone();
+        this._myFadeMaterial = Globals.getDefaultMaterials(this.engine).myFlatTransparentNoDepth.clone();
         this._myFadeMaterial.color = this._myColorVector;
 
         this._myFadeParentObject = this.object.pp_addObject();
 
         let fadeVisualParams = new VisualMeshParams(this.engine);
-        fadeVisualParams.myMesh = getDefaultMeshes(this.engine).myInvertedSphere;
+        fadeVisualParams.myMesh = Globals.getDefaultMeshes(this.engine).myInvertedSphere;
         fadeVisualParams.myMaterial = this._myFadeMaterial;
         fadeVisualParams.myParent = this._myFadeParentObject;
         fadeVisualParams.myIsLocal = true;
         fadeVisualParams.myTransform.mat4_setScale(vec3_create(0.1, 0.1, 0.1));
         this._myFadeVisual = new VisualMesh(fadeVisualParams);
 
-        this._myFadeParentObject.pp_setParent(getPlayerObjects(this.engine).myHead, false);
+        this._myFadeParentObject.pp_setParent(Globals.getPlayerObjects(this.engine).myHead, false);
         this._myFadeParentObject.pp_resetTransformLocal();
     }
 

@@ -1,6 +1,6 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { CloneUtils } from "../../../../cauldron/utils/clone_utils";
-import { isToolEnabled } from "../../../cauldron/tool_globals";
+import { Globals } from "../../../../pp/globals";
 import { EasyTransform } from "../easy_transform";
 
 export class EasyTransformComponent extends Component {
@@ -16,13 +16,13 @@ export class EasyTransformComponent extends Component {
     init() {
         this._myEasyObjectTuner = null;
 
-        if (isToolEnabled(this.engine)) {
+        if (Globals.isToolEnabled(this.engine)) {
             this._myEasyObjectTuner = new EasyTransform(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
         }
     }
 
     start() {
-        if (isToolEnabled(this.engine)) {
+        if (Globals.isToolEnabled(this.engine)) {
             if (this._myEasyObjectTuner != null) {
                 this._myEasyObjectTuner.start();
             }
@@ -30,7 +30,7 @@ export class EasyTransformComponent extends Component {
     }
 
     update(dt) {
-        if (isToolEnabled(this.engine)) {
+        if (Globals.isToolEnabled(this.engine)) {
             if (this._myEasyObjectTuner != null) {
                 this._myEasyObjectTuner.update(dt);
             }

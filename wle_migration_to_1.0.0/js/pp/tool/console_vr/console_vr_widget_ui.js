@@ -1,14 +1,13 @@
 import { CollisionComponent, MeshComponent, TextComponent } from "@wonderlandengine/api";
 import { CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
-import { getDefaultMeshes } from "../../pp/default_resources_globals";
+import { Globals } from "../../pp/globals";
 import { ToolHandedness } from "../cauldron/tool_types";
 import { ConsoleVRWidgetMessageType } from "./console_vr_types";
 
 export class ConsoleVRWidgetUI {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myEngine = engine;
     }
 
@@ -17,7 +16,7 @@ export class ConsoleVRWidgetUI {
         this._myConfig = config;
         this._myParams = params;
 
-        this._myPlaneMesh = getDefaultMeshes(this._myEngine).myPlane;
+        this._myPlaneMesh = Globals.getDefaultMeshes(this._myEngine).myPlane;
 
         this._createSkeleton();
         this._setTransforms();

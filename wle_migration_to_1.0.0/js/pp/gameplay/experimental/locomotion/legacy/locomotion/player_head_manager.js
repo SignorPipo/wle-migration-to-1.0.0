@@ -1,13 +1,11 @@
 import { Timer } from "../../../../../cauldron/cauldron/timer";
 import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
-import { getDebugVisualManager } from "../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
-import { getPlayerObjects } from "../../../../../pp/scene_objects_globals";
+import { Globals } from "../../../../../pp/globals";
 
 export class PlayerHeadManagerParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.mySessionChangeResyncEnabled = false;
 
         this.myBlurEndResyncEnabled = false;
@@ -49,7 +47,7 @@ export class PlayerHeadManager {
     constructor(params = new PlayerHeadManagerParams()) {
         this._myParams = params;
 
-        this._myCurrentHead = getPlayerObjects(this._myParams.myEngine).myHead;
+        this._myCurrentHead = Globals.getPlayerObjects(this._myParams.myEngine).myHead;
 
         this._mySessionChangeResyncHeadTransform = null;
         this._myBlurRecoverHeadTransform = null;
@@ -92,7 +90,7 @@ export class PlayerHeadManager {
     }
 
     getPlayer() {
-        return getPlayerObjects(this._myParams.myEngine).myPlayer;
+        return Globals.getPlayerObjects(this._myParams.myEngine).myPlayer;
     }
 
     getHead() {
@@ -261,7 +259,7 @@ export class PlayerHeadManager {
     }
 
     _debugUpdate(dt) {
-        getDebugVisualManager(this._myParams.myEngine).drawLineEnd(0, this.getPositionFeet(), this.getPositionHead(), vec4_create(1, 0, 0, 1), 0.01);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawLineEnd(0, this.getPositionFeet(), this.getPositionHead(), vec4_create(1, 0, 0, 1), 0.01);
 
         console.error(this.getHeightEyes());
     }
@@ -294,7 +292,7 @@ PlayerHeadManager.prototype.getRotationFeetQuat = function () {
     let playerUp = vec3_create();
     let headForward = vec3_create();
     return function getRotationFeetQuat(outRotationFeetQuat = quat_create()) {
-        playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+        playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
         headForward = this._myCurrentHead.pp_getForward(headForward);
 
         // Feet are considered to always be flat on the player up
@@ -321,7 +319,7 @@ PlayerHeadManager.prototype.getPositionFeet = function () {
         headPosition = this._myCurrentHead.pp_getPosition(headPosition);
         let headHeight = this._getPositionHeight(headPosition);
 
-        playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+        playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
         outPositionFeet = headPosition.vec3_sub(playerUp.vec3_scale(headHeight, outPositionFeet), outPositionFeet);
 
         return outPositionFeet;
@@ -329,7 +327,7 @@ PlayerHeadManager.prototype.getPositionFeet = function () {
 }();
 
 PlayerHeadManager.prototype.moveFeet = function moveFeet(movement) {
-    getPlayerObjects(this._myParams.myEngine).myPlayer.pp_translate(movement);
+    Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_translate(movement);
 };
 
 PlayerHeadManager.prototype.rotateFeetQuat = function () {
@@ -350,7 +348,7 @@ PlayerHeadManager.prototype.rotateFeetQuat = function () {
         }
 
         currentHeadPosition = this._myCurrentHead.pp_getPosition(currentHeadPosition);
-        playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+        playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
         rotationAxis = rotationQuat.quat_getAxis(rotationAxis);
 
         if (!rotationAxis.vec3_isOnAxis(playerUp) &&
@@ -368,7 +366,7 @@ PlayerHeadManager.prototype.rotateFeetQuat = function () {
             fixedRotation.quat_copy(rotationQuat);
         }
 
-        getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateAroundQuat(fixedRotation, currentHeadPosition);
+        Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateAroundQuat(fixedRotation, currentHeadPosition);
 
         newHeadPosition = this._myCurrentHead.pp_getPosition(newHeadPosition);
 
@@ -387,10 +385,10 @@ PlayerHeadManager.prototype.rotateHeadQuat = function () {
             this._myCurrentHead.pp_rotateQuat(rotationQuat);
             newHeadRotation = this._myCurrentHead.pp_getRotationQuat(newHeadRotation);
 
-            getPlayerObjects(this._myParams.myEngine).myHead.pp_setRotationQuat(newHeadRotation);
+            Globals.getPlayerObjects(this._myParams.myEngine).myHead.pp_setRotationQuat(newHeadRotation);
 
             newHeadRotation = newHeadRotation.quat_rotateAxisRadians(Math.PI, newHeadRotation.quat_getUp(newHeadUp), newHeadRotation);
-            getPlayerObjects(this._myParams.myEngine).myCameraNonXR.pp_setRotationQuat(newHeadRotation);
+            Globals.getPlayerObjects(this._myParams.myEngine).myCameraNonXR.pp_setRotationQuat(newHeadRotation);
         }
     };
 }();
@@ -448,20 +446,20 @@ PlayerHeadManager.prototype.teleportPlayerToHeadTransformQuat = function () {
     return function teleportPlayerToHeadTransformQuat(headTransformQuat) {
         headPosition = headTransformQuat.quat2_getPosition(headPosition);
 
-        playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
-        flatCurrentPlayerPosition = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getPosition(flatCurrentPlayerPosition).vec3_removeComponentAlongAxis(playerUp, flatCurrentPlayerPosition);
+        playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+        flatCurrentPlayerPosition = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getPosition(flatCurrentPlayerPosition).vec3_removeComponentAlongAxis(playerUp, flatCurrentPlayerPosition);
         flatNewPlayerPosition = headPosition.vec3_removeComponentAlongAxis(playerUp, flatNewPlayerPosition);
 
         teleportMovement = flatNewPlayerPosition.vec3_sub(flatCurrentPlayerPosition, teleportMovement);
-        getPlayerObjects(this._myParams.myEngine).myPlayer.pp_translate(teleportMovement);
+        Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_translate(teleportMovement);
 
-        playerForward = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getForward(playerForward);
+        playerForward = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getForward(playerForward);
         headForward = headTransformQuat.quat2_getForward(headForward);
         headForwardNegated = headForward.vec3_negate(headForwardNegated); // The head is rotated 180 degrees from the player for rendering reasons
 
         rotationToPerform = playerForward.vec3_rotationToPivotedQuat(headForwardNegated, playerUp, rotationToPerform);
 
-        getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateQuat(rotationToPerform);
+        Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateQuat(rotationToPerform);
     };
 }();
 
@@ -510,8 +508,8 @@ PlayerHeadManager.prototype._getPositionHeight = function () {
     let playerUp = vec3_create();
     let heightVector = vec3_create();
     return function _getPositionHeight(position) {
-        playerPosition = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getPosition(playerPosition);
-        playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+        playerPosition = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getPosition(playerPosition);
+        playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
 
         heightVector = position.vec3_sub(playerPosition, heightVector).vec3_componentAlongAxis(playerUp, heightVector);
         let height = heightVector.vec3_length();
@@ -682,7 +680,7 @@ PlayerHeadManager.prototype._blurEndResync = function () {
                 this._myBlurRecoverHeadTransform = null;
                 this._sessionChangeResync();
             } else {
-                playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+                playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
 
                 currentHeadPosition = this._myCurrentHead.pp_getPosition(currentHeadPosition);
                 recoverHeadPosition = this._myBlurRecoverHeadTransform.quat2_getPosition(recoverHeadPosition);
@@ -732,7 +730,7 @@ PlayerHeadManager.prototype._sessionChangeResync = function () {
                 resyncHeadPosition = this._mySessionChangeResyncHeadTransform.quat2_getPosition(resyncHeadPosition);
                 resyncHeadRotation = this._mySessionChangeResyncHeadTransform.quat2_getRotationQuat(resyncHeadRotation);
 
-                playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+                playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
 
                 flatCurrentHeadPosition = currentHeadPosition.vec3_removeComponentAlongAxis(playerUp, flatCurrentHeadPosition);
                 flatResyncHeadPosition = resyncHeadPosition.vec3_removeComponentAlongAxis(playerUp, flatResyncHeadPosition);
@@ -768,16 +766,16 @@ PlayerHeadManager.prototype._sessionChangeResync = function () {
 
                 this._resyncHeadRotationForward(resyncHeadRotation);
             } else {
-                playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+                playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
 
                 resyncHeadPosition = this._mySessionChangeResyncHeadTransform.quat2_getPosition(resyncHeadPosition);
                 flatResyncHeadPosition = resyncHeadPosition.vec3_removeComponentAlongAxis(playerUp, flatResyncHeadPosition);
 
-                playerPosition = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getPosition(playerPosition);
+                playerPosition = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getPosition(playerPosition);
                 newPlayerPosition = flatResyncHeadPosition.vec3_add(playerPosition.vec3_componentAlongAxis(playerUp, newPlayerPosition), newPlayerPosition);
 
-                getPlayerObjects(this._myParams.myEngine).myPlayer.pp_setPosition(newPlayerPosition);
-                getPlayerObjects(this._myParams.myEngine).myCameraNonXR.pp_resetPositionLocal();
+                Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_setPosition(newPlayerPosition);
+                Globals.getPlayerObjects(this._myParams.myEngine).myCameraNonXR.pp_resetPositionLocal();
 
                 if (this._myParams.myExitSessionResyncHeight) {
                     let resyncHeadHeight = this._getPositionHeight(resyncHeadPosition);
@@ -854,7 +852,7 @@ PlayerHeadManager.prototype._resyncHeadRotationForward = function () {
     let resyncHeadUp = vec3_create();
     let fixedResyncHeadRotation = quat_create();
     return function _resyncHeadRotationForward(resyncHeadRotation) {
-        playerUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
+        playerUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp(playerUp);
         resyncHeadForward = resyncHeadRotation.quat_getForward(resyncHeadForward);
         resyncHeadUp = resyncHeadRotation.quat_getUp(resyncHeadUp);
         fixedResyncHeadRotation.quat_copy(resyncHeadRotation);
@@ -890,8 +888,8 @@ PlayerHeadManager.prototype._setPlayerPivotHeightOffset = function () {
     let playerPivotPosition = vec3_create();
     return function _setPlayerPivotHeightOffset(offset, amountToRemove) {
         if (offset != null) {
-            playerPivotPosition = getPlayerObjects(this._myParams.myEngine).myPlayerPivot.pp_getPositionLocal(playerPivotPosition);
-            getPlayerObjects(this._myParams.myEngine).myPlayerPivot.pp_setPositionLocal([playerPivotPosition[0], offset - amountToRemove, playerPivotPosition[2]]);
+            playerPivotPosition = Globals.getPlayerObjects(this._myParams.myEngine).myPlayerPivot.pp_getPositionLocal(playerPivotPosition);
+            Globals.getPlayerObjects(this._myParams.myEngine).myPlayerPivot.pp_setPositionLocal([playerPivotPosition[0], offset - amountToRemove, playerPivotPosition[2]]);
         }
     }
 }();

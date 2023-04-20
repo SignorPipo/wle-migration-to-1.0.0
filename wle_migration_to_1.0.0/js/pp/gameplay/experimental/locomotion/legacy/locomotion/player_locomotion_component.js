@@ -1,17 +1,18 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { PhysicsLayerFlags } from "../../../../../cauldron/physics/physics_layer_flags";
 import { InputUtils } from "../../../../../input/cauldron/input_utils";
+import { Globals } from "../../../../../pp/globals";
 import { CollisionCheck } from "../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CleanedPlayerLocomotion } from "./cleaned/player_locomotion_cleaned";
 import { PlayerLocomotion, PlayerLocomotionParams } from "./player_locomotion";
 
 let _myCollisionChecks = new WeakMap();
 
-export function getCollisionCheck(engine = getMainEngine()) {
+export function getCollisionCheck(engine = Globals.getMainEngine()) {
     return _myCollisionChecks.get(engine);
 }
 
-export function setCollisionCheck(collisionCheck, engine = getMainEngine()) {
+export function setCollisionCheck(collisionCheck, engine = Globals.getMainEngine()) {
     _myCollisionChecks.set(engine, collisionCheck);
 }
 

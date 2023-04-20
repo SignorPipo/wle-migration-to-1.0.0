@@ -1,10 +1,9 @@
 import { Timer } from "../../../../../../cauldron/cauldron/timer";
 import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
-import { getGamepads } from "../../../../../../input/cauldron/input_globals";
 import { InputUtils } from "../../../../../../input/cauldron/input_utils";
 import { GamepadAxesID, GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
 import { quat2_create, vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
-import { getPlayerObjects } from "../../../../../../pp/scene_objects_globals";
+import { Globals } from "../../../../../../pp/globals";
 import { Direction2DTo3DConverter, Direction2DTo3DConverterParams } from "../../../../../cauldron/cauldron/direction_2D_to_3D_converter";
 import { PlayerLocomotionMovement } from "../player_locomotion_movement";
 
@@ -15,7 +14,7 @@ export class CleanedPlayerLocomotionSmooth extends PlayerLocomotionMovement {
 
         this._myParams = params;
 
-        this._myDirectionReference = getPlayerObjects(this._myParams.myEngine).myHead;
+        this._myDirectionReference = Globals.getPlayerObjects(this._myParams.myEngine).myHead;
 
         this._myStickIdleTimer = new Timer(0.25, false);
 
@@ -67,7 +66,7 @@ CleanedPlayerLocomotionSmooth.prototype.update = function () {
 
         headMovement.vec3_zero();
 
-        let axes = getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
+        let axes = Globals.getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getAxesInfo(GamepadAxesID.THUMBSTICK).getAxes();
         axes[0] = Math.abs(axes[0]) > this._myParams.myMovementMinStickIntensityThreshold ? axes[0] : 0;
         axes[1] = Math.abs(axes[1]) > this._myParams.myMovementMinStickIntensityThreshold ? axes[1] : 0;
 
@@ -100,24 +99,24 @@ CleanedPlayerLocomotionSmooth.prototype.update = function () {
         }
 
         if (this._myParams.myFlyEnabled) {
-            if (getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.TOP_BUTTON).isPressed()) {
+            if (Globals.getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.TOP_BUTTON).isPressed()) {
                 verticalMovement = playerUp.vec3_scale(this._myParams.myMaxSpeed * dt, verticalMovement);
                 headMovement = headMovement.vec3_add(verticalMovement, headMovement);
                 this._myLocomotionRuntimeParams.myIsFlying = true;
-            } else if (getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.BOTTOM_BUTTON).isPressed()) {
+            } else if (Globals.getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.BOTTOM_BUTTON).isPressed()) {
                 verticalMovement = playerUp.vec3_scale(-this._myParams.myMaxSpeed * dt, verticalMovement);
                 headMovement = headMovement.vec3_add(verticalMovement, headMovement);
                 this._myLocomotionRuntimeParams.myIsFlying = true;
             }
 
-            if (getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.BOTTOM_BUTTON).isPressEnd(2)) {
+            if (Globals.getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.BOTTOM_BUTTON).isPressEnd(2)) {
                 this._myLocomotionRuntimeParams.myIsFlying = false;
             }
         }
 
-        if (this._myParams.myMoveHeadShortcutEnabled && getGamepads(this._myParams.myEngine)[InputUtils.getOppositeHandedness(this._myParams.myHandedness)].getButtonInfo(GamepadButtonID.THUMBSTICK).isPressed()) {
+        if (this._myParams.myMoveHeadShortcutEnabled && Globals.getGamepads(this._myParams.myEngine)[InputUtils.getOppositeHandedness(this._myParams.myHandedness)].getButtonInfo(GamepadButtonID.THUMBSTICK).isPressed()) {
             this._myParams.myPlayerTransformManager.getPlayerHeadManager().moveFeet(headMovement);
-        } else if (this._myParams.myMoveThroughCollisionShortcutEnabled && getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.THUMBSTICK).isPressed()) {
+        } else if (this._myParams.myMoveThroughCollisionShortcutEnabled && Globals.getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.THUMBSTICK).isPressed()) {
             this._myParams.myPlayerTransformManager.move(headMovement, this._myLocomotionRuntimeParams.myCollisionRuntimeParams, true);
             if (horizontalMovement) {
                 this._myParams.myPlayerTransformManager.resetReal(true, false, false);
@@ -130,7 +129,7 @@ CleanedPlayerLocomotionSmooth.prototype.update = function () {
                 headMovement = headMovement.vec3_add(verticalMovement, headMovement);
             }
 
-            if (getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.SQUEEZE).isPressed()) {
+            if (Globals.getGamepads(this._myParams.myEngine)[this._myParams.myHandedness].getButtonInfo(GamepadButtonID.SQUEEZE).isPressed()) {
                 //headMovement.vec3_zero();
             }
 
@@ -159,10 +158,10 @@ CleanedPlayerLocomotionSmooth.prototype._onXRSessionStart = function () {
     return function _onXRSessionStart(session) {
         switch (this._myParams.myVRDirectionReferenceType) {
             case 0:
-                this._myDirectionReference = getPlayerObjects(this._myParams.myEngine).myHead;
+                this._myDirectionReference = Globals.getPlayerObjects(this._myParams.myEngine).myHead;
                 break;
             case 1:
-                this._myDirectionReference = getPlayerObjects(this._myParams.myEngine).myHands[this._myParams.myHandedness];
+                this._myDirectionReference = Globals.getPlayerObjects(this._myParams.myEngine).myHands[this._myParams.myHandedness];
                 break;
             case 2:
                 this._myDirectionReference = this._myParams.myVRDirectionReferenceObject;
@@ -177,7 +176,7 @@ CleanedPlayerLocomotionSmooth.prototype._onXRSessionStart = function () {
 CleanedPlayerLocomotionSmooth.prototype._onXRSessionEnd = function () {
     let playerUp = vec3_create();
     return function _onXRSessionEnd(session) {
-        this._myDirectionReference = getPlayerObjects(this._myParams.myEngine).myHead;
+        this._myDirectionReference = Globals.getPlayerObjects(this._myParams.myEngine).myHead;
         this._myCurrentDirectionConverter = this._myDirectionConverterNonVR;
 
         this._myCurrentDirectionConverter.resetFly();

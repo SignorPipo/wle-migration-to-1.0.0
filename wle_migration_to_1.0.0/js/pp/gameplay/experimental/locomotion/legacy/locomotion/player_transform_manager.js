@@ -1,8 +1,7 @@
 import { PhysicsLayerFlags } from "../../../../../cauldron/physics/physics_layer_flags";
 import { XRUtils } from "../../../../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
-import { getDebugVisualManager } from "../../../../../debug/debug_globals";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
+import { Globals } from "../../../../../pp/globals";
 import { CollisionCheckUtils } from "../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../character_controller/collision/legacy/collision_check/collision_params";
 import { getCollisionCheck } from "./player_locomotion_component";
@@ -16,7 +15,7 @@ export let PlayerTransformManagerSyncFlag = {
 
 export class PlayerTransformManagerParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myPlayerHeadManager = null;
 
         this.myMovementCollisionCheckParams = null;
@@ -555,11 +554,11 @@ export class PlayerTransformManager {
     }
 
     _debugUpdate(dt) {
-        getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPosition, vec4_create(1, 0, 0, 1), 0.05);
-        getDebugVisualManager(this._myParams.myEngine).drawLineEnd(0, this._myValidPosition, this.getPositionReal(), vec4_create(1, 0, 0, 1), 0.05);
-        getDebugVisualManager(this._myParams.myEngine).drawLine(0, this._myValidPosition, this._myValidRotationQuat.quat_getForward(), 0.15, vec4_create(0, 1, 0, 1), 0.025);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPosition, vec4_create(1, 0, 0, 1), 0.05);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawLineEnd(0, this._myValidPosition, this.getPositionReal(), vec4_create(1, 0, 0, 1), 0.05);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawLine(0, this._myValidPosition, this._myValidRotationQuat.quat_getForward(), 0.15, vec4_create(0, 1, 0, 1), 0.025);
 
-        getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPositionHead, vec4_create(1, 1, 0, 1), 0.05);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPositionHead, vec4_create(1, 1, 0, 1), 0.05);
     }
 }
 

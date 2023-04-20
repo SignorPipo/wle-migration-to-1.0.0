@@ -1,25 +1,25 @@
-import { getMainEngine, getXR } from "../wl/engine_globals";
+import { Globals } from "../../pp/globals";
 
-export function getSession(engine = getMainEngine()) {
-    let xr = getXR(engine);
+export function getSession(engine = Globals.getMainEngine()) {
+    let xr = Globals.getXR(engine);
     return xr != null ? xr.session : null;
 }
 
-export function getSessionMode(engine = getMainEngine()) {
-    let xr = getXR(engine);
+export function getSessionMode(engine = Globals.getMainEngine()) {
+    let xr = Globals.getXR(engine);
     return xr != null ? xr.sessionMode : null;
 }
 
-export function getReferenceSpace(engine = getMainEngine()) {
-    let xr = getXR(engine);
+export function getReferenceSpace(engine = Globals.getMainEngine()) {
+    let xr = Globals.getXR(engine);
     return xr != null ? xr.currentReferenceSpace : null;
 }
 
-export function getReferenceSpaceType(engine = getMainEngine()) {
+export function getReferenceSpaceType(engine = Globals.getMainEngine()) {
     let type = "local";
 
     try {
-        let xr = getXR(engine);
+        let xr = Globals.getXR(engine);
         type = xr != null ? xr.currentReferenceSpaceType : null;
     } catch (error) {
 
@@ -28,20 +28,20 @@ export function getReferenceSpaceType(engine = getMainEngine()) {
     return type;
 }
 
-export function getFrame(engine = getMainEngine()) {
-    let xr = getXR(engine);
+export function getFrame(engine = Globals.getMainEngine()) {
+    let xr = Globals.getXR(engine);
     return xr != null ? xr.frame : null;
 }
 
-export function isSessionActive(engine = getMainEngine()) {
+export function isSessionActive(engine = Globals.getMainEngine()) {
     return getSession(engine) != null;
 }
 
-export function isReferenceSpaceFloorBased(engine = getMainEngine()) {
+export function isReferenceSpaceFloorBased(engine = Globals.getMainEngine()) {
     return getReferenceSpaceType(engine).includes("floor");
 }
 
-export function registerSessionStartEventListener(id, listener, manuallyCallSessionStartIfSessionAlreadyActive = false, addManualCallFlagToStartListener = false, engine = getMainEngine()) {
+export function registerSessionStartEventListener(id, listener, manuallyCallSessionStartIfSessionAlreadyActive = false, addManualCallFlagToStartListener = false, engine = Globals.getMainEngine()) {
     if (listener != null) {
         if (manuallyCallSessionStartIfSessionAlreadyActive && isSessionActive(engine)) {
             if (addManualCallFlagToStartListener) {
@@ -59,35 +59,35 @@ export function registerSessionStartEventListener(id, listener, manuallyCallSess
     }
 }
 
-export function unregisterSessionStartEventListener(id, engine = getMainEngine()) {
+export function unregisterSessionStartEventListener(id, engine = Globals.getMainEngine()) {
     engine.onXRSessionStart.remove(id);
 }
 
-export function registerSessionEndEventListener(id, listener, engine = getMainEngine()) {
+export function registerSessionEndEventListener(id, listener, engine = Globals.getMainEngine()) {
     if (listener != null) {
         engine.onXRSessionEnd.add(listener, { id: id });
     }
 }
 
-export function unregisterSessionEndEventListener(id, engine = getMainEngine()) {
+export function unregisterSessionEndEventListener(id, engine = Globals.getMainEngine()) {
     return engine.onXRSessionEnd.remove(id);
 }
 
-export function registerSessionStartEndEventListeners(id, startListener, endListener, manuallyCallSessionStartIfSessionAlreadyActive = false, addManualCallFlagToStartListener = false, engine = getMainEngine()) {
+export function registerSessionStartEndEventListeners(id, startListener, endListener, manuallyCallSessionStartIfSessionAlreadyActive = false, addManualCallFlagToStartListener = false, engine = Globals.getMainEngine()) {
     registerSessionStartEventListener(id, startListener, manuallyCallSessionStartIfSessionAlreadyActive, addManualCallFlagToStartListener, engine);
     registerSessionEndEventListener(id, endListener, engine);
 }
 
-export function unregisterSessionStartEndEventListeners(id, engine = getMainEngine()) {
+export function unregisterSessionStartEndEventListeners(id, engine = Globals.getMainEngine()) {
     unregisterSessionStartEventListener(id, engine);
     unregisterSessionEndEventListener(id, engine);
 }
 
-export function isVRSupported(engine = getMainEngine()) {
+export function isVRSupported(engine = Globals.getMainEngine()) {
     return engine.vrSupported;
 }
 
-export function isARSupported(engine = getMainEngine()) {
+export function isARSupported(engine = Globals.getMainEngine()) {
     return engine.arSupported;
 }
 

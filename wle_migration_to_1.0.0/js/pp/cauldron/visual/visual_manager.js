@@ -1,7 +1,7 @@
+import { Globals } from "../../pp/globals";
 import { ObjectPoolParams } from "../cauldron/object_pool";
 import { ObjectPoolsManager } from "../cauldron/object_pools_manager";
 import { Timer } from "../cauldron/timer";
-import { getMainEngine } from "../wl/engine_globals";
 import { VisualArrow, VisualArrowParams } from "./elements/visual_arrow";
 import { VisualElementType } from "./elements/visual_element_types";
 import { VisualLine, VisualLineParams } from "./elements/visual_line";
@@ -14,7 +14,7 @@ import { VisualTransform, VisualTransformParams } from "./elements/visual_transf
 
 export class VisualManager {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myEngine = engine;
 
         this._myVisualElementPrototypeCreationCallbacks = new Map();

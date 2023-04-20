@@ -1,12 +1,11 @@
 import { Component, Emitter, PhysXComponent, Property } from "@wonderlandengine/api";
 import { PhysicsCollisionCollector } from "../../cauldron/physics/physics_collision_collector";
-import { getDebugVisualManager } from "../../debug/debug_globals";
-import { getLeftGamepad, getRightGamepad } from "../../input/cauldron/input_globals";
 import { HandednessIndex } from "../../input/cauldron/input_types";
 import { InputUtils } from "../../input/cauldron/input_utils";
 import { GamepadButtonEvent, GamepadButtonID } from "../../input/gamepad/gamepad_buttons";
 import { vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../plugin/js/extensions/math_extension";
+import { Globals } from "../../pp/globals";
 import { GrabbableComponent } from "./grabbable_component";
 
 export class GrabberHandComponent extends Component {
@@ -57,9 +56,9 @@ export class GrabberHandComponent extends Component {
 
     start() {
         if (this._myHandedness == HandednessIndex.LEFT) {
-            this._myGamepad = getLeftGamepad(this.engine);
+            this._myGamepad = Globals.getLeftGamepad(this.engine);
         } else {
-            this._myGamepad = getRightGamepad(this.engine);
+            this._myGamepad = Globals.getRightGamepad(this.engine);
         }
 
         this._myPhysX = this.object.pp_getComponent(PhysXComponent);
@@ -338,7 +337,7 @@ export class GrabberHandComponent extends Component {
 
             let color = 1 / j;
 
-            getDebugVisualManager(this.engine).drawLine(5, this.object.pp_getPosition(), direction, 0.2, vec4_create(olor, color, color, 1));
+            Globals.getDebugVisualManager(this.engine).drawLine(5, this.object.pp_getPosition(), direction, 0.2, vec4_create(olor, color, color, 1));
         }
     }
 

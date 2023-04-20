@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { getLeftGamepad, getRightGamepad } from "../../cauldron/input_globals";
+import { Globals } from "../../../pp/globals";
 import { Handedness } from "../../cauldron/input_types";
 import { GamepadButtonID } from "../gamepad_buttons";
 import { VirtualGamepadGamepadCore } from "../gamepad_cores/virtual_gamepad_gamepad_core";
@@ -134,11 +134,11 @@ export class VirtualGamepadComponent extends Component {
             this._myFirstUpdate = false;
 
             if (this._myAddToUniversalGamepad) {
-                let leftVirtualGamepadGamepadCore = new VirtualGamepadGamepadCore(this._myVirtualGamepad, getLeftGamepad(this.engine).getGamepadCore("pp_left_xr_gamepad").getHandPose());
-                let rightVirtualGamepadGamepadCore = new VirtualGamepadGamepadCore(this._myVirtualGamepad, getRightGamepad(this.engine).getGamepadCore("pp_right_xr_gamepad").getHandPose());
+                let leftVirtualGamepadGamepadCore = new VirtualGamepadGamepadCore(this._myVirtualGamepad, Globals.getLeftGamepad(this.engine).getGamepadCore("pp_left_xr_gamepad").getHandPose());
+                let rightVirtualGamepadGamepadCore = new VirtualGamepadGamepadCore(this._myVirtualGamepad, Globals.getRightGamepad(this.engine).getGamepadCore("pp_right_xr_gamepad").getHandPose());
 
-                getLeftGamepad(this.engine).addGamepadCore("pp_left_virtual_gamepad", leftVirtualGamepadGamepadCore);
-                getRightGamepad(this.engine).addGamepadCore("pp_right_virtual_gamepad", rightVirtualGamepadGamepadCore);
+                Globals.getLeftGamepad(this.engine).addGamepadCore("pp_left_virtual_gamepad", leftVirtualGamepadGamepadCore);
+                Globals.getRightGamepad(this.engine).addGamepadCore("pp_right_virtual_gamepad", rightVirtualGamepadGamepadCore);
             }
         }
 

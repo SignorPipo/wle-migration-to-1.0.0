@@ -1,11 +1,11 @@
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
+import { Globals } from "../../pp/globals";
 import { GamepadsManager } from "../gamepad/cauldron/gamepads_manager";
 import { Keyboard } from "./keyboard";
 import { Mouse } from "./mouse";
 
 export class InputManager {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myMouse = new Mouse(engine);
         this._myKeyboard = new Keyboard();
         this._myGamepadsManager = new GamepadsManager(engine);

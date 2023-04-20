@@ -1,5 +1,5 @@
 import { XRUtils } from "../../cauldron/utils/xr_utils";
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
+import { Globals } from "../../pp/globals";
 import { Handedness, HandednessIndex, InputSourceType, TrackedHandJointID, TrackedHandJointIDIndex } from "./input_types";
 
 export function getHandednessByIndex(index) {
@@ -17,7 +17,7 @@ export function getHandednessByIndex(index) {
     return handedness;
 }
 
-export function getInputSource(handedness, inputSourceType = null, engine = getMainEngine()) {
+export function getInputSource(handedness, inputSourceType = null, engine = Globals.getMainEngine()) {
     let inputSource = null;
 
     let xrSession = XRUtils.getSession(engine);

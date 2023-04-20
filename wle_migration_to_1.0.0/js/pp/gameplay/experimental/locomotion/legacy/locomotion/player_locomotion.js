@@ -1,12 +1,11 @@
 import { PhysXComponent } from "@wonderlandengine/api";
 import { FSM } from "../../../../../cauldron/fsm/fsm";
 import { PhysicsLayerFlags } from "../../../../../cauldron/physics/physics_layer_flags";
-import { getMainEngine } from "../../../../../cauldron/wl/engine_globals";
-import { getLeftGamepad } from "../../../../../input/cauldron/input_globals";
 import { Handedness } from "../../../../../input/cauldron/input_types";
 import { InputUtils } from "../../../../../input/cauldron/input_utils";
 import { GamepadButtonID } from "../../../../../input/gamepad/gamepad_buttons";
 import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
+import { Globals } from "../../../../../pp/globals";
 import { CollisionCheckUtils } from "../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../character_controller/collision/legacy/collision_check/collision_params";
 import { PlayerHeadManager, PlayerHeadManagerParams } from "./player_head_manager";
@@ -25,7 +24,7 @@ export let PlayerLocomotionDirectionReferenceType = {
 
 export class PlayerLocomotionParams {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this.myDefaultHeight = 0;
 
         this.myMaxSpeed = 0;
@@ -351,7 +350,7 @@ export class PlayerLocomotion {
         this._myPlayerHeadManager.update(dt);
         this._myPlayerTransformManager.update(dt);
 
-        if (getLeftGamepad(this._myParams.myEngine).getButtonInfo(GamepadButtonID.THUMBSTICK).isPressEnd(2)) {
+        if (Globals.getLeftGamepad(this._myParams.myEngine).getButtonInfo(GamepadButtonID.THUMBSTICK).isPressEnd(2)) {
             if (this._myLocomotionMovementFSM.isInState("smooth") && this._myPlayerLocomotionSmooth.canStop()) {
                 this._myLocomotionMovementFSM.perform("next");
             } else if (this._myLocomotionMovementFSM.isInState("teleport") && this._myPlayerLocomotionTeleport.canStop()) {
@@ -370,7 +369,7 @@ export class PlayerLocomotion {
         }
 
         //this._myPlayerObscureManager.update(dt);
-        if (getLeftGamepad(this._myParams.myEngine).getButtonInfo(GamepadButtonID.SELECT).isPressEnd(2)) {
+        if (Globals.getLeftGamepad(this._myParams.myEngine).getButtonInfo(GamepadButtonID.SELECT).isPressEnd(2)) {
             if (this._myPlayerObscureManager.isFading()) {
                 this._myPlayerObscureManager.obscureLevelOverride(this._myPlayerObscureManager.isFadingOut() ? Math.pp_random(0, 0) : Math.pp_random(1, 1));
             } else {
@@ -525,7 +524,7 @@ export class PlayerLocomotion {
         this._myCollisionCheckParamsMovement.mySlidingAdjustSign90Degrees = true;
 
         this._myCollisionCheckParamsMovement.myHorizontalBlockLayerFlags.copy(this._myParams.myPhysicsBlockLayerFlags);
-        let physXComponents = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getComponents(PhysXComponent);
+        let physXComponents = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getComponents(PhysXComponent);
         for (let physXComponent of physXComponents) {
             this._myCollisionCheckParamsMovement.myHorizontalObjectsToIgnore.pp_pushUnique(physXComponent.object, (first, second) => first.pp_equals(second));
         }
@@ -590,17 +589,17 @@ export class PlayerLocomotion {
         // Get rotation on y and adjust if it's slightly tilted when it's almsot 0,1,0
 
         let defaultUp = vec3_create(0, 1, 0);
-        let angleWithDefaultUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp().vec3_angle(defaultUp);
+        let angleWithDefaultUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp().vec3_angle(defaultUp);
         if (angleWithDefaultUp < 1) {
-            let forward = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getForward();
+            let forward = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getForward();
             let flatForward = forward.vec3_clone();
             flatForward[1] = 0;
 
             let defaultForward = vec3_create(0, 0, 1);
             let angleWithDefaultForward = defaultForward.vec3_angleSigned(flatForward, defaultUp);
 
-            getPlayerObjects(this._myParams.myEngine).myPlayer.pp_resetRotation();
-            getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateAxis(angleWithDefaultForward, defaultUp);
+            Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_resetRotation();
+            Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateAxis(angleWithDefaultForward, defaultUp);
         }
     }
 

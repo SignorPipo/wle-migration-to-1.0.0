@@ -1,5 +1,5 @@
 import { Component, PhysXComponent } from "@wonderlandengine/api";
-import { GrabbableComponent, PhysicsCollisionCollector, getAudioManager } from "../pp";
+import { Globals, GrabbableComponent, PhysicsCollisionCollector } from "../pp";
 import { CloneUtils } from "../pp/cauldron/utils/clone_utils";
 
 export class SFXOnCollisionComponent extends Component {
@@ -19,7 +19,7 @@ export class SFXOnCollisionComponent extends Component {
 
     update(dt) {
         if (!this._myStarted) {
-            this._mySFX = getAudioManager(this.engine).createAudioPlayer("collision");
+            this._mySFX = Globals.getAudioManager(this.engine).createAudioPlayer("collision");
 
             this._myStarted = true;
         }

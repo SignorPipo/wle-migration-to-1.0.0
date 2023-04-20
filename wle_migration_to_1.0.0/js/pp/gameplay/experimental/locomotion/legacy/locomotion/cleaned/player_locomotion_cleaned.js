@@ -1,11 +1,10 @@
 import { PhysXComponent } from "@wonderlandengine/api";
 import { FSM } from "../../../../../../cauldron/fsm/fsm";
-import { getLeftGamepad } from "../../../../../../input/cauldron/input_globals";
 import { InputUtils } from "../../../../../../input/cauldron/input_utils";
 import { GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { EasingFunction } from "../../../../../../plugin/js/extensions/math_extension";
-import { getPlayerObjects } from "../../../../../../pp/scene_objects_globals";
+import { Globals } from "../../../../../../pp/globals";
 import { CharacterColliderSetupSimplifiedCreationParams, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
 import { CollisionCheckBridge } from "../../../../character_controller/collision/collision_check_bridge";
 import { CollisionCheckUtils } from "../../../../character_controller/collision/legacy/collision_check/collision_check";
@@ -335,7 +334,7 @@ export class CleanedPlayerLocomotion {
         this._myPlayerHeadManager.update(dt);
         this._myPlayerTransformManager.update(dt);
 
-        if (getLeftGamepad(this._myParams.myEngine).getButtonInfo(GamepadButtonID.THUMBSTICK).isPressEnd(2)) {
+        if (Globals.getLeftGamepad(this._myParams.myEngine).getButtonInfo(GamepadButtonID.THUMBSTICK).isPressEnd(2)) {
             if (this._myLocomotionMovementFSM.isInState("smooth") && this._myPlayerLocomotionSmooth.canStop()) {
                 this._myLocomotionMovementFSM.perform("next");
             } else if (this._myLocomotionMovementFSM.isInState("teleport") && this._myPlayerLocomotionTeleport.canStop()) {
@@ -400,7 +399,7 @@ export class CleanedPlayerLocomotion {
         simplifiedParams.myShouldNotFallFromEdges = this._myParams.myColliderPreventFallingFromEdges;
 
         simplifiedParams.myHorizontalCheckBlockLayerFlags.copy(this._myParams.myPhysicsBlockLayerFlags);
-        let physXComponents = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getComponents(PhysXComponent);
+        let physXComponents = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getComponents(PhysXComponent);
         for (let physXComponent of physXComponents) {
             simplifiedParams.myHorizontalCheckObjectsToIgnore.pp_pushUnique(physXComponent.object, (first, second) => first.pp_equals(second));
         }
@@ -459,17 +458,17 @@ export class CleanedPlayerLocomotion {
         // Get rotation on y and adjust if it's slightly tilted when it's almsot 0,1,0
 
         let defaultUp = vec3_create(0, 1, 0);
-        let angleWithDefaultUp = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp().vec3_angle(defaultUp);
+        let angleWithDefaultUp = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getUp().vec3_angle(defaultUp);
         if (angleWithDefaultUp < 1) {
-            let forward = getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getForward();
+            let forward = Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_getForward();
             let flatForward = forward.vec3_clone();
             flatForward[1] = 0;
 
             let defaultForward = vec3_create(0, 0, 1);
             let angleWithDefaultForward = defaultForward.vec3_angleSigned(flatForward, defaultUp);
 
-            getPlayerObjects(this._myParams.myEngine).myPlayer.pp_resetRotation();
-            getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateAxis(angleWithDefaultForward, defaultUp);
+            Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_resetRotation();
+            Globals.getPlayerObjects(this._myParams.myEngine).myPlayer.pp_rotateAxis(angleWithDefaultForward, defaultUp);
         }
     }
 

@@ -1,10 +1,8 @@
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
-import { getLeftGamepad, getRightGamepad } from "../../input/cauldron/input_globals";
 import { GamepadAxesID, GamepadButtonID } from "../../input/gamepad/gamepad_buttons";
+import { Globals } from "../../pp/globals";
 import { ToolHandedness } from "../cauldron/tool_types";
 import { WidgetFrame, WidgetParams } from "../widget_frame/widget_frame";
 import { getOriginalConsoleClear } from "./console_original_functions";
-import { getConsoleVR } from "./console_vr_globals";
 import { ConsoleVRWidgetConsoleFunction, ConsoleVRWidgetMessageType, ConsoleVRWidgetPulseOnNewMessage, ConsoleVRWidgetSender } from "./console_vr_types";
 import { ConsoleVRWidgetConfig } from "./console_vr_widget_config";
 import { ConsoleVRWidgetUI } from "./console_vr_widget_ui";
@@ -51,7 +49,7 @@ export class ConsoleVRWidgetMessage {
 //  - Placeholder like %d and other similar kind of way to build strings
 export class ConsoleVRWidget {
 
-    constructor(engine = getMainEngine()) {
+    constructor(engine = Globals.getMainEngine()) {
         this._myWidgetFrame = new WidgetFrame("C", 0, engine);
         this._myWidgetFrame.registerWidgetVisibleChangedEventListener(this, this._widgetVisibleChanged.bind(this));
 
@@ -95,8 +93,8 @@ export class ConsoleVRWidget {
     }
 
     start(parentObject, params) {
-        this._myLeftGamepad = getLeftGamepad(this._myEngine);
-        this._myRightGamepad = getRightGamepad(this._myEngine);
+        this._myLeftGamepad = Globals.getLeftGamepad(this._myEngine);
+        this._myRightGamepad = Globals.getRightGamepad(this._myEngine);
 
         this._myParams = params;
 
@@ -143,21 +141,21 @@ export class ConsoleVRWidget {
             }.bind(this));
         }
 
-        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.LOG] = getConsoleVR(this._myEngine).log;
-        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.ERROR] = getConsoleVR(this._myEngine).error;
-        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.WARN] = getConsoleVR(this._myEngine).warn;
-        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.INFO] = getConsoleVR(this._myEngine).info;
-        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.DEBUG] = getConsoleVR(this._myEngine).debug;
-        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.ASSERT] = getConsoleVR(this._myEngine).assert;
-        this._myOldConsoleVRClear = getConsoleVR(this._myEngine).clear;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.LOG] = Globals.getConsoleVR(this._myEngine).log;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.ERROR] = Globals.getConsoleVR(this._myEngine).error;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.WARN] = Globals.getConsoleVR(this._myEngine).warn;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.INFO] = Globals.getConsoleVR(this._myEngine).info;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.DEBUG] = Globals.getConsoleVR(this._myEngine).debug;
+        this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.ASSERT] = Globals.getConsoleVR(this._myEngine).assert;
+        this._myOldConsoleVRClear = Globals.getConsoleVR(this._myEngine).clear;
 
-        getConsoleVR(this._myEngine).log = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.LOG, ConsoleVRWidgetSender.CONSOLE_VR);
-        getConsoleVR(this._myEngine).error = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.CONSOLE_VR);
-        getConsoleVR(this._myEngine).warn = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.WARN, ConsoleVRWidgetSender.CONSOLE_VR);
-        getConsoleVR(this._myEngine).info = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.INFO, ConsoleVRWidgetSender.CONSOLE_VR);
-        getConsoleVR(this._myEngine).debug = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.DEBUG, ConsoleVRWidgetSender.CONSOLE_VR);
-        getConsoleVR(this._myEngine).assert = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ASSERT, ConsoleVRWidgetSender.CONSOLE_VR);
-        getConsoleVR(this._myEngine).clear = this._clearConsole.bind(this, true, ConsoleVRWidgetSender.CONSOLE_VR);
+        Globals.getConsoleVR(this._myEngine).log = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.LOG, ConsoleVRWidgetSender.CONSOLE_VR);
+        Globals.getConsoleVR(this._myEngine).error = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.CONSOLE_VR);
+        Globals.getConsoleVR(this._myEngine).warn = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.WARN, ConsoleVRWidgetSender.CONSOLE_VR);
+        Globals.getConsoleVR(this._myEngine).info = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.INFO, ConsoleVRWidgetSender.CONSOLE_VR);
+        Globals.getConsoleVR(this._myEngine).debug = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.DEBUG, ConsoleVRWidgetSender.CONSOLE_VR);
+        Globals.getConsoleVR(this._myEngine).assert = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ASSERT, ConsoleVRWidgetSender.CONSOLE_VR);
+        Globals.getConsoleVR(this._myEngine).clear = this._clearConsole.bind(this, true, ConsoleVRWidgetSender.CONSOLE_VR);
     }
 
     update(dt) {
@@ -280,7 +278,7 @@ export class ConsoleVRWidget {
                 this._myOldBrowserConsole[consoleFunction].apply(console, args);
                 break;
             case ConsoleVRWidgetSender.CONSOLE_VR:
-                this._myOldConsoleVR[consoleFunction].apply(getConsoleVR(this._myEngine), args);
+                this._myOldConsoleVR[consoleFunction].apply(Globals.getConsoleVR(this._myEngine), args);
                 break;
             default:
                 this._myOldBrowserConsole[consoleFunction].apply(console, args);
@@ -632,7 +630,7 @@ export class ConsoleVRWidget {
                         this._myOldBrowserConsoleClear.apply(console);
                         break;
                     case ConsoleVRWidgetSender.CONSOLE_VR:
-                        this._myOldConsoleVRClear.apply(getConsoleVR(this._myEngine));
+                        this._myOldConsoleVRClear.apply(Globals.getConsoleVR(this._myEngine));
                         break;
                     default:
                         break;

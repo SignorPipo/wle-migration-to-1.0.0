@@ -2,7 +2,7 @@ import { Collider, CollisionComponent, Component, Property } from "@wonderlanden
 import { CursorTarget } from "@wonderlandengine/components";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getPlayerObjects } from "../../../pp/scene_objects_globals";
+import { Globals } from "../../../pp/globals";
 import { InputSourceType, TrackedHandJointID } from "../input_types";
 import { InputUtils } from "../input_utils";
 
@@ -54,7 +54,7 @@ export class FingerCursorComponent extends Component {
             this._myTripleClickTimer -= dt;
         }
 
-        this._myCursorParentObject.pp_setTransformQuat(getPlayerObjects(this.engine).myPlayerPivot.pp_getTransformQuat());
+        this._myCursorParentObject.pp_setTransformQuat(Globals.getPlayerObjects(this.engine).myPlayerPivot.pp_getTransformQuat());
         this._updateHand();
 
         if (this._myHandInputSource) {

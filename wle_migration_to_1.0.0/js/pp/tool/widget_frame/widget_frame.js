@@ -1,5 +1,5 @@
 import { Emitter } from "@wonderlandengine/api";
-import { getMainEngine } from "../../cauldron/wl/engine_globals";
+import { Globals } from "../../pp/globals";
 import { ToolHandedness } from "../cauldron/tool_types";
 import { WidgetFrameConfig } from "./widget_frame_config";
 import { WidgetFrameUI } from "./widget_frame_ui";
@@ -16,7 +16,7 @@ export class WidgetParams {
 
 export class WidgetFrame {
 
-    constructor(widgetLetterID, buttonsColumnIndex, engine = getMainEngine()) {
+    constructor(widgetLetterID, buttonsColumnIndex, engine = Globals.getMainEngine()) {
         this.myIsWidgetVisible = true;
         this.myIsPinned = false;
 

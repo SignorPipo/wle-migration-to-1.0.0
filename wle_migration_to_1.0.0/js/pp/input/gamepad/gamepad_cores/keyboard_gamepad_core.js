@@ -1,4 +1,4 @@
-import { getKeyboard } from "../../cauldron/input_globals";
+import { Globals } from "../../../pp/globals";
 import { Handedness } from "../../cauldron/input_types";
 import { KeyID } from "../../cauldron/keyboard";
 import { GamepadButtonID } from "../gamepad_buttons";
@@ -24,7 +24,7 @@ export class KeyboardGamepadCore extends GamepadCore {
         this._myButtonData.myIsTouched = false;
         this._myButtonData.myValue = 0;
 
-        let keyboard = getKeyboard(this.getEngine());
+        let keyboard = Globals.getKeyboard(this.getEngine());
 
         if (this.isGamepadCoreActive()) {
             if (this.getHandedness() == Handedness.LEFT) {
@@ -89,7 +89,7 @@ export class KeyboardGamepadCore extends GamepadCore {
     getAxesData(axesID) {
         this._myAxesData.vec2_zero();
 
-        let keyboard = getKeyboard(this.getEngine());
+        let keyboard = Globals.getKeyboard(this.getEngine());
 
         if (this.isGamepadCoreActive()) {
             if (this.getHandedness() == Handedness.LEFT) {

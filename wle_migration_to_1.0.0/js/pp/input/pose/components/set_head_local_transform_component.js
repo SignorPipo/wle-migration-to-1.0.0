@@ -1,7 +1,7 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { getPlayerObjects } from "../../../pp/scene_objects_globals";
+import { Globals } from "../../../pp/globals";
 import { BasePoseParams } from "../base_pose";
 import { HeadPose } from "../head_pose";
 
@@ -45,7 +45,7 @@ SetHeadLocalTransformComponent.prototype.update = function () {
         if (XRUtils.isSessionActive(this.engine)) {
             this._myHeadPose.update(dt);
         } else if (!XRUtils.isSessionActive(this.engine)) {
-            let cameraNonXR = getPlayerObjects(this.engine).myCameraNonXR;
+            let cameraNonXR = Globals.getPlayerObjects(this.engine).myCameraNonXR;
 
             cameraNonXRRotation = cameraNonXR.pp_getRotationLocalQuat(cameraNonXRRotation);
             if (this._myFixForward) {

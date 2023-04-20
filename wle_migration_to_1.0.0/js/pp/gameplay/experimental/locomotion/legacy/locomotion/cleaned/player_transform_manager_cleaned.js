@@ -1,5 +1,6 @@
 import { XRUtils } from "../../../../../../cauldron/utils/xr_utils";
 import { quat2_create, quat_create, vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { Globals } from "../../../../../../pp/globals";
 import { CollisionCheckUtils } from "../../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
 import { getCollisionCheck } from "../player_locomotion_component";
@@ -428,11 +429,11 @@ export class CleanedPlayerTransformManager {
     }
 
     _debugUpdate(dt) {
-        getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPosition, vec4_create(1, 0, 0, 1), 0.05);
-        getDebugVisualManager(this._myParams.myEngine).drawLineEnd(0, this._myValidPosition, this.getPositionReal(), vec4_create(1, 0, 0, 1), 0.05);
-        getDebugVisualManager(this._myParams.myEngine).drawLine(0, this._myValidPosition, this._myValidRotationQuat.quat_getForward(), 0.15, vec4_create(0, 1, 0, 1), 0.025);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPosition, vec4_create(1, 0, 0, 1), 0.05);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawLineEnd(0, this._myValidPosition, this.getPositionReal(), vec4_create(1, 0, 0, 1), 0.05);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawLine(0, this._myValidPosition, this._myValidRotationQuat.quat_getForward(), 0.15, vec4_create(0, 1, 0, 1), 0.025);
 
-        getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPositionHead, vec4_create(1, 1, 0, 1), 0.05);
+        Globals.getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPositionHead, vec4_create(1, 1, 0, 1), 0.05);
     }
 };
 

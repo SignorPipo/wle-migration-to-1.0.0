@@ -1,5 +1,5 @@
 import { Component } from "@wonderlandengine/api";
-import { AudioSetup, getAudioManager } from "../pp";
+import { AudioSetup, Globals } from "../pp";
 
 export class LoadAudioComponent extends Component {
     static TypeName = "load-audio";
@@ -10,7 +10,7 @@ export class LoadAudioComponent extends Component {
     }
 
     _loadAudio() {
-        let manager = getAudioManager(this.engine);
+        let manager = Globals.getAudioManager(this.engine);
 
         {
             let audioSetup = new AudioSetup("assets/audio/music/pp/playground_ambient.mp3");
