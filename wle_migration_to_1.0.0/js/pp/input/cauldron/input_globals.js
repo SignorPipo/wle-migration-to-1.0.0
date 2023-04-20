@@ -1,6 +1,7 @@
 import { Globals } from "../../pp/globals";
 
 let _myInputManagers = new WeakMap();
+let _myPoseForwardFixeds = new WeakMap();
 
 export function getInputManager(engine = Globals.getMainEngine()) {
     return _myInputManagers.get(engine);
@@ -70,4 +71,20 @@ export function getRightGamepad(engine = Globals.getMainEngine()) {
     }
 
     return null;
+}
+
+export function isPoseForwardFixed(engine = Globals.getMainEngine()) {
+    return _myPoseForwardFixeds.get(engine);
+}
+
+export function setPoseForwardFixed(toolEnabled, engine = Globals.getMainEngine()) {
+    _myPoseForwardFixeds.set(engine, toolEnabled);
+}
+
+export function removePoseForwardFixed(engine = Globals.getMainEngine()) {
+    _myPoseForwardFixeds.delete(engine);
+}
+
+export function hasPoseForwardFixed(engine = Globals.getMainEngine()) {
+    return _myPoseForwardFixeds.has(engine);
 }

@@ -1,4 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
+import { Globals } from "../../../pp/globals";
 import { TrackedHandPose, TrackedHandPoseParams } from "../../pose/tracked_hand_pose";
 import { InputUtils } from "../input_utils";
 
@@ -6,7 +7,6 @@ export class TrackedHandDrawSkinComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-skin";
     static Properties = {
         _myHandedness: Property.enum(["Left", "Right"], "Left"),
-        _myFixForward: Property.bool(true),
         _myHandSkin: Property.skin(null)
     };
 
@@ -14,7 +14,7 @@ export class TrackedHandDrawSkinComponent extends Component {
         this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
 
         this._myTrackedHandPose = new TrackedHandPose(this._myHandednessType, new TrackedHandPoseParams(true, this.engine));
-        this._myTrackedHandPose.setFixForward(this._myFixForward);
+        this._myTrackedHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
     }
 
     start() {

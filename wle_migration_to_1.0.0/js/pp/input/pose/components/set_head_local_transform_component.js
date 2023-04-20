@@ -1,4 +1,4 @@
-import { Component, Property } from "@wonderlandengine/api";
+import { Component } from "@wonderlandengine/api";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
@@ -7,13 +7,11 @@ import { HeadPose } from "../head_pose";
 
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
-    static Properties = {
-        _myFixForward: Property.bool(true)
-    };
+    static Properties = {};
 
     init() {
         this._myHeadPose = new HeadPose(new BasePoseParams(this.engine));
-        this._myHeadPose.setFixForward(this._myFixForward);
+        this._myHeadPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
         this._myHeadPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
     }
 

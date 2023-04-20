@@ -1,5 +1,6 @@
 import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create } from "../../../plugin/js/extensions/array_extension";
+import { Globals } from "../../../pp/globals";
 import { InputUtils } from "../../cauldron/input_utils";
 import { TrackedHandJointPose } from "../tracked_hand_joint_pose";
 
@@ -7,7 +8,6 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
     static TypeName = "pp-set-tracked-hand-joint-local-transform";
     static Properties = {
         _myHandedness: Property.enum(["Left", "Right"], "Left"),
-        _myFixForward: Property.bool(true),
         _mySetLocalScaleAsJointRadius: Property.bool(false),
         _myJointID: Property.enum(
             [
@@ -26,7 +26,7 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
         this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
 
         this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessType, this._myJointIDInternal, new BasePoseParams(this.engine));
-        this._myTrackedHandJointPose.setFixForward(this._myFixForward);
+        this._myTrackedHandJointPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandJointPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
     }
 

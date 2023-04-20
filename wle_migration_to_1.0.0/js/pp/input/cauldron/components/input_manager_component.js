@@ -10,19 +10,27 @@ import { Handedness } from "../input_types";
 export class InputManagerComponent extends Component {
     static TypeName = "pp-input-manager";
     static Properties = {
-        _myGamepadFixForward: Property.bool(true),
+        _myPoseFixForward: Property.bool(true),
         _myMousePreventContextMenu: Property.bool(true),
         _myMousePreventMiddleButtonScroll: Property.bool(true)
     };
 
     init() {
         this._myInputManager = null;
+        this._myPoseForwardFixed = null;
 
         // Prevents double global from same engine
         if (!Globals.hasInputManager(this.engine)) {
             this._myInputManager = new InputManager(this.engine);
 
             Globals.setInputManager(this._myInputManager, this.engine);
+        }
+
+        // Prevents double global from same engine
+        if (!Globals.hasPoseForwardFixed(this.engine)) {
+            this._myPoseForwardFixed = this._myPoseFixForward;
+
+            Globals.setPoseForwardFixed(this._myPoseForwardFixed, this.engine);
         }
     }
 
@@ -54,7 +62,7 @@ export class InputManagerComponent extends Component {
     _addGamepadCores() {
         let handPoseParams = new HandPoseParams(this.engine);
         handPoseParams.myReferenceObject = Globals.getPlayerObjects(this.engine).myPlayerPivot;
-        handPoseParams.myFixForward = this._myGamepadFixForward;
+        handPoseParams.myFixForward = Globals.isPoseForwardFixed(this.engine);
         handPoseParams.myForceEmulatedVelocities = false;
 
         let leftHandPose = new HandPose(Handedness.LEFT, handPoseParams);
@@ -80,5 +88,15 @@ export class InputManagerComponent extends Component {
 
         this._myInputManager.getGamepadsManager().getLeftGamepad().addGamepadCore("pp_left_classic_gamepad", leftClassicGamepadCore);
         this._myInputManager.getGamepadsManager().getRightGamepad().addGamepadCore("pp_right_classic_gamepad", rightClassicGamepadCore);
+    }
+
+    onDestroy() {
+        if (this._myInputManager != null && Globals.getInputManager(this.engine) == this._myInputManager) {
+            Globals.removeInputManager(this.engine);
+        }
+
+        if (this._myPoseForwardFixed != null && Globals.isPoseForwardFixed(this.engine) == this._myPoseForwardFixed) {
+            Globals.removePoseForwardFixed(this.engine);
+        }
     }
 }
