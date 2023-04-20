@@ -1,4 +1,4 @@
-import { Component, MeshComponent, Property, TextComponent } from "@wonderlandengine/api";
+import { Alignment, Component, Justification, MeshComponent, Property, TextComponent } from "@wonderlandengine/api";
 import { vec2_create, vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { CloneParams } from "../../plugin/wl/extensions/object_extension";
 import { Globals } from "../../pp/globals";
@@ -238,6 +238,12 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     }
 
     start() {
+        this._myValid = false;
+
+        if (!Globals.isDebugEnabled(this.engine)) return;
+
+        this._myValid = true;
+
         if (this._myPlaneMaterial == null) {
             this._myPlaneMaterial = Globals.getDefaultMaterials(this.engine).myPhongOpaque.clone();
             this._myPlaneMaterial.diffuseColor = vec4_create(0.95, 0.95, 0.95, 1);
@@ -320,8 +326,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
         this._myTriangleTextComponent = this._myTriangleTextObject.pp_addComponent(TextComponent);
 
-        this._myTriangleTextComponent.alignment = this.engine.Alignment.Left;
-        this._myTriangleTextComponent.justification = this.engine.Justification.Line;
+        this._myTriangleTextComponent.alignment = Alignment.Left;
+        this._myTriangleTextComponent.justification = Justification.Line;
         this._myTriangleTextComponent.material = this._myTextMaterial.clone();
         this._myTriangleTextComponent.material.color = this._myNormalColor;
         this._myTriangleTextComponent.text = " ";
@@ -332,8 +338,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myPlaneTextComponent = this._myPlaneTextObject.pp_addComponent(TextComponent);
         //this._myPlaneTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
 
-        this._myPlaneTextComponent.alignment = this.engine.Alignment.Left;
-        this._myPlaneTextComponent.justification = this.engine.Justification.Line;
+        this._myPlaneTextComponent.alignment = Alignment.Left;
+        this._myPlaneTextComponent.justification = Justification.Line;
         this._myPlaneTextComponent.material = this._myTextMaterial.clone();
         this._myPlaneTextComponent.material.color = this._myNormalColor;
         this._myPlaneTextComponent.text = " ";
@@ -344,8 +350,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myFPSTextComponent = this._myFPSTextObject.pp_addComponent(TextComponent);
         //this._myFPSTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
 
-        this._myFPSTextComponent.alignment = this.engine.Alignment.Left;
-        this._myFPSTextComponent.justification = this.engine.Justification.Line;
+        this._myFPSTextComponent.alignment = Alignment.Left;
+        this._myFPSTextComponent.justification = Justification.Line;
         this._myFPSTextComponent.material = this._myTextMaterial.clone();
         this._myFPSTextComponent.material.color = this._myNormalColor;
         this._myFPSTextComponent.text = " ";
@@ -356,8 +362,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myDoneTextComponent = this._myDoneTextObject.pp_addComponent(TextComponent);
         //this._myDoneTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
 
-        this._myDoneTextComponent.alignment = this.engine.Alignment.Center;
-        this._myDoneTextComponent.justification = this.engine.Justification.Line;
+        this._myDoneTextComponent.alignment = Alignment.Center;
+        this._myDoneTextComponent.justification = Justification.Line;
         this._myDoneTextComponent.material = this._myTextMaterial.clone();
         this._myDoneTextComponent.material.color = this._myNormalColor;
         this._myDoneTextComponent.text = " ";
@@ -376,6 +382,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
     }
 
     update(dt) {
+        if (!this._myValid) return;
+
         if (this._mySessionStarted || !this._myStartOnXRStart) {
             if (this._myStartTimer.isRunning()) {
                 this._myStartTimer.update(dt);

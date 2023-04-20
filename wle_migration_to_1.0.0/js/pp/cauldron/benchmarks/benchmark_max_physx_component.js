@@ -1,4 +1,4 @@
-import { Component, PhysXComponent, Property } from "@wonderlandengine/api";
+import { Component, PhysXComponent, Property, Shape } from "@wonderlandengine/api";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { Globals } from "../../pp/globals";
 import { Timer } from "../cauldron/timer";
@@ -31,6 +31,11 @@ export class BenchmarkMaxPhysXComponent extends Component {
     };
 
     start() {
+        this._myValid = false;
+
+        if (!Globals.isDebugEnabled(this.engine)) return;
+
+        this._myValid = true;
         this._myStarted = false;
         this._myPreStartTimer = new Timer(1);
     }
@@ -73,6 +78,8 @@ export class BenchmarkMaxPhysXComponent extends Component {
     }
 
     update(dt) {
+        if (!this._myValid) return;
+
         if (!this._myStarted) {
             this._myPreStartTimer.update(dt);
             if (this._myPreStartTimer.isDone()) {
@@ -273,9 +280,9 @@ export class BenchmarkMaxPhysXComponent extends Component {
     _addPhysX(physXDirection, isStatic, isDynamic) {
         let position = physXDirection;
         let scale = Math.pp_random(1, 10);
-        let shape = Math.pp_randomPick(this.engine.Shape.Sphere, this.engine.Shape.Box);
+        let shape = Math.pp_randomPick(Shape.Sphere, Shape.Box);
         if (this._myUseConvexMesh) {
-            shape = this.engine.Shape.ConvexMesh;
+            shape = Shape.ConvexMesh;
             scale *= this._myShapeScaleMultiplier;
         }
 
