@@ -8,7 +8,6 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
     static Properties = {
         _myHandedness: Property.enum(["Left", "Right"], "Left"),
         _myFixForward: Property.bool(true),
-        _myUpdateOnViewReset: Property.bool(true),
         _mySetLocalScaleAsJointRadius: Property.bool(false),
         _myJointID: Property.enum(
             [
@@ -28,7 +27,6 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
 
         this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessType, this._myJointIDInternal, new BasePoseParams(this.engine));
         this._myTrackedHandJointPose.setFixForward(this._myFixForward);
-        this._myTrackedHandJointPose.setUpdateOnViewReset(this._myUpdateOnViewReset);
         this._myTrackedHandJointPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
     }
 

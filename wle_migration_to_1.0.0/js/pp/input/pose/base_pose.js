@@ -8,8 +8,8 @@ export class BasePoseParams {
     constructor(engine = Globals.getMainEngine()) {
         this.myReferenceObject = null;
         this.myFixForward = true;
+        this.myUpdateOnViewReset = true;
         this.myForceEmulatedVelocities = false;
-        this.myUpdateOnViewReset = false;
 
         this.myEngine = engine;
     }

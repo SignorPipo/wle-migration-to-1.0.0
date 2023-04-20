@@ -8,14 +8,12 @@ import { HeadPose } from "../head_pose";
 export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {
-        _myFixForward: Property.bool(true),
-        _myUpdateOnViewReset: Property.bool(true)
+        _myFixForward: Property.bool(true)
     };
 
     init() {
         this._myHeadPose = new HeadPose(new BasePoseParams(this.engine));
         this._myHeadPose.setFixForward(this._myFixForward);
-        this._myHeadPose.setUpdateOnViewReset(this._myUpdateOnViewReset);
         this._myHeadPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
     }
 
