@@ -21,21 +21,20 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
             "Wrist")
     };
 
-    init() {
+    start() {
         this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
         this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
 
         this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessType, this._myJointIDInternal, new BasePoseParams(this.engine));
         this._myTrackedHandJointPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandJointPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
-    }
-
-    start() {
         this._myTrackedHandJointPose.start();
+
         this.update(0);
     }
 
     update(dt) {
+        this._myTrackedHandJointPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
         this._myTrackedHandJointPose.update(dt);
     }
 

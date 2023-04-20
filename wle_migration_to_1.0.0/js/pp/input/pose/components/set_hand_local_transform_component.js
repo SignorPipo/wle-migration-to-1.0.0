@@ -10,18 +10,17 @@ export class SetHandLocalTransformComponent extends Component {
         _myHandedness: Property.enum(["Left", "Right"], "Left")
     };
 
-    init() {
+    start() {
         this._myHandPose = new HandPose(InputUtils.getHandednessByIndex(this._myHandedness), new HandPoseParams(this.engine));
         this._myHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
         this._myHandPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
-    }
-
-    start() {
         this._myHandPose.start();
+
         this.update(0);
     }
 
     update(dt) {
+        this._myHandPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
         this._myHandPose.update(dt);
     }
 

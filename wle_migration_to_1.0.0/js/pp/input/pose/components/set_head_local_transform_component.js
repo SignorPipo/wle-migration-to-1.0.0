@@ -9,14 +9,12 @@ export class SetHeadLocalTransformComponent extends Component {
     static TypeName = "pp-set-head-local-transform";
     static Properties = {};
 
-    init() {
+    start() {
         this._myHeadPose = new HeadPose(new BasePoseParams(this.engine));
         this._myHeadPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
         this._myHeadPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
-    }
-
-    start() {
         this._myHeadPose.start();
+
         this.update(0);
     }
 
@@ -39,12 +37,13 @@ SetHeadLocalTransformComponent.prototype.update = function () {
     let cameraNonXRPosition = vec3_create();
     return function update(dt) {
         if (XRUtils.isSessionActive(this.engine)) {
+            this._myHeadPose.setFixForward(Globals.isPoseForwardFixed(this.engine));
             this._myHeadPose.update(dt);
         } else if (!XRUtils.isSessionActive(this.engine)) {
             let cameraNonXR = Globals.getPlayerObjects(this.engine).myCameraNonXR;
 
             cameraNonXRRotation = cameraNonXR.pp_getRotationLocalQuat(cameraNonXRRotation);
-            if (this._myFixForward) {
+            if (Globals.isPoseForwardFixed(this.engine)) {
                 cameraNonXRRotation.quat_rotateAxisRadians(Math.PI, cameraNonXRRotation.quat_getUp(cameraNonXRUp), cameraNonXRRotation);
             }
             this.object.pp_setPositionLocal(cameraNonXR.pp_getPositionLocal(cameraNonXRPosition));
