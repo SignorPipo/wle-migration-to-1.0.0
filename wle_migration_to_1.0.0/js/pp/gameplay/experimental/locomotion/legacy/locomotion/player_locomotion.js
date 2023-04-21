@@ -121,7 +121,7 @@ export class PlayerLocomotion {
 
             params.myFeetRotationKeepUp = true;
 
-            params.myDebugActive = false;
+            params.myDebugEnabled = false;
 
             this._myPlayerHeadManager = new PlayerHeadManager(params);
         }
@@ -190,7 +190,7 @@ export class PlayerLocomotion {
 
             params.myResetRealOnMove = true;
 
-            params.myDebugActive = true;
+            params.myDebugEnabled = true;
 
             this._myPlayerTransformManager = new PlayerTransformManager(params);
         }
@@ -319,10 +319,10 @@ export class PlayerLocomotion {
 
                 params.myGravityAcceleration = 0;
 
-                params.myDebugActive = false;
-                params.myDebugDetectActive = true;
-                params.myDebugShowActive = true;
-                params.myDebugVisibilityActive = false;
+                params.myDebugEnabled = false;
+                params.myDebugDetectEnabled = true;
+                params.myDebugShowEnabled = true;
+                params.myDebugVisibilityEnabled = false;
 
                 this._myPlayerLocomotionTeleport = new PlayerLocomotionTeleport(params, this._myMovementRuntimeParams);
             }
@@ -532,17 +532,17 @@ export class PlayerLocomotion {
         this._myCollisionCheckParamsMovement.myVerticalBlockLayerFlags.copy(this._myCollisionCheckParamsMovement.myHorizontalBlockLayerFlags);
         this._myCollisionCheckParamsMovement.myVerticalObjectsToIgnore.pp_copy(this._myCollisionCheckParamsMovement.myHorizontalObjectsToIgnore);
 
-        this._myCollisionCheckParamsMovement.myDebugActive = false;
+        this._myCollisionCheckParamsMovement.myDebugEnabled = false;
 
-        this._myCollisionCheckParamsMovement.myDebugHorizontalMovementActive = false;
-        this._myCollisionCheckParamsMovement.myDebugHorizontalPositionActive = true;
-        this._myCollisionCheckParamsMovement.myDebugVerticalMovementActive = false;
-        this._myCollisionCheckParamsMovement.myDebugVerticalPositionActive = false;
-        this._myCollisionCheckParamsMovement.myDebugSlidingActive = false;
-        this._myCollisionCheckParamsMovement.myDebugGroundInfoActive = false;
-        this._myCollisionCheckParamsMovement.myDebugCeilingInfoActive = false;
-        this._myCollisionCheckParamsMovement.myDebugRuntimeParamsActive = false;
-        this._myCollisionCheckParamsMovement.myDebugMovementActive = false;
+        this._myCollisionCheckParamsMovement.myDebugHorizontalMovementEnabled = false;
+        this._myCollisionCheckParamsMovement.myDebugHorizontalPositionEnabled = true;
+        this._myCollisionCheckParamsMovement.myDebugVerticalMovementEnabled = false;
+        this._myCollisionCheckParamsMovement.myDebugVerticalPositionEnabled = false;
+        this._myCollisionCheckParamsMovement.myDebugSlidingEnabled = false;
+        this._myCollisionCheckParamsMovement.myDebugGroundInfoEnabled = false;
+        this._myCollisionCheckParamsMovement.myDebugCeilingInfoEnabled = false;
+        this._myCollisionCheckParamsMovement.myDebugRuntimeParamsEnabled = false;
+        this._myCollisionCheckParamsMovement.myDebugMovementEnabled = false;
     }
 
     _setupCollisionCheckParamsTeleport() {
@@ -582,7 +582,7 @@ export class PlayerLocomotion {
         //this._myCollisionCheckParamsTeleport.mySplitMovementEnabled = true;
         //this._myCollisionCheckParamsTeleport.mySplitMovementMaxLength = 0.2;
 
-        //this._myCollisionCheckParamsTeleport.myDebugActive = true;
+        //this._myCollisionCheckParamsTeleport.myDebugEnabled = true;
     }
 
     _fixAlmostUp() {

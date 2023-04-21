@@ -478,7 +478,7 @@ CollisionCheck.prototype._gatherSurfaceInfo = function () {
     let endPosition = vec3_create();
     let direction = vec3_create();
     return function _gatherSurfaceInfo(feetPosition, height, up, forwardForPerceivedAngle, forwardForVertical, isGround, collisionCheckParams, collisionRuntimeParams) {
-        this._myDebugActive = collisionCheckParams.myDebugActive && ((isGround && collisionCheckParams.myDebugGroundInfoActive) || (!isGround && collisionCheckParams.myDebugCeilingInfoActive));
+        this._myDebugEnabled = collisionCheckParams.myDebugEnabled && ((isGround && collisionCheckParams.myDebugGroundInfoEnabled) || (!isGround && collisionCheckParams.myDebugCeilingInfoEnabled));
 
         let checkPositions = this._getVerticalCheckPositions(feetPosition, up, forwardForVertical, collisionCheckParams, collisionRuntimeParams);
 

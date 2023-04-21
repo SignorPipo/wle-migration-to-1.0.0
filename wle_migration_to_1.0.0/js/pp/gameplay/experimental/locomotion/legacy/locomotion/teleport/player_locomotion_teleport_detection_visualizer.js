@@ -296,7 +296,7 @@ PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParable = fun
             visuaLine.paramsUpdated();
             visuaLine.setVisible(true);
 
-            if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugShowActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
+            if (this._myTeleportParams.myDebugEnabled && this._myTeleportParams.myDebugShowEnabled && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                 Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, currentPosition, vec4_create(1, 0, 0, 1), 0.01);
             }
         }
@@ -446,7 +446,7 @@ PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParablePositi
             this._myTeleportParams.myVisualizerParams.myTeleportPositionObject.pp_setActive(true);
         }
 
-        if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugShowActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
+        if (this._myTeleportParams.myDebugEnabled && this._myTeleportParams.myDebugShowEnabled && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
             Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, this._myTeleportRuntimeParams.myTeleportPosition, vec4_create(0, 0, 1, 1), 0.02);
         }
     };

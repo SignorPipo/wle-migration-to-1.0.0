@@ -484,18 +484,18 @@ export let convertCharacterColliderSetupToCollisionCheckParams = function () {
         outCollisionCheckParams.myPositionOffsetLocal.vec3_copy(characterColliderSetup.myAdditionalParams.myPositionOffsetLocal);
         outCollisionCheckParams.myRotationOffsetLocalQuat.quat_copy(characterColliderSetup.myAdditionalParams.myRotationOffsetLocalQuat);
 
-        outCollisionCheckParams.myDebugActive = characterColliderSetup.myDebugParams.myVisualDebugEnabled;
+        outCollisionCheckParams.myDebugEnabled = characterColliderSetup.myDebugParams.myVisualDebugEnabled;
 
-        outCollisionCheckParams.myDebugHorizontalMovementActive = characterColliderSetup.myDebugParams.myVisualDebugHorizontalMovementCheckEnabled;
-        outCollisionCheckParams.myDebugHorizontalPositionActive = characterColliderSetup.myDebugParams.myVisualDebugHorizontalPositionCheckEnabled;
-        outCollisionCheckParams.myDebugVerticalMovementActive = characterColliderSetup.myDebugParams.myVisualDebugVerticalMovementCheckEnabled;
-        outCollisionCheckParams.myDebugVerticalPositionActive = characterColliderSetup.myDebugParams.myVisualDebugVerticalPositionCheckEnabled;
-        outCollisionCheckParams.myDebugSlidingActive = characterColliderSetup.myDebugParams.myVisualDebugSlideEnabled;
+        outCollisionCheckParams.myDebugHorizontalMovementEnabled = characterColliderSetup.myDebugParams.myVisualDebugHorizontalMovementCheckEnabled;
+        outCollisionCheckParams.myDebugHorizontalPositionEnabled = characterColliderSetup.myDebugParams.myVisualDebugHorizontalPositionCheckEnabled;
+        outCollisionCheckParams.myDebugVerticalMovementEnabled = characterColliderSetup.myDebugParams.myVisualDebugVerticalMovementCheckEnabled;
+        outCollisionCheckParams.myDebugVerticalPositionEnabled = characterColliderSetup.myDebugParams.myVisualDebugVerticalPositionCheckEnabled;
+        outCollisionCheckParams.myDebugSlidingEnabled = characterColliderSetup.myDebugParams.myVisualDebugSlideEnabled;
 
-        outCollisionCheckParams.myDebugGroundInfoActive = characterColliderSetup.myDebugParams.myVisualDebugGroundInfoEnabled;
-        outCollisionCheckParams.myDebugCeilingInfoActive = characterColliderSetup.myDebugParams.myVisualDebugGroundInfoEnabled;
-        outCollisionCheckParams.myDebugRuntimeParamsActive = characterColliderSetup.myDebugParams.myVisualDebugResultsEnabled;
-        outCollisionCheckParams.myDebugMovementActive = characterColliderSetup.myDebugParams.myVisualDebugMovementEnabled;
+        outCollisionCheckParams.myDebugGroundInfoEnabled = characterColliderSetup.myDebugParams.myVisualDebugGroundInfoEnabled;
+        outCollisionCheckParams.myDebugCeilingInfoEnabled = characterColliderSetup.myDebugParams.myVisualDebugGroundInfoEnabled;
+        outCollisionCheckParams.myDebugRuntimeParamsEnabled = characterColliderSetup.myDebugParams.myVisualDebugResultsEnabled;
+        outCollisionCheckParams.myDebugMovementEnabled = characterColliderSetup.myDebugParams.myVisualDebugMovementEnabled;
 
         return outCollisionCheckParams;
     }

@@ -37,7 +37,7 @@ export class PlayerHeadManagerParams {
 
         this.myEngine = engine;
 
-        this.myDebugActive = false;
+        this.myDebugEnabled = false;
     }
 }
 
@@ -253,7 +253,7 @@ export class PlayerHeadManager {
             this._myCurrentHead.pp_getTransformLocalQuat(this._myCurrentHeadTransformLocalQuat);
         }
 
-        if (this._myParams.myDebugActive && Globals.isDebugEnabled(this._myParams.myEngine)) {
+        if (this._myParams.myDebugEnabled && Globals.isDebugEnabled(this._myParams.myEngine)) {
             this._debugUpdate(dt);
         }
     }

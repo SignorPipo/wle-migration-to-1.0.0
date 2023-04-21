@@ -36,7 +36,7 @@ CollisionCheck.prototype._horizontalPositionCheck = function () {
     let vertilCheckHit = new RaycastHit();
 
     return function _horizontalPositionCheck(originalFeetPosition, originalHeight, feetPosition, height, up, forward, collisionCheckParams, collisionRuntimeParams) {
-        this._myDebugActive = collisionCheckParams.myDebugActive && collisionCheckParams.myDebugHorizontalPositionActive;
+        this._myDebugEnabled = collisionCheckParams.myDebugEnabled && collisionCheckParams.myDebugHorizontalPositionEnabled;
 
         checkPositions.length = 0;
         currentCachedCheckPositionIndex = 0;

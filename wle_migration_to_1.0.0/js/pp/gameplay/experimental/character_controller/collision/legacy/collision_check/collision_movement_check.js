@@ -191,7 +191,7 @@ CollisionCheck.prototype._moveStep = function () {
         }
 
         //this._myTotalRaycasts = 0;
-        //collisionCheckParams.myDebugActive = true;
+        //collisionCheckParams.myDebugEnabled = true;
 
         this._myPrevCollisionRuntimeParams.copy(collisionRuntimeParams);
         collisionRuntimeParams.reset();
@@ -285,7 +285,7 @@ CollisionCheck.prototype._moveStep = function () {
             }
 
             //console.error(this._myTotalRaycasts );
-            //collisionCheckParams.myDebugActive = false;
+            //collisionCheckParams.myDebugEnabled = false;
 
             surfaceAdjustedVerticalMovement = this._adjustVerticalMovementWithSurface(fixedHorizontalMovement, verticalMovement, transformUp, collisionCheckParams, collisionRuntimeParams, this._myPrevCollisionRuntimeParams, surfaceAdjustedVerticalMovement);
 
@@ -465,11 +465,11 @@ CollisionCheck.prototype._moveStep = function () {
         }
 
         if (!moveStepFixed) {
-            if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugMovementActive && Globals.isDebugEnabled(this._myEngine)) {
+            if (collisionCheckParams.myDebugEnabled && collisionCheckParams.myDebugMovementEnabled && Globals.isDebugEnabled(this._myEngine)) {
                 this._debugMovement(movement, outFixedMovement, newFeetPosition, transformUp, collisionCheckParams);
             }
 
-            if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugRuntimeParamsActive && Globals.isDebugEnabled(this._myEngine)) {
+            if (collisionCheckParams.myDebugEnabled && collisionCheckParams.myDebugRuntimeParamsEnabled && Globals.isDebugEnabled(this._myEngine)) {
                 this._debugRuntimeParams(collisionRuntimeParams);
             }
         }

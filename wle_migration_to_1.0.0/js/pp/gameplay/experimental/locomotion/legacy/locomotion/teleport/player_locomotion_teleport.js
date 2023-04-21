@@ -42,10 +42,10 @@ export class PlayerLocomotionTeleportParams {
 
         this.myEngine = engine;
 
-        this.myDebugActive = false;
-        this.myDebugDetectActive = false;
-        this.myDebugShowActive = false;
-        this.myDebugVisibilityActive = false;
+        this.myDebugEnabled = false;
+        this.myDebugDetectEnabled = false;
+        this.myDebugShowEnabled = false;
+        this.myDebugVisibilityEnabled = false;
     }
 }
 

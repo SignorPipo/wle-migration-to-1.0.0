@@ -244,7 +244,7 @@ CollisionCheck.prototype._teleport = function () {
 
         collisionRuntimeParams.myIsTeleport = true;
 
-        if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugRuntimeParamsActive && Globals.isDebugEnabled(this._myEngine)) {
+        if (collisionCheckParams.myDebugEnabled && collisionCheckParams.myDebugRuntimeParamsEnabled && Globals.isDebugEnabled(this._myEngine)) {
             this._debugRuntimeParams(collisionRuntimeParams);
         }
     };

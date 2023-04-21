@@ -206,12 +206,12 @@ CollisionCheck.prototype._horizontalSlideFlickerCheck = function () {
                 //console.error("slide movement", slideMovement.vec_toString(), feetPosition.vec_toString());
                 newFeetPosition = feetPosition.vec3_add(slideMovement, newFeetPosition);
 
-                let backupDebugActive = collisionCheckParams.myDebugActive;
-                collisionCheckParams.myDebugActive = collisionCheckParams.myDebugActive && collisionCheckParams.myDebugSlidingActive;
+                let backupDebugEnabled = collisionCheckParams.myDebugEnabled;
+                collisionCheckParams.myDebugEnabled = collisionCheckParams.myDebugEnabled && collisionCheckParams.myDebugSlidingEnabled;
 
                 fixedMovement.vec3_zero();
                 fixedMovement = this._horizontalCheck(movement, newFeetPosition, height, up, forward, allowSurfaceSteepFix, collisionCheckParams, this._mySlidingFlickeringFixCollisionRuntimeParams, previousCollisionRuntimeParams, false, fixedMovement);
-                collisionCheckParams.myDebugActive = backupDebugActive;
+                collisionCheckParams.myDebugEnabled = backupDebugEnabled;
 
                 if (fixedMovement.vec3_isZero(0.00001)) {
                     this._mySlidingFlickeringFixSlidingCollisionRuntimeParams.copy(this._mySlidingFlickeringFixCollisionRuntimeParams);
@@ -373,8 +373,8 @@ CollisionCheck.prototype._internalHorizontalSlide = function () {
 
             currentMovement.vec3_zero();
 
-            let backupDebugActive = collisionCheckParams.myDebugActive;
-            collisionCheckParams.myDebugActive = collisionCheckParams.myDebugActive && collisionCheckParams.myDebugSlidingActive;
+            let backupDebugEnabled = collisionCheckParams.myDebugEnabled;
+            collisionCheckParams.myDebugEnabled = collisionCheckParams.myDebugEnabled && collisionCheckParams.myDebugSlidingEnabled;
 
             let originalCurrentAngle = currentAngle;
             for (let i = 0; i < collisionCheckParams.mySlidingMaxAttempts; i++) {
@@ -419,7 +419,7 @@ CollisionCheck.prototype._internalHorizontalSlide = function () {
                 }
             }
 
-            collisionCheckParams.myDebugActive = backupDebugActive;
+            collisionCheckParams.myDebugEnabled = backupDebugEnabled;
         }
 
         if (!collisionRuntimeParams.myIsSliding) {
@@ -466,7 +466,7 @@ CollisionCheck.prototype._horizontalCheckBetterSlideNormal = function () {
             fixedMovement.vec3_zero();
         }
 
-        if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugHorizontalMovementActive && Globals.isDebugEnabled(this._myEngine)) {
+        if (collisionCheckParams.myDebugEnabled && collisionCheckParams.myDebugHorizontalMovementEnabled && Globals.isDebugEnabled(this._myEngine)) {
             Globals.getDebugVisualManager(this._myEngine).drawArrow(0, feetPosition, movementDirection, fixedMovement.vec3_length(), vec4_create(1, 0, 1, 1));
         }
 
@@ -477,14 +477,14 @@ CollisionCheck.prototype._horizontalCheckBetterSlideNormal = function () {
         newFixedFeetPosition = feetPosition.vec3_add(fixedMovement, newFixedFeetPosition);
         newFeetPosition = feetPosition.vec3_add(fixedMovement, newFeetPosition);
 
-        let backupDebugActive = collisionCheckParams.myDebugActive;
-        collisionCheckParams.myDebugActive = collisionCheckParams.myDebugActive && collisionCheckParams.myDebugSlidingActive;
+        let backupDebugEnabled = collisionCheckParams.myDebugEnabled;
+        collisionCheckParams.myDebugEnabled = collisionCheckParams.myDebugEnabled && collisionCheckParams.myDebugSlidingEnabled;
 
         if (collisionCheckParams.myHorizontalPositionCheckEnabled) {
             this._horizontalPositionCheck(originalFeetPosition, originalHeight, newFixedFeetPosition, height, up, forward, collisionCheckParams, this._myCheckBetterSlidingNormalCollisionRuntimeParams);
         }
 
-        collisionCheckParams.myDebugActive = backupDebugActive;
+        collisionCheckParams.myDebugEnabled = backupDebugEnabled;
 
         if (this._myCheckBetterSlidingNormalCollisionRuntimeParams.myIsCollidingHorizontally &&
             !this._myCheckBetterSlidingNormalCollisionRuntimeParams.myHorizontalCollisionHit.myIsInsideCollision) {

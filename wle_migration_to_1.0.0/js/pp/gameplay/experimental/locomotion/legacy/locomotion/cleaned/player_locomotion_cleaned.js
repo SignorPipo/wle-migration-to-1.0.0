@@ -58,7 +58,7 @@ export class CleanedPlayerLocomotion {
 
             params.myFeetRotationKeepUp = true;
 
-            params.myDebugActive = false;
+            params.myDebugEnabled = false;
 
             this._myPlayerHeadManager = new PlayerHeadManager(params);
         }
@@ -127,7 +127,7 @@ export class CleanedPlayerLocomotion {
 
             params.myResetRealOnMove = false;
 
-            params.myDebugActive = false;
+            params.myDebugEnabled = false;
 
             this._myPlayerTransformManager = new CleanedPlayerTransformManager(params);
         }
@@ -257,10 +257,10 @@ export class CleanedPlayerLocomotion {
 
                 params.myGravityAcceleration = 0;
 
-                params.myDebugActive = false;
-                params.myDebugDetectActive = true;
-                params.myDebugShowActive = true;
-                params.myDebugVisibilityActive = false;
+                params.myDebugEnabled = false;
+                params.myDebugDetectEnabled = true;
+                params.myDebugShowEnabled = true;
+                params.myDebugVisibilityEnabled = false;
 
                 this._myPlayerLocomotionTeleport = new PlayerLocomotionTeleport(params, this._myMovementRuntimeParams);
             }
@@ -451,7 +451,7 @@ export class CleanedPlayerLocomotion {
         //this._myCollisionCheckParamsTeleport.mySplitMovementEnabled = true;
         //this._myCollisionCheckParamsTeleport.mySplitMovementMaxLength = 0.2;
 
-        //this._myCollisionCheckParamsTeleport.myDebugActive = true;
+        //this._myCollisionCheckParamsTeleport.myDebugEnabled = true;
     }
 
     _fixAlmostUp() {

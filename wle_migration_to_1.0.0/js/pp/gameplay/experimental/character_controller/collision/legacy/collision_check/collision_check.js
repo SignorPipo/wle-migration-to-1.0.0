@@ -41,7 +41,7 @@ export class CollisionCheck {
         this._mySlidingOppositeDirectionCollisionRuntimeParams = new CollisionRuntimeParams();
         this._mySlidingOnVerticalCheckCollisionRuntimeParams = new CollisionRuntimeParams();
 
-        this._myDebugActive = false;
+        this._myDebugEnabled = false;
 
         this._myTotalRaycasts = 0;
         this._myTotalRaycastsMax = 0;
@@ -156,7 +156,7 @@ CollisionCheck.prototype._raycastAndDebug = function () {
         this._myTotalRaycasts++;
         //raycastResult.myHits = [];
 
-        if (this._myDebugActive && Globals.isDebugEnabled(this._myEngine)) {
+        if (this._myDebugEnabled && Globals.isDebugEnabled(this._myEngine)) {
             Globals.getDebugVisualManager(this._myEngine).drawRaycast(0, raycastResult);
         }
 

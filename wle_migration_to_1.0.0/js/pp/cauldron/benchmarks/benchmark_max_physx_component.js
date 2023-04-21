@@ -94,14 +94,14 @@ export class BenchmarkMaxPhysXComponent extends Component {
                 if (this._myTimer.isDone()) {
                     this._myTimer.start();
 
-                    let debugActive = false;
+                    let debugEnabled = false;
                     if (this._myDebugTimer.isDone()) {
                         this._myDebugTimer.start();
-                        debugActive = true;
+                        debugEnabled = true;
                     }
 
-                    debugActive = debugActive && this._myVisualizeRaycast;
-                    this._raycastTest(debugActive);
+                    debugEnabled = debugEnabled && this._myVisualizeRaycast;
+                    this._raycastTest(debugEnabled);
                 }
 
                 this._myFPSHistory.pop();
@@ -171,7 +171,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
         }
     }
 
-    _raycastTest(debugActive) {
+    _raycastTest(debugEnabled) {
         let raycastCount = this._myRaycastCount;
 
         let distance = 10000;
@@ -188,7 +188,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
 
             let raycastResults = PhysicsUtils.raycast(this._myRaycastParams, this._myRaycastResults);
 
-            if (debugActive && Globals.isDebugEnabled(this.engine)) {
+            if (debugEnabled && Globals.isDebugEnabled(this.engine)) {
                 Globals.getDebugVisualManager(this.engine).drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
             }
         }
