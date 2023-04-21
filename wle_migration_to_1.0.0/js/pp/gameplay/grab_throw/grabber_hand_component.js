@@ -51,7 +51,7 @@ export class GrabberHandComponent extends Component {
         this._myGrabEmitter = new Emitter();      // Signature: listener(grabber, grabbable)
         this._myThrowEmitter = new Emitter();     // Signature: listener(grabber, grabbable)
 
-        this._myDebugActive = false;
+        this._myDebugEnabled = false;
     }
 
     start() {
@@ -281,7 +281,7 @@ export class GrabberHandComponent extends Component {
         speed *= this._myThrowLinearVelocityMultiplier;
         speed = Math.pp_clamp(speed, 0, this._myThrowMaxLinearSpeed);
 
-        if (this._myDebugActive && Globals.isDebugEnabled(this.engine)) {
+        if (this._myDebugEnabled && Globals.isDebugEnabled(this.engine)) {
             this._debugDirectionLines(linearVelocityHistory);
         }
 

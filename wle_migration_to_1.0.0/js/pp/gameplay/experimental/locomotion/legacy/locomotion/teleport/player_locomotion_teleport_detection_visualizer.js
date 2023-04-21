@@ -19,7 +19,7 @@ export class PlayerLocomotionTeleportDetectionVisualizerParams {
 
         this.myTeleportParablePositionVisualAlignOnSurface = true;
 
-        this.myVisualTeleportPositionLerpActive = true;
+        this.myVisualTeleportPositionLerpEnabled = true;
         this.myVisualTeleportPositionLerpFactor = 10;
         this.myVisualTeleportPositionMinDistanceToResetLerp = 0.005;
         this.myVisualTeleportPositionMinDistanceToLerp = 0.15;
@@ -368,7 +368,7 @@ PlayerLocomotionTeleportDetectionVisualizer.prototype._showTeleportParablePositi
 
         this._myVisualTeleportTransformQuat.quat2_setPositionRotationQuat(visualPosition, visualRotationQuat);
 
-        if (this._myVisualTeleportTransformQuatReset || !this._myTeleportParams.myVisualizerParams.myVisualTeleportPositionLerpActive) {
+        if (this._myVisualTeleportTransformQuatReset || !this._myTeleportParams.myVisualizerParams.myVisualTeleportPositionLerpEnabled) {
             this._myVisualTeleportPositionObject.pp_setTransformQuat(this._myVisualTeleportTransformQuat);
             this._myVisualTeleportTransformQuatReset = false;
         } else {
