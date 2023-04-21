@@ -21,6 +21,7 @@ export class CADisplayLeaderboardComponent extends Component {
         this._myScoresTextComponent = null;
 
         this._myStarted = false;
+        this._myDestroyed = false;
     }
 
     start() {
@@ -52,6 +53,8 @@ export class CADisplayLeaderboardComponent extends Component {
     }
 
     _onLeaderboardRetrieved(leaderboard) {
+        if (this._myDestroyed) return;
+
         let namesText = "";
         let scoresText = "";
 
@@ -146,5 +149,9 @@ export class CADisplayLeaderboardComponent extends Component {
         let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
         return clonedComponent;
+    }
+
+    onDestroy() {
+        this._myDestroyed = true;
     }
 }

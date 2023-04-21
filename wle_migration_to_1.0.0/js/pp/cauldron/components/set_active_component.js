@@ -68,4 +68,8 @@ export class SetActiveComponent extends Component {
             this.object.pp_setActive(this._myActive);
         }
     }
+
+    onDestroy() {
+        XRUtils.unregisterSessionStartEndEventListeners(this, this.engine);
+    }
 }

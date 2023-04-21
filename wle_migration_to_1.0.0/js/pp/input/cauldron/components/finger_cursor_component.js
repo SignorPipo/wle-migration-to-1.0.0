@@ -152,4 +152,8 @@ export class FingerCursorComponent extends Component {
     _onXRSessionEnd(session) {
         this._myReferenceSpace = null;
     }
+
+    onDestroy() {
+        XRUtils.unregisterSessionStartEndEventListeners(this, this.engine);
+    }
 }
