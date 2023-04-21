@@ -156,7 +156,7 @@ CollisionCheck.prototype._raycastAndDebug = function () {
         this._myTotalRaycasts++;
         //raycastResult.myHits = [];
 
-        if (this._myDebugActive) {
+        if (this._myDebugActive && Globals.isDebugEnabled(this._myEngine)) {
             Globals.getDebugVisualManager(this._myEngine).drawRaycast(0, raycastResult);
         }
 

@@ -21,7 +21,7 @@ export class PhysicsCollisionCollector {
         this._myIsActive = false;
         this.setActive(true);
 
-        this._myDebugActive = false;
+        this._myLogEnabled = false;
 
         this._myTriggerDesyncFixDelay = new Timer(0.1);
 
@@ -45,6 +45,10 @@ export class PhysicsCollisionCollector {
 
     getCollisionsEnd() {
         return this._myCollisionsEnd;
+    }
+
+    isActive() {
+        return this._myIsActive;
     }
 
     setActive(active) {
@@ -99,8 +103,12 @@ export class PhysicsCollisionCollector {
         }
     }
 
-    setDebugActive(active) {
-        this._myDebugActive = active;
+    isLogEnabled() {
+        return this._myLogEnabled;
+    }
+
+    setLogEnabled(enabled) {
+        this._myLogEnabled = enabled;
     }
 
     registerCollisionEventListener(id, listener) {
@@ -138,7 +146,7 @@ export class PhysicsCollisionCollector {
     }
 
     _onCollisionStart(type, physXComponent) {
-        if (this._myDebugActive) {
+        if (this._myLogEnabled) {
             let objectFound = false;
             for (let object of this._myCollisions) {
                 if (object.pp_equals(physXComponent.object)) {
@@ -161,7 +169,7 @@ export class PhysicsCollisionCollector {
             });
         }
 
-        if (this._myDebugActive) {
+        if (this._myLogEnabled) {
             console.log("Collision Start -", this._myCollisions.length);
         }
 
@@ -169,7 +177,7 @@ export class PhysicsCollisionCollector {
     }
 
     _onCollisionEnd(type, physXComponent) {
-        if (this._myDebugActive) {
+        if (this._myLogEnabled) {
             let objectFound = false;
             for (let object of this._myCollisions) {
                 if (object.pp_equals(physXComponent.object)) {
@@ -195,7 +203,7 @@ export class PhysicsCollisionCollector {
             });
         }
 
-        if (this._myDebugActive) {
+        if (this._myLogEnabled) {
             console.log("Collision End -", this._myCollisions.length);
         }
 

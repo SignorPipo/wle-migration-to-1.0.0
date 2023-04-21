@@ -253,7 +253,7 @@ export class PlayerHeadManager {
             this._myCurrentHead.pp_getTransformLocalQuat(this._myCurrentHeadTransformLocalQuat);
         }
 
-        if (this._myParams.myDebugActive) {
+        if (this._myParams.myDebugActive && Globals.isDebugEnabled(this._myParams.myEngine)) {
             this._debugUpdate(dt);
         }
     }

@@ -658,7 +658,7 @@ PlayerTransformManager.prototype.update = function () {
             this._myIsPositionValid = collisionRuntimeParams.myIsPositionOk;
         }
 
-        if (this._myParams.myDebugActive) {
+        if (this._myParams.myDebugActive && Globals.isDebugEnabled(this._myParams.myEngine)) {
             this._debugUpdate(dt);
         }
     }

@@ -1,4 +1,5 @@
 import { quat2_create, vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
+import { Globals } from "../../../../../../pp/globals";
 import { CollisionCheck } from "./collision_check";
 import { CollisionRuntimeParams } from "./collision_params";
 
@@ -464,11 +465,11 @@ CollisionCheck.prototype._moveStep = function () {
         }
 
         if (!moveStepFixed) {
-            if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugMovementActive) {
+            if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugMovementActive && Globals.isDebugEnabled(this._myEngine)) {
                 this._debugMovement(movement, outFixedMovement, newFeetPosition, transformUp, collisionCheckParams);
             }
 
-            if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugRuntimeParamsActive) {
+            if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugRuntimeParamsActive && Globals.isDebugEnabled(this._myEngine)) {
                 this._debugRuntimeParams(collisionRuntimeParams);
             }
         }

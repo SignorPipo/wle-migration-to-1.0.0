@@ -188,7 +188,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
 
             let raycastResults = PhysicsUtils.raycast(this._myRaycastParams, this._myRaycastResults);
 
-            if (debugActive) {
+            if (debugActive && Globals.isDebugEnabled(this.engine)) {
                 Globals.getDebugVisualManager(this.engine).drawRaycast(this._myDebugTimer.getDuration(), raycastResults, true, 5, 0.015);
             }
         }
