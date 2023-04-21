@@ -44,7 +44,7 @@ export class VirtualGamepadIcon {
         this._myBackgroundElement = null;
         this._myIconElement = null;
 
-        this._myPressed = false;
+        this._myIsPressed = false;
 
         this._myIsMouseHover = false;
         this._myIsMouseHoverActive = true;
@@ -53,7 +53,7 @@ export class VirtualGamepadIcon {
     }
 
     update(dt) {
-        if (this._myPressed || !this._myIsMouseHover || !this._myIsMouseHoverActive) {
+        if (this._myIsPressed || !this._myIsMouseHover || !this._myIsMouseHoverActive) {
             this._myIconContainerElement.style.filter = "none";
         } else {
             this._myIconContainerElement.style.filter = "brightness(" + this._myParams.myOverallHoveredBrightness + ")";
@@ -67,10 +67,10 @@ export class VirtualGamepadIcon {
     }
 
     setPressed(pressed) {
-        if (this._myPressed != pressed) {
-            this._myPressed = pressed;
+        if (this._myIsPressed != pressed) {
+            this._myIsPressed = pressed;
 
-            if (this._myPressed) {
+            if (this._myIsPressed) {
                 this._myBackgroundElement.style.fill = this._myParams.myBackgroundPressedColor;
                 if (this._myIconElement != null) {
                     if (this._myIconElement.style.strokeWidth.length > 0) {

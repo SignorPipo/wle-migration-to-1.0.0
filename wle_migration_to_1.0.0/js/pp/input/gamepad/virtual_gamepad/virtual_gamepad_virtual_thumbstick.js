@@ -10,7 +10,7 @@ export class VirtualGamepadVirtualThumbstick {
         this._myThumbstickBackground = null;
         this._myThumbstickDetectionElement = null;
 
-        this._myIsActive = true;
+        this._myActive = true;
 
         this._myPointerID = null;
         this._myPointerButton = null
@@ -38,7 +38,7 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     isPressed() {
-        return this._myIsActive && this._myIsPressed;
+        return this._myActive && this._myIsPressed;
     }
 
     getAxes() {
@@ -46,12 +46,12 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     setActive(active) {
-        if (this._myIsActive != active) {
+        if (this._myActive != active) {
             this.reset();
             this._myThumbstickIcon.reset();
         }
 
-        this._myIsActive = active;
+        this._myActive = active;
     }
 
     setMouseHoverActive(hoverActive) {
@@ -76,7 +76,7 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     _onPointerDown(stopPropagatingPointerDownEvents, event) {
-        if (!this._myIsActive) return;
+        if (!this._myActive) return;
         if (this._myIsPressed) return;
         if (!this._myVirtualGamepadParams.myValidPointerButtons.pp_hasEqual(event.button)) return;
 
@@ -97,7 +97,7 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     _onPointerUp(event) {
-        if (!this._myIsActive) return;
+        if (!this._myActive) return;
         if (!this._myIsPressed) return;
         if (this._myPointerID != event.pointerId) return;
         if (this._myPointerButton != null && this._myPointerButton != event.button) return;
@@ -106,7 +106,7 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     _onPointerLeave(event) {
-        if (!this._myIsActive) return;
+        if (!this._myActive) return;
         if (this._myPointerID != event.pointerId) return;
 
         this.reset();
@@ -121,7 +121,7 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     _onPointerMove(event) {
-        if (!this._myIsActive) return;
+        if (!this._myActive) return;
         if (!this._myIsPressed) return;
 
         if (event.pointerId != this._myPointerID) return;
