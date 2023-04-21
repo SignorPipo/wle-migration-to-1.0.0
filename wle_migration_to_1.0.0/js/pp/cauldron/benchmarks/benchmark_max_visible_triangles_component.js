@@ -37,7 +37,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myBackgroundObject.pp_translateLocal(vec3_create(0, 0, -0.001));
 
         this._myDoubleTimer = new Timer(this._mySecondsBeforeDoubling);
-        this._myIsDone = false;
+        this._myDone = false;
 
         this._myCurrentPlanes = this._myStartPlaneCount;
 
@@ -75,7 +75,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             }
         }
 
-        if (!this._myIsDone) {
+        if (!this._myDone) {
             this._myDoubleTimer.update(dt);
 
             this._myDTHistory.push(dt);
@@ -159,7 +159,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
                                 this._myDoneTextComponent.text = "End";
                             }
-                            this._myIsDone = true;
+                            this._myDone = true;
                         }
                     }
 
@@ -169,7 +169,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                         }
                     }
 
-                    if (!this._myIsDone) {
+                    if (!this._myDone) {
                         // Sort of binary search, if there is no upper limit yet, just double
                         if (this._myUpperLimit > 0) {
                             this._myCurrentPlanes = Math.floor((this._myUpperLimit + this._myLowerLimit) / 2);
@@ -189,7 +189,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                     }
                 }
 
-                if (!this._myIsDone) {
+                if (!this._myDone) {
                     this._displayPlanes(this._myCurrentPlanes);
                     this._myElapsedTime = 0;
                     this._myFrameCount = 0;

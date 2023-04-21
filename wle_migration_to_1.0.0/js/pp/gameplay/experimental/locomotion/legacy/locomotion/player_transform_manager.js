@@ -70,7 +70,7 @@ export class PlayerTransformManagerParams {
         this.myFloatingSplitCheckStepEqualLength = false;
         this.myFloatingSplitCheckStepEqualLengthMinLength = 0;
 
-        this.myIsMaxDistanceFromRealToSyncEnabled = false;
+        this.myMaxDistanceFromRealToSyncEnabled = false;
         this.myMaxDistanceFromRealToSync = 0;
         // Max distance to resync valid with head, if you head is further do not resync
 
@@ -701,7 +701,7 @@ PlayerTransformManager.prototype._updateReal = function () {
 
             // Far
             if (this._myParams.mySyncEnabledFlagMap.get(PlayerTransformManagerSyncFlag.FAR)) {
-                if (this._myParams.myIsMaxDistanceFromRealToSyncEnabled && movementToCheck.vec3_length() > this._myParams.myMaxDistanceFromRealToSync) {
+                if (this._myParams.myMaxDistanceFromRealToSyncEnabled && movementToCheck.vec3_length() > this._myParams.myMaxDistanceFromRealToSync) {
                     this._myIsFar = true;
                 } else if (this._myParams.myIsFarExtraCheckCallback != null && this._myParams.myIsFarExtraCheckCallback(this)) {
                     this._myIsFar = true;
