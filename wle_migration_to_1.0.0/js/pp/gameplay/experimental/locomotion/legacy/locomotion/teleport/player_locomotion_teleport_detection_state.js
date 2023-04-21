@@ -281,7 +281,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
             raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-            if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
+            if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                 Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
             }
 
@@ -337,7 +337,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
                     raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-                    if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
+                    if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                         Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                     }
 
@@ -366,7 +366,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
                                 raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-                                if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
+                                if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                                     Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                                 }
@@ -397,7 +397,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
                                 raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-                                if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
+                                if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                                     Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                                 }
@@ -429,7 +429,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
                                 raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-                                if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
+                                if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                                     Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                                     Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                                 }
@@ -468,7 +468,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
             raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-            if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
+            if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                 Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
             }
 
@@ -497,7 +497,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
                         raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-                        if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
+                        if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                             Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                             Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                         }
@@ -527,7 +527,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportPositionParable 
 
                         raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-                        if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive) {
+                        if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugDetectActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                             Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawPoint(0, raycastParams.myOrigin, vec4_create(0, 0, 0, 1), 0.03);
                             Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
                         }

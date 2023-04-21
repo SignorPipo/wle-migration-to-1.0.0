@@ -106,7 +106,7 @@ PlayerLocomotionTeleportDetectionState.prototype._isPositionVisible = function (
 
             raycastResult = PhysicsUtils.raycast(raycastParams, raycastResult);
 
-            if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugVisibilityActive) {
+            if (this._myTeleportParams.myDebugActive && this._myTeleportParams.myDebugVisibilityActive && Globals.isDebugEnabled(this._myTeleportParams.myEngine)) {
                 Globals.getDebugVisualManager(this._myTeleportParams.myEngine).drawRaycast(0, raycastResult);
             }
 

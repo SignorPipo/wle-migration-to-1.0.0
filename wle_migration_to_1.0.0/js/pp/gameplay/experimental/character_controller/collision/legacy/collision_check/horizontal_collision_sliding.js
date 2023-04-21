@@ -466,7 +466,7 @@ CollisionCheck.prototype._horizontalCheckBetterSlideNormal = function () {
             fixedMovement.vec3_zero();
         }
 
-        if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugHorizontalMovementActive) {
+        if (collisionCheckParams.myDebugActive && collisionCheckParams.myDebugHorizontalMovementActive && Globals.isDebugEnabled(this._myEngine)) {
             Globals.getDebugVisualManager(this._myEngine).drawArrow(0, feetPosition, movementDirection, fixedMovement.vec3_length(), vec4_create(1, 0, 1, 1));
         }
 
