@@ -20,7 +20,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         this._myValueEditIndex = 0;
         this._myValueButtonEditIntensity = 0;
         this._myValueButtonEditIntensityTimer = 0;
-        this._myValueEditActive = false;
+        this._myValueEditEnabled = false;
 
         this._myTempValue = [];
 
@@ -35,7 +35,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
     }
 
     _startHook(parentObject, params) {
-        this._myUI.setAdditionalButtonsActive(params.myAdditionalButtonsEnabled);
+        this._myUI.setAdditionalButtonsVisible(params.myAdditionalButtonsVisible);
     }
 
     _setEasyTuneVariableHook() {
@@ -56,7 +56,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         }
 
         let valueIntensity = 0;
-        if (this._myValueEditActive) {
+        if (this._myValueEditEnabled) {
             valueIntensity = stickVariableIntensity;
         } else if (this._myValueButtonEditIntensity != 0) {
             if (this._myValueButtonEditIntensityTimer <= 0) {
@@ -99,8 +99,8 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
             ui.myValueDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myValueDecreaseButtonBackgroundComponents[i].material));
 
             ui.myValueCursorTargetComponents[i].onClick.add(this._resetValue.bind(this, i));
-            ui.myValueCursorTargetComponents[i].onHover.add(this._setValueEditActive.bind(this, i, ui.myValueTexts[i], true));
-            ui.myValueCursorTargetComponents[i].onUnhover.add(this._setValueEditActive.bind(this, i, ui.myValueTexts[i], false));
+            ui.myValueCursorTargetComponents[i].onHover.add(this._setValueEditEnabled.bind(this, i, ui.myValueTexts[i], true));
+            ui.myValueCursorTargetComponents[i].onUnhover.add(this._setValueEditEnabled.bind(this, i, ui.myValueTexts[i], false));
         }
     }
 
@@ -115,16 +115,16 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
         }
     }
 
-    _setValueEditActive(index, text, active) {
-        if (this._isActive() || !active) {
-            if (active) {
+    _setValueEditEnabled(index, text, enabled) {
+        if (this._isActive() || !enabled) {
+            if (enabled) {
                 this._myValueEditIndex = index;
                 text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
                 text.pp_setScaleLocal(this._myConfig.myValueTextScale);
             }
 
-            this._myValueEditActive = active;
+            this._myValueEditEnabled = enabled;
         }
     }
 

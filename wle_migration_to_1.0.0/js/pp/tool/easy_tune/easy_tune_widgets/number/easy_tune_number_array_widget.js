@@ -24,8 +24,8 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
         this._myStepButtonEditIntensity = 0;
         this._myStepButtonEditIntensityTimer = 0;
 
-        this._myValueEditActive = false;
-        this._myStepEditActive = false;
+        this._myValueEditEnabled = false;
+        this._myStepEditEnabled = false;
 
         this._myValueRealValue = 0;
         this._myStepMultiplierValue = 0;
@@ -53,7 +53,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
 
 
     _startHook(parentObject, params) {
-        this._myUI.setAdditionalButtonsActive(params.myAdditionalButtonsEnabled);
+        this._myUI.setAdditionalButtonsVisible(params.myAdditionalButtonsVisible);
     }
 
     _setEasyTuneVariableHook() {
@@ -79,7 +79,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
         }
 
         let valueIntensity = 0;
-        if (this._myValueEditActive) {
+        if (this._myValueEditEnabled) {
             valueIntensity = stickVariableIntensity;
         } else if (this._myValueButtonEditIntensity != 0) {
             if (this._myValueButtonEditIntensityTimer <= 0) {
@@ -144,7 +144,7 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
         }
 
         let stepIntensity = 0;
-        if (this._myStepEditActive) {
+        if (this._myStepEditEnabled) {
             stepIntensity = stickVariableIntensity;
         } else if (this._myStepButtonEditIntensity != 0) {
             if (this._myStepButtonEditIntensityTimer <= 0) {
@@ -204,13 +204,13 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
             ui.myValueDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myValueDecreaseButtonBackgroundComponents[i].material));
 
             ui.myValueCursorTargetComponents[i].onClick.add(this._resetValue.bind(this, i));
-            ui.myValueCursorTargetComponents[i].onHover.add(this._setValueEditActive.bind(this, i, ui.myValueTexts[i], true));
-            ui.myValueCursorTargetComponents[i].onUnhover.add(this._setValueEditActive.bind(this, i, ui.myValueTexts[i], false));
+            ui.myValueCursorTargetComponents[i].onHover.add(this._setValueEditEnabled.bind(this, i, ui.myValueTexts[i], true));
+            ui.myValueCursorTargetComponents[i].onUnhover.add(this._setValueEditEnabled.bind(this, i, ui.myValueTexts[i], false));
         }
 
         ui.myStepCursorTargetComponent.onClick.add(this._resetStep.bind(this));
-        ui.myStepCursorTargetComponent.onHover.add(this._setStepEditActive.bind(this, ui.myStepText, true));
-        ui.myStepCursorTargetComponent.onUnhover.add(this._setStepEditActive.bind(this, ui.myStepText, false));
+        ui.myStepCursorTargetComponent.onHover.add(this._setStepEditEnabled.bind(this, ui.myStepText, true));
+        ui.myStepCursorTargetComponent.onUnhover.add(this._setStepEditEnabled.bind(this, ui.myStepText, false));
 
         ui.myStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 1));
         ui.myStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 1));
@@ -251,9 +251,9 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
         }
     }
 
-    _setValueEditActive(index, text, active) {
-        if (this._isActive() || !active) {
-            if (active) {
+    _setValueEditEnabled(index, text, enabled) {
+        if (this._isActive() || !enabled) {
+            if (enabled) {
                 this._myValueRealValue = this._getVariableValue()[index];
                 this._myValueEditIndex = index;
                 text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
@@ -261,19 +261,19 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
                 text.pp_setScaleLocal(this._myConfig.myValueTextScale);
             }
 
-            this._myValueEditActive = active;
+            this._myValueEditEnabled = enabled;
         }
     }
 
-    _setStepEditActive(text, active) {
-        if (this._isActive() || !active) {
-            if (active) {
+    _setStepEditEnabled(text, enabled) {
+        if (this._isActive() || !enabled) {
+            if (enabled) {
                 text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
                 text.pp_setScaleLocal(this._myConfig.myStepTextScale);
             }
 
-            this._myStepEditActive = active;
+            this._myStepEditEnabled = enabled;
         }
     }
 

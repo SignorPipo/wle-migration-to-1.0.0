@@ -39,7 +39,7 @@ export class PlayerLocomotionTeleportDetectionParams {
         this.myTeleportParableStepLength = 0.25;
 
         this.myRotationOnUpMinStickIntensity = 0.5;
-        this.myRotationOnUpActive = false;
+        this.myRotationOnUpEnabled = false;
 
         this.myTeleportFeetPositionMustBeVisible = false;
         this.myTeleportHeadPositionMustBeVisible = false;
@@ -562,7 +562,7 @@ PlayerLocomotionTeleportDetectionState.prototype._detectTeleportRotationVR = fun
             this._myTeleportRotationOnUpNext = axesVec3.vec3_angleSigned(axesForward, axesUp);
         }
 
-        if (!this._myTeleportParams.myDetectionParams.myRotationOnUpActive) {
+        if (!this._myTeleportParams.myDetectionParams.myRotationOnUpEnabled) {
             this._myTeleportRuntimeParams.myTeleportRotationOnUp = 0;
             this._myTeleportRotationOnUpNext = 0;
         }

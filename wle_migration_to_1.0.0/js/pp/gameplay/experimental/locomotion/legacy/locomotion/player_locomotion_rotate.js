@@ -13,7 +13,7 @@ export class PlayerLocomotionRotateParams {
         this.myIsSnapTurn = false;
         this.mySnapTurnOnlyVR = false;
 
-        this.mySmoothSnapActive = true;
+        this.mySmoothSnapEnabled = true;
         this.mySmoothSnapSpeedDegrees = 240;
 
         this.myRotationMinStickIntensityThreshold = 0;
@@ -97,7 +97,7 @@ PlayerLocomotionRotate.prototype._rotateHeadHorizontally = function () {
                 if (Math.abs(axes[0]) > this._myParams.mySnapTurnActivateThreshold) {
                     let angleToRotate = -Math.pp_sign(axes[0]) * this._myParams.mySnapTurnAngle;
 
-                    if (!this._myParams.mySmoothSnapActive) {
+                    if (!this._myParams.mySmoothSnapEnabled) {
                         headRotation.quat_fromAxis(angleToRotate, playerUp);
                     } else {
                         this._mySmoothSnapHorizontalRunning = true;
@@ -194,7 +194,7 @@ PlayerLocomotionRotate.prototype._rotateHeadVertically = function () {
                         angleToRotate += angleToAlign;
                     }
 
-                    if (this._myParams.mySmoothSnapActive) {
+                    if (this._myParams.mySmoothSnapEnabled) {
                         this._mySmoothSnapVerticalRunning = true;
                         this._mySmoothSnapVerticalAngleToPerform = angleToRotate;
                     }

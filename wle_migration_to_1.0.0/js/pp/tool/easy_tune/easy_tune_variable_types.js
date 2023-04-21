@@ -31,7 +31,7 @@ export class EasyTuneVariable {
         this._myValue = null;
         this._myDefaultValue = null;
 
-        this._myIsActive = false;
+        this._myActive = false;
 
         this._myValueChangedEmitter = new Emitter();      // Signature: listener(value, easyTuneVariables)
 
@@ -47,7 +47,11 @@ export class EasyTuneVariable {
     }
 
     isActive() {
-        return this._myIsActive;
+        return this._myActive;
+    }
+
+    setActive(active) {
+        this._myActive = active;
     }
 
     getValue() {

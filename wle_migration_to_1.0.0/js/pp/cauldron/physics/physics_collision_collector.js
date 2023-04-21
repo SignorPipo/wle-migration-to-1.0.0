@@ -12,13 +12,14 @@ export class PhysicsCollisionCollector {
 
         this._myCollisionsStart = [];
         this._myCollisionsEnd = [];
+
         this._myUpdateActive = false;
         this._myCollisionsStartToProcess = [];
         this._myCollisionsEndToProcess = [];
 
         this._myCollisionCallbackID = null;
 
-        this._myIsActive = false;
+        this._myActive = false;
         this.setActive(true);
 
         this._myLogEnabled = false;
@@ -48,12 +49,12 @@ export class PhysicsCollisionCollector {
     }
 
     isActive() {
-        return this._myIsActive;
+        return this._myActive;
     }
 
     setActive(active) {
-        if (this._myIsActive != active) {
-            this._myIsActive = active;
+        if (this._myActive != active) {
+            this._myActive = active;
 
             this._myCollisions = [];
 
@@ -63,7 +64,7 @@ export class PhysicsCollisionCollector {
             this._myCollisionsStartToProcess = [];
             this._myCollisionsEndToProcess = [];
 
-            if (this._myIsActive) {
+            if (this._myActive) {
                 this._myCollisionCallbackID = this._myPhysX.onCollision(this._onCollision.bind(this));
             } else if (this._myCollisionCallbackID != null) {
                 this._myPhysX.removeCollisionCallback(this._myCollisionCallbackID);
@@ -79,7 +80,7 @@ export class PhysicsCollisionCollector {
 
     // Update is not mandatory, use it only if u want to access collisions start and end
     update(dt) {
-        if (!this._myIsActive) {
+        if (!this._myActive) {
             return;
         }
 

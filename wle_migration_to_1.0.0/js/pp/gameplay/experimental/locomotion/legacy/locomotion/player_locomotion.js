@@ -235,10 +235,10 @@ export class PlayerLocomotion {
             params.mySnapTurnAngle = this._myParams.mySnapTurnAngle;
 
             if (this._myParams.mySnapTurnSpeedDegrees > Math.PP_EPSILON) {
-                params.mySmoothSnapActive = true;
+                params.mySmoothSnapEnabled = true;
                 params.mySmoothSnapSpeedDegrees = this._myParams.mySnapTurnSpeedDegrees;
             } else {
-                params.mySmoothSnapActive = false;
+                params.mySmoothSnapEnabled = false;
             }
 
             params.myRotationMinStickIntensityThreshold = 0.1;

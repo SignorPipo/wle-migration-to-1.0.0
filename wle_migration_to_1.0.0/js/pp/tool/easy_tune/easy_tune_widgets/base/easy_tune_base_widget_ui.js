@@ -15,7 +15,7 @@ export class EasyTuneBaseWidgetUI {
         this._myConfig = config;
         this._myParams = params;
 
-        this._myImportExportButtonsActive = true;
+        this._myImportExportButtonsVisible = true;
 
         this._myPlaneMesh = Globals.getDefaultMeshes(this._myEngine).myPlane;
 
@@ -34,16 +34,16 @@ export class EasyTuneBaseWidgetUI {
         this.myPivotObject.pp_setActive(visible);
 
         if (visible) {
-            this.setImportExportButtonsActive(this._myImportExportButtonsActive);
+            this.setImportExportButtonsVisible(this._myImportExportButtonsVisible);
         }
 
         this._setVisibleHook(visible);
     }
 
-    setImportExportButtonsActive(active) {
-        this._myImportExportButtonsActive = active;
+    setImportExportButtonsVisible(visible) {
+        this._myImportExportButtonsVisible = visible;
 
-        this.myImportExportPanel.pp_setActive(this._myImportExportButtonsActive);
+        this.myImportExportPanel.pp_setActive(this._myImportExportButtonsVisible);
     }
 
     // Hooks

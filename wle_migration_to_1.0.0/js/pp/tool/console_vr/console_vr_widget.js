@@ -76,9 +76,9 @@ export class ConsoleVRWidget {
 
         this._myPulseTimer = 0;
 
-        this._myGamepadScrollActive = true;
+        this._myGamepadScrollEnabled = true;
         if (this._myConfig.myGamepadScrollOnlyOnHover) {
-            this._myGamepadScrollActive = false;
+            this._myGamepadScrollEnabled = false;
         }
 
         this._myEngine = engine;
@@ -561,8 +561,8 @@ export class ConsoleVRWidget {
             cursorTarget.onUnhover.add(this._notifyIconUnHover.bind(this));
         }
 
-        ui.myPointerCursorTargetComponent.onHover.add(this._setGamepadScrollActive.bind(this, true));
-        ui.myPointerCursorTargetComponent.onUnhover.add(this._setGamepadScrollActive.bind(this, false));
+        ui.myPointerCursorTargetComponent.onHover.add(this._setGamepadScrollEnabled.bind(this, true));
+        ui.myPointerCursorTargetComponent.onUnhover.add(this._setGamepadScrollEnabled.bind(this, false));
     }
 
     _resetFilters(messageType) {
@@ -732,7 +732,7 @@ export class ConsoleVRWidget {
     }
 
     _updateScrollWithThumbstick(dt) {
-        if (this._myWidgetFrame.myIsWidgetVisible && this._myGamepadScrollActive) {
+        if (this._myWidgetFrame.myIsWidgetVisible && this._myGamepadScrollEnabled) {
             let axes = [0, 0];
             if (this._myConfig.myScrollThumbstickHandedness == ToolHandedness.LEFT) {
                 axes = this._myLeftGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes;
@@ -809,11 +809,11 @@ export class ConsoleVRWidget {
             );
     }
 
-    _setGamepadScrollActive(active) {
-        this._myGamepadScrollActive = active;
+    _setGamepadScrollEnabled(enabled) {
+        this._myGamepadScrollEnabled = enabled;
 
         if (!this._myConfig.myGamepadScrollOnlyOnHover) {
-            this._myGamepadScrollActive = true;
+            this._myGamepadScrollEnabled = true;
         }
     }
 

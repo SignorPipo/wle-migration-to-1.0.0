@@ -17,10 +17,10 @@ export class EasyTuneWidgetParams extends WidgetParams {
 
         this.myShowOnStart = false;
         this.myShowVisibilityButton = false;
-        this.myAdditionalButtonsEnabled = false;
+        this.myAdditionalButtonsVisible = false;
         this.myGamepadScrollVariableEnabled = false;
 
-        this.myVariablesImportExportButtonsEnabled = false;
+        this.myVariablesImportExportButtonsVisible = false;
         this.myVariablesImportCallback = null;   // Signature: callback()
         this.myVariablesExportCallback = null;   // Signature: callback()
     }
@@ -310,12 +310,12 @@ export class EasyTuneWidget {
     }
 
     _updateActiveVariable() {
-        this._myEasyTuneVariables.getEasyTuneVariablesList().forEach(function (value) {
-            value._myIsActive = false;
+        this._myEasyTuneVariables.getEasyTuneVariablesList().forEach(function (variable) {
+            variable.setActive(false);
         });
 
         if (this._myWidgetFrame.myIsWidgetVisible && this._myCurrentVariable) {
-            this._myCurrentVariable._myIsActive = true;
+            this._myCurrentVariable.setActive(true);
         }
     }
 

@@ -20,8 +20,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         this._myStepButtonEditIntensity = 0;
         this._myStepButtonEditIntensityTimer = 0;
 
-        this._myValueEditActive = false;
-        this._myStepEditActive = false;
+        this._myValueEditEnabled = false;
+        this._myStepEditEnabled = false;
 
         this._myValueRealValue = 0;
         this._myComponentStepValue = 0;
@@ -75,7 +75,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
     }
 
     _startHook(parentObject, params) {
-        this._myUI.setAdditionalButtonsActive(params.myAdditionalButtonsEnabled);
+        this._myUI.setAdditionalButtonsVisible(params.myAdditionalButtonsVisible);
     }
 
     _setEasyTuneVariableHook() {
@@ -103,7 +103,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         }
 
         let valueIntensity = 0;
-        if (this._myValueEditActive) {
+        if (this._myValueEditEnabled) {
             valueIntensity = stickVariableIntensity;
         } else if (this._myValueButtonEditIntensity != 0) {
             if (this._myValueButtonEditIntensityTimer <= 0) {
@@ -186,7 +186,7 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         }
 
         let stepIntensity = 0;
-        if (this._myStepEditActive) {
+        if (this._myStepEditEnabled) {
             stepIntensity = stickVariableIntensity;
         } else if (this._myStepButtonEditIntensity != 0) {
             if (this._myStepButtonEditIntensityTimer <= 0) {
@@ -263,8 +263,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             ui.myPositionDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myPositionDecreaseButtonBackgroundComponents[i].material));
 
             ui.myPositionCursorTargetComponents[i].onClick.add(this._resetValue.bind(this, 0, i));
-            ui.myPositionCursorTargetComponents[i].onHover.add(this._setValueEditActive.bind(this, 0, i, ui.myPositionTexts[i], true));
-            ui.myPositionCursorTargetComponents[i].onUnhover.add(this._setValueEditActive.bind(this, 0, i, ui.myPositionTexts[i], false));
+            ui.myPositionCursorTargetComponents[i].onHover.add(this._setValueEditEnabled.bind(this, 0, i, ui.myPositionTexts[i], true));
+            ui.myPositionCursorTargetComponents[i].onUnhover.add(this._setValueEditEnabled.bind(this, 0, i, ui.myPositionTexts[i], false));
         }
 
         ui.myRotationLabelCursorTargetComponent.onClick.add(this._resetComponentValues.bind(this, 1));
@@ -288,8 +288,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             ui.myRotationDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myRotationDecreaseButtonBackgroundComponents[i].material));
 
             ui.myRotationCursorTargetComponents[i].onClick.add(this._resetValue.bind(this, 1, i));
-            ui.myRotationCursorTargetComponents[i].onHover.add(this._setValueEditActive.bind(this, 1, i, ui.myRotationTexts[i], true));
-            ui.myRotationCursorTargetComponents[i].onUnhover.add(this._setValueEditActive.bind(this, 1, i, ui.myRotationTexts[i], false));
+            ui.myRotationCursorTargetComponents[i].onHover.add(this._setValueEditEnabled.bind(this, 1, i, ui.myRotationTexts[i], true));
+            ui.myRotationCursorTargetComponents[i].onUnhover.add(this._setValueEditEnabled.bind(this, 1, i, ui.myRotationTexts[i], false));
         }
 
         ui.myScaleLabelCursorTargetComponent.onClick.add(this._resetComponentValues.bind(this, 2));
@@ -313,13 +313,13 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             ui.myScaleDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._genericUnHover.bind(this, ui.myScaleDecreaseButtonBackgroundComponents[i].material));
 
             ui.myScaleCursorTargetComponents[i].onClick.add(this._resetValue.bind(this, 2, i));
-            ui.myScaleCursorTargetComponents[i].onHover.add(this._setValueEditActive.bind(this, 2, i, ui.myScaleTexts[i], true));
-            ui.myScaleCursorTargetComponents[i].onUnhover.add(this._setValueEditActive.bind(this, 2, i, ui.myScaleTexts[i], false));
+            ui.myScaleCursorTargetComponents[i].onHover.add(this._setValueEditEnabled.bind(this, 2, i, ui.myScaleTexts[i], true));
+            ui.myScaleCursorTargetComponents[i].onUnhover.add(this._setValueEditEnabled.bind(this, 2, i, ui.myScaleTexts[i], false));
         }
 
         ui.myPositionStepCursorTargetComponent.onClick.add(this._resetStep.bind(this, 0));
-        ui.myPositionStepCursorTargetComponent.onHover.add(this._setStepEditActive.bind(this, 0, ui.myPositionStepText, true));
-        ui.myPositionStepCursorTargetComponent.onUnhover.add(this._setStepEditActive.bind(this, 0, ui.myPositionStepText, false));
+        ui.myPositionStepCursorTargetComponent.onHover.add(this._setStepEditEnabled.bind(this, 0, ui.myPositionStepText, true));
+        ui.myPositionStepCursorTargetComponent.onUnhover.add(this._setStepEditEnabled.bind(this, 0, ui.myPositionStepText, false));
 
         ui.myPositionStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 0, 1));
         ui.myPositionStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 0, 1));
@@ -338,8 +338,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         ui.myPositionStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myPositionStepDecreaseButtonBackgroundComponent.material));
 
         ui.myRotationStepCursorTargetComponent.onClick.add(this._resetStep.bind(this, 1));
-        ui.myRotationStepCursorTargetComponent.onHover.add(this._setStepEditActive.bind(this, 1, ui.myRotationStepText, true));
-        ui.myRotationStepCursorTargetComponent.onUnhover.add(this._setStepEditActive.bind(this, 1, ui.myRotationStepText, false));
+        ui.myRotationStepCursorTargetComponent.onHover.add(this._setStepEditEnabled.bind(this, 1, ui.myRotationStepText, true));
+        ui.myRotationStepCursorTargetComponent.onUnhover.add(this._setStepEditEnabled.bind(this, 1, ui.myRotationStepText, false));
 
         ui.myRotationStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 1, 1));
         ui.myRotationStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 1, 1));
@@ -358,8 +358,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         ui.myRotationStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._genericUnHover.bind(this, ui.myRotationStepDecreaseButtonBackgroundComponent.material));
 
         ui.myScaleStepCursorTargetComponent.onClick.add(this._resetStep.bind(this, 2));
-        ui.myScaleStepCursorTargetComponent.onHover.add(this._setStepEditActive.bind(this, 2, ui.myScaleStepText, true));
-        ui.myScaleStepCursorTargetComponent.onUnhover.add(this._setStepEditActive.bind(this, 2, ui.myScaleStepText, false));
+        ui.myScaleStepCursorTargetComponent.onHover.add(this._setStepEditEnabled.bind(this, 2, ui.myScaleStepText, true));
+        ui.myScaleStepCursorTargetComponent.onUnhover.add(this._setStepEditEnabled.bind(this, 2, ui.myScaleStepText, false));
 
         ui.myScaleStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 2, 1));
         ui.myScaleStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 2, 1));
@@ -418,9 +418,9 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         }
     }
 
-    _setValueEditActive(componentIndex, index, text, active) {
-        if (this._isActive() || !active) {
-            if (active) {
+    _setValueEditEnabled(componentIndex, index, text, enabled) {
+        if (this._isActive() || !enabled) {
+            if (enabled) {
                 switch (componentIndex) {
                     case 0:
                         this._myValueRealValue = this._myVariable._myPosition[index];
@@ -443,19 +443,19 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
                 text.pp_setScaleLocal(this._myConfig.myValueTextScale);
             }
 
-            this._myValueEditActive = active;
+            this._myValueEditEnabled = enabled;
         }
     }
 
-    _setStepEditActive(index, text, active) {
-        if (this._isActive() || !active) {
-            if (active) {
+    _setStepEditEnabled(index, text, enabled) {
+        if (this._isActive() || !enabled) {
+            if (enabled) {
                 text.pp_scaleObject(this._myConfig.myTextHoverScaleMultiplier);
             } else {
                 text.pp_setScaleLocal(this._myConfig.myStepTextScale);
             }
 
-            this._myStepEditActive = active;
+            this._myStepEditEnabled = enabled;
             this._myStepIndex = index;
         }
     }

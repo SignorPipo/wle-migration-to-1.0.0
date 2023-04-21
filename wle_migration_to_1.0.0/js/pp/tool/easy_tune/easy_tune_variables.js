@@ -39,7 +39,7 @@ export class EasyTuneVariables {
     isActive(variableName) {
         let variable = this._myVariables.get(variableName);
         if (variable) {
-            return variable._myIsActive;
+            return variable.isActive();
         }
 
         return false;
