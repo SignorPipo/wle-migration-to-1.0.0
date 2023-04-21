@@ -120,9 +120,7 @@ export class VirtualGamepadComponent extends Component {
         this._advancedConfig(params);
 
         this._myVirtualGamepad = new VirtualGamepad(params);
-        if (!params.myAutoUpdateVisibility) {
-            this._myVirtualGamepad.setVisible(false);
-        }
+        this._myVirtualGamepad.setVisible(false);
 
         this._myVirtualGamepad.start();
 

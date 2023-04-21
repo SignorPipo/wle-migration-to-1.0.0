@@ -17,7 +17,7 @@ export class InputManagerComponent extends Component {
 
     init() {
         this._myInputManager = null;
-        this._myPoseForwardFixed = null;
+        this._myPoseForwardFixedGlobal = null;
 
         // Prevents double global from same engine
         if (!Globals.hasInputManager(this.engine)) {
@@ -28,9 +28,9 @@ export class InputManagerComponent extends Component {
 
         // Prevents double global from same engine
         if (!Globals.hasPoseForwardFixed(this.engine)) {
-            this._myPoseForwardFixed = this._myPoseForwardFixed;
+            this._myPoseForwardFixedGlobal = this._myPoseForwardFixed;
 
-            Globals.setPoseForwardFixed(this._myPoseForwardFixed, this.engine);
+            Globals.setPoseForwardFixed(this._myPoseForwardFixedGlobal, this.engine);
         }
 
         this._myLeftHandPose = null;
@@ -100,7 +100,7 @@ export class InputManagerComponent extends Component {
             Globals.removeInputManager(this.engine);
         }
 
-        if (this._myPoseForwardFixed != null && Globals.isPoseForwardFixed(this.engine) == this._myPoseForwardFixed) {
+        if (this._myPoseForwardFixedGlobal != null && Globals.isPoseForwardFixed(this.engine) == this._myPoseForwardFixedGlobal) {
             Globals.removePoseForwardFixed(this.engine);
         }
     }
