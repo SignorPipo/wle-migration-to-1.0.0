@@ -328,22 +328,22 @@ export class CharacterColliderAdditionalParams {
 export class CharacterColliderDebugParams {
 
     constructor() {
-        this.myVisualDebugActive = false;
+        this.myVisualDebugEnabled = false;
 
-        this.myVisualDebugMovementActive = false;
+        this.myVisualDebugMovementEnabled = false;
 
-        this.myVisualDebugHorizontalMovementCheckActive = false;
-        this.myVisualDebugHorizontalPositionCheckActive = false;
+        this.myVisualDebugHorizontalMovementCheckEnabled = false;
+        this.myVisualDebugHorizontalPositionCheckEnabled = false;
 
-        this.myVisualDebugVerticalMovementCheckActive = false;
-        this.myVisualDebugVerticalPositionCheckActive = false;
+        this.myVisualDebugVerticalMovementCheckEnabled = false;
+        this.myVisualDebugVerticalPositionCheckEnabled = false;
 
-        this.myVisualDebugSlideActive = false;
+        this.myVisualDebugSlideEnabled = false;
 
-        this.myVisualDebugGroundInfoActive = false;
-        this.myVisualDebugCeilingInfoActive = false;
+        this.myVisualDebugGroundInfoEnabled = false;
+        this.myVisualDebugCeilingInfoEnabled = false;
 
-        this.myVisualDebugResultsActive = false;
+        this.myVisualDebugResultsEnabled = false;
     }
 
     copy(other) {
@@ -576,20 +576,20 @@ CharacterColliderAdditionalParams.prototype.copy = function copy(other) {
 };
 
 CharacterColliderDebugParams.prototype.copy = function copy(other) {
-    this.myVisualDebugActive = other.myVisualDebugActive;
+    this.myVisualDebugEnabled = other.myVisualDebugEnabled;
 
-    this.myVisualDebugMovementActive = other.myVisualDebugMovementActive;
+    this.myVisualDebugMovementEnabled = other.myVisualDebugMovementEnabled;
 
-    this.myVisualDebugHorizontalMovementCheckActive = other.myVisualDebugHorizontalMovementCheckActive;
-    this.myVisualDebugHorizontalPositionCheckActive = other.myVisualDebugHorizontalPositionCheckActive;
+    this.myVisualDebugHorizontalMovementCheckEnabled = other.myVisualDebugHorizontalMovementCheckEnabled;
+    this.myVisualDebugHorizontalPositionCheckEnabled = other.myVisualDebugHorizontalPositionCheckEnabled;
 
-    this.myVisualDebugVerticalMovementCheckActive = other.myVisualDebugVerticalMovementCheckActive;
-    this.myVisualDebugVerticalPositionCheckActive = other.myVisualDebugVerticalPositionCheckActive;
+    this.myVisualDebugVerticalMovementCheckEnabled = other.myVisualDebugVerticalMovementCheckEnabled;
+    this.myVisualDebugVerticalPositionCheckEnabled = other.myVisualDebugVerticalPositionCheckEnabled;
 
-    this.myVisualDebugSlideActive = other.myVisualDebugSlideActive;
+    this.myVisualDebugSlideEnabled = other.myVisualDebugSlideEnabled;
 
-    this.myVisualDebugGroundInfoActive = other.myVisualDebugGroundInfoActive;
-    this.myVisualDebugCeilingInfoActive = other.myVisualDebugCeilingInfoActive;
+    this.myVisualDebugGroundInfoEnabled = other.myVisualDebugGroundInfoEnabled;
+    this.myVisualDebugCeilingInfoEnabled = other.myVisualDebugCeilingInfoEnabled;
 
-    this.myVisualDebugResultsActive = other.myVisualDebugResultsActive;
+    this.myVisualDebugResultsEnabled = other.myVisualDebugResultsEnabled;
 };

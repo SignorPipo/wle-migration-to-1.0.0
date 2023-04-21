@@ -40,8 +40,8 @@ export class CharacterColliderSetupSimplifiedCreationParams {
         this.myVerticalCheckBlockLayerFlags = new PhysicsLayerFlags();
         this.myVerticalCheckObjectsToIgnore = [];
 
-        this.myHorizontalCheckDebugActive = false;
-        this.myVerticalCheckDebugActive = false;
+        this.myHorizontalCheckDebugEnabled = false;
+        this.myVerticalCheckDebugEnabled = false;
     }
 }
 
@@ -119,16 +119,16 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
 
 
 
-    if (simplifiedCreationParams.myHorizontalCheckDebugActive) {
-        outCharacterColliderSetup.myDebugParams.myVisualDebugActive = true;
-        outCharacterColliderSetup.myDebugParams.myVisualDebugHorizontalMovementCheckActive = true;
-        outCharacterColliderSetup.myDebugParams.myVisualDebugHorizontalPositionCheckActive = true;
+    if (simplifiedCreationParams.myHorizontalCheckDebugEnabled) {
+        outCharacterColliderSetup.myDebugParams.myVisualDebugEnabled = true;
+        outCharacterColliderSetup.myDebugParams.myVisualDebugHorizontalMovementCheckEnabled = true;
+        outCharacterColliderSetup.myDebugParams.myVisualDebugHorizontalPositionCheckEnabled = true;
     }
 
-    if (simplifiedCreationParams.myVerticalCheckDebugActive) {
-        outCharacterColliderSetup.myDebugParams.myVisualDebugActive = true;
-        outCharacterColliderSetup.myDebugParams.myVisualDebugVerticalMovementCheckActive = true;
-        outCharacterColliderSetup.myDebugParams.myVisualDebugVerticalPositionCheckActive = true;
+    if (simplifiedCreationParams.myVerticalCheckDebugEnabled) {
+        outCharacterColliderSetup.myDebugParams.myVisualDebugEnabled = true;
+        outCharacterColliderSetup.myDebugParams.myVisualDebugVerticalMovementCheckEnabled = true;
+        outCharacterColliderSetup.myDebugParams.myVisualDebugVerticalPositionCheckEnabled = true;
     }
 
 
@@ -141,7 +141,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
         outCharacterColliderSetup.myHorizontalCheckParams.myHorizontalMovementHeightVerticalCheckEnabled = true;
         outCharacterColliderSetup.myHorizontalCheckParams.myHorizontalPositionHeightVerticalCheckEnabled = true;
 
-        // Activate based on speed?
+        // Enable based on speed?
         outCharacterColliderSetup.myHorizontalCheckParams.myHorizontalMovementCheckEnabled = false;
 
         outCharacterColliderSetup.myHorizontalCheckParams.myHorizontalPositionCheckEnabled = true;
