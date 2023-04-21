@@ -47,13 +47,13 @@ export class VirtualGamepadIcon {
         this._myIsPressed = false;
 
         this._myIsMouseHover = false;
-        this._myIsMouseHoverActive = true;
+        this._myIsMouseHoverEnabled = true;
 
         this._build(iconElementParent, minSizeMultiplier, scale);
     }
 
     update(dt) {
-        if (this._myIsPressed || !this._myIsMouseHover || !this._myIsMouseHoverActive) {
+        if (this._myIsPressed || !this._myIsMouseHover || !this._myIsMouseHoverEnabled) {
             this._myIconContainerElement.style.filter = "none";
         } else {
             this._myIconContainerElement.style.filter = "brightness(" + this._myParams.myOverallHoveredBrightness + ")";
@@ -108,8 +108,8 @@ export class VirtualGamepadIcon {
         this._myIsMouseHover = false;
     }
 
-    setMouseHoverActive(hoverActive) {
-        this._myIsMouseHoverActive = hoverActive;
+    setMouseHoverEnabled(enabled) {
+        this._myIsMouseHoverEnabled = enabled;
     }
 
     _build(iconElementParent, minSizeMultiplier, scale) {

@@ -54,8 +54,8 @@ export class VirtualGamepadVirtualThumbstick {
         this._myActive = active;
     }
 
-    setMouseHoverActive(hoverActive) {
-        this._myThumbstickIcon.setMouseHoverActive(hoverActive);
+    setMouseHoverEnabled(hoverActive) {
+        this._myThumbstickIcon.setMouseHoverEnabled(hoverActive);
     }
 
     reset() {

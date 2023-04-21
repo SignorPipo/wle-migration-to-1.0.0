@@ -44,8 +44,8 @@ export class VirtualGamepadVirtualButton {
         this._myActive = active;
     }
 
-    setMouseHoverActive(hoverActive) {
-        this._myButtonIcon.setMouseHoverActive(hoverActive);
+    setMouseHoverEnabled(hoverActive) {
+        this._myButtonIcon.setMouseHoverEnabled(hoverActive);
     }
 
     reset() {
