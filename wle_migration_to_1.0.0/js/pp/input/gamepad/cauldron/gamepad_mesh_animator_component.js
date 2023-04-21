@@ -120,8 +120,8 @@ export class GamepadMeshAnimatorComponent extends Component {
     _selectValueChanged(buttonInfo, gamepad) {
         this._mySelect.pp_setRotationLocalQuat(this._mySelectOriginalRotation);
 
-        if (buttonInfo.myValue > 0.00001) {
-            this._mySelect.pp_rotateAxisLocal(this._mySelectRotateAngle * buttonInfo.myValue, this._mySelectOriginalLeft);
+        if (buttonInfo.getValue() > 0.00001) {
+            this._mySelect.pp_rotateAxisLocal(this._mySelectRotateAngle * buttonInfo.getValue(), this._mySelectOriginalLeft);
         }
     }
 
@@ -129,21 +129,21 @@ export class GamepadMeshAnimatorComponent extends Component {
         this._mySqueeze.pp_setPositionLocal(this._mySqueezeOriginalPosition);
         this._mySqueeze.pp_setRotationLocalQuat(this._mySqueezeOriginalRotation);
 
-        if (buttonInfo.myValue > 0.00001) {
+        if (buttonInfo.getValue() > 0.00001) {
             if (this._myUsePressForSqueeze) {
                 let translation = this._mySqueezePressOffset;
                 if (this._myHandedness == 1) {
                     translation *= -1;
                 }
 
-                this._mySqueeze.pp_translateAxisLocal(translation * buttonInfo.myValue, this._mySqueezeOriginalLeft);
+                this._mySqueeze.pp_translateAxisLocal(translation * buttonInfo.getValue(), this._mySqueezeOriginalLeft);
             } else {
                 let rotation = -this._mySqueezeRotateAngle;
                 if (this._myHandedness == 1) {
                     rotation *= -1;
                 }
 
-                this._mySqueeze.pp_rotateAxisLocal(rotation * buttonInfo.myValue, this._mySqueezeOriginalForward);
+                this._mySqueeze.pp_rotateAxisLocal(rotation * buttonInfo.getValue(), this._mySqueezeOriginalForward);
             }
         }
     }

@@ -709,8 +709,8 @@ export class ConsoleVRWidget {
 
     _updateGamepadsExtraActions(dt) {
         if (this._myLeftGamepad && this._myRightGamepad) {
-            if ((this._myLeftGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).isPressStart() && this._myRightGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).myIsPressed) ||
-                (this._myRightGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).isPressStart() && this._myLeftGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).myIsPressed)) {
+            if ((this._myLeftGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).isPressStart() && this._myRightGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).isPressed()) ||
+                (this._myRightGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).isPressStart() && this._myLeftGamepad.getButtonInfo(GamepadButtonID.THUMBSTICK).isPressed())) {
                 this._toggleVisibility();
             }
 
