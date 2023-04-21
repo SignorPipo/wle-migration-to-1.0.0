@@ -17,8 +17,8 @@ export class WidgetParams {
 export class WidgetFrame {
 
     constructor(widgetLetterID, buttonsColumnIndex, engine = Globals.getMainEngine()) {
-        this.myIsWidgetVisible = true;
-        this.myIsPinned = false;
+        this._myWidgetVisible = true;
+        this._myPinned = false;
 
         this._myConfig = new WidgetFrameConfig(widgetLetterID, buttonsColumnIndex);
         this._myParams = null;
@@ -35,12 +35,12 @@ export class WidgetFrame {
     }
 
     setVisible(visible) {
-        this.myIsWidgetVisible = !visible;
+        this._myWidgetVisible = !visible;
         this._toggleVisibility(false, true);
     }
 
     isVisible() {
-        return this.myIsWidgetVisible;
+        return this._myWidgetVisible;
     }
 
     toggleVisibility() {
@@ -97,13 +97,13 @@ export class WidgetFrame {
     }
 
     _toggleVisibility(isButton, notify) {
-        this.myIsWidgetVisible = !this.myIsWidgetVisible;
+        this._myWidgetVisible = !this._myWidgetVisible;
 
-        this._myUI.setWidgetVisible(this.myIsWidgetVisible);
+        this._myUI.setWidgetVisible(this._myWidgetVisible);
 
         let textMaterial = this._myUI.myVisibilityButtonTextComponent.material;
         let backgroundMaterial = this._myUI.myVisibilityButtonBackgroundComponent.material;
-        if (this.myIsWidgetVisible) {
+        if (this._myWidgetVisible) {
             textMaterial.color = this._myConfig.myDefaultTextColor;
             if (!isButton) {
                 backgroundMaterial.color = this._myConfig.myBackgroundColor;
@@ -116,21 +116,21 @@ export class WidgetFrame {
         }
 
         if (notify) {
-            this._myWidgetVisibleChangedEmitter.notify(this.myIsWidgetVisible);
+            this._myWidgetVisibleChangedEmitter.notify(this._myWidgetVisible);
         }
 
         this._myUI.setVisibilityButtonVisible(this._myShowVisibilityButton);
     }
 
     _togglePin(isButton) {
-        if (this.myIsWidgetVisible) {
-            this.myIsPinned = !this.myIsPinned;
+        if (this._myWidgetVisible) {
+            this._myPinned = !this._myPinned;
 
-            this._myUI.setPinned(this.myIsPinned);
+            this._myUI.setPinned(this._myPinned);
 
             let textMaterial = this._myUI.myPinButtonTextComponent.material;
             let backgroundMaterial = this._myUI.myPinButtonBackgroundComponent.material;
-            if (this.myIsPinned) {
+            if (this._myPinned) {
                 textMaterial.color = this._myConfig.myDefaultTextColor;
                 if (!isButton) {
                     backgroundMaterial.color = this._myConfig.myBackgroundColor;
@@ -142,7 +142,7 @@ export class WidgetFrame {
                 }
             }
 
-            this._myPinChangedEmitter.notify(this.myIsPinned);
+            this._myPinChangedEmitter.notify(this._myPinned);
         }
     }
 
@@ -151,7 +151,7 @@ export class WidgetFrame {
     }
 
     _visibilityUnHover(material) {
-        if (this.myIsWidgetVisible) {
+        if (this._myWidgetVisible) {
             material.color = this._myConfig.myBackgroundColor;
         } else {
             material.color = this._myConfig.myButtonDisabledBackgroundColor;
@@ -159,7 +159,7 @@ export class WidgetFrame {
     }
 
     _pinUnHover(material) {
-        if (this.myIsPinned) {
+        if (this._myPinned) {
             material.color = this._myConfig.myBackgroundColor;
         } else {
             material.color = this._myConfig.myButtonDisabledBackgroundColor;

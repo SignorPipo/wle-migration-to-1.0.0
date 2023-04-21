@@ -9,10 +9,10 @@ export class XRGamepadCore extends GamepadCore {
     constructor(handPose) {
         super(handPose);
 
-        this._mySelectPressed = false;
-        this._mySqueezePressed = false;
+        this._myIsSelectPressed = false;
+        this._myIsSqueezePressed = false;
 
-        this._myIsXRSessionActive = false;
+        this._myXRSessionActive = false;
         this._myInputSource = null;
         this._myGamepad = null;
 
@@ -24,7 +24,7 @@ export class XRGamepadCore extends GamepadCore {
 
     isGamepadCoreActive() {
         // connected == null is to fix webxr emulator that leaves that field undefined
-        return this._myIsXRSessionActive && this._myGamepad != null && (this._myGamepad.connected == null || this._myGamepad.connected);
+        return this._myXRSessionActive && this._myGamepad != null && (this._myGamepad.connected == null || this._myGamepad.connected);
     }
 
     _startHook() {
@@ -127,9 +127,9 @@ export class XRGamepadCore extends GamepadCore {
 
         if (this.isGamepadCoreActive()) {
             if (buttonID == GamepadButtonID.SELECT) {
-                isPressed = this._mySelectPressed;
+                isPressed = this._myIsSelectPressed;
             } else if (buttonID == GamepadButtonID.SQUEEZE) {
-                isPressed = this._mySqueezePressed;
+                isPressed = this._myIsSqueezePressed;
             }
         }
 
@@ -143,35 +143,35 @@ export class XRGamepadCore extends GamepadCore {
         session.addEventListener("squeezestart", this._squeezeStart.bind(this));
         session.addEventListener("squeezeend", this._squeezeEnd.bind(this));
 
-        this._myIsXRSessionActive = true;
+        this._myXRSessionActive = true;
     }
 
     _onXRSessionEnd(session) {
-        this._myIsXRSessionActive = false;
+        this._myXRSessionActive = false;
     }
 
     // Select and Squeeze are managed this way to be more compatible
     _selectStart(event) {
         if (this._myInputSource != null && this._myInputSource == event.inputSource) {
-            this._mySelectPressed = true;
+            this._myIsSelectPressed = true;
         }
     }
 
     _selectEnd(event) {
         if (this._myInputSource != null && this._myInputSource == event.inputSource) {
-            this._mySelectPressed = false;
+            this._myIsSelectPressed = false;
         }
     }
 
     _squeezeStart(event) {
         if (this._myInputSource != null && this._myInputSource == event.inputSource) {
-            this._mySqueezePressed = true;
+            this._myIsSqueezePressed = true;
         }
     }
 
     _squeezeEnd(event) {
         if (this._myInputSource != null && this._myInputSource == event.inputSource) {
-            this._mySqueezePressed = false;
+            this._myIsSqueezePressed = false;
         }
     }
 }

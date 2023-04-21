@@ -101,7 +101,7 @@ export class ConsoleVRWidget {
         this._myWidgetFrame.start(parentObject, params);
 
         this._myUI.build(this._myWidgetFrame.getWidgetObject(), this._myConfig, params);
-        this._myUI.setVisible(this._myWidgetFrame.myIsWidgetVisible);
+        this._myUI.setVisible(this._myWidgetFrame.isVisible());
         this._setNotifyIconActive(false);
 
         this._addListeners();
@@ -161,7 +161,7 @@ export class ConsoleVRWidget {
     update(dt) {
         this._myWidgetFrame.update(dt);
 
-        if (this._myWidgetFrame.myIsWidgetVisible) {
+        if (this._myWidgetFrame.isVisible()) {
             this._updateScroll(dt);
         }
 
@@ -441,7 +441,7 @@ export class ConsoleVRWidget {
     }
 
     _updateAllTexts() {
-        if (this._myWidgetFrame.myIsWidgetVisible) {
+        if (this._myWidgetFrame.isVisible()) {
             for (let key in ConsoleVRWidgetMessageType) {
                 this._updateText(ConsoleVRWidgetMessageType[key]);
             }
@@ -566,7 +566,7 @@ export class ConsoleVRWidget {
     }
 
     _resetFilters(messageType) {
-        if (this._myWidgetFrame.myIsWidgetVisible) {
+        if (this._myWidgetFrame.isVisible()) {
             for (let key in ConsoleVRWidgetMessageType) {
                 let backgroundMaterial = this._myUI.myFilterButtonsBackgroundComponents[ConsoleVRWidgetMessageType[key]].material;
                 let filterTextMaterial = this._myUI.myFilterButtonsTextComponents[ConsoleVRWidgetMessageType[key]].material;
@@ -584,7 +584,7 @@ export class ConsoleVRWidget {
     }
 
     _filterAllButOne(messageType) {
-        if (this._myWidgetFrame.myIsWidgetVisible) {
+        if (this._myWidgetFrame.isVisible()) {
             for (let key in ConsoleVRWidgetMessageType) {
                 let backgroundMaterial = this._myUI.myFilterButtonsBackgroundComponents[ConsoleVRWidgetMessageType[key]].material;
                 let filterTextMaterial = this._myUI.myFilterButtonsTextComponents[ConsoleVRWidgetMessageType[key]].material;
@@ -604,7 +604,7 @@ export class ConsoleVRWidget {
     }
 
     _toggleFilter(messageType, textMaterial) {
-        if (this._myWidgetFrame.myIsWidgetVisible) {
+        if (this._myWidgetFrame.isVisible()) {
 
             this._myTypeFilters[messageType] = !this._myTypeFilters[messageType];
             if (this._myTypeFilters[messageType]) {
@@ -619,7 +619,7 @@ export class ConsoleVRWidget {
     }
 
     _clearConsole(codeDrivenClear = false, sender = null) {
-        if (this._myWidgetFrame.myIsWidgetVisible || codeDrivenClear) {
+        if (this._myWidgetFrame.isVisible() || codeDrivenClear) {
             this._myMessages = [];
             this._clampScrollOffset();
             this._updateAllTexts();
@@ -642,7 +642,7 @@ export class ConsoleVRWidget {
     }
 
     _setScrollUp(value) {
-        if (this._myWidgetFrame.myIsWidgetVisible || !value) {
+        if (this._myWidgetFrame.isVisible() || !value) {
             if (value) {
                 this._myScrollTimer = 0;
             }
@@ -652,7 +652,7 @@ export class ConsoleVRWidget {
     }
 
     _setScrollDown(value) {
-        if (this._myWidgetFrame.myIsWidgetVisible || !value) {
+        if (this._myWidgetFrame.isVisible() || !value) {
             if (value) {
                 this._myScrollTimer = 0;
             }
@@ -662,14 +662,14 @@ export class ConsoleVRWidget {
     }
 
     _instantScrollUp() {
-        if (this._myWidgetFrame.myIsWidgetVisible) {
+        if (this._myWidgetFrame.isVisible()) {
             this._myScrollOffset = this._getMaxScrollOffset();
             this._updateAllTexts();
         }
     }
 
     _instantScrollDown() {
-        if (this._myWidgetFrame.myIsWidgetVisible) {
+        if (this._myWidgetFrame.isVisible()) {
             this._myScrollOffset = 0;
             this._setNotifyIconActive(false);
             this._updateAllTexts();
@@ -677,7 +677,7 @@ export class ConsoleVRWidget {
     }
 
     _setNotifyIconActive(active) {
-        this._myUI.myNotifyIconPanel.pp_setActive(active && this._myWidgetFrame.myIsWidgetVisible);
+        this._myUI.myNotifyIconPanel.pp_setActive(active && this._myWidgetFrame.isVisible());
     }
 
     _notifyIconUnHover() {
@@ -732,7 +732,7 @@ export class ConsoleVRWidget {
     }
 
     _updateScrollWithThumbstick(dt) {
-        if (this._myWidgetFrame.myIsWidgetVisible && this._myGamepadScrollEnabled) {
+        if (this._myWidgetFrame.isVisible() && this._myGamepadScrollEnabled) {
             let axes = [0, 0];
             if (this._myConfig.myScrollThumbstickHandedness == ToolHandedness.LEFT) {
                 axes = this._myLeftGamepad.getAxesInfo(GamepadAxesID.THUMBSTICK).myAxes;
@@ -761,7 +761,7 @@ export class ConsoleVRWidget {
     _pulseGamepad() {
         if (this._myLeftGamepad && this._myRightGamepad) {
             let pulseType = this._myParams.myPulseOnNewMessage;
-            let pulseEnabled = pulseType == ConsoleVRWidgetPulseOnNewMessage.ALWAYS || (!this._myWidgetFrame.myIsWidgetVisible && pulseType == ConsoleVRWidgetPulseOnNewMessage.WHEN_HIDDEN);
+            let pulseEnabled = pulseType == ConsoleVRWidgetPulseOnNewMessage.ALWAYS || (!this._myWidgetFrame.isVisible() && pulseType == ConsoleVRWidgetPulseOnNewMessage.WHEN_HIDDEN);
             if (pulseEnabled && this._myPulseTimer == 0) {
                 if (this._myParams.myHandedness == ToolHandedness.RIGHT) {
                     this._myRightGamepad.pulse(this._myConfig.myPulseIntensity, this._myConfig.myPulseDuration);

@@ -20,7 +20,7 @@ export class EasyTuneBaseWidget {
 
         this._myVariable = null;
 
-        this._myIsVisible = true;
+        this._myVisible = true;
 
         this._myScrollVariableRequestEmitter = new Emitter();     // Signature: listener(scrollAmount)
 
@@ -42,7 +42,7 @@ export class EasyTuneBaseWidget {
 
         this._myUI.setVisible(visible);
 
-        this._myIsVisible = visible;
+        this._myVisible = visible;
     }
 
     setEasyTuneVariable(variable, appendToVariableName) {
@@ -222,7 +222,7 @@ export class EasyTuneBaseWidget {
     }
 
     _isActive() {
-        return this._myIsVisible && this._myVariable;
+        return this._myVisible && this._myVariable;
     }
 
     _addListeners() {

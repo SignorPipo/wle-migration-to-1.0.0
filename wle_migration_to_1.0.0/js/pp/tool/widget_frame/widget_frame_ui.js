@@ -12,7 +12,7 @@ export class WidgetFrameUI {
         this._myInputSourceType = null;
 
         this._myParentObject = null;
-        this._myIsPinned = false;
+        this._myPinned = false;
 
         this._myWidgetVisible = true;
         this._myVisibilityButtonVisible = true;
@@ -49,9 +49,9 @@ export class WidgetFrameUI {
     }
 
     setPinned(pinned) {
-        if (pinned != this._myIsPinned) {
-            this._myIsPinned = pinned;
-            if (this._myIsPinned) {
+        if (pinned != this._myPinned) {
+            this._myPinned = pinned;
+            if (this._myPinned) {
                 this.myPivotObject.pp_setParent(Globals.getSceneObjects(this._myEngine).myTools);
             } else {
                 this.myPivotObject.pp_setParent(this.myFixForwardObject);
@@ -76,7 +76,7 @@ export class WidgetFrameUI {
             if (inputSourceType != this._myInputSourceType || forceRefreshObjectsTransforms) {
                 this._myInputSourceType = inputSourceType;
 
-                if (!this._myIsPinned) {
+                if (!this._myPinned) {
                     this.myPivotObject.pp_setPositionLocal(this._myConfig.myPivotObjectTransforms[this._myInputSourceType][this._myParams.myHandedness].myPosition);
                     this.myPivotObject.pp_resetRotationLocal();
                     this.myPivotObject.pp_rotateObjectQuat(this._myConfig.myPivotObjectTransforms[this._myInputSourceType][this._myParams.myHandedness].myRotation);
@@ -207,7 +207,7 @@ export class WidgetFrameUI {
     }
 
     _setTransformForNonXR() {
-        if (!this._myIsPinned) {
+        if (!this._myPinned) {
             this.myFixForwardObject.pp_setParent(this.myNonXRParentObject);
             this.myFixForwardObject.pp_resetTransformLocal();
 

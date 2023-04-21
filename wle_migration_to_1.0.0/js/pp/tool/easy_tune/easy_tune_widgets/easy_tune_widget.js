@@ -29,7 +29,7 @@ export class EasyTuneWidgetParams extends WidgetParams {
 export class EasyTuneWidget {
 
     constructor(engine = Globals.getMainEngine()) {
-        this._myIsStarted = false;
+        this._myStarted = false;
         this._myStartVariable = null;
 
         this._myWidgetFrame = new WidgetFrame("E", 1, engine);
@@ -59,7 +59,7 @@ export class EasyTuneWidget {
     }
 
     setActiveVariable(variableName) {
-        if (!this._myIsStarted) {
+        if (!this._myStarted) {
             this._myStartVariable = variableName;
         } else if (this._myEasyTuneVariables.has(variableName)) {
             this._myCurrentVariable = this._myEasyTuneVariables.getEasyTuneVariable(variableName);
@@ -70,7 +70,7 @@ export class EasyTuneWidget {
     }
 
     refresh() {
-        if (this._myWidgetFrame.myIsWidgetVisible) {
+        if (this._myWidgetFrame.isVisible()) {
             this._myDirty = true;
         }
     }
@@ -92,7 +92,7 @@ export class EasyTuneWidget {
             this._myGamepad = this._myLeftGamepad;
         }
 
-        this._myIsStarted = true;
+        this._myStarted = true;
 
         this._myParams = params;
 
@@ -124,7 +124,7 @@ export class EasyTuneWidget {
             this._refreshEasyTuneVariables();
         }
 
-        if (this._myWidgetFrame.myIsWidgetVisible && this._myEasyTuneVariables.length() > 0) {
+        if (this._myWidgetFrame.isVisible() && this._myEasyTuneVariables.length() > 0) {
             if (this._myConfig.myRefreshVariablesDelay != null) {
                 this._myRefreshVariablesTimer += dt;
                 if (this._myRefreshVariablesTimer > this._myConfig.myRefreshVariablesDelay) {
@@ -194,7 +194,7 @@ export class EasyTuneWidget {
             prevWidget.setVisible(false);
         }
 
-        this._myCurrentWidget.setVisible(this._myWidgetFrame.myIsWidgetVisible);
+        this._myCurrentWidget.setVisible(this._myWidgetFrame.isVisible());
     }
 
     _refreshEasyTuneVariables() {
@@ -314,7 +314,7 @@ export class EasyTuneWidget {
             variable.setActive(false);
         });
 
-        if (this._myWidgetFrame.myIsWidgetVisible && this._myCurrentVariable) {
+        if (this._myWidgetFrame.isVisible() && this._myCurrentVariable) {
             this._myCurrentVariable.setActive(true);
         }
     }

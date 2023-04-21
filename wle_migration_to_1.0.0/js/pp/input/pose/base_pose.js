@@ -38,7 +38,7 @@ export class BasePose {
         this._myLinearVelocity = vec3_create();
         this._myAngularVelocityRadians = vec3_create();
 
-        this._myIsValid = false;
+        this._myValid = false;
         this._myIsLinearVelocityEmulated = true;
         this._myIsAngularVelocityEmulated = true;
 
@@ -137,7 +137,7 @@ export class BasePose {
     }
 
     isValid() {
-        return this._myIsValid;
+        return this._myValid;
     }
 
     isLinearVelocityEmulated() {
@@ -241,7 +241,7 @@ export class BasePose {
                     }
                 }
 
-                this._myIsValid = true;
+                this._myValid = true;
             } else {
                 // Keep previous position and rotation but reset velocity because reasons
 
@@ -255,7 +255,7 @@ export class BasePose {
                     this._myAngularVelocityRadians[2] = 0;
                 }
 
-                this._myIsValid = false;
+                this._myValid = false;
                 this._myIsLinearVelocityEmulated = true;
                 this._myIsAngularVelocityEmulated = true;
             }
@@ -274,7 +274,7 @@ export class BasePose {
                 this._myAngularVelocityRadians[2] = 0;
             }
 
-            this._myIsValid = false;
+            this._myValid = false;
             this._myIsLinearVelocityEmulated = true;
             this._myIsAngularVelocityEmulated = true;
 

@@ -14,7 +14,7 @@ export class EasyTuneBaseArrayWidgetSelector {
         this._myWidgets = new Map();
 
         this._myVariable = null;
-        this._myIsVisible = true;
+        this._myVisible = true;
 
         this._myAppendToVariableName = null;
 
@@ -41,7 +41,7 @@ export class EasyTuneBaseArrayWidgetSelector {
             widget.setEasyTuneVariable(variable, appendToVariableName);
         }
 
-        this.setVisible(this._myIsVisible);
+        this.setVisible(this._myVisible);
     }
 
     setVisible(visible) {
@@ -58,7 +58,7 @@ export class EasyTuneBaseArrayWidgetSelector {
             }
         }
 
-        this._myIsVisible = visible;
+        this._myVisible = visible;
     }
 
     isScrollVariableActive() {
@@ -149,7 +149,7 @@ export class EasyTuneBaseArrayWidgetSelector {
     }
 
     _isActive() {
-        return this._myIsVisible && this._myVariable;
+        return this._myVisible && this._myVariable;
     }
 
     _scrollVariableRequest(amount) {

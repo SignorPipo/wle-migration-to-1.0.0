@@ -35,7 +35,7 @@ export class Mouse {
         this._myIsMoving = false;
 
         this._myIsInsideView = false;
-        this._myIsValid = false;
+        this._myValid = false;
 
         this._myPointerUpOnPointerLeave = true;
 
@@ -122,7 +122,7 @@ export class Mouse {
     }
 
     isValid() {
-        return this._myIsValid;
+        return this._myValid;
     }
 
     isButtonPressed(buttonID) {
@@ -432,7 +432,7 @@ export class Mouse {
         this._myInternalMousePosition[0] = event.clientX;
         this._myInternalMousePosition[1] = event.clientY;
 
-        this._myIsValid = true;
+        this._myValid = true;
     }
 
     _updateScreenSize() {
