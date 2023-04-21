@@ -151,7 +151,7 @@ export function getObjectParentFromPath(path, pathStartObject = window) {
     return currentParent;
 }
 
-export function overwriteObjectProperty(newProperty, object, propertyName, overwriteOnOwnParent = true, jsObjectFunctionsSpecialOverwrite = false, debugLogActive = false) {
+export function overwriteObjectProperty(newProperty, object, propertyName, overwriteOnOwnParent = true, jsObjectFunctionsSpecialOverwrite = false, logEnabled = false) {
     let success = false;
 
     try {
@@ -161,7 +161,7 @@ export function overwriteObjectProperty(newProperty, object, propertyName, overw
 
             if (originalPropertyDescriptor != null) {
                 let originalProperty = getObjectProperty(propertyOwnParent, propertyName);
-                copyObjectProperties(originalProperty, newProperty, true, jsObjectFunctionsSpecialOverwrite, debugLogActive);
+                copyObjectProperties(originalProperty, newProperty, true, jsObjectFunctionsSpecialOverwrite, logEnabled);
 
                 let overwriteTarget = object;
                 if (overwriteOnOwnParent) {
@@ -191,7 +191,7 @@ export function overwriteObjectProperty(newProperty, object, propertyName, overw
             success = true;
         }
     } catch (error) {
-        if (debugLogActive) {
+        if (logEnabled) {
             console.error("Property:", propertyName, "of:", object, "can't be overwritten.");
         }
     }
@@ -199,7 +199,7 @@ export function overwriteObjectProperty(newProperty, object, propertyName, overw
     return success;
 }
 
-export function copyObjectProperties(fromObject, toObject, cleanCopy = false, jsObjectFunctionsSpecialCopy = false, debugLogActive = false) {
+export function copyObjectProperties(fromObject, toObject, cleanCopy = false, jsObjectFunctionsSpecialCopy = false, logEnabled = false) {
     if (fromObject != null) {
         if (cleanCopy) {
             cleanObjectProperties(toObject);
@@ -219,7 +219,7 @@ export function copyObjectProperties(fromObject, toObject, cleanCopy = false, js
                     configurable: fromObjectPropertyDescriptor.configurable
                 });
             } catch (error) {
-                if (debugLogActive) {
+                if (logEnabled) {
                     console.error("Property:", fromObjectPropertyName, "of:", fromObject.name, "can't be overwritten.");
                 }
             }

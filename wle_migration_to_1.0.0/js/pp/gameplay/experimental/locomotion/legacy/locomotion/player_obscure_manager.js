@@ -55,7 +55,7 @@ export class PlayerObscureManager {
         this._myFadeTimer = new Timer(0, false);
 
         this._myFSM = new FSM();
-        //this._myFSM.setDebugLogActive(true, " Obscure");
+        //this._myFSM.setLogEnabled(true, " Obscure");
 
         this._myFSM.addState("init");
 

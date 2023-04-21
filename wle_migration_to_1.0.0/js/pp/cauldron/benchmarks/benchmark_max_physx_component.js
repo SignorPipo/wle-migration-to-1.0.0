@@ -26,7 +26,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
         _myShapeIndex: Property.int(0),
         _myShapeScaleMultiplier: Property.float(1), // Used to adjust the scale of the convex mesh if too big or small based on how u imported it
 
-        _myLogActive: Property.bool(true),
+        _myLogEnabled: Property.bool(true),
         _myClearConsoleBeforeLog: Property.bool(true)
     };
 
@@ -63,7 +63,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
         this._myStartTimer = new Timer(1);
         this._myTimer = new Timer(0);
         this._myDebugTimer = new Timer(this._myVisualizeRaycastDelay);
-        this._myLogActiveTimer = new Timer(1);
+        this._myLogEnabledTimer = new Timer(1);
         this._myFPSHistory = [];
         for (let i = 0; i < 7; i++) {
             this._myFPSHistory.push(0);
@@ -90,7 +90,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
             if (this._myStartTimer.isDone()) {
                 this._myTimer.update(dt);
                 this._myDebugTimer.update(dt);
-                this._myLogActiveTimer.update(dt);
+                this._myLogEnabledTimer.update(dt);
                 if (this._myTimer.isDone()) {
                     this._myTimer.start();
 
@@ -107,9 +107,9 @@ export class BenchmarkMaxPhysXComponent extends Component {
                 this._myFPSHistory.pop();
                 this._myFPSHistory.unshift(Math.round(1 / dt));
 
-                if (this._myLogActive) {
-                    if (this._myLogActiveTimer.isDone()) {
-                        this._myLogActiveTimer.start();
+                if (this._myLogEnabled) {
+                    if (this._myLogEnabledTimer.isDone()) {
+                        this._myLogEnabledTimer.start();
                         if (this._myClearConsoleBeforeLog) {
                             console.clear();
                         }

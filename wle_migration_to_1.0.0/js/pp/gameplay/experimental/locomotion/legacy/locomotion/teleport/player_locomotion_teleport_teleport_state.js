@@ -43,7 +43,7 @@ export class PlayerLocomotionTeleportTeleportState extends PlayerLocomotionTelep
         super(teleportParams, teleportRuntimeParams, locomotionRuntimeParams);
 
         this._myFSM = new FSM();
-        //this._myFSM.setDebugLogActive(true, "Locomotion Teleport Teleport");
+        //this._myFSM.setLogEnabled(true, "Locomotion Teleport Teleport");
 
         this._myFSM.addState("init");
         this._myFSM.addState("idle");

@@ -15,7 +15,7 @@ export class ObjectPoolParams {
         this.myEqualCallback = undefined;                       // Signature: callback(firstObject, secondObject) -> bool
         this.myOptimizeObjectsAllocationCallback = undefined;   // Signature: callback(object, numberOfObjectsToAllocate)
 
-        this.myDebugLogActive = false;
+        this.myLogEnabled = false;
     }
 }
 
@@ -37,7 +37,7 @@ export class ObjectPool {
         if (object == null) {
             let amountToAdd = Math.ceil(this._myBusyObjects.length * this._myObjectPoolParams.myPercentageToAddWhenEmpty);
             amountToAdd += this._myObjectPoolParams.myAmountToAddWhenEmpty;
-            this._addToPool(amountToAdd, this._myObjectPoolParams.myDebugLogActive);
+            this._addToPool(amountToAdd, this._myObjectPoolParams.myLogEnabled);
             object = this._myAvailableObjects.shift();
         }
 
@@ -78,7 +78,7 @@ export class ObjectPool {
         return this._myAvailableObjects.length;
     }
 
-    _addToPool(size, log) {
+    _addToPool(size, logEnabled) {
         if (size <= 0) {
             return;
         }
@@ -95,7 +95,7 @@ export class ObjectPool {
             this._myAvailableObjects.push(this._clone(this._myPrototype));
         }
 
-        if (log) {
+        if (logEnabled) {
             console.warn("Added new elements to the pool:", size);
         }
     }

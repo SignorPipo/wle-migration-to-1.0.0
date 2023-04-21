@@ -462,7 +462,7 @@ export class DebugFunctionsPerformanceAnalyzer extends DebugFunctionsOverwriter 
                         });
                     }
                 } catch (error) {
-                    if (this._myParams.myDebugLogActive) {
+                    if (this._myParams.myLogEnabled) {
                         console.error("Function:", propertyName, "of:", reference, "can't be overwritten.\nError:", error);
                     }
                 }

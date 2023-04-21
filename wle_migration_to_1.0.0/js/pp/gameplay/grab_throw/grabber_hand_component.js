@@ -281,7 +281,7 @@ export class GrabberHandComponent extends Component {
         speed *= this._myThrowLinearVelocityMultiplier;
         speed = Math.pp_clamp(speed, 0, this._myThrowMaxLinearSpeed);
 
-        if (this._myDebugActive) {
+        if (this._myDebugActive && Globals.isDebugEnabled(this.engine)) {
             this._debugDirectionLines(linearVelocityHistory);
         }
 

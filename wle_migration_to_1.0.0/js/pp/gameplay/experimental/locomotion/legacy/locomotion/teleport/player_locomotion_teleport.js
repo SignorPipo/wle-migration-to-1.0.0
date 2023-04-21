@@ -72,7 +72,7 @@ export class PlayerLocomotionTeleport extends PlayerLocomotionMovement {
         this._myTeleportState = new PlayerLocomotionTeleportTeleportState(this._myTeleportParams, this._myTeleportRuntimeParams, this._myLocomotionRuntimeParams);
 
         this._myFSM = new FSM();
-        //this._myFSM.setDebugLogActive(true, "Locomotion Teleport");
+        //this._myFSM.setLogEnabled(true, "Locomotion Teleport");
 
         this._myFSM.addState("init");
         this._myFSM.addState("idle", this._idleUpdate.bind(this));

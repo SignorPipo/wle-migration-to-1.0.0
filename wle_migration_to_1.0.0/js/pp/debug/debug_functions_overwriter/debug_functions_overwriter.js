@@ -51,7 +51,7 @@ export class DebugFunctionsOverwriterParams {
         //   and the name, if not null, will be used as path instead of the default one
         //   WARNING: this means that there is a specific case, an array of 2 elements with a string, which can't be tracked if you don't put it inside an array like above
 
-        this.myDebugLogActive = false;
+        this.myLogEnabled = false;
     }
 }
 
@@ -200,14 +200,14 @@ export class DebugFunctionsOverwriter {
                                 try {
                                     let newFunction = this._getOverwrittenFunction(reference, propertyName, referencePath, isClass, isFunction);
                                     if (newFunction != JSUtils.getObjectProperty(reference, propertyName)) {
-                                        overwriteSuccess = JSUtils.overwriteObjectProperty(newFunction, reference, propertyName, false, true, this._myParams.myDebugLogActive);
+                                        overwriteSuccess = JSUtils.overwriteObjectProperty(newFunction, reference, propertyName, false, true, this._myParams.myLogEnabled);
                                     } else {
                                         overwriteSuccess = true;
                                     }
                                 } catch (error) {
                                     overwriteSuccess = false;
 
-                                    if (this._myParams.myDebugLogActive) {
+                                    if (this._myParams.myLogEnabled) {
                                         console.error(error);
                                     }
                                 }
@@ -219,9 +219,9 @@ export class DebugFunctionsOverwriter {
                                     try {
                                         let newConstructor = this._getOverwrittenConstructor(referenceParentForConstructor, referenceNameForConstructor, referencePath, isClass, isFunction);
                                         if (newConstructor != referenceForConstructor) {
-                                            overwriteSuccess = JSUtils.overwriteObjectProperty(newConstructor, referenceParentForConstructor, referenceNameForConstructor, false, true, this._myParams.myDebugLogActive);
+                                            overwriteSuccess = JSUtils.overwriteObjectProperty(newConstructor, referenceParentForConstructor, referenceNameForConstructor, false, true, this._myParams.myLogEnabled);
                                             if (overwriteSuccess) {
-                                                overwriteSuccess = JSUtils.overwriteObjectProperty(newConstructor, referenceForConstructor.prototype, propertyName, false, true, this._myParams.myDebugLogActive);
+                                                overwriteSuccess = JSUtils.overwriteObjectProperty(newConstructor, referenceForConstructor.prototype, propertyName, false, true, this._myParams.myLogEnabled);
                                             }
                                         } else {
                                             overwriteSuccess = true;
@@ -229,7 +229,7 @@ export class DebugFunctionsOverwriter {
                                     } catch (error) {
                                         overwriteSuccess = false;
 
-                                        if (this._myParams.myDebugLogActive) {
+                                        if (this._myParams.myLogEnabled) {
                                             console.error(error);
                                         }
                                     }
@@ -247,7 +247,7 @@ export class DebugFunctionsOverwriter {
                 }
             }
         } catch (error) {
-            if (this._myParams.myDebugLogActive) {
+            if (this._myParams.myLogEnabled) {
                 console.error(error);
             }
         }

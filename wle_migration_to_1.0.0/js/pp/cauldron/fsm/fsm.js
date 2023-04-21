@@ -54,9 +54,9 @@ export class FSM {
         this._myStates = new Map();
         this._myTransitions = new Map();
 
-        this._myDebugLogActive = false;
-        this._myDebugShowDelayedInfo = false;
-        this._myDebugLogName = "FSM";
+        this._myLogEnabled = false;
+        this._myLogShowDelayedInfo = false;
+        this._myLogFSMName = "FSM";
 
         this._myPerformMode = performMode;
         this._myPerformDelayedMode = performDelayedMode;
@@ -138,8 +138,8 @@ export class FSM {
         if (this.hasState(initStateID)) {
             let initStateData = this._myStates.get(initStateID);
 
-            if (this._myDebugLogActive) {
-                console.log(this._myDebugLogName, "- Init:", initStateID);
+            if (this._myLogEnabled) {
+                console.log(this._myLogFSMName, "- Init:", initStateID);
             }
 
             if (initTransitionObject && initTransitionObject.performInit) {
@@ -158,8 +158,8 @@ export class FSM {
                     emitter.notify(this, initStateData, initTransitionObject, ...args);
                 }
             }
-        } else if (this._myDebugLogActive) {
-            console.warn(this._myDebugLogName, "- Init state not found:", initStateID);
+        } else if (this._myLogEnabled) {
+            console.warn(this._myLogFSMName, "- Init state not found:", initStateID);
         }
     }
 
@@ -393,9 +393,9 @@ export class FSM {
 
         let cloneFSM = new FSM();
 
-        cloneFSM._myDebugLogActive = this._myDebugLogActive;
-        cloneFSM._myDebugShowDelayedInfo = this._myDebugShowDelayedInfo;
-        cloneFSM._myDebugLogName = this._myDebugLogName.slice(0);
+        cloneFSM._myLogEnabled = this._myLogEnabled;
+        cloneFSM._myLogShowDelayedInfo = this._myLogShowDelayedInfo;
+        cloneFSM._myLogFSMName = this._myLogFSMName.slice(0);
 
         cloneFSM._myPerformMode = this._myPerformMode;
         cloneFSM._myPerformDelayedMode = this._myPerformDelayedMode;
@@ -460,11 +460,11 @@ export class FSM {
         return isDeepCloneable;
     }
 
-    setDebugLogActive(active, debugLogName = null, showDelayedInfo = false) {
-        this._myDebugLogActive = active;
-        this._myDebugShowDelayedInfo = showDelayedInfo;
-        if (debugLogName) {
-            this._myDebugLogName = "FSM: ".concat(debugLogName);
+    setLogEnabled(active, fsmName = null, showDelayedInfo = false) {
+        this._myLogEnabled = active;
+        this._myLogShowDelayedInfo = showDelayedInfo;
+        if (fsmName) {
+            this._myLogFSMName = "FSM: ".concat(fsmName);
         }
     }
 
@@ -552,8 +552,8 @@ export class FSM {
     _perform(transitionID, performMode, ...args) {
         if (this.isPerformingTransition()) {
             let currentlyPerformedTransition = this.getCurrentlyPerformedTransition();
-            let consoleArguments = [this._myDebugLogName, "- Trying to perform:", transitionID];
-            if (this._myDebugShowDelayedInfo) {
+            let consoleArguments = [this._myLogFSMName, "- Trying to perform:", transitionID];
+            if (this._myLogShowDelayedInfo) {
                 consoleArguments.push(performMode == PerformMode.DELAYED ? "- Delayed" : "- Immediate");
             }
             consoleArguments.push("- But another transition is currently being performed -", currentlyPerformedTransition.myID);
@@ -572,9 +572,9 @@ export class FSM {
                 let fromState = this._myCurrentStateData;
                 let toState = this._myStates.get(transitionToPerform.myToState.myID);
 
-                if (this._myDebugLogActive) {
-                    let consoleArguments = [this._myDebugLogName, "- From:", fromState.myID, "- To:", toState.myID, "- With:", transitionID];
-                    if (this._myDebugShowDelayedInfo) {
+                if (this._myLogEnabled) {
+                    let consoleArguments = [this._myLogFSMName, "- From:", fromState.myID, "- To:", toState.myID, "- With:", transitionID];
+                    if (this._myLogShowDelayedInfo) {
                         consoleArguments.push(performMode == PerformMode.DELAYED ? "- Delayed" : "- Immediate");
                     }
                     console.log(...consoleArguments);
@@ -616,16 +616,16 @@ export class FSM {
                 this._myCurrentlyPerformedTransition = null;
 
                 return true;
-            } else if (this._myDebugLogActive) {
-                let consoleArguments = [this._myDebugLogName, "- No Transition:", transitionID, "- From:", this._myCurrentStateData.myID];
-                if (this._myDebugShowDelayedInfo) {
+            } else if (this._myLogEnabled) {
+                let consoleArguments = [this._myLogFSMName, "- No Transition:", transitionID, "- From:", this._myCurrentStateData.myID];
+                if (this._myLogShowDelayedInfo) {
                     consoleArguments.push(performMode == PerformMode.DELAYED ? "- Delayed" : "- Immediate");
                 }
                 console.warn(...consoleArguments);
             }
-        } else if (this._myDebugLogActive) {
-            let consoleArguments = [this._myDebugLogName, "- FSM not initialized yet"];
-            if (this._myDebugShowDelayedInfo) {
+        } else if (this._myLogEnabled) {
+            let consoleArguments = [this._myLogFSMName, "- FSM not initialized yet"];
+            if (this._myLogShowDelayedInfo) {
                 consoleArguments.push(performMode == PerformMode.DELAYED ? "- Delayed" : "- Immediate");
             }
             console.warn(...consoleArguments);

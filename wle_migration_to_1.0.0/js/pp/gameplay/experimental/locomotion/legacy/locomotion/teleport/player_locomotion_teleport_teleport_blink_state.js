@@ -29,7 +29,7 @@ export class PlayerLocomotionTeleportTeleportBlinkState extends PlayerLocomotion
         this._myBlinkSphere.pp_setActive(false);
 
         this._myFSM = new FSM();
-        //this._myFSM.setDebugLogActive(true, "Locomotion Teleport Teleport Blink");
+        //this._myFSM.setLogEnabled(true, "Locomotion Teleport Teleport Blink");
 
         this._myFSM.addState("init");
         this._myFSM.addState("idle");
