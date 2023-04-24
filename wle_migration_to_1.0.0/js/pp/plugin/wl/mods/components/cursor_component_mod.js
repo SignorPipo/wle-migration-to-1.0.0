@@ -35,7 +35,7 @@ export function initCursorComponentModPrototype() {
 
         this._prevHitLocationLocalToTarget = vec3_create();
 
-        this._pointerId = null;
+        this._pointerID = null;
 
         this._updatePointerStyle = false;
 
@@ -43,6 +43,7 @@ export function initCursorComponentModPrototype() {
         this._lastClientY = null;
         this._lastWidth = null;
         this._lastHeight = null;
+        this._lastPointerID = null;
 
         this._handedness = null;
 
@@ -217,12 +218,20 @@ export function initCursorComponentModPrototype() {
 
             let hitObjectData = this.rayCast();
             this.hoverBehaviour(hitObjectData[0], hitObjectData[1], hitObjectData[2]);
-        } else {
-            if (this._viewComponent != null && this._lastClientX != null) {
+        } else if (this._viewComponent != null) {
+            if (this._lastPointerID != null) {
                 this.updateMousePos(this._lastClientX, this._lastClientY, this._lastWidth, this._lastHeight);
 
                 let hitObjectData = this.rayCast();
                 this.hoverBehaviour(hitObjectData[0], hitObjectData[1], hitObjectData[2]);
+
+                if (this.hoveringObject != null) {
+                    this._pointerID = this._lastPointerID;
+                } else {
+                    this._pointerID = null;
+                }
+            } else if (this.hoveringObject != null) {
+                this.hoverBehaviour(null, null, null, true); // Trigger unhover
             }
         }
 
@@ -246,7 +255,7 @@ export function initCursorComponentModPrototype() {
         }
 
         if (this.hoveringObject == null) {
-            this._pointerId = null;
+            this._pointerID = null;
         }
 
         this._updatePointerStyle = false;
@@ -459,19 +468,10 @@ export function initCursorComponentModPrototype() {
     cursorComponentMod.onPointerMove = function onPointerMove(e) {
         if (this.active) {
             /* Don't care about secondary pointers */
-            if (this._pointerId != null && this._pointerId != e._pointerId) return;
+            if (this._pointerID != null && this._pointerID != e.pointerId) return;
 
             let bounds = document.body.getBoundingClientRect();
-            this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
-
-            let hitObjectData = this.rayCast();
-            this.hoverBehaviour(hitObjectData[0], hitObjectData[1], hitObjectData[2]);
-
-            if (this.hoveringObject != null) {
-                this._pointerId = e._pointerId;
-            } else {
-                this._pointerId = null;
-            }
+            this.updateMouseData(e.clientX, e.clientY, bounds.width, bounds.height, e.pointerId);
         }
     };
 
@@ -480,23 +480,14 @@ export function initCursorComponentModPrototype() {
 
     cursorComponentMod.onPointerDown = function onPointerDown(e) {
         /* Don't care about secondary pointers or non-left clicks */
-        if ((this._pointerId != null && this._pointerId != e._pointerId) || e.button !== 0) return;
+        if ((this._pointerID != null && this._pointerID != e.pointerId) || e.button !== 0) return;
 
         if (this.active) {
             let bounds = document.body.getBoundingClientRect();
-            this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
+            this.updateMouseData(e.clientX, e.clientY, bounds.width, bounds.height, e.pointerId);
 
             this._isDown = true;
             this._isRealDown = true;
-
-            let hitObjectData = this.rayCast();
-            this.hoverBehaviour(hitObjectData[0], hitObjectData[1], hitObjectData[2]);
-
-            if (this.hoveringObject != null) {
-                this._pointerId = e._pointerId;
-            } else {
-                this._pointerId = null;
-            }
         } else {
             this._isRealDown = true;
         }
@@ -504,11 +495,11 @@ export function initCursorComponentModPrototype() {
 
     cursorComponentMod.onPointerUp = function onPointerUp(e) {
         /* Don't care about secondary pointers or non-left clicks */
-        if ((this._pointerId != null && this._pointerId != e._pointerId) || e.button !== 0) return;
+        if ((this._pointerID != null && this._pointerID != e.pointerId) || e.button !== 0) return;
 
         if (this.active) {
             let bounds = document.body.getBoundingClientRect();
-            this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
+            this.updateMouseData(e.clientX, e.clientY, bounds.width, bounds.height, e.pointerId);
 
             if (!this._isDown) {
                 this._isUpWithNoDown = true;
@@ -517,15 +508,6 @@ export function initCursorComponentModPrototype() {
             this._isDown = false;
             this._isRealDown = false;
 
-            let hitObjectData = this.rayCast();
-            this.hoverBehaviour(hitObjectData[0], hitObjectData[1], hitObjectData[2]);
-
-            if (this.hoveringObject != null) {
-                this._pointerId = e._pointerId;
-            } else {
-                this._pointerId = null;
-            }
-
             this._updatePointerStyle = true;
         } else {
             this._isRealDown = false;
@@ -533,17 +515,20 @@ export function initCursorComponentModPrototype() {
     };
 
     cursorComponentMod.updateMousePos = function updateMousePos(clientX, clientY, w, h) {
-        this._lastClientX = clientX;
-        this._lastClientY = clientY;
-        this._lastWidth = w;
-        this._lastHeight = h;
-
         /* Get direction in normalized device coordinate space from mouse position */
         let left = clientX / w;
         let top = clientY / h;
         this._direction.vec3_set(left * 2 - 1, -top * 2 + 1, -1.0);
 
         this.updateDirection();
+    };
+
+    cursorComponentMod.updateMouseData = function updateMousePos(clientX, clientY, w, h, pointerID) {
+        this._lastClientX = clientX;
+        this._lastClientY = clientY;
+        this._lastWidth = w;
+        this._lastHeight = h;
+        this._lastPointerID = pointerID;
     };
 
     cursorComponentMod.updateDirection = function () {
@@ -587,7 +572,7 @@ export function initCursorComponentModPrototype() {
             this.cursorRayObject.pp_setActive(false);
         }
 
-        this._pointerId = null;
+        this._pointerID = null;
 
         this._lastClientX = null;
         this._lastClientY = null;
@@ -648,12 +633,8 @@ export function initCursorComponentModPrototype() {
     };
 
     cursorComponentMod._pp_onPointerLeave = function _pp_onPointerLeave(e) {
-        if (this._pointerId == null || this._pointerId == e._pointerId) {
-            if (this.active) {
-                this.hoverBehaviour(null, null, null, true); // Trigger unhover
-            }
-
-            this._pointerId = null;
+        if (this._pointerID == null || this._pointerID == e.pointerId) {
+            this._lastPointerID = null;
 
             this._lastClientX = null;
             this._lastClientY = null;
