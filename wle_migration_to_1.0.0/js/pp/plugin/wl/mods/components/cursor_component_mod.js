@@ -1,10 +1,11 @@
 import { InputComponent, ViewComponent } from "@wonderlandengine/api";
-import { Cursor, CursorTarget } from "@wonderlandengine/components";
+import { Cursor, CursorTarget, HitTestLocation } from "@wonderlandengine/components";
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
 import { InputUtils } from "../../../../input/cauldron/input_utils";
 import { Globals } from "../../../../pp/globals";
 import { mat4_create, quat2_create, quat_create, vec3_create } from "../../../js/extensions/array_extension";
 import { PluginUtils } from "../../../utils/plugin_utils";
+import { getScene } from "../../../../cauldron/wl/engine_globals";
 
 export function initCursorComponentMod() {
     initCursorComponentModPrototype();
@@ -19,6 +20,7 @@ export function initCursorComponentModPrototype() {
         this.maxDistance = 100;
         this.visible = false;
         this.globalTarget = this.object.pp_addComponent(CursorTarget);
+        this.hitTestTarget = this.object.pp_addComponent(CursorTarget);
         this.hoveringObject = null;
         this.hoveringObjectTarget = null;
 
@@ -54,6 +56,7 @@ export function initCursorComponentModPrototype() {
         this._isRealDown = false;
 
         this._cursorPos = vec3_create();
+        this._tempVec = vec3_create();
 
         this._viewComponent = null;
 
@@ -61,6 +64,9 @@ export function initCursorComponentModPrototype() {
         this._cursorRayScale = vec3_create();
 
         this._projectionMatrix = mat4_create();
+
+        this._hitTestLocation = null;
+        this._hitTestObject = null;
     };
 
     cursorComponentMod.start = function start() {
@@ -91,6 +97,11 @@ export function initCursorComponentModPrototype() {
         }
 
         this._setCursorVisibility(false);
+
+        if (this.useWebXRHitTest) {
+            this._hitTestObject = this.object.pp_addObject();
+            this._hitTestLocation = this.hitTestObject.pp_addComponent(HitTestLocation, { scaleObject: false, });
+        }
     };
 
     cursorComponentMod.onViewportResize = function onViewportResize() {
@@ -121,6 +132,52 @@ export function initCursorComponentModPrototype() {
         this.cursorObject.pp_setActive(visible);
     };
 
+    cursorComponentMod.rayCast = function rayCast() {
+        let rayHit =
+            this.rayCastMode == 0
+                ? Globals.getScene(this.engine).rayCast(
+                    this._origin,
+                    this._direction,
+                    this._collisionMask
+                )
+                : Globals.getPhysics(this.engine).rayCast(
+                    this._origin,
+                    this._direction,
+                    this._collisionMask,
+                    this.maxDistance
+                );
+
+        let hitTestResultDistance = Infinity;
+        if (this._hitTestLocation != null && this._hitTestLocation.visible) {
+            this._hitTestObject.pp_getPositionWorld(this._cursorPos);
+            hitTestResultDistance = this._cursorPos.vec3_distance(this.object.pp_getPositionWorld(this._tempVec));
+        }
+
+        let hoveringReality = false;
+
+        if (rayHit.hitCount > 0) {
+            let rayHitDistance = rayHit.distances[0];
+            if (rayHitDistance <= hitTestResultDistance) {
+                // Override _cursorPos set by hit test location
+                this._cursorPos.vec3_copy(rayHit.locations[0]);
+            } else {
+                hoveringReality = true;
+            }
+        } else if (hitTestResultDistance == Infinity) {
+            this._cursorPos.vec3_zero();
+        }
+
+        if (hoveringReality && !this.hoveringReality) {
+            this.hitTestTarget.onHover.notify(null, this);
+        } else if (!hoveringReality && this.hoveringReality) {
+            this.hitTestTarget.onUnhover.notify(null, this);
+        }
+
+        this.hoveringReality = hoveringReality;
+
+        return rayHit;
+    };
+
     cursorComponentMod.update = function update(dt) {
         if (this._doubleClickTimer > 0) {
             this._doubleClickTimer -= dt;
@@ -134,29 +191,22 @@ export function initCursorComponentModPrototype() {
         if (XRUtils.isSessionActive(this.engine)) {
             /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
             if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
-                let p = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
+                let axes = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
                 /* Screenspace Y is inverted */
-                this._direction.vec3_set(p[0], -p[1], -1.0);
+                this._direction.vec3_set(axes[0], -axes[1], -1.0);
                 this.updateDirection();
             } else {
                 this.object.pp_getPosition(this._origin);
                 this.object.pp_getForward(this._direction);
             }
 
-            let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                Globals.getScene(this.engine).rayCast(this._origin, this._direction, this._collisionMask) :
-                Globals.getPhysics(this.engine).rayCast(this._origin, this._direction, this._collisionMask, this.maxDistance);
-
-            if (rayHit.hitCount > 0) {
-                this._cursorPos.set(rayHit.locations[0]);
-            } else {
-                this._cursorPos.fill(0);
-            }
-
+            let rayHit = this.rayCast();
             this.hoverBehaviour(rayHit);
         } else {
             if (this._viewComponent != null && this._lastClientX != null) {
-                let rayHit = this.updateMousePos(this._lastClientX, this._lastClientY, this._lastWidth, this._lastHeight);
+                this.updateMousePos(this._lastClientX, this._lastClientY, this._lastWidth, this._lastHeight);
+
+                let rayHit = this.rayCast();
                 this.hoverBehaviour(rayHit);
             }
         }
@@ -354,8 +404,9 @@ export function initCursorComponentModPrototype() {
             if (this._pointerId != null && this._pointerId != e._pointerId) return;
 
             let bounds = document.body.getBoundingClientRect();
-            let rayHit = this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
+            this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
 
+            let rayHit = this.rayCast();
             this.hoverBehaviour(rayHit);
 
             if (this.hoveringObject != null) {
@@ -375,11 +426,12 @@ export function initCursorComponentModPrototype() {
 
         if (this.active) {
             let bounds = document.body.getBoundingClientRect();
-            let rayHit = this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
+            this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
 
             this._isDown = true;
             this._isRealDown = true;
 
+            let rayHit = this.rayCast();
             this.hoverBehaviour(rayHit);
 
             if (this.hoveringObject != null) {
@@ -398,7 +450,7 @@ export function initCursorComponentModPrototype() {
 
         if (this.active) {
             let bounds = document.body.getBoundingClientRect();
-            let rayHit = this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
+            this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
 
             if (!this._isDown) {
                 this._isUpWithNoDown = true;
@@ -407,6 +459,7 @@ export function initCursorComponentModPrototype() {
             this._isDown = false;
             this._isRealDown = false;
 
+            let rayHit = this.rayCast();
             this.hoverBehaviour(rayHit);
 
             if (this.hoveringObject != null) {
@@ -431,7 +484,8 @@ export function initCursorComponentModPrototype() {
         let left = clientX / w;
         let top = clientY / h;
         this._direction.vec3_set(left * 2 - 1, -top * 2 + 1, -1.0);
-        return this.updateDirection();
+
+        this.updateDirection();
     };
 
     cursorComponentMod.updateDirection = function () {
@@ -443,17 +497,6 @@ export function initCursorComponentModPrototype() {
             this._direction.vec3_transformMat4(this._projectionMatrix, this._direction);
             this._direction.vec3_normalize(this._direction);
             this._direction.vec3_transformQuat(this.object.pp_getTransformQuat(transformWorld), this._direction);
-            let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                Globals.getScene(this.engine).rayCast(this._origin, this._direction, this._collisionMask) :
-                Globals.getPhysics(this.engine).rayCast(this._origin, this._direction, this._collisionMask, this.maxDistance);
-
-            if (rayHit.hitCount > 0) {
-                this._cursorPos.set(rayHit.locations[0]);
-            } else {
-                this._cursorPos.fill(0);
-            }
-
-            return rayHit;
         };
     }();
 
@@ -493,21 +536,21 @@ export function initCursorComponentModPrototype() {
     };
 
     cursorComponentMod.onDestroy = function onDestroy() {
-        if (this.hitTestObject != null) {
-            this.hitTestObject.destroy();
+        if (this._hitTestObject != null) {
+            this._hitTestObject.destroy();
         }
 
         for (let f of this._onDestroyListeners) f();
     };
 
 
-    cursorComponentMod.notify = function notify(event, originalEvent) {
+    cursorComponentMod.notify = function notify(event, originalEvent = null) {
         if (this.hoveringObject) {
             if (this.hoveringObjectTarget) {
-                this.hoveringObjectTarget[event].notify(target, this, originalEvent ?? undefined);
+                this.hoveringObjectTarget[event].notify(target, this, originalEvent != null ? originalEvent : undefined);
             }
 
-            this.globalTarget[event].notify(target, this, originalEvent ?? undefined);
+            this.globalTarget[event].notify(target, this, originalEvent != null ? originalEvent : undefined);
         }
     };
 
