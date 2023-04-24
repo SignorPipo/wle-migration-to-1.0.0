@@ -51,6 +51,17 @@ export function getScene(engine = getMainEngine()) {
     return scene;
 }
 
+export function getRoot(engine = getMainEngine()) {
+    let root = null;
+
+    let scene = getScene(engine);
+    if (scene != null) {
+        root = scene.pp_getRoot();
+    }
+
+    return root;
+}
+
 export function getPhysics(engine = getMainEngine()) {
     let physics = null;
 
