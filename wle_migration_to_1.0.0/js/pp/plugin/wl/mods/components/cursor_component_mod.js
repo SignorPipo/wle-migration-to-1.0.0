@@ -49,11 +49,15 @@ export function initCursorComponentModPrototype() {
         this._transformQuat = quat2_create();
         this._origin = vec3_create();
         this._direction = vec3_create();
+
         this._isHovering = false;
+
         this._isDown = false;
         this._lastIsDown = false;
-        this._isUpWithNoDown = false;
         this._isRealDown = false;
+
+        this._isDownForUpWithDown = false;
+        this._isUpWithNoDown = false;
 
         this._cursorPos = vec3_create();
         this._tempVec = vec3_create();
@@ -294,8 +298,10 @@ export function initCursorComponentModPrototype() {
                 }
 
                 if (!this._pp_isDownToProcess() && this._isRealDown) {
-                    this._isDown = false;
-                    this._lastIsDown = false;
+                    this._isDown = true;
+                    this._lastIsDown = true;
+
+                    this._isDownForUpWithDown = false;
                     this._isUpWithNoDown = false;
 
                     if (!this.hoveringReality) {
@@ -380,14 +386,24 @@ export function initCursorComponentModPrototype() {
                     if (!this.hoveringReality) {
                         if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUp.notify(this.hoveringObject, this);
                         this.globalTarget.onUp.notify(this.hoveringObject, this);
+
+                        if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUpWithDown.notify(this.hoveringObject, this);
+                        this.globalTarget.onUpWithDown.notify(this.hoveringObject, this);
                     } else {
                         this.hitTestTarget.onUp.notify(hitTestResults, this);
+
+                        this.hitTestTarget.onUpWithDown.notify(hitTestResults, this);
                     }
                 } else if (this._isUpWithNoDown || (hoveringObjectChanged && this._pp_isUpToProcess())) {
                     if (!this.hoveringReality) {
+                        if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUp.notify(this.hoveringObject, this);
+                        this.globalTarget.onUp.notify(this.hoveringObject, this);
+
                         if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUpWithNoDown.notify(this.hoveringObject, this);
                         this.globalTarget.onUpWithNoDown.notify(this.hoveringObject, this);
                     } else {
+                        this.hitTestTarget.onUp.notify(hitTestResults, this);
+
                         this.hitTestTarget.onUpWithNoDown.notify(hitTestResults, this);
                     }
                 }
@@ -414,6 +430,8 @@ export function initCursorComponentModPrototype() {
         } else {
             this._isDown = false;
             this._lastIsDown = false;
+
+            this._isDownForUpWithDown = false;
         }
 
         this._isUpWithNoDown = false;
@@ -448,6 +466,11 @@ export function initCursorComponentModPrototype() {
             this.arTouchDown = true;
             if (e.inputSource.handedness == this._handedness) {
                 this._isDown = true;
+                this._isRealDown = true;
+
+                if (!this._lastIsDown) {
+                    this._isDownForUpWithDown = true;
+                }
             }
         }
 
@@ -460,10 +483,14 @@ export function initCursorComponentModPrototype() {
         if (this.active) {
             this.arTouchDown = false;
             if (e.inputSource.handedness == this._handedness) {
-                if (!this._isDown) {
+                if (!this._isDownForUpWithDown) {
                     this._isUpWithNoDown = true;
                 }
+
                 this._isDown = false;
+                this._isRealDown = false;
+
+                this._isDownForUpWithDown = false;
             }
         }
 
@@ -495,6 +522,10 @@ export function initCursorComponentModPrototype() {
 
             this._isDown = true;
             this._isRealDown = true;
+
+            if (!this._lastIsDown) {
+                this._isDownForUpWithDown = true;
+            }
         } else {
             this._isRealDown = true;
         }
@@ -508,12 +539,14 @@ export function initCursorComponentModPrototype() {
             let bounds = document.body.getBoundingClientRect();
             this.updateMouseData(e.clientX, e.clientY, bounds.width, bounds.height, e.pointerId);
 
-            if (!this._isDown) {
+            if (!this._isDownForUpWithDown) {
                 this._isUpWithNoDown = true;
             }
 
             this._isDown = false;
             this._isRealDown = false;
+
+            this._isDownForUpWithDown = false;
 
             this._updatePointerStyle = true;
         } else {
@@ -553,6 +586,8 @@ export function initCursorComponentModPrototype() {
     cursorComponentMod.onActivate = function onActivate() {
         this._isDown = false;
         this._lastIsDown = false;
+
+        this._isDownForUpWithDown = false;
         this._isUpWithNoDown = false;
     };
 
@@ -572,6 +607,8 @@ export function initCursorComponentModPrototype() {
 
         this._isDown = false;
         this._lastIsDown = false;
+
+        this._isDownForUpWithDown = false;
         this._isUpWithNoDown = false;
 
         this._setCursorVisibility(false);

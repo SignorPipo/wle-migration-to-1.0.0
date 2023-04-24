@@ -85,12 +85,10 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
             ui.myValueIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, i, 1));
             ui.myValueIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, i, 1));
             ui.myValueIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, i, 0));
-            ui.myValueIncreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, i, 0));
             ui.myValueIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, i, 0));
             ui.myValueDecreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, i, -1));
             ui.myValueDecreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, i, -1));
             ui.myValueDecreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, i, 0));
-            ui.myValueDecreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, i, 0));
             ui.myValueDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, i, 0));
 
             ui.myValueIncreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myValueIncreaseButtonBackgroundComponents[i].material));

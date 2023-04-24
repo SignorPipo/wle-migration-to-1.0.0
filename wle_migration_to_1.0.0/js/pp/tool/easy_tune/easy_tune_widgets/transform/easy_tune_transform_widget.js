@@ -249,12 +249,10 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             ui.myPositionIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 0, i, 1));
             ui.myPositionIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 0, i, 1));
             ui.myPositionIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 0, i, 0));
-            ui.myPositionIncreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 0, i, 0));
             ui.myPositionIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 0, i, 0));
             ui.myPositionDecreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 0, i, -1));
             ui.myPositionDecreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 0, i, -1));
             ui.myPositionDecreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 0, i, 0));
-            ui.myPositionDecreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 0, i, 0));
             ui.myPositionDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 0, i, 0));
 
             ui.myPositionIncreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myPositionIncreaseButtonBackgroundComponents[i].material));
@@ -274,12 +272,10 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             ui.myRotationIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 1, i, 1));
             ui.myRotationIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 1, i, 1));
             ui.myRotationIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 1, i, 0));
-            ui.myRotationIncreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 1, i, 0));
             ui.myRotationIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 1, i, 0));
             ui.myRotationDecreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 1, i, -1));
             ui.myRotationDecreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 1, i, -1));
             ui.myRotationDecreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 1, i, 0));
-            ui.myRotationDecreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 1, i, 0));
             ui.myRotationDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 1, i, 0));
 
             ui.myRotationIncreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myRotationIncreaseButtonBackgroundComponents[i].material));
@@ -299,12 +295,10 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
             ui.myScaleIncreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 2, i, 1));
             ui.myScaleIncreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 2, i, 1));
             ui.myScaleIncreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 2, i, 0));
-            ui.myScaleIncreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 2, i, 0));
             ui.myScaleIncreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 2, i, 0));
             ui.myScaleDecreaseButtonCursorTargetComponents[i].onDown.add(this._setValueEditIntensity.bind(this, 2, i, -1));
             ui.myScaleDecreaseButtonCursorTargetComponents[i].onDownOnHover.add(this._setValueEditIntensity.bind(this, 2, i, -1));
             ui.myScaleDecreaseButtonCursorTargetComponents[i].onUp.add(this._setValueEditIntensity.bind(this, 2, i, 0));
-            ui.myScaleDecreaseButtonCursorTargetComponents[i].onUpWithNoDown.add(this._setValueEditIntensity.bind(this, 2, i, 0));
             ui.myScaleDecreaseButtonCursorTargetComponents[i].onUnhover.add(this._setValueEditIntensity.bind(this, 2, i, 0));
 
             ui.myScaleIncreaseButtonCursorTargetComponents[i].onHover.add(this._genericHover.bind(this, ui.myScaleIncreaseButtonBackgroundComponents[i].material));
@@ -324,12 +318,10 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         ui.myPositionStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 0, 1));
         ui.myPositionStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 0, 1));
         ui.myPositionStepIncreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 0, 0));
-        ui.myPositionStepIncreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 0, 0));
         ui.myPositionStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 0, 0));
         ui.myPositionStepDecreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 0, -1));
         ui.myPositionStepDecreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 0, -1));
         ui.myPositionStepDecreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 0, 0));
-        ui.myPositionStepDecreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 0, 0));
         ui.myPositionStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 0, 0));
 
         ui.myPositionStepIncreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myPositionStepIncreaseButtonBackgroundComponent.material));
@@ -344,12 +336,10 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         ui.myRotationStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 1, 1));
         ui.myRotationStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 1, 1));
         ui.myRotationStepIncreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 1, 0));
-        ui.myRotationStepIncreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 1, 0));
         ui.myRotationStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 1, 0));
         ui.myRotationStepDecreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 1, -1));
         ui.myRotationStepDecreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 1, -1));
         ui.myRotationStepDecreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 1, 0));
-        ui.myRotationStepDecreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 1, 0));
         ui.myRotationStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 1, 0));
 
         ui.myRotationStepIncreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myRotationStepIncreaseButtonBackgroundComponent.material));
@@ -364,12 +354,10 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         ui.myScaleStepIncreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 2, 1));
         ui.myScaleStepIncreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 2, 1));
         ui.myScaleStepIncreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 2, 0));
-        ui.myScaleStepIncreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 2, 0));
         ui.myScaleStepIncreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 2, 0));
         ui.myScaleStepDecreaseButtonCursorTargetComponent.onDown.add(this._setStepEditIntensity.bind(this, 2, -1));
         ui.myScaleStepDecreaseButtonCursorTargetComponent.onDownOnHover.add(this._setStepEditIntensity.bind(this, 2, -1));
         ui.myScaleStepDecreaseButtonCursorTargetComponent.onUp.add(this._setStepEditIntensity.bind(this, 2, 0));
-        ui.myScaleStepDecreaseButtonCursorTargetComponent.onUpWithNoDown.add(this._setStepEditIntensity.bind(this, 2, 0));
         ui.myScaleStepDecreaseButtonCursorTargetComponent.onUnhover.add(this._setStepEditIntensity.bind(this, 2, 0));
 
         ui.myScaleStepIncreaseButtonCursorTargetComponent.onHover.add(this._genericHover.bind(this, ui.myScaleStepIncreaseButtonBackgroundComponent.material));

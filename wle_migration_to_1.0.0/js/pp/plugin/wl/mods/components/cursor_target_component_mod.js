@@ -15,7 +15,10 @@ export function initCursorTargetComponentModPrototype() {
         this.onSingleClick = new Emitter();
         this.onDoubleClick = new Emitter();
         this.onTripleClick = new Emitter();
+
         this.onDownOnHover = new Emitter();
+
+        this.onUpWithDown = new Emitter();
         this.onUpWithNoDown = new Emitter();
 
         this.isSurface = false; // Just a way to specify if this target is just used as a surface between buttons 
