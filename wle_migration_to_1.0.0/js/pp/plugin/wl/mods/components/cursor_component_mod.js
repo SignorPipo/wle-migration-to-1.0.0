@@ -3,9 +3,8 @@ import { Cursor, CursorTarget, HitTestLocation } from "@wonderlandengine/compone
 import { XRUtils } from "../../../../cauldron/utils/xr_utils";
 import { InputUtils } from "../../../../input/cauldron/input_utils";
 import { Globals } from "../../../../pp/globals";
-import { mat4_create, quat2_create, quat_create, vec3_create } from "../../../js/extensions/array_extension";
+import { mat4_create, quat2_create, vec3_create } from "../../../js/extensions/array_extension";
 import { PluginUtils } from "../../../utils/plugin_utils";
-import { getScene } from "../../../../cauldron/wl/engine_globals";
 
 export function initCursorComponentMod() {
     initCursorComponentModPrototype();
@@ -279,7 +278,7 @@ export function initCursorComponentModPrototype() {
 
                 /* Hover new object */
                 this.hoveringObject = hitObject;
-                this.hoveringObjectTarget = this.hoveringObject.getComponent(CursorTarget);
+                this.hoveringObjectTarget = this.hoveringObject.pp_getComponent(CursorTarget);
 
                 if (!this.hoveringReality) {
                     if (this.hoveringObjectTarget) this.hoveringObjectTarget.onHover.notify(this.hoveringObject, this);

@@ -19,6 +19,7 @@ import {GrabbableSpawnerComponent} from './playground/grabbable_spawner_componen
 import {LoadAudioComponent} from './playground/load_audio_component.js';
 import {ParticlesSpawnerComponent} from './playground/particles_spawner_component.js';
 import {PlayMusicComponent} from './playground/play_music_component.js';
+import {PlaygroundGatewayComponent} from './playground/playground_gateway.js';
 import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
 import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';
@@ -42,8 +43,6 @@ import {VirtualGamepadComponent} from './pp/index.js';
 /* wle:auto-imports:end */
 
 import { loadRuntime } from '@wonderlandengine/api';
-import { initPlayground } from './playground/init_playground.js';
-import { initPP } from './pp/index.js';
 
 /* wle:auto-constants:start */
 const RuntimeOptions = {
@@ -103,6 +102,7 @@ engine.registerComponent(GrabbableSpawnerComponent);
 engine.registerComponent(LoadAudioComponent);
 engine.registerComponent(ParticlesSpawnerComponent);
 engine.registerComponent(PlayMusicComponent);
+engine.registerComponent(PlaygroundGatewayComponent);
 engine.registerComponent(ScaleOnSpawnComponent);
 engine.registerComponent(SFXOnCollisionComponent);
 engine.registerComponent(SFXOnGrabThrowComponent);
@@ -124,9 +124,6 @@ engine.registerComponent(ToolCursorComponent);
 engine.registerComponent(TrackedHandDrawAllJointsComponent);
 engine.registerComponent(VirtualGamepadComponent);
 /* wle:auto-register:end */
-
-initPP(engine);
-initPlayground(engine);
 
 engine.scene.load(`${Constants.ProjectName}.bin`);
 

@@ -4,10 +4,10 @@ import { Globals } from "./globals";
 import { registerPPComponents } from "./register_pp_components";
 
 export function initPP(engine) {
+    Globals.initEngine(engine);
+
     registerWLComponents(engine);
     registerPPComponents(engine);
-
-    Globals.initEngine(engine);
 
     initPlugins(engine);
 }
