@@ -336,6 +336,14 @@ export function initCursorComponentModPrototype() {
                 }
 
                 /* Click */
+                if (!this.hoveringReality) {
+                    if (this.hoveringObjectTarget) this.hoveringObjectTarget.onClick.notify(this.hoveringObject, this);
+                    this.globalTarget.onClick.notify(this.hoveringObject, this);
+                } else {
+                    this.hitTestTarget.onClick.notify(hitTestResults, this);
+                }
+
+                /* Multiple Clicks */
                 if (this._tripleClickTimer > 0 && this._multipleClickObject && this._multipleClickObject.pp_equals(this.hoveringObject)) {
                     if (!this.hoveringReality) {
                         if (this.hoveringObjectTarget) this.hoveringObjectTarget.onTripleClick.notify(this.hoveringObject, this);
@@ -357,10 +365,10 @@ export function initCursorComponentModPrototype() {
                     this._doubleClickTimer = 0;
                 } else {
                     if (!this.hoveringReality) {
-                        if (this.hoveringObjectTarget) this.hoveringObjectTarget.onClick.notify(this.hoveringObject, this);
-                        this.globalTarget.onClick.notify(this.hoveringObject, this);
+                        if (this.hoveringObjectTarget) this.hoveringObjectTarget.onSingleClick.notify(this.hoveringObject, this);
+                        this.globalTarget.onSingleClick.notify(this.hoveringObject, this);
                     } else {
-                        this.hitTestTarget.onClick.notify(hitTestResults, this);
+                        this.hitTestTarget.onSingleClick.notify(hitTestResults, this);
                     }
 
                     this._tripleClickTimer = 0;

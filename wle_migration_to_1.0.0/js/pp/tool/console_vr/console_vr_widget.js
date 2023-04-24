@@ -512,9 +512,9 @@ export class ConsoleVRWidget {
             let backgroundMaterial = ui.myFilterButtonsBackgroundComponents[ConsoleVRWidgetMessageType[key]].material;
             let textMaterial = ui.myFilterButtonsTextComponents[ConsoleVRWidgetMessageType[key]].material;
 
-            cursorTarget.onTripleClick.add(this._resetFilters.bind(this, ConsoleVRWidgetMessageType[key]));
+            cursorTarget.onSingleClick.add(this._toggleFilter.bind(this, ConsoleVRWidgetMessageType[key], textMaterial));
             cursorTarget.onDoubleClick.add(this._filterAllButOne.bind(this, ConsoleVRWidgetMessageType[key], textMaterial));
-            cursorTarget.onClick.add(this._toggleFilter.bind(this, ConsoleVRWidgetMessageType[key], textMaterial));
+            cursorTarget.onTripleClick.add(this._resetFilters.bind(this, ConsoleVRWidgetMessageType[key]));
             cursorTarget.onHover.add(this._filterHover.bind(this, ConsoleVRWidgetMessageType[key], backgroundMaterial));
             cursorTarget.onUnhover.add(this._filterUnHover.bind(this, ConsoleVRWidgetMessageType[key], backgroundMaterial));
         }
@@ -534,6 +534,7 @@ export class ConsoleVRWidget {
 
             cursorTarget.onDoubleClick.add(this._instantScrollUp.bind(this, true));
             cursorTarget.onDown.add(this._setScrollUp.bind(this, true));
+            cursorTarget.onDownOnHover.add(this._setScrollUp.bind(this, true));
             cursorTarget.onUp.add(this._setScrollUp.bind(this, false));
             cursorTarget.onUnhover.add(this._setScrollUp.bind(this, false));
             cursorTarget.onHover.add(this._genericHover.bind(this, backgroundMaterial));
@@ -546,6 +547,7 @@ export class ConsoleVRWidget {
 
             cursorTarget.onDoubleClick.add(this._instantScrollDown.bind(this));
             cursorTarget.onDown.add(this._setScrollDown.bind(this, true));
+            cursorTarget.onDownOnHover.add(this._setScrollDown.bind(this, true));
             cursorTarget.onUp.add(this._setScrollDown.bind(this, false));
             cursorTarget.onUnhover.add(this._setScrollDown.bind(this, false));
             cursorTarget.onHover.add(this._genericHover.bind(this, backgroundMaterial));

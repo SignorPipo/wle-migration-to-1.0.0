@@ -12,6 +12,7 @@ export function initCursorTargetComponentModPrototype() {
     // New Functions 
 
     cursorTargetComponentMod.init = function init() {
+        this.onSingleClick = new Emitter();
         this.onDoubleClick = new Emitter();
         this.onTripleClick = new Emitter();
         this.onDownOnHover = new Emitter();
