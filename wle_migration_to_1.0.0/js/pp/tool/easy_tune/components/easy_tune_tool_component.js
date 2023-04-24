@@ -103,4 +103,9 @@ export class EasyTuneToolComponent extends Component {
             }
         }
     }
+
+    onDestroy() {
+        EasyTuneUtils.removeSetEasyTuneWidgetActiveVariableCallback(this, this.engine);
+        EasyTuneUtils.removeRefreshEasyTuneWidgetCallback(this, this.engine);
+    }
 }

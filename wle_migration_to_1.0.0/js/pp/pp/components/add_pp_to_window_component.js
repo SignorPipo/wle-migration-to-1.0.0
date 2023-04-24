@@ -22,4 +22,8 @@ export class AddPPToWindowComponent extends Component {
             }
         }
     }
+
+    onDestroy() {
+        window.PP = undefined;
+    }
 }

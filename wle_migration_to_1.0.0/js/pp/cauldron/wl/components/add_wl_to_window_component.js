@@ -24,4 +24,8 @@ export class AddWLToWindowComponent extends Component {
             }
         }
     }
+
+    onDestroy() {
+        window.WL = undefined;
+    }
 }

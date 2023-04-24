@@ -62,7 +62,7 @@ export function initCursorComponentModPrototype() {
         this.cursorObjScale = vec3_create();
         this.direction = vec3_create();
         this.tempQuat = quat_create();
-        this.setViewComponent(this.object.pp_getComponent(ViewComponent));
+        this.pp_setViewComponent(this.object.pp_getComponent(ViewComponent));
         this.isHovering = false;
         this.visible = true;
         this.isDown = false;
@@ -220,7 +220,7 @@ export function initCursorComponentModPrototype() {
                     document.body.style.cursor = "default";
                 }
 
-                if (!this._isDown() && this.isRealDown) {
+                if (!this._pp_isDownToProcess() && this.isRealDown) {
                     this.isDown = false;
                     this.lastIsDown = false;
                     this.isUpWithNoDown = false;
@@ -241,12 +241,12 @@ export function initCursorComponentModPrototype() {
 
             let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
 
-            if (!hoveringObjectChanged && this._isMoving(rayHit.locations[0])) {
+            if (!hoveringObjectChanged && this._pp_isMoving(rayHit.locations[0])) {
                 if (cursorTarget) cursorTarget.onMove.notify(this.hoveringObject, this);
                 this.globalTarget.onMove.notify(this.hoveringObject, this);
             }
 
-            if (this._isDown()) {
+            if (this._pp_isDownToProcess()) {
                 /* Cursor down */
                 if (cursorTarget) cursorTarget.onDown.notify(this.hoveringObject, this);
                 this.globalTarget.onDown.notify(this.hoveringObject, this);
@@ -273,10 +273,10 @@ export function initCursorComponentModPrototype() {
                 }
             } else {
                 /* Cursor up */
-                if (!this.isUpWithNoDown && !hoveringObjectChanged && this._isUp()) {
+                if (!this.isUpWithNoDown && !hoveringObjectChanged && this._pp_isUpToProcess()) {
                     if (cursorTarget) cursorTarget.onUp.notify(this.hoveringObject, this);
                     this.globalTarget.onUp.notify(this.hoveringObject, this);
-                } else if (this.isUpWithNoDown || (hoveringObjectChanged && this._isUp())) {
+                } else if (this.isUpWithNoDown || (hoveringObjectChanged && this._pp_isUpToProcess())) {
                     if (cursorTarget) cursorTarget.onUpWithNoDown.notify(this.hoveringObject, this);
                     this.globalTarget.onUpWithNoDown.notify(this.hoveringObject, this);
                 }
@@ -472,6 +472,14 @@ export function initCursorComponentModPrototype() {
         };
     }();
 
+    cursorComponentMod.onActivate = function onActivate() {
+        this.showRay = true;
+
+        this.isDown = false;
+        this.lastIsDown = false;
+        this.isUpWithNoDown = false;
+    };
+
     cursorComponentMod.onDeactivate = function onDeactivate() {
         if (this.hoveringObject) {
             let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
@@ -501,21 +509,13 @@ export function initCursorComponentModPrototype() {
         this.lastHeight = null;
     };
 
-    cursorComponentMod.onActivate = function onActivate() {
-        this.showRay = true;
-
-        this.isDown = false;
-        this.lastIsDown = false;
-        this.isUpWithNoDown = false;
-    };
-
     cursorComponentMod.onDestroy = function onDestroy() {
         for (let f of this.onDestroyListeners) f();
     };
 
     // New Functions 
 
-    cursorComponentMod.setViewComponent = function setViewComponent(viewComponent) {
+    cursorComponentMod.pp_setViewComponent = function pp_setViewComponent(viewComponent) {
         this.viewComponent = viewComponent;
         /* If this object also has a view component, we will enable inverse-projected mouse clicks,
          * otherwise just use the objects transformation */
@@ -528,7 +528,7 @@ export function initCursorComponentModPrototype() {
             Globals.getCanvas(this.engine).addEventListener("pointermove", onPointerMove);
             let onPointerUp = this.onPointerUp.bind(this);
             Globals.getCanvas(this.engine).addEventListener("pointerup", onPointerUp);
-            let onPointerLeave = this.onPointerLeave.bind(this);
+            let onPointerLeave = this._pp_onPointerLeave.bind(this);
             Globals.getCanvas(this.engine).addEventListener("pointerleave", onPointerLeave);
 
             this.projectionMatrix = mat4_create();
@@ -547,7 +547,7 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    cursorComponentMod.onPointerLeave = function onPointerLeave(e) {
+    cursorComponentMod._pp_onPointerLeave = function _pp_onPointerLeave(e) {
         if (this.pointerId == null || this.pointerId == e.pointerId) {
             if (this.active) {
                 this.hoverBehaviour(null, false, true); // Trigger unhover
@@ -562,17 +562,17 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    cursorComponentMod._isDown = function _isDown() {
+    cursorComponentMod._pp_isDownToProcess = function _pp_isDownToProcess() {
         return this.isDown !== this.lastIsDown && this.isDown;
     };
 
-    cursorComponentMod._isUp = function _isUp() {
+    cursorComponentMod._pp_isUpToProcess = function _pp_isUpToProcess() {
         return this.isDown !== this.lastIsDown && !this.isDown;
     };
 
-    cursorComponentMod._isMoving = function () {
+    cursorComponentMod._pp_isMoving = function () {
         let hitLocationLocalToTarget = vec3_create();
-        return function _isMoving(hitLocation) {
+        return function _pp_isMoving(hitLocation) {
             let isMoving = false;
 
             hitLocationLocalToTarget = this.hoveringObject.pp_convertPositionWorldToLocal(hitLocation, hitLocationLocalToTarget);

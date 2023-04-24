@@ -54,7 +54,7 @@ export class ToolCursorComponent extends Component {
 
             this._myCursorComponentXR.rayCastMode = 0; // Collision
             if (this._myPulseOnHover) {
-                this._myCursorComponentXR.globalTarget.onHover.add(this._pulseOnHover.bind(this));
+                this._myCursorComponentXR.globalTarget.onHover.add(this._pulseOnHover.bind(this), { id: this });
             }
         }
 
@@ -68,9 +68,9 @@ export class ToolCursorComponent extends Component {
 
             this._myCursorComponentNonXR.rayCastMode = 0; // Collision
             if (this._myPulseOnHover) {
-                this._myCursorComponentNonXR.globalTarget.onHover.add(this._pulseOnHover.bind(this));
+                this._myCursorComponentNonXR.globalTarget.onHover.add(this._pulseOnHover.bind(this), { id: this });
             }
-            this._myCursorComponentNonXR.setViewComponent(Globals.getPlayerObjects(this.engine).myCameraNonXR.pp_getComponent(ViewComponent));
+            this._myCursorComponentNonXR.pp_setViewComponent(Globals.getPlayerObjects(this.engine).myCameraNonXR.pp_getComponent(ViewComponent));
         }
 
         let fingerCursorMeshObject = null;
@@ -99,7 +99,6 @@ export class ToolCursorComponent extends Component {
         this._myCursorComponentXR.active = false;
         this._myCursorComponentNonXR.active = false;
         this._myFingerCursorComponent.active = false;
-
     }
 
     update(dt) {
@@ -136,6 +135,11 @@ export class ToolCursorComponent extends Component {
                 }
             }
         }
+    }
+
+    onDestroy() {
+        this._myCursorComponentXR.globalTarget.onHover.remove(this);
+        this._myCursorComponentNonXR.globalTarget.onHover.remove(this);
     }
 }
 

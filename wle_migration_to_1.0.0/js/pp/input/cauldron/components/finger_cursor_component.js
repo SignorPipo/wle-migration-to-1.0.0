@@ -86,31 +86,31 @@ export class FingerCursorComponent extends Component {
     }
 
     _targetTouchStart() {
-        this._myLastTarget.onHover(this._myLastTarget.object, this);
-        this._myLastTarget.onDown(this._myLastTarget.object, this);
+        this._myLastTarget.onHover.notify(this._myLastTarget.object, this);
+        this._myLastTarget.onDown.notify(this._myLastTarget.object, this);
     }
 
     _targetTouchEnd() {
         if (this._myLastTarget) {
             if (this._myMultipleClicksEnabled && this._myTripleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.pp_equals(this._myLastTarget.object)) {
-                this._myLastTarget.onTripleClick(this._myLastTarget.object, this);
+                this._myLastTarget.onTripleClick.notify(this._myLastTarget.object, this);
 
                 this._myTripleClickTimer = 0;
             } else if (this._myMultipleClicksEnabled && this._myDoubleClickTimer > 0 && this._myMultipleClickObject && this._myMultipleClickObject.pp_equals(this._myLastTarget.object)) {
-                this._myLastTarget.onDoubleClick(this._myLastTarget.object, this);
+                this._myLastTarget.onDoubleClick.notify(this._myLastTarget.object, this);
 
                 this._myTripleClickTimer = this._myMultipleClickDelay;
                 this._myDoubleClickTimer = 0;
             } else {
-                this._myLastTarget.onClick(this._myLastTarget.object, this);
+                this._myLastTarget.onClick.notify(this._myLastTarget.object, this);
 
                 this._myTripleClickTimer = 0;
                 this._myDoubleClickTimer = this._myMultipleClickDelay;
                 this._myMultipleClickObject = this._myLastTarget.object;
             }
 
-            this._myLastTarget.onUp(this._myLastTarget.object, this);
-            this._myLastTarget.onUnhover(this._myLastTarget.object, this);
+            this._myLastTarget.onUp.notify(this._myLastTarget.object, this);
+            this._myLastTarget.onUnhover.notify(this._myLastTarget.object, this);
 
             this._myLastTarget = null;
         }
