@@ -20,6 +20,7 @@ export function initCursorComponentModPrototype() {
         this.visible = false;
         this.globalTarget = this.object.pp_addComponent(CursorTarget);
         this.hoveringObject = null;
+        this.hoveringObjectTarget = null;
 
         this._collisionMask = (1 << this.collisionGroup);
 
@@ -129,76 +130,70 @@ export function initCursorComponentModPrototype() {
             this._tripleClickTimer -= dt;
         }
 
-        this.doUpdate(false);
+        /* If in XR, set the cursor ray based on object transform */
+        if (XRUtils.isSessionActive(this.engine)) {
+            /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
+            if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
+                let p = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
+                /* Screenspace Y is inverted */
+                this._direction.vec3_set(p[0], -p[1], -1.0);
+                this.updateDirection();
+            } else {
+                this.object.pp_getPosition(this._origin);
+                this.object.pp_getForward(this._direction);
+            }
+
+            let rayHit = this.rayHit = (this.rayCastMode == 0) ?
+                Globals.getScene(this.engine).rayCast(this._origin, this._direction, this._collisionMask) :
+                Globals.getPhysics(this.engine).rayCast(this._origin, this._direction, this._collisionMask, this.maxDistance);
+
+            if (rayHit.hitCount > 0) {
+                this._cursorPos.set(rayHit.locations[0]);
+            } else {
+                this._cursorPos.fill(0);
+            }
+
+            this.hoverBehaviour(rayHit);
+        } else {
+            if (this._viewComponent != null && this._lastClientX != null) {
+                let rayHit = this.updateMousePos(this._lastClientX, this._lastClientY, this._lastWidth, this._lastHeight);
+                this.hoverBehaviour(rayHit);
+            }
+        }
+
+        if (this.cursorObject) {
+            if (this.hoveringObject && (this._cursorPos[0] != 0 || this._cursorPos[1] != 0 || this._cursorPos[2] != 0)) {
+                this._setCursorVisibility(true);
+                this.cursorObject.pp_setPosition(this._cursorPos);
+                this.cursorObject.pp_setTransformLocalQuat(this.cursorObject.pp_getTransformLocalQuat(this._transformQuat).quat2_normalize(this._transformQuat));
+                this._setCursorRayTransform(this._cursorPos);
+            } else {
+                if (this.visible && this.cursorRayObject) {
+                    this._setCursorRayTransform(null);
+                }
+
+                this._setCursorVisibility(false);
+            }
+        }
+
+        if (this.cursorRayObject) {
+            this.cursorRayObject.pp_setActive(true);
+        }
+
+        if (this.hoveringObject == null) {
+            this._pointerId = null;
+        }
+
+        this._updatePointerStyle = false;
     };
 
-    cursorComponentMod.doUpdate = function () {
-        return function doUpdate(doClick) {
-            /* If in XR, set the cursor ray based on object transform */
-            if (XRUtils.isSessionActive(this.engine)) {
-                /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
-                if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
-                    let p = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
-                    /* Screenspace Y is inverted */
-                    this._direction.vec3_set(p[0], -p[1], -1.0);
-                    this.updateDirection();
-                } else {
-                    this.object.pp_getPosition(this._origin);
-                    this.object.pp_getForward(this._direction);
-                }
-                let rayHit = this.rayHit = (this.rayCastMode == 0) ?
-                    Globals.getScene(this.engine).rayCast(this._origin, this._direction, this._collisionMask) :
-                    Globals.getPhysics(this.engine).rayCast(this._origin, this._direction, this._collisionMask, this.maxDistance);
-
-                if (rayHit.hitCount > 0) {
-                    this._cursorPos.set(rayHit.locations[0]);
-                } else {
-                    this._cursorPos.fill(0);
-                }
-
-                this.hoverBehaviour(rayHit, doClick);
-            } else {
-                if (this._viewComponent != null && this._lastClientX != null) {
-                    let rayHit = this.updateMousePos(this._lastClientX, this._lastClientY, this._lastWidth, this._lastHeight);
-                    this.hoverBehaviour(rayHit, false);
-                }
-            }
-
-            if (this.cursorObject) {
-                if (this.hoveringObject && (this._cursorPos[0] != 0 || this._cursorPos[1] != 0 || this._cursorPos[2] != 0)) {
-                    this._setCursorVisibility(true);
-                    this.cursorObject.pp_setPosition(this._cursorPos);
-                    this.cursorObject.pp_setTransformLocalQuat(this.cursorObject.pp_getTransformLocalQuat(this._transformQuat).quat2_normalize(this._transformQuat));
-                    this._setCursorRayTransform(this._cursorPos);
-                } else {
-                    if (this.visible && this.cursorRayObject) {
-                        this._setCursorRayTransform(null);
-                    }
-
-                    this._setCursorVisibility(false);
-                }
-            }
-
-            if (this.cursorRayObject) {
-                this.cursorRayObject.pp_setActive(true);
-            }
-
-            if (this.hoveringObject == null) {
-                this._pointerId = null;
-            }
-
-            this._updatePointerStyle = false;
-        };
-    }();
-
-    cursorComponentMod.hoverBehaviour = function hoverBehaviour(rayHit, doClick, forceUnhover = false) {
+    cursorComponentMod.hoverBehaviour = function hoverBehaviour(rayHit, forceUnhover = false) {
         if (!forceUnhover && rayHit.hitCount > 0) {
             let hoveringObjectChanged = false;
             if (!this.hoveringObject || !this.hoveringObject.pp_equals(rayHit.objects[0])) {
                 /* Unhover previous, if exists */
                 if (this.hoveringObject) {
-                    let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-                    if (cursorTarget) cursorTarget.onUnhover.notify(this.hoveringObject, this);
+                    if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUnhover.notify(this.hoveringObject, this);
                     this.globalTarget.onUnhover.notify(this.hoveringObject, this);
                 }
 
@@ -206,14 +201,14 @@ export function initCursorComponentModPrototype() {
 
                 /* Hover new object */
                 this.hoveringObject = rayHit.objects[0];
+                this.hoveringObjectTarget = this.hoveringObject.getComponent(CursorTarget);
 
-                let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-                if (cursorTarget) {
-                    cursorTarget.onHover.notify(this.hoveringObject, this);
+                if (this.hoveringObjectTarget) {
+                    this.hoveringObjectTarget.onHover.notify(this.hoveringObject, this);
                 }
                 this.globalTarget.onHover.notify(this.hoveringObject, this);
 
-                if (this.styleCursor && !this._isRealDown && cursorTarget != null && !cursorTarget.isSurface) {
+                if (this.styleCursor && !this._isRealDown && this.hoveringObjectTarget != null && !this.hoveringObjectTarget.isSurface) {
                     document.body.style.cursor = "pointer";
                 } else if (document.body.style.cursor == "pointer") {
                     document.body.style.cursor = "default";
@@ -224,46 +219,43 @@ export function initCursorComponentModPrototype() {
                     this._lastIsDown = false;
                     this._isUpWithNoDown = false;
 
-                    if (cursorTarget) cursorTarget.onDownOnHover.notify(this.hoveringObject, this);
+                    if (this.hoveringObjectTarget) this.hoveringObjectTarget.onDownOnHover.notify(this.hoveringObject, this);
                     this.globalTarget.onDownOnHover.notify(this.hoveringObject, this);
                 }
             }
 
             if (this._updatePointerStyle) {
-                let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-                if (this.styleCursor && !this._isRealDown && cursorTarget != null && !cursorTarget.isSurface) {
+                if (this.styleCursor && !this._isRealDown && this.hoveringObjectTarget != null && !this.hoveringObjectTarget.isSurface) {
                     document.body.style.cursor = "pointer";
                 } else if (document.body.style.cursor == "pointer") {
                     document.body.style.cursor = "default";
                 }
             }
 
-            let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-
             if (!hoveringObjectChanged && this._pp_isMoving(rayHit.locations[0])) {
-                if (cursorTarget) cursorTarget.onMove.notify(this.hoveringObject, this);
+                if (this.hoveringObjectTarget) this.hoveringObjectTarget.onMove.notify(this.hoveringObject, this);
                 this.globalTarget.onMove.notify(this.hoveringObject, this);
             }
 
             if (this._pp_isDownToProcess()) {
                 /* Cursor down */
-                if (cursorTarget) cursorTarget.onDown.notify(this.hoveringObject, this);
+                if (this.hoveringObjectTarget) this.hoveringObjectTarget.onDown.notify(this.hoveringObject, this);
                 this.globalTarget.onDown.notify(this.hoveringObject, this);
 
                 /* Click */
                 if (this._tripleClickTimer > 0 && this._multipleClickObject && this._multipleClickObject.pp_equals(this.hoveringObject)) {
-                    if (cursorTarget) cursorTarget.onTripleClick.notify(this.hoveringObject, this);
+                    if (this.hoveringObjectTarget) this.hoveringObjectTarget.onTripleClick.notify(this.hoveringObject, this);
                     this.globalTarget.onTripleClick.notify(this.hoveringObject, this);
 
                     this._tripleClickTimer = 0;
                 } else if (this._doubleClickTimer > 0 && this._multipleClickObject && this._multipleClickObject.pp_equals(this.hoveringObject)) {
-                    if (cursorTarget) cursorTarget.onDoubleClick.notify(this.hoveringObject, this);
+                    if (this.hoveringObjectTarget) this.hoveringObjectTarget.onDoubleClick.notify(this.hoveringObject, this);
                     this.globalTarget.onDoubleClick.notify(this.hoveringObject, this);
 
                     this._tripleClickTimer = this._multipleClickDelay;
                     this._doubleClickTimer = 0;
                 } else {
-                    if (cursorTarget) cursorTarget.onClick.notify(this.hoveringObject, this);
+                    if (this.hoveringObjectTarget) this.hoveringObjectTarget.onClick.notify(this.hoveringObject, this);
                     this.globalTarget.onClick.notify(this.hoveringObject, this);
 
                     this._tripleClickTimer = 0;
@@ -273,21 +265,21 @@ export function initCursorComponentModPrototype() {
             } else {
                 /* Cursor up */
                 if (!this._isUpWithNoDown && !hoveringObjectChanged && this._pp_isUpToProcess()) {
-                    if (cursorTarget) cursorTarget.onUp.notify(this.hoveringObject, this);
+                    if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUp.notify(this.hoveringObject, this);
                     this.globalTarget.onUp.notify(this.hoveringObject, this);
                 } else if (this._isUpWithNoDown || (hoveringObjectChanged && this._pp_isUpToProcess())) {
-                    if (cursorTarget) cursorTarget.onUpWithNoDown.notify(this.hoveringObject, this);
+                    if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUpWithNoDown.notify(this.hoveringObject, this);
                     this.globalTarget.onUpWithNoDown.notify(this.hoveringObject, this);
                 }
             }
 
             this._prevHitLocationLocalToTarget = this.hoveringObject.pp_convertPositionWorldToLocal(rayHit.locations[0], this._prevHitLocationLocalToTarget);
         } else if (this.hoveringObject && (forceUnhover || rayHit.hitCount == 0)) {
-            let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-            if (cursorTarget) cursorTarget.onUnhover.notify(this.hoveringObject, this);
+            if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUnhover.notify(this.hoveringObject, this);
             this.globalTarget.onUnhover.notify(this.hoveringObject, this);
 
             this.hoveringObject = null;
+            this.hoveringObjectTarget = null;
             if (this.styleCursor && !this._isRealDown) {
                 document.body.style.cursor = "default";
             }
@@ -364,7 +356,7 @@ export function initCursorComponentModPrototype() {
             let bounds = document.body.getBoundingClientRect();
             let rayHit = this.updateMousePos(e.clientX, e.clientY, bounds.width, bounds.height);
 
-            this.hoverBehaviour(rayHit, false);
+            this.hoverBehaviour(rayHit);
 
             if (this.hoveringObject != null) {
                 this._pointerId = e._pointerId;
@@ -388,7 +380,7 @@ export function initCursorComponentModPrototype() {
             this._isDown = true;
             this._isRealDown = true;
 
-            this.hoverBehaviour(rayHit, false);
+            this.hoverBehaviour(rayHit);
 
             if (this.hoveringObject != null) {
                 this._pointerId = e._pointerId;
@@ -415,7 +407,7 @@ export function initCursorComponentModPrototype() {
             this._isDown = false;
             this._isRealDown = false;
 
-            this.hoverBehaviour(rayHit, false);
+            this.hoverBehaviour(rayHit);
 
             if (this.hoveringObject != null) {
                 this._pointerId = e._pointerId;
@@ -473,12 +465,12 @@ export function initCursorComponentModPrototype() {
 
     cursorComponentMod.onDeactivate = function onDeactivate() {
         if (this.hoveringObject) {
-            let cursorTarget = this.hoveringObject.pp_getComponent(CursorTarget);
-            if (cursorTarget) cursorTarget.onUnhover.notify(this.hoveringObject, this);
+            if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUnhover.notify(this.hoveringObject, this);
             this.globalTarget.onUnhover.notify(this.hoveringObject, this);
         }
 
         this.hoveringObject = null;
+        this.hoveringObjectTarget = null;
         if (this.styleCursor) {
             document.body.style.cursor = "default";
         }
@@ -506,6 +498,17 @@ export function initCursorComponentModPrototype() {
         }
 
         for (let f of this._onDestroyListeners) f();
+    };
+
+
+    cursorComponentMod.notify = function notify(event, originalEvent) {
+        if (this.hoveringObject) {
+            if (this.hoveringObjectTarget) {
+                this.hoveringObjectTarget[event].notify(target, this, originalEvent ?? undefined);
+            }
+
+            this.globalTarget[event].notify(target, this, originalEvent ?? undefined);
+        }
     };
 
     // New Functions 
@@ -544,7 +547,7 @@ export function initCursorComponentModPrototype() {
     cursorComponentMod._pp_onPointerLeave = function _pp_onPointerLeave(e) {
         if (this._pointerId == null || this._pointerId == e._pointerId) {
             if (this.active) {
-                this.hoverBehaviour(null, false, true); // Trigger unhover
+                this.hoverBehaviour(null, true); // Trigger unhover
             }
 
             this._pointerId = null;
