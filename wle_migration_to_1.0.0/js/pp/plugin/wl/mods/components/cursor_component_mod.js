@@ -437,21 +437,23 @@ export function initCursorComponentModPrototype() {
         this._isUpWithNoDown = false;
     };
 
-    cursorComponentMod.setupXREvents = function setupXREvents(s) {
+    cursorComponentMod.setupXREvents = function setupXREvents(session) {
         /* If in XR, one-time bind the listener */
 
         let onSelect = this.onSelect.bind(this);
-        s.addEventListener("select", onSelect);
+        session.addEventListener("select", onSelect);
         let onSelectStart = this.onSelectStart.bind(this);
-        s.addEventListener("selectstart", onSelectStart);
+        session.addEventListener("selectstart", onSelectStart);
         let onSelectEnd = this.onSelectEnd.bind(this);
-        s.addEventListener("selectend", onSelectEnd);
+        session.addEventListener("selectend", onSelectEnd);
 
         this._onDestroyListeners.push(() => {
             if (!XRUtils.isSessionActive(this.engine)) return;
-            s.removeEventListener("select", onSelect);
-            s.removeEventListener("selectstart", onSelectStart);
-            s.removeEventListener("selectend", onSelectEnd);
+
+            let session = XRUtils.getSession(this.engine);
+            session.removeEventListener("select", onSelect);
+            session.removeEventListener("selectstart", onSelectStart);
+            session.removeEventListener("selectend", onSelectEnd);
         });
 
         /* After XR session was entered, the projection matrix changed */

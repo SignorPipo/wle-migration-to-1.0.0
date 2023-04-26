@@ -6,9 +6,9 @@ export class SFXOnGrabThrowComponent extends Component {
     static Properties = {};
 
     start() {
-        let grabbers = Globals.getScene(this.engine).pp_getComponents(GrabberHandComponent);
+        this._myGrabbers = Globals.getScene(this.engine).pp_getComponents(GrabberHandComponent);
 
-        for (let grabber of grabbers) {
+        for (let grabber of this._myGrabbers) {
             grabber.registerGrabEventListener(this, this._onGrab.bind(this));
             grabber.registerThrowEventListener(this, this._onThrow.bind(this));
         }
@@ -48,6 +48,13 @@ export class SFXOnGrabThrowComponent extends Component {
         let pulseInfo = grabber.getGamepad().getPulseInfo();
         if (pulseInfo.myIntensity <= intensity) {
             grabber.getGamepad().pulse(intensity, 0.1);
+        }
+    }
+
+    onDestroy() {
+        for (let grabber of this._myGrabbers) {
+            grabber.unregisterGrabEventListener(this);
+            grabber.unregisterThrowEventListener(this);
         }
     }
 }

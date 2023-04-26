@@ -139,6 +139,16 @@ export class PlayerTransformManagerParams {
 
         this.myDebugEnabled = false;
     }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myParams.myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
+    }
 }
 
 export class PlayerTransformManager {
@@ -175,6 +185,8 @@ export class PlayerTransformManager {
         this._myIsPositionValid = false;
 
         this._myResetRealOnSynced = false;
+
+        this._myDestroyed = false;
     }
 
     start() {

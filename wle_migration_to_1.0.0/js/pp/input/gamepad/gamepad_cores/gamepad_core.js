@@ -6,6 +6,8 @@ export class GamepadCore {
         this._myHandPose = handPose;
 
         this._myManageHandPose = false;
+
+        this._myDestroyed = false;
     }
 
     getHandedness() {
@@ -81,6 +83,10 @@ export class GamepadCore {
 
     }
 
+    _destroyHook() {
+
+    }
+
     // Hooks end
 
     _createButtonData() {
@@ -89,5 +95,15 @@ export class GamepadCore {
 
     _createAxesData() {
         return vec2_create(0, 0);
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._destroyHook();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

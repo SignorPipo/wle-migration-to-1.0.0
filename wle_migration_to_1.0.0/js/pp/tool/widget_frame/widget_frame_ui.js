@@ -18,6 +18,8 @@ export class WidgetFrameUI {
         this._myVisibilityButtonVisible = true;
 
         this._myEngine = engine;
+
+        this._myDestroyed = false;
     }
 
     build(parentObject, config, params) {
@@ -222,5 +224,15 @@ export class WidgetFrameUI {
             this.myVisibilityButtonPanel.pp_setPositionLocal(this._myConfig.myVisibilityButtonPosition[ToolHandedness.NONE].myPosition);
             this.myPinButtonPanel.pp_setPositionLocal(this._myConfig.myPinButtonPosition[ToolHandedness.NONE].myPosition);
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

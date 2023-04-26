@@ -74,11 +74,23 @@ export class PlayerLocomotionSmooth extends PlayerLocomotionMovement {
         this._myDirectionConverterVR = new Direction2DTo3DConverter(directionConverterVRParams);
         this._myCurrentDirectionConverter = this._myDirectionConverterNonVR;
 
+        this._myDestroyed = false;
+
         XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this._myParams.myEngine);
     }
 
     update(dt) {
         // Implemented outside class definition
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myParams.myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

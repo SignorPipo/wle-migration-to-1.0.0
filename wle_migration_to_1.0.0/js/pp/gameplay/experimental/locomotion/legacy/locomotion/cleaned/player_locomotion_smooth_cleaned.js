@@ -40,11 +40,23 @@ export class CleanedPlayerLocomotionSmooth extends PlayerLocomotionMovement {
 
         this._myGravitySpeed = 0;
 
+        this._myDestroyed = false;
+
         XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this._myParams.myEngine);
     }
 
     update(dt) {
         // Implemented outside class definition
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myParams.myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

@@ -33,6 +33,8 @@ export class SaveManager {
 
         this._myLoadEmitter = new Emitter();                    // Signature: listener(id, value, loadFromCache, failed)
         this._myLoadIDEmitters = new Map();                     // Signature: listener(id, value, loadFromCache, failed)
+
+        this._myDestroyed = false;
     }
 
     setCommitSavesDelay(delay) {
@@ -429,5 +431,15 @@ export class SaveManager {
 
     _isCacheEnabled(overrideCacheEnabled = null) {
         return (this._myCacheEnabled && overrideCacheEnabled == null) || (overrideCacheEnabled != null && overrideCacheEnabled);
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

@@ -9,6 +9,8 @@ export class ConsoleVRWidgetUI {
 
     constructor(engine = Globals.getMainEngine()) {
         this._myEngine = engine;
+
+        this._myDestroyed = false;
     }
 
     build(parentObject, config, params) {
@@ -350,5 +352,15 @@ export class ConsoleVRWidgetUI {
 
     _setTransformForNonXR() {
         this.myNotifyIconPanel.pp_setPositionLocal(this._myConfig.myNotifyIconPanelPositions[ToolHandedness.NONE]);
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

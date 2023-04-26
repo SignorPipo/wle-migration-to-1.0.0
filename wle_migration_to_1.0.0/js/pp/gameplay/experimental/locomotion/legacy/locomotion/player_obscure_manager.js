@@ -332,7 +332,7 @@ export class PlayerObscureManager {
         if (visible) {
             this._myObscureParentObject.pp_setParent(this._myParams.myPlayerTransformManager.getHead(), false);
         } else {
-            this._myObscureParentObject.pp_setParent(Globals.getPlayerObjects(this._myParams.myEngine).myPlayerCauldron, false);
+            this._myObscureParentObject.pp_setParent(Globals.getPlayerObjects(this._myParams.myEngine)?.myPlayerCauldron, false);
         }
     }
 }

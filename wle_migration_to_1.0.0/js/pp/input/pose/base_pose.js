@@ -39,10 +39,12 @@ export class BasePose {
         this._myAngularVelocityRadians = vec3_create();
 
         this._myValid = false;
-        this._myIsLinearVelocityEmulated = true;
-        this._myIsAngularVelocityEmulated = true;
+        this._myLinearVelocityEmulated = true;
+        this._myAngularVelocityEmulated = true;
 
         this._myPoseUpdatedEmitter = new Emitter();   // Signature: listener(thisPose)
+
+        this._myDestroyed = false;
     }
 
     getEngine() {
@@ -141,11 +143,11 @@ export class BasePose {
     }
 
     isLinearVelocityEmulated() {
-        return this._myIsLinearVelocityEmulated;
+        return this._myLinearVelocityEmulated;
     }
 
     isAngularVelocityEmulated() {
-        return this._myIsAngularVelocityEmulated;
+        return this._myAngularVelocityEmulated;
     }
 
     registerPoseUpdatedEventListener(id, listener) {
@@ -221,11 +223,11 @@ export class BasePose {
                         this._myLinearVelocity[1] = xrPose.linearVelocity.y;
                         this._myLinearVelocity[2] = xrPose.linearVelocity.z;
 
-                        this._myIsLinearVelocityEmulated = false;
+                        this._myLinearVelocityEmulated = false;
                     } else {
                         this._computeEmulatedLinearVelocity(dt);
 
-                        this._myIsLinearVelocityEmulated = true;
+                        this._myLinearVelocityEmulated = true;
                     }
 
                     if (xrPose.angularVelocity && !this._myForceEmulatedVelocities) {
@@ -233,11 +235,11 @@ export class BasePose {
                         this._myAngularVelocityRadians[1] = xrPose.angularVelocity.y;
                         this._myAngularVelocityRadians[2] = xrPose.angularVelocity.z;
 
-                        this._myIsAngularVelocityEmulated = false;
+                        this._myAngularVelocityEmulated = false;
                     } else {
                         this._computeEmulatedAngularVelocity(dt);
 
-                        this._myIsAngularVelocityEmulated = true;
+                        this._myAngularVelocityEmulated = true;
                     }
                 }
 
@@ -256,8 +258,8 @@ export class BasePose {
                 }
 
                 this._myValid = false;
-                this._myIsLinearVelocityEmulated = true;
-                this._myIsAngularVelocityEmulated = true;
+                this._myLinearVelocityEmulated = true;
+                this._myAngularVelocityEmulated = true;
             }
 
             this._updateHook(dt, updateVelocity, xrPose);
@@ -275,8 +277,8 @@ export class BasePose {
             }
 
             this._myValid = false;
-            this._myIsLinearVelocityEmulated = true;
-            this._myIsAngularVelocityEmulated = true;
+            this._myLinearVelocityEmulated = true;
+            this._myAngularVelocityEmulated = true;
 
             this._updateHook(dt, updateVelocity, null);
         }
@@ -321,6 +323,16 @@ export class BasePose {
 
     _computeEmulatedAngularVelocity() {
         // Implemented outside class definition
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

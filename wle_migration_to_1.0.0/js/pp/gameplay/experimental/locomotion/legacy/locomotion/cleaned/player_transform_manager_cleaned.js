@@ -42,6 +42,7 @@ export class CleanedPlayerTransformManager {
         this._myResetRealOnSynced = false;
 
         this._myActive = true;
+        this._myDestroyed = false;
     }
 
     start() {
@@ -434,6 +435,16 @@ export class CleanedPlayerTransformManager {
         Globals.getDebugVisualManager(this._myParams.myEngine).drawLine(0, this._myValidPosition, this._myValidRotationQuat.quat_getForward(), 0.15, vec4_create(0, 1, 0, 1), 0.025);
 
         Globals.getDebugVisualManager(this._myParams.myEngine).drawPoint(0, this._myValidPositionHead, vec4_create(1, 1, 0, 1), 0.05);
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myParams.myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 };
 

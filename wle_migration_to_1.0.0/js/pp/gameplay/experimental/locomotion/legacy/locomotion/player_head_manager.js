@@ -64,6 +64,7 @@ export class PlayerHeadManager {
         this._myIsSyncedDelayCounter = 0;
 
         this._myActive = true;
+        this._myDestroyed = false;
 
         // Config
 
@@ -74,7 +75,7 @@ export class PlayerHeadManager {
     start() {
         this._updateHeightOffset();
 
-        XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, true, this._myEngine);
+        XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, true, this._myParams.myEngine);
     }
 
     setActive(active) {
@@ -262,6 +263,16 @@ export class PlayerHeadManager {
         Globals.getDebugVisualManager(this._myParams.myEngine).drawLineEnd(0, this.getPositionFeet(), this.getPositionHead(), vec4_create(1, 0, 0, 1), 0.01);
 
         console.error(this.getHeightEyes());
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myParams.myEngine);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

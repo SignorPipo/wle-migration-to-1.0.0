@@ -174,4 +174,8 @@ export class XRGamepadCore extends GamepadCore {
             this._myIsSqueezePressed = false;
         }
     }
+
+    _destroyHook() {
+        XRUtils.unregisterSessionStartEndEventListeners(this, this.getEngine());
+    }
 }
