@@ -105,6 +105,8 @@ export class EasyTuneToolComponent extends Component {
     }
 
     onDestroy() {
+        this._myWidget.destroy();
+
         EasyTuneUtils.removeSetEasyTuneWidgetActiveVariableCallback(this, this.engine);
         EasyTuneUtils.removeRefreshEasyTuneWidgetCallback(this, this.engine);
     }

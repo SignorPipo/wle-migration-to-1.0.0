@@ -23,8 +23,8 @@ export class Mouse {
             this._myButtonInfos.set(MouseButtonID[key], this._createButtonInfo());
         }
 
-        this._myPreventContextMenuCallback = this._preventContextMenu.bind(this);
-        this._myPreventMiddleButtonScrollCallback = this._preventMiddleButtonScroll.bind(this);
+        this._myPreventContextMenuEventListener = this._preventContextMenu.bind(this);
+        this._myPreventMiddleButtonScrollEventListener = this._preventMiddleButtonScroll.bind(this);
 
         this._myInternalMousePosition = vec2_create();
         this._myScreenSize = vec2_create();
@@ -47,6 +47,16 @@ export class Mouse {
 
         this._myPointerEventValidCallbacks = new Map();      // Signature: callback(event)
 
+        this._myPointerMoveEventListener = null;
+        this._myPointerDownEventListener = null;
+        this._myPointerUpEventListener = null;
+        this._myPointerLeaveEventListener = null;
+        this._myPointerEnterEventListener = null;
+        this._myMouseDownEventListener = null;
+        this._myMouseUpEventListener = null;
+
+        this._myDestroyed = false;
+
         // Support Variables
         this._myProjectionMatrixInverse = mat4_create();
         this._myRotationQuat = quat_create();
@@ -55,22 +65,22 @@ export class Mouse {
     }
 
     start() {
-        this._myOnPointerMoveCallback = this._onPointerAction.bind(this, this._onPointerMove.bind(this));
-        document.body.addEventListener("pointermove", this._myOnPointerMoveCallback);
-        this._myOnPointerDownCallback = this._onPointerAction.bind(this, this._onPointerDown.bind(this));
-        document.body.addEventListener("pointerdown", this._myOnPointerDownCallback);
-        this._myOnPointerUpCallback = this._onPointerAction.bind(this, this._onPointerUp.bind(this));
-        document.body.addEventListener("pointerup", this._myOnPointerUpCallback);
-        this._myOnPointerLeaveCallback = this._onPointerLeave.bind(this);
-        document.body.addEventListener("pointerleave", this._myOnPointerLeaveCallback);
-        this._myOnPointerEnterCallback = this._onPointerEnter.bind(this);
-        document.body.addEventListener("pointerenter", this._myOnPointerEnterCallback);
+        this._myPointerMoveEventListener = this._onPointerAction.bind(this, this._onPointerMove.bind(this));
+        document.body.addEventListener("pointermove", this._myPointerMoveEventListener);
+        this._myPointerDownEventListener = this._onPointerAction.bind(this, this._onPointerDown.bind(this));
+        document.body.addEventListener("pointerdown", this._myPointerDownEventListener);
+        this._myPointerUpEventListener = this._onPointerAction.bind(this, this._onPointerUp.bind(this));
+        document.body.addEventListener("pointerup", this._myPointerUpEventListener);
+        this._myPointerLeaveEventListener = this._onPointerLeave.bind(this);
+        document.body.addEventListener("pointerleave", this._myPointerLeaveEventListener);
+        this._myPointerEnterEventListener = this._onPointerEnter.bind(this);
+        document.body.addEventListener("pointerenter", this._myPointerEnterEventListener);
 
         // These are needed to being able to detect for example left and right click together, pointer only allow one down at a time
-        this._myOnMouseDownCallback = this._onMouseAction.bind(this, this._onPointerDown.bind(this));
-        document.body.addEventListener("mousedown", this._myOnMouseDownCallback);
-        this._myOnMouseUpCallback = this._onMouseAction.bind(this, this._onPointerUp.bind(this));
-        document.body.addEventListener("mouseup", this._myOnMouseUpCallback);
+        this._myMouseDownEventListener = this._onMouseAction.bind(this, this._onPointerDown.bind(this));
+        document.body.addEventListener("mousedown", this._myMouseDownEventListener);
+        this._myMouseUpEventListener = this._onMouseAction.bind(this, this._onPointerUp.bind(this));
+        document.body.addEventListener("mouseup", this._myMouseUpEventListener);
     }
 
     update(dt) {
@@ -105,20 +115,6 @@ export class Mouse {
                 this._myLastValidPointerEvent = null;
             }
         }
-    }
-
-    destroy() {
-        document.body.removeEventListener("pointermove", this._myOnPointerMoveCallback);
-        document.body.removeEventListener("pointerdown", this._myOnPointerDownCallback);
-        document.body.removeEventListener("pointerup", this._myOnPointerUpCallback);
-        document.body.removeEventListener("pointerleave", this._myOnPointerLeaveCallback);
-        document.body.removeEventListener("pointerenter", this._myOnPointerEnterCallback);
-
-        document.body.removeEventListener("mousedown", this._myOnMouseDownCallback);
-        document.body.removeEventListener("mouseup", this._myOnMouseUpCallback);
-
-        document.body.removeEventListener("contextmenu", this._myPreventContextMenuCallback);
-        document.body.removeEventListener("mousedown", this._myPreventMiddleButtonScrollCallback);
     }
 
     isValid() {
@@ -303,9 +299,9 @@ export class Mouse {
     setContextMenuActive(active) {
         if (this._myContextMenuActive != active) {
             if (active) {
-                document.body.removeEventListener("contextmenu", this._myPreventContextMenuCallback);
+                document.body.removeEventListener("contextmenu", this._myPreventContextMenuEventListener);
             } else {
-                document.body.addEventListener("contextmenu", this._myPreventContextMenuCallback, false);
+                document.body.addEventListener("contextmenu", this._myPreventContextMenuEventListener, false);
             }
             this._myContextMenuActive = active;
         }
@@ -318,9 +314,9 @@ export class Mouse {
     setMiddleButtonScrollActive(active) {
         if (this._myMiddleButtonScrollActive != active) {
             if (active) {
-                document.body.removeEventListener("mousedown", this._myPreventMiddleButtonScrollCallback);
+                document.body.removeEventListener("mousedown", this._myPreventMiddleButtonScrollEventListener);
             } else {
-                document.body.addEventListener("mousedown", this._myPreventMiddleButtonScrollCallback, false);
+                document.body.addEventListener("mousedown", this._myPreventMiddleButtonScrollEventListener, false);
             }
             this._myMiddleButtonScrollActive = active;
         }
@@ -474,5 +470,25 @@ export class Mouse {
 
     _createButtonInfo() {
         return { myIsPressed: false, myIsPressStart: false, myIsPressStartToProcess: false, myIsPressEnd: false, myIsPressEndToProcess: false, };
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        document.body.removeEventListener("pointermove", this._myPointerMoveEventListener);
+        document.body.removeEventListener("pointerdown", this._myPointerDownEventListener);
+        document.body.removeEventListener("pointerup", this._myPointerUpEventListener);
+        document.body.removeEventListener("pointerleave", this._myPointerLeaveEventListener);
+        document.body.removeEventListener("pointerenter", this._myPointerEnterEventListener);
+
+        document.body.removeEventListener("mousedown", this._myMouseDownEventListener);
+        document.body.removeEventListener("mouseup", this._myMouseUpEventListener);
+
+        document.body.removeEventListener("contextmenu", this._myPreventContextMenuEventListener);
+        document.body.removeEventListener("mousedown", this._myPreventMiddleButtonScrollEventListener);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

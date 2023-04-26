@@ -82,6 +82,8 @@ export class ConsoleVRWidget {
         }
 
         this._myEngine = engine;
+
+        this._myDestroyed = false;
     }
 
     setVisible(visible) {
@@ -839,5 +841,16 @@ export class ConsoleVRWidget {
         } else {
             return value;
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myUI.destroy();
+        this._myWidgetFrame.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

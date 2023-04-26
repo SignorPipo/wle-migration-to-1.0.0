@@ -6,6 +6,8 @@ export class GamepadsManager {
     constructor() {
         this._myLeftGamepad = new UniversalGamepad(Handedness.LEFT);
         this._myRightGamepad = new UniversalGamepad(Handedness.RIGHT);
+
+        this._myDestroyed = false;
     }
 
     start() {
@@ -50,5 +52,16 @@ export class GamepadsManager {
         gamepads[Handedness.RIGHT] = this._myRightGamepad;
 
         return gamepads;
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myLeftGamepad.destroy();
+        this._myRightGamepad.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

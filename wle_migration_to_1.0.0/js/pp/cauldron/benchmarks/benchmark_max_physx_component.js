@@ -312,4 +312,18 @@ export class BenchmarkMaxPhysXComponent extends Component {
             this._myKinematicPhysXCollectors.push(new PhysicsCollisionCollector(physXComponent));
         }
     }
+
+    onDestroy() {
+        for (let collector of this._myStaticPhysXCollectors) {
+            collector.destroy();
+        }
+
+        for (let collector of this._myDynamicPhysXCollectors) {
+            collector.destroy();
+        }
+
+        for (let collector of this._myKinematicPhysXCollectors) {
+            collector.destroy();
+        }
+    }
 }

@@ -90,6 +90,11 @@ export class Keyboard {
         for (let key in KeyID) {
             this.addKey(KeyID[key]);
         }
+
+        this._myOnKeyDownEventListener = null;
+        this._myOnKeyUpEventListener = null;
+
+        this._myDestroyed = false;
     }
 
     isKeyPressed(keyID) {
@@ -127,8 +132,10 @@ export class Keyboard {
     }
 
     start() {
-        window.addEventListener("keydown", this._keyDown.bind(this));
-        window.addEventListener("keyup", this._keyUp.bind(this));
+        this._myOnKeyDownEventListener = this._keyDown.bind(this);
+        window.addEventListener("keydown", this._myOnKeyDownEventListener);
+        this._myOnKeyUoEventListener = this._keyUp.bind(this);
+        window.addEventListener("keyup", this._myOnKeyUpEventListener);
     }
 
     update(dt) {
@@ -179,5 +186,16 @@ export class Keyboard {
 
     _createKeyInfo() {
         return { myIsPressed: false, myIsPressStart: false, myIsPressStartToProcess: false, myIsPressEnd: false, myIsPressEndToProcess: false, };
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        document.body.removeEventListener("keydown", this._myOnKeyDownEventListener);
+        document.body.removeEventListener("keyup", this._myOnKeyUpEventListener);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

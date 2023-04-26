@@ -385,4 +385,8 @@ class _GrabberHandComponentGrabbableData {
             this._myAngularVelocityHistory.pop();
         }
     }
+
+    onDestroy() {
+        this._myCollisionsCollector.destroy();
+    }
 }

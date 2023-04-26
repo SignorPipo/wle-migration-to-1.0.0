@@ -5,7 +5,7 @@ export class GamepadCore {
     constructor(handPose) {
         this._myHandPose = handPose;
 
-        this._myManageHandPose = false;
+        this._myManagingHandPose = false;
 
         this._myDestroyed = false;
     }
@@ -27,15 +27,15 @@ export class GamepadCore {
     }
 
     setManageHandPose(manageHandPose) {
-        this._myManageHandPose = manageHandPose;
+        this._myManagingHandPose = manageHandPose;
     }
 
     isManagingHandPose() {
-        return this._myManageHandPose;
+        return this._myManagingHandPose;
     }
 
     start() {
-        if (this.getHandPose() && this._myManageHandPose) {
+        if (this.getHandPose() && this.isManagingHandPose()) {
             this.getHandPose().start();
         }
 
@@ -43,7 +43,7 @@ export class GamepadCore {
     }
 
     preUpdate(dt) {
-        if (this.getHandPose() && this._myManageHandPose) {
+        if (this.getHandPose() && this.isManagingHandPose()) {
             this.getHandPose().update(dt);
         }
 
@@ -101,6 +101,10 @@ export class GamepadCore {
         this._myDestroyed = true;
 
         this._destroyHook();
+
+        if (this.isManagingHandPose()) {
+            this.getHandPose().destroy();
+        }
     }
 
     isDestroyed() {

@@ -9,6 +9,8 @@ export class InputManager {
         this._myMouse = new Mouse(engine);
         this._myKeyboard = new Keyboard();
         this._myGamepadsManager = new GamepadsManager(engine);
+
+        this._myDestroyed = false;
     }
 
     start() {
@@ -33,5 +35,17 @@ export class InputManager {
 
     getGamepadsManager() {
         return this._myGamepadsManager;
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myMouse.destroy();
+        this._myKeyboard.destroy();
+        this._myGamepadsManager.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

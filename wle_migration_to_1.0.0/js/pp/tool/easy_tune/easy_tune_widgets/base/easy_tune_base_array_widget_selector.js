@@ -23,6 +23,8 @@ export class EasyTuneBaseArrayWidgetSelector {
         this._myCurrentArraySize = null;
 
         this._myEngine = engine;
+
+        this._myDestroyed = false;
     }
 
     setEasyTuneVariable(variable, appendToVariableName) {
@@ -171,5 +173,19 @@ export class EasyTuneBaseArrayWidgetSelector {
 
     _getEasyTuneArrayWidget(arraySize) {
         return null;
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        for (let widget of this._myWidgets.values()) {
+            widget.destroy();
+        }
+
+        this._myWidgetFrame.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

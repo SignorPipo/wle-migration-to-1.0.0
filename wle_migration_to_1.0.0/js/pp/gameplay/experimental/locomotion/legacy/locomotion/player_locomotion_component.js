@@ -166,4 +166,8 @@ export class PlayerLocomotionComponent extends Component {
 
         return physicsFlags;
     }
+
+    onDestroy() {
+        this._myPlayerLocomotion?.destroy();
+    }
 }

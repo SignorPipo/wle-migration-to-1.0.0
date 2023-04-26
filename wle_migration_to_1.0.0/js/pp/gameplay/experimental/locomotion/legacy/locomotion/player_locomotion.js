@@ -331,6 +331,8 @@ export class PlayerLocomotion {
         this._setupLocomotionMovementFSM();
 
         this._myIdle = false;
+
+        this._myDestroyed = false;
     }
 
     start() {
@@ -644,5 +646,17 @@ export class PlayerLocomotion {
         }.bind(this));
 
         this._myLocomotionMovementFSM.init("init");
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myPlayerHeadManager.destroy();
+        this._myPlayerLocomotionSmooth.destroy();
+        this._myPlayerTransformManager.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

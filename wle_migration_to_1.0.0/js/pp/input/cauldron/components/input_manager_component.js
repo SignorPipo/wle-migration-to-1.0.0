@@ -42,7 +42,18 @@ export class InputManagerComponent extends Component {
             this._myInputManager.start();
 
             this._setupMousePrevent();
+
+            let handPoseParams = new HandPoseParams(this.engine);
+            handPoseParams.myReferenceObject = Globals.getPlayerObjects(this.engine).myPlayerPivot;
+            handPoseParams.myForwardFixed = Globals.isPoseForwardFixed(this.engine);
+
+            this._myLeftHandPose = new HandPose(Handedness.LEFT, handPoseParams);
+            this._myRightHandPose = new HandPose(Handedness.RIGHT, handPoseParams);
+
             this._addGamepadCores();
+
+            this._myLeftHandPose.start();
+            this._myRightHandPose.start();
         }
     }
 
@@ -50,6 +61,9 @@ export class InputManagerComponent extends Component {
         if (this._myInputManager != null) {
             this._myLeftHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
             this._myRightHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
+
+            this._myLeftHandPose.update(dt);
+            this._myRightHandPose.update(dt);
 
             this._myInputManager.update(dt);
         }
@@ -66,18 +80,8 @@ export class InputManagerComponent extends Component {
     }
 
     _addGamepadCores() {
-        let handPoseParams = new HandPoseParams(this.engine);
-        handPoseParams.myReferenceObject = Globals.getPlayerObjects(this.engine).myPlayerPivot;
-        handPoseParams.myForwardFixed = Globals.isPoseForwardFixed(this.engine);
-
-        this._myLeftHandPose = new HandPose(Handedness.LEFT, handPoseParams);
-        this._myRightHandPose = new HandPose(Handedness.RIGHT, handPoseParams);
-
         let leftXRGamepadCore = new XRGamepadCore(this._myLeftHandPose);
         let rightXRGamepadCore = new XRGamepadCore(this._myRightHandPose);
-
-        leftXRGamepadCore.setManageHandPose(true);
-        rightXRGamepadCore.setManageHandPose(true);
 
         this._myInputManager.getGamepadsManager().getLeftGamepad().addGamepadCore("pp_left_xr_gamepad", leftXRGamepadCore);
         this._myInputManager.getGamepadsManager().getRightGamepad().addGamepadCore("pp_right_xr_gamepad", rightXRGamepadCore);
@@ -98,10 +102,15 @@ export class InputManagerComponent extends Component {
     onDestroy() {
         if (this._myInputManager != null && Globals.getInputManager(this.engine) == this._myInputManager) {
             Globals.removeInputManager(this.engine);
+
+            this._myInputManager.destroy();
         }
 
         if (this._myPoseForwardFixedGlobal != null && Globals.isPoseForwardFixed(this.engine) == this._myPoseForwardFixedGlobal) {
             Globals.removePoseForwardFixed(this.engine);
         }
+
+        this._myLeftHandPose?.destroy();
+        this._myRightHandPose?.destroy();
     }
 }

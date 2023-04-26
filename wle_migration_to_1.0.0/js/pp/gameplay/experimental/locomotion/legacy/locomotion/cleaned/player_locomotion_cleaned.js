@@ -270,8 +270,9 @@ export class CleanedPlayerLocomotion {
 
         this._myIdle = false;
 
-        this._myStarted = false;
         this._myActive = true;
+        this._myStarted = false;
+        this._myDestroyed = false;
     }
 
     start() {
@@ -513,5 +514,17 @@ export class CleanedPlayerLocomotion {
         }.bind(this));
 
         this._myLocomotionMovementFSM.init("init");
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myPlayerHeadManager.destroy();
+        this._myPlayerLocomotionSmooth.destroy();
+        this._myPlayerTransformManager.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

@@ -61,7 +61,7 @@ export class UniversalGamepad extends BaseGamepad {
         return handPose;
     }
 
-    _start() {
+    _startHook() {
         for (let core of this._myGamepadCores.values()) {
             core.start();
         }
@@ -130,5 +130,11 @@ export class UniversalGamepad extends BaseGamepad {
         }
 
         return this._myHapticActuators;
+    }
+
+    _destroyHook() {
+        for (let gamepadCore of this._myGamepadCores) {
+            gamepadCore.destroy();
+        }
     }
 }

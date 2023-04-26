@@ -49,4 +49,8 @@ export class TrackedHandDrawJointComponent extends Component {
 
         this._myJointMeshObject.pp_setScaleLocal(0);
     }
+
+    onDestroy() {
+        this._myTrackedHandJointPose?.destroy();
+    }
 }

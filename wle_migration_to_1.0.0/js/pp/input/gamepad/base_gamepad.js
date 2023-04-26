@@ -35,6 +35,8 @@ export class BaseGamepad {
 
         this._myPulseInfo = new GamepadPulseInfo();
 
+        this._myDestroyed = false;
+
         // Config
 
         this._myMultiplePressMaxDelay = 0.4;
@@ -103,13 +105,13 @@ export class BaseGamepad {
         this._myMultipleTouchMaxDelay = maxDelay;
     }
 
-    // The following functions should be re-implemented in the actual class
+    // Hooks
 
     getHandPose() {
         return null;
     }
 
-    _start() {
+    _startHook() {
 
     }
 
@@ -136,10 +138,14 @@ export class BaseGamepad {
         return hapticActuator;
     }
 
-    // The above functions should be re-implemented in the actual class
+    _destroyHook() {
+
+    }
+
+    // Hooks End
 
     start() {
-        this._start();
+        this._startHook();
     }
 
     update(dt) {
@@ -405,5 +411,15 @@ export class BaseGamepad {
 
     _createAxesData() {
         return vec2_create(0, 0);
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._destroyHook();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

@@ -30,6 +30,7 @@ export class PhysicsCollisionCollector {
         this._myCollisionStartEmitter = new Emitter();     // Signature: listener(thisPhysX, otherPhysX, collisionType)
         this._myCollisionEndEmitter = new Emitter();       // Signature: listener(thisPhysX, otherPhysX, collisionType)
 
+        this._myDestroyed = false;
     }
 
     getPhysX() {
@@ -94,13 +95,6 @@ export class PhysicsCollisionCollector {
 
         if (this._myIsTrigger) {
             this._triggerDesyncFix(dt);
-        }
-    }
-
-    destroy() {
-        if (this._myCollisionCallbackID != null) {
-            this._myPhysX.removeCollisionCallback(this._myCollisionCallbackID);
-            this._myCollisionCallbackID = null;
         }
     }
 
@@ -234,5 +228,18 @@ export class PhysicsCollisionCollector {
                 }
             }
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        if (this._myCollisionCallbackID != null) {
+            this._myPhysX.removeCollisionCallback(this._myCollisionCallbackID);
+            this._myCollisionCallbackID = null;
+        }
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

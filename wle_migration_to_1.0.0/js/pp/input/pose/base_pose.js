@@ -191,7 +191,11 @@ export class BasePose {
 
     }
 
-    // Hooks end
+    _destroyHook() {
+
+    }
+
+    // Hooks End
 
     _update(dt, updateVelocity) {
         this._myPrevPosition.vec3_copy(this._myPosition);
@@ -329,6 +333,8 @@ export class BasePose {
         this._myDestroyed = true;
 
         XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
+
+        this._destroyHook();
     }
 
     isDestroyed() {

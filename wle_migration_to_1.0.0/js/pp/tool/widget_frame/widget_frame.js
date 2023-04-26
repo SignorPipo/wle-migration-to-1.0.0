@@ -28,6 +28,8 @@ export class WidgetFrame {
 
         this._myWidgetVisibleChangedEmitter = new Emitter();      // Signature: listener(isWidgetVisible)
         this._myPinChangedEmitter = new Emitter();                // Signature: listener(isPinned)
+
+        this._myDestroyed = true;
     }
 
     getWidgetObject() {
@@ -164,5 +166,17 @@ export class WidgetFrame {
         } else {
             material.color = this._myConfig.myButtonDisabledBackgroundColor;
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        if (this._myUI != null) {
+            this._myUI.destroy();
+        }
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

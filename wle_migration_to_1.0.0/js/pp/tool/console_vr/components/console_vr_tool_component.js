@@ -75,4 +75,8 @@ export class ConsoleVRToolComponent extends Component {
             }
         }
     }
+
+    onDestroy() {
+        this._myWidget.destroy();
+    }
 }

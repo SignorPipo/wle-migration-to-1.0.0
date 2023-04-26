@@ -23,6 +23,8 @@ export class HandPose extends BasePose {
         this._myFixTrackedHandRotation = handPoseParams.myFixTrackedHandRotation;
 
         this._myIsTrackedHand = false;
+
+        this._myInputSourcesChangeEventListener = null;
     }
 
     getHandedness() {
@@ -58,7 +60,7 @@ export class HandPose extends BasePose {
     }
 
     _onXRSessionStartHook(manualCall, session) {
-        session.addEventListener("inputsourceschange", function (event) {
+        this._myInputSourcesChangeEventListener = function (event) {
             if (event.removed) {
                 for (let item of event.removed) {
                     if (item == this._myInputSource) {
@@ -75,7 +77,9 @@ export class HandPose extends BasePose {
                     }
                 }
             }
-        }.bind(this));
+        }.bind(this);
+
+        session.addEventListener("inputsourceschange", this._myInputSourcesChangeEventListener);
 
         if (manualCall && this._myInputSource == null && session.inputSources) {
             for (let item of session.inputSources) {
@@ -89,6 +93,12 @@ export class HandPose extends BasePose {
 
     _onXRSessionEndHook() {
         this._myInputSource = null;
+
+        this._myInputSourcesChangeEventListener = null;
+    }
+
+    _destroyHook() {
+        session.removeEventListener("inputsourceschange", this._myInputSourcesChangeEventListener);
     }
 }
 

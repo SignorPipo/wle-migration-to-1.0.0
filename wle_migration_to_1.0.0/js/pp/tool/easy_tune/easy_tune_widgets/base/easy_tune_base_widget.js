@@ -33,6 +33,9 @@ export class EasyTuneBaseWidget {
 
         this._myResetImportLabelTimer = new Timer(0, false);
         this._myResetExportLabelTimer = new Timer(0, false);
+
+        this._myDestroyed = false;
+
     }
 
     setVisible(visible) {
@@ -298,5 +301,17 @@ export class EasyTuneBaseWidget {
 
             this._myParams.myVariablesExportCallback();
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        if (this._myUI != null) {
+            this._myUI.destroy();
+        }
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

@@ -56,6 +56,8 @@ export class EasyTuneWidget {
         this._myDirty = false;
 
         this._myEngine = engine;
+
+        this._myDestroyed = false;
     }
 
     setActiveVariable(variableName) {
@@ -349,5 +351,19 @@ export class EasyTuneWidget {
         if (this._myCurrentWidget) {
             this._myCurrentWidget.onExportFailure();
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        for (let widget of this._myWidgets) {
+            widget.destroy();
+        }
+
+        this._myWidgetFrame.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

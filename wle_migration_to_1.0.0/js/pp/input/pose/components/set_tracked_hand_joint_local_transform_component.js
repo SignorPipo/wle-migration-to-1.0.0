@@ -41,6 +41,10 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
     onPoseUpdated() {
         // Implemented outside class definition
     }
+
+    onDestroy() {
+        this._myTrackedHandJointPose?.destroy();
+    }
 }
 
 

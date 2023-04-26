@@ -41,4 +41,8 @@ export class SFXOnCollisionComponent extends Component {
 
         return clonedComponent;
     }
+
+    onDestroy() {
+        this._myCollisionsCollector.destroy();
+    }
 }
