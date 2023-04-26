@@ -52,9 +52,9 @@ export function registerSessionStartEventListener(id, listener, manuallyCallSess
         }
 
         if (addManualCallFlagToStartListener) {
-            engine.onXRSessionStart.add(listener.bind(undefined, false), { id: id });
+            engine.onXRSessionStart.add(listener.bind(undefined, false), { id: id, immediate: false });
         } else {
-            engine.onXRSessionStart.add(listener, { id: id });
+            engine.onXRSessionStart.add(listener, { id: id, immediate: false });
         }
     }
 }

@@ -8,7 +8,7 @@ export function initEmitterMod() {
 export function initEmitterModPrototype() {
     let emitterMod = {};
 
-    // New Functions 
+    // Modified Functions
 
     emitterMod._find = function _find(listenerOrID) {
         let listeners = this._listeners;
@@ -23,6 +23,8 @@ export function initEmitterModPrototype() {
 
         return index;
     };
+
+    // New Functions 
 
     emitterMod.pp_isEmpty = function pp_isEmpty() {
         return this._listeners.length <= 0;
