@@ -1,14 +1,16 @@
+import { Globals } from "../../../pp/globals";
 import { CAUtils } from "./ca_utils";
 
 export class CADummyServer {
 
-    constructor() {
+    constructor(engine = Globals.getMainEngine()) {
+        this._myEngine = engine;
     }
 
     getLeaderboard(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError) {
         let leaderboard = null;
 
-        if (CAUtils.isSDKAvailable()) {
+        if (CAUtils.isSDKAvailable(this._myEngine)) {
             leaderboard = [
                 { rank: 0, displayName: "An", score: 0 },
                 { rank: 1, displayName: "Error", score: 0 },

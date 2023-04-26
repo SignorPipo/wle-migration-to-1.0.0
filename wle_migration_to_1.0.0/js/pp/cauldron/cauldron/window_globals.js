@@ -4,6 +4,10 @@ export function getWindow(engine = Globals.getMainEngine()) {
     return window;
 }
 
+export function getNavigator(engine = Globals.getMainEngine()) {
+    return getWindow(engine).navigator;
+}
+
 export function getDocument(engine = Globals.getMainEngine()) {
     return getWindow(engine).document;
 }

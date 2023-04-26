@@ -1,3 +1,5 @@
+import { Globals } from "../../../pp/globals";
+
 let _myDummyServer = null;
 let _myUseDummyServerOnSDKMissing = false;
 let _myUseDummyServerOnError = false;
@@ -35,12 +37,17 @@ export function getDummyServer() {
     return _myDummyServer;
 }
 
-export function isSDKAvailable() {
-    return "casdk" in window;
+export function isSDKAvailable(engine = Globals.getMainEngine()) {
+    return "casdk" in Globals.getWindow(engine);
 }
 
-export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError, overrideUseDummyServer = null) {
-    if (isSDKAvailable()) {
+export function getSDK(engine = Globals.getMainEngine()) {
+    return Globals.getWindow(engine).casdk;
+}
+
+export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError, overrideUseDummyServer = null, engine = Globals.getMainEngine()) {
+    if (isSDKAvailable(engine)) {
+        let casdk = getSDK(engine);
         if (!isAroundPlayer) {
             casdk.getLeaderboard(leaderboardID, isAscending, isAroundPlayer, scoresAmount).then(function (result) {
                 if (result.leaderboard) {
@@ -132,7 +139,8 @@ export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, score
                         callbackOnError(error, result);
                     }
                 },
-                false);
+                false,
+                engine);
         }
     } else {
         if (_myDummyServer != null && _myDummyServer.getLeaderboard != null &&
@@ -160,8 +168,10 @@ export function getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, 
     }
 }
 
-export function submitScore(leaderboardID, scoreToSubmit, callbackOnDone, callbackOnError, overrideUseDummyServer = null) {
-    if (isSDKAvailable()) {
+export function submitScore(leaderboardID, scoreToSubmit, callbackOnDone, callbackOnError, overrideUseDummyServer = null, engine = Globals.getMainEngine()) {
+    if (isSDKAvailable(engine)) {
+        let casdk = getSDK(engine);
+
         casdk.submitScore(leaderboardID, scoreToSubmit).then(function (result) {
             if (result.error) {
                 if (_myDummyServer != null && _myDummyServer.submitScore != null &&
@@ -213,8 +223,10 @@ export function submitScoreDummy(leaderboardID, scoreToSubmit, callbackOnDone, c
     }
 }
 
-export function getUser(callbackOnDone, callbackOnError, overrideUseDummyServer = null) {
-    if (isSDKAvailable()) {
+export function getUser(callbackOnDone, callbackOnError, overrideUseDummyServer = null, engine = Globals.getMainEngine()) {
+    if (isSDKAvailable(engine)) {
+        let casdk = getSDK(engine);
+
         casdk.getUser().then(function (result) {
             if (result.user) {
                 if (callbackOnDone) {
@@ -276,6 +288,7 @@ export let CAUtils = {
     isUseDummyServerOnError,
     getDummyServer,
     isSDKAvailable,
+    getSDK,
     getLeaderboard,
     getLeaderboardDummy,
     submitScore,

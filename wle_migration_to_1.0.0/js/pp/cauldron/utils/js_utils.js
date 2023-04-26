@@ -1,3 +1,5 @@
+import { Globals } from "../../pp/globals";
+
 export function getObjectPrototypes(object) {
     let prototypes = [];
 
@@ -117,7 +119,7 @@ export function getObjectPropertyOwnParents(object, propertyName) {
     return parents;
 }
 
-export function getObjectFromPath(path, pathStartObject = window) {
+export function getObjectFromPath(path, pathStartObject = Globals.getWindow()) {
     let object = null;
 
     let objectName = getObjectNameFromPath(path);
@@ -141,7 +143,7 @@ export function getObjectNameFromPath(path) {
     return objectName;
 }
 
-export function getObjectParentFromPath(path, pathStartObject = window) {
+export function getObjectParentFromPath(path, pathStartObject = Globals.getWindow()) {
     let pathSplit = path.split(".");
     let currentParent = pathStartObject;
     for (let i = 0; i < pathSplit.length - 1; i++) {
