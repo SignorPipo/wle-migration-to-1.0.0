@@ -37,7 +37,7 @@ export function initMouseLookComponentModPrototype() {
                     if (event.button == this.mouseButtonIndex) {
                         this.pointerId = event.pointerId;
                         this.mouseDown = true;
-                        document.body.style.cursor = "grabbing";
+                        Globals.getBody(this.engine).style.cursor = "grabbing";
                         if (event.button == 1) {
                             event.preventDefault(); // Prevent scrolling
                             return false;
@@ -54,7 +54,7 @@ export function initMouseLookComponentModPrototype() {
                 if (this.mouseDown) {
                     if (event.button == this.mouseButtonIndex) {
                         this.mouseDown = false;
-                        document.body.style.cursor = "initial";
+                        Globals.getBody(this.engine).style.cursor = "initial";
                     }
                 }
             }
@@ -69,12 +69,12 @@ export function initMouseLookComponentModPrototype() {
 
                 if (this.mouseDown) {
                     this.mouseDown = false;
-                    document.body.style.cursor = "initial";
+                    Globals.getBody(this.engine).style.cursor = "initial";
                 }
             }
         }.bind(this);
 
-        document.body.addEventListener("pointermove", this.pointerMoveListener);
+        Globals.getBody(this.engine).addEventListener("pointermove", this.pointerMoveListener);
 
         if (this.requireMouseDown) {
             if (this.mouseButtonIndex == 2) {
@@ -83,10 +83,10 @@ export function initMouseLookComponentModPrototype() {
 
             Globals.getCanvas(this.engine).addEventListener("pointerdown", this.pointerDown);
 
-            document.body.addEventListener("pointerup", this.pointerUp);
+            Globals.getBody(this.engine).addEventListener("pointerup", this.pointerUp);
         }
 
-        document.body.addEventListener("pointerleave", this.pointerLeave);
+        Globals.getBody(this.engine).addEventListener("pointerleave", this.pointerLeave);
     };
 
     // New Functions
@@ -96,11 +96,11 @@ export function initMouseLookComponentModPrototype() {
     mouseLookComponentMod.onDeactivate = function onDeactivate() { };
 
     mouseLookComponentMod.onDestroy = function onDestroy() {
-        document.body.removeEventListener("pointermove", this.pointerMoveListener);
+        Globals.getBody(this.engine).removeEventListener("pointermove", this.pointerMoveListener);
         Globals.getCanvas(this.engine).removeEventListener("contextmenu", this.contextMenuListener);
         Globals.getCanvas(this.engine).removeEventListener("pointerdown", this.pointerDown);
-        document.body.removeEventListener("pointerup", this.pointerUp);
-        document.body.removeEventListener("pointerleave", this.pointerLeave);
+        Globals.getBody(this.engine).removeEventListener("pointerup", this.pointerUp);
+        Globals.getBody(this.engine).removeEventListener("pointerleave", this.pointerLeave);
     };
 
     mouseLookComponentMod.update = function update(dt) {

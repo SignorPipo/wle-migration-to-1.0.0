@@ -292,9 +292,9 @@ export function initCursorComponentModPrototype() {
                 }
 
                 if (this.styleCursor && !this._isRealDown && this.hoveringObjectTarget != null && !this.hoveringObjectTarget.isSurface) {
-                    document.body.style.cursor = "pointer";
-                } else if (document.body.style.cursor == "pointer") {
-                    document.body.style.cursor = "default";
+                    Globals.getBody(this.engine).style.cursor = "pointer";
+                } else if (Globals.getBody(this.engine).style.cursor == "pointer") {
+                    Globals.getBody(this.engine).style.cursor = "default";
                 }
 
                 if (!this._pp_isDownToProcess() && this._isRealDown) {
@@ -315,9 +315,9 @@ export function initCursorComponentModPrototype() {
 
             if (this._updatePointerStyle) {
                 if (this.styleCursor && !this._isRealDown && this.hoveringObjectTarget != null && !this.hoveringObjectTarget.isSurface) {
-                    document.body.style.cursor = "pointer";
-                } else if (document.body.style.cursor == "pointer") {
-                    document.body.style.cursor = "default";
+                    Globals.getBody(this.engine).style.cursor = "pointer";
+                } else if (Globals.getBody(this.engine).style.cursor == "pointer") {
+                    Globals.getBody(this.engine).style.cursor = "default";
                 }
             }
 
@@ -421,7 +421,7 @@ export function initCursorComponentModPrototype() {
             this.hoveringObject = null;
             this.hoveringObjectTarget = null;
             if (this.styleCursor && !this._isRealDown) {
-                document.body.style.cursor = "default";
+                Globals.getBody(this.engine).style.cursor = "default";
             }
         }
 
@@ -506,7 +506,7 @@ export function initCursorComponentModPrototype() {
             /* Don't care about secondary pointers */
             if (this._pointerID != null && this._pointerID != e.pointerId) return;
 
-            let bounds = document.body.getBoundingClientRect();
+            let bounds = Globals.getBody(this.engine).getBoundingClientRect();
             this.updateMouseData(e.clientX, e.clientY, bounds.width, bounds.height, e.pointerId);
         }
     };
@@ -519,7 +519,7 @@ export function initCursorComponentModPrototype() {
         if ((this._pointerID != null && this._pointerID != e.pointerId) || e.button !== 0) return;
 
         if (this.active) {
-            let bounds = document.body.getBoundingClientRect();
+            let bounds = Globals.getBody(this.engine).getBoundingClientRect();
             this.updateMouseData(e.clientX, e.clientY, bounds.width, bounds.height, e.pointerId);
 
             this._isDown = true;
@@ -538,7 +538,7 @@ export function initCursorComponentModPrototype() {
         if ((this._pointerID != null && this._pointerID != e.pointerId) || e.button !== 0) return;
 
         if (this.active) {
-            let bounds = document.body.getBoundingClientRect();
+            let bounds = Globals.getBody(this.engine).getBoundingClientRect();
             this.updateMouseData(e.clientX, e.clientY, bounds.width, bounds.height, e.pointerId);
 
             if (!this._isDownForUpWithDown) {
@@ -604,7 +604,7 @@ export function initCursorComponentModPrototype() {
         this.hoveringObject = null;
         this.hoveringObjectTarget = null;
         if (this.styleCursor) {
-            document.body.style.cursor = "default";
+            Globals.getBody(this.engine).style.cursor = "default";
         }
 
         this._isDown = false;

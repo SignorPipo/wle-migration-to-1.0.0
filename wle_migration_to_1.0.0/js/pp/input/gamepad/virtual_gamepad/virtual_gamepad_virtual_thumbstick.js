@@ -1,10 +1,13 @@
 import { vec2_create } from "../../../plugin/js/extensions/array_extension";
+import { Globals } from "../../../pp/globals";
 import { Handedness } from "../../cauldron/input_types";
 import { VirtualGamepadIcon } from "./virtual_gamepad_icon";
 
 export class VirtualGamepadVirtualThumbstick {
 
-    constructor(thumbstickElementParent, virtualGamepadParams, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID) {
+    constructor(thumbstickElementParent, virtualGamepadParams, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID, engine = Globals.getMainEngine()) {
+        this._myEngine = engine;
+
         this._myThumbstickElement = null;
         this._myThumbstickIcon = null;
         this._myThumbstickBackground = null;
@@ -33,11 +36,11 @@ export class VirtualGamepadVirtualThumbstick {
         this._myMouseLeaveEventListener = this._onThumbstickLeave.bind(this);
 
         this._myThumbstickDetectionElement.addEventListener("pointerdown", this._myPointerDownEventListener);
-        document.body.addEventListener("pointerup", this._myPointerUpEventListener);
-        document.body.addEventListener("pointermove", this._myPointerMoveEventListener);
+        Globals.getBody(this._myEngine).addEventListener("pointerup", this._myPointerUpEventListener);
+        Globals.getBody(this._myEngine).addEventListener("pointermove", this._myPointerMoveEventListener);
 
         if (this._myVirtualGamepadParams.myReleaseOnPointerLeave) {
-            document.body.addEventListener("pointerleave", this._myPointerLeaveEventListener);
+            Globals.getBody(this._myEngine).addEventListener("pointerleave", this._myPointerLeaveEventListener);
         }
 
         this._myThumbstickDetectionElement.addEventListener("mouseenter", this._myMouseEnterEventListener);
@@ -257,9 +260,9 @@ export class VirtualGamepadVirtualThumbstick {
 
         this._myThumbstickDetectionElement.removeEventListener("pointerdown", this._myPointerDownEventListener);
 
-        document.body.removeEventListener("pointerup", this._myPointerUpEventListener);
-        document.body.removeEventListener("pointermove", this._myPointerMoveEventListener);
-        document.body.removeEventListener("pointerleave", this._myPointerLeaveEventListener);
+        Globals.getBody(this._myEngine).removeEventListener("pointerup", this._myPointerUpEventListener);
+        Globals.getBody(this._myEngine).removeEventListener("pointermove", this._myPointerMoveEventListener);
+        Globals.getBody(this._myEngine).removeEventListener("pointerleave", this._myPointerLeaveEventListener);
 
         this._myThumbstickDetectionElement.removeEventListener("mouseenter", this._myMouseEnterEventListener);
         this._myThumbstickDetectionElement.removeEventListener("mouseleave", this._myPointerUpEventLis_myMouseLeaveEventListenertener);

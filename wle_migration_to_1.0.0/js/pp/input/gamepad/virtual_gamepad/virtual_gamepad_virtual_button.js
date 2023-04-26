@@ -1,9 +1,12 @@
+import { Globals } from "../../../pp/globals";
 import { Handedness } from "../../cauldron/input_types";
 import { VirtualGamepadIcon } from "./virtual_gamepad_icon";
 
 export class VirtualGamepadVirtualButton {
 
-    constructor(buttonElementParent, virtualGamepadParams, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID) {
+    constructor(buttonElementParent, virtualGamepadParams, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID, engine = Globals.getMainEngine()) {
+        this._myEngine = engine;
+
         this._myButtonElement = null;
         this._myButtonIcon = null;
         this._myButtonDetectionElement = null;
@@ -27,10 +30,10 @@ export class VirtualGamepadVirtualButton {
         this._myMouseLeaveEventListener = this._onButtonLeave.bind(this);
 
         this._myButtonDetectionElement.addEventListener("pointerdown", this._myPointerDownEventListener);
-        document.body.addEventListener("pointerup", this._myPointerUpEventListener);
+        Globals.getBody(this._myEngine).addEventListener("pointerup", this._myPointerUpEventListener);
 
         if (this._myVirtualGamepadParams.myReleaseOnPointerLeave) {
-            document.body.addEventListener("pointerleave", this._myPointerLeaveEventListener);
+            Globals.getBody(this._myEngine).addEventListener("pointerleave", this._myPointerLeaveEventListener);
         }
 
         this._myButtonDetectionElement.addEventListener("mouseenter", this._myMouseEnterEventListener);
@@ -207,8 +210,8 @@ export class VirtualGamepadVirtualButton {
 
         this._myButtonDetectionElement.removeEventListener("pointerdown", this._myPointerDownEventListener);
 
-        document.body.removeEventListener("pointerup", this._myPointerUpEventListener);
-        document.body.removeEventListener("pointerleave", this._myPointerLeaveEventListener);
+        Globals.getBody(this._myEngine).removeEventListener("pointerup", this._myPointerUpEventListener);
+        Globals.getBody(this._myEngine).removeEventListener("pointerleave", this._myPointerLeaveEventListener);
 
         this._myButtonDetectionElement.removeEventListener("mouseenter", this._myMouseEnterEventListener);
         this._myButtonDetectionElement.removeEventListener("mouseleave", this._myPointerUpEventLis_myMouseLeaveEventListenertener);

@@ -1,6 +1,7 @@
 import { BrowserUtils } from "../../../cauldron/utils/browser_utils";
 import { XRUtils } from "../../../cauldron/utils/xr_utils";
 import { vec2_create } from "../../../plugin/js/extensions/array_extension";
+import { Globals } from "../../../pp/globals";
 import { Handedness } from "../../cauldron/input_types";
 import { GamepadAxesID, GamepadButtonID } from "../gamepad_buttons";
 import { VirtualGamepadParams } from "./virtual_gamepad_params";
@@ -154,7 +155,7 @@ export class VirtualGamepad {
         this._myVirtualGamepadContainer = document.createElement("div");
         this._myVirtualGamepadContainer.style.display = "block";
         this._myVirtualGamepadContainer.style.opacity = this._myParams.myOpacity.toString();
-        document.body.appendChild(this._myVirtualGamepadContainer);
+        Globals.getBody(this._myParams.myEngine).appendChild(this._myVirtualGamepadContainer);
 
         let leftDiv = document.createElement("div");
         this._myVirtualGamepadContainer.appendChild(leftDiv);
@@ -194,11 +195,11 @@ export class VirtualGamepad {
     }
 
     _setupDocumentBody() {
-        document.body.style.overflow = "hidden";
-        document.body.style.userSelect = "none";
-        document.body.style.webkitUserSelect = "none";
-        document.body.style.webkitTapHighlightColor = "transparent";
-        document.body.style.touchAction = "none";
+        Globals.getBody(this._myParams.myEngine).style.overflow = "hidden";
+        Globals.getBody(this._myParams.myEngine).style.userSelect = "none";
+        Globals.getBody(this._myParams.myEngine).style.webkitUserSelect = "none";
+        Globals.getBody(this._myParams.myEngine).style.webkitTapHighlightColor = "transparent";
+        Globals.getBody(this._myParams.myEngine).style.touchAction = "none";
 
         this._myGestureStartEventListener = function (e) {
             e.preventDefault();
@@ -207,12 +208,12 @@ export class VirtualGamepad {
     }
 
     _buildButton(buttonElementParent, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID) {
-        let virtualGamepadVirtualButton = new VirtualGamepadVirtualButton(buttonElementParent, this._myParams, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID);
+        let virtualGamepadVirtualButton = new VirtualGamepadVirtualButton(buttonElementParent, this._myParams, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID, this._myParams.myEngine);
         this._myVirtualGamepadVirtualButtons[gamepadButtonHandedness][gamepadButtonID] = virtualGamepadVirtualButton;
     }
 
     _buildThumbstick(thumbstickElementParent, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID) {
-        let virtualGamepadVirtualThumbstick = new VirtualGamepadVirtualThumbstick(thumbstickElementParent, this._myParams, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID);
+        let virtualGamepadVirtualThumbstick = new VirtualGamepadVirtualThumbstick(thumbstickElementParent, this._myParams, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID, this._myParams.myEngine);
         this._myVirtualGamepadVirtualThumbsticks[gamepadThumbstickHandedness][gamepadAxesID] = virtualGamepadVirtualThumbstick;
     }
 
