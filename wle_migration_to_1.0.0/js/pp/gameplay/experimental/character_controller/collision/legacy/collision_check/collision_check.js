@@ -1,4 +1,4 @@
-import { RaycastHit, RaycastParams, RaycastResults } from "../../../../../../cauldron/physics/physics_raycast_data";
+import { RaycastHit, RaycastParams, RaycastResults } from "../../../../../../cauldron/physics/physics_raycast_params";
 import { PhysicsUtils } from "../../../../../../cauldron/physics/physics_utils";
 import { vec3_create, vec4_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../../../../pp/globals";

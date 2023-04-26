@@ -3,7 +3,7 @@ import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { Globals } from "../../pp/globals";
 import { Timer } from "../cauldron/timer";
 import { PhysicsCollisionCollector } from "../physics/physics_collision_collector";
-import { RaycastParams, RaycastResults } from "../physics/physics_raycast_data";
+import { RaycastParams, RaycastResults } from "../physics/physics_raycast_params";
 import { PhysicsUtils } from "../physics/physics_utils";
 
 // Adjust the gravity to a low value like -0.05 to have better results, since the dynamic objects will move slowly instead of quickly falling far away

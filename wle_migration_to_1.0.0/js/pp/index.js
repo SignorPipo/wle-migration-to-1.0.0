@@ -78,7 +78,7 @@ export * from "./cauldron/utils/js_utils";
 export * from "./cauldron/utils/clone_utils";
 
 export * from "./cauldron/physics/physics_utils";
-export * from "./cauldron/physics/physics_raycast_data";
+export * from "./cauldron/physics/physics_raycast_params";
 export * from "./cauldron/physics/physics_layer_flags";
 export * from "./cauldron/physics/physics_collision_collector";
 

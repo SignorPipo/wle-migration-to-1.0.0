@@ -1,4 +1,4 @@
-import { RaycastHit } from "../../../../../../cauldron/physics/physics_raycast_data";
+import { RaycastHit } from "../../../../../../cauldron/physics/physics_raycast_params";
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { CollisionCheck } from "./collision_check";
 

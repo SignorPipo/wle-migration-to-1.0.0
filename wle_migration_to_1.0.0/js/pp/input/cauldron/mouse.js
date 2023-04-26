@@ -1,6 +1,6 @@
 import { ViewComponent } from "@wonderlandengine/api";
 import { Timer } from "../../cauldron/cauldron/timer";
-import { RaycastResults } from "../../cauldron/physics/physics_raycast_data";
+import { RaycastResults } from "../../cauldron/physics/physics_raycast_params";
 import { PhysicsUtils } from "../../cauldron/physics/physics_utils";
 import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { mat4_create, quat_create, vec2_create, vec3_create } from "../../plugin/js/extensions/array_extension";

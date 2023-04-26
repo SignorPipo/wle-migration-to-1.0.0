@@ -9,7 +9,7 @@ let visualRaycast = new VisualRaycast(visualParams);
 */
 
 import { Globals } from "../../../pp/globals";
-import { RaycastResults } from "../../physics/physics_raycast_data";
+import { RaycastResults } from "../../physics/physics_raycast_params";
 import { VisualArrow, VisualArrowParams } from "./visual_arrow";
 import { VisualElementType } from "./visual_element_types";
 
