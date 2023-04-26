@@ -63,6 +63,8 @@ export class PlayerHeadManager {
 
         this._myIsSyncedDelayCounter = 0;
 
+        this._myViewResetEventListener = null;
+
         this._myActive = true;
         this._myDestroyed = false;
 
@@ -268,6 +270,8 @@ export class PlayerHeadManager {
     destroy() {
         this._myDestroyed = true;
 
+        XRUtils.getReferenceSpace(this._myParams.myEngine)?.removeEventListener("reset", this._myViewResetEventListener);
+        XRUtils.getSession(this._myParams.myEngine)?.removeEventListener("visibilitychange", this._myVisibilityChangeEventListener);
         XRUtils.unregisterSessionStartEndEventListeners(this, this._myParams.myEngine);
     }
 
@@ -545,10 +549,12 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
         let referenceSpace = XRUtils.getReferenceSpace(this._myParams.myEngine);
 
         if (referenceSpace.addEventListener != null) {
-            referenceSpace.addEventListener("reset", this._onViewReset.bind(this));
+
+            this._myViewResetEventListener = this._onViewReset.bind(this);
+            referenceSpace.addEventListener("reset", this._myViewResetEventListener);
         }
 
-        session.addEventListener("visibilitychange", function (event) {
+        this._myVisibilityChangeEventListener = function (event) {
             if (event.session.visibilityState != "visible") {
                 if (!this._mySessionBlurred) {
                     this._onXRSessionBlurStart(event.session);
@@ -562,7 +568,9 @@ PlayerHeadManager.prototype._onXRSessionStart = function () {
 
                 this._myVisibilityHidden = false;
             }
-        }.bind(this));
+        }.bind(this);
+
+        session.addEventListener("visibilitychange", this._myVisibilityChangeEventListener);
 
         if (this._myParams.mySessionChangeResyncEnabled && !manualCall && this._myActive) {
             if (this._myDelaySessionChangeResyncCounter == 0) {
@@ -602,6 +610,10 @@ PlayerHeadManager.prototype._onXRSessionEnd = function () {
             this._myDelaySessionChangeResyncCounter = 0;
             this._mySessionChangeResyncHeadTransform = null;
         }
+
+
+        this._myVisibilityChangeEventListener = null;
+        this._myViewResetEventListener = null;
 
         this._myBlurRecoverHeadTransform = null;
         this._myVisibilityHidden = false;

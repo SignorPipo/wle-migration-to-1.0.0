@@ -57,7 +57,7 @@ export class HandPose extends BasePose {
     }
 
     _getPose(xrFrame) {
-        return xrFrame.getPose(this._myInputSource.gripSpace, this._myReferenceSpace);
+        return xrFrame.getPose(this._myInputSource.gripSpace, this.getReferenceSpace());
     }
 
     _onXRSessionStartHook(manualCall, session) {

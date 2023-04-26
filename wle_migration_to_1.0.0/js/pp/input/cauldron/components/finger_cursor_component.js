@@ -18,7 +18,6 @@ export class FingerCursorComponent extends Component {
 
     init() {
         this._myLastTarget = null;
-        this._myReferenceSpace = null;
         this._myHandInputSource = null;
         this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
 
@@ -41,8 +40,6 @@ export class FingerCursorComponent extends Component {
         this._myCollisionComponent.collider = Collider.Sphere;
         this._myCollisionComponent.group = 1 << this._myCollisionGroup;
         this._myCollisionComponent.extents = vec3_create(this._myCollisionSize, this._myCollisionSize, this._myCollisionSize);
-
-        XRUtils.registerSessionStartEndEventListeners(this, this._onXRSessionStart.bind(this), this._onXRSessionEnd.bind(this), true, false, this.engine);
     }
 
     update(dt) {
@@ -128,7 +125,7 @@ export class FingerCursorComponent extends Component {
         this._myHandInputSource = InputUtils.getInputSource(this._myHandednessType, InputSourceType.TRACKED_HAND, this.engine);
 
         if (this._myHandInputSource) {
-            let tip = XRUtils.getFrame(this.engine).getJointPose(this._myHandInputSource.hand.get(TrackedHandJointID.INDEX_FINGER_TIP), this._myReferenceSpace);
+            let tip = XRUtils.getFrame(this.engine).getJointPose(this._myHandInputSource.hand.get(TrackedHandJointID.INDEX_FINGER_TIP), XRUtils.getReferenceSpace(this.engine));
 
             if (tip) {
                 this._myCursorObject.pp_setRotationLocalQuat([
@@ -143,17 +140,5 @@ export class FingerCursorComponent extends Component {
                     tip.transform.position.z]);
             }
         }
-    }
-
-    _onXRSessionStart(session) {
-        this._myReferenceSpace = XRUtils.getReferenceSpace(this.engine);
-    }
-
-    _onXRSessionEnd(session) {
-        this._myReferenceSpace = null;
-    }
-
-    onDestroy() {
-        XRUtils.unregisterSessionStartEndEventListeners(this, this.engine);
     }
 }

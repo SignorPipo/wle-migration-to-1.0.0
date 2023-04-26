@@ -25,16 +25,25 @@ export class VirtualGamepadVirtualThumbstick {
 
         this._build(thumbstickElementParent, virtualThumbstickHandedness);
 
-        this._myThumbstickDetectionElement.addEventListener("pointerdown", this._onPointerDown.bind(this, this._myVirtualGamepadParams.myStopPropagatingPointerDownEvents));
-        document.body.addEventListener("pointerup", this._onPointerUp.bind(this));
-        document.body.addEventListener("pointermove", this._onPointerMove.bind(this));
+        this._myPointerDownEventListener = this._onPointerDown.bind(this, this._myVirtualGamepadParams.myStopPropagatingPointerDownEvents);
+        this._myPointerUpEventListener = this._onPointerUp.bind(this);
+        this._myPointerMoveEventListener = this._onPointerMove.bind(this);
+        this._myPointerLeaveEventListener = this._onPointerLeave.bind(this);
+        this._myMouseEnterEventListener = this._onThumbstickEnter.bind(this);
+        this._myMouseLeaveEventListener = this._onThumbstickLeave.bind(this);
+
+        this._myThumbstickDetectionElement.addEventListener("pointerdown", this._myPointerDownEventListener);
+        document.body.addEventListener("pointerup", this._myPointerUpEventListener);
+        document.body.addEventListener("pointermove", this._myPointerMoveEventListener);
 
         if (this._myVirtualGamepadParams.myReleaseOnPointerLeave) {
-            document.body.addEventListener("pointerleave", this._onPointerLeave.bind(this));
+            document.body.addEventListener("pointerleave", this._myPointerLeaveEventListener);
         }
 
-        this._myThumbstickDetectionElement.addEventListener("mouseenter", this._onThumbstickEnter.bind(this));
-        this._myThumbstickDetectionElement.addEventListener("mouseleave", this._onThumbstickLeave.bind(this));
+        this._myThumbstickDetectionElement.addEventListener("mouseenter", this._myMouseEnterEventListener);
+        this._myThumbstickDetectionElement.addEventListener("mouseleave", this._myPointerUpEventLis_myMouseLeaveEventListenertener);
+
+        this._myDestroyed = false;
     }
 
     isPressed() {
@@ -241,5 +250,22 @@ export class VirtualGamepadVirtualThumbstick {
 
     _createSizeValue(value, minSizeMultiplier) {
         return "min(" + value.toFixed(3) + "vmax," + (value * minSizeMultiplier).toFixed(3) + "vw)";
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myThumbstickDetectionElement.removeEventListener("pointerdown", this._myPointerDownEventListener);
+
+        document.body.removeEventListener("pointerup", this._myPointerUpEventListener);
+        document.body.removeEventListener("pointermove", this._myPointerMoveEventListener);
+        document.body.removeEventListener("pointerleave", this._myPointerLeaveEventListener);
+
+        this._myThumbstickDetectionElement.removeEventListener("mouseenter", this._myMouseEnterEventListener);
+        this._myThumbstickDetectionElement.removeEventListener("mouseleave", this._myPointerUpEventLis_myMouseLeaveEventListenertener);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

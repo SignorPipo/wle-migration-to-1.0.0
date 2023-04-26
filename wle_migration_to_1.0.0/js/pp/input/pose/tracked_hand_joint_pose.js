@@ -39,7 +39,7 @@ export class TrackedHandJointPose extends BasePose {
     }
 
     _getPose(xrFrame) {
-        return xrFrame.getJointPose(this._myInputSource.hand.get(this._myTrackedHandJointID), this._myReferenceSpace);
+        return xrFrame.getJointPose(this._myInputSource.hand.get(this._myTrackedHandJointID), this.getReferenceSpace());
     }
 
     _updateHook(dt, updateVelocity, xrPose) {

@@ -81,6 +81,9 @@ export class ConsoleVRWidget {
             this._myGamepadScrollEnabled = false;
         }
 
+        this._myErrorEventListener = null;
+        this._myUnhandledRejectionEventListener = null;
+
         this._myEngine = engine;
 
         this._myDestroyed = false;
@@ -130,17 +133,20 @@ export class ConsoleVRWidget {
             console.assert = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ASSERT, ConsoleVRWidgetSender.BROWSER_CONSOLE);
             console.clear = this._clearConsole.bind(this, true, ConsoleVRWidgetSender.BROWSER_CONSOLE);
 
-            window.addEventListener("error", function (errorEvent) {
+            this._myErrorEventListener = function (errorEvent) {
                 if (errorEvent.error != null) {
                     this._consolePrint(ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.WINDOW, "Uncaught", errorEvent.error.stack);
                 } else {
                     this._consolePrint(ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.WINDOW, "Uncaught", errorEvent.message);
                 }
-            }.bind(this));
+            }.bind(this);
 
-            window.addEventListener("unhandledrejection", function (errorEvent) {
+            this._myUnhandledRejectionEventListener = function (errorEvent) {
                 this._consolePrint(ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.WINDOW, "Uncaught (in promise)", errorEvent.reason);
-            }.bind(this));
+            }.bind(this);
+
+            window.addEventListener("error", this._myErrorEventListener);
+            window.addEventListener("unhandledrejection", this._myUnhandledRejectionEventListener);
         }
 
         this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.LOG] = Globals.getConsoleVR(this._myEngine).log;
@@ -845,6 +851,9 @@ export class ConsoleVRWidget {
 
     destroy() {
         this._myDestroyed = true;
+
+        window.removeEventListener("error", this._myErrorEventListener);
+        window.removeEventListener("unhandledrejection", this._myUnhandledRejectionEventListener);
 
         this._myUI.destroy();
         this._myWidgetFrame.destroy();

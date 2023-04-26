@@ -20,15 +20,23 @@ export class VirtualGamepadVirtualButton {
 
         this._build(buttonElementParent, virtualButtonHandedness, virtualButtonIndex);
 
-        this._myButtonDetectionElement.addEventListener("pointerdown", this._onPointerDown.bind(this, this._myVirtualGamepadParams.myStopPropagatingPointerDownEvents));
-        document.body.addEventListener("pointerup", this._onPointerUp.bind(this));
+        this._myPointerDownEventListener = this._onPointerDown.bind(this, this._myVirtualGamepadParams.myStopPropagatingPointerDownEvents);
+        this._myPointerUpEventListener = this._onPointerUp.bind(this);
+        this._myPointerLeaveEventListener = this._onPointerLeave.bind(this);
+        this._myMouseEnterEventListener = this._onButtonEnter.bind(this);
+        this._myMouseLeaveEventListener = this._onButtonLeave.bind(this);
+
+        this._myButtonDetectionElement.addEventListener("pointerdown", this._myPointerDownEventListener);
+        document.body.addEventListener("pointerup", this._myPointerUpEventListener);
 
         if (this._myVirtualGamepadParams.myReleaseOnPointerLeave) {
-            document.body.addEventListener("pointerleave", this._onPointerLeave.bind(this));
+            document.body.addEventListener("pointerleave", this._myPointerLeaveEventListener);
         }
 
-        this._myButtonDetectionElement.addEventListener("mouseenter", this._onButtonEnter.bind(this));
-        this._myButtonDetectionElement.addEventListener("mouseleave", this._onButtonLeave.bind(this));
+        this._myButtonDetectionElement.addEventListener("mouseenter", this._myMouseEnterEventListener);
+        this._myButtonDetectionElement.addEventListener("mouseleave", this._myPointerUpEventLis_myMouseLeaveEventListenertener);
+
+        this._myDestroyed = false;
     }
 
     isPressed() {
@@ -192,5 +200,21 @@ export class VirtualGamepadVirtualButton {
 
     _createSizeValue(value, minSizeMultiplier) {
         return "min(" + value.toFixed(3) + "vmax," + (value * minSizeMultiplier).toFixed(3) + "vw)";
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myButtonDetectionElement.removeEventListener("pointerdown", this._myPointerDownEventListener);
+
+        document.body.removeEventListener("pointerup", this._myPointerUpEventListener);
+        document.body.removeEventListener("pointerleave", this._myPointerLeaveEventListener);
+
+        this._myButtonDetectionElement.removeEventListener("mouseenter", this._myMouseEnterEventListener);
+        this._myButtonDetectionElement.removeEventListener("mouseleave", this._myPointerUpEventLis_myMouseLeaveEventListenertener);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

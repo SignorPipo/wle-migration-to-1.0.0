@@ -307,5 +307,7 @@ export class VirtualGamepadComponent extends Component {
 
         this._myLeftVirtualGamepadGamepadCore.destroy();
         this._myRightVirtualGamepadGamepadCore.destroy();
+
+        this._myVirtualGamepad.destroy();
     }
 }

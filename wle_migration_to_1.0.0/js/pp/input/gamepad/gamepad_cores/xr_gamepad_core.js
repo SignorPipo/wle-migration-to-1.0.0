@@ -16,6 +16,12 @@ export class XRGamepadCore extends GamepadCore {
         this._myInputSource = null;
         this._myGamepad = null;
 
+        this._mySelectStartEventListener = null;
+        this._mySelectEndEventListener = null;
+        this._mySqueezeStartEventListener = null;
+        this._mySqueezeEndEventListener = null;
+
+
         // Support Variables
         this._myButtonData = this._createButtonData();
         this._myAxesData = this._createAxesData();
@@ -137,16 +143,26 @@ export class XRGamepadCore extends GamepadCore {
     }
 
     _onXRSessionStart(session) {
-        session.addEventListener("selectstart", this._selectStart.bind(this));
-        session.addEventListener("selectend", this._selectEnd.bind(this));
+        this._mySelectStartEventListener = this._selectStart.bind(this);
+        this._mySelectEndEventListener = this._selectEnd.bind(this);
+        this._mySqueezeStartEventListener = this._squeezeStart.bind(this);
+        this._mySqueezeEndEventListener = this._squeezeEnd.bind(this);
 
-        session.addEventListener("squeezestart", this._squeezeStart.bind(this));
-        session.addEventListener("squeezeend", this._squeezeEnd.bind(this));
+        session.addEventListener("selectstart", this._mySelectStartEventListener);
+        session.addEventListener("selectend", this._mySelectEndEventListener);
+
+        session.addEventListener("squeezestart", this._mySqueezeStartEventListener);
+        session.addEventListener("squeezeend", this._mySqueezeEndEventListener);
 
         this._myXRSessionActive = true;
     }
 
     _onXRSessionEnd(session) {
+        this._mySelectStartEventListener = null;
+        this._mySelectEndEventListener = null;
+        this._mySqueezeStartEventListener = null;
+        this._mySqueezeEndEventListener = null;
+
         this._myXRSessionActive = false;
     }
 
@@ -176,6 +192,11 @@ export class XRGamepadCore extends GamepadCore {
     }
 
     _destroyHook() {
+        XRUtils.getSession(this._myParams.myEngine)?.removeEventListener("selectstart", this._mySelectStartEventListener);
+        XRUtils.getSession(this._myParams.myEngine)?.removeEventListener("selectend", this._mySelectEndEventListener);
+        XRUtils.getSession(this._myParams.myEngine)?.removeEventListener("squeezestart", this._mySqueezeStartEventListener);
+        XRUtils.getSession(this._myParams.myEngine)?.removeEventListener("squeezeend", this._mySqueezeEndEventListener);
+
         XRUtils.unregisterSessionStartEndEventListeners(this, this.getEngine());
     }
 }

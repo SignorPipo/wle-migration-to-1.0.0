@@ -24,7 +24,6 @@ export class BasePose {
         this._myForceEmulatedVelocities = basePoseParams.myForceEmulatedVelocities;
         this._myUpdateOnViewReset = basePoseParams.myUpdateOnViewReset;
 
-        this._myReferenceSpace = null;
         this._myReferenceObject = basePoseParams.myReferenceObject;
 
         this._myEngine = basePoseParams.myEngine;
@@ -43,6 +42,8 @@ export class BasePose {
         this._myAngularVelocityEmulated = true;
 
         this._myPoseUpdatedEmitter = new Emitter();   // Signature: listener(thisPose)
+
+        this._myViewResetEventListener = null;
 
         this._myDestroyed = false;
     }
@@ -86,7 +87,7 @@ export class BasePose {
     }
 
     getReferenceSpace() {
-        return this._myReferenceSpace;
+        return XRUtils.getReferenceSpace(this._myEngine);
     }
 
     getPosition() {
@@ -302,10 +303,11 @@ export class BasePose {
     }
 
     _onXRSessionStart(manualCall, session) {
-        this._myReferenceSpace = XRUtils.getReferenceSpace(this._myEngine);
+        let referenceSpace = XRUtils.getReferenceSpace(this._myEngine);
 
-        if (this._myReferenceSpace.addEventListener != null) {
-            this._myReferenceSpace.addEventListener("reset", this._onViewReset.bind(this));
+        if (referenceSpace.addEventListener != null) {
+            this._myViewResetEventListener = this._onViewReset.bind(this);
+            referenceSpace.addEventListener("reset", this._myViewResetEventListener);
         }
 
         this._onXRSessionStartHook(manualCall, session);
@@ -314,7 +316,7 @@ export class BasePose {
     _onXRSessionEnd() {
         this._onXRSessionEndHook();
 
-        this._myReferenceSpace = null;
+        this._myViewResetEventListener = null;
     }
 
     _onViewReset() {
@@ -334,6 +336,7 @@ export class BasePose {
 
         this._destroyHook();
 
+        XRUtils.getReferenceSpace(this._myEngine)?.removeEventListener("reset", this._myViewResetEventListener);
         XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
     }
 

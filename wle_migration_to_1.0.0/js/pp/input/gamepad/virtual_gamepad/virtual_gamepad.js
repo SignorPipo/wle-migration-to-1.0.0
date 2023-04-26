@@ -38,6 +38,10 @@ export class VirtualGamepad {
         this._myVirtualGamepadVirtualThumbsticks[Handedness.RIGHT] = [];
         this._myVirtualGamepadVirtualThumbsticks[Handedness.LEFT][GamepadAxesID.THUMBSTICK] = null;
         this._myVirtualGamepadVirtualThumbsticks[Handedness.RIGHT][GamepadAxesID.THUMBSTICK] = null;
+
+        this._myGestureStartEventListener = null;
+
+        this._myDestroyed = false;
     }
 
     isVisible() {
@@ -195,9 +199,11 @@ export class VirtualGamepad {
         document.body.style.webkitUserSelect = "none";
         document.body.style.webkitTapHighlightColor = "transparent";
         document.body.style.touchAction = "none";
-        document.addEventListener("gesturestart", function (e) {
+
+        this._myGestureStartEventListener = function (e) {
             e.preventDefault();
-        });
+        };
+        document.addEventListener("gesturestart", this._myGestureStartEventListener);
     }
 
     _buildButton(buttonElementParent, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID) {
@@ -260,5 +266,30 @@ export class VirtualGamepad {
                 }
             }
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        document.removeEventListener("gesturestart", this._myGestureStartEventListener);
+
+        for (let handedness in this._myVirtualGamepadVirtualButtons) {
+            for (let gamepadButtonID in this._myVirtualGamepadVirtualButtons[handedness]) {
+                let button = this._myVirtualGamepadVirtualButtons[handedness][gamepadButtonID];
+
+                button.destroy();
+            }
+        }
+
+        for (let handedness in this._myVirtualGamepadVirtualThumbsticks) {
+            for (let gamepadAxesID in this._myVirtualGamepadVirtualThumbsticks[handedness]) {
+                let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness][gamepadAxesID];
+                thumbstick.destroy();
+            }
+        }
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

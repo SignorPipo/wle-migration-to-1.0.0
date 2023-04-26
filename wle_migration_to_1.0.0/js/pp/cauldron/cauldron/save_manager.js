@@ -34,6 +34,8 @@ export class SaveManager {
         this._myLoadEmitter = new Emitter();                    // Signature: listener(id, value, loadFromCache, failed)
         this._myLoadIDEmitters = new Map();                     // Signature: listener(id, value, loadFromCache, failed)
 
+        this._myVisibilityChangeEventListener = null;
+
         this._myDestroyed = false;
     }
 
@@ -253,14 +255,18 @@ export class SaveManager {
     }
 
     _onXRSessionStart(session) {
-        session.addEventListener("visibilitychange", function (event) {
+        this._myVisibilityChangeEventListener = function (event) {
             if (event.session.visibilityState != "visible") {
                 this._onXRSessionInterrupt();
             }
-        }.bind(this));
+        }.bind(this);
+
+        session.addEventListener("visibilitychange", this._myVisibilityChangeEventListener);
     }
 
     _onXRSessionEnd() {
+        this._myVisibilityChangeEventListener = null;
+
         this._onXRSessionInterrupt();
     }
 
@@ -436,6 +442,7 @@ export class SaveManager {
     destroy() {
         this._myDestroyed = true;
 
+        XRUtils.getSession(this._myEngine)?.removeEventListener("visibilitychange", this._myVisibilityChangeEventListener);
         XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
     }
 
