@@ -52,8 +52,8 @@ export class EasyTuneNumberArrayWidget extends EasyTuneBaseWidget {
     }
 
 
-    _startHook(parentObject, params) {
-        this._myUI.setAdditionalButtonsVisible(params.myAdditionalButtonsVisible);
+    _startHook(parentObject, easyTuneParams) {
+        this._myUI.setAdditionalButtonsVisible(easyTuneParams.myAdditionalButtonsVisible);
     }
 
     _setEasyTuneVariableHook() {

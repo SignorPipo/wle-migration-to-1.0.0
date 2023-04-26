@@ -74,8 +74,8 @@ export class EasyTuneTransformWidget extends EasyTuneBaseWidget {
         this._myUI.myScaleStepTextComponent.text = this._myConfig.myStepStartString.concat(this._myVariable._myScaleStepPerSecond);
     }
 
-    _startHook(parentObject, params) {
-        this._myUI.setAdditionalButtonsVisible(params.myAdditionalButtonsVisible);
+    _startHook(parentObject, easyTuneParams) {
+        this._myUI.setAdditionalButtonsVisible(easyTuneParams.myAdditionalButtonsVisible);
     }
 
     _setEasyTuneVariableHook() {

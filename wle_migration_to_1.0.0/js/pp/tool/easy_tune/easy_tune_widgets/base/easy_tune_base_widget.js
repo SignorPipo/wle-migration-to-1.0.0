@@ -16,7 +16,6 @@ export class EasyTuneBaseWidget {
         this._myUI = null;
 
         this._myParams = params;
-        this._myParams = null;
 
         this._myVariable = null;
 
@@ -136,18 +135,16 @@ export class EasyTuneBaseWidget {
         this._myScrollVariableRequestEmitter.remove(id);
     }
 
-    start(parentObject, params) {
-        this._myParams = params;
-
+    start(parentObject, easyTuneParams) {
         this._myConfig.build();
 
         this._myResetImportLabelTimer.setDuration(this._myConfig.myImportExportResetLabelSeconds);
         this._myResetExportLabelTimer.setDuration(this._myConfig.myImportExportResetLabelSeconds);
 
-        this._myUI.build(parentObject, this._myConfig, params);
-        this._myUI.setImportExportButtonsVisible(this._myParams.myVariablesImportExportButtonsVisible);
+        this._myUI.build(parentObject, this._myConfig, easyTuneParams);
+        this._myUI.setImportExportButtonsVisible(easyTuneParams.myVariablesImportExportButtonsVisible);
 
-        this._startHook(parentObject, params);
+        this._startHook(parentObject, easyTuneParams);
 
         this._addListeners();
     }
@@ -170,7 +167,7 @@ export class EasyTuneBaseWidget {
     _refreshUIHook() {
     }
 
-    _startHook(parentObject, params) {
+    _startHook(parentObject, easyTuneParams) {
     }
 
     _addListenersHook() {

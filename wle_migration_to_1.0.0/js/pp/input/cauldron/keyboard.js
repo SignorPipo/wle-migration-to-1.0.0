@@ -134,7 +134,7 @@ export class Keyboard {
     start() {
         this._myOnKeyDownEventListener = this._keyDown.bind(this);
         window.addEventListener("keydown", this._myOnKeyDownEventListener);
-        this._myOnKeyUoEventListener = this._keyUp.bind(this);
+        this._myOnKeyUpEventListener = this._keyUp.bind(this);
         window.addEventListener("keyup", this._myOnKeyUpEventListener);
     }
 
