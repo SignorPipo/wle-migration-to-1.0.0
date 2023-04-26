@@ -1,3 +1,4 @@
+import { Globals } from "../../../pp/globals";
 import { Handedness } from "../../cauldron/input_types";
 import { GamepadButtonID } from "../gamepad_buttons";
 import { GamepadCore } from "./gamepad_core";
@@ -125,7 +126,7 @@ export class ClassicGamepadCore extends GamepadCore {
     _getClassicGamepad() {
         let classicGamepad = null;
 
-        let gamepads = navigator.getGamepads();
+        let gamepads = Globals.getNavigator(this.getEngine()).getGamepads();
         if (this._myGamepadIndex != null) {
             if (this._myGamepadIndex < gamepads.length) {
                 classicGamepad = gamepads[this._myGamepadIndex];

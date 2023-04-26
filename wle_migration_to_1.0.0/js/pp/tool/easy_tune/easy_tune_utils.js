@@ -23,8 +23,8 @@ export function refreshEasyTuneWidget(engine = Globals.getMainEngine()) {
 // Those parameters will be replaced with the same one on the current page url, like www.currentpage.com/?param=2
 export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultValueOnImport = false, onSuccessCallback = null, onFailureCallback = null, engine = Globals.getMainEngine()) {
     if (fileURL == null || fileURL.length == 0) {
-        if (navigator.clipboard) {
-            navigator.clipboard.readText().then(
+        if (Globals.getNavigator(engine).clipboard) {
+            Globals.getNavigator(engine).clipboard.readText().then(
                 function (clipboard) {
                     Globals.getEasyTuneVariables(engine).fromJSON(clipboard, resetVariablesDefaultValueOnImport);
 
@@ -116,8 +116,8 @@ export function exportEasyTuneVariables(fileURL = null, onSuccessCallback = null
     let jsonVariables = Globals.getEasyTuneVariables(engine).toJSON();
 
     if (fileURL == null || fileURL.length == 0) {
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(jsonVariables).then(
+        if (Globals.getNavigator(engine).clipboard) {
+            Globals.getNavigator(engine).clipboard.writeText(jsonVariables).then(
                 function () {
                     if (onSuccessCallback != null) {
                         onSuccessCallback();

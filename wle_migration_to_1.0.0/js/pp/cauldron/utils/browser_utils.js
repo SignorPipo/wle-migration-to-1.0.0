@@ -1,7 +1,7 @@
 import { Globals } from "../../pp/globals";
 
 export function isMobile(engine = Globals.getMainEngine()) {
-    return /Mobi/i.test(Globals.getWindow(engine).navigator.userAgent);
+    return /Mobi/i.test(Globals.getNavigator(engine).userAgent);
 }
 
 export function isDesktop(engine = Globals.getMainEngine()) {
