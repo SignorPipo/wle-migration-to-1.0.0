@@ -332,9 +332,9 @@ export class BasePose {
     destroy() {
         this._myDestroyed = true;
 
-        XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
-
         this._destroyHook();
+
+        XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
     }
 
     isDestroyed() {

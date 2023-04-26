@@ -181,8 +181,6 @@ export class EasyTuneBaseArrayWidgetSelector {
         for (let widget of this._myWidgets.values()) {
             widget.destroy();
         }
-
-        this._myWidgetFrame.destroy();
     }
 
     isDestroyed() {

@@ -1,3 +1,4 @@
+import { XRUtils } from "../../cauldron/utils/xr_utils";
 import { quat_create, vec3_create } from "../../plugin/js/extensions/array_extension";
 import { Handedness, InputSourceType } from "../cauldron/input_types";
 import { InputUtils } from "../cauldron/input_utils";
@@ -98,7 +99,7 @@ export class HandPose extends BasePose {
     }
 
     _destroyHook() {
-        session.removeEventListener("inputsourceschange", this._myInputSourcesChangeEventListener);
+        XRUtils.getSession(this.getEngine())?.removeEventListener("inputsourceschange", this._myInputSourcesChangeEventListener);
     }
 }
 

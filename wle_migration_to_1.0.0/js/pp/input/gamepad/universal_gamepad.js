@@ -133,7 +133,7 @@ export class UniversalGamepad extends BaseGamepad {
     }
 
     _destroyHook() {
-        for (let gamepadCore of this._myGamepadCores) {
+        for (let gamepadCore of this._myGamepadCores.values()) {
             gamepadCore.destroy();
         }
     }
