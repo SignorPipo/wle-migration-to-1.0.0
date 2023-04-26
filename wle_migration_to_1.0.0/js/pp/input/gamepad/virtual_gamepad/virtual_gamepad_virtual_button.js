@@ -146,32 +146,32 @@ export class VirtualGamepadVirtualButton {
 
         // Actual button creation
 
-        let buttonPivot = document.createElement("div");
-        buttonPivot.style.position = "absolute";
-        buttonPivot.style.width = this._createSizeValue(buttonSize, minSizeMultiplier);
-        buttonPivot.style.height = this._createSizeValue(buttonSize, minSizeMultiplier);
+        this._myButtonContainer = document.createElement("div");
+        this._myButtonContainer.style.position = "absolute";
+        this._myButtonContainer.style.width = this._createSizeValue(buttonSize, minSizeMultiplier);
+        this._myButtonContainer.style.height = this._createSizeValue(buttonSize, minSizeMultiplier);
 
         let centerOnThumbstickBottom = marginBottom + thumbstickSize / 2 - buttonSize / 2;
 
-        buttonPivot.style.bottom = this._createSizeValue(centerOnThumbstickBottom, minSizeMultiplier);
+        this._myButtonContainer.style.bottom = this._createSizeValue(centerOnThumbstickBottom, minSizeMultiplier);
 
         if (virtualButtonHandedness == Handedness.LEFT) {
             let centerOnThumbstickLeft = marginLeft + thumbstickSize / 2 - buttonSize / 2;
-            buttonPivot.style.left = this._createSizeValue(centerOnThumbstickLeft, minSizeMultiplier);
+            this._myButtonContainer.style.left = this._createSizeValue(centerOnThumbstickLeft, minSizeMultiplier);
         } else {
             let centerOnThumbstickRight = marginRight + thumbstickSize / 2 - buttonSize / 2;
-            buttonPivot.style.right = this._createSizeValue(centerOnThumbstickRight, minSizeMultiplier);
+            this._myButtonContainer.style.right = this._createSizeValue(centerOnThumbstickRight, minSizeMultiplier);
         }
 
-        buttonPivot.style.transform = "rotate(" + currentAngle + "deg) translateX(" + this._createSizeValue(buttonsRingRadius, minSizeMultiplier) + ")";
-        buttonElementParent.appendChild(buttonPivot);
+        this._myButtonContainer.style.transform = "rotate(" + currentAngle + "deg) translateX(" + this._createSizeValue(buttonsRingRadius, minSizeMultiplier) + ")";
+        buttonElementParent.appendChild(this._myButtonContainer);
 
         this._myButtonElement = document.createElement("div");
         this._myButtonElement.style.position = "absolute";
         this._myButtonElement.style.width = "100%";
         this._myButtonElement.style.height = "100%";
         this._myButtonElement.style.transform = "rotate(" + counterAngle + "deg)";
-        buttonPivot.appendChild(this._myButtonElement);
+        this._myButtonContainer.appendChild(this._myButtonElement);
 
         this._myButtonIcon = new VirtualGamepadIcon(this._myButtonElement, this._myParams.myIconParams, minSizeMultiplier, this._myVirtualGamepadParams.myInterfaceScale);
 
@@ -180,7 +180,7 @@ export class VirtualGamepadVirtualButton {
         buttonElementStill.style.width = "100%";
         buttonElementStill.style.height = "100%";
         buttonElementStill.style.transform = "rotate(" + counterAngle + "deg)";
-        buttonPivot.appendChild(buttonElementStill);
+        this._myButtonContainer.appendChild(buttonElementStill);
 
         let buttonDetectionElementSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         buttonDetectionElementSVG.style.position = "absolute";
@@ -212,6 +212,10 @@ export class VirtualGamepadVirtualButton {
 
         this._myButtonDetectionElement.removeEventListener("mouseenter", this._myMouseEnterEventListener);
         this._myButtonDetectionElement.removeEventListener("mouseleave", this._myPointerUpEventLis_myMouseLeaveEventListenertener);
+
+        this._myButtonIcon.destroy();
+
+        this._myButtonContainer.remove();
     }
 
     isDestroyed() {

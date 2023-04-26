@@ -49,6 +49,8 @@ export class VirtualGamepadIcon {
         this._myIsMouseHover = false;
         this._myMouseHoverEnabled = true;
 
+        this._myDestroyed = false;
+
         this._build(iconElementParent, minSizeMultiplier, scale);
     }
 
@@ -222,5 +224,15 @@ export class VirtualGamepadIcon {
             this._myBackgroundElement.style.fill = this._myParams.myIconColor;
             this._myIconElement.style.fill = this._myParams.myBackgroundColor;
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myIconContainerElement.remove();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

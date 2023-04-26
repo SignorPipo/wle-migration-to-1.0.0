@@ -170,25 +170,25 @@ export class VirtualGamepadVirtualThumbstick {
 
         // Actual thumbstick creation
 
-        let thumbstickContainer = document.createElement("div");
-        thumbstickContainer.style.position = "absolute";
-        thumbstickContainer.style.width = this._createSizeValue(thumbstickSize, minSizeMultiplier);
-        thumbstickContainer.style.height = this._createSizeValue(thumbstickSize, minSizeMultiplier);
-        thumbstickContainer.style.bottom = this._createSizeValue(marginBottom, minSizeMultiplier);
+        this._myThumbstickContainer = document.createElement("div");
+        this._myThumbstickContainer.style.position = "absolute";
+        this._myThumbstickContainer.style.width = this._createSizeValue(thumbstickSize, minSizeMultiplier);
+        this._myThumbstickContainer.style.height = this._createSizeValue(thumbstickSize, minSizeMultiplier);
+        this._myThumbstickContainer.style.bottom = this._createSizeValue(marginBottom, minSizeMultiplier);
 
         if (virtualThumbstickHandedness == Handedness.LEFT) {
-            thumbstickContainer.style.left = this._createSizeValue(marginLeft, minSizeMultiplier);
+            this._myThumbstickContainer.style.left = this._createSizeValue(marginLeft, minSizeMultiplier);
         } else {
-            thumbstickContainer.style.right = this._createSizeValue(marginRight, minSizeMultiplier);
+            this._myThumbstickContainer.style.right = this._createSizeValue(marginRight, minSizeMultiplier);
         }
 
-        thumbstickElementParent.appendChild(thumbstickContainer);
+        thumbstickElementParent.appendChild(this._myThumbstickContainer);
 
         let thumbstickContainerSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         thumbstickContainerSVG.style.position = "absolute";
         thumbstickContainerSVG.style.width = "100%";
         thumbstickContainerSVG.style.height = "100%";
-        thumbstickContainer.appendChild(thumbstickContainerSVG);
+        this._myThumbstickContainer.appendChild(thumbstickContainerSVG);
 
         this._myThumbstickBackground = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         this._myThumbstickBackground.setAttributeNS(null, "cx", "50%");
@@ -203,7 +203,7 @@ export class VirtualGamepadVirtualThumbstick {
         this._myThumbstickElement.style.height = "34%";
         this._myThumbstickElement.style.top = "33%";
         this._myThumbstickElement.style.left = "33%";
-        thumbstickContainer.appendChild(this._myThumbstickElement);
+        this._myThumbstickContainer.appendChild(this._myThumbstickElement);
 
         this._myThumbstickIcon = new VirtualGamepadIcon(this._myThumbstickElement, this._myParams.myIconParams, minSizeMultiplier, this._myVirtualGamepadParams.myScale);
 
@@ -212,7 +212,7 @@ export class VirtualGamepadVirtualThumbstick {
             thumbstickBackgroundDetectionElementSVG.style.position = "absolute";
             thumbstickBackgroundDetectionElementSVG.style.width = "100%";
             thumbstickBackgroundDetectionElementSVG.style.height = "100%";
-            thumbstickContainer.appendChild(thumbstickBackgroundDetectionElementSVG);
+            this._myThumbstickContainer.appendChild(thumbstickBackgroundDetectionElementSVG);
 
             let thumbstickBackgroundDetectionElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             thumbstickBackgroundDetectionElement.setAttributeNS(null, "cx", "50%");
@@ -229,7 +229,7 @@ export class VirtualGamepadVirtualThumbstick {
             thumbstickElementStill.style.height = "34%";
             thumbstickElementStill.style.top = "33%";
             thumbstickElementStill.style.left = "33%";
-            thumbstickContainer.appendChild(thumbstickElementStill);
+            this._myThumbstickContainer.appendChild(thumbstickElementStill);
 
             let thumbstickDetectionElementSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             thumbstickDetectionElementSVG.style.position = "absolute";
@@ -263,6 +263,10 @@ export class VirtualGamepadVirtualThumbstick {
 
         this._myThumbstickDetectionElement.removeEventListener("mouseenter", this._myMouseEnterEventListener);
         this._myThumbstickDetectionElement.removeEventListener("mouseleave", this._myPointerUpEventLis_myMouseLeaveEventListenertener);
+
+        this._myThumbstickIcon.destroy();
+
+        this._myThumbstickContainer.remove();
     }
 
     isDestroyed() {

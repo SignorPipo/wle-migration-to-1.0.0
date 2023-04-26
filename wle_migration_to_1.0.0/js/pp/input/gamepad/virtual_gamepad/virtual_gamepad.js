@@ -287,6 +287,8 @@ export class VirtualGamepad {
                 thumbstick.destroy();
             }
         }
+
+        this._myVirtualGamepadContainer.remove();
     }
 
     isDestroyed() {
