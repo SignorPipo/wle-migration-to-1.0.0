@@ -1,9 +1,11 @@
-export function isMobile() {
-    return /Mobi/i.test(window.navigator.userAgent);
+import { Globals } from "../../pp/globals";
+
+export function isMobile(engine = Globals.getMainEngine()) {
+    return /Mobi/i.test(Globals.getWindow(engine).navigator.userAgent);
 }
 
-export function isDesktop() {
-    return !isMobile();
+export function isDesktop(engine = Globals.getMainEngine()) {
+    return !isMobile(engine);
 }
 
 export let BrowserUtils = {

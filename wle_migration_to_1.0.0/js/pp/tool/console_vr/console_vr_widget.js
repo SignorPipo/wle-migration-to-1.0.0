@@ -145,8 +145,8 @@ export class ConsoleVRWidget {
                 this._consolePrint(ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.WINDOW, "Uncaught (in promise)", errorEvent.reason);
             }.bind(this);
 
-            window.addEventListener("error", this._myErrorEventListener);
-            window.addEventListener("unhandledrejection", this._myUnhandledRejectionEventListener);
+            Globals.getWindow(this._myEngine).addEventListener("error", this._myErrorEventListener);
+            Globals.getWindow(this._myEngine).addEventListener("unhandledrejection", this._myUnhandledRejectionEventListener);
         }
 
         this._myOldConsoleVR[ConsoleVRWidgetConsoleFunction.LOG] = Globals.getConsoleVR(this._myEngine).log;
@@ -852,8 +852,8 @@ export class ConsoleVRWidget {
     destroy() {
         this._myDestroyed = true;
 
-        window.removeEventListener("error", this._myErrorEventListener);
-        window.removeEventListener("unhandledrejection", this._myUnhandledRejectionEventListener);
+        Globals.getWindow(this._myEngine).removeEventListener("error", this._myErrorEventListener);
+        Globals.getWindow(this._myEngine).removeEventListener("unhandledrejection", this._myUnhandledRejectionEventListener);
 
         this._myUI.destroy();
         this._myWidgetFrame.destroy();

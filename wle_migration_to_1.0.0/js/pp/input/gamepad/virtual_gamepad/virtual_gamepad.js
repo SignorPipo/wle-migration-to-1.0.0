@@ -114,11 +114,11 @@ export class VirtualGamepad {
         if (this._myParams.myAutoUpdateVisibility) {
             if (XRUtils.isSessionActive(this._myParams.myEngine) && XRUtils.isVRSupported(this._myParams.myEngine)) {
                 this.setVisible(false);
-            } else if (this._myParams.myShowOnDesktop && BrowserUtils.isDesktop() && !XRUtils.isVRSupported(this._myParams.myEngine)) {
+            } else if (this._myParams.myShowOnDesktop && BrowserUtils.isDesktop(this._myParams.myEngine) && !XRUtils.isVRSupported(this._myParams.myEngine)) {
                 this.setVisible(true);
-            } else if (this._myParams.myShowOnHeadset && BrowserUtils.isDesktop() && XRUtils.isVRSupported(this._myParams.myEngine)) {
+            } else if (this._myParams.myShowOnHeadset && BrowserUtils.isDesktop(this._myParams.myEngine) && XRUtils.isVRSupported(this._myParams.myEngine)) {
                 this.setVisible(true);
-            } else if (this._myParams.myShowOnMobile && BrowserUtils.isMobile()) {
+            } else if (this._myParams.myShowOnMobile && BrowserUtils.isMobile(this._myParams.myEngine)) {
                 this.setVisible(true);
             } else {
                 this.setVisible(false);

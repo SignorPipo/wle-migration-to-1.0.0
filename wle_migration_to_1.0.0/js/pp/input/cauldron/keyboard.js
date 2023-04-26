@@ -1,3 +1,5 @@
+import { Globals } from "../../pp/globals";
+
 export let KeyID = {
     _0: "0",
     _1: "1",
@@ -84,7 +86,9 @@ export let KeyID = {
 
 export class Keyboard {
 
-    constructor() {
+    constructor(engine = Globals.getMainEngine()) {
+        this._myEngine = engine;
+
         this._myKeyInfos = new Map();
 
         for (let key in KeyID) {
@@ -133,9 +137,9 @@ export class Keyboard {
 
     start() {
         this._myOnKeyDownEventListener = this._keyDown.bind(this);
-        window.addEventListener("keydown", this._myOnKeyDownEventListener);
+        Globals.getWindow(this._myEngine).addEventListener("keydown", this._myOnKeyDownEventListener);
         this._myOnKeyUpEventListener = this._keyUp.bind(this);
-        window.addEventListener("keyup", this._myOnKeyUpEventListener);
+        Globals.getWindow(this._myEngine).addEventListener("keyup", this._myOnKeyUpEventListener);
     }
 
     update(dt) {
@@ -191,8 +195,8 @@ export class Keyboard {
     destroy() {
         this._myDestroyed = true;
 
-        document.body.removeEventListener("keydown", this._myOnKeyDownEventListener);
-        document.body.removeEventListener("keyup", this._myOnKeyUpEventListener);
+        Globals.getWindow(this._myEngine).removeEventListener("keydown", this._myOnKeyDownEventListener);
+        Globals.getWindow(this._myEngine).removeEventListener("keyup", this._myOnKeyUpEventListener);
     }
 
     isDestroyed() {

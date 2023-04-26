@@ -82,7 +82,7 @@ export class DebugFunctionsPerformanceAnalyzerComponent extends Component {
     }
 
     _start() {
-        let functionsPerformanceAnalyzerParams = new DebugFunctionsPerformanceAnalyzerParams();
+        let functionsPerformanceAnalyzerParams = new DebugFunctionsPerformanceAnalyzerParams(this.engine);
 
         if (this._myObjectsByPath.length > 0) {
             let toIncludeList = [...this._myObjectsByPath.split(",")];

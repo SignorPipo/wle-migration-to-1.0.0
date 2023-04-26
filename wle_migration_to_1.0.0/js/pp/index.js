@@ -56,6 +56,7 @@ export * from "./cauldron/cauldron/object_pool";
 export * from "./cauldron/cauldron/object_pools_manager";
 export * from "./cauldron/cauldron/save_manager";
 export * from "./cauldron/cauldron/timer";
+export * from "./cauldron/cauldron/window_globals";
 
 export * from "./cauldron/components/clear_console_on_xr_session_start_component";
 export * from "./cauldron/components/set_active_component";

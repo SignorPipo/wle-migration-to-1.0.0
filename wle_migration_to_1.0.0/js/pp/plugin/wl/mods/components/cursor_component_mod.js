@@ -665,7 +665,7 @@ export function initCursorComponentModPrototype() {
 
             this._viewComponent.projectionMatrix.mat4_invert(this._projectionMatrix);
             let onViewportResize = this.onViewportResize.bind(this);
-            window.addEventListener("resize", onViewportResize);
+            Globals.getWindow(this.engine).addEventListener("resize", onViewportResize);
 
             this._onDestroyListeners.push(() => {
                 Globals.getCanvas(this.engine).removeEventListener("click", onClick);
@@ -673,7 +673,7 @@ export function initCursorComponentModPrototype() {
                 Globals.getCanvas(this.engine).removeEventListener("pointermove", onPointerMove);
                 Globals.getCanvas(this.engine).removeEventListener("pointerup", onPointerUp);
                 Globals.getCanvas(this.engine).removeEventListener("pointerleave", onPointerLeave);
-                window.removeEventListener("resize", onViewportResize);
+                Globals.getWindow(this.engine).removeEventListener("resize", onViewportResize);
             });
         }
     };

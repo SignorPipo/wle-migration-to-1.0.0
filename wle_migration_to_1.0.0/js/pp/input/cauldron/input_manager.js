@@ -7,7 +7,7 @@ export class InputManager {
 
     constructor(engine = Globals.getMainEngine()) {
         this._myMouse = new Mouse(engine);
-        this._myKeyboard = new Keyboard();
+        this._myKeyboard = new Keyboard(engine);
         this._myGamepadsManager = new GamepadsManager(engine);
 
         this._myDestroyed = false;

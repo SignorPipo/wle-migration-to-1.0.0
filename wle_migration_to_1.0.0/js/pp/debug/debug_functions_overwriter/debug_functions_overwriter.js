@@ -4,10 +4,11 @@
 // #TODO Some functions, like glMatrix.vec3.copy, are defined as getter, how to overwrite them?
 
 import { JSUtils } from "../../cauldron/utils/js_utils";
+import { Globals } from "../../pp/globals";
 
 export class DebugFunctionsOverwriterParams {
 
-    constructor() {
+    constructor(engine = Globals.getMainEngine()) {
         this.myObjectsByReference = [];         // You can specify to count the call on a specific object instance
         this.myObjectsByPath = [];              // If you want you can specify the instance by path, but it means it must be reachable from window
 
@@ -52,6 +53,8 @@ export class DebugFunctionsOverwriterParams {
         //   WARNING: this means that there is a specific case, an array of 2 elements with a string, which can't be tracked if you don't put it inside an array like above
 
         this.myLogEnabled = false;
+
+        this.myEngine = engine;
     }
 }
 

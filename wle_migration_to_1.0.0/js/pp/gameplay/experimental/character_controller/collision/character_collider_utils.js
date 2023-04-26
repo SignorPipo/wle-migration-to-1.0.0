@@ -257,7 +257,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
 
         let fps = 90;
         if (simplifiedCreationParams.myAverageSpeed / fps > simplifiedCreationParams.myRadius) {
-            outCharacterColliderSetup.mySplitMovementParams.mySplitMovementEnabled = other.mySplitMovementEnabled;
+            outCharacterColliderSetup.mySplitMovementParams.mySplitMovementEnabled = true;
 
             outCharacterColliderSetup.mySplitMovementParams.mySplitMovementMaxSteps = Math.ceil((simplifiedCreationParams.myAverageSpeed / fps) / simplifiedCreationParams.myRadius);
             outCharacterColliderSetup.mySplitMovementParams.mySplitMovementMinStepLength = simplifiedCreationParams.myRadius;
