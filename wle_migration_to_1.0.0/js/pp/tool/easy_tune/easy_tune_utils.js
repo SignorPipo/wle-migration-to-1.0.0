@@ -53,7 +53,7 @@ export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultVal
             });
         }
     } else {
-        let replacedFileURL = _importExportEasyTuneVariablesReplaceFileURLParams(fileURL);
+        let replacedFileURL = _importExportEasyTuneVariablesReplaceFileURLParams(fileURL, engine);
 
         fetch(replacedFileURL).then(
             function (response) {
@@ -143,7 +143,7 @@ export function exportEasyTuneVariables(fileURL = null, onSuccessCallback = null
             });
         }
     } else {
-        let replacedFileURL = _importExportEasyTuneVariablesReplaceFileURLParams(fileURL);
+        let replacedFileURL = _importExportEasyTuneVariablesReplaceFileURLParams(fileURL, engine);
 
         fetch(replacedFileURL, {
             headers: {
@@ -230,7 +230,7 @@ export let EasyTuneUtils = {
 
 
 
-function _importExportEasyTuneVariablesReplaceFileURLParams(fileURL) {
+function _importExportEasyTuneVariablesReplaceFileURLParams(fileURL, engine = Globals.getMainEngine()) {
     let params = fileURL.match(/\{.+?\}/g);
 
     if (params == null || params.length == 0) {
@@ -242,7 +242,7 @@ function _importExportEasyTuneVariablesReplaceFileURLParams(fileURL) {
         params[i] = params[i].replace("}", "");
     }
 
-    let urlSearchParams = new URL(document.location).searchParams;
+    let urlSearchParams = new URL(Globals.getDocument(engine).location).searchParams;
 
     let replacedFileURL = fileURL;
 

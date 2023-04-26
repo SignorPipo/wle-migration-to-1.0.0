@@ -143,7 +143,7 @@ export class Keyboard {
     }
 
     update(dt) {
-        if (!document.hasFocus()) {
+        if (!Globals.getDocument(this._myEngine).hasFocus()) {
             for (let keyInfo of this._myKeyInfos.values()) {
                 if (keyInfo.myIsPressed) {
                     keyInfo.myIsPressed = false;

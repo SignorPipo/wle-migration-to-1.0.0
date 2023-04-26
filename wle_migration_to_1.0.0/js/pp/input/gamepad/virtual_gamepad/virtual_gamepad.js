@@ -152,15 +152,15 @@ export class VirtualGamepad {
     _buildVirtualGamepad() {
         this._setupDocumentBody();
 
-        this._myVirtualGamepadContainer = document.createElement("div");
+        this._myVirtualGamepadContainer = Globals.getDocument(this._myParams.myEngine).createElement("div");
         this._myVirtualGamepadContainer.style.display = "block";
         this._myVirtualGamepadContainer.style.opacity = this._myParams.myOpacity.toString();
         Globals.getBody(this._myParams.myEngine).appendChild(this._myVirtualGamepadContainer);
 
-        let leftDiv = document.createElement("div");
+        let leftDiv = Globals.getDocument(this._myParams.myEngine).createElement("div");
         this._myVirtualGamepadContainer.appendChild(leftDiv);
 
-        let rightDiv = document.createElement("div");
+        let rightDiv = Globals.getDocument(this._myParams.myEngine).createElement("div");
         this._myVirtualGamepadContainer.appendChild(rightDiv);
 
         let buttonsAmount = this._myParams.myButtonsOrder[Handedness.LEFT].length;
@@ -204,16 +204,16 @@ export class VirtualGamepad {
         this._myGestureStartEventListener = function (e) {
             e.preventDefault();
         };
-        document.addEventListener("gesturestart", this._myGestureStartEventListener);
+        Globals.getDocument(this._myParams.myEngine).addEventListener("gesturestart", this._myGestureStartEventListener);
     }
 
     _buildButton(buttonElementParent, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID) {
-        let virtualGamepadVirtualButton = new VirtualGamepadVirtualButton(buttonElementParent, this._myParams, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID, this._myParams.myEngine);
+        let virtualGamepadVirtualButton = new VirtualGamepadVirtualButton(buttonElementParent, this._myParams, virtualButtonHandedness, virtualButtonIndex, gamepadButtonHandedness, gamepadButtonID);
         this._myVirtualGamepadVirtualButtons[gamepadButtonHandedness][gamepadButtonID] = virtualGamepadVirtualButton;
     }
 
     _buildThumbstick(thumbstickElementParent, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID) {
-        let virtualGamepadVirtualThumbstick = new VirtualGamepadVirtualThumbstick(thumbstickElementParent, this._myParams, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID, this._myParams.myEngine);
+        let virtualGamepadVirtualThumbstick = new VirtualGamepadVirtualThumbstick(thumbstickElementParent, this._myParams, virtualThumbstickHandedness, gamepadThumbstickHandedness, gamepadAxesID);
         this._myVirtualGamepadVirtualThumbsticks[gamepadThumbstickHandedness][gamepadAxesID] = virtualGamepadVirtualThumbstick;
     }
 
@@ -272,7 +272,7 @@ export class VirtualGamepad {
     destroy() {
         this._myDestroyed = true;
 
-        document.removeEventListener("gesturestart", this._myGestureStartEventListener);
+        Globals.getDocument(this._myParams.myEngine).removeEventListener("gesturestart", this._myGestureStartEventListener);
 
         for (let handedness in this._myVirtualGamepadVirtualButtons) {
             for (let gamepadButtonID in this._myVirtualGamepadVirtualButtons[handedness]) {

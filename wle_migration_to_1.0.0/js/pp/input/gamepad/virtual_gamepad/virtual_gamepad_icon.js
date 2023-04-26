@@ -1,3 +1,5 @@
+import { Globals } from "../../../pp/globals";
+
 export let VirtualGamepadIconType = {
     NONE: 0,
     LABEL: 1,
@@ -37,7 +39,9 @@ export class VirtualGamepadIconParams {
 
 export class VirtualGamepadIcon {
 
-    constructor(iconElementParent, iconParams, minSizeMultiplier, scale) {
+    constructor(iconElementParent, iconParams, minSizeMultiplier, scale, engine = Globals.getMainEngine()) {
+        this._myEngine = engine;
+
         this._myParams = iconParams;
 
         this._myIconContainerElement = null;
@@ -115,13 +119,13 @@ export class VirtualGamepadIcon {
     }
 
     _build(iconElementParent, minSizeMultiplier, scale) {
-        this._myIconContainerElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        this._myIconContainerElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "svg");
         this._myIconContainerElement.style.position = "absolute";
         this._myIconContainerElement.style.width = "100%";
         this._myIconContainerElement.style.height = "100%";
         iconElementParent.appendChild(this._myIconContainerElement);
 
-        this._myBackgroundElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        this._myBackgroundElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "circle");
         this._myBackgroundElement.setAttributeNS(null, "cx", "50%");
         this._myBackgroundElement.setAttributeNS(null, "cy", "50%");
         this._myBackgroundElement.setAttributeNS(null, "r", "50%");
@@ -132,7 +136,7 @@ export class VirtualGamepadIcon {
             case VirtualGamepadIconType.NONE:
                 break;
             case VirtualGamepadIconType.LABEL:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                this._myIconElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "text");
                 this._myIconElement.setAttributeNS(null, "x", "50%");
                 this._myIconElement.setAttributeNS(null, "y", "50%");
                 this._myIconElement.style.textAlign = "center";
@@ -147,7 +151,7 @@ export class VirtualGamepadIcon {
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case VirtualGamepadIconType.IMAGE:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "image");
+                this._myIconElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "image");
                 this._myIconElement.setAttributeNS(null, "x", "0%");
                 this._myIconElement.setAttributeNS(null, "y", "0%");
                 this._myIconElement.setAttribute("href", this._myParams.myImageURL);
@@ -157,7 +161,7 @@ export class VirtualGamepadIcon {
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case VirtualGamepadIconType.DOT:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                this._myIconElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "circle");
                 this._myIconElement.setAttributeNS(null, "cx", "50%");
                 this._myIconElement.setAttributeNS(null, "cy", "50%");
                 this._myIconElement.setAttributeNS(null, "r", "17.5%");
@@ -165,7 +169,7 @@ export class VirtualGamepadIcon {
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case VirtualGamepadIconType.CIRCLE:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                this._myIconElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "circle");
                 this._myIconElement.setAttributeNS(null, "cx", "50%");
                 this._myIconElement.setAttributeNS(null, "cy", "50%");
                 this._myIconElement.setAttributeNS(null, "r", "24%");
@@ -173,7 +177,7 @@ export class VirtualGamepadIcon {
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case VirtualGamepadIconType.SQUARE:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                this._myIconElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "rect");
                 this._myIconElement.setAttributeNS(null, "x", "28%");
                 this._myIconElement.setAttributeNS(null, "y", "28%");
                 this._myIconElement.setAttributeNS(null, "rx", "10%");
@@ -185,7 +189,7 @@ export class VirtualGamepadIcon {
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case VirtualGamepadIconType.RING:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                this._myIconElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "circle");
                 this._myIconElement.setAttributeNS(null, "cx", "50%");
                 this._myIconElement.setAttributeNS(null, "cy", "50%");
                 this._myIconElement.setAttributeNS(null, "r", "20%");
@@ -195,7 +199,7 @@ export class VirtualGamepadIcon {
                 this._myIconContainerElement.appendChild(this._myIconElement);
                 break;
             case VirtualGamepadIconType.FRAME:
-                this._myIconElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                this._myIconElement = Globals.getDocument(this._myEngine).createElementNS("http://www.w3.org/2000/svg", "rect");
                 this._myIconElement.setAttributeNS(null, "x", "31.5%");
                 this._myIconElement.setAttributeNS(null, "y", "31.5%");
                 this._myIconElement.setAttributeNS(null, "rx", "10%");
