@@ -336,7 +336,7 @@ export class BasePose {
 
         this._destroyHook();
 
-        XRUtils.getReferenceSpace(this._myEngine)?.removeEventListener("reset", this._myViewResetEventListener);
+        XRUtils.getReferenceSpace(this._myEngine)?.removeEventListener?.("reset", this._myViewResetEventListener);
         XRUtils.unregisterSessionStartEndEventListeners(this, this._myEngine);
     }
 
