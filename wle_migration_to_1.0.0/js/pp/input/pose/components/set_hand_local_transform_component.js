@@ -40,6 +40,6 @@ export class SetHandLocalTransformComponent extends Component {
 SetHandLocalTransformComponent.prototype.onPoseUpdated = function () {
     let handPoseTransform = quat2_create()
     return function onPoseUpdated() {
-        this.object.pp_setTransformLocalQuat(this._myHandPose.getTransformQuat(handPoseTransform));
+        this.object.pp_setTransformLocalQuat(this._myHandPose.getTransformQuat(handPoseTransform, null));
     };
 }();

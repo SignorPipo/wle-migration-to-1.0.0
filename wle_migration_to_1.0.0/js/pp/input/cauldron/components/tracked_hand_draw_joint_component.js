@@ -1,4 +1,5 @@
 import { Component, MeshComponent, Property } from "@wonderlandengine/api";
+import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
 import { BasePoseParams } from "../../pose/base_pose";
 import { TrackedHandJointPose } from "../../pose/tracked_hand_joint_pose";
@@ -34,10 +35,7 @@ export class TrackedHandDrawJointComponent extends Component {
     }
 
     update(dt) {
-        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
-        this._myTrackedHandJointPose.update(dt);
-        this._myJointMeshObject.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat());
-        this._myJointMeshObject.pp_setScaleLocal(this._myTrackedHandJointPose.getJointRadius());
+        // Implemented outside class definition
     }
 
     _buildTrackedHandHierarchy() {
@@ -54,3 +52,17 @@ export class TrackedHandDrawJointComponent extends Component {
         this._myTrackedHandJointPose?.destroy();
     }
 }
+
+
+
+// IMPLEMENTATION
+
+TrackedHandDrawJointComponent.prototype.update = function () {
+    let transformQuat = quat2_create()
+    return function update(dt) {
+        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
+        this._myTrackedHandJointPose.update(dt);
+        this._myJointMeshObject.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat(transformQuat, null));
+        this._myJointMeshObject.pp_setScaleLocal(this._myTrackedHandJointPose.getJointRadius());
+    };
+}();

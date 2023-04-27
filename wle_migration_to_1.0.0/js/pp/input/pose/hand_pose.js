@@ -52,6 +52,10 @@ export class HandPose extends BasePose {
         this.myFixTrackedHandRotation = fixTrackedHandRotation;
     }
 
+    getRotationQuat(overrideReferenceObject = undefined) {
+        // Implemented outside class definition
+    }
+
     _isReadyToGetPose() {
         return this._myInputSource != null;
     }
@@ -108,30 +112,31 @@ export class HandPose extends BasePose {
 // IMPLEMENTATION
 
 HandPose.prototype.getRotationQuat = function () {
-    let rotationQuat = quat_create();
     let playerRotationQuat = quat_create();
     let up = vec3_create();
     let right = vec3_create();
     let forward = vec3_create();
-    return function getRotationQuat() {
-        rotationQuat.quat_copy(this._myRotationQuat);
+    return function getRotationQuat(out = quat_create(), overrideReferenceObject = undefined) {
+        let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
+
+        out.quat_copy(this._myRotationQuat);
 
         if (this._myForwardFixed) {
-            rotationQuat.quat_rotateAxisRadians(Math.PI, rotationQuat.quat_getUp(up), rotationQuat);
+            out.quat_rotateAxisRadians(Math.PI, out.quat_getUp(up), out);
         }
 
         if (this._myFixTrackedHandRotation && this._myIsTrackedHand) {
-            rotationQuat.quat_rotateAxis(-60, rotationQuat.quat_getRight(right), rotationQuat);
+            out.quat_rotateAxis(-60, out.quat_getRight(right), out);
 
             let forwardRotation = 20;
             forwardRotation = (this._myHandedness == Handedness.LEFT) ? forwardRotation : -forwardRotation;
-            rotationQuat.quat_rotateAxis(forwardRotation, rotationQuat.quat_getForward(forward), rotationQuat);
+            out.quat_rotateAxis(forwardRotation, out.quat_getForward(forward), out);
         }
 
-        if (this._myReferenceObject == null) {
-            return rotationQuat;
+        if (referenceObject == null) {
+            return out;
         }
 
-        return rotationQuat.quat_toWorld(this._myReferenceObject.pp_getRotationQuat(playerRotationQuat), rotationQuat);
+        return out.quat_toWorld(referenceObject.pp_getRotationQuat(playerRotationQuat), out);
     };
 }();

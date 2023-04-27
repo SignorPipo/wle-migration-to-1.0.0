@@ -1,4 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
+import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
 import { TrackedHandPose, TrackedHandPoseParams } from "../../pose/tracked_hand_pose";
 import { InputUtils } from "../input_utils";
@@ -21,17 +22,7 @@ export class TrackedHandDrawSkinComponent extends Component {
     }
 
     update(dt) {
-        this._myTrackedHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
-        this._myTrackedHandPose.update(dt);
-
-        for (let i = 0; i < this._myJoints.length; i++) {
-            let jointObject = this._myJoints[i];
-
-            let jointID = jointObject.pp_getName(); // Joint name must match the TrackedHandJointID enum value
-            let jointPose = this._myTrackedHandPose.getJointPose(jointID);
-
-            jointObject.pp_setTransformLocalQuat(jointPose.getTransformQuat());
-        }
+        // Implemented outside class definition
     }
 
     _prepareJoints() {
@@ -48,3 +39,24 @@ export class TrackedHandDrawSkinComponent extends Component {
         this._myTrackedHandPose?.destroy();
     }
 }
+
+
+
+// IMPLEMENTATION
+
+TrackedHandDrawSkinComponent.prototype.update = function () {
+    let transformQuat = quat2_create()
+    return function update(dt) {
+        this._myTrackedHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
+        this._myTrackedHandPose.update(dt);
+
+        for (let i = 0; i < this._myJoints.length; i++) {
+            let jointObject = this._myJoints[i];
+
+            let jointID = jointObject.pp_getName(); // Joint name must match the TrackedHandJointID enum value
+            let jointPose = this._myTrackedHandPose.getJointPose(jointID);
+
+            jointObject.pp_setTransformLocalQuat(jointPose.getTransformQuat(transformQuat, null));
+        }
+    };
+}();

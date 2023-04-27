@@ -54,7 +54,7 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
 SetTrackedHandJointLocalTransformComponent.prototype.onPoseUpdated = function () {
     let jointPoseTransform = quat2_create()
     return function onPoseUpdated() {
-        this.object.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat(jointPoseTransform));
+        this.object.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat(jointPoseTransform, null));
 
         if (this._mySetLocalScaleAsJointRadius) {
             this.object.pp_setScaleLocal(this._myTrackedHandJointPose.getJointRadius());

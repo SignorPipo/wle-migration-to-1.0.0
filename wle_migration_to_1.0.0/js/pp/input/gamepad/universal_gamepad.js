@@ -13,7 +13,6 @@ export class UniversalGamepad extends BaseGamepad {
         this._myButtonData = this._createButtonData();
         this._myAxesData = this._createAxesData();
         this._myHapticActuators = [];
-
     }
 
     addGamepadCore(id, gamepadCore) {

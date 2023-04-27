@@ -242,7 +242,7 @@ export class GrabberHandComponent extends Component {
 
     _updateLinearVelocityHistory() {
         let handPose = this._myGamepad.getHandPose();
-        this._myHandLinearVelocityHistory.unshift(handPose.getLinearVelocity().pp_clone());
+        this._myHandLinearVelocityHistory.unshift(handPose.getLinearVelocity());
         this._myHandLinearVelocityHistory.pop();
 
         for (let grabbable of this._myGrabbables) {
@@ -252,7 +252,7 @@ export class GrabberHandComponent extends Component {
 
     _updateAngularVelocityHistory() {
         let handPose = this._myGamepad.getHandPose();
-        this._myHandAngularVelocityHistory.unshift(handPose.getAngularVelocityRadians().pp_clone());
+        this._myHandAngularVelocityHistory.unshift(handPose.getAngularVelocityRadians());
         this._myHandAngularVelocityHistory.pop();
 
         for (let grabbable of this._myGrabbables) {
