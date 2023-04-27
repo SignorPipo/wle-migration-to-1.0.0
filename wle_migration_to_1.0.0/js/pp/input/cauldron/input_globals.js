@@ -37,10 +37,21 @@ export function getKeyboard(engine = Globals.getMainEngine()) {
     return null;
 }
 
+// Gamepad
+
 export function getGamepadsManager(engine = Globals.getMainEngine()) {
     let inputManager = getInputManager(engine);
     if (inputManager != null) {
         return inputManager.getGamepadsManager();
+    }
+
+    return null;
+}
+
+export function getGamepad(handedness, engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getGamepadsManager().getGamepad(handedness);
     }
 
     return null;
@@ -72,6 +83,91 @@ export function getRightGamepad(engine = Globals.getMainEngine()) {
 
     return null;
 }
+
+// Pose
+
+export function getHeadPose(engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getHeadPose();
+    }
+
+    return null;
+}
+
+export function getHandPose(handedness, engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getHandPose(handedness);
+    }
+
+    return null;
+}
+
+export function getHandPoses(engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getHandPoses();
+    }
+
+    return null;
+}
+
+export function getLeftHandPose(engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getLeftHandPose();
+    }
+
+    return null;
+}
+
+export function getRightHandPose(engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getRightHandPose();
+    }
+
+    return null;
+}
+
+export function getTrackedHandPose(handedness, engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getTrackedHandPose(handedness);
+    }
+
+    return null;
+}
+
+export function getTrackedHandPoses(engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getTrackedHandPoses();
+    }
+
+    return null;
+}
+
+export function getLeftTrackedHandPose(engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getLeftTrackedHandPose();
+    }
+
+    return null;
+}
+
+export function getRightTrackedHandPose(engine = Globals.getMainEngine()) {
+    let inputManager = getInputManager(engine);
+    if (inputManager != null) {
+        return inputManager.getRightTrackedHandPose();
+    }
+
+    return null;
+}
+
+// Pose Forward Fixed
 
 export function isPoseForwardFixed(engine = Globals.getMainEngine()) {
     return _myPoseForwardFixeds.get(engine);
