@@ -2,7 +2,6 @@ import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
 import { InputUtils } from "../../cauldron/input_utils";
-import { HandPose, HandPoseParams } from "../hand_pose";
 
 export class SetHandLocalTransformComponent extends Component {
     static TypeName = "pp-set-hand-local-transform";
@@ -11,17 +10,9 @@ export class SetHandLocalTransformComponent extends Component {
     };
 
     start() {
-        this._myHandPose = new HandPose(InputUtils.getHandednessByIndex(this._myHandedness), new HandPoseParams(this.engine));
-        this._myHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
-        this._myHandPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
-        this._myHandPose.start();
+        this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
 
-        this.update(0);
-    }
-
-    update(dt) {
-        this._myHandPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
-        this._myHandPose.update(dt);
+        Globals.getHandPose(this._myHandednessType).registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
     }
 
     onPoseUpdated() {
@@ -29,7 +20,7 @@ export class SetHandLocalTransformComponent extends Component {
     }
 
     onDestroy() {
-        this._myHandPose?.destroy();
+        Globals.getHandPose(this._myHandednessType)?.unregisterPoseUpdatedEventListener(this);
     }
 }
 
@@ -39,7 +30,9 @@ export class SetHandLocalTransformComponent extends Component {
 
 SetHandLocalTransformComponent.prototype.onPoseUpdated = function () {
     let handPoseTransform = quat2_create()
-    return function onPoseUpdated() {
-        this.object.pp_setTransformLocalQuat(this._myHandPose.getTransformQuat(handPoseTransform, null));
+    return function onPoseUpdated(pose) {
+        if (this.active) {
+            this.object.pp_setTransformLocalQuat(pose.getTransformQuat(handPoseTransform, null));
+        }
     };
 }();

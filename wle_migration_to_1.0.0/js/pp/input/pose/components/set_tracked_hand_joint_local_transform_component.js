@@ -2,7 +2,6 @@ import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
 import { InputUtils } from "../../cauldron/input_utils";
-import { TrackedHandJointPose } from "../tracked_hand_joint_pose";
 
 export class SetTrackedHandJointLocalTransformComponent extends Component {
     static TypeName = "pp-set-tracked-hand-joint-local-transform";
@@ -23,19 +22,9 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
 
     start() {
         this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
-        this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
+        this._myJointIDType = InputUtils.getJointIDByIndex(this._myJointID);
 
-        this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessType, this._myJointIDInternal, new BasePoseParams(this.engine));
-        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
-        this._myTrackedHandJointPose.registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
-        this._myTrackedHandJointPose.start();
-
-        this.update(0);
-    }
-
-    update(dt) {
-        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
-        this._myTrackedHandJointPose.update(dt);
+        Globals.getTrackedHandPose(this._myHandednessType).getJointPose(this._myJointIDType).registerPoseUpdatedEventListener(this, this.onPoseUpdated.bind(this));
     }
 
     onPoseUpdated() {
@@ -43,7 +32,7 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
     }
 
     onDestroy() {
-        this._myTrackedHandJointPose?.destroy();
+        Globals.getTrackedHandPose(this._myHandednessType)?.getJointPose(this._myJointIDType)?.unregisterPoseUpdatedEventListener(this);
     }
 }
 
@@ -53,11 +42,13 @@ export class SetTrackedHandJointLocalTransformComponent extends Component {
 
 SetTrackedHandJointLocalTransformComponent.prototype.onPoseUpdated = function () {
     let jointPoseTransform = quat2_create()
-    return function onPoseUpdated() {
-        this.object.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat(jointPoseTransform, null));
+    return function onPoseUpdated(pose) {
+        if (this.active) {
+            this.object.pp_setTransformLocalQuat(pose.getTransformQuat(jointPoseTransform, null));
 
-        if (this._mySetLocalScaleAsJointRadius) {
-            this.object.pp_setScaleLocal(this._myTrackedHandJointPose.getJointRadius());
+            if (this._mySetLocalScaleAsJointRadius) {
+                this.object.pp_setScaleLocal(pose.getJointRadius());
+            }
         }
     }
 }();

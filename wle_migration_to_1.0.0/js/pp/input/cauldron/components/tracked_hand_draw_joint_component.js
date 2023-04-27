@@ -1,8 +1,6 @@
 import { Component, MeshComponent, Property } from "@wonderlandengine/api";
 import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
-import { BasePoseParams } from "../../pose/base_pose";
-import { TrackedHandJointPose } from "../../pose/tracked_hand_joint_pose";
 import { InputUtils } from "../input_utils";
 
 export class TrackedHandDrawJointComponent extends Component {
@@ -25,11 +23,7 @@ export class TrackedHandDrawJointComponent extends Component {
 
     start() {
         this._myHandednessType = InputUtils.getHandednessByIndex(this._myHandedness);
-        this._myJointIDInternal = InputUtils.getJointIDByIndex(this._myJointID);
-
-        this._myTrackedHandJointPose = new TrackedHandJointPose(this._myHandednessType, this._myJointIDInternal, new BasePoseParams(this.engine));
-        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
-        this._myTrackedHandJointPose.start();
+        this._myJointIDType = InputUtils.getJointIDByIndex(this._myJointID);
 
         this._buildTrackedHandHierarchy();
     }
@@ -47,10 +41,6 @@ export class TrackedHandDrawJointComponent extends Component {
 
         this._myJointMeshObject.pp_setScaleLocal(0);
     }
-
-    onDestroy() {
-        this._myTrackedHandJointPose?.destroy();
-    }
 }
 
 
@@ -60,9 +50,9 @@ export class TrackedHandDrawJointComponent extends Component {
 TrackedHandDrawJointComponent.prototype.update = function () {
     let transformQuat = quat2_create()
     return function update(dt) {
-        this._myTrackedHandJointPose.setForwardFixed(Globals.isPoseForwardFixed(this.engine));
-        this._myTrackedHandJointPose.update(dt);
-        this._myJointMeshObject.pp_setTransformLocalQuat(this._myTrackedHandJointPose.getTransformQuat(transformQuat, null));
-        this._myJointMeshObject.pp_setScaleLocal(this._myTrackedHandJointPose.getJointRadius());
+        let jointPose = Globals.getTrackedHandPose(this._myHandednessType).getJointPose(this._myJointIDType);
+
+        this._myJointMeshObject.pp_setTransformLocalQuat(jointPose.getTransformQuat(transformQuat, null));
+        this._myJointMeshObject.pp_setScaleLocal(jointPose.getJointRadius());
     };
 }();

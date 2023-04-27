@@ -353,11 +353,13 @@ BasePose.prototype.getPosition = function () {
     return function getPosition(out = vec3_create(), overrideReferenceObject = undefined) {
         let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
 
+        out.vec3_copy(this._myPosition);
+
         if (referenceObject == null) {
-            return this._myPosition;
+            return out;
         }
 
-        return this._myPosition.vec3_convertPositionToWorld(referenceObject.pp_getTransform(transform), out);
+        return out.vec3_convertPositionToWorld(referenceObject.pp_getTransform(transform), out);
     };
 }();
 
@@ -408,6 +410,7 @@ BasePose.prototype.getTransformQuat = function () {
     return function getTransformQuat(out = quat2_create(), overrideReferenceObject = undefined) {
         let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
 
+        out.quat2_identity();
         out.quat2_setPositionRotationQuat(this._myPosition, this.getRotationQuat(rotationQuat, overrideReferenceObject));
 
         if (referenceObject == null) {
@@ -419,7 +422,6 @@ BasePose.prototype.getTransformQuat = function () {
 }();
 
 BasePose.prototype.getLinearVelocity = function () {
-    let position = vec3_create();
     let transform = mat4_create();
     return function getLinearVelocity(out = vec3_create(), overrideReferenceObject = undefined) {
         let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
