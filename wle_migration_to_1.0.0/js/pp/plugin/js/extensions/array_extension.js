@@ -941,12 +941,12 @@ export function initArrayExtensionProtoype() {
     }();
 
     arrayExtension.vec3_toRadians = function vec3_toRadians(out = vec3_create()) {
-        glMatrix.vec3.set(out, Math.pp_toRadians(this[0]), Math.pp_toRadians(this[1]), Math.pp_toRadians(this[2]));
+        _vec3_set(out, Math.pp_toRadians(this[0]), Math.pp_toRadians(this[1]), Math.pp_toRadians(this[2]));
         return out;
     };
 
     arrayExtension.vec3_toDegrees = function vec3_toDegrees(out = vec3_create()) {
-        glMatrix.vec3.set(out, Math.pp_toDegrees(this[0]), Math.pp_toDegrees(this[1]), Math.pp_toDegrees(this[2]));
+        _vec3_set(out, Math.pp_toDegrees(this[0]), Math.pp_toDegrees(this[1]), Math.pp_toDegrees(this[2]));
         return out;
     };
 
@@ -1237,7 +1237,7 @@ export function initArrayExtensionProtoype() {
         let position = vec3_create();
         let rotation = quat_create();
         let one = vec3_create();
-        glMatrix.vec3.set(one, 1, 1, 1);
+        _vec3_set(one, 1, 1, 1);
         return function vec3_convertPositionToWorldQuat(parentTransform, out = vec3_create()) {
             parentTransform.quat2_getPosition(position);
             parentTransform.quat2_getRotationQuat(rotation);
@@ -1251,7 +1251,7 @@ export function initArrayExtensionProtoype() {
         let position = vec3_create();
         let rotation = quat_create();
         let one = vec3_create();
-        glMatrix.vec3.set(one, 1, 1, 1);
+        _vec3_set(one, 1, 1, 1);
         return function vec3_convertPositionToLocalQuat(parentTransform, out = vec3_create()) {
             parentTransform.quat2_getPosition(position);
             parentTransform.quat2_getRotationQuat(rotation);
@@ -1628,7 +1628,7 @@ export function initArrayExtensionProtoype() {
         return function quat_getForward(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
-            glMatrix.vec3.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
+            _vec3_set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
             out.vec3_normalize(out);
 
             return out;
@@ -1646,7 +1646,7 @@ export function initArrayExtensionProtoype() {
         return function quat_getLeft(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
-            glMatrix.vec3.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
+            _vec3_set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
             out.vec3_normalize(out);
 
             return out;
@@ -1664,7 +1664,7 @@ export function initArrayExtensionProtoype() {
         return function quat_getUp(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
-            glMatrix.vec3.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
+            _vec3_set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
             out.vec3_normalize(out);
 
             return out;
@@ -2179,7 +2179,7 @@ export function initArrayExtensionProtoype() {
         return function quat2_getForward(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
-            glMatrix.vec3.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
+            _vec3_set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
             out.vec3_normalize(out);
 
             return out;
@@ -2197,7 +2197,7 @@ export function initArrayExtensionProtoype() {
         return function quat2_getLeft(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
-            glMatrix.vec3.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
+            _vec3_set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
             out.vec3_normalize(out);
 
             return out;
@@ -2215,7 +2215,7 @@ export function initArrayExtensionProtoype() {
         return function quat2_getUp(out = vec3_create()) {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
-            glMatrix.vec3.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
+            _vec3_set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
             out.vec3_normalize(out);
 
             return out;
@@ -2392,7 +2392,7 @@ export function initArrayExtensionProtoype() {
         let transformMatrixNoScale = mat4_create();
         let inverseScale = vec3_create();
         let one = vec3_create();
-        glMatrix.vec3.set(one, 1, 1, 1);
+        _vec3_set(one, 1, 1, 1);
         return function mat4_getRotationQuat(out = quat_create()) {
             glMatrix.mat4.getScaling(scale, this);
             glMatrix.vec3.divide(inverseScale, one, scale);
@@ -2520,7 +2520,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.mat4_getForward = function mat4_getForward(out = vec3_create()) {
-        glMatrix.vec3.set(out, this[8], this[9], this[10]);
+        _vec3_set(out, this[8], this[9], this[10]);
         out.vec3_normalize(out);
         return out;
     };
@@ -2532,7 +2532,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.mat4_getLeft = function mat4_getLeft(out = vec3_create()) {
-        glMatrix.vec3.set(out, this[0], this[1], this[2]);
+        _vec3_set(out, this[0], this[1], this[2]);
         out.vec3_normalize(out);
         return out;
     };
@@ -2544,7 +2544,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.mat4_getUp = function mat4_getUp(out = vec3_create()) {
-        glMatrix.vec3.set(out, this[4], this[5], this[6]);
+        _vec3_set(out, this[4], this[5], this[6]);
         out.vec3_normalize(out);
         return out;
     };
@@ -2561,12 +2561,12 @@ export function initArrayExtensionProtoype() {
         let scale = vec3_create();
         let inverseScale = vec3_create();
         let one = vec3_create();
-        glMatrix.vec3.set(one, 1, 1, 1);
+        _vec3_set(one, 1, 1, 1);
         return function mat4_toWorld(parentTransformMatrix, out = mat4_create()) {
             if (parentTransformMatrix.mat4_hasUniformScale()) {
                 glMatrix.mat4.mul(out, parentTransformMatrix, this);
             } else {
-                glMatrix.vec3.set(position, this[12], this[13], this[14]);
+                _vec3_set(position, this[12], this[13], this[14]);
                 position.vec3_convertPositionToWorldMatrix(parentTransformMatrix, position);
 
                 glMatrix.mat4.getScaling(scale, parentTransformMatrix);
@@ -2591,13 +2591,13 @@ export function initArrayExtensionProtoype() {
         let scale = vec3_create();
         let inverseScale = vec3_create();
         let one = vec3_create();
-        glMatrix.vec3.set(one, 1, 1, 1);
+        _vec3_set(one, 1, 1, 1);
         return function mat4_toLocal(parentTransformMatrix, out = mat4_create()) {
             if (parentTransformMatrix.mat4_hasUniformScale()) {
                 glMatrix.mat4.invert(convertTransform, parentTransformMatrix);
                 glMatrix.mat4.mul(out, convertTransform, this);
             } else {
-                glMatrix.vec3.set(position, this[12], this[13], this[14]);
+                _vec3_set(position, this[12], this[13], this[14]);
                 position.vec3_convertPositionToLocalMatrix(parentTransformMatrix, position);
 
                 glMatrix.mat4.getScaling(scale, parentTransformMatrix);
@@ -2763,9 +2763,9 @@ let _quat_setAxes = function () {
             glMatrix.vec3.cross(fixedAxes[0], fixedAxes[1], fixedAxes[2]);
             glMatrix.vec3.scale(fixedAxes[0], fixedAxes[0], fixSignMap[priority[0]]);
 
-            fixedLeft.vec3_normalize(fixedAxes[priority.pp_findIndexEqual(0)]);
-            fixedUp.vec3_normalize(fixedAxes[priority.pp_findIndexEqual(1)]);
-            fixedForward.vec3_normalize(fixedAxes[priority.pp_findIndexEqual(2)]);
+            fixedAxes[priority.pp_findIndexEqual(0)].vec3_normalize(fixedLeft);
+            fixedAxes[priority.pp_findIndexEqual(1)].vec3_normalize(fixedUp);
+            fixedAxes[priority.pp_findIndexEqual(2)].vec3_normalize(fixedForward);
 
             glMatrix.mat3.set(rotationMat,
                 fixedLeft[0], fixedLeft[1], fixedLeft[2],
