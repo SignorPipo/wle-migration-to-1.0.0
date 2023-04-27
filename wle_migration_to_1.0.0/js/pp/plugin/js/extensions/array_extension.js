@@ -941,7 +941,7 @@ export function initArrayExtensionProtoype() {
     }();
 
     arrayExtension.vec3_toRadians = function vec3_toRadians(out = vec3_create()) {
-        glMatrix.vec3.set(out, glMatrix.glMatrix.toRadian(this[0]), glMatrix.glMatrix.toRadian(this[1]), glMatrix.glMatrix.toRadian(this[2]));
+        glMatrix.vec3.set(out, Math.pp_toRadians(this[0]), Math.pp_toRadians(this[1]), Math.pp_toRadians(this[2]));
         return out;
     };
 
@@ -1199,7 +1199,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.vec3_rotateAroundAxisDegrees = function vec3_rotateAroundAxisDegrees(angle, axis, origin, out) {
-        return this.vec3_rotateAroundAxisRadians(glMatrix.glMatrix.toRadian(angle), axis, origin, out);
+        return this.vec3_rotateAroundAxisRadians(Math.pp_toRadians(angle), axis, origin, out);
     };
 
     arrayExtension.vec3_rotateAroundAxisRadians = function () {
@@ -1629,7 +1629,7 @@ export function initArrayExtensionProtoype() {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
             glMatrix.vec3.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
-            glMatrix.vec3.normalize(out, out);
+            out.vec3_normalize(out);
 
             return out;
         };
@@ -1647,7 +1647,7 @@ export function initArrayExtensionProtoype() {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
             glMatrix.vec3.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
-            glMatrix.vec3.normalize(out, out);
+            out.vec3_normalize(out);
 
             return out;
         };
@@ -1665,7 +1665,7 @@ export function initArrayExtensionProtoype() {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
             glMatrix.vec3.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
-            glMatrix.vec3.normalize(out, out);
+            out.vec3_normalize(out);
 
             return out;
         };
@@ -1742,7 +1742,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.quat_fromAxisDegrees = function quat_fromAxisDegrees(angle, axis) {
-        glMatrix.quat.setAxisAngle(this, axis, glMatrix.glMatrix.toRadian(angle));
+        glMatrix.quat.setAxisAngle(this, axis, Math.pp_toRadians(angle));
         return this;
     };
 
@@ -1899,7 +1899,7 @@ export function initArrayExtensionProtoype() {
             rotationAxis[1] = this[1];
             rotationAxis[2] = this[2];
 
-            let dotProd = glMatrix.vec3.dot(axis, rotationAxis);
+            let dotProd = axis.vec3_dot(rotationAxis);
             axis.vec3_scale(dotProd, projection);
             rotationAlongAxis[0] = projection[0];
             rotationAlongAxis[1] = projection[1];
@@ -2180,7 +2180,7 @@ export function initArrayExtensionProtoype() {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
             glMatrix.vec3.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
-            glMatrix.vec3.normalize(out, out);
+            out.vec3_normalize(out);
 
             return out;
         };
@@ -2198,7 +2198,7 @@ export function initArrayExtensionProtoype() {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
             glMatrix.vec3.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
-            glMatrix.vec3.normalize(out, out);
+            out.vec3_normalize(out);
 
             return out;
         };
@@ -2216,7 +2216,7 @@ export function initArrayExtensionProtoype() {
             glMatrix.mat3.fromQuat(rotationMatrix, this);
 
             glMatrix.vec3.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
-            glMatrix.vec3.normalize(out, out);
+            out.vec3_normalize(out);
 
             return out;
         };
@@ -2247,7 +2247,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.quat2_rotateAxisDegrees = function quat2_rotateAxisDegrees(angle, axis, out) {
-        return this.quat2_rotateAxisRadians(glMatrix.glMatrix.toRadian(angle), axis, out);
+        return this.quat2_rotateAxisRadians(Math.pp_toRadians(angle), axis, out);
     };
 
     arrayExtension.quat2_rotateAxisRadians = function () {
@@ -2521,7 +2521,7 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.mat4_getForward = function mat4_getForward(out = vec3_create()) {
         glMatrix.vec3.set(out, this[8], this[9], this[10]);
-        glMatrix.vec3.normalize(out, out);
+        out.vec3_normalize(out);
         return out;
     };
 
@@ -2533,7 +2533,7 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.mat4_getLeft = function mat4_getLeft(out = vec3_create()) {
         glMatrix.vec3.set(out, this[0], this[1], this[2]);
-        glMatrix.vec3.normalize(out, out);
+        out.vec3_normalize(out);
         return out;
     };
 
@@ -2545,7 +2545,7 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.mat4_getUp = function mat4_getUp(out = vec3_create()) {
         glMatrix.vec3.set(out, this[4], this[5], this[6]);
-        glMatrix.vec3.normalize(out, out);
+        out.vec3_normalize(out);
         return out;
     };
 
@@ -2763,9 +2763,9 @@ let _quat_setAxes = function () {
             glMatrix.vec3.cross(fixedAxes[0], fixedAxes[1], fixedAxes[2]);
             glMatrix.vec3.scale(fixedAxes[0], fixedAxes[0], fixSignMap[priority[0]]);
 
-            glMatrix.vec3.normalize(fixedLeft, fixedAxes[priority.pp_findIndexEqual(0)]);
-            glMatrix.vec3.normalize(fixedUp, fixedAxes[priority.pp_findIndexEqual(1)]);
-            glMatrix.vec3.normalize(fixedForward, fixedAxes[priority.pp_findIndexEqual(2)]);
+            fixedLeft.vec3_normalize(fixedAxes[priority.pp_findIndexEqual(0)]);
+            fixedUp.vec3_normalize(fixedAxes[priority.pp_findIndexEqual(1)]);
+            fixedForward.vec3_normalize(fixedAxes[priority.pp_findIndexEqual(2)]);
 
             glMatrix.mat3.set(rotationMat,
                 fixedLeft[0], fixedLeft[1], fixedLeft[2],
@@ -2789,7 +2789,7 @@ let _quat_setAxes = function () {
             let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
             if (angleBetween > Math.PP_EPSILON) {
                 glMatrix.vec3.cross(rotationAxis, currentAxis, firstAxis);
-                glMatrix.vec3.normalize(rotationAxis, rotationAxis);
+                rotationAxis.vec3_normalize(rotationAxis);
                 glMatrix.quat.setAxisAngle(rotationQuat, rotationAxis, angleBetween);
 
                 vector.quat_rotateQuat(rotationQuat, vector);
