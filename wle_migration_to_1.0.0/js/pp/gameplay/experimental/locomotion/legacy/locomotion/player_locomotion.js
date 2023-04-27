@@ -654,6 +654,8 @@ export class PlayerLocomotion {
         this._myPlayerHeadManager.destroy();
         this._myPlayerLocomotionSmooth.destroy();
         this._myPlayerTransformManager.destroy();
+        this._myPlayerObscureManager.destroy();
+        this._myPlayerLocomotionTeleport.destroy();
     }
 
     isDestroyed() {

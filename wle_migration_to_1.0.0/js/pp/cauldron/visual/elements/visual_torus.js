@@ -59,6 +59,8 @@ export class VisualTorus {
 
         this._myFlatOpaqueMaterial = null;
 
+        this._myDestroyed = false;
+
         this._build();
         this.forceRefresh();
 
@@ -175,6 +177,19 @@ export class VisualTorus {
 
     _refresh() {
         // Implemented outside class definition
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        for (let visualSegment of this._myVisualSegmentList) {
+            visualSegment.destroy();
+        }
+        this._myTorusParentObject.pp_destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

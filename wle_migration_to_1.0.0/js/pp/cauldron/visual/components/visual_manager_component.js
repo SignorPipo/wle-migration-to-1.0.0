@@ -59,6 +59,8 @@ export class VisualManagerComponent extends Component {
     onDestroy() {
         if (this._myVisualManager != null && Globals.getVisualManager(this.engine) == this._myVisualManager) {
             Globals.removeVisualManager(this.engine);
+
+            this._myVisualManager.destroy();
         }
 
         if (this._myVisualResources != null && Globals.getVisualResources(this.engine) == this._myVisualResources) {

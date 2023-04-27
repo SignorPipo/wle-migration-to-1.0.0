@@ -55,6 +55,8 @@ export class VisualText {
 
         this._myTextMaterial = null;
 
+        this._myDestroyed = false;
+
         this._build();
         this.forceRefresh();
 
@@ -159,6 +161,16 @@ export class VisualText {
         clone._myDirty = this._myDirty;
 
         return clone;
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myTextObject.pp_destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

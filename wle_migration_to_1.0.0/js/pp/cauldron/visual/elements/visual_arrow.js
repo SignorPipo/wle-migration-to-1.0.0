@@ -72,6 +72,8 @@ export class VisualArrow {
 
         this._myFlatOpaqueMaterial = null;
 
+        this._myDestroyed = false;
+
         this._build();
         this.forceRefresh();
 
@@ -156,6 +158,17 @@ export class VisualArrow {
 
     _refresh() {
         // Implemented outside class definition
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myVisualLine.destroy();
+        this._myArrowParentObject.pp_destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

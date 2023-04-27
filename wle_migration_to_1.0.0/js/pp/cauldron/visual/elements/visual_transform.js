@@ -54,6 +54,8 @@ export class VisualTransform {
         this._myVisualUp.setAutoRefresh(false);
         this._myVisualForward.setAutoRefresh(false);
 
+        this._myDestroyed = false;
+
         this.forceRefresh();
 
         this.setVisible(true);
@@ -136,6 +138,18 @@ export class VisualTransform {
 
     _refresh() {
         // Implemented outside class definition
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myVisualRight.destroy();
+        this._myVisualUp.destroy();
+        this._myVisualForward.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

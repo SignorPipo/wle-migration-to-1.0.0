@@ -48,6 +48,8 @@ export class VisualMesh {
         this._myMeshObject = null;
         this._myMeshComponent = null;
 
+        this._myDestroyed = false;
+
         this._build();
         this.forceRefresh();
 
@@ -145,6 +147,16 @@ export class VisualMesh {
         clone._myDirty = this._myDirty;
 
         return clone;
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myMeshObject.pp_destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

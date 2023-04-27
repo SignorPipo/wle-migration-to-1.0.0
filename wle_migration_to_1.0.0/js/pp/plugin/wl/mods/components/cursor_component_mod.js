@@ -628,7 +628,7 @@ export function initCursorComponentModPrototype() {
 
     cursorComponentMod.onDestroy = function onDestroy() {
         if (this._hitTestObject != null) {
-            this._hitTestObject.destroy();
+            this._hitTestObject.pp_destroy();
         }
 
         for (let f of this._onDestroyListeners) f();

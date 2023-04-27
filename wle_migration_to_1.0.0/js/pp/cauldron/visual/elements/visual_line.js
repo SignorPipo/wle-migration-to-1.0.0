@@ -67,6 +67,8 @@ export class VisualLine {
 
         this._myFlatOpaqueMaterial = null;
 
+        this._myDestroyed = false;
+
         this._build();
         this.forceRefresh();
 
@@ -147,6 +149,16 @@ export class VisualLine {
 
     _refresh() {
         // Implemented outside class definition
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myLineParentObject.pp_destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

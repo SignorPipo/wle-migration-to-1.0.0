@@ -31,4 +31,8 @@ export class DebugTransformComponent extends Component {
             }
         }
     }
+
+    onDestroy() {
+        this._myDebugVisualTransform.destroy();
+    }
 }

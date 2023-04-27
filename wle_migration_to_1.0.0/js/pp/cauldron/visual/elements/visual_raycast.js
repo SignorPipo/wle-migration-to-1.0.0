@@ -60,6 +60,9 @@ export class VisualRaycast {
         this._myVisualRaycast.setAutoRefresh(false);
 
         this._myVisualRaycastHitList = [];
+
+        this._myDestroyed = false;
+
         this._addVisualRaycastHit();
 
         this.forceRefresh();
@@ -261,6 +264,19 @@ export class VisualRaycast {
         visualRaycastHit.setVisible(false);
 
         this._myVisualRaycastHitList.push(visualRaycastHit);
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myVisualRaycast.destroy();
+        for (let visualRaycastHit of this._myVisualRaycastHitList) {
+            visualRaycastHit.destroy();
+        }
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

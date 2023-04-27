@@ -53,6 +53,8 @@ export class PlayerLocomotionTeleportDetectionVisualizer {
         //Globals.getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Teleport Max Angle Distance Lerp", this._myTeleportParams.myVisualizerParams.myVisualTeleportPositionMaxAngleDistanceToLerp, 10, 3, 0, undefined, this._myTeleportParams.myEngine));
 
         this._setupVisuals();
+
+        this._myDestroyed = false;
     }
 
     start() {
@@ -137,6 +139,29 @@ export class PlayerLocomotionTeleportDetectionVisualizer {
                 this._myInvalidVisualLines.push(new VisualLine(visualParams));
             }
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        for (let visual of this._myValidVisualLines) {
+            visual.destroy();
+        }
+
+        for (let visual of this._myInvalidVisualLines) {
+            visual.destroy();
+        }
+
+        this._myValidVisualPoint.destroy();
+        this._myInvalidVisualPoint.destroy();
+
+        this._myValidVisualVerticalLine.destroy();
+        this._myValidVisualTeleportPositionTorus.destroy();
+        this._myValidVisualTeleportPositionTorusInner.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

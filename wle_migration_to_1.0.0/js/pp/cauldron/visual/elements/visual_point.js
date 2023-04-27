@@ -53,6 +53,8 @@ export class VisualPoint {
 
         this._myFlatOpaqueMaterial = null;
 
+        this._myDestroyed = false;
+
         this._build();
         this.forceRefresh();
 
@@ -132,6 +134,16 @@ export class VisualPoint {
 
     _refresh() {
         // Implemented outside class definition
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myPointObject.pp_destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

@@ -32,6 +32,8 @@ export class DebugManagerComponent extends Component {
     onDestroy() {
         if (this._myDebugManager != null && Globals.getDebugManager(this.engine) == this._myDebugManager) {
             Globals.removeDebugManager(this.engine);
+
+            this._myDebugManager.destroy();
         }
     }
 }

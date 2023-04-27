@@ -4,6 +4,8 @@ export class ObjectPoolsManager {
 
     constructor() {
         this._myPools = new Map();
+
+        this._myDestroyed = false;
     }
 
     addPool(poolID, poolObject, objectPoolParams = new ObjectPoolParams()) {
@@ -53,5 +55,17 @@ export class ObjectPoolsManager {
         } else {
             this._myPools.get(poolIDOrObject).release(object);
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        for (let pool of this._myPools.values()) {
+            pool.destroy();
+        }
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

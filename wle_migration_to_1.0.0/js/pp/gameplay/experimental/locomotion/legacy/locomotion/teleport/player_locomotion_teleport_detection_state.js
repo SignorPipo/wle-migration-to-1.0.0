@@ -81,6 +81,8 @@ export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTele
         //Globals.getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Parable Gravity", this._myTeleportParams.myDetectionParams.myTeleportParableGravity, 10, 3, undefined, undefined, this._myTeleportParams.myEngine));
         //Globals.getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Parable Speed", this._myTeleportParams.myDetectionParams.myTeleportParableSpeed, 10, 3, 0, undefined, this._myTeleportParams.myEngine));
         //Globals.getEasyTuneVariables(this._myTeleportParams.myEngine).add(new EasyTuneNumber("Teleport Max Distance", this._myTeleportParams.myDetectionParams.myMaxDistance, 10, 3, 0, undefined, this._myTeleportParams.myEngine));
+
+        this._myDestroyed = false;
     }
 
     start() {
@@ -162,6 +164,16 @@ export class PlayerLocomotionTeleportDetectionState extends PlayerLocomotionTele
             this._myTeleportRotationOnUpNext = 0;
             this._detectTeleportPositionNonVR();
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myVisualizer.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

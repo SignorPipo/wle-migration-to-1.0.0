@@ -92,6 +92,8 @@ export class PlayerLocomotionTeleport extends PlayerLocomotionMovement {
 
         this._myFSM.init("init");
         this._myFSM.perform("start");
+
+        this._myDestroyed = false;
     }
 
     start() {
@@ -151,6 +153,17 @@ export class PlayerLocomotionTeleport extends PlayerLocomotionMovement {
 
     _completeTeleport() {
         this._myTeleportState.completeTeleport();
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myDetectionState.destroy();
+
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }
 

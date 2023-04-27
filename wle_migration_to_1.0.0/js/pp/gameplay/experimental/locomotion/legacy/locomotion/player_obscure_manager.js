@@ -79,6 +79,8 @@ export class PlayerObscureManager {
         this._setupVisuals();
 
         this._myFSM.perform("end");
+
+        this._myDestroyed = false;
     }
 
     start() {
@@ -334,5 +336,15 @@ export class PlayerObscureManager {
         } else {
             this._myObscureParentObject.pp_setParent(Globals.getPlayerObjects(this._myParams.myEngine)?.myPlayerCauldron, false);
         }
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myObscureVisual.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

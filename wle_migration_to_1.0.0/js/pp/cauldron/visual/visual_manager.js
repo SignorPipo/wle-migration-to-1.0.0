@@ -26,6 +26,8 @@ export class VisualManager {
 
         this._myActive = true;
 
+        this._myDestroyed = false;
+
         this._addStandardVisualElementTypes();
     }
 
@@ -241,5 +243,15 @@ export class VisualManager {
         this.addVisualElementType(VisualElementType.TRANSFORM, () => new VisualTransform(new VisualTransformParams(this._myEngine)));
         this.addVisualElementType(VisualElementType.RAYCAST, () => new VisualRaycast(new VisualRaycastParams(this._myEngine)));
         this.addVisualElementType(VisualElementType.TORUS, () => new VisualTorus(new VisualTorusParams(this._myEngine)));
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        this._myVisualElementsPool.destroy();
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
     }
 }

@@ -44,6 +44,10 @@ export class ShowFPSComponent extends Component {
     update(dt) {
         // Implemented outside class definition
     }
+
+    onDestroy() {
+        this._myVisualFPS.destroy();
+    }
 }
 
 

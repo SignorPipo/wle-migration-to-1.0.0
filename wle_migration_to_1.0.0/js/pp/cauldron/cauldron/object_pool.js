@@ -13,6 +13,7 @@ export class ObjectPoolParams {
         this.myCloneCallback = undefined;                       // Signature: callback(object, cloneParams) -> clonedObject
         this.mySetActiveCallback = undefined;                   // Signature: callback(object, active)
         this.myEqualCallback = undefined;                       // Signature: callback(firstObject, secondObject) -> bool
+        this.myDestroyCallback = undefined;                     // Signature: callback(object)
         this.myOptimizeObjectsAllocationCallback = undefined;   // Signature: callback(object, numberOfObjectsToAllocate)
 
         this.myLogEnabled = false;
@@ -29,6 +30,8 @@ export class ObjectPool {
         this._myBusyObjects = [];
 
         this._addToPool(objectPoolParams.myInitialPoolSize, false);
+
+        this._myDestroyed = false;
     }
 
     get() {
@@ -144,5 +147,33 @@ export class ObjectPool {
         }
 
         return equals;
+    }
+
+    destroy() {
+        this._myDestroyed = true;
+
+        for (let object of this._myAvailableObjects) {
+            this._destroyObject(object);
+        }
+
+        for (let object of this._myBusyObjects) {
+            this._destroyObject(object);
+        }
+
+        this._destroyObject(this._myPrototype);
+    }
+
+    isDestroyed() {
+        return this._myDestroyed;
+    }
+
+    _destroyObject(object) {
+        if (this._myObjectPoolParams.myDestroyCallback != null) {
+            this._myObjectPoolParams.myDestroyCallback(object);
+        } else if (object.pp_destroy != null) {
+            object.pp_destroy(active);
+        } else if (object.destroy != null) {
+            object.destroy(active);
+        }
     }
 }
