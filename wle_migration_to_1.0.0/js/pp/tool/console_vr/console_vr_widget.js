@@ -111,11 +111,11 @@ export class ConsoleVRWidget {
 
         this._addListeners();
 
-        this._overrideConsolesFunctions();
+        this._overwriteConsolesFunctions();
     }
 
     // This must be done only when all the setup is complete, to avoid issues with other part of the code calling the console and then triggering the console vr while not ready yet
-    _overrideConsolesFunctions() {
+    _overwriteConsolesFunctions() {
         this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.LOG] = console.log;
         this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.ERROR] = console.error;
         this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.WARN] = console.warn;

@@ -59,7 +59,7 @@ export class PlayerTransformManagerParams {
 
         // Settings for both hop and lean
         this.myIsFloatingValidIfVerticalMovement = false;
-        this.myIsFloatingValidIfVerticalMovementAndRealOnGround = false; // #TODO This is more an override
+        this.myIsFloatingValidIfVerticalMovementAndRealOnGround = false; // #TODO This is more an overwrite
         this.myIsFloatingValidIfRealOnGround = false;
         this.myIsFloatingValidIfSteepGround = false;
         this.myIsFloatingValidIfVerticalMovementAndSteepGround = false;

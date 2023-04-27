@@ -45,7 +45,7 @@ export function getSDK(engine = Globals.getMainEngine()) {
     return Globals.getWindow(engine).casdk;
 }
 
-export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError, overrideUseDummyServer = null, engine = Globals.getMainEngine()) {
+export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError, useDummyServerOverwrite = null, engine = Globals.getMainEngine()) {
     if (isSDKAvailable(engine)) {
         let casdk = getSDK(engine);
         if (!isAroundPlayer) {
@@ -56,7 +56,7 @@ export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, score
                     }
                 } else {
                     if (_myDummyServer != null && _myDummyServer.getLeaderboard != null &&
-                        (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                        (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                         getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError);
                     } else if (callbackOnError) {
                         let error = {};
@@ -67,7 +67,7 @@ export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, score
                 }
             }).catch(function (result) {
                 if (_myDummyServer != null && _myDummyServer.getLeaderboard != null &&
-                    (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                    (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                     getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError);
                 } else if (callbackOnError) {
                     let error = {};
@@ -95,7 +95,7 @@ export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, score
                                 }
                             } else {
                                 if (_myDummyServer != null && _myDummyServer.getLeaderboard != null &&
-                                    (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                                    (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                                     getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError);
                                 } else if (callbackOnError) {
                                     let error = {};
@@ -106,7 +106,7 @@ export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, score
                             }
                         } else {
                             if (_myDummyServer != null && _myDummyServer.getLeaderboard != null &&
-                                (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                                (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                                 getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError);
                             } else if (callbackOnError) {
                                 let error = {};
@@ -117,7 +117,7 @@ export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, score
                         }
                     }).catch(function (result) {
                         if (_myDummyServer != null && _myDummyServer.getLeaderboard != null &&
-                            (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                            (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                             getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError);
                         } else if (callbackOnError) {
                             let error = {};
@@ -130,7 +130,7 @@ export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, score
                 },
                 function () {
                     if (_myDummyServer != null && _myDummyServer.getLeaderboard != null &&
-                        (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                        (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                         getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError);
                     } else if (callbackOnError) {
                         let error = {};
@@ -144,7 +144,7 @@ export function getLeaderboard(leaderboardID, isAscending, isAroundPlayer, score
         }
     } else {
         if (_myDummyServer != null && _myDummyServer.getLeaderboard != null &&
-            (_myUseDummyServerOnSDKMissing && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+            (_myUseDummyServerOnSDKMissing && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
             getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError);
         } else if (callbackOnError) {
             let error = {};
@@ -168,14 +168,14 @@ export function getLeaderboardDummy(leaderboardID, isAscending, isAroundPlayer, 
     }
 }
 
-export function submitScore(leaderboardID, scoreToSubmit, callbackOnDone, callbackOnError, overrideUseDummyServer = null, engine = Globals.getMainEngine()) {
+export function submitScore(leaderboardID, scoreToSubmit, callbackOnDone, callbackOnError, useDummyServerOverwrite = null, engine = Globals.getMainEngine()) {
     if (isSDKAvailable(engine)) {
         let casdk = getSDK(engine);
 
         casdk.submitScore(leaderboardID, scoreToSubmit).then(function (result) {
             if (result.error) {
                 if (_myDummyServer != null && _myDummyServer.submitScore != null &&
-                    (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                    (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                     submitScoreDummy(leaderboardID, scoreToSubmit, callbackOnDone, callbackOnError);
                 } else if (callbackOnError) {
                     let error = {};
@@ -188,7 +188,7 @@ export function submitScore(leaderboardID, scoreToSubmit, callbackOnDone, callba
             }
         }).catch(function (result) {
             if (_myDummyServer != null && _myDummyServer.submitScore != null &&
-                (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                 submitScoreDummy(leaderboardID, scoreToSubmit, callbackOnDone, callbackOnError);
             } else if (callbackOnError) {
                 let error = {};
@@ -199,7 +199,7 @@ export function submitScore(leaderboardID, scoreToSubmit, callbackOnDone, callba
         });
     } else {
         if (_myDummyServer != null && _myDummyServer.submitScore != null &&
-            (_myUseDummyServerOnSDKMissing && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+            (_myUseDummyServerOnSDKMissing && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
             submitScoreDummy(leaderboardID, scoreToSubmit, callbackOnDone, callbackOnError);
         } else if (callbackOnError) {
             let error = {};
@@ -223,7 +223,7 @@ export function submitScoreDummy(leaderboardID, scoreToSubmit, callbackOnDone, c
     }
 }
 
-export function getUser(callbackOnDone, callbackOnError, overrideUseDummyServer = null, engine = Globals.getMainEngine()) {
+export function getUser(callbackOnDone, callbackOnError, useDummyServerOverwrite = null, engine = Globals.getMainEngine()) {
     if (isSDKAvailable(engine)) {
         let casdk = getSDK(engine);
 
@@ -234,7 +234,7 @@ export function getUser(callbackOnDone, callbackOnError, overrideUseDummyServer 
                 }
             } else {
                 if (_myDummyServer != null && _myDummyServer.getUser != null &&
-                    (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                    (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                     getUserDummy(callbackOnDone, callbackOnError);
                 } else if (callbackOnError) {
                     let error = {};
@@ -245,7 +245,7 @@ export function getUser(callbackOnDone, callbackOnError, overrideUseDummyServer 
             }
         }).catch(function (result) {
             if (_myDummyServer != null && _myDummyServer.getUser != null &&
-                (_myUseDummyServerOnError && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+                (_myUseDummyServerOnError && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
                 getUserDummy(callbackOnDone, callbackOnError);
             } else if (callbackOnError) {
                 let error = {};
@@ -256,7 +256,7 @@ export function getUser(callbackOnDone, callbackOnError, overrideUseDummyServer 
         });
     } else {
         if (_myDummyServer != null && _myDummyServer.getUser != null &&
-            (_myUseDummyServerOnSDKMissing && overrideUseDummyServer == null) || (overrideUseDummyServer != null && overrideUseDummyServer)) {
+            (_myUseDummyServerOnSDKMissing && useDummyServerOverwrite == null) || (useDummyServerOverwrite != null && useDummyServerOverwrite)) {
             getUserDummy(callbackOnDone, callbackOnError);
         } else if (callbackOnError) {
             let error = {};

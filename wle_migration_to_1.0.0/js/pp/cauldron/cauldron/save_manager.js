@@ -64,15 +64,15 @@ export class SaveManager {
         }
     }
 
-    save(id, value, overrideDelaySavesCommit = null, overrideCacheEnabled = null) {
+    save(id, value, delaySavesCommitOverwrite = null, cacheEnabledOverwrite = null) {
         let sameValue = false;
-        if (this._mySaveCache.has(id) && this._isCacheEnabled(overrideCacheEnabled)) {
+        if (this._mySaveCache.has(id) && this._isCacheEnabled(cacheEnabledOverwrite)) {
             sameValue = this._mySaveCache.get(id) === value;
         }
 
         if (!sameValue) {
             this._mySaveCache.set(id, value);
-            if ((this._myDelaySavesCommit && overrideDelaySavesCommit == null) || (overrideDelaySavesCommit != null && overrideDelaySavesCommit)) {
+            if ((this._myDelaySavesCommit && delaySavesCommitOverwrite == null) || (delaySavesCommitOverwrite != null && delaySavesCommitOverwrite)) {
                 this._myIDsToCommit.pp_pushUnique(id);
                 if (!this._myCommitSavesDelayTimer.isRunning()) {
                     this._myCommitSavesDelayTimer.start();
@@ -124,8 +124,8 @@ export class SaveManager {
         }
     }
 
-    has(id, overrideCacheEnabled = null) {
-        return (this._mySaveCache.has(id) && this._isCacheEnabled(overrideCacheEnabled)) || SaveUtils.has(id);
+    has(id, cacheEnabledOverwrite = null) {
+        return (this._mySaveCache.has(id) && this._isCacheEnabled(cacheEnabledOverwrite)) || SaveUtils.has(id);
     }
 
     remove(id) {
@@ -149,20 +149,20 @@ export class SaveManager {
         this._myClearEmitter.notify();
     }
 
-    load(id, defaultValue = null, overrideCacheEnabled = null) {
-        return this._load(id, defaultValue, "load", overrideCacheEnabled);
+    load(id, defaultValue = null, cacheEnabledOverwrite = null) {
+        return this._load(id, defaultValue, "load", cacheEnabledOverwrite);
     }
 
-    loadString(id, defaultValue = null, overrideCacheEnabled = null) {
-        return this._load(id, defaultValue, "loadString", overrideCacheEnabled);
+    loadString(id, defaultValue = null, cacheEnabledOverwrite = null) {
+        return this._load(id, defaultValue, "loadString", cacheEnabledOverwrite);
     }
 
-    loadNumber(id, defaultValue = null, overrideCacheEnabled = null) {
-        return this._load(id, defaultValue, "loadNumber", overrideCacheEnabled);
+    loadNumber(id, defaultValue = null, cacheEnabledOverwrite = null) {
+        return this._load(id, defaultValue, "loadNumber", cacheEnabledOverwrite);
     }
 
-    loadBool(id, defaultValue = null, overrideCacheEnabled = null) {
-        return this._load(id, defaultValue, "loadBool", overrideCacheEnabled);
+    loadBool(id, defaultValue = null, cacheEnabledOverwrite = null) {
+        return this._load(id, defaultValue, "loadBool", cacheEnabledOverwrite);
     }
 
     getCommitSavesDelay() {
@@ -203,12 +203,12 @@ export class SaveManager {
         return failed;
     }
 
-    _load(id, defaultValue, functionName, overrideCacheEnabled = null) {
+    _load(id, defaultValue, functionName, cacheEnabledOverwrite = null) {
         let value = null;
         let failed = false;
         let loadFromCache = false;
 
-        if (this._mySaveCache.has(id) && this._isCacheEnabled(overrideCacheEnabled)) {
+        if (this._mySaveCache.has(id) && this._isCacheEnabled(cacheEnabledOverwrite)) {
             value = this._mySaveCache.get(id);
 
             if (value == null && defaultValue != null) {
@@ -435,8 +435,8 @@ export class SaveManager {
         }
     }
 
-    _isCacheEnabled(overrideCacheEnabled = null) {
-        return (this._myCacheEnabled && overrideCacheEnabled == null) || (overrideCacheEnabled != null && overrideCacheEnabled);
+    _isCacheEnabled(cacheEnabledOverwrite = null) {
+        return (this._myCacheEnabled && cacheEnabledOverwrite == null) || (cacheEnabledOverwrite != null && cacheEnabledOverwrite);
     }
 
     destroy() {

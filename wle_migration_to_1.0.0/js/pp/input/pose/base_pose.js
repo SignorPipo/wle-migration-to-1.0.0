@@ -90,51 +90,51 @@ export class BasePose {
         return XRUtils.getReferenceSpace(this._myEngine);
     }
 
-    getPosition(out = vec3_create(), overrideReferenceObject = undefined) {
+    getPosition(out = vec3_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
-    getRotation(out = vec3_create(), overrideReferenceObject = undefined) {
-        return this.getRotationDegrees(out, overrideReferenceObject);
+    getRotation(out = vec3_create(), referenceObjectOverwrite = undefined) {
+        return this.getRotationDegrees(out, referenceObjectOverwrite);
     }
 
-    getRotationDegrees(out = vec3_create(), overrideReferenceObject = undefined) {
+    getRotationDegrees(out = vec3_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
-    getRotationRadians(out = vec3_create(), overrideReferenceObject = undefined) {
+    getRotationRadians(out = vec3_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
-    getRotationQuat(out = quat_create(), overrideReferenceObject = undefined) {
+    getRotationQuat(out = quat_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
-    getTransform(out = mat4_create(), overrideReferenceObject = undefined) {
-        return this.getTransformMatrix(out, overrideReferenceObject);
+    getTransform(out = mat4_create(), referenceObjectOverwrite = undefined) {
+        return this.getTransformMatrix(out, referenceObjectOverwrite);
     }
 
-    getTransformMatrix(out = mat4_create(), overrideReferenceObject = undefined) {
+    getTransformMatrix(out = mat4_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
-    getTransformQuat(out = quat2_create(), overrideReferenceObject = undefined) {
+    getTransformQuat(out = quat2_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
-    getLinearVelocity(out = vec3_create(), overrideReferenceObject = undefined) {
+    getLinearVelocity(out = vec3_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
-    getAngularVelocity(out = vec3_create(), overrideReferenceObject = undefined) {
-        return this.getAngularVelocityDegrees(out, overrideReferenceObject);
+    getAngularVelocity(out = vec3_create(), referenceObjectOverwrite = undefined) {
+        return this.getAngularVelocityDegrees(out, referenceObjectOverwrite);
     }
 
-    getAngularVelocityDegrees(out = vec3_create(), overrideReferenceObject = undefined) {
+    getAngularVelocityDegrees(out = vec3_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
-    getAngularVelocityRadians(out = vec3_create(), overrideReferenceObject = undefined) {
+    getAngularVelocityRadians(out = vec3_create(), referenceObjectOverwrite = undefined) {
         // Implemented outside class definition
     }
 
@@ -350,8 +350,8 @@ export class BasePose {
 
 BasePose.prototype.getPosition = function () {
     let transform = mat4_create();
-    return function getPosition(out = vec3_create(), overrideReferenceObject = undefined) {
-        let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
+    return function getPosition(out = vec3_create(), referenceObjectOverwrite = undefined) {
+        let referenceObject = referenceObjectOverwrite === undefined ? this._myReferenceObject : referenceObjectOverwrite;
 
         out.vec3_copy(this._myPosition);
 
@@ -365,23 +365,23 @@ BasePose.prototype.getPosition = function () {
 
 BasePose.prototype.getRotationDegrees = function () {
     let rotationQuat = quat_create();
-    return function getRotationDegrees(out = vec3_create(), overrideReferenceObject = undefined) {
-        return this.getRotationQuat(rotationQuat, overrideReferenceObject).quat_toDegrees(out);
+    return function getRotationDegrees(out = vec3_create(), referenceObjectOverwrite = undefined) {
+        return this.getRotationQuat(rotationQuat, referenceObjectOverwrite).quat_toDegrees(out);
     }
 }();
 
 BasePose.prototype.getRotationRadians = function () {
     let rotationQuat = quat_create();
-    return function getRotationRadians(out = vec3_create(), overrideReferenceObject = undefined) {
-        return this.getRotationQuat(rotationQuat, overrideReferenceObject).quat_toRadians(out);
+    return function getRotationRadians(out = vec3_create(), referenceObjectOverwrite = undefined) {
+        return this.getRotationQuat(rotationQuat, referenceObjectOverwrite).quat_toRadians(out);
     }
 }();
 
 BasePose.prototype.getRotationQuat = function () {
     let playerRotationQuat = quat_create();
     let up = vec3_create();
-    return function getRotationQuat(out = quat_create(), overrideReferenceObject = undefined) {
-        let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
+    return function getRotationQuat(out = quat_create(), referenceObjectOverwrite = undefined) {
+        let referenceObject = referenceObjectOverwrite === undefined ? this._myReferenceObject : referenceObjectOverwrite;
 
         out.quat_copy(this._myRotationQuat);
 
@@ -399,19 +399,19 @@ BasePose.prototype.getRotationQuat = function () {
 
 BasePose.prototype.getTransformMatrix = function () {
     let transformQuat = quat2_create();
-    return function getTransformMatrix(out = mat4_create(), overrideReferenceObject = undefined) {
-        return this.getTransformQuat(transformQuat, overrideReferenceObject).quat2_toMatrix(out);
+    return function getTransformMatrix(out = mat4_create(), referenceObjectOverwrite = undefined) {
+        return this.getTransformQuat(transformQuat, referenceObjectOverwrite).quat2_toMatrix(out);
     };
 }();
 
 BasePose.prototype.getTransformQuat = function () {
     let rotationQuat = quat_create();
     let playerTransformQuat = quat2_create();
-    return function getTransformQuat(out = quat2_create(), overrideReferenceObject = undefined) {
-        let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
+    return function getTransformQuat(out = quat2_create(), referenceObjectOverwrite = undefined) {
+        let referenceObject = referenceObjectOverwrite === undefined ? this._myReferenceObject : referenceObjectOverwrite;
 
         out.quat2_identity();
-        out.quat2_setPositionRotationQuat(this._myPosition, this.getRotationQuat(rotationQuat, overrideReferenceObject));
+        out.quat2_setPositionRotationQuat(this._myPosition, this.getRotationQuat(rotationQuat, referenceObjectOverwrite));
 
         if (referenceObject == null) {
             return out;
@@ -423,8 +423,8 @@ BasePose.prototype.getTransformQuat = function () {
 
 BasePose.prototype.getLinearVelocity = function () {
     let transform = mat4_create();
-    return function getLinearVelocity(out = vec3_create(), overrideReferenceObject = undefined) {
-        let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
+    return function getLinearVelocity(out = vec3_create(), referenceObjectOverwrite = undefined) {
+        let referenceObject = referenceObjectOverwrite === undefined ? this._myReferenceObject : referenceObjectOverwrite;
 
         out.vec3_copy(this._myLinearVelocity);
 
@@ -438,15 +438,15 @@ BasePose.prototype.getLinearVelocity = function () {
 
 BasePose.prototype.getAngularVelocityDegrees = function () {
     let velocityRadians = vec3_create();
-    return function getAngularVelocityDegrees(out = vec3_create(), overrideReferenceObject = undefined) {
-        return this.getAngularVelocityRadians(velocityRadians, overrideReferenceObject).vec3_toDegrees(out);
+    return function getAngularVelocityDegrees(out = vec3_create(), referenceObjectOverwrite = undefined) {
+        return this.getAngularVelocityRadians(velocityRadians, referenceObjectOverwrite).vec3_toDegrees(out);
     };
 }();
 
 BasePose.prototype.getAngularVelocityRadians = function () {
     let transform = mat4_create();
-    return function getAngularVelocityRadians(out = vec3_create(), overrideReferenceObject = undefined) {
-        let referenceObject = overrideReferenceObject === undefined ? this._myReferenceObject : overrideReferenceObject;
+    return function getAngularVelocityRadians(out = vec3_create(), referenceObjectOverwrite = undefined) {
+        let referenceObject = referenceObjectOverwrite === undefined ? this._myReferenceObject : referenceObjectOverwrite;
 
         out.vec3_copy(this._myAngularVelocityRadians);
 
