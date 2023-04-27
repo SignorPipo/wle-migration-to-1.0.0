@@ -12,7 +12,7 @@ export class ConsoleVRWidgetParams extends WidgetParams {
     constructor() {
         super();
 
-        this.myOverrideBrowserConsole = false;
+        this.myOverwriteBrowserConsole = false;
         this.myShowOnStart = false;
         this.myShowVisibilityButton = false;
         this.myPulseOnNewMessage = ConsoleVRWidgetPulseOnNewMessage.NEVER;
@@ -124,7 +124,7 @@ export class ConsoleVRWidget {
         this._myOldBrowserConsole[ConsoleVRWidgetConsoleFunction.ASSERT] = console.assert;
         this._myOldBrowserConsoleClear = console.clear;
 
-        if (this._myParams.myOverrideBrowserConsole) {
+        if (this._myParams.myOverwriteBrowserConsole) {
             console.log = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.LOG, ConsoleVRWidgetSender.BROWSER_CONSOLE);
             console.error = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.ERROR, ConsoleVRWidgetSender.BROWSER_CONSOLE);
             console.warn = this._consolePrint.bind(this, ConsoleVRWidgetConsoleFunction.WARN, ConsoleVRWidgetSender.BROWSER_CONSOLE);

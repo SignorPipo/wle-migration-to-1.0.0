@@ -173,7 +173,7 @@ export function initCursorComponentModPrototype() {
         if (rayHit.hitCount > 0) {
             let rayHitDistance = rayHit.distances[0];
             if (rayHitDistance <= hitTestResultDistance) {
-                // Override _cursorPos set by hit test location
+                // Overwrite _cursorPos set by hit test location
                 this._cursorPos.vec3_copy(rayHit.locations[0]);
                 this._rayHitLocation.vec3_copy(this._cursorPos);
 

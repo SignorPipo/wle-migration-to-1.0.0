@@ -178,7 +178,7 @@ export class PlayerHeadManager {
         // Implemented outside class definition
     }
 
-    rotateFeetQuat(rotationQuat, keepUpOverride = null) {
+    rotateFeetQuat(rotationQuat, keepUpOverwrite = null) {
         // Implemented outside class definition 
     }
 
@@ -195,7 +195,7 @@ export class PlayerHeadManager {
         return !this._mySessionActive;
     }
 
-    setRotationFeetQuat(rotationQuat, keepUpOverride = null) {
+    setRotationFeetQuat(rotationQuat, keepUpOverwrite = null) {
         // Implemented outside class definition 
     }
 
@@ -203,11 +203,11 @@ export class PlayerHeadManager {
         // Implemented outside class definition 
     }
 
-    lookAtFeet(position, up = null, keepUpOverride = null) {
+    lookAtFeet(position, up = null, keepUpOverwrite = null) {
         // Implemented outside class definition 
     }
 
-    lookToFeet(direction, up = null, keepUpOverride = null) {
+    lookToFeet(direction, up = null, keepUpOverwrite = null) {
         // Implemented outside class definition 
     }
 
@@ -356,7 +356,7 @@ PlayerHeadManager.prototype.rotateFeetQuat = function () {
     let fixedRotation = quat_create();
     let newHeadPosition = vec3_create();
     let headAdjustmentMovement = vec3_create();
-    return function rotateFeetQuat(rotationQuat, keepUpOverride = null) {
+    return function rotateFeetQuat(rotationQuat, keepUpOverwrite = null) {
         let angle = rotationQuat.quat_getAngleRadians();
         if (angle <= 0.00001) {
             return;
@@ -367,7 +367,7 @@ PlayerHeadManager.prototype.rotateFeetQuat = function () {
         rotationAxis = rotationQuat.quat_getAxis(rotationAxis);
 
         if (!rotationAxis.vec3_isOnAxis(playerUp) &&
-            ((keepUpOverride == null && this._myParams.myFeetRotationKeepUp) || (keepUpOverride))) {
+            ((keepUpOverwrite == null && this._myParams.myFeetRotationKeepUp) || (keepUpOverwrite))) {
             currentFeetRotation = this.getRotationFeetQuat(currentFeetRotation);
 
             newFeetRotation = currentFeetRotation.quat_rotateQuat(rotationQuat, newFeetRotation);
@@ -411,10 +411,10 @@ PlayerHeadManager.prototype.rotateHeadQuat = function () {
 PlayerHeadManager.prototype.setRotationFeetQuat = function () {
     let currentRotationQuat = quat_create();
     let rotationQuatToRotate = quat_create();
-    return function setRotationFeetQuat(rotationQuat, keepUpOverride = null) {
+    return function setRotationFeetQuat(rotationQuat, keepUpOverwrite = null) {
         currentRotationQuat = this.getRotationFeetQuat(currentRotationQuat);
         rotationQuatToRotate = currentRotationQuat.quat_rotationToQuat(rotationQuat, rotationQuatToRotate);
-        this.rotateFeetQuat(rotationQuatToRotate, keepUpOverride);
+        this.rotateFeetQuat(rotationQuatToRotate, keepUpOverwrite);
     };
 }();
 
@@ -481,20 +481,20 @@ PlayerHeadManager.prototype.teleportPlayerToHeadTransformQuat = function () {
 PlayerHeadManager.prototype.lookAtFeet = function () {
     let direction = vec3_create();
     let feetPosition = vec3_create();
-    return function lookAtFeet(position, up = null, keepUpOverride = null) {
+    return function lookAtFeet(position, up = null, keepUpOverwrite = null) {
         feetPosition = this.getPositionFeet(feetPosition);
         direction = position.vec3_sub(feetPosition, direction).vec3_normalize(direction);
 
-        this.lookToFeet(direction, up, keepUpOverride);
+        this.lookToFeet(direction, up, keepUpOverwrite);
     };
 }();
 
 PlayerHeadManager.prototype.lookToFeet = function () {
     let feetRotation = quat_create();
-    return function lookToFeet(direction, up = null, keepUpOverride = null) {
+    return function lookToFeet(direction, up = null, keepUpOverwrite = null) {
         feetRotation = this.getRotationFeetQuat(feetRotation);
         feetRotation.quat_setForward(direction, up);
-        this.setRotationFeetQuat(feetRotation, keepUpOverride);
+        this.setRotationFeetQuat(feetRotation, keepUpOverwrite);
     };
 }();
 

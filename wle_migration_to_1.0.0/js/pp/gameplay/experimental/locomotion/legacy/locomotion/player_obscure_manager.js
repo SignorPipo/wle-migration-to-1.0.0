@@ -133,16 +133,16 @@ export class PlayerObscureManager {
         this._myCurrentObscureLevel;
     }
 
-    obscureLevelOverride(obscureLevel, instantFade = false) {
-        this._myObscurelevelOverride = obscureLevel;
+    overwriteObscureLevel(obscureLevel, instantFade = false) {
+        this._myObscureLevelOverwrite = obscureLevel;
 
         if (instantFade && this.isStarted()) {
             this._setObscureLevel(obscureLevel);
         }
     }
 
-    resetObscureLevelOverride() {
-        this._myObscurelevelOverride = null;
+    resetObscureLevelOverwrite() {
+        this._myObscureLevelOverwrite = null;
     }
 
     _idleUpdate(dt) {
@@ -248,8 +248,8 @@ export class PlayerObscureManager {
     _updateObscured() {
         this._myTargetObscureLevel = 0;
 
-        if (this._myObscurelevelOverride != null) {
-            this._myTargetObscureLevel = this._myObscurelevelOverride;
+        if (this._myObscureLevelOverwrite != null) {
+            this._myTargetObscureLevel = this._myObscureLevelOverwrite;
         } else {
             // #TODO Check if VALID head is colliding, in that case use max obscure level
             // This prevent being able to see when resetting head to real even though real is colliding
