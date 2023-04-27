@@ -989,7 +989,7 @@ export function initArrayExtensionProtoype() {
         let componentAlong = vec3_create();
         return function vec3_removeComponentAlongAxis(axis, out = vec3_create()) {
             this.vec3_componentAlongAxis(axis, componentAlong);
-            glMatrix.vec3.sub(out, this, componentAlong);
+            this.vec3_sub(componentAlong, out);
             return out;
         };
     }();
@@ -1188,8 +1188,8 @@ export function initArrayExtensionProtoype() {
     }();
 
     arrayExtension.vec3_rotateAroundQuat = function vec3_rotateAroundQuat(rotation, origin, out = vec3_create()) {
-        glMatrix.vec3.sub(out, this, origin);
-        glMatrix.vec3.transformQuat(out, out, rotation);
+        this.vec3_sub(origin, out);
+        out.vec3_transformQuat(rotation, out);
         glMatrix.vec3.add(out, out, origin);
         return out;
     };
@@ -1272,7 +1272,7 @@ export function initArrayExtensionProtoype() {
         let rotation = quat_create();
         return function vec3_convertDirectionToWorldMatrix(parentTransform, out = vec3_create()) {
             parentTransform.mat4_getRotationQuat(rotation);
-            glMatrix.vec3.transformQuat(out, this, rotation);
+            this.vec3_transformQuat(rotation, out);
             return out;
         };
     }();
@@ -1281,8 +1281,8 @@ export function initArrayExtensionProtoype() {
         let rotation = quat_create();
         return function vec3_convertDirectionToLocalMatrix(parentTransform, out = vec3_create()) {
             parentTransform.mat4_getRotationQuat(rotation);
-            glMatrix.quat.conjugate(rotation, rotation);
-            glMatrix.vec3.transformQuat(out, this, rotation);
+            rotation.quat_conjugate(rotation);
+            this.vec3_transformQuat(rotation, out);
             return out;
         };
     }();
@@ -1292,7 +1292,7 @@ export function initArrayExtensionProtoype() {
         let rotation = quat_create();
         return function vec3_convertDirectionToWorldQuat(parentTransform, out = vec3_create()) {
             parentTransform.quat2_getRotationQuat(rotation);
-            glMatrix.vec3.transformQuat(out, this, rotation);
+            this.vec3_transformQuat(rotation, out);
             return out;
         };
     }();
@@ -1301,8 +1301,8 @@ export function initArrayExtensionProtoype() {
         let rotation = quat_create();
         return function vec3_convertDirectionToLocalQuat(parentTransform, out = vec3_create()) {
             parentTransform.quat2_getRotationQuat(rotation);
-            glMatrix.quat.conjugate(rotation, rotation);
-            glMatrix.vec3.transformQuat(out, this, rotation);
+            rotation.quat_conjugate(rotation);
+            this.vec3_transformQuat(rotation, out);
             return out;
         };
     }();
@@ -1731,7 +1731,7 @@ export function initArrayExtensionProtoype() {
     arrayExtension.quat_toLocal = function () {
         let invertQuat = quat_create();
         return function quat_toLocal(parentQuat, out = quat_create()) {
-            glMatrix.quat.conjugate(invertQuat, parentQuat);
+            parentQuat.quat_conjugate(invertQuat);
             glMatrix.quat.mul(out, invertQuat, this);
             return out;
         };
@@ -2395,7 +2395,7 @@ export function initArrayExtensionProtoype() {
         _vec3_set(one, 1, 1, 1);
         return function mat4_getRotationQuat(out = quat_create()) {
             glMatrix.mat4.getScaling(scale, this);
-            glMatrix.vec3.divide(inverseScale, one, scale);
+            one.vec3_div(scale, inverseScale);
             glMatrix.mat4.scale(transformMatrixNoScale, this, inverseScale);
             glMatrix.mat4.getRotation(out, transformMatrixNoScale);
             glMatrix.quat.normalize(out, out);
@@ -2453,7 +2453,7 @@ export function initArrayExtensionProtoype() {
         let tempScale = vec3_create();
         return function mat4_setScale(scale) {
             glMatrix.mat4.getScaling(tempScale, this);
-            glMatrix.vec3.divide(tempScale, scale, tempScale);
+            scale.vec3_div(tempScale, tempScale);
             glMatrix.mat4.scale(this, this, tempScale);
             return this;
         };
@@ -2570,7 +2570,7 @@ export function initArrayExtensionProtoype() {
                 position.vec3_convertPositionToWorldMatrix(parentTransformMatrix, position);
 
                 glMatrix.mat4.getScaling(scale, parentTransformMatrix);
-                glMatrix.vec3.divide(inverseScale, one, scale);
+                one.vec3_div(scale, inverseScale);
                 glMatrix.mat4.scale(convertTransform, parentTransformMatrix, inverseScale);
 
                 glMatrix.mat4.mul(out, convertTransform, this);
@@ -2601,7 +2601,7 @@ export function initArrayExtensionProtoype() {
                 position.vec3_convertPositionToLocalMatrix(parentTransformMatrix, position);
 
                 glMatrix.mat4.getScaling(scale, parentTransformMatrix);
-                glMatrix.vec3.divide(inverseScale, one, scale);
+                one.vec3_div(scale, inverseScale);
                 glMatrix.mat4.scale(convertTransform, parentTransformMatrix, inverseScale);
 
                 glMatrix.mat4.invert(convertTransform, convertTransform);
