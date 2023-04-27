@@ -369,9 +369,7 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_getRotationWorldDegrees = function pp_getRotationWorldDegrees(rotation) {
         rotation = this.pp_getRotationWorldRadians(rotation);
-        rotation.forEach(function (value, index, array) {
-            array[index] = Math.pp_toDegrees(value);
-        }.bind(this));
+        rotation = rotation.vec3_toDegrees(rotation);
         return rotation;
     };
 
@@ -406,9 +404,7 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_getRotationLocalDegrees = function pp_getRotationLocalDegrees(rotation) {
         rotation = this.pp_getRotationLocalRadians(rotation);
-        rotation.forEach(function (value, index, array) {
-            array[index] = Math.pp_toDegrees(value);
-        }.bind(this));
+        rotation = rotation.vec3_toDegrees(rotation);
         return rotation;
     };
 
@@ -753,9 +749,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_setRotationWorldRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_setRotationWorldRadians(rotation) {
-            rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = Math.pp_toDegrees(value);
-            }.bind(this));
+            degreesRotation = rotation.vec3_toDegrees(degreesRotation);
             this.pp_setRotationWorldDegrees(degreesRotation);
         };
     }();
@@ -789,9 +783,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_setRotationLocalRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_setRotationLocalRadians(rotation) {
-            rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = Math.pp_toDegrees(value);
-            }.bind(this));
+            degreesRotation = rotation.vec3_toDegrees(degreesRotation);
             this.pp_setRotationLocalDegrees(degreesRotation);
         };
     }();
@@ -1251,9 +1243,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateWorldRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateWorldRadians(rotation) {
-            rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = Math.pp_toDegrees(value);
-            }.bind(this));
+            degreesRotation = rotation.vec3_toDegrees(degreesRotation);
             this.pp_rotateWorldDegrees(degreesRotation);
         };
     }();
@@ -1294,9 +1284,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateLocalRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateLocalRadians(rotation) {
-            rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = Math.pp_toDegrees(value);
-            }.bind(this));
+            degreesRotation = rotation.vec3_toDegrees(degreesRotation);
             this.pp_rotateLocalDegrees(degreesRotation);
         };
     }();
@@ -1337,9 +1325,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateObjectRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateObjectRadians(rotation) {
-            rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = Math.pp_toDegrees(value);
-            }.bind(this));
+            degreesRotation = rotation.vec3_toDegrees(degreesRotation);
             this.pp_rotateObjectDegrees(degreesRotation);
         };
     }();
@@ -1464,9 +1450,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateAroundWorldRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundWorldRadians(rotation, origin) {
-            rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = Math.pp_toDegrees(value);
-            }.bind(this));
+            degreesRotation = rotation.vec3_toDegrees(degreesRotation);
             this.pp_rotateAroundWorldDegrees(degreesRotation, origin);
         };
     }();
@@ -1506,9 +1490,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateAroundLocalRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundLocalRadians(rotation, origin) {
-            rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = Math.pp_toDegrees(value);
-            }.bind(this));
+            degreesRotation = rotation.vec3_toDegrees(degreesRotation);
             this.pp_rotateAroundLocalDegrees(degreesRotation, origin);
         };
     }();
@@ -1548,9 +1530,7 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_rotateAroundObjectRadians = function () {
         let degreesRotation = vec3_create();
         return function pp_rotateAroundObjectRadians(rotation, origin) {
-            rotation.forEach(function (value, index, array) {
-                degreesRotation[index] = Math.pp_toDegrees(value);
-            }.bind(this));
+            degreesRotation = rotation.vec3_toDegrees(degreesRotation);
             this.pp_rotateAroundObjectDegrees(degreesRotation, origin);
         };
     }();

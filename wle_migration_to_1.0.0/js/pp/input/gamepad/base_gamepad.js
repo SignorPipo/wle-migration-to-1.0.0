@@ -165,11 +165,11 @@ export class BaseGamepad {
     }
 
     _preUpdateButtonInfos() {
-        this._myButtonInfos.forEach(function (item) {
-            item.myPrevIsPressed = item.myIsPressed;
-            item.myPrevIsTouched = item.myIsTouched;
-            item.myPrevValue = item.myValue;
-        });
+        for (let info of this._myButtonInfos) {
+            info.myPrevIsPressed = info.myIsPressed;
+            info.myPrevIsTouched = info.myIsTouched;
+            info.myPrevValue = info.myValue;
+        }
     }
 
     _updateButtonInfos() {
@@ -192,83 +192,83 @@ export class BaseGamepad {
     }
 
     _postUpdateButtonInfos(dt) {
-        this._myButtonInfos.forEach(function (item) {
-            if (item.myIsPressed) {
-                item.myTimePressed += dt;
-                if (!item.myPrevIsPressed) {
-                    item.myMultiplePressStartCount += 1;
+        for (let info of this._myButtonInfos) {
+            if (info.myIsPressed) {
+                info.myTimePressed += dt;
+                if (!info.myPrevIsPressed) {
+                    info.myMultiplePressStartCount += 1;
 
-                    item.myPrevTimeNotPressed = item.myTimeNotPressed;
-                    item.myTimeNotPressed = 0;
+                    info.myPrevTimeNotPressed = info.myTimeNotPressed;
+                    info.myTimeNotPressed = 0;
                 }
 
-                if (item.myPrevTimeNotPressed + item.myTimePressed > this._myMultiplePressMaxDelay && item.myMultiplePressEndCount > 0) {
-                    item.myPrevMultiplePressEndCount = item.myMultiplePressEndCount;
-                    item.myMultiplePressEndCount = 0;
+                if (info.myPrevTimeNotPressed + info.myTimePressed > this._myMultiplePressMaxDelay && info.myMultiplePressEndCount > 0) {
+                    info.myPrevMultiplePressEndCount = info.myMultiplePressEndCount;
+                    info.myMultiplePressEndCount = 0;
                 }
 
-                if (item.myTimePressed > this._myMultiplePressMaxDelay && item.myMultiplePressStartCount > 0) {
-                    item.myPrevMultiplePressStartCount = item.myMultiplePressStartCount;
-                    item.myMultiplePressStartCount = 0;
+                if (info.myTimePressed > this._myMultiplePressMaxDelay && info.myMultiplePressStartCount > 0) {
+                    info.myPrevMultiplePressStartCount = info.myMultiplePressStartCount;
+                    info.myMultiplePressStartCount = 0;
                 }
             } else {
-                item.myTimeNotPressed += dt;
-                if (item.myPrevIsPressed) {
-                    item.myMultiplePressEndCount += 1;
+                info.myTimeNotPressed += dt;
+                if (info.myPrevIsPressed) {
+                    info.myMultiplePressEndCount += 1;
 
-                    item.myPrevTimePressed = item.myTimePressed;
-                    item.myTimePressed = 0;
+                    info.myPrevTimePressed = info.myTimePressed;
+                    info.myTimePressed = 0;
                 }
 
-                if (item.myPrevTimePressed + item.myTimeNotPressed > this._myMultiplePressMaxDelay && item.myMultiplePressStartCount > 0) {
-                    item.myPrevMultiplePressStartCount = item.myMultiplePressStartCount;
-                    item.myMultiplePressStartCount = 0;
+                if (info.myPrevTimePressed + info.myTimeNotPressed > this._myMultiplePressMaxDelay && info.myMultiplePressStartCount > 0) {
+                    info.myPrevMultiplePressStartCount = info.myMultiplePressStartCount;
+                    info.myMultiplePressStartCount = 0;
                 }
 
-                if (item.myTimeNotPressed > this._myMultiplePressMaxDelay && item.myMultiplePressEndCount > 0) {
-                    item.myPrevMultiplePressEndCount = item.myMultiplePressEndCount;
-                    item.myMultiplePressEndCount = 0;
+                if (info.myTimeNotPressed > this._myMultiplePressMaxDelay && info.myMultiplePressEndCount > 0) {
+                    info.myPrevMultiplePressEndCount = info.myMultiplePressEndCount;
+                    info.myMultiplePressEndCount = 0;
                 }
             }
 
-            if (item.myIsTouched) {
-                item.myTimeTouched += dt;
-                if (!item.myPrevIsTouched) {
-                    item.myMultipleTouchStartCount += 1;
+            if (info.myIsTouched) {
+                info.myTimeTouched += dt;
+                if (!info.myPrevIsTouched) {
+                    info.myMultipleTouchStartCount += 1;
 
-                    item.myPrevTimeNotTouched = item.myTimeNotTouched;
-                    item.myTimeNotTouched = 0;
+                    info.myPrevTimeNotTouched = info.myTimeNotTouched;
+                    info.myTimeNotTouched = 0;
                 }
 
-                if (item.myPrevTimeNotTouched + item.myTimeTouched > this._myMultipleTouchMaxDelay && item.myMultipleTouchEndCount > 0) {
-                    item.myPrevMultipleTouchEndCount = item.myMultipleTouchEndCount;
-                    item.myMultipleTouchEndCount = 0;
+                if (info.myPrevTimeNotTouched + info.myTimeTouched > this._myMultipleTouchMaxDelay && info.myMultipleTouchEndCount > 0) {
+                    info.myPrevMultipleTouchEndCount = info.myMultipleTouchEndCount;
+                    info.myMultipleTouchEndCount = 0;
                 }
 
-                if (item.myTimeTouched > this._myMultipleTouchMaxDelay && item.myMultipleTouchStartCount > 0) {
-                    item.myPrevMultipleTouchStartCount = item.myMultipleTouchStartCount;
-                    item.myMultipleTouchStartCount = 0;
+                if (info.myTimeTouched > this._myMultipleTouchMaxDelay && info.myMultipleTouchStartCount > 0) {
+                    info.myPrevMultipleTouchStartCount = info.myMultipleTouchStartCount;
+                    info.myMultipleTouchStartCount = 0;
                 }
             } else {
-                item.myTimeNotTouched += dt;
-                if (item.myPrevIsTouched) {
-                    item.myMultipleTouchEndCount += 1;
+                info.myTimeNotTouched += dt;
+                if (info.myPrevIsTouched) {
+                    info.myMultipleTouchEndCount += 1;
 
-                    item.myPrevTimeTouched = item.myTimeTouched;
-                    item.myTimeTouched = 0;
+                    info.myPrevTimeTouched = info.myTimeTouched;
+                    info.myTimeTouched = 0;
                 }
 
-                if (item.myPrevTimeTouched + item.myTimeNotTouched > this._myMultipleTouchMaxDelay && item.myMultipleTouchStartCount > 0) {
-                    item.myPrevMultipleTouchStartCount = item.myMultipleTouchStartCount;
-                    item.myMultipleTouchStartCount = 0;
+                if (info.myPrevTimeTouched + info.myTimeNotTouched > this._myMultipleTouchMaxDelay && info.myMultipleTouchStartCount > 0) {
+                    info.myPrevMultipleTouchStartCount = info.myMultipleTouchStartCount;
+                    info.myMultipleTouchStartCount = 0;
                 }
 
-                if (item.myTimeNotTouched > this._myMultipleTouchMaxDelay && item.myMultipleTouchEndCount > 0) {
-                    item.myPrevMultipleTouchEndCount = item.myMultipleTouchEndCount;
-                    item.myMultipleTouchEndCount = 0;
+                if (info.myTimeNotTouched > this._myMultipleTouchMaxDelay && info.myMultipleTouchEndCount > 0) {
+                    info.myPrevMultipleTouchEndCount = info.myMultipleTouchEndCount;
+                    info.myMultipleTouchEndCount = 0;
                 }
             }
-        }.bind(this));
+        }
 
         for (let key in GamepadButtonID) {
             let buttonInfo = this._myButtonInfos[GamepadButtonID[key]];
@@ -330,10 +330,10 @@ export class BaseGamepad {
     }
 
     _preUpdateAxesInfos() {
-        this._myAxesInfos.forEach(function (item) {
-            item.myPrevAxes[0] = item.myAxes[0];
-            item.myPrevAxes[1] = item.myAxes[1];
-        });
+        for (let info of this._myAxesInfos) {
+            info.myPrevAxes[0] = info.myAxes[0];
+            info.myPrevAxes[1] = info.myAxes[1];
+        }
     }
 
     _updateAxesInfos() {

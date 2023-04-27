@@ -312,9 +312,9 @@ export class EasyTuneWidget {
     }
 
     _updateActiveVariable() {
-        this._myEasyTuneVariables.getEasyTuneVariablesList().forEach(function (variable) {
+        for (let variable of this._myEasyTuneVariables.getEasyTuneVariablesList()) {
             variable.setActive(false);
-        });
+        }
 
         if (this._myWidgetFrame.isVisible() && this._myCurrentVariable) {
             this._myCurrentVariable.setActive(true);
