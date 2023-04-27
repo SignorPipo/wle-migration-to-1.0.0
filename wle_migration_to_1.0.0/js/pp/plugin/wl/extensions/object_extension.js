@@ -233,7 +233,7 @@ export class CloneParams {
         this.myUseWLClone = false;               // Use the WL component clone function 
         this.myUseWLCloneAsFallback = false;     // Use the WL component clone function as fallback only if pp_clone is not found on the component
 
-        this.myDeepCloneParams = new DeepCloneParams(); // Used to specify if the object must be deep cloned or not, you can also overwrite the behavior for specific components and variables
+        this.myDeepCloneParams = new DeepCloneParams(); // Used to specify if the object must be deep cloned or not, you can also override the behavior for specific components and variables
 
         this.myCustomCloneParams = new CustomCloneParams(); // This class can be filled with whatever custom paramater the component clone function could need
     }
@@ -243,8 +243,8 @@ export class DeepCloneParams {
 
     constructor() {
         this._myDeepCloneObject = false;
-        this._myDeepCloneOverwriteComponentsMap = new Map();
-        this._myDeepCloneOverwriteComponentsVariablesMap = new Map();
+        this._myDeepCloneOverrideComponentsMap = new Map();
+        this._myDeepCloneOverrideComponentsVariablesMap = new Map();
     }
 
     // The implementation is component dependant, not every component implements the deep clone
@@ -252,42 +252,42 @@ export class DeepCloneParams {
         this._myDeepCloneObject = deepClone;
     }
 
-    // This value overwrite the deep clone object value
+    // This value override the deep clone object value
     // The implementation is component dependant, not every component implements the deep clone
     setDeepCloneComponent(componentName, deepClone) {
-        this._myDeepCloneOverwriteComponentsMap.set(componentName, deepClone);
+        this._myDeepCloneOverrideComponentsMap.set(componentName, deepClone);
     }
 
-    // This value overwrite both the deep clone object value and the deep clone component one
-    // The implementation is component dependant, not every component variable overwrite is taken into consideration
+    // This value override both the deep clone object value and the deep clone component one
+    // The implementation is component dependant, not every component variable override is taken into consideration
     setDeepCloneComponentVariable(componentName, variableName, deepClone) {
         let componentsVariablesMap = null;
 
-        if (!this._myDeepCloneOverwriteComponentsVariablesMap.has(componentName)) {
-            this._myDeepCloneOverwriteComponentsVariablesMap.set(componentName, new Map());
+        if (!this._myDeepCloneOverrideComponentsVariablesMap.has(componentName)) {
+            this._myDeepCloneOverrideComponentsVariablesMap.set(componentName, new Map());
         }
 
-        componentsVariablesMap = this._myDeepCloneOverwriteComponentsVariablesMap.get(componentName);
+        componentsVariablesMap = this._myDeepCloneOverrideComponentsVariablesMap.get(componentName);
 
         componentsVariablesMap.set(variableName, deepClone);
     }
 
     isDeepCloneComponent(componentName) {
-        let deepCloneOverwrite = this._myDeepCloneOverwriteComponentsMap.get(componentName);
+        let deepCloneOverride = this._myDeepCloneOverrideComponentsMap.get(componentName);
 
-        if (deepCloneOverwrite != null) {
-            return deepCloneOverwrite;
+        if (deepCloneOverride != null) {
+            return deepCloneOverride;
         }
 
         return this._myDeepCloneObject;
     }
 
     isDeepCloneComponentVariable(componentName, variableName) {
-        let componentsVariablesMap = this._myDeepCloneOverwriteComponentsVariablesMap.get(componentName);
+        let componentsVariablesMap = this._myDeepCloneOverrideComponentsVariablesMap.get(componentName);
         if (componentsVariablesMap != null) {
-            let deepCloneOverwrite = componentsVariablesMap.get(variableName);
-            if (deepCloneOverwrite != null) {
-                return deepCloneOverwrite;
+            let deepCloneOverride = componentsVariablesMap.get(variableName);
+            if (deepCloneOverride != null) {
+                return deepCloneOverride;
             }
         }
 

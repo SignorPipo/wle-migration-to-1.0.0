@@ -52,7 +52,7 @@ export class HandPose extends BasePose {
         this.myFixTrackedHandRotation = fixTrackedHandRotation;
     }
 
-    getRotationQuat(referenceObjectOverwrite = undefined) {
+    getRotationQuat(referenceObjectOverride = undefined) {
         // Implemented outside class definition
     }
 
@@ -116,8 +116,8 @@ HandPose.prototype.getRotationQuat = function () {
     let up = vec3_create();
     let right = vec3_create();
     let forward = vec3_create();
-    return function getRotationQuat(out = quat_create(), referenceObjectOverwrite = undefined) {
-        let referenceObject = referenceObjectOverwrite === undefined ? this._myReferenceObject : referenceObjectOverwrite;
+    return function getRotationQuat(out = quat_create(), referenceObjectOverride = undefined) {
+        let referenceObject = referenceObjectOverride === undefined ? this._myReferenceObject : referenceObjectOverride;
 
         out.quat_copy(this._myRotationQuat);
 

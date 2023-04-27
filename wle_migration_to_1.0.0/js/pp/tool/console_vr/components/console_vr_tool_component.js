@@ -7,7 +7,7 @@ export class ConsoleVRToolComponent extends Component {
     static TypeName = "pp-console-vr-tool";
     static Properties = {
         _myHandedness: Property.enum(["None", "Left", "Right"], "None"),
-        _myOverwriteBrowserConsole: Property.bool(true),
+        _myOverrideBrowserConsole: Property.bool(true),
         _myShowOnStart: Property.bool(false),
         _myShowVisibilityButton: Property.bool(false),
         _myPulseOnNewMessage: Property.enum(["Never", "Always", "When Hidden"], "Never")
@@ -27,7 +27,7 @@ export class ConsoleVRToolComponent extends Component {
         if (Globals.isToolEnabled(this.engine)) {
             let params = new ConsoleVRWidgetParams(this.engine);
             params.myHandedness = [null, "left", "right"][this._myHandedness];
-            params.myOverwriteBrowserConsole = this._myOverwriteBrowserConsole;
+            params.myOverrideBrowserConsole = this._myOverrideBrowserConsole;
             params.myShowOnStart = this._myShowOnStart;
             params.myShowVisibilityButton = this._myShowVisibilityButton;
             params.myPulseOnNewMessage = this._myPulseOnNewMessage;

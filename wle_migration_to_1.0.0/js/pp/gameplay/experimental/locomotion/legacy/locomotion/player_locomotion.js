@@ -373,9 +373,9 @@ export class PlayerLocomotion {
         //this._myPlayerObscureManager.update(dt);
         if (Globals.getLeftGamepad(this._myParams.myEngine).getButtonInfo(GamepadButtonID.SELECT).isPressEnd(2)) {
             if (this._myPlayerObscureManager.isFading()) {
-                this._myPlayerObscureManager.overwriteObscureLevel(this._myPlayerObscureManager.isFadingOut() ? Math.pp_random(0, 0) : Math.pp_random(1, 1));
+                this._myPlayerObscureManager.overrideObscureLevel(this._myPlayerObscureManager.isFadingOut() ? Math.pp_random(0, 0) : Math.pp_random(1, 1));
             } else {
-                this._myPlayerObscureManager.overwriteObscureLevel(this._myPlayerObscureManager.isObscured() ? Math.pp_random(0, 0) : Math.pp_random(1, 1));
+                this._myPlayerObscureManager.overrideObscureLevel(this._myPlayerObscureManager.isObscured() ? Math.pp_random(0, 0) : Math.pp_random(1, 1));
             }
         }
     }
