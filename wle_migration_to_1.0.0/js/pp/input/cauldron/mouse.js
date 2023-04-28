@@ -93,10 +93,10 @@ export class Mouse {
         }
 
         for (let buttonInfo of this._myButtonInfos.values()) {
-            buttonInfo.myIsPressStart = buttonInfo.myIsPressStartToProcess;
-            buttonInfo.myIsPressEnd = buttonInfo.myIsPressEndToProcess;
-            buttonInfo.myIsPressStartToProcess = false;
-            buttonInfo.myIsPressEndToProcess = false;
+            buttonInfo.myPressStart = buttonInfo.myPressStartToProcess;
+            buttonInfo.myPressEnd = buttonInfo.myPressEndToProcess;
+            buttonInfo.myPressStartToProcess = false;
+            buttonInfo.myPressEndToProcess = false;
         }
 
         this._updateScreenSize();
@@ -145,23 +145,23 @@ export class Mouse {
     }
 
     isButtonPressStart(buttonID) {
-        let isPressStart = false;
+        let pressStart = false;
 
         if (this._myButtonInfos.has(buttonID)) {
-            isPressStart = this._myButtonInfos.get(buttonID).myIsPressStart;
+            pressStart = this._myButtonInfos.get(buttonID).myPressStart;
         }
 
-        return isPressStart;
+        return pressStart;
     }
 
     isButtonPressEnd(buttonID = null) {
-        let isPressEnd = false;
+        let pressEnd = false;
 
         if (this._myButtonInfos.has(buttonID)) {
-            isPressEnd = this._myButtonInfos.get(buttonID).myIsPressEnd;
+            pressEnd = this._myButtonInfos.get(buttonID).myPressEnd;
         }
 
-        return isPressEnd;
+        return pressEnd;
     }
 
     isMoving() {
@@ -368,7 +368,7 @@ export class Mouse {
         let buttonInfo = this._myButtonInfos.get(event.button);
         if (!buttonInfo.myPressed) {
             buttonInfo.myPressed = true;
-            buttonInfo.myIsPressStartToProcess = true;
+            buttonInfo.myPressStartToProcess = true;
         }
     }
 
@@ -376,7 +376,7 @@ export class Mouse {
         let buttonInfo = this._myButtonInfos.get(event.button);
         if (buttonInfo.myPressed) {
             buttonInfo.myPressed = false;
-            buttonInfo.myIsPressEndToProcess = true;
+            buttonInfo.myPressEndToProcess = true;
         }
     }
 
@@ -391,7 +391,7 @@ export class Mouse {
             for (let buttonInfo of this._myButtonInfos.values()) {
                 if (buttonInfo.myPressed) {
                     buttonInfo.myPressed = false;
-                    buttonInfo.myIsPressEndToProcess = true;
+                    buttonInfo.myPressEndToProcess = true;
                 }
             }
         }
@@ -469,7 +469,7 @@ export class Mouse {
     }
 
     _createButtonInfo() {
-        return { myPressed: false, myIsPressStart: false, myIsPressStartToProcess: false, myIsPressEnd: false, myIsPressEndToProcess: false, };
+        return { myPressed: false, myPressStart: false, myPressStartToProcess: false, myPressEnd: false, myPressEndToProcess: false, };
     }
 
     destroy() {
