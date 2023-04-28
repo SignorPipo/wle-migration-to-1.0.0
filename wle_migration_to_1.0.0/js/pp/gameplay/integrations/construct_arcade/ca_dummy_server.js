@@ -7,7 +7,7 @@ export class CADummyServer {
         this._myEngine = engine;
     }
 
-    getLeaderboard(leaderboardID, isAscending, isAroundPlayer, scoresAmount, callbackOnDone, callbackOnError) {
+    getLeaderboard(leaderboardID, ascending, aroundPlayer, scoresAmount, callbackOnDone, callbackOnError) {
         let leaderboard = null;
 
         if (CAUtils.isSDKAvailable(this._myEngine)) {
@@ -24,7 +24,7 @@ export class CADummyServer {
                 { rank: 9, displayName: "Leaderboard", score: 0 }
             ];
         } else {
-            if (isAroundPlayer) {
+            if (aroundPlayer) {
                 leaderboard = [
                     { rank: 0, displayName: "Sign In", score: 0 },
                     { rank: 1, displayName: "And", score: 0 },

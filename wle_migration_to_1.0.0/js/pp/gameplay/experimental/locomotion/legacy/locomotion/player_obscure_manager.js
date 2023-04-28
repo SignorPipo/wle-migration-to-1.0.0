@@ -311,7 +311,7 @@ export class PlayerObscureManager {
         obscureVisualParams.myMesh = Globals.getDefaultMeshes(this._myParams.myEngine).myInvertedSphere;
         obscureVisualParams.myMaterial = (this._myParams.myObscureMaterial != null) ? this._myParams.myObscureMaterial : this._myObscureMaterial;
         obscureVisualParams.myParent = this._myObscureParentObject;
-        obscureVisualParams.myIsLocal = true;
+        obscureVisualParams.myLocal = true;
         obscureVisualParams.myTransform.mat4_setScale(vec3_create(this._myParams.myObscureRadius, this._myParams.myObscureRadius, this._myParams.myObscureRadius));
         this._myObscureVisual = new VisualMesh(obscureVisualParams);
 

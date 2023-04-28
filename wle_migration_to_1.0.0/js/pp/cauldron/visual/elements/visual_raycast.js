@@ -27,7 +27,7 @@ export class VisualRaycastParams {
         this.myHitNormalMaterial = null;
 
         this.myParent = Globals.getSceneObjects(engine).myVisualElements;
-        this.myIsLocal = false;
+        this.myLocal = false;
 
         this.myType = VisualElementType.RAYCAST;
     }
@@ -174,7 +174,7 @@ export class VisualRaycast {
                 }
 
                 visualRaycastParams.myParent = this._myParams.myParent;
-                visualRaycastParams.myIsLocal = this._myParams.myIsLocal;
+                visualRaycastParams.myLocal = this._myParams.myLocal;
 
                 this._myVisualRaycast.paramsUpdated();
 
@@ -203,7 +203,7 @@ export class VisualRaycast {
                     }
 
                     visualRaycastHitParams.myParent = this._myParams.myParent;
-                    visualRaycastHitParams.myIsLocal = this._myParams.myIsLocal;
+                    visualRaycastHitParams.myLocal = this._myParams.myLocal;
 
                     visualRaycastHit.paramsUpdated();
 
@@ -226,7 +226,7 @@ export class VisualRaycast {
                 }
 
                 visualRaycastParams.myParent = this._myParams.myParent;
-                visualRaycastParams.myIsLocal = this._myParams.myIsLocal;
+                visualRaycastParams.myLocal = this._myParams.myLocal;
 
                 this._myVisualRaycast.paramsUpdated();
 
@@ -303,7 +303,7 @@ VisualRaycastParams.prototype.copy = function copy(other) {
     }
 
     this.myParent = other.myParent;
-    this.myIsLocal = other.myIsLocal;
+    this.myLocal = other.myLocal;
 
     this.myType = other.myType;
 };

@@ -28,7 +28,7 @@ export class VisualPointParams {
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = Globals.getSceneObjects(engine).myVisualElements;
-        this.myIsLocal = false;
+        this.myLocal = false;
 
         this.myType = VisualElementType.POINT;
     }
@@ -156,7 +156,7 @@ VisualPoint.prototype._refresh = function () {
     return function _refresh() {
         this._myPointObject.pp_setParent(this._myParams.myParent, false);
 
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myPointObject.pp_setPositionLocal(this._myParams.myPosition);
             this._myPointObject.pp_setRotationLocal(rotation);
             this._myPointObject.pp_setScaleLocal(this._myParams.myRadius);
@@ -211,7 +211,7 @@ VisualPointParams.prototype.copy = function copy(other) {
     }
 
     this.myParent = other.myParent;
-    this.myIsLocal = other.myIsLocal;
+    this.myLocal = other.myLocal;
 
     this.myType = other.myType;
 };

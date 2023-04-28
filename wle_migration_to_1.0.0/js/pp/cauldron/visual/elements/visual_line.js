@@ -32,7 +32,7 @@ export class VisualLineParams {
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = Globals.getSceneObjects(engine).myVisualElements;
-        this.myIsLocal = false;
+        this.myLocal = false;
 
         this.myType = VisualElementType.LINE;
     }
@@ -174,20 +174,20 @@ VisualLine.prototype._refresh = function () {
     return function _refresh() {
         this._myLineParentObject.pp_setParent(this._myParams.myParent, false);
 
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myLineParentObject.pp_setPositionLocal(this._myParams.myStart);
         } else {
             this._myLineParentObject.pp_setPosition(this._myParams.myStart);
         }
 
         scaleLine.vec3_set(this._myParams.myThickness / 2, this._myParams.myLength / 2, this._myParams.myThickness / 2);
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myLineObject.pp_setScaleLocal(scaleLine);
         } else {
             this._myLineObject.pp_setScale(scaleLine);
         }
 
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myLineObject.pp_setUpLocal(this._myParams.myDirection, forward);
         } else {
             this._myLineObject.pp_setUp(this._myParams.myDirection, forward);
@@ -244,7 +244,7 @@ VisualLineParams.prototype.copy = function copy(other) {
     }
 
     this.myParent = other.myParent;
-    this.myIsLocal = other.myIsLocal;
+    this.myLocal = other.myLocal;
 
     this.myType = other.myType;
 };

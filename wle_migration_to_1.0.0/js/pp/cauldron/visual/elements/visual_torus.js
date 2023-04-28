@@ -33,7 +33,7 @@ export class VisualTorusParams {
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = Globals.getSceneObjects(engine).myVisualElements;
-        this.myIsLocal = false;
+        this.myLocal = false;
 
         this.myType = VisualElementType.TORUS;
     }
@@ -157,7 +157,7 @@ export class VisualTorus {
             visualSegment.setVisible(false);
 
             visualSegment.getParams().myParent = this._myTorusParentObject;
-            visualSegment.getParams().myIsLocal = true;
+            visualSegment.getParams().myLocal = true;
 
             this._myVisualSegmentList.push(visualSegment);
         }
@@ -216,7 +216,7 @@ VisualTorus.prototype._refresh = function () {
 
         this._myTorusParentObject.pp_setParent(this._myParams.myParent, false);
 
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myTorusParentObject.pp_setTransformLocal(this._myParams.myTransform);
         } else {
             this._myTorusParentObject.pp_setTransform(this._myParams.myTransform);
@@ -291,7 +291,7 @@ VisualTorusParams.prototype.copy = function copy(other) {
     }
 
     this.myParent = other.myParent;
-    this.myIsLocal = other.myIsLocal;
+    this.myLocal = other.myLocal;
 
     this.myType = other.myType;
 };

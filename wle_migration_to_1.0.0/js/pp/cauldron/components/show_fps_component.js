@@ -32,7 +32,7 @@ export class ShowFPSComponent extends Component {
         }
 
         visualParams.myParent = this._myVisualFPSParent;
-        visualParams.myIsLocal = true;
+        visualParams.myLocal = true;
 
         this._myVisualFPS = new VisualText(visualParams);
 

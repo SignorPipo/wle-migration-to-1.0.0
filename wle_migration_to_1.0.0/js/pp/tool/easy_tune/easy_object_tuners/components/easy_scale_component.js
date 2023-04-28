@@ -8,7 +8,7 @@ export class EasyScaleComponent extends Component {
         _myVariableName: Property.string(""),
         _mySetAsDefault: Property.bool(false),
         _myUseTuneTarget: Property.bool(false),
-        _myIsLocal: Property.bool(false),
+        _myLocal: Property.bool(false),
         _myScaleAsOne: Property.bool(true) // Edit all scale values together
     };
 
@@ -16,7 +16,7 @@ export class EasyScaleComponent extends Component {
         this._myEasyObjectTuner = null;
 
         if (Globals.isToolEnabled(this.engine)) {
-            this._myEasyObjectTuner = new EasyScale(this._myIsLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
+            this._myEasyObjectTuner = new EasyScale(this._myLocal, this._myScaleAsOne, this.object, this._myVariableName, this._mySetAsDefault, this._myUseTuneTarget);
         }
     }
 

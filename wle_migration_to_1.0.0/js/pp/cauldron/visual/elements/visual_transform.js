@@ -26,7 +26,7 @@ export class VisualTransformParams {
         this.myRightMaterial = null;
 
         this.myParent = Globals.getSceneObjects(engine).myVisualElements;
-        this.myIsLocal = false;
+        this.myLocal = false;
 
         this.myType = VisualElementType.TRANSFORM;
     }
@@ -195,7 +195,7 @@ VisualTransform.prototype._refresh = function () {
             }
 
             visualArrowParams.myParent = this._myParams.myParent;
-            visualArrowParams.myIsLocal = this._myParams.myIsLocal;
+            visualArrowParams.myLocal = this._myParams.myLocal;
 
             this._myVisualRight.paramsUpdated();
         }
@@ -214,7 +214,7 @@ VisualTransform.prototype._refresh = function () {
             }
 
             visualArrowParams.myParent = this._myParams.myParent;
-            visualArrowParams.myIsLocal = this._myParams.myIsLocal;
+            visualArrowParams.myLocal = this._myParams.myLocal;
 
             this._myVisualUp.paramsUpdated();
         }
@@ -233,7 +233,7 @@ VisualTransform.prototype._refresh = function () {
             }
 
             visualArrowParams.myParent = this._myParams.myParent;
-            visualArrowParams.myIsLocal = this._myParams.myIsLocal;
+            visualArrowParams.myLocal = this._myParams.myLocal;
 
             this._myVisualForward.paramsUpdated();
         }
@@ -264,7 +264,7 @@ VisualTransformParams.prototype.copy = function copy(other) {
     }
 
     this.myParent = other.myParent;
-    this.myIsLocal = other.myIsLocal;
+    this.myLocal = other.myLocal;
 
     this.myType = other.myType;
 };

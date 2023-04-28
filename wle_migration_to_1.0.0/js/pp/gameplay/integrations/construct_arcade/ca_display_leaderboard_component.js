@@ -7,8 +7,8 @@ export class CADisplayLeaderboardComponent extends Component {
     static TypeName = "pp-ca-display-leaderboard";
     static Properties = {
         _myLeaderboardID: Property.string(""),
-        _myIsLocal: Property.bool(false),
-        _myIsAscending: Property.bool(false),
+        _myLocal: Property.bool(false),
+        _myAscending: Property.bool(false),
         _myScoresAmount: Property.int(10),
         _myScoreFormat: Property.enum(["Value", "Hours:Minutes:Seconds", "Minutes:Seconds", "Seconds", "Hours:Minutes", "Minutes"], "Value"),
         _myPositionAndUsernameSeparator: Property.string(" - "),
@@ -49,7 +49,7 @@ export class CADisplayLeaderboardComponent extends Component {
     }
 
     updateLeaderboard() {
-        CAUtils.getLeaderboard(this._myLeaderboardID, this._myIsAscending, this._myIsLocal, this._myScoresAmount, this._onLeaderboardRetrieved.bind(this), undefined, undefined, this.engine);
+        CAUtils.getLeaderboard(this._myLeaderboardID, this._myAscending, this._myLocal, this._myScoresAmount, this._onLeaderboardRetrieved.bind(this), undefined, undefined, this.engine);
     }
 
     _onLeaderboardRetrieved(leaderboard) {

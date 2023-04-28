@@ -25,7 +25,7 @@ export class VisualMeshParams {
         this.myMaterial = null;
 
         this.myParent = Globals.getSceneObjects(engine).myVisualElements;
-        this.myIsLocal = false;
+        this.myLocal = false;
 
         this.myType = VisualElementType.MESH;
     }
@@ -104,7 +104,7 @@ export class VisualMesh {
     _refresh() {
         this._myMeshObject.pp_setParent(this._myParams.myParent, false);
 
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myMeshObject.pp_setTransformLocal(this._myParams.myTransform);
         } else {
             this._myMeshObject.pp_setTransform(this._myParams.myTransform);
@@ -180,7 +180,7 @@ VisualMeshParams.prototype.copy = function copy(other) {
     }
 
     this.myParent = other.myParent;
-    this.myIsLocal = other.myIsLocal;
+    this.myLocal = other.myLocal;
 
     this.myType = other.myType;
 };

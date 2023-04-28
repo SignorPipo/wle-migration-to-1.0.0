@@ -34,7 +34,7 @@ export class VisualArrowParams {
         this.myColor = null;        // If this is set and material is null, it will use the default flat opaque material with this color
 
         this.myParent = Globals.getSceneObjects(engine).myVisualElements;
-        this.myIsLocal = false;
+        this.myLocal = false;
 
         this.myType = VisualElementType.ARROW;
     }
@@ -189,7 +189,7 @@ VisualArrow.prototype._refresh = function () {
         this._myParams.myDirection.vec3_scale(Math.max(0.001, this._myParams.myLength - this._myParams.myThickness * 4), end);
         end.vec3_add(this._myParams.myStart, end);
 
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myArrowParentObject.pp_setPositionLocal(end);
             this._myArrowParentObject.pp_setUpLocal(this._myParams.myDirection, forward);
         } else {
@@ -201,7 +201,7 @@ VisualArrow.prototype._refresh = function () {
         this._myArrowParentObject.pp_translateObject(translateParent);
 
         scaleArrow.vec3_set(this._myParams.myThickness * 1.25, this._myParams.myThickness * 2, this._myParams.myThickness * 1.25);
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myArrowObject.pp_setScaleLocal(scaleArrow);
         } else {
             this._myArrowObject.pp_setScale(scaleArrow);
@@ -238,7 +238,7 @@ VisualArrow.prototype._refresh = function () {
         visualLineParams.myMaterial = this._myArrowMeshComponent.material;
 
         visualLineParams.myParent = this._myParams.myParent;
-        visualLineParams.myIsLocal = this._myParams.myIsLocal;
+        visualLineParams.myLocal = this._myParams.myLocal;
 
         this._myVisualLine.paramsUpdated();
     };
@@ -270,7 +270,7 @@ VisualArrowParams.prototype.copy = function copy(other) {
     }
 
     this.myParent = other.myParent;
-    this.myIsLocal = other.myIsLocal;
+    this.myLocal = other.myLocal;
 
     this.myType = other.myType;
 };

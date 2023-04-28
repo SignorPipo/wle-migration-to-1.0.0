@@ -322,7 +322,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         //this._myTextsObject.pp_addComponent(EasyTransformComponent);
 
         this._myTriangleTextObject = this._myTextsObject.pp_addObject();
-        //this._myTriangleTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
+        //this._myTriangleTextObject.pp_addComponent(EasyTransformComponent, { _myLocal: true });
 
         this._myTriangleTextComponent = this._myTriangleTextObject.pp_addComponent(TextComponent);
 
@@ -336,7 +336,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myPlaneTextObject = this._myTextsObject.pp_addObject();
 
         this._myPlaneTextComponent = this._myPlaneTextObject.pp_addComponent(TextComponent);
-        //this._myPlaneTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
+        //this._myPlaneTextObject.pp_addComponent(EasyTransformComponent, { _myLocal: true });
 
         this._myPlaneTextComponent.alignment = Alignment.Left;
         this._myPlaneTextComponent.justification = Justification.Line;
@@ -348,7 +348,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myFPSTextObject = this._myTextsObject.pp_addObject();
 
         this._myFPSTextComponent = this._myFPSTextObject.pp_addComponent(TextComponent);
-        //this._myFPSTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
+        //this._myFPSTextObject.pp_addComponent(EasyTransformComponent, { _myLocal: true });
 
         this._myFPSTextComponent.alignment = Alignment.Left;
         this._myFPSTextComponent.justification = Justification.Line;
@@ -360,7 +360,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myDoneTextObject = this._myTrianglesObject.pp_addObject();
 
         this._myDoneTextComponent = this._myDoneTextObject.pp_addComponent(TextComponent);
-        //this._myDoneTextObject.pp_addComponent(EasyTransformComponent, { _myIsLocal: true });
+        //this._myDoneTextObject.pp_addComponent(EasyTransformComponent, { _myLocal: true });
 
         this._myDoneTextComponent.alignment = Alignment.Center;
         this._myDoneTextComponent.justification = Justification.Line;

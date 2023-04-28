@@ -28,7 +28,7 @@ export class FadeViewComponent extends Component {
         fadeVisualParams.myMesh = Globals.getDefaultMeshes(this.engine).myInvertedSphere;
         fadeVisualParams.myMaterial = this._myFadeMaterial;
         fadeVisualParams.myParent = this._myFadeParentObject;
-        fadeVisualParams.myIsLocal = true;
+        fadeVisualParams.myLocal = true;
         fadeVisualParams.myTransform.mat4_setScale(vec3_create(0.1, 0.1, 0.1));
         this._myFadeVisual = new VisualMesh(fadeVisualParams);
 

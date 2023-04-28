@@ -30,7 +30,7 @@ export class VisualTextParams {
         this.myColor = null;        // If this is set and material is null, it will use the default text material with this color
 
         this.myParent = Globals.getSceneObjects(engine).myVisualElements;
-        this.myIsLocal = false;
+        this.myLocal = false;
 
         this.myType = VisualElementType.TEXT;
     }
@@ -111,7 +111,7 @@ export class VisualText {
     _refresh() {
         this._myTextObject.pp_setParent(this._myParams.myParent, false);
 
-        if (this._myParams.myIsLocal) {
+        if (this._myParams.myLocal) {
             this._myTextObject.pp_setTransformLocal(this._myParams.myTransform);
         } else {
             this._myTextObject.pp_setTransform(this._myParams.myTransform);
@@ -202,7 +202,7 @@ VisualTextParams.prototype.copy = function copy(other) {
     }
 
     this.myParent = other.myParent;
-    this.myIsLocal = other.myIsLocal;
+    this.myLocal = other.myLocal;
 
     this.myType = other.myType;
 };
