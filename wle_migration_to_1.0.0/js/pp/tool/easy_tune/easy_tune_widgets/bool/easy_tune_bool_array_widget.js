@@ -9,8 +9,8 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
     constructor(params, arraySize, gamepad, engine = Globals.getMainEngine()) {
         super(params);
 
-        this._myIsNonArray = arraySize == null;
-        this._myArraySize = this._myIsNonArray ? 1 : arraySize;
+        this._myNonArray = arraySize == null;
+        this._myArraySize = this._myNonArray ? 1 : arraySize;
 
         this._myConfig = new EasyTuneBoolArrayWidgetConfig(this._myArraySize);
         this._myUI = new EasyTuneBoolArrayWidgetUI(engine);
@@ -151,7 +151,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
     }
 
     _getVariableValue() {
-        if (this._myIsNonArray) {
+        if (this._myNonArray) {
             this._myTempNonArrayValue[0] = this._myVariable.getValue();
             return this._myTempNonArrayValue;
         }
@@ -160,7 +160,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
     }
 
     _getVariableDefaultValue() {
-        if (this._myIsNonArray) {
+        if (this._myNonArray) {
             this._myTempNonArrayDefaultValue[0] = this._myVariable.getDefaultValue();
             return this._myTempNonArrayDefaultValue;
         }
@@ -169,7 +169,7 @@ export class EasyTuneBoolArrayWidget extends EasyTuneBaseWidget {
     }
 
     _setVariableValue(value) {
-        if (this._myIsNonArray) {
+        if (this._myNonArray) {
             this._myVariable.setValue(value[0]);
         } else {
             this._myVariable.setValue(this._myTempValue);

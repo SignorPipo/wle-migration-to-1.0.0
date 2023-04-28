@@ -23,7 +23,7 @@ export class HandPose extends BasePose {
         this._myHandedness = handedness;
         this._myFixTrackedHandRotation = handPoseParams.myFixTrackedHandRotation;
 
-        this._myIsTrackedHand = false;
+        this._myTrackedHand = false;
 
         this._myInputSourcesChangeEventListener = null;
     }
@@ -78,7 +78,7 @@ export class HandPose extends BasePose {
                 for (let item of event.added) {
                     if (item.handedness == this._myHandedness) {
                         this._myInputSource = item;
-                        this._myIsTrackedHand = InputUtils.getInputSourceType(this._myInputSource) == InputSourceType.TRACKED_HAND;
+                        this._myTrackedHand = InputUtils.getInputSourceType(this._myInputSource) == InputSourceType.TRACKED_HAND;
                     }
                 }
             }
@@ -90,7 +90,7 @@ export class HandPose extends BasePose {
             for (let item of session.inputSources) {
                 if (item.handedness == this._myHandedness) {
                     this._myInputSource = item;
-                    this._myIsTrackedHand = InputUtils.getInputSourceType(this._myInputSource) == InputSourceType.TRACKED_HAND;
+                    this._myTrackedHand = InputUtils.getInputSourceType(this._myInputSource) == InputSourceType.TRACKED_HAND;
                 }
             }
         }
@@ -125,7 +125,7 @@ HandPose.prototype.getRotationQuat = function () {
             out.quat_rotateAxisRadians(Math.PI, out.quat_getUp(up), out);
         }
 
-        if (this._myFixTrackedHandRotation && this._myIsTrackedHand) {
+        if (this._myFixTrackedHandRotation && this._myTrackedHand) {
             out.quat_rotateAxis(-60, out.quat_getRight(right), out);
 
             let forwardRotation = 20;

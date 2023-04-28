@@ -3,10 +3,10 @@ import { Timer } from "../cauldron/timer";
 
 export class PhysicsCollisionCollector {
 
-    constructor(physXComponent, isTrigger = false) {
+    constructor(physXComponent, trigger = false) {
         this._myPhysX = physXComponent;
 
-        this._myIsTrigger = isTrigger;
+        this._myTrigger = trigger;
 
         this._myCollisions = [];
 
@@ -93,7 +93,7 @@ export class PhysicsCollisionCollector {
         this._myCollisionsEnd = this._myCollisionsEndToProcess;
         this._myCollisionsEndToProcess = [];
 
-        if (this._myIsTrigger) {
+        if (this._myTrigger) {
             this._triggerDesyncFix(dt);
         }
     }

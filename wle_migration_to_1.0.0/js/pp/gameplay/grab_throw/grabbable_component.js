@@ -13,7 +13,7 @@ export class GrabbableComponent extends Component {
     };
 
     init() {
-        this._myIsGrabbed = false;
+        this._myGrabbed = false;
 
         this._myGrabber = null;
 
@@ -47,13 +47,13 @@ export class GrabbableComponent extends Component {
         this._myOldParent = this.object.pp_getParent();
         this.object.pp_setParent(grabber);
 
-        this._myIsGrabbed = true;
+        this._myGrabbed = true;
 
         this._myGrabEmitter.notify(grabber, this);
     }
 
     throw(linearVelocity, angularVelocity) {
-        if (this._myIsGrabbed) {
+        if (this._myGrabbed) {
             let grabber = this._myGrabber;
 
             this._release();
@@ -70,7 +70,7 @@ export class GrabbableComponent extends Component {
     }
 
     release() {
-        if (this._myIsGrabbed) {
+        if (this._myGrabbed) {
             let grabber = this._myGrabber;
 
             this._release();
@@ -108,7 +108,7 @@ export class GrabbableComponent extends Component {
     }
 
     isGrabbed() {
-        return this._myIsGrabbed;
+        return this._myGrabbed;
     }
 
     getGrabber() {
@@ -146,7 +146,7 @@ export class GrabbableComponent extends Component {
             this.object.pp_setParent(this._myOldParent);
         }
 
-        this._myIsGrabbed = false;
+        this._myGrabbed = false;
         this._myGrabber = null;
 
         if (this._myKinematicValueOnRelease == 0) {
