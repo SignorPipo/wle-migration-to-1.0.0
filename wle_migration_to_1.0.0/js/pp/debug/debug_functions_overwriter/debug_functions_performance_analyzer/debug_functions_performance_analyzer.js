@@ -476,14 +476,14 @@ export class DebugFunctionsPerformanceAnalyzer extends DebugFunctionsOverwriter 
     }
 
     _isPerformanceAnalyzer(reference, propertyName, isClass) {
-        let performanceAnalyzer = false;
+        let isPerformanceAnalyzer = false;
 
         if (isClass) {
             if (reference == DebugFunctionsPerformanceAnalyzer.prototype || reference == DebugFunctionPerformanceAnalysisResults.prototype) {
-                performanceAnalyzer = true;
+                isPerformanceAnalyzer = true;
             }
         }
 
-        return performanceAnalyzer;
+        return isPerformanceAnalyzer;
     }
 }

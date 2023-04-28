@@ -92,8 +92,8 @@ export function isARSupported(engine = Globals.getMainEngine()) {
 }
 
 export function isDeviceEmulated(engine = Globals.getMainEngine()) {
-    let isEmulated = ("CustomWebXRPolyfill" in Globals.getWindow(engine));
-    return isEmulated;
+    let emulated = ("CustomWebXRPolyfill" in Globals.getWindow(engine));
+    return emulated;
 }
 
 export let XRUtils = {

@@ -134,9 +134,9 @@ export class DebugFunctionsOverwriter {
             excludeNameList = this._myParams.myClassNamesToExclude;
         }
 
-        let isValidReferencePath = this._filterName(referencePath, includePathList, excludePathList);
-        let isValidReferenceName = this._filterName(referenceNameForFilter, includeNameList, excludeNameList);
-        if (isValidReferencePath && isValidReferenceName) {
+        let validReferencePath = this._filterName(referencePath, includePathList, excludePathList);
+        let validReferenceName = this._filterName(referenceNameForFilter, includeNameList, excludeNameList);
+        if (validReferencePath && validReferenceName) {
             let propertyNames = JSUtils.getObjectPropertyNames(reference);
             if (propertyNames.pp_hasEqual("constructor")) {
                 propertyNames.unshift("constructor"); // Be sure it's added first to spot bugs, not important that it appears twice in the list
@@ -186,13 +186,13 @@ export class DebugFunctionsOverwriter {
 
     _overwriteFunction(reference, propertyName, referenceParentForConstructor, referenceNameForConstructor, referencePath, isClass, isFunction) {
         try {
-            let isPropertyCountedAlready = this._myPropertiesAlreadyOverwritten.get(propertyName) != null && this._myPropertiesAlreadyOverwritten.get(propertyName).pp_hasEqual(reference);
-            if (!isPropertyCountedAlready) {
+            let propertyCountedAlready = this._myPropertiesAlreadyOverwritten.get(propertyName) != null && this._myPropertiesAlreadyOverwritten.get(propertyName).pp_hasEqual(reference);
+            if (!propertyCountedAlready) {
                 if (JSUtils.isFunctionByName(reference, propertyName)) {
                     if (!this._myParams.myExcludeJSObjectFunctions || !this._isJSObjectFunction(propertyName)) {
-                        let isValidFunctionName = this._filterName(propertyName, this._myParams.myFunctionNamesToInclude, this._myParams.myFunctionNamesToExclude);
-                        let isValidFunctionPath = this._filterName((referencePath != null ? referencePath + "." : "") + propertyName, this._myParams.myFunctionPathsToInclude, this._myParams.myFunctionPathsToExclude);
-                        if (isValidFunctionName && isValidFunctionPath) {
+                        let validFunctionName = this._filterName(propertyName, this._myParams.myFunctionNamesToInclude, this._myParams.myFunctionNamesToExclude);
+                        let validFunctionPath = this._filterName((referencePath != null ? referencePath + "." : "") + propertyName, this._myParams.myFunctionPathsToInclude, this._myParams.myFunctionPathsToExclude);
+                        if (validFunctionName && validFunctionPath) {
                             if (!this._myPropertiesAlreadyOverwritten.has(propertyName)) {
                                 this._myPropertiesAlreadyOverwritten.set(propertyName, []);
                             }
@@ -374,9 +374,9 @@ export class DebugFunctionsOverwriter {
                         excludeNameList = this._myParams.myClassNamesToExclude;
                     }
 
-                    let isValidReferencePath = this._filterName(currentPath, includePathList, excludePathList);
-                    let isValidReferenceName = this._filterName(propertyName, includeNameList, excludeNameList);
-                    if (isValidReferencePath && isValidReferenceName) {
+                    let validReferencePath = this._filterName(currentPath, includePathList, excludePathList);
+                    let validReferenceName = this._filterName(propertyName, includeNameList, excludeNameList);
+                    if (validReferencePath && validReferenceName) {
                         if (isObject && (objectLevel + 1 <= this._myParams.myObjectAddObjectDescendantsDepthLevel || this._myParams.myObjectAddObjectDescendantsDepthLevel == -1)) {
                             objectsAndParents.pp_pushUnique([objectProperty, object, propertyName, currentPath, currentName], equalCallback);
                         }
@@ -395,24 +395,24 @@ export class DebugFunctionsOverwriter {
     }
 
     _filterName(name, includeList, excludeList) {
-        let isValidName = includeList.length == 0;
+        let validName = includeList.length == 0;
         for (let includeName of includeList) {
             if (name.match(new RegExp(includeName)) != null) {
-                isValidName = true;
+                validName = true;
                 break;
             }
         }
 
-        if (isValidName) {
+        if (validName) {
             for (let excludeName of excludeList) {
                 if (name.match(new RegExp(excludeName)) != null) {
-                    isValidName = false;
+                    validName = false;
                     break;
                 }
             }
         }
 
-        return isValidName;
+        return validName;
     }
 
     _isJSObjectFunction(propertyName) {
