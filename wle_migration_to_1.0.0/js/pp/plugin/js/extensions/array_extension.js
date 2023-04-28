@@ -361,7 +361,7 @@ export function initArrayExtensionProtoype() {
 
     // ARRAY
 
-    PluginUtils.assignProperties(ArrayUtils, arrayExtension, false, true, true, true, true, "pp_");
+    PluginUtils.injectProperties(ArrayUtils, arrayExtension, false, true, true, true, true, "pp_");
 
     // GENERIC VECTOR
 
@@ -2364,7 +2364,7 @@ export function initArrayExtensionProtoype() {
         Int16Array.prototype, Int32Array.prototype, Float32Array.prototype, Float64Array.prototype];
 
     for (let arrayPrototypeToExtend of arrayPrototypesToExtend) {
-        PluginUtils.assignProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
+        PluginUtils.injectProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
     }
 }
 

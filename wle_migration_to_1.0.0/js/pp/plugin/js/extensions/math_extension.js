@@ -35,6 +35,6 @@ export function initMathExtension() {
 
 export function initMathExtensionStatic() {
     let mathExtension = {};
-    PluginUtils.assignProperties(MathUtils, mathExtension, false, true, true, true, false, "pp_");
-    PluginUtils.assignProperties(mathExtension, Math, false, true, true);
+    PluginUtils.injectProperties(MathUtils, mathExtension, false, true, true, true, false, "pp_");
+    PluginUtils.injectProperties(mathExtension, Math, false, true, true);
 }

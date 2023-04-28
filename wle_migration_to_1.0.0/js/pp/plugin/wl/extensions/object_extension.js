@@ -2799,7 +2799,7 @@ export function initObjectExtensionProtoype() {
 
 
 
-    PluginUtils.assignProperties(objectExtension, Object3D.prototype, false, true, true);
+    PluginUtils.injectProperties(objectExtension, Object3D.prototype, false, true, true);
 }
 
 

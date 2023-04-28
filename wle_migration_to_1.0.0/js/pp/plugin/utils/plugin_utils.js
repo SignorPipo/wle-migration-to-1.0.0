@@ -1,6 +1,6 @@
 import { JSUtils } from "../../cauldron/js/utils/js_utils";
 
-export function assignProperties(fromReference, toReference, enumerable = true, writable = true, configurable = true, keepOriginalDescriptorAttributes = true, bindThisAsFirstParam = false, prefix = null) {
+export function injectProperties(fromReference, toReference, enumerable = true, writable = true, configurable = true, keepOriginalDescriptorAttributes = true, bindThisAsFirstParam = false, prefix = null) {
     let ownPropertyNames = Object.getOwnPropertyNames(fromReference);
     for (let ownPropertyName of ownPropertyNames) {
         let enumerableToUse = enumerable;
@@ -47,5 +47,5 @@ export function assignProperties(fromReference, toReference, enumerable = true, 
 }
 
 export let PluginUtils = {
-    assignProperties
+    injectProperties
 };

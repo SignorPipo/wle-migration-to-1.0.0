@@ -32,5 +32,5 @@ export function initEmitterModPrototype() {
 
 
 
-    PluginUtils.assignProperties(emitterMod, Emitter.prototype, false, true, true);
+    PluginUtils.injectProperties(emitterMod, Emitter.prototype, false, true, true);
 }

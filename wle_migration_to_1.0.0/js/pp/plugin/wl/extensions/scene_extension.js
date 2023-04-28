@@ -33,6 +33,6 @@ export function initSceneExtension(engine) {
 
 export function initSceneExtensionPrototype() {
     let sceneExtension = {};
-    PluginUtils.assignProperties(SceneUtils, sceneExtension, false, true, true, true, true, "pp_");
-    PluginUtils.assignProperties(sceneExtension, Scene.prototype, false, true, true);
+    PluginUtils.injectProperties(SceneUtils, sceneExtension, false, true, true, true, true, "pp_");
+    PluginUtils.injectProperties(sceneExtension, Scene.prototype, false, true, true);
 }
