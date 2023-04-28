@@ -164,9 +164,10 @@
 */
 
 import * as glMatrix from "gl-matrix";
-import { PluginUtils } from "../../utils/plugin_utils";
 import { ArrayUtils } from "../../../cauldron/js/utils/array_utils";
+import { Vec2Utils } from "../../../cauldron/js/utils/vec2_utils";
 import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
+import { PluginUtils } from "../../utils/plugin_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -370,37 +371,7 @@ export function initArrayExtensionProtoype() {
 
     // VECTOR 2
 
-    // glMatrix Bridge
-
-    arrayExtension.vec2_length = function vec2_length() {
-        return glMatrix.vec2.length(this);
-    };
-
-    arrayExtension.vec2_normalize = function vec2_normalize(out = vec2_create()) {
-        glMatrix.vec2.normalize(out, this);
-        return out;
-    };
-
-    arrayExtension.vec2_copy = function vec2_copy(vector) {
-        glMatrix.vec2.copy(this, vector);
-        return this;
-    };
-
-    arrayExtension.vec2_clone = function vec2_clone(out = vec2_create()) {
-        out.vec2_copy(this);
-        return out;
-    };
-
-    arrayExtension.vec2_zero = function vec2_zero() {
-        glMatrix.vec2.zero(this);
-        return this;
-    };
-
-    // New Functions
-
-    arrayExtension.vec2_isZero = function vec2_isZero(epsilon = 0) {
-        return this.vec2_length() <= epsilon;
-    };
+    PluginUtils.injectProperties(Vec2Utils, arrayExtension, false, true, true, true, true, "vec2_");
 
     // VECTOR 3
 

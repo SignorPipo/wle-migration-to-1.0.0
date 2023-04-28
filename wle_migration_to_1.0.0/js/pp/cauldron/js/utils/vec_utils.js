@@ -94,7 +94,7 @@ export let VecUtils = {
     ceil,
     clamp,
     equals
-}
+};
 
 
 
