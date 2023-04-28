@@ -4,11 +4,13 @@ import * as glMatrix from "gl-matrix";
 
 export function create(x, y) {
     let out = glMatrix.vec2.create();
+
     if (x !== undefined) {
         set(out, x, y);
     }
+
     return out;
-};
+}
 
 export function set(vector, x, y) {
     if (y === undefined) {
@@ -18,7 +20,7 @@ export function set(vector, x, y) {
     }
 
     return vector;
-};
+}
 
 export function length(vector) {
     return glMatrix.vec2.length(vector);

@@ -8,12 +8,14 @@ export function create(
     m10, m11, m12,
     m20, m21, m22) {
     let out = glMatrix.mat3.create();
+
     if (m00 !== undefined) {
         set(out,
             m00, m01, m02,
             m10, m11, m12,
             m20, m21, m22);
     }
+
     return out;
 }
 
