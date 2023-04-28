@@ -165,6 +165,7 @@
 
 import * as glMatrix from "gl-matrix";
 import { ArrayUtils } from "../../../cauldron/js/utils/array_utils";
+import { Mat3Utils } from "../../../cauldron/js/utils/mat3_utils";
 import { Vec2Utils } from "../../../cauldron/js/utils/vec2_utils";
 import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
 import { PluginUtils } from "../../utils/plugin_utils";
@@ -213,15 +214,10 @@ export function mat3_create(
     m00, m01, m02,
     m10, m11, m12,
     m20, m21, m22) {
-    let out = glMatrix.mat3.create();
-    if (m00 !== undefined) {
-        _mat3_set(
-            out,
-            m00, m01, m02,
-            m10, m11, m12,
-            m20, m21, m22);
-    }
-    return out;
+    return Mat3Utils.create(
+        m00, m01, m02,
+        m10, m11, m12,
+        m20, m21, m22);
 };
 
 export function mat4_create(
@@ -327,17 +323,6 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.quat2_set = function quat2_set(x1, y1, z1, w1, x2, y2, z2, w2) {
         return _quat2_set(this, x1, y1, z1, w1, x2, y2, z2, w2);
-    };
-
-    arrayExtension.mat3_set = function mat3_set(
-        m00, m01, m02,
-        m10, m11, m12,
-        m20, m21, m22) {
-        return _mat3_set(
-            this,
-            m00, m01, m02,
-            m10, m11, m12,
-            m20, m21, m22);
     };
 
     arrayExtension.mat4_set = function mat4_set(
@@ -1886,40 +1871,7 @@ export function initArrayExtensionProtoype() {
 
     // MATRIX 3
 
-    // glMatrix Bridge
-
-    // New Functions
-
-    arrayExtension.mat3_toDegrees = function () {
-        let quat = quat_create();
-        return function mat3_toDegrees(out = vec3_create()) {
-            this.mat3_toQuat(quat);
-            quat.quat_toDegrees(out);
-            return out;
-        };
-    }();
-
-    arrayExtension.mat3_toRadians = function () {
-        let quat = quat_create();
-        return function mat3_toRadians(out = vec3_create()) {
-            this.mat3_toQuat(quat);
-            quat.quat_toRadians(out);
-            return out;
-        };
-    }();
-
-    arrayExtension.mat3_toQuat = function mat3_toQuat(out = quat_create()) {
-        glMatrix.quat.fromMat3(out, this);
-        return out;
-    };
-
-    arrayExtension.mat3_fromAxes = function mat3_fromAxes(leftAxis, upAxis, forwardAxis) {
-        this.mat3_set(
-            leftAxis[0], leftAxis[1], leftAxis[2],
-            upAxis[0], upAxis[1], upAxis[2],
-            forwardAxis[0], forwardAxis[1], forwardAxis[2]);
-        return this;
-    };
+    PluginUtils.injectProperties(Mat3Utils, arrayExtension, false, true, true, true, true, "mat3_", ["create"]);
 
     // MATRIX 4
 
@@ -2386,25 +2338,6 @@ function _quat2_set(vector, x1, y1, z1, w1, x2, y2, z2, w2) {
         glMatrix.quat2.set(vector, x1, x1, x1, x1, x1, x1, x1, x1);
     } else {
         glMatrix.quat2.set(vector, x1, y1, z1, w1, x2, y2, z2, w2);
-    }
-    return vector;
-}
-
-function _mat3_set(
-    vector,
-    m00, m01, m02,
-    m10, m11, m12,
-    m20, m21, m22) {
-    if (m01 === undefined) {
-        glMatrix.mat3.set(vector,
-            m00, m00, m00,
-            m00, m00, m00,
-            m00, m00, m00);
-    } else {
-        glMatrix.mat3.set(vector,
-            m00, m01, m02,
-            m10, m11, m12,
-            m20, m21, m22);
     }
     return vector;
 }
