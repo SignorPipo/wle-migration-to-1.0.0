@@ -170,6 +170,8 @@ import { Vec2Utils } from "../../../cauldron/js/utils/vec2_utils";
 import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
 import { PluginUtils } from "../../utils/plugin_utils";
 import { Vec4Utils } from "../../../cauldron/js/utils/vec4_utils";
+import { Mat4Utils } from "../../../cauldron/js/utils/mat4_utils";
+import { Vec3Utils } from "../../../cauldron/js/utils/vec3_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -177,15 +179,11 @@ export function initArrayExtension() {
 
 export function vec2_create(x, y) {
     return Vec2Utils.create(x, y);
-};
+}
 
 export function vec3_create(x, y, z) {
-    let out = glMatrix.vec3.create();
-    if (x !== undefined) {
-        _vec3_set(out, x, y, z);
-    }
-    return out;
-};
+    return Vec3Utils.create(x, y, z);
+}
 
 export function vec4_create(x, y, z, w) {
     return Vec4Utils.create(x, y, z, w);
@@ -197,7 +195,7 @@ export function quat_create(x, y, z, w) {
         _quat_set(out, x, y, z, w);
     }
     return out;
-};
+}
 
 export function quat2_create(x1, y1, z1, w1, x2, y2, z2, w2) {
     let out = glMatrix.quat2.create();
@@ -205,7 +203,7 @@ export function quat2_create(x1, y1, z1, w1, x2, y2, z2, w2) {
         _quat2_set(out, x1, y1, z1, w1, x2, y2, z2, w2);
     }
     return out;
-};
+}
 
 export function mat3_create(
     m00, m01, m02,
@@ -215,24 +213,19 @@ export function mat3_create(
         m00, m01, m02,
         m10, m11, m12,
         m20, m21, m22);
-};
+}
 
 export function mat4_create(
     m00, m01, m02, m03,
     m10, m11, m12, m13,
     m20, m21, m22, m23,
     m30, m31, m32, m33) {
-    let out = glMatrix.mat4.create();
-    if (m00 !== undefined) {
-        _mat4_set(
-            out,
-            m00, m01, m02, m03,
-            m10, m11, m12, m13,
-            m20, m21, m22, m23,
-            m30, m31, m32, m33);
-    }
-    return out;
-};
+    return Mat4Utils.create(
+        m00, m01, m02, m03,
+        m10, m11, m12, m13,
+        m20, m21, m22, m23,
+        m30, m31, m32, m33);
+}
 
 export function quat2_fromPositionRotation(position, rotation) {
     return quat2_fromPositionRotationDegrees(position, rotation);
@@ -307,7 +300,7 @@ export function initArrayExtensionProtoype() {
     let arrayExtension = {};
 
     arrayExtension.vec3_set = function vec3_set(x, y, z) {
-        return _vec3_set(this, x, y, z);
+        return Vec3Utils.set(this, x, y, z);
     };
 
     arrayExtension.quat_set = function quat_set(x, y, z, w) {
@@ -316,19 +309,6 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.quat2_set = function quat2_set(x1, y1, z1, w1, x2, y2, z2, w2) {
         return _quat2_set(this, x1, y1, z1, w1, x2, y2, z2, w2);
-    };
-
-    arrayExtension.mat4_set = function mat4_set(
-        m00, m01, m02, m03,
-        m10, m11, m12, m13,
-        m20, m21, m22, m23,
-        m30, m31, m32, m33) {
-        return _mat4_set(
-            this,
-            m00, m01, m02, m03,
-            m10, m11, m12, m13,
-            m20, m21, m22, m23,
-            m30, m31, m32, m33);
     };
 
     // ARRAY
@@ -811,7 +791,7 @@ export function initArrayExtensionProtoype() {
         let position = vec3_create();
         let rotation = quat_create();
         let one = vec3_create();
-        _vec3_set(one, 1, 1, 1);
+        Vec3Utils.set(one, 1, 1, 1);
         return function vec3_convertPositionToWorldQuat(parentTransform, out = vec3_create()) {
             parentTransform.quat2_getPosition(position);
             parentTransform.quat2_getRotationQuat(rotation);
@@ -825,7 +805,7 @@ export function initArrayExtensionProtoype() {
         let position = vec3_create();
         let rotation = quat_create();
         let one = vec3_create();
-        _vec3_set(one, 1, 1, 1);
+        Vec3Utils.set(one, 1, 1, 1);
         return function vec3_convertPositionToLocalQuat(parentTransform, out = vec3_create()) {
             parentTransform.quat2_getPosition(position);
             parentTransform.quat2_getRotationQuat(rotation);
@@ -1858,320 +1838,7 @@ export function initArrayExtensionProtoype() {
 
     // MATRIX 4
 
-    // glMatrix Bridge
-
-    arrayExtension.mat4_copy = function mat4_copy(mat4) {
-        glMatrix.mat4.copy(this, mat4);
-        return this;
-    };
-
-    arrayExtension.mat4_identity = function mat4_identity() {
-        glMatrix.mat4.identity(this);
-        return this;
-    };
-
-    arrayExtension.mat4_invert = function mat4_invert(out = mat4_create()) {
-        glMatrix.mat4.invert(out, this);
-        return out;
-    };
-
-    arrayExtension.mat4_mul = function mat4_mul(mat4, out = mat4_create()) {
-        glMatrix.mat4.mul(out, this, mat4);
-        return out;
-    };
-
-    arrayExtension.mat4_scale = function mat4_scale(vector, out = mat4_create()) {
-        glMatrix.mat4.scale(out, this, vector);
-        return out;
-    };
-
-    arrayExtension.mat4_clone = function mat4_clone(out = mat4_create()) {
-        out.mat4_copy(this);
-        return out;
-    };
-
-    arrayExtension.mat4_getPosition = function mat4_getPosition(out = vec3_create()) {
-        glMatrix.mat4.getTranslation(out, this);
-        return out;
-    };
-
-    arrayExtension.mat4_getRotation = function mat4_getRotation(out = vec3_create()) {
-        return this.mat4_getRotationDegrees(out);
-    };
-
-    arrayExtension.mat4_getRotationDegrees = function () {
-        let quat = quat_create();
-        return function mat4_getRotationDegrees(out = vec3_create()) {
-            this.mat4_getRotationQuat(quat);
-            quat.quat_toDegrees(out);
-            return out;
-        };
-    }();
-
-    arrayExtension.mat4_getRotationRadians = function () {
-        let quat = quat_create();
-        return function mat4_getRotationRadians(out = vec3_create()) {
-            this.mat4_getRotationQuat(quat);
-            quat.quat_toRadians(out);
-            return out;
-        };
-    }();
-
-    arrayExtension.mat4_getRotationQuat = function () {
-        let scale = vec3_create();
-        let transformMatrixNoScale = mat4_create();
-        let inverseScale = vec3_create();
-        let one = vec3_create();
-        _vec3_set(one, 1, 1, 1);
-        return function mat4_getRotationQuat(out = quat_create()) {
-            this.mat4_getScale(scale);
-            one.vec3_div(scale, inverseScale);
-            this.mat4_scale(inverseScale, transformMatrixNoScale);
-            glMatrix.mat4.getRotation(out, transformMatrixNoScale);
-            out.quat_normalize(out);
-            return out;
-        };
-    }();
-
-    arrayExtension.mat4_getScale = function mat4_getScale(out = vec3_create()) {
-        glMatrix.mat4.getScaling(out, this);
-        return out;
-    };
-
-    // New Functions
-
-    arrayExtension.mat4_setPosition = function mat4_setPosition(position) {
-        this[12] = position[0];
-        this[13] = position[1];
-        this[14] = position[2];
-        return this;
-    };
-
-    arrayExtension.mat4_setRotation = function mat4_setRotation(rotation) {
-        this.mat4_setRotationDegrees(rotation);
-        return this;
-    };
-
-    arrayExtension.mat4_setRotationDegrees = function () {
-        let quat = quat_create();
-        return function mat4_setRotationDegrees(rotation) {
-            this.mat4_setRotationQuat(rotation.vec3_degreesToQuat(quat));
-            return this;
-        };
-    }();
-
-    arrayExtension.mat4_setRotationRadians = function () {
-        let vector = vec3_create();
-        return function mat4_setRotationRadians(rotation) {
-            this.mat4_setRotationDegrees(rotation.vec3_toDegrees(vector));
-            return this;
-        };
-    }();
-
-    arrayExtension.mat4_setRotationQuat = function () {
-        let position = vec3_create();
-        let scale = vec3_create();
-        return function mat4_setRotationQuat(rotation) {
-            this.mat4_getPosition(position);
-            this.mat4_getScale(scale);
-            this.mat4_setPositionRotationQuatScale(position, rotation, scale);
-            return this;
-        };
-    }();
-
-    arrayExtension.mat4_setScale = function () {
-        let tempScale = vec3_create();
-        return function mat4_setScale(scale) {
-            this.mat4_getScale(tempScale);
-            scale.vec3_div(tempScale, tempScale);
-            this.mat4_scale(tempScale, this);
-            return this;
-        };
-    }();
-
-    arrayExtension.mat4_setPositionRotationScale = function mat4_setPositionRotationScale(position, rotation, scale) {
-        this.mat4_setPositionRotationDegreesScale(position, rotation, scale);
-        return this;
-    };
-
-    arrayExtension.mat4_setPositionRotationDegreesScale = function () {
-        let quat = quat_create();
-        return function mat4_setPositionRotationDegreesScale(position, rotation, scale) {
-            this.mat4_setPositionRotationQuatScale(position, rotation.vec3_degreesToQuat(quat), scale);
-            return this;
-        };
-    }();
-
-    arrayExtension.mat4_setPositionRotationRadiansScale = function () {
-        let vector = vec3_create();
-        return function mat4_setPositionRotationRadiansScale(position, rotation, scale) {
-            this.mat4_setPositionRotationDegreesScale(position, rotation.vec3_toDegrees(vector), scale);
-            return this;
-        };
-    }();
-
-    arrayExtension.mat4_setPositionRotationQuatScale = function mat4_setPositionRotationQuatScale(position, rotation, scale) {
-        glMatrix.mat4.fromRotationTranslationScale(this, rotation, position, scale);
-        return this;
-    };
-
-    arrayExtension.mat4_setPositionRotation = function mat4_setPositionRotation(position, rotation) {
-        this.mat4_setPositionRotationDegrees(position, rotation);
-        return this;
-    };
-
-    arrayExtension.mat4_setPositionRotationDegrees = function () {
-        let quat = quat_create();
-        return function mat4_setPositionRotationDegrees(position, rotation) {
-            this.mat4_setPositionRotationQuat(position, rotation.vec3_degreesToQuat(quat));
-            return this;
-        };
-    }();
-
-    arrayExtension.mat4_setPositionRotationRadians = function () {
-        let vector = vec3_create();
-        return function mat4_setPositionRotationRadians(position, rotation) {
-            this.mat4_setPositionRotationDegrees(position, rotation.vec3_toDegrees(vector));
-            return this;
-        };
-    }();
-
-    arrayExtension.mat4_setPositionRotationQuat = function mat4_setPositionRotationQuat(position, rotation) {
-        glMatrix.mat4.fromRotationTranslation(this, rotation, position);
-        return this;
-    };
-
-    arrayExtension.mat4_getAxes = function mat4_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
-        this.mat4_getLeft(out[0]);
-        this.mat4_getUp(out[1]);
-        this.mat4_getForward(out[2]);
-
-        return out;
-    };
-
-    arrayExtension.mat4_getForward = function mat4_getForward(out = vec3_create()) {
-        out.vec3_set(this[8], this[9], this[10]);
-        out.vec3_normalize(out);
-        return out;
-    };
-
-    arrayExtension.mat4_getBackward = function mat4_getBackward(out) {
-        out = this.mat4_getForward(out);
-        out.vec3_negate(out);
-        return out;
-    };
-
-    arrayExtension.mat4_getLeft = function mat4_getLeft(out = vec3_create()) {
-        out.vec3_set(this[0], this[1], this[2]);
-        out.vec3_normalize(out);
-        return out;
-    };
-
-    arrayExtension.mat4_getRight = function mat4_getRight(out) {
-        out = this.mat4_getLeft(out);
-        out.vec3_negate(out);
-        return out;
-    };
-
-    arrayExtension.mat4_getUp = function mat4_getUp(out = vec3_create()) {
-        out.vec3_set(this[4], this[5], this[6]);
-        out.vec3_normalize(out);
-        return out;
-    };
-
-    arrayExtension.mat4_getDown = function mat4_getDown(out) {
-        out = this.mat4_getUp(out);
-        out.vec3_negate(out);
-        return out;
-    };
-
-    arrayExtension.mat4_toWorld = function () {
-        let convertTransform = mat4_create();
-        let position = vec3_create();
-        let scale = vec3_create();
-        let inverseScale = vec3_create();
-        let one = vec3_create();
-        _vec3_set(one, 1, 1, 1);
-        return function mat4_toWorld(parentTransformMatrix, out = mat4_create()) {
-            if (parentTransformMatrix.mat4_hasUniformScale()) {
-                parentTransformMatrix.mat4_mul(this, out);
-            } else {
-                position.vec3_set(this[12], this[13], this[14]);
-                position.vec3_convertPositionToWorldMatrix(parentTransformMatrix, position);
-
-                parentTransformMatrix.mat4_getScale(scale);
-                one.vec3_div(scale, inverseScale);
-                parentTransformMatrix.mat4_scale(inverseScale, convertTransform);
-
-                convertTransform.mat4_mul(this, out);
-                out.mat4_scale(scale, out);
-
-                out[12] = position[0];
-                out[13] = position[1];
-                out[14] = position[2];
-                out[15] = 1;
-            }
-            return out;
-        };
-    }();
-
-    arrayExtension.mat4_toLocal = function () {
-        let convertTransform = mat4_create();
-        let position = vec3_create();
-        let scale = vec3_create();
-        let inverseScale = vec3_create();
-        let one = vec3_create();
-        _vec3_set(one, 1, 1, 1);
-        return function mat4_toLocal(parentTransformMatrix, out = mat4_create()) {
-            if (parentTransformMatrix.mat4_hasUniformScale()) {
-                parentTransformMatrix.mat4_invert(convertTransform);
-                convertTransform.mat4_mul(this, out);
-            } else {
-                position.vec3_set(this[12], this[13], this[14]);
-                position.vec3_convertPositionToLocalMatrix(parentTransformMatrix, position);
-
-                parentTransformMatrix.mat4_getScale(scale);
-                one.vec3_div(scale, inverseScale);
-                parentTransformMatrix.mat4_scale(inverseScale, convertTransform);
-
-                convertTransform.mat4_invert(convertTransform);
-                convertTransform.mat4_mul(this, out);
-                out.mat4_scale(inverseScale, out);
-
-                out[12] = position[0];
-                out[13] = position[1];
-                out[14] = position[2];
-                out[15] = 1;
-            }
-            return out;
-        };
-    }();
-
-    arrayExtension.mat4_hasUniformScale = function () {
-        let scale = vec3_create();
-        return function mat4_hasUniformScale() {
-            this.mat4_getScale(scale);
-            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON;
-        };
-    }();
-
-    arrayExtension.mat4_toQuat = function () {
-        let position = vec3_create();
-        let rotation = quat_create();
-        return function mat4_toQuat(out = quat2_create()) {
-            this.mat4_getPosition(position);
-            this.mat4_getRotationQuat(rotation);
-            out.quat2_setPositionRotationQuat(position, rotation);
-            return out;
-        };
-    }();
-
-    arrayExtension.mat4_fromQuat = function mat4_fromQuat(quat2) {
-        quat2.quat2_toMatrix(this);
-        return this;
-    };
-
-
+    PluginUtils.injectProperties(Mat4Utils, arrayExtension, false, true, true, true, true, "mat4_", ["create"]);
 
     let arrayPrototypesToExtend = [
         Array.prototype, Uint8ClampedArray.prototype, Uint8Array.prototype, Uint16Array.prototype, Uint32Array.prototype, Int8Array.prototype,
@@ -2289,15 +1956,6 @@ let _quat_setAxes = function () {
     };
 }();
 
-function _vec3_set(vector, x, y, z) {
-    if (y === undefined) {
-        glMatrix.vec3.set(vector, x, x, x);
-    } else {
-        glMatrix.vec3.set(vector, x, y, z);
-    }
-    return vector;
-};
-
 function _quat_set(vector, x, y, z, w) {
     if (y === undefined) {
         glMatrix.quat.set(vector, x, x, x, x);
@@ -2312,28 +1970,6 @@ function _quat2_set(vector, x1, y1, z1, w1, x2, y2, z2, w2) {
         glMatrix.quat2.set(vector, x1, x1, x1, x1, x1, x1, x1, x1);
     } else {
         glMatrix.quat2.set(vector, x1, y1, z1, w1, x2, y2, z2, w2);
-    }
-    return vector;
-}
-
-function _mat4_set(
-    vector,
-    m00, m01, m02, m03,
-    m10, m11, m12, m13,
-    m20, m21, m22, m23,
-    m30, m31, m32, m33) {
-    if (m01 === undefined) {
-        glMatrix.mat4.set(vector,
-            m00, m00, m00, m00,
-            m00, m00, m00, m00,
-            m00, m00, m00, m00,
-            m00, m00, m00, m00);
-    } else {
-        glMatrix.mat4.set(vector,
-            m00, m01, m02, m03,
-            m10, m11, m12, m13,
-            m20, m21, m22, m23,
-            m30, m31, m32, m33);
     }
     return vector;
 }

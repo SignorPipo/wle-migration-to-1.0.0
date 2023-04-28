@@ -22,9 +22,9 @@ export function set(vector, x, y, z, w) {
     return vector;
 }
 
-export function copy(vector, other) {
-    vec4.copy(vector, other);
-    return this;
+export function copy(toASD, from) {
+    vec4.copy(toASD, from);
+    return toASD;
 }
 
 export function clone(vector, out = create()) {

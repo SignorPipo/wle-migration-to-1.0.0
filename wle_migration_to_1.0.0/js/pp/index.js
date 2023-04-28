@@ -73,8 +73,10 @@ export * from "./cauldron/js/utils/math_utils";
 export * from "./cauldron/js/utils/array_utils";
 export * from "./cauldron/js/utils/vec_utils";
 export * from "./cauldron/js/utils/vec2_utils";
-export * from "./cauldron/js/utils/mat3_utils";
+export * from "./cauldron/js/utils/vec3_utils";
 export * from "./cauldron/js/utils/vec4_utils";
+export * from "./cauldron/js/utils/mat3_utils";
+export * from "./cauldron/js/utils/mat4_utils";
 
 export * from "./cauldron/utils/color_utils";
 export * from "./cauldron/utils/material_utils";
