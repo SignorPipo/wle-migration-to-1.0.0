@@ -100,30 +100,30 @@ export function convertCharacterCollisionResultsToCollisionRuntimeParams(charact
     outCollisionRuntimeParams.myLastValidSurfaceAdjustedHorizontalMovement.vec3_copy(characterCollisionResults.myInternalResults.myLastRelevantAdjustedStartHorizontalMovement);
     outCollisionRuntimeParams.myLastValidSurfaceAdjustedVerticalMovement.vec3_copy(characterCollisionResults.myInternalResults.myLastRelevantAdjustedStartVerticalMovement);
 
-    outCollisionRuntimeParams.myIsOnGround = characterCollisionResults.myGroundInfo.myIsOnSurface;
+    outCollisionRuntimeParams.myIsOnGround = characterCollisionResults.myGroundInfo.myOnSurface;
     outCollisionRuntimeParams.myGroundAngle = characterCollisionResults.myGroundInfo.mySurfaceAngle;
     outCollisionRuntimeParams.myGroundPerceivedAngle = characterCollisionResults.myGroundInfo.mySurfacePerceivedAngle;
     outCollisionRuntimeParams.myGroundNormal.vec3_copy(characterCollisionResults.myGroundInfo.mySurfaceNormal);
     outCollisionRuntimeParams.myGroundHitMaxAngle = characterCollisionResults.myGroundInfo.mySurfaceHitMaxAngle;
     outCollisionRuntimeParams.myGroundHitMaxNormal.vec3_copy(characterCollisionResults.myGroundInfo.mySurfaceHitMaxNormal);
     outCollisionRuntimeParams.myGroundDistance = characterCollisionResults.myGroundInfo.mySurfaceDistance;
-    outCollisionRuntimeParams.myGroundIsBaseInsideCollision = characterCollisionResults.myGroundInfo.myIsBaseInsideCollision;
+    outCollisionRuntimeParams.myGroundIsBaseInsideCollision = characterCollisionResults.myGroundInfo.myBaseInsideCollision;
 
-    outCollisionRuntimeParams.myIsOnCeiling = characterCollisionResults.myCeilingInfo.myIsOnSurface;
+    outCollisionRuntimeParams.myIsOnCeiling = characterCollisionResults.myCeilingInfo.myOnSurface;
     outCollisionRuntimeParams.myCeilingAngle = characterCollisionResults.myCeilingInfo.mySurfaceAngle;
     outCollisionRuntimeParams.myCeilingPerceivedAngle = characterCollisionResults.myCeilingInfo.mySurfacePerceivedAngle;
     outCollisionRuntimeParams.myCeilingNormal.vec3_copy(characterCollisionResults.myCeilingInfo.mySurfaceNormal);
     outCollisionRuntimeParams.myCeilingHitMaxAngle = characterCollisionResults.myCeilingInfo.mySurfaceHitMaxAngle;
     outCollisionRuntimeParams.myCeilingHitMaxNormal.vec3_copy(characterCollisionResults.myCeilingInfo.mySurfaceHitMaxNormal);
     outCollisionRuntimeParams.myCeilingDistance = characterCollisionResults.myCeilingInfo.mySurfaceDistance;
-    outCollisionRuntimeParams.myCeilingIsBaseInsideCollision = characterCollisionResults.myCeilingInfo.myIsBaseInsideCollision;
+    outCollisionRuntimeParams.myCeilingIsBaseInsideCollision = characterCollisionResults.myCeilingInfo.myBaseInsideCollision;
 
     outCollisionRuntimeParams.myHorizontalMovementCanceled = characterCollisionResults.myHorizontalMovementResults.myMovementFailed;
-    outCollisionRuntimeParams.myIsCollidingHorizontally = characterCollisionResults.myHorizontalMovementResults.myIsColliding;
+    outCollisionRuntimeParams.myIsCollidingHorizontally = characterCollisionResults.myHorizontalMovementResults.myMovementCollided;
     outCollisionRuntimeParams.myHorizontalCollisionHit.copy(characterCollisionResults.myHorizontalMovementResults.myReferenceCollisionHit);
 
     outCollisionRuntimeParams.myVerticalMovementCanceled = characterCollisionResults.myVerticalMovementResults.myMovementFailed;
-    outCollisionRuntimeParams.myIsCollidingVertically = characterCollisionResults.myVerticalMovementResults.myIsColliding;
+    outCollisionRuntimeParams.myIsCollidingVertically = characterCollisionResults.myVerticalMovementResults.myMovementCollided;
     outCollisionRuntimeParams.myVerticalCollisionHit.copy(characterCollisionResults.myVerticalMovementResults.myReferenceCollisionHit);
 
     outCollisionRuntimeParams.myHasSnappedOnGround = characterCollisionResults.myGroundResults.myHasSnappedOnSurface;
@@ -194,7 +194,7 @@ export let convertCollisionRuntimeParamsToCharacterCollisionResults = function (
         outCharacterCollisionResults.myMovementResults.myStartMovement.vec3_copy(collisionRuntimeParams.myOriginalMovement);
         outCharacterCollisionResults.myMovementResults.myEndMovement.vec3_copy(collisionRuntimeParams.myFixedMovement);
         outCharacterCollisionResults.myMovementResults.myMovementFailed = collisionRuntimeParams.myHorizontalMovementCanceled && collisionRuntimeParams.myVerticalMovementCanceled;
-        outCharacterCollisionResults.myMovementResults.myIsColliding = collisionRuntimeParams.myIsCollidingHorizontally || collisionRuntimeParams.myIsCollidingVertically;
+        outCharacterCollisionResults.myMovementResults.myMovementCollided = collisionRuntimeParams.myIsCollidingHorizontally || collisionRuntimeParams.myIsCollidingVertically;
         if (collisionRuntimeParams.myIsCollidingHorizontally) {
             outCharacterCollisionResults.myMovementResults.myReferenceCollisionHit.copy(collisionRuntimeParams.myHorizontalCollisionHit);
         } else if (collisionRuntimeParams.myIsCollidingVertically) {
@@ -202,11 +202,11 @@ export let convertCollisionRuntimeParamsToCharacterCollisionResults = function (
         }
 
         outCharacterCollisionResults.myHorizontalMovementResults.myMovementFailed = collisionRuntimeParams.myHorizontalMovementCanceled;
-        outCharacterCollisionResults.myHorizontalMovementResults.myIsColliding = collisionRuntimeParams.myIsCollidingHorizontally;
+        outCharacterCollisionResults.myHorizontalMovementResults.myMovementCollided = collisionRuntimeParams.myIsCollidingHorizontally;
         outCharacterCollisionResults.myHorizontalMovementResults.myReferenceCollisionHit.copy(collisionRuntimeParams.myHorizontalCollisionHit);
 
         outCharacterCollisionResults.myVerticalMovementResults.myMovementFailed = collisionRuntimeParams.myVerticalMovementCanceled;
-        outCharacterCollisionResults.myVerticalMovementResults.myIsColliding = collisionRuntimeParams.myIsCollidingVertically;
+        outCharacterCollisionResults.myVerticalMovementResults.myMovementCollided = collisionRuntimeParams.myIsCollidingVertically;
         outCharacterCollisionResults.myVerticalMovementResults.myReferenceCollisionHit.copy(collisionRuntimeParams.myVerticalCollisionHit);
 
         outCharacterCollisionResults.myTeleportResults.myStartTeleportTransformQuat.quat2_copy(outCharacterCollisionResults.myTransformResults.myStartTransformQuat);
@@ -226,23 +226,23 @@ export let convertCollisionRuntimeParamsToCharacterCollisionResults = function (
         outCharacterCollisionResults.myWallSlideResults.mySlideMovementWallAngle = collisionRuntimeParams.mySlidingCollisionAngle;
         outCharacterCollisionResults.myWallSlideResults.myWallNormal.vec3_copy(ollisionRuntimeParams.mySlidingWallNormal);
 
-        outCharacterCollisionResults.myGroundInfo.myIsOnSurface = collisionRuntimeParams.myIsOnGround;
+        outCharacterCollisionResults.myGroundInfo.myOnSurface = collisionRuntimeParams.myIsOnGround;
         outCharacterCollisionResults.myGroundInfo.mySurfaceAngle = collisionRuntimeParams.myGroundAngle;
         outCharacterCollisionResults.myGroundInfo.mySurfacePerceivedAngle = collisionRuntimeParams.myGroundPerceivedAngle;
         outCharacterCollisionResults.myGroundInfo.mySurfaceNormal.vec3_copy(collisionRuntimeParams.myGroundNormal);
         outCharacterCollisionResults.myGroundInfo.mySurfaceHitMaxAngle = collisionRuntimeParams.myGroundHitMaxAngle;
         outCharacterCollisionResults.myGroundInfo.mySurfaceHitMaxNormal.vec3_copy(collisionRuntimeParams.myGroundHitMaxNormal);
         outCharacterCollisionResults.myGroundInfo.mySurfaceDistance = collisionRuntimeParams.myGroundDistance;
-        outCharacterCollisionResults.myGroundInfo.myIsBaseInsideCollision = collisionRuntimeParams.myGroundIsBaseInsideCollision;
+        outCharacterCollisionResults.myGroundInfo.myBaseInsideCollision = collisionRuntimeParams.myGroundIsBaseInsideCollision;
 
-        outCharacterCollisionResults.myCeilingInfo.myIsOnSurface = collisionRuntimeParams.myIsOnCeiling;
+        outCharacterCollisionResults.myCeilingInfo.myOnSurface = collisionRuntimeParams.myIsOnCeiling;
         outCharacterCollisionResults.myCeilingInfo.mySurfaceAngle = collisionRuntimeParams.myCeilingAngle;
         outCharacterCollisionResults.myCeilingInfo.mySurfacePerceivedAngle = collisionRuntimeParams.myCeilingPerceivedAngle;
         outCharacterCollisionResults.myCeilingInfo.mySurfaceNormal.vec3_copy(collisionRuntimeParams.myCeilingNormal);
         outCharacterCollisionResults.myCeilingInfo.mySurfaceHitMaxAngle = collisionRuntimeParams.myCeilingHitMaxAngle;
         outCharacterCollisionResults.myCeilingInfo.mySurfaceHitMaxNormal.vec3_copy(collisionRuntimeParams.myCeilingHitMaxNormal);
         outCharacterCollisionResults.myCeilingInfo.mySurfaceDistance = collisionRuntimeParams.myCeilingDistance;
-        outCharacterCollisionResults.myCeilingInfo.myIsBaseInsideCollision = collisionRuntimeParams.myCeilingIsBaseInsideCollision;
+        outCharacterCollisionResults.myCeilingInfo.myBaseInsideCollision = collisionRuntimeParams.myCeilingIsBaseInsideCollision;
 
         outCharacterCollisionResults.myGroundResults.myHasSnappedOnSurface = collisionRuntimeParams.myHasSnappedOnGround;
         outCharacterCollisionResults.myGroundResults.myHasPoppedOutSurface = collisionRuntimeParams.myHasPoppedOutGround;
@@ -413,19 +413,19 @@ export let convertCharacterColliderSetupToCollisionCheckParams = function () {
 
         outCollisionCheckParams.myComputeGroundInfoEnabled = characterColliderSetup.myGroundParams.myCollectSurfaceInfo;
         outCollisionCheckParams.myComputeCeilingInfoEnabled = characterColliderSetup.myCeilingParams.myCollectSurfaceInfo;
-        outCollisionCheckParams.myDistanceToBeOnGround = characterColliderSetup.myGroundParams.myIsOnSurfaceMaxOutsideDistance;
+        outCollisionCheckParams.myDistanceToBeOnGround = characterColliderSetup.myGroundParams.myOnSurfaceMaxOutsideDistance;
         outCollisionCheckParams.myDistanceToComputeGroundInfo = characterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxOutsideDistance;
-        outCollisionCheckParams.myDistanceToBeOnCeiling = characterColliderSetup.myCeilingParams.myIsOnSurfaceMaxOutsideDistance;
+        outCollisionCheckParams.myDistanceToBeOnCeiling = characterColliderSetup.myCeilingParams.myOnSurfaceMaxOutsideDistance;
         outCollisionCheckParams.myDistanceToComputeCeilingInfo = characterColliderSetup.myCeilingParams.myCollectSurfaceNormalMaxOutsideDistance;
-        outCollisionCheckParams.myVerticalFixToBeOnGround = characterColliderSetup.myGroundParams.myIsOnSurfaceMaxInsideDistance;
+        outCollisionCheckParams.myVerticalFixToBeOnGround = characterColliderSetup.myGroundParams.myOnSurfaceMaxInsideDistance;
         outCollisionCheckParams.myVerticalFixToComputeGroundInfo = characterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxInsideDistance;
-        outCollisionCheckParams.myVerticalFixToBeOnCeiling = characterColliderSetup.myCeilingParams.myIsOnSurfaceMaxInsideDistance;
+        outCollisionCheckParams.myVerticalFixToBeOnCeiling = characterColliderSetup.myCeilingParams.myOnSurfaceMaxInsideDistance;
         outCollisionCheckParams.myVerticalFixToComputeCeilingInfo = characterColliderSetup.myCeilingParams.myCollectSurfaceNormalMaxInsideDistance;
 
-        outCollisionCheckParams.myGroundIsBaseInsideCollisionCheckEnabled = characterColliderSetup.myGroundParams.myIsBaseInsideCollisionCheckEnabled;
-        outCollisionCheckParams.myCeilingIsBaseInsideCollisionCheckEnabled = characterColliderSetup.myCeilingParams.myIsBaseInsideCollisionCheckEnabled;
-        outCollisionCheckParams.myIsOnGroundIfInsideHit = characterColliderSetup.myGroundParams.myIsOnSurfaceIfBaseInsideCollision;
-        outCollisionCheckParams.myIsOnCeilingIfInsideHit = characterColliderSetup.myCeilingParams.myIsOnSurfaceIfBaseInsideCollision;
+        outCollisionCheckParams.myGroundIsBaseInsideCollisionCheckEnabled = characterColliderSetup.myGroundParams.myBaseInsideCollisionCheckEnabled;
+        outCollisionCheckParams.myCeilingIsBaseInsideCollisionCheckEnabled = characterColliderSetup.myCeilingParams.myBaseInsideCollisionCheckEnabled;
+        outCollisionCheckParams.myIsOnGroundIfInsideHit = characterColliderSetup.myGroundParams.myOnSurfaceIfBaseInsideCollision;
+        outCollisionCheckParams.myIsOnCeilingIfInsideHit = characterColliderSetup.myCeilingParams.myOnSurfaceIfBaseInsideCollision;
 
         outCollisionCheckParams.myFindGroundDistanceMaxOutsideDistance = characterColliderSetup.myGroundParams.myFindSurfaceDistanceMaxOutsideDistance;
         outCollisionCheckParams.myFindGroundDistanceMaxInsideDistance = characterColliderSetup.myGroundParams.myFindSurfaceDistanceMaxInsideDistance;

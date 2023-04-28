@@ -229,11 +229,11 @@ export class CharacterColliderSurfaceParams {
 
         this.myCollectSurfaceInfo = false;
 
-        this.myIsOnSurfaceMaxOutsideDistance = 0;
-        this.myIsOnSurfaceMaxInsideDistance = 0;
+        this.myOnSurfaceMaxOutsideDistance = 0;
+        this.myOnSurfaceMaxInsideDistance = 0;
 
-        this.myIsBaseInsideCollisionCheckEnabled = false;
-        this.myIsOnSurfaceIfBaseInsideCollision = false;
+        this.myBaseInsideCollisionCheckEnabled = false;
+        this.myOnSurfaceIfBaseInsideCollision = false;
 
         this.myCollectSurfaceNormalMaxOutsideDistance = 0;
         this.myCollectSurfaceNormalMaxInsideDistance = 0;
@@ -507,11 +507,11 @@ CharacterColliderSurfaceParams.prototype.copy = function copy(other) {
 
     this.myCollectSurfaceInfo = other.myCollectSurfaceInfo;
 
-    this.myIsOnSurfaceMaxOutsideDistance = other.myIsOnSurfaceMaxOutsideDistance;
-    this.myIsOnSurfaceMaxInsideDistance = other.myIsOnSurfaceMaxInsideDistance;
+    this.myOnSurfaceMaxOutsideDistance = other.myOnSurfaceMaxOutsideDistance;
+    this.myOnSurfaceMaxInsideDistance = other.myOnSurfaceMaxInsideDistance;
 
-    this.myIsBaseInsideCollisionCheckEnabled = other.myIsBaseInsideCollisionCheckEnabled;
-    this.myIsOnSurfaceIfBaseInsideCollision = other.myIsOnSurfaceIfBaseInsideCollision;
+    this.myBaseInsideCollisionCheckEnabled = other.myBaseInsideCollisionCheckEnabled;
+    this.myOnSurfaceIfBaseInsideCollision = other.myOnSurfaceIfBaseInsideCollision;
 
     this.myCollectSurfaceNormalMaxOutsideDistance = other.myCollectSurfaceNormalMaxOutsideDistance;
     this.myCollectSurfaceNormalMaxInsideDistance = other.myCollectSurfaceNormalMaxInsideDistance;

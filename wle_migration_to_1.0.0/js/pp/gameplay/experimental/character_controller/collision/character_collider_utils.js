@@ -76,8 +76,8 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
     outCharacterColliderSetup.myGroundParams.mySurfaceAngleToIgnore = simplifiedCreationParams.myMaxWalkableGroundAngle;
     outCharacterColliderSetup.myGroundParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngle = true;
 
-    outCharacterColliderSetup.myGroundParams.myIsOnSurfaceMaxOutsideDistance = 0.001;
-    outCharacterColliderSetup.myGroundParams.myIsOnSurfaceMaxInsideDistance = 0.001;
+    outCharacterColliderSetup.myGroundParams.myOnSurfaceMaxOutsideDistance = 0.001;
+    outCharacterColliderSetup.myGroundParams.myOnSurfaceMaxInsideDistance = 0.001;
 
     outCharacterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxOutsideDistance = (simplifiedCreationParams.myRadius > 0.1) ? 0.1 : 0.01;
     outCharacterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxInsideDistance = outCharacterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxOutsideDistance;
@@ -96,8 +96,8 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
         outCharacterColliderSetup.myCeilingParams.myHorizontalMovementSurfaceAngleToIgnoreMaxHorizontalMovementLeft = outCharacterColliderSetup.myGroundParams.myHorizontalMovementSurfaceAngleToIgnoreMaxHorizontalMovementLeft;
         outCharacterColliderSetup.myCeilingParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngle = outCharacterColliderSetup.myGroundParams.myHorizontalMovementAdjustVerticalMovementBasedOnSurfacePerceivedAngle;
 
-        outCharacterColliderSetup.myCeilingParams.myIsOnSurfaceMaxOutsideDistance = outCharacterColliderSetup.myGroundParams.myIsOnSurfaceMaxOutsideDistance;
-        outCharacterColliderSetup.myCeilingParams.myIsOnSurfaceMaxInsideDistance = outCharacterColliderSetup.myGroundParams.myIsOnSurfaceMaxInsideDistance;
+        outCharacterColliderSetup.myCeilingParams.myOnSurfaceMaxOutsideDistance = outCharacterColliderSetup.myGroundParams.myOnSurfaceMaxOutsideDistance;
+        outCharacterColliderSetup.myCeilingParams.myOnSurfaceMaxInsideDistance = outCharacterColliderSetup.myGroundParams.myOnSurfaceMaxInsideDistance;
 
         outCharacterColliderSetup.myCeilingParams.myCollectSurfaceNormalMaxOutsideDistance = outCharacterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxOutsideDistance;
         outCharacterColliderSetup.myCeilingParams.myCollectSurfaceNormalMaxInsideDistance = outCharacterColliderSetup.myGroundParams.myCollectSurfaceNormalMaxInsideDistance;
@@ -250,8 +250,8 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
 
 
 
-        outCharacterColliderSetup.myGroundParams.myIsBaseInsideCollisionCheckEnabled = true;
-        outCharacterColliderSetup.myCeilingParams.myIsBaseInsideCollisionCheckEnabled = true;
+        outCharacterColliderSetup.myGroundParams.myBaseInsideCollisionCheckEnabled = true;
+        outCharacterColliderSetup.myCeilingParams.myBaseInsideCollisionCheckEnabled = true;
 
 
 
