@@ -93,16 +93,16 @@ export class AudioPlayer {
     }
 
     isPlaying(checkOnlyLast = false) {
-        let isPlaying = false;
+        let playing = false;
 
         if (checkOnlyLast) {
-            isPlaying = this._myAudio.playing(this._myLastAudioID);
+            playing = this._myAudio.playing(this._myLastAudioID);
         }
         else {
-            isPlaying = this._myAudio.playing();
+            playing = this._myAudio.playing();
         }
 
-        return isPlaying;
+        return playing;
     }
 
     isLoaded() {

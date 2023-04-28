@@ -445,19 +445,19 @@ export class FSM {
             return true;
         }
 
-        let isDeepCloneable = true;
+        let deepCloneable = true;
 
         for (let entry of this._myStates.entries()) {
-            isDeepCloneable = isDeepCloneable && entry[1].myObject.clone != null;
+            deepCloneable = deepCloneable && entry[1].myObject.clone != null;
         }
 
         for (let entry of this._myTransitions.entries()) {
             for (let transitonEntry of entry[1].entries()) {
-                isDeepCloneable = isDeepCloneable && transitonEntry[1].myObject.clone != null;
+                deepCloneable = deepCloneable && transitonEntry[1].myObject.clone != null;
             }
         }
 
-        return isDeepCloneable;
+        return deepCloneable;
     }
 
     setLogEnabled(active, fsmName = null, showDelayedInfo = false) {

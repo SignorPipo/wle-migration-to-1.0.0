@@ -27,9 +27,9 @@ export class SaveManager {
         this._mySaveValueChangedEmitter = new Emitter();        // Signature: listener(id, value)
         this._mySaveIDEmitters = new Map();                     // Signature: listener(id, value)
         this._mySaveValueChangedIDEmitters = new Map();         // Signature: listener(id, value)
-        this._myCommitSaveEmitter = new Emitter();              // Signature: listener(id, value, isCommitSaveDelayed, failed)
-        this._myCommitSaveIDEmitters = new Map();               // Signature: listener(id, value, isCommitSaveDelayed, failed)
-        this._myCommitSavesEmitter = new Emitter();             // Signature: listener(isCommitSavesDelayed, failed)
+        this._myCommitSaveEmitter = new Emitter();              // Signature: listener(id, value, commitSaveDelayed, failed)
+        this._myCommitSaveIDEmitters = new Map();               // Signature: listener(id, value, commitSaveDelayed, failed)
+        this._myCommitSavesEmitter = new Emitter();             // Signature: listener(commitSavesDelayed, failed)
 
         this._myLoadEmitter = new Emitter();                    // Signature: listener(id, value, loadFromCache, failed)
         this._myLoadIDEmitters = new Map();                     // Signature: listener(id, value, loadFromCache, failed)
@@ -80,8 +80,8 @@ export class SaveManager {
             } else {
                 let failed = this._commitSave(id, false);
 
-                let isCommitSaveDelayed = false;
-                this._myCommitSavesEmitter.notify(isCommitSaveDelayed, failed);
+                let commitSaveDelayed = false;
+                this._myCommitSavesEmitter.notify(commitSaveDelayed, failed);
             }
         }
 
@@ -119,8 +119,8 @@ export class SaveManager {
 
             this._myIDsToCommit = [];
 
-            let isCommitSavesDelayed = true;
-            this._myCommitSavesEmitter.notify(isCommitSavesDelayed, failed);
+            let commitSavesDelayed = true;
+            this._myCommitSavesEmitter.notify(commitSavesDelayed, failed);
         }
     }
 
@@ -181,7 +181,7 @@ export class SaveManager {
         return this._myCacheEnabled;
     }
 
-    _commitSave(id, isCommitSaveDelayed) {
+    _commitSave(id, commitSaveDelayed) {
         let value = this._mySaveCache.get(id);
         let failed = false;
 
@@ -191,12 +191,12 @@ export class SaveManager {
             failed = true;
         }
 
-        this._myCommitSaveEmitter.notify(id, value, isCommitSaveDelayed, failed);
+        this._myCommitSaveEmitter.notify(id, value, commitSaveDelayed, failed);
 
         if (this._myCommitSaveIDEmitters.size > 0) {
             let emitter = this._myCommitSaveIDEmitters.get(id);
             if (emitter != null) {
-                emitter.notify(id, value, isCommitSaveDelayed, failed);
+                emitter.notify(id, value, commitSaveDelayed, failed);
             }
         }
 

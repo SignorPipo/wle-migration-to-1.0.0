@@ -90,11 +90,11 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                 } else {
 
                     // If there is not lag, the current plane count is a good lower limit, otherwise the current count is now a upper threshold, we have to search below it
-                    let isLagging = false;
+                    let lagging = false;
                     if (frameRate < this._myStableFrameRate - this._myTargetFrameRateThreshold) {
                         this._myUpperLimit = this._myCurrentPlanes;
 
-                        isLagging = true;
+                        lagging = true;
 
                         if (this._myUpperLimit == 1) {
                             this._myLowerLimit = 1;
@@ -110,7 +110,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                     this._myPlaneTextComponent.text = "Planes: " + this._myCurrentPlanes;
                     this._myFPSTextComponent.text = "FPS: " + frameRate + " / " + this._myStableFrameRate;
 
-                    if (isLagging) {
+                    if (lagging) {
                         this._myTriangleTextComponent.material.color = this._myLagColor;
                         this._myPlaneTextComponent.material.color = this._myLagColor;
                         this._myFPSTextComponent.material.color = this._myLagColor;
@@ -124,9 +124,9 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
 
                     // Check if the binary search is completed
                     if ((this._myUpperLimit > 0 &&
-                        (!isLagging && (this._myUpperLimit - this._myLowerLimit) <= Math.max(2, 1000 / this._myRealTrianglesAmount)) ||
-                        (isLagging && (this._myUpperLimit - this._myLowerLimit) <= 1)) ||
-                        (!isLagging && this._myMaxPlanesReached)) {
+                        (!lagging && (this._myUpperLimit - this._myLowerLimit) <= Math.max(2, 1000 / this._myRealTrianglesAmount)) ||
+                        (lagging && (this._myUpperLimit - this._myLowerLimit) <= 1)) ||
+                        (!lagging && this._myMaxPlanesReached)) {
                         if (frameRate < this._myStableFrameRate - this._myTargetFrameRateThreshold) {
                             // Going a bit back with the binary search, maybe the lower limit was not lower after all cause of a bad assumption of average FPS
                             this._myLowerLimit = Math.max(1, Math.floor(this._myUpperLimit / 2.5));
@@ -163,7 +163,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
                         }
                     }
 
-                    if (isLagging && !reset) {
+                    if (lagging && !reset) {
                         if (this._myLogEnabled) {
                             console.log("Lag - Triangles:", this._myCurrentPlanes * this._myRealTrianglesAmount, "- Planes:", this._myCurrentPlanes, "- Frame Rate:", frameRate);
                         }
