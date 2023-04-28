@@ -3,7 +3,6 @@ import { FSM } from "../../../../../../cauldron/fsm/fsm";
 import { InputUtils } from "../../../../../../input/cauldron/input_utils";
 import { GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
-import { EasingFunction } from "../../../../../../plugin/js/extensions/math_extension";
 import { Globals } from "../../../../../../pp/globals";
 import { CharacterColliderSetupSimplifiedCreationParams, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
 import { CollisionCheckBridge } from "../../../../character_controller/collision/collision_check_bridge";
@@ -18,6 +17,7 @@ import { PlayerTransformManagerParams } from "../player_transform_manager";
 import { PlayerLocomotionTeleport, PlayerLocomotionTeleportParams } from "../teleport/player_locomotion_teleport";
 import { CleanedPlayerLocomotionSmooth } from "./player_locomotion_smooth_cleaned";
 import { CleanedPlayerTransformManager } from "./player_transform_manager_cleaned";
+import { EasingFunction } from "../../../../../../cauldron/js/utils/math_utils";
 
 export class CleanedPlayerLocomotion {
 

@@ -1,4 +1,4 @@
-import { JSUtils } from "../../cauldron/utils/js_utils";
+import { JSUtils } from "../../cauldron/js/utils/js_utils";
 
 export function assignProperties(fromReference, toReference, enumerable = true, writable = true, configurable = true, keepOriginalDescriptorAttributes = true, bindThisAsFirstParam = false, prefix = null) {
     let ownPropertyNames = Object.getOwnPropertyNames(fromReference);

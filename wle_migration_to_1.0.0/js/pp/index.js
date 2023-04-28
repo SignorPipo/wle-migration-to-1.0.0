@@ -68,6 +68,9 @@ export * from "./cauldron/fsm/state";
 export * from "./cauldron/fsm/transition";
 export * from "./cauldron/fsm/states/timer_state";
 
+export * from "./cauldron/js/utils/js_utils";
+export * from "./cauldron/js/utils/math_utils";
+
 export * from "./cauldron/utils/color_utils";
 export * from "./cauldron/utils/material_utils";
 export * from "./cauldron/utils/mesh_utils";
@@ -75,7 +78,6 @@ export * from "./cauldron/utils/save_utils";
 export * from "./cauldron/utils/text_utils";
 export * from "./cauldron/utils/xr_utils";
 export * from "./cauldron/utils/browser_utils";
-export * from "./cauldron/utils/js_utils";
 export * from "./cauldron/utils/clone_utils";
 
 export * from "./cauldron/physics/physics_utils";
@@ -101,6 +103,7 @@ export * from "./cauldron/visual/components/visual_manager_component";
 
 export * from "./cauldron/wl/engine_globals";
 export * from "./cauldron/wl/register_wl_components";
+export * from "./cauldron/wl/utils/scene_utils";
 export * from "./cauldron/wl/components/add_wl_to_window_component";
 
 //	DEBUG
