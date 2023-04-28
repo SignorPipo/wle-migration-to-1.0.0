@@ -224,7 +224,7 @@ export function initMathExtensionStatic() {
     };
 
     mathExtension.pp_isInsideAngleRangeDegrees = function pp_isInsideAngleRangeDegrees(angle, start, end, useShortestAngle = false) {
-        let isInside = false;
+        let insideAngleRange = false;
 
         let anglePositive = this.pp_angleClampDegrees(angle, true);
         let startPositive = this.pp_angleClampDegrees(start, true);
@@ -239,12 +239,12 @@ export function initMathExtensionStatic() {
         }
 
         if (startPositive < endPositive) {
-            isInside = anglePositive >= startPositive && anglePositive <= endPositive;
+            insideAngleRange = anglePositive >= startPositive && anglePositive <= endPositive;
         } else {
-            isInside = anglePositive >= startPositive || anglePositive <= endPositive;
+            insideAngleRange = anglePositive >= startPositive || anglePositive <= endPositive;
         }
 
-        return isInside;
+        return insideAngleRange;
     };
 
     mathExtension.pp_isInsideAngleRangeRadians = function pp_isInsideAngleRangeRadians(angle, start, end, useShortestAngle = false) {

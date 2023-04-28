@@ -2301,12 +2301,12 @@ export function initObjectExtensionProtoype() {
             return true;
         }
 
-        let isCloneable = true;
+        let cloneable = true;
 
         let objects = [];
         objects.push(this);
 
-        while (isCloneable && objects.length > 0) {
+        while (cloneable && objects.length > 0) {
             let object = objects.shift();
 
             let components = this.pp_getComponentsSelf();
@@ -2323,12 +2323,12 @@ export function initObjectExtensionProtoype() {
                 }
 
                 if (cloneComponent && component.pp_clone == null) {
-                    isCloneable = false;
+                    cloneable = false;
                     break;
                 }
             }
 
-            if (isCloneable && !cloneParams.myIgnoreChildren) {
+            if (cloneable && !cloneParams.myIgnoreChildren) {
                 for (let child of object.pp_getChildren()) {
                     let cloneChild = false;
                     if (cloneParams.myChildrenToInclude.length > 0) {
@@ -2348,7 +2348,7 @@ export function initObjectExtensionProtoype() {
             }
         }
 
-        return isCloneable;
+        return cloneable;
     };
 
     // To String

@@ -222,31 +222,31 @@ export class VirtualGamepad {
     }
 
     _isAnyElementPressed() {
-        let isAnyElementPressed = false;
+        let anyElementPressed = false;
 
         for (let handedness in this._myVirtualGamepadVirtualButtons) {
             for (let gamepadButtonID in this._myVirtualGamepadVirtualButtons[handedness]) {
                 let button = this._myVirtualGamepadVirtualButtons[handedness][gamepadButtonID];
                 if (button != null && button.isPressed()) {
-                    isAnyElementPressed = true;
+                    anyElementPressed = true;
                     break;
                 }
             }
         }
 
-        if (!isAnyElementPressed) {
+        if (!anyElementPressed) {
             for (let handedness in this._myVirtualGamepadVirtualThumbsticks) {
                 for (let gamepadAxesID in this._myVirtualGamepadVirtualThumbsticks[handedness]) {
                     let thumbstick = this._myVirtualGamepadVirtualThumbsticks[handedness][gamepadAxesID];
                     if (thumbstick != null && thumbstick.isPressed()) {
-                        isAnyElementPressed = true;
+                        anyElementPressed = true;
                         break;
                     }
                 }
             }
         }
 
-        return isAnyElementPressed;
+        return anyElementPressed;
     }
 
     _setMouseHoverEnabled(hoverActive) {
