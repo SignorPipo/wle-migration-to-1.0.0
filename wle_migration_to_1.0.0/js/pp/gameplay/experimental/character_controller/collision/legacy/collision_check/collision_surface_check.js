@@ -540,7 +540,7 @@ CollisionCheck.prototype._gatherSurfaceInfo = function () {
                 let raycastResult = this._raycastAndDebug(origin, direction, distance, false, false, collisionCheckParams, collisionRuntimeParams);
 
                 if (raycastResult.isColliding()) {
-                    baseHitIsInsideCollision = raycastResult.myHits[0].myIsInsideCollision;
+                    baseHitIsInsideCollision = raycastResult.myHits[0].myInsideCollision;
                 }
             }
 

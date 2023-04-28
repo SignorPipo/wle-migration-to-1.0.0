@@ -72,7 +72,7 @@ export class RaycastResults {
         let firstHit = null;
 
         for (let hit of this.myHits) {
-            if (hit.myIsInsideCollision) {
+            if (hit.myInsideCollision) {
                 firstHit = hit;
                 break;
             }
@@ -85,7 +85,7 @@ export class RaycastResults {
         let firstHit = null;
 
         for (let hit of this.myHits) {
-            if (!hit.myIsInsideCollision) {
+            if (!hit.myInsideCollision) {
                 firstHit = hit;
                 break;
             }
@@ -98,7 +98,7 @@ export class RaycastResults {
         let hits = [];
 
         for (let hit of this.myHits) {
-            if (hit.myIsInsideCollision) {
+            if (hit.myInsideCollision) {
                 hits.push(hit);
             }
         }
@@ -110,7 +110,7 @@ export class RaycastResults {
         let hits = [];
 
         for (let hit of this.myHits) {
-            if (!hit.myIsInsideCollision) {
+            if (!hit.myInsideCollision) {
                 hits.push(hit);
             }
         }
@@ -163,7 +163,7 @@ export class RaycastHit {
         this.myDistance = 0;
         this.myObject = null;
 
-        this.myIsInsideCollision = false;
+        this.myInsideCollision = false;
     }
 
     isValid() {
@@ -175,7 +175,7 @@ export class RaycastHit {
         this.myNormal.vec3_copy(other.myNormal);
         this.myDistance = other.myDistance;
         this.myObject = other.myObject;
-        this.myIsInsideCollision = other.myIsInsideCollision;
+        this.myInsideCollision = other.myInsideCollision;
     }
 
     reset() {
@@ -183,7 +183,7 @@ export class RaycastHit {
         this.myNormal.vec3_zero();
         this.myDistance = 0;
         this.myObject = null;
-        this.myIsInsideCollision = false;
+        this.myInsideCollision = false;
     }
 }
 

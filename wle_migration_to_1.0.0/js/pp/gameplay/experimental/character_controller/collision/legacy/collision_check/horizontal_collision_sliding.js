@@ -487,7 +487,7 @@ CollisionCheck.prototype._horizontalCheckBetterSlideNormal = function () {
         collisionCheckParams.myDebugEnabled = backupDebugEnabled;
 
         if (this._myCheckBetterSlidingNormalCollisionRuntimeParams.myIsCollidingHorizontally &&
-            !this._myCheckBetterSlidingNormalCollisionRuntimeParams.myHorizontalCollisionHit.myIsInsideCollision) {
+            !this._myCheckBetterSlidingNormalCollisionRuntimeParams.myHorizontalCollisionHit.myInsideCollision) {
             collisionRuntimeParams.copy(this._myCheckBetterSlidingNormalCollisionRuntimeParams);
         }
     };

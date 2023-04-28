@@ -592,7 +592,7 @@ PlayerLocomotionTeleportDetectionState.prototype._isTeleportHitValid = function 
 
         this._myTeleportAsMovementFailed = false;
 
-        if (hit.isValid() && !hit.myIsInsideCollision) {
+        if (hit.isValid() && !hit.myInsideCollision) {
             playerUp = this._myTeleportParams.myPlayerHeadManager.getPlayer().pp_getUp(playerUp);
 
             if (true || hit.myNormal.vec3_isConcordant(playerUp)) {
