@@ -2,11 +2,29 @@ import * as glMatrix from "gl-matrix";
 
 // glMatrix Bridge
 
+export function create(x, y) {
+    let out = glMatrix.vec2.create();
+    if (x !== undefined) {
+        set(out, x, y);
+    }
+    return out;
+};
+
+export function set(vector, x, y) {
+    if (y === undefined) {
+        glMatrix.vec2.set(vector, x, x);
+    } else {
+        glMatrix.vec2.set(vector, x, y);
+    }
+
+    return vector;
+};
+
 export function length(vector) {
     return glMatrix.vec2.length(vector);
 }
 
-export function normalize(vector, out = vec2_create()) {
+export function normalize(vector, out = create()) {
     glMatrix.vec2.normalize(out, vector);
     return out;
 }
@@ -16,7 +34,7 @@ export function copy(vector, other) {
     return vector;
 }
 
-export function clone(vector, out = vec2_create()) {
+export function clone(vector, out = create()) {
     out.vec2_copy(vector);
     return out;
 }
@@ -33,6 +51,8 @@ export function isZero(vector, epsilon = 0) {
 }
 
 export let Vec2Utils = {
+    create,
+    set,
     length,
     normalize,
     copy,

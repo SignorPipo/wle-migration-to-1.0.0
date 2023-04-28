@@ -174,11 +174,7 @@ export function initArrayExtension() {
 }
 
 export function vec2_create(x, y) {
-    let out = glMatrix.vec2.create();
-    if (x !== undefined) {
-        _vec2_set(out, x, y);
-    }
-    return out;
+    return Vec2Utils.create(x, y);
 };
 
 export function vec3_create(x, y, z) {
@@ -317,10 +313,6 @@ export function initArrayExtensionProtoype() {
 
     let arrayExtension = {};
 
-    arrayExtension.vec2_set = function vec2_set(x, y) {
-        return _vec2_set(this, x, y);
-    };
-
     arrayExtension.vec3_set = function vec3_set(x, y, z) {
         return _vec3_set(this, x, y, z);
     };
@@ -371,7 +363,7 @@ export function initArrayExtensionProtoype() {
 
     // VECTOR 2
 
-    PluginUtils.injectProperties(Vec2Utils, arrayExtension, false, true, true, true, true, "vec2_");
+    PluginUtils.injectProperties(Vec2Utils, arrayExtension, false, true, true, true, true, "vec2_", ["create"]);
 
     // VECTOR 3
 
@@ -2361,15 +2353,6 @@ let _quat_setAxes = function () {
         return vector;
     };
 }();
-
-function _vec2_set(vector, x, y) {
-    if (y === undefined) {
-        glMatrix.vec2.set(vector, x, x);
-    } else {
-        glMatrix.vec2.set(vector, x, y);
-    }
-    return vector;
-};
 
 function _vec3_set(vector, x, y, z) {
     if (y === undefined) {

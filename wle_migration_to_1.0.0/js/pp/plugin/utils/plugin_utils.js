@@ -1,8 +1,10 @@
 import { JSUtils } from "../../cauldron/js/utils/js_utils";
 
-export function injectProperties(fromReference, toReference, enumerable = true, writable = true, configurable = true, keepOriginalDescriptorAttributes = true, bindThisAsFirstParam = false, prefix = null) {
+export function injectProperties(fromReference, toReference, enumerable = true, writable = true, configurable = true, keepOriginalDescriptorAttributes = true, bindThisAsFirstParam = false, prefix = null, functionNamesToExclude = []) {
     let ownPropertyNames = Object.getOwnPropertyNames(fromReference);
     for (let ownPropertyName of ownPropertyNames) {
+        if (functionNamesToExclude.includes(ownPropertyName)) continue;
+
         let enumerableToUse = enumerable;
         let writableToUse = writable;
         let configurableToUse = configurable;
