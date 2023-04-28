@@ -23,7 +23,7 @@ export class ClassicGamepadCore extends GamepadCore {
 
     getButtonData(buttonID) {
         this._myButtonData.myPressed = false;
-        this._myButtonData.myIsTouched = false;
+        this._myButtonData.myTouched = false;
         this._myButtonData.myValue = 0;
 
         let classicGamepad = this._getClassicGamepad();
@@ -81,7 +81,7 @@ export class ClassicGamepadCore extends GamepadCore {
 
             if (button != null) {
                 this._myButtonData.myPressed = button.pressed;
-                this._myButtonData.myIsTouched = button.touched;
+                this._myButtonData.myTouched = button.touched;
                 this._myButtonData.myValue = button.value;
             }
         }

@@ -21,7 +21,7 @@ export class KeyboardGamepadCore extends GamepadCore {
 
     getButtonData(buttonID) {
         this._myButtonData.myPressed = false;
-        this._myButtonData.myIsTouched = false;
+        this._myButtonData.myTouched = false;
         this._myButtonData.myValue = 0;
 
         let keyboard = Globals.getKeyboard(this.getEngine());
@@ -79,7 +79,7 @@ export class KeyboardGamepadCore extends GamepadCore {
         }
 
         if (this._myButtonData.myPressed) {
-            this._myButtonData.myIsTouched = true;
+            this._myButtonData.myTouched = true;
             this._myButtonData.myValue = 1;
         }
 

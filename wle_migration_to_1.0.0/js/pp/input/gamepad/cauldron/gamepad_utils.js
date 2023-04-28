@@ -245,7 +245,7 @@ export function areButtonsTouchStart(...gamepadButtonIDsList) {
             let buttonID = gamepadButtonIDs[i];
             let button = gamepad.getButtonInfo(buttonID);
 
-            if (!(button.myIsTouched && (multipleTouchCount == null || button.myMultipleTouchStartCount == multipleTouchCount) && button.myTimeTouched < _mySimultaneousTouchMaxDelay)) {
+            if (!(button.myTouched && (multipleTouchCount == null || button.myMultipleTouchStartCount == multipleTouchCount) && button.myTimeTouched < _mySimultaneousTouchMaxDelay)) {
                 areButtonTouchedRecently = false;
                 break;
             }
@@ -324,7 +324,7 @@ export function areButtonsTouchEnd(...gamepadButtonIDsList) {
             let buttonID = gamepadButtonIDs[i];
             let button = gamepad.getButtonInfo(buttonID);
 
-            if (!(!button.myIsTouched && (multipleTouchCount == null || button.myMultipleTouchEndCount == multipleTouchCount) && button.myTimeNotTouched < _mySimultaneousTouchMaxDelay)) {
+            if (!(!button.myTouched && (multipleTouchCount == null || button.myMultipleTouchEndCount == multipleTouchCount) && button.myTimeNotTouched < _mySimultaneousTouchMaxDelay)) {
                 areButtonNotTouchedRecently = false;
                 break;
             }

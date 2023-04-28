@@ -167,7 +167,7 @@ export class BaseGamepad {
     _preUpdateButtonInfos() {
         for (let info of this._myButtonInfos) {
             info.myPrevIsPressed = info.myPressed;
-            info.myPrevIsTouched = info.myIsTouched;
+            info.myPrevIsTouched = info.myTouched;
             info.myPrevValue = info.myValue;
         }
     }
@@ -187,7 +187,7 @@ export class BaseGamepad {
         let buttonData = this._getButtonData(buttonID);
 
         buttonInfo.myPressed = buttonData.myPressed;
-        buttonInfo.myIsTouched = buttonData.myIsTouched;
+        buttonInfo.myTouched = buttonData.myTouched;
         buttonInfo.myValue = buttonData.myValue;
     }
 
@@ -231,7 +231,7 @@ export class BaseGamepad {
                 }
             }
 
-            if (info.myIsTouched) {
+            if (info.myTouched) {
                 info.myTimeTouched += dt;
                 if (!info.myPrevIsTouched) {
                     info.myMultipleTouchStartCount += 1;
@@ -294,17 +294,17 @@ export class BaseGamepad {
             }
 
             // TOUCHED
-            if (buttonInfo.myIsTouched && !buttonInfo.myPrevIsTouched) {
+            if (buttonInfo.myTouched && !buttonInfo.myPrevIsTouched) {
                 let emitter = buttonEventEmitters[GamepadButtonEvent.TOUCH_START];
                 emitter.notify(buttonInfo, this);
             }
 
-            if (!buttonInfo.myIsTouched && buttonInfo.myPrevIsTouched) {
+            if (!buttonInfo.myTouched && buttonInfo.myPrevIsTouched) {
                 let emitter = buttonEventEmitters[GamepadButtonEvent.TOUCH_END];
                 emitter.notify(buttonInfo, this);
             }
 
-            if (buttonInfo.myIsTouched) {
+            if (buttonInfo.myTouched) {
                 let emitter = buttonEventEmitters[GamepadButtonEvent.TOUCHED];
                 emitter.notify(buttonInfo, this);
             } else {
@@ -406,7 +406,7 @@ export class BaseGamepad {
     }
 
     _createButtonData() {
-        return { myPressed: false, myIsTouched: false, myValue: 0 };
+        return { myPressed: false, myTouched: false, myValue: 0 };
     }
 
     _createAxesData() {
