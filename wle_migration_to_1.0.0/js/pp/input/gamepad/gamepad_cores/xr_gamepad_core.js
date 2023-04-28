@@ -9,8 +9,8 @@ export class XRGamepadCore extends GamepadCore {
     constructor(handPose) {
         super(handPose);
 
-        this._myIsSelectPressed = false;
-        this._myIsSqueezePressed = false;
+        this._mySelectPressed = false;
+        this._mySqueezePressed = false;
 
         this._myXRSessionActive = false;
         this._myInputSource = null;
@@ -133,9 +133,9 @@ export class XRGamepadCore extends GamepadCore {
 
         if (this.isGamepadCoreActive()) {
             if (buttonID == GamepadButtonID.SELECT) {
-                pressed = this._myIsSelectPressed;
+                pressed = this._mySelectPressed;
             } else if (buttonID == GamepadButtonID.SQUEEZE) {
-                pressed = this._myIsSqueezePressed;
+                pressed = this._mySqueezePressed;
             }
         }
 
@@ -169,25 +169,25 @@ export class XRGamepadCore extends GamepadCore {
     // Select and Squeeze are managed this way to be more compatible
     _selectStart(event) {
         if (this._myInputSource != null && this._myInputSource == event.inputSource) {
-            this._myIsSelectPressed = true;
+            this._mySelectPressed = true;
         }
     }
 
     _selectEnd(event) {
         if (this._myInputSource != null && this._myInputSource == event.inputSource) {
-            this._myIsSelectPressed = false;
+            this._mySelectPressed = false;
         }
     }
 
     _squeezeStart(event) {
         if (this._myInputSource != null && this._myInputSource == event.inputSource) {
-            this._myIsSqueezePressed = true;
+            this._mySqueezePressed = true;
         }
     }
 
     _squeezeEnd(event) {
         if (this._myInputSource != null && this._myInputSource == event.inputSource) {
-            this._myIsSqueezePressed = false;
+            this._mySqueezePressed = false;
         }
     }
 

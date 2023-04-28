@@ -32,9 +32,9 @@ export class Mouse {
 
         this._myResetMovingDelay = 0.15;
         this._myResetMovingTimer = new Timer(this._myResetMovingDelay, false);
-        this._myIsMoving = false;
+        this._myMoving = false;
 
-        this._myIsInsideView = false;
+        this._myInsideView = false;
         this._myValid = false;
 
         this._myPointerUpOnPointerLeave = true;
@@ -88,7 +88,7 @@ export class Mouse {
             this._myResetMovingTimer.update(dt);
             if (this._myResetMovingTimer.isDone()) {
                 this._myResetMovingTimer.reset();
-                this._myIsMoving = false;
+                this._myMoving = false;
             }
         }
 
@@ -101,14 +101,14 @@ export class Mouse {
 
         this._updateScreenSize();
 
-        if (!this.isAnyButtonPressed() && !this._myIsMoving) {
+        if (!this.isAnyButtonPressed() && !this._myMoving) {
             this._myPointerID = null;
         }
 
         if (this._myLastValidPointerEvent != null) {
-            let isLastValidPointerEventStillValid = this._isPointerEventValid(this._myLastValidPointerEvent);
-            if (!isLastValidPointerEventStillValid) {
-                if (this._myIsInsideView) {
+            let lastValidPointerEventStillValid = this._isPointerEventValid(this._myLastValidPointerEvent);
+            if (!lastValidPointerEventStillValid) {
+                if (this._myInsideView) {
                     this._onPointerLeave(this._myLastValidPointerEvent);
                 }
 
@@ -165,11 +165,11 @@ export class Mouse {
     }
 
     isMoving() {
-        return this._myIsMoving;
+        return this._myMoving;
     }
 
     isInsideView() {
-        return this._myIsInsideView;
+        return this._myInsideView;
     }
 
     isTargetingRenderCanvas() {
@@ -334,13 +334,13 @@ export class Mouse {
         if (!this._isPointerEventIDValid(event)) return;
 
         if (!this._isPointerEventValid(event)) {
-            if (this._myIsInsideView) {
+            if (this._myInsideView) {
                 this._onPointerLeave(event);
             }
             return;
         }
 
-        if (!this._myIsInsideView) {
+        if (!this._myInsideView) {
             this._onPointerEnter(event);
         }
 
@@ -351,7 +351,7 @@ export class Mouse {
     }
 
     _onMouseAction(actionCallback, event) {
-        if (!this._myIsInsideView) return;
+        if (!this._myInsideView) return;
         if (!this._isMouseAllowed()) return;
         if (!this._isPointerEventIDValid(this._myLastValidPointerEvent)) return;
         if (!this._isPointerEventValid(this._myLastValidPointerEvent)) return;
@@ -361,7 +361,7 @@ export class Mouse {
 
     _onPointerMove(event) {
         this._myResetMovingTimer.start(this._myResetMovingDelay);
-        this._myIsMoving = true;
+        this._myMoving = true;
     }
 
     _onPointerDown(event) {
@@ -381,11 +381,11 @@ export class Mouse {
     }
 
     _onPointerLeave(event) {
-        if (!this._myIsInsideView || this._myLastValidPointerEvent == null || event.pointerId != this._myLastValidPointerEvent.pointerId) return;
+        if (!this._myInsideView || this._myLastValidPointerEvent == null || event.pointerId != this._myLastValidPointerEvent.pointerId) return;
 
-        this._myIsInsideView = false;
+        this._myInsideView = false;
 
-        this._myIsMoving = false;
+        this._myMoving = false;
 
         if (this._myPointerUpOnPointerLeave) {
             for (let buttonInfo of this._myButtonInfos.values()) {
@@ -400,9 +400,9 @@ export class Mouse {
     }
 
     _onPointerEnter(event) {
-        if ((this._myIsInsideView && this._myPointerID != null) || !this._isPointerEventIDValid(event) || !this._isPointerEventValid(event)) return;
+        if ((this._myInsideView && this._myPointerID != null) || !this._isPointerEventIDValid(event) || !this._isPointerEventValid(event)) return;
 
-        this._myIsInsideView = true;
+        this._myInsideView = true;
 
         this._updatePositionAndScreen(event);
         this._updatePointerData(event);
@@ -451,16 +451,16 @@ export class Mouse {
     _isPointerEventValid(event) {
         if (event == null) return false;
 
-        let isValid = true;
+        let valid = true;
 
         for (let callback of this._myPointerEventValidCallbacks.values()) {
             if (!callback(event)) {
-                isValid = false;
+                valid = false;
                 break;
             };
         }
 
-        return isValid;
+        return valid;
     }
 
     _isMouseAllowed() {

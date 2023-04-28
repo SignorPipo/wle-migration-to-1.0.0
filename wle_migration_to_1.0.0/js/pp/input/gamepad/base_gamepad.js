@@ -379,22 +379,22 @@ export class BaseGamepad {
     }
 
     _updatePulse(dt) {
-        if (this._myPulseInfo.myIsDevicePulsing || this._myPulseInfo.myIntensity > 0) {
+        if (this._myPulseInfo.myDevicePulsing || this._myPulseInfo.myIntensity > 0) {
             let hapticActuators = this._getHapticActuators();
             if (hapticActuators.length > 0) {
                 if (this._myPulseInfo.myIntensity > 0) {
                     for (let hapticActuator of hapticActuators) {
                         hapticActuator.pulse(this._myPulseInfo.myIntensity, 1000); // Duration is managed by this class
                     }
-                    this._myPulseInfo.myIsDevicePulsing = true;
-                } else if (this._myPulseInfo.myIsDevicePulsing) {
+                    this._myPulseInfo.myDevicePulsing = true;
+                } else if (this._myPulseInfo.myDevicePulsing) {
                     for (let hapticActuator of hapticActuators) {
                         hapticActuator.reset();
                     }
-                    this._myPulseInfo.myIsDevicePulsing = false;
+                    this._myPulseInfo.myDevicePulsing = false;
                 }
             } else {
-                this._myPulseInfo.myIsDevicePulsing = false;
+                this._myPulseInfo.myDevicePulsing = false;
             }
         }
 

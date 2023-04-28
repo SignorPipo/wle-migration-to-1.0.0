@@ -179,14 +179,14 @@ export class GamepadPulseInfo {
         this.myIntensity = 0.0;
         this.myDuration = 0.0;
 
-        this.myIsDevicePulsing = false; // true if the gamepad actually sent a request to pulse to the device
+        this.myDevicePulsing = false; // true if the gamepad actually sent a request to pulse to the device
     }
 
     clone() {
         let value = new GamepadPulseInfo();
         value.myIntensity = this.myIntensity;
         value.myDuration = this.myDuration;
-        value.myIsDevicePulsing = this.myIsDevicePulsing;
+        value.myDevicePulsing = this.myDevicePulsing;
 
         return value;
     }
