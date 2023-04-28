@@ -25,8 +25,8 @@ export function getInputSource(handedness, inputSourceType = null, engine = Glob
         for (let i = 0; i < xrSession.inputSources.length; i++) {
             let input = xrSession.inputSources[i];
 
-            let isCorrectType = (!inputSourceType) || (inputSourceType == InputSourceType.GAMEPAD && !input.hand) || (inputSourceType == InputSourceType.TRACKED_HAND && input.hand);
-            if (isCorrectType && input.handedness == handedness) {
+            let correctType = (!inputSourceType) || (inputSourceType == InputSourceType.GAMEPAD && !input.hand) || (inputSourceType == InputSourceType.TRACKED_HAND && input.hand);
+            if (correctType && input.handedness == handedness) {
                 inputSource = input;
                 break;
             }

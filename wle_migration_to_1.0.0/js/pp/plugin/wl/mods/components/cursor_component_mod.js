@@ -700,15 +700,15 @@ export function initCursorComponentModPrototype() {
     cursorComponentMod._pp_isMoving = function () {
         let hitLocationLocalToTarget = vec3_create();
         return function _pp_isMoving(hitLocation) {
-            let isMoving = false;
+            let moving = false;
 
             hitLocationLocalToTarget = this.hoveringObject.pp_convertPositionWorldToLocal(hitLocation, hitLocationLocalToTarget);
 
             if (!hitLocationLocalToTarget.vec_equals(this._prevHitLocationLocalToTarget, 0.0001)) {
-                isMoving = true;
+                moving = true;
             }
 
-            return isMoving;
+            return moving;
         };
     }();
 

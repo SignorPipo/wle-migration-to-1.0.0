@@ -106,19 +106,19 @@ export class ToolCursorComponent extends Component {
     }
 
     _isUsingHand() {
-        let isUsingHand = false;
+        let usingHand = false;
 
         if (XRUtils.getSession(this.engine) && XRUtils.getSession(this.engine).inputSources) {
             for (let i = 0; i < XRUtils.getSession(this.engine).inputSources.length; i++) {
                 let input = XRUtils.getSession(this.engine).inputSources[i];
                 if (input.hand && input.handedness == this._myHandednessType) {
-                    isUsingHand = true;
+                    usingHand = true;
                     break;
                 }
             }
         }
 
-        return isUsingHand;
+        return usingHand;
     }
 
     _pulseOnHover(object) {
@@ -150,19 +150,19 @@ export class ToolCursorComponent extends Component {
 ToolCursorComponent.prototype.update = function () {
     let transformQuat = quat2_create();
     return function update(dt) {
-        let isUsingHand = this._isUsingHand();
+        let usingHand = this._isUsingHand();
 
-        this._myFingerCursorComponent.active = isUsingHand;
+        this._myFingerCursorComponent.active = usingHand;
 
-        if (isUsingHand) {
+        if (usingHand) {
             this._myCursorComponentXR.active = false;
             this._myCursorComponentNonXR.active = false;
         } else {
             if (XRUtils.isSessionActive(this.engine)) {
-                this._myCursorComponentXR.active = !isUsingHand;
+                this._myCursorComponentXR.active = !usingHand;
                 this._myCursorComponentNonXR.active = false;
             } else {
-                this._myCursorComponentNonXR.active = !isUsingHand;
+                this._myCursorComponentNonXR.active = !usingHand;
                 this._myCursorComponentXR.active = false;
 
                 this._myCursorObjectNonXR.pp_setTransformQuat(Globals.getPlayerObjects(this.engine).myCameraNonXR.pp_getTransformQuat(transformQuat));

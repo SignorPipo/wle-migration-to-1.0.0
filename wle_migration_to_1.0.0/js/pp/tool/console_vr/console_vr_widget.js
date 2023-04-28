@@ -787,15 +787,15 @@ export class ConsoleVRWidget {
         if (this._isSpecialSimpleArray(array)) {
             return true;
         } else if (Array.isArray(array)) {
-            let isBuiltIn = true;
+            let builtInArray = true;
             for (let element of array) {
                 if (element instanceof Object) {
-                    isBuiltIn = false;
+                    builtInArray = false;
                     break;
                 }
             }
 
-            return isBuiltIn;
+            return builtInArray;
         }
 
         return false;

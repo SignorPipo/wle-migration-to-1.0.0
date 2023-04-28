@@ -29,8 +29,8 @@ export let computeSurfacePerceivedAngle = function () {
         directionOnSurface = direction.vec3_projectOnPlaneAlongAxis(surfaceNormal, up, directionOnSurface);
         surfacePerceivedAngle = directionOnSurface.vec3_angle(direction);
 
-        let isFartherOnUp = directionOnSurface.vec3_isFartherAlongAxis(direction, up);
-        if ((!isFartherOnUp && isGround) || (isFartherOnUp && !isGround)) {
+        let fartherOnUp = directionOnSurface.vec3_isFartherAlongAxis(direction, up);
+        if ((!fartherOnUp && isGround) || (fartherOnUp && !isGround)) {
             surfacePerceivedAngle *= -1;
         }
 
