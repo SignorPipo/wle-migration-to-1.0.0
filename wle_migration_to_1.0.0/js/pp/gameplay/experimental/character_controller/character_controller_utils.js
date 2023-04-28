@@ -11,11 +11,11 @@ export function computeCeilingPerceivedAngle(surfaceNormal, direction, up) {
 export let computeSurfacePerceivedAngle = function () {
     let directionOnSurface = vec3_create();
     let verticalDirection = vec3_create();
-    return function computeSurfacePerceivedAngle(surfaceNormal, direction, up, isGround) {
+    return function computeSurfacePerceivedAngle(surfaceNormal, direction, up, ground) {
         let surfacePerceivedAngle = 0;
 
         verticalDirection.vec3_copy(up);
-        if (!isGround) {
+        if (!ground) {
             verticalDirection.vec3_negate(verticalDirection);
         }
 
@@ -30,7 +30,7 @@ export let computeSurfacePerceivedAngle = function () {
         surfacePerceivedAngle = directionOnSurface.vec3_angle(direction);
 
         let fartherOnUp = directionOnSurface.vec3_isFartherAlongAxis(direction, up);
-        if ((!fartherOnUp && isGround) || (fartherOnUp && !isGround)) {
+        if ((!fartherOnUp && ground) || (fartherOnUp && !ground)) {
             surfacePerceivedAngle *= -1;
         }
 

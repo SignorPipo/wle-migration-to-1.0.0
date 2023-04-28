@@ -26,8 +26,8 @@ export class WidgetFrame {
         this._myUI = new WidgetFrameUI(engine);
         this._myShowVisibilityButton = false;
 
-        this._myWidgetVisibleChangedEmitter = new Emitter();      // Signature: listener(isWidgetVisible)
-        this._myPinChangedEmitter = new Emitter();                // Signature: listener(isPinned)
+        this._myWidgetVisibleChangedEmitter = new Emitter();      // Signature: listener(widgetVisible)
+        this._myPinChangedEmitter = new Emitter();                // Signature: listener(pinned)
 
         this._myDestroyed = true;
     }

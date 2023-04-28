@@ -411,11 +411,11 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         }
     }
 
-    _computeAverageFrameRate(isStart) {
+    _computeAverageFrameRate(firstCompute) {
         let frameRate = 0;
 
         this._myDTHistory.sort();
-        let elementToRemove = Math.floor(this._myDTHistory.length) * Math.min(0.9, this._myDTHistoryToIgnorePercentage * (isStart ? 2 : 1));
+        let elementToRemove = Math.floor(this._myDTHistory.length) * Math.min(0.9, this._myDTHistoryToIgnorePercentage * (firstCompute ? 2 : 1));
         for (let i = 0; i < elementToRemove; i++) {
             this._myDTHistory.pop();
         }

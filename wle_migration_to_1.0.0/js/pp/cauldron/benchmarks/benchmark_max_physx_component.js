@@ -194,12 +194,12 @@ export class BenchmarkMaxPhysXComponent extends Component {
         }
     }
 
-    _spawnDome(isStatic, isDynamic) {
+    _spawnDome(staticDome, dynamicDome) {
         let maxCount = this._myStaticPhysXCount;
         let physXList = this._myStaticPhysXObjects;
         let cloves = Math.ceil(Math.sqrt(this._myStaticPhysXCount));
-        if (!isStatic) {
-            if (isDynamic) {
+        if (!staticDome) {
+            if (dynamicDome) {
                 cloves = Math.ceil(Math.sqrt(this._myDynamicPhysXCount));
                 maxCount = this._myDynamicPhysXCount;
                 physXList = this._myDynamicPhysXObjects;
@@ -215,8 +215,8 @@ export class BenchmarkMaxPhysXComponent extends Component {
         let minDistance = Math.max(0, this._myStaticDomeSize - 20);
         let maxDistance = this._myStaticDomeSize + 20;
 
-        if (!isStatic) {
-            if (isDynamic) {
+        if (!staticDome) {
+            if (dynamicDome) {
                 minDistance = Math.max(0, this._myDynamicDomeSize - 20);
                 maxDistance = this._myDynamicDomeSize + 20;
             } else {
@@ -250,7 +250,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
 
                     physXDirection.vec3_scale(distance, physXDirection);
 
-                    this._addPhysX(physXDirection, isStatic, isDynamic);
+                    this._addPhysX(physXDirection, staticDome, dynamicDome);
                 }
 
                 verticalDirection.vec3_rotateAxisRadians(angleForClove / 2, rotationAxis, verticalDirection);
@@ -266,7 +266,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
 
                     physXDirection.vec3_scale(distance, physXDirection);
 
-                    this._addPhysX(physXDirection, isStatic, isDynamic);
+                    this._addPhysX(physXDirection, staticDome, dynamicDome);
                 }
 
                 verticalDirection.vec3_rotateAxisRadians(angleForClove / 2, rotationAxis, verticalDirection);
@@ -277,7 +277,7 @@ export class BenchmarkMaxPhysXComponent extends Component {
         }
     }
 
-    _addPhysX(physXDirection, isStatic, isDynamic) {
+    _addPhysX(physXDirection, staticDome, dynamicDome) {
         let position = physXDirection;
         let scale = Math.pp_random(1, 10);
         let shape = Math.pp_randomPick(Shape.Sphere, Shape.Box);
@@ -293,16 +293,16 @@ export class BenchmarkMaxPhysXComponent extends Component {
             "shape": shape,
             "shapeData": { index: this._myShapeIndex },
             "extents": vec3_create(scale, scale, scale),
-            "static": isStatic,
-            "kinematic": !isDynamic,
+            "static": staticDome,
+            "kinematic": !dynamicDome,
             "mass": 1
         });
 
-        if (isStatic) {
+        if (staticDome) {
             this._myStaticPhysXObjects.push(physX);
             this._myStaticPhysXComponents.push(physXComponent);
             this._myStaticPhysXCollectors.push(new PhysicsCollisionCollector(physXComponent));
-        } else if (isDynamic) {
+        } else if (dynamicDome) {
             this._myDynamicPhysXObjects.push(physX);
             this._myDynamicPhysXComponents.push(physXComponent);
             this._myDynamicPhysXCollectors.push(new PhysicsCollisionCollector(physXComponent));
