@@ -19,7 +19,7 @@ export class VirtualGamepadVirtualThumbstick {
         this._myThumbstickDragStartPosition = vec2_create();
 
         this._myAxes = vec2_create();
-        this._myIsPressed = false;
+        this._myPressed = false;
 
         this._myVirtualGamepadParams = virtualGamepadParams;
         this._myParams = this._myVirtualGamepadParams.myThumbstickParams[gamepadThumbstickHandedness][gamepadAxesID];
@@ -48,7 +48,7 @@ export class VirtualGamepadVirtualThumbstick {
     }
 
     isPressed() {
-        return this._myActive && this._myIsPressed;
+        return this._myActive && this._myPressed;
     }
 
     getAxes() {
@@ -73,7 +73,7 @@ export class VirtualGamepadVirtualThumbstick {
 
         this._myAxes[0] = 0;
         this._myAxes[1] = 0;
-        this._myIsPressed = false;
+        this._myPressed = false;
         this._myPointerID = null;
         this._myPointerButton = null;
 
@@ -87,7 +87,7 @@ export class VirtualGamepadVirtualThumbstick {
 
     _onPointerDown(stopPropagatingPointerDownEvents, event) {
         if (!this._myActive) return;
-        if (this._myIsPressed) return;
+        if (this._myPressed) return;
         if (!this._myVirtualGamepadParams.myValidPointerButtons.pp_hasEqual(event.button)) return;
 
         if (stopPropagatingPointerDownEvents) {
@@ -103,12 +103,12 @@ export class VirtualGamepadVirtualThumbstick {
         this._myThumbstickDragStartPosition[0] = event.clientX;
         this._myThumbstickDragStartPosition[1] = event.clientY;
 
-        this._myIsPressed = true;
+        this._myPressed = true;
     }
 
     _onPointerUp(event) {
         if (!this._myActive) return;
-        if (!this._myIsPressed) return;
+        if (!this._myPressed) return;
         if (this._myPointerID != event.pointerId) return;
         if (this._myPointerButton != null && this._myPointerButton != event.button) return;
 
@@ -132,7 +132,7 @@ export class VirtualGamepadVirtualThumbstick {
 
     _onPointerMove(event) {
         if (!this._myActive) return;
-        if (!this._myIsPressed) return;
+        if (!this._myPressed) return;
 
         if (event.pointerId != this._myPointerID) return;
 

@@ -87,7 +87,7 @@ export function areButtonsPressStart(...gamepadButtonIDsList) {
             let buttonID = gamepadButtonIDs[i];
             let button = gamepad.getButtonInfo(buttonID);
 
-            if (!(button.myIsPressed && (multiplePressCount == null || button.myMultiplePressStartCount == multiplePressCount) && button.myTimePressed < _mySimultaneousPressMaxDelay)) {
+            if (!(button.myPressed && (multiplePressCount == null || button.myMultiplePressStartCount == multiplePressCount) && button.myTimePressed < _mySimultaneousPressMaxDelay)) {
                 areButtonPressedRecently = false;
                 break;
             }
@@ -166,7 +166,7 @@ export function areButtonsPressEnd(...gamepadButtonIDsList) {
             let buttonID = gamepadButtonIDs[i];
             let button = gamepad.getButtonInfo(buttonID);
 
-            if (!(!button.myIsPressed && (multiplePressCount == null || button.myMultiplePressEndCount == multiplePressCount) && button.myTimeNotPressed < _mySimultaneousPressMaxDelay)) {
+            if (!(!button.myPressed && (multiplePressCount == null || button.myMultiplePressEndCount == multiplePressCount) && button.myTimeNotPressed < _mySimultaneousPressMaxDelay)) {
                 areButtonNotPressedRecently = false;
                 break;
             }

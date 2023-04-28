@@ -102,13 +102,13 @@ export class Keyboard {
     }
 
     isKeyPressed(keyID) {
-        let isPressed = false;
+        let pressed = false;
 
         if (this._myKeyInfos.has(keyID)) {
-            isPressed = this._myKeyInfos.get(keyID).myIsPressed;
+            pressed = this._myKeyInfos.get(keyID).myPressed;
         }
 
-        return isPressed;
+        return pressed;
     }
 
     isKeyPressStart(keyID) {
@@ -145,8 +145,8 @@ export class Keyboard {
     update(dt) {
         if (!Globals.getDocument(this._myEngine).hasFocus()) {
             for (let keyInfo of this._myKeyInfos.values()) {
-                if (keyInfo.myIsPressed) {
-                    keyInfo.myIsPressed = false;
+                if (keyInfo.myPressed) {
+                    keyInfo.myPressed = false;
                     keyInfo.myIsPressEndToProcess = true;
                 }
             }
@@ -174,22 +174,22 @@ export class Keyboard {
         }
     }
 
-    _keyPressedChanged(keyID, isPressed) {
+    _keyPressedChanged(keyID, pressed) {
         if (this._myKeyInfos.has(keyID)) {
             let keyInfo = this._myKeyInfos.get(keyID);
 
-            if (isPressed) {
-                keyInfo.myIsPressed = true;
+            if (pressed) {
+                keyInfo.myPressed = true;
                 keyInfo.myIsPressStartToProcess = true;
             } else {
-                keyInfo.myIsPressed = false;
+                keyInfo.myPressed = false;
                 keyInfo.myIsPressEndToProcess = true;
             }
         }
     }
 
     _createKeyInfo() {
-        return { myIsPressed: false, myIsPressStart: false, myIsPressStartToProcess: false, myIsPressEnd: false, myIsPressEndToProcess: false, };
+        return { myPressed: false, myIsPressStart: false, myIsPressStartToProcess: false, myIsPressEnd: false, myIsPressEndToProcess: false, };
     }
 
     destroy() {

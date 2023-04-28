@@ -166,7 +166,7 @@ export class BaseGamepad {
 
     _preUpdateButtonInfos() {
         for (let info of this._myButtonInfos) {
-            info.myPrevIsPressed = info.myIsPressed;
+            info.myPrevIsPressed = info.myPressed;
             info.myPrevIsTouched = info.myIsTouched;
             info.myPrevValue = info.myValue;
         }
@@ -186,14 +186,14 @@ export class BaseGamepad {
         let buttonInfo = this._myButtonInfos[buttonID];
         let buttonData = this._getButtonData(buttonID);
 
-        buttonInfo.myIsPressed = buttonData.myIsPressed;
+        buttonInfo.myPressed = buttonData.myPressed;
         buttonInfo.myIsTouched = buttonData.myIsTouched;
         buttonInfo.myValue = buttonData.myValue;
     }
 
     _postUpdateButtonInfos(dt) {
         for (let info of this._myButtonInfos) {
-            if (info.myIsPressed) {
+            if (info.myPressed) {
                 info.myTimePressed += dt;
                 if (!info.myPrevIsPressed) {
                     info.myMultiplePressStartCount += 1;
@@ -275,17 +275,17 @@ export class BaseGamepad {
             let buttonEventEmitters = this._myButtonEmitters[GamepadButtonID[key]];
 
             // PRESSED
-            if (buttonInfo.myIsPressed && !buttonInfo.myPrevIsPressed) {
+            if (buttonInfo.myPressed && !buttonInfo.myPrevIsPressed) {
                 let emitter = buttonEventEmitters[GamepadButtonEvent.PRESS_START];
                 emitter.notify(buttonInfo, this);
             }
 
-            if (!buttonInfo.myIsPressed && buttonInfo.myPrevIsPressed) {
+            if (!buttonInfo.myPressed && buttonInfo.myPrevIsPressed) {
                 let emitter = buttonEventEmitters[GamepadButtonEvent.PRESS_END];
                 emitter.notify(buttonInfo, this);
             }
 
-            if (buttonInfo.myIsPressed) {
+            if (buttonInfo.myPressed) {
                 let emitter = buttonEventEmitters[GamepadButtonEvent.PRESSED];
                 emitter.notify(buttonInfo, this);
             } else {
@@ -406,7 +406,7 @@ export class BaseGamepad {
     }
 
     _createButtonData() {
-        return { myIsPressed: false, myIsTouched: false, myValue: 0 };
+        return { myPressed: false, myIsTouched: false, myValue: 0 };
     }
 
     _createAxesData() {

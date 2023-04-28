@@ -40,7 +40,7 @@ export class GamepadButtonInfo {
         this.myID = id;
         this.myHandedness = handedness;
 
-        this.myIsPressed = false;
+        this.myPressed = false;
         this.myPrevIsPressed = false;
 
         this.myIsTouched = false;
@@ -85,7 +85,7 @@ export class GamepadButtonInfo {
     }
 
     isPressed() {
-        return this.myIsPressed;
+        return this.myPressed;
     }
 
     isTouched() {
@@ -93,11 +93,11 @@ export class GamepadButtonInfo {
     }
 
     isPressStart(multiplePressCount = null) {
-        return (this.myIsPressed && !this.myPrevIsPressed) && (multiplePressCount == null || this.myMultiplePressStartCount == multiplePressCount);
+        return (this.myPressed && !this.myPrevIsPressed) && (multiplePressCount == null || this.myMultiplePressStartCount == multiplePressCount);
     }
 
     isPressEnd(multiplePressCount = null) {
-        return (!this.myIsPressed && this.myPrevIsPressed) && (multiplePressCount == null || this.myMultiplePressEndCount == multiplePressCount);
+        return (!this.myPressed && this.myPrevIsPressed) && (multiplePressCount == null || this.myMultiplePressEndCount == multiplePressCount);
     }
 
     isTouchStart(multipleTouchCount = null) {
@@ -110,7 +110,7 @@ export class GamepadButtonInfo {
 
     clone() {
         let value = new GamepadButtonInfo(this.myID, this.myHandedness);
-        value.myIsPressed = this.myIsPressed;
+        value.myPressed = this.myPressed;
         value.myPrevIsPressed = this.myPrevIsPressed;
         value.myIsTouched = this.myIsTouched;
         value.myPrevIsTouched = this.myPrevIsTouched;

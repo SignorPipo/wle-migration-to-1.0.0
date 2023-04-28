@@ -90,7 +90,7 @@ export class GamepadCore {
     // Hooks end
 
     _createButtonData() {
-        return { myIsPressed: false, myIsTouched: false, myValue: 0 };
+        return { myPressed: false, myIsTouched: false, myValue: 0 };
     }
 
     _createAxesData() {

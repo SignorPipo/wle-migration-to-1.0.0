@@ -122,26 +122,26 @@ export class Mouse {
     }
 
     isButtonPressed(buttonID) {
-        let isPressed = false;
+        let pressed = false;
 
         if (this._myButtonInfos.has(buttonID)) {
-            isPressed = this._myButtonInfos.get(buttonID).myIsPressed;
+            pressed = this._myButtonInfos.get(buttonID).myPressed;
         }
 
-        return isPressed;
+        return pressed;
     }
 
     isAnyButtonPressed() {
-        let isPressed = false;
+        let pressed = false;
 
         for (let buttonInfo of this._myButtonInfos.values()) {
-            if (buttonInfo.myIsPressed) {
-                isPressed = true;
+            if (buttonInfo.myPressed) {
+                pressed = true;
                 break;
             }
         }
 
-        return isPressed;
+        return pressed;
     }
 
     isButtonPressStart(buttonID) {
@@ -366,16 +366,16 @@ export class Mouse {
 
     _onPointerDown(event) {
         let buttonInfo = this._myButtonInfos.get(event.button);
-        if (!buttonInfo.myIsPressed) {
-            buttonInfo.myIsPressed = true;
+        if (!buttonInfo.myPressed) {
+            buttonInfo.myPressed = true;
             buttonInfo.myIsPressStartToProcess = true;
         }
     }
 
     _onPointerUp(event) {
         let buttonInfo = this._myButtonInfos.get(event.button);
-        if (buttonInfo.myIsPressed) {
-            buttonInfo.myIsPressed = false;
+        if (buttonInfo.myPressed) {
+            buttonInfo.myPressed = false;
             buttonInfo.myIsPressEndToProcess = true;
         }
     }
@@ -389,8 +389,8 @@ export class Mouse {
 
         if (this._myPointerUpOnPointerLeave) {
             for (let buttonInfo of this._myButtonInfos.values()) {
-                if (buttonInfo.myIsPressed) {
-                    buttonInfo.myIsPressed = false;
+                if (buttonInfo.myPressed) {
+                    buttonInfo.myPressed = false;
                     buttonInfo.myIsPressEndToProcess = true;
                 }
             }
@@ -469,7 +469,7 @@ export class Mouse {
     }
 
     _createButtonInfo() {
-        return { myIsPressed: false, myIsPressStart: false, myIsPressStartToProcess: false, myIsPressEnd: false, myIsPressEndToProcess: false, };
+        return { myPressed: false, myIsPressStart: false, myIsPressStartToProcess: false, myIsPressEnd: false, myIsPressEndToProcess: false, };
     }
 
     destroy() {

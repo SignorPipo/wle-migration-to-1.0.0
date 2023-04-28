@@ -47,7 +47,7 @@ export class XRGamepadCore extends GamepadCore {
     }
 
     getButtonData(buttonID) {
-        this._myButtonData.myIsPressed = false;
+        this._myButtonData.myPressed = false;
         this._myButtonData.myIsTouched = false;
         this._myButtonData.myValue = 0;
 
@@ -56,9 +56,9 @@ export class XRGamepadCore extends GamepadCore {
                 let gamepadButton = this._myGamepad.buttons[buttonID];
 
                 if (buttonID != GamepadButtonID.SELECT && buttonID != GamepadButtonID.SQUEEZE) {
-                    this._myButtonData.myIsPressed = gamepadButton.pressed;
+                    this._myButtonData.myPressed = gamepadButton.pressed;
                 } else {
-                    this._myButtonData.myIsPressed = this._getSpecialButtonPressed(buttonID);
+                    this._myButtonData.myPressed = this._getSpecialButtonPressed(buttonID);
                 }
 
                 this._myButtonData.myIsTouched = gamepadButton.touched;
@@ -67,7 +67,7 @@ export class XRGamepadCore extends GamepadCore {
                 // This way if you are using a basic touch gamepad, top button will work anyway
 
                 let touchButton = this._myGamepad.buttons[2];
-                this._myButtonData.myIsPressed = touchButton.pressed;
+                this._myButtonData.myPressed = touchButton.pressed;
                 this._myButtonData.myIsTouched = touchButton.touched;
                 this._myButtonData.myValue = touchButton.value;
             }
@@ -129,17 +129,17 @@ export class XRGamepadCore extends GamepadCore {
 
     // This is to be more compatible
     _getSpecialButtonPressed(buttonID) {
-        let isPressed = false;
+        let pressed = false;
 
         if (this.isGamepadCoreActive()) {
             if (buttonID == GamepadButtonID.SELECT) {
-                isPressed = this._myIsSelectPressed;
+                pressed = this._myIsSelectPressed;
             } else if (buttonID == GamepadButtonID.SQUEEZE) {
-                isPressed = this._myIsSqueezePressed;
+                pressed = this._myIsSqueezePressed;
             }
         }
 
-        return isPressed;
+        return pressed;
     }
 
     _onXRSessionStart(session) {

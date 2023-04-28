@@ -14,7 +14,7 @@ export class VirtualGamepadVirtualButton {
         this._myPointerID = null;
         this._myPointerButton = null;
 
-        this._myIsPressed = false;
+        this._myPressed = false;
 
         this._myVirtualGamepadParams = virtualGamepadParams;
         this._myParams = this._myVirtualGamepadParams.myButtonParams[gamepadButtonHandedness][gamepadButtonID];
@@ -41,7 +41,7 @@ export class VirtualGamepadVirtualButton {
     }
 
     isPressed() {
-        return this._myActive && this._myIsPressed;
+        return this._myActive && this._myPressed;
     }
 
     setActive(active) {
@@ -60,7 +60,7 @@ export class VirtualGamepadVirtualButton {
     reset() {
         this._myButtonIcon.setPressed(false);
 
-        this._myIsPressed = false;
+        this._myPressed = false;
         this._myPointerID = null;
         this._myPointerButton = null;
     }
@@ -71,7 +71,7 @@ export class VirtualGamepadVirtualButton {
 
     _onPointerDown(stopPropagatingPointerDownEvents, event) {
         if (!this._myActive) return;
-        if (this._myIsPressed) return;
+        if (this._myPressed) return;
         if (!this._myVirtualGamepadParams.myValidPointerButtons.pp_hasEqual(event.button)) return;
 
         if (stopPropagatingPointerDownEvents) {
@@ -84,12 +84,12 @@ export class VirtualGamepadVirtualButton {
         this._myPointerID = event.pointerId;
         this._myPointerButton = event.button;
 
-        this._myIsPressed = true;
+        this._myPressed = true;
     }
 
     _onPointerUp(event) {
         if (!this._myActive) return;
-        if (!this._myIsPressed) return;
+        if (!this._myPressed) return;
         if (this._myPointerID != event.pointerId) return;
         if (this._myPointerButton != null && this._myPointerButton != event.button) return;
 

@@ -81,14 +81,14 @@ export class UniversalGamepad extends BaseGamepad {
     }
 
     _getButtonData(buttonID) {
-        this._myButtonData.myIsPressed = false;
+        this._myButtonData.myPressed = false;
         this._myButtonData.myIsTouched = false;
         this._myButtonData.myValue = 0;
 
         for (let core of this._myGamepadCores.values()) {
             if (core.isGamepadCoreActive()) {
                 let coreButtonData = core.getButtonData(buttonID);
-                this._myButtonData.myIsPressed = this._myButtonData.myIsPressed || coreButtonData.myIsPressed;
+                this._myButtonData.myPressed = this._myButtonData.myPressed || coreButtonData.myPressed;
                 this._myButtonData.myIsTouched = this._myButtonData.myIsTouched || coreButtonData.myIsTouched;
                 if (Math.abs(coreButtonData.myValue) > Math.abs(this._myButtonData.myValue)) {
                     this._myButtonData.myValue = coreButtonData.myValue;
