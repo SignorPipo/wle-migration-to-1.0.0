@@ -70,6 +70,7 @@ export * from "./cauldron/fsm/states/timer_state";
 
 export * from "./cauldron/js/utils/js_utils";
 export * from "./cauldron/js/utils/math_utils";
+export * from "./cauldron/js/utils/array_utils";
 
 export * from "./cauldron/utils/color_utils";
 export * from "./cauldron/utils/material_utils";
