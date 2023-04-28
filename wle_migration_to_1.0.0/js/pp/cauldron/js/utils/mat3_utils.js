@@ -1,4 +1,4 @@
-import * as glMatrix from "gl-matrix";
+import { mat3, quat } from "gl-matrix";
 import { quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 
 // glMatrix Bridge
@@ -7,7 +7,7 @@ export function create(
     m00, m01, m02,
     m10, m11, m12,
     m20, m21, m22) {
-    let out = glMatrix.mat3.create();
+    let out = mat3.create();
 
     if (m00 !== undefined) {
         set(out,
@@ -25,12 +25,12 @@ export function set(
     m10, m11, m12,
     m20, m21, m22) {
     if (m01 === undefined) {
-        glMatrix.mat3.set(matrix,
+        mat3.set(matrix,
             m00, m00, m00,
             m00, m00, m00,
             m00, m00, m00);
     } else {
-        glMatrix.mat3.set(matrix,
+        mat3.set(matrix,
             m00, m01, m02,
             m10, m11, m12,
             m20, m21, m22);
@@ -59,7 +59,7 @@ export let toRadians = function () {
 }();
 
 export function toQuat(matrix, out = quat_create()) {
-    glMatrix.quat.fromMat3(out, matrix);
+    quat.fromMat3(out, matrix);
     return out;
 }
 
