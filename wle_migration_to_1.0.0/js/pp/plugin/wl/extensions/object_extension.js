@@ -121,6 +121,7 @@ import { Object3D } from "@wonderlandengine/api";
 import { Globals } from "../../../pp/globals";
 import { mat3_create, mat4_create, quat2_create, quat_create, vec3_create } from "../../js/extensions/array_extension";
 import { PluginUtils } from "../../utils/plugin_utils";
+import { MathUtils } from "../../../cauldron/js/utils/math_utils";
 
 export function initObjectExtension() {
     initObjectExtensionProtoype();
@@ -2167,7 +2168,7 @@ export function initObjectExtensionProtoype() {
         let scale = vec3_create();
         return function pp_hasUniformScaleWorld() {
             this.pp_getScaleWorld(scale);
-            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON;
+            return Math.abs(scale[0] - scale[1]) < MathUtils.EPSILON && Math.abs(scale[1] - scale[2]) < MathUtils.EPSILON && Math.abs(scale[0] - scale[2]) < MathUtils.EPSILON;
         };
     }();
 
@@ -2175,7 +2176,7 @@ export function initObjectExtensionProtoype() {
         let scale = vec3_create();
         return function pp_hasUniformScaleLocal() {
             this.pp_getScaleLocal(scale);
-            return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON;
+            return Math.abs(scale[0] - scale[1]) < MathUtils.EPSILON && Math.abs(scale[1] - scale[2]) < MathUtils.EPSILON && Math.abs(scale[0] - scale[2]) < MathUtils.EPSILON;
         };
     }();
 

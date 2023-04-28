@@ -172,6 +172,7 @@ import { PluginUtils } from "../../utils/plugin_utils";
 import { Vec4Utils } from "../../../cauldron/js/utils/vec4_utils";
 import { Mat4Utils } from "../../../cauldron/js/utils/mat4_utils";
 import { Vec3Utils } from "../../../cauldron/js/utils/vec3_utils";
+import { MathUtils } from "../../../cauldron/js/utils/math_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -370,7 +371,7 @@ export function initArrayExtensionProtoype() {
         let lengthSquared = thisLengthSquared * vectorLengthSquared;
 
         let angle = 0;
-        if (lengthSquared > Math.PP_EPSILON_SQUARED) {
+        if (lengthSquared > MathUtils.EPSILON_SQUARED) {
             let length = Math.sqrt(lengthSquared);
 
             let cos = this.vec3_dot(vector) / length;
@@ -518,7 +519,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    arrayExtension.vec3_isNormalized = function vec3_isNormalized(epsilon = Math.PP_EPSILON) {
+    arrayExtension.vec3_isNormalized = function vec3_isNormalized(epsilon = MathUtils.EPSILON) {
         return Math.abs(this.vec3_lengthSquared() - 1) < epsilon;
     };
 
@@ -670,12 +671,12 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.vec3_isOnAxis = function vec3_isOnAxis(axis) {
         let angle = this.vec3_angle(axis);
-        return Math.abs(angle) < Math.PP_EPSILON_DEGREES || Math.abs(angle - 180) < Math.PP_EPSILON_DEGREES;
+        return Math.abs(angle) < MathUtils.EPSILON_DEGREES || Math.abs(angle - 180) < MathUtils.EPSILON_DEGREES;
     };
 
     arrayExtension.vec3_isOnPlane = function vec3_isOnPlane(planeNormal) {
         let angle = this.vec3_angle(planeNormal);
-        return Math.abs(angle - 90) < Math.PP_EPSILON_DEGREES;
+        return Math.abs(angle - 90) < MathUtils.EPSILON_DEGREES;
     };
 
     arrayExtension.vec3_rotate = function vec3_rotate(rotation, out) {
@@ -1109,7 +1110,7 @@ export function initArrayExtensionProtoype() {
         let zero = vec3_create(0, 0, 0);
         return function quat_getAxis(out = vec3_create()) {
             let angle = glMatrix.quat.getAxisAngle(out, this);
-            if (angle <= Math.PP_EPSILON) {
+            if (angle <= MathUtils.EPSILON) {
                 out.vec3_copy(zero);
             }
             return out;
@@ -1150,7 +1151,7 @@ export function initArrayExtensionProtoype() {
         return function quat_getAxisScaledRadians(out = vec3_create()) {
             this.quat_getAxis(out);
             let angle = this.quat_getAngleRadians();
-            if (angle <= Math.PP_EPSILON) {
+            if (angle <= MathUtils.EPSILON) {
                 out.vec3_copy(zero);
             } else {
                 out.vec3_scale(angle, out);
@@ -1326,7 +1327,7 @@ export function initArrayExtensionProtoype() {
             // Rotation order is ZYX 
             out[1] = Math.asin(-Math.pp_clamp(mat3[2], -1, 1));
 
-            if (Math.abs(mat3[2]) < (1 - Math.PP_EPSILON)) {
+            if (Math.abs(mat3[2]) < (1 - MathUtils.EPSILON)) {
                 out[0] = Math.atan2(mat3[5], mat3[8]);
                 out[2] = Math.atan2(mat3[1], mat3[0]);
             } else {
@@ -1344,7 +1345,7 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    arrayExtension.quat_isNormalized = function quat_isNormalized(epsilon = Math.PP_EPSILON) {
+    arrayExtension.quat_isNormalized = function quat_isNormalized(epsilon = MathUtils.EPSILON) {
         return Math.abs(this.quat_lengthSquared() - 1) < epsilon;
     };
 
@@ -1692,7 +1693,7 @@ export function initArrayExtensionProtoype() {
 
     // New Functions
 
-    arrayExtension.quat2_isNormalized = function quat2_isNormalized(epsilon = Math.PP_EPSILON) {
+    arrayExtension.quat2_isNormalized = function quat2_isNormalized(epsilon = MathUtils.EPSILON) {
         return Math.abs(this.quat2_lengthSquared() - 1) < epsilon;
     };
 
@@ -1874,14 +1875,14 @@ let _quat_setAxes = function () {
         let secondAxis = axes[priority[1]];
         let thirdAxis = axes[priority[2]];
 
-        if (firstAxis == null || firstAxis.vec3_isZero(Math.PP_EPSILON)) {
+        if (firstAxis == null || firstAxis.vec3_isZero(MathUtils.EPSILON)) {
             return;
         }
 
         let secondAxisValid = false;
         if (secondAxis != null) {
             let angleBetween = firstAxis.vec3_angleRadians(secondAxis);
-            if (angleBetween > Math.PP_EPSILON) {
+            if (angleBetween > MathUtils.EPSILON) {
                 secondAxisValid = true;
             }
         }
@@ -1889,7 +1890,7 @@ let _quat_setAxes = function () {
         let thirdAxisValid = false;
         if (thirdAxis != null) {
             let angleBetween = firstAxis.vec3_angleRadians(thirdAxis);
-            if (angleBetween > Math.PP_EPSILON) {
+            if (angleBetween > MathUtils.EPSILON) {
                 thirdAxisValid = true;
             }
         }
@@ -1943,7 +1944,7 @@ let _quat_setAxes = function () {
             }
 
             let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
-            if (angleBetween > Math.PP_EPSILON) {
+            if (angleBetween > MathUtils.EPSILON) {
                 currentAxis.vec3_cross(firstAxis, rotationAxis);
                 rotationAxis.vec3_normalize(rotationAxis);
                 rotationQuat.quat_fromAxisRadians(angleBetween, rotationAxis);

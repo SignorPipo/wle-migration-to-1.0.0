@@ -2,6 +2,7 @@
 import { mat4 } from "gl-matrix";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { Vec3Utils } from "./vec3_utils";
+import { MathUtils } from "./math_utils";
 
 // glMatrix Bridge
 
@@ -334,7 +335,7 @@ export let hasUniformScale = function () {
     let scale = vec3_create();
     return function hasUniformScale(matrix) {
         getScale(matrix, scale);
-        return Math.abs(scale[0] - scale[1]) < Math.PP_EPSILON && Math.abs(scale[1] - scale[2]) < Math.PP_EPSILON && Math.abs(scale[0] - scale[2]) < Math.PP_EPSILON;
+        return Math.abs(scale[0] - scale[1]) < MathUtils.EPSILON && Math.abs(scale[1] - scale[2]) < MathUtils.EPSILON && Math.abs(scale[0] - scale[2]) < MathUtils.EPSILON;
     };
 }();
 
