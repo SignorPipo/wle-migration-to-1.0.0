@@ -70,7 +70,7 @@ export function scale(matrix, vector, out = create()) {
 }
 
 export function clone(matrix, out = create()) {
-    copy(out, matrix);
+    copy(matrix, out);
     return out;
 }
 

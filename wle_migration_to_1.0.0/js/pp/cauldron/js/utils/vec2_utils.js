@@ -37,7 +37,7 @@ export function copy(from, to) {
 }
 
 export function clone(vector, out = create()) {
-    out.vec2_copy(vector);
+    copy(vector, out);
     return out;
 }
 
