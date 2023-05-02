@@ -975,9 +975,6 @@ export function initObjectExtensionProtoype() {
 
     // Scale
 
-    // For now it does not really make sense in WL to scale in world space or parent space
-    // so there is no pp_scale default function
-
     objectExtension.pp_scaleObject = function pp_scaleObject(scale) {
         return ObjectUtils.scaleObject(this, ...arguments);
     };
@@ -1058,8 +1055,6 @@ export function initObjectExtensionProtoype() {
 
     // Convert Vector Local Object
 
-    // I need to use the converson to world and then local also use the parent scale that changes the position in local space
-
     objectExtension.pp_convertPositionObjectToLocal = function pp_convertPositionObjectToLocal(position, resultPosition = Vec3Utils.create()) {
         return ObjectUtils.convertPositionObjectToLocal(this, ...arguments);
     };
@@ -1129,8 +1124,6 @@ export function initObjectExtensionProtoype() {
     };
 
     // Convert Transform Object Local
-
-    // I need to use the converson to world and then local also use the parent scale that changes the position in local space
 
     objectExtension.pp_convertTransformObjectToLocal = function pp_convertTransformObjectToLocal(transform, resultTransform) {
         return ObjectUtils.convertTransformObjectToLocal(this, ...arguments);
