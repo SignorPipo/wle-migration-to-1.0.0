@@ -166,6 +166,7 @@
 import * as glMatrix from "gl-matrix";
 import { PluginUtils } from "../../utils/plugin_utils";
 import { ArrayUtils } from "../../../cauldron/js/utils/array_utils";
+import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -465,89 +466,46 @@ export function initArrayExtensionProtoype() {
 
     // New Functions
 
-    arrayExtension.vec_toString = function vec_toString(decimalPlaces = null) {
-        let message = _vec_buildConsoleMessage(this, decimalPlaces);
-        return message;
+    let vecExtension = {}
+
+    vecExtension.vec_toString = function vec_toString(decimalPlaces = null) {
+        return VecUtils.toString(this, ...arguments);
     };
 
-    arrayExtension.vec_log = function vec_log(decimalPlaces = 4) {
-        let message = _vec_buildConsoleMessage(this, decimalPlaces);
-        console.log(message);
+    vecExtension.vec_log = function vec_log(decimalPlaces = 4) {
+        return VecUtils.log(this, ...arguments);
     };
 
-    arrayExtension.vec_error = function vec_error(decimalPlaces = 4) {
-        let message = _vec_buildConsoleMessage(this, decimalPlaces);
-        console.error(message);
+    vecExtension.vec_error = function vec_error(decimalPlaces = 4) {
+        return VecUtils.error(this, ...arguments);
     };
 
-    arrayExtension.vec_warn = function vec_warn(decimalPlaces = 4) {
-        let message = _vec_buildConsoleMessage(this, decimalPlaces);
-        console.warn(message);
+    vecExtension.vec_warn = function vec_warn(decimalPlaces = 4) {
+        return VecUtils.warn(this, ...arguments);
     };
 
-    arrayExtension.vec_scale = function vec_scale(value, out = null) {
-        out = _vec_prepareOut(this, out);
-
-        for (let i = 0; i < out.length; i++) {
-            out[i] = out[i] * value;
-        }
-
-        return out;
+    vecExtension.vec_scale = function vec_scale(value, out = null) {
+        return VecUtils.scale(this, ...arguments);
     };
 
-    arrayExtension.vec_round = function vec_round(out = null) {
-        out = _vec_prepareOut(this, out);
-
-        for (let i = 0; i < out.length; i++) {
-            out[i] = Math.round(out[i]);
-        }
-
-        return out;
+    vecExtension.vec_round = function vec_round(out = null) {
+        return VecUtils.round(this, ...arguments);
     };
 
-    arrayExtension.vec_floor = function vec_floor(out = null) {
-        out = _vec_prepareOut(this, out);
-
-        for (let i = 0; i < out.length; i++) {
-            out[i] = Math.floor(out[i]);
-        }
-
-        return out;
+    vecExtension.vec_floor = function vec_floor(out = null) {
+        return VecUtils.floor(this, ...arguments);
     };
 
-    arrayExtension.vec_ceil = function vec_ceil(out = null) {
-        out = _vec_prepareOut(this, out);
-
-        for (let i = 0; i < out.length; i++) {
-            out[i] = Math.ceil(out[i]);
-        }
-
-        return out;
+    vecExtension.vec_ceil = function vec_ceil(out = null) {
+        return VecUtils.ceil(this, ...arguments);
     };
 
-    arrayExtension.vec_clamp = function vec_clamp(start, end, out = null) {
-        out = _vec_prepareOut(this, out);
-
-        let fixedStart = (start != null) ? start : -Number.MAX_VALUE;
-        let fixedEnd = (end != null) ? end : Number.MAX_VALUE;
-        let min = Math.min(fixedStart, fixedEnd);
-        let max = Math.max(fixedStart, fixedEnd);
-
-        for (let i = 0; i < out.length; i++) {
-            out[i] = Math.pp_clamp(out[i], min, max);
-        }
-
-        return out;
+    vecExtension.vec_clamp = function vec_clamp(start, end, out = null) {
+        return VecUtils.clamp(this, ...arguments);
     };
 
-    arrayExtension.vec_equals = function vec_equals(vector, epsilon = 0) {
-        let equals = this.length == vector.length;
-
-        for (let i = 0; i < this.length && equals; i++) {
-            equals = equals && (Math.abs(this[i] - vector[i]) <= epsilon);
-        }
-
-        return equals;
+    vecExtension.vec_equals = function vec_equals(vector, epsilon = 0) {
+        return VecUtils.equals(this, ...arguments);
     };
 
     // VECTOR 2
@@ -2463,6 +2421,7 @@ export function initArrayExtensionProtoype() {
 
     for (let arrayPrototypeToExtend of arrayPrototypesToExtend) {
         PluginUtils.injectProperties(ppExtension, arrayPrototypeToExtend, false, true, true);
+        PluginUtils.injectProperties(vecExtension, arrayPrototypeToExtend, false, true, true);
         PluginUtils.injectProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
     }
 }
