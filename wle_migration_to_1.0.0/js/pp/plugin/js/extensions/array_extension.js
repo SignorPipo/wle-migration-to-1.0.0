@@ -167,6 +167,7 @@ import * as glMatrix from "gl-matrix";
 import { PluginUtils } from "../../utils/plugin_utils";
 import { ArrayUtils } from "../../../cauldron/js/utils/array_utils";
 import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
+import { Vec4Utils } from "../../../cauldron/js/utils/vec4_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -189,11 +190,7 @@ export function vec3_create(x, y, z) {
 };
 
 export function vec4_create(x, y, z, w) {
-    let out = glMatrix.vec4.create();
-    if (x !== undefined) {
-        _vec4_set(out, x, y, z, w);
-    }
-    return out;
+    return Vec4Utils.create(...arguments);
 };
 
 export function quat_create(x, y, z, w) {
@@ -322,10 +319,6 @@ export function initArrayExtensionProtoype() {
 
     arrayExtension.vec3_set = function vec3_set(x, y, z) {
         return _vec3_set(this, x, y, z);
-    };
-
-    arrayExtension.vec4_set = function vec4_set(x, y, z, w) {
-        return _vec4_set(this, x, y, z, w);
     };
 
     arrayExtension.quat_set = function quat_set(x, y, z, w) {
@@ -1275,16 +1268,20 @@ export function initArrayExtensionProtoype() {
 
     // VECTOR 4
 
+    let vec4Extension = {};
+
     // glMatrix Bridge
 
-    arrayExtension.vec4_copy = function vec4_copy(vector) {
-        glMatrix.vec4.copy(this, vector);
-        return this;
+    vec4Extension.vec4_set = function vec4_set(x, y, z, w) {
+        return Vec4Utils.set(this, ...arguments);
     };
 
-    arrayExtension.vec4_clone = function vec4_clone(out = vec4_create()) {
-        out.vec4_copy(this);
-        return out;
+    vec4Extension.vec4_copy = function vec4_copy(vector) {
+        return Vec4Utils.set(vector, this);
+    };
+
+    vec4Extension.vec4_clone = function vec4_clone(out = vec4_create()) {
+        return Vec4Utils.set(this, ...arguments);
     };
 
     // QUAT
@@ -2421,7 +2418,11 @@ export function initArrayExtensionProtoype() {
 
     for (let arrayPrototypeToExtend of arrayPrototypesToExtend) {
         PluginUtils.injectProperties(ppExtension, arrayPrototypeToExtend, false, true, true);
+
         PluginUtils.injectProperties(vecExtension, arrayPrototypeToExtend, false, true, true);
+
+        PluginUtils.injectProperties(vec4Extension, arrayPrototypeToExtend, false, true, true);
+
         PluginUtils.injectProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
     }
 }
@@ -2589,15 +2590,6 @@ function _vec3_set(vector, x, y, z) {
         glMatrix.vec3.set(vector, x, x, x);
     } else {
         glMatrix.vec3.set(vector, x, y, z);
-    }
-    return vector;
-};
-
-function _vec4_set(vector, x, y, z, w) {
-    if (y === undefined) {
-        glMatrix.vec4.set(vector, x, x, x, x);
-    } else {
-        glMatrix.vec4.set(vector, x, y, z, w);
     }
     return vector;
 };
