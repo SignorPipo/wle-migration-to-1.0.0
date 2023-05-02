@@ -113,6 +113,7 @@ export * from "./cauldron/visual/components/visual_manager_component";
 export * from "./cauldron/wl/engine_globals";
 export * from "./cauldron/wl/register_wl_components";
 export * from "./cauldron/wl/utils/scene_utils";
+export * from "./cauldron/wl/utils/object_utils";
 export * from "./cauldron/wl/components/add_wl_to_window_component";
 
 //	DEBUG

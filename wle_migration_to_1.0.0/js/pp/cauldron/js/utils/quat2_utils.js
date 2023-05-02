@@ -292,9 +292,6 @@ export function interpolate(from, to, interpolationValue, easingFunction = Easin
 export let Quat2Utils = {
     create,
     set,
-    create,
-    set,
-    set,
     normalize,
     invert,
     conjugate,

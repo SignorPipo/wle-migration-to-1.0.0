@@ -1,7 +1,7 @@
 import { CollisionComponent, MeshComponent, PhysXComponent, TextComponent } from "@wonderlandengine/api";
 import { CloneUtils } from "../../../../cauldron/utils/clone_utils";
 import { MeshUtils } from "../../../../cauldron/utils/mesh_utils";
-import { DeepCloneParams } from "../../extensions/object_extension";
+import { DeepCloneParams } from "../../../../cauldron/wl/utils/object_utils";
 
 export function initComponentCloneMod() {
 

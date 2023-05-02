@@ -309,7 +309,7 @@ export function initArrayExtensionProtoype() {
         return ArrayUtils.clear(this, ...arguments);
     };
 
-    // GENERIC VECTOR
+    // VECTOR
 
     // New Functions
 
