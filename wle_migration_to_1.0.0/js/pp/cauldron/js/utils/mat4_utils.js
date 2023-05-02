@@ -44,9 +44,9 @@ export function set(matrix,
     return matrix;
 }
 
-export function copy(toASD, from) {
-    mat4.copy(toASD, from);
-    return toASD;
+export function copy(from, to) {
+    mat4.copy(to, from);
+    return to;
 }
 
 export function identity(matrix) {
@@ -59,8 +59,8 @@ export function invert(matrix, out = create()) {
     return out;
 }
 
-export function mul(firstASD, second, out = create()) {
-    mat4.mul(out, firstASD, second);
+export function mul(first, second, out = create()) {
+    mat4.mul(out, first, second);
     return out;
 }
 
@@ -350,9 +350,9 @@ export let toQuat = function () {
     };
 }();
 
-export function fromQuat(outASD, quat) {
-    quat.quat2_toMatrix(outASD);
-    return outASD;
+export function fromQuat(quat, out = create()) {
+    quat.quat2_toMatrix(out);
+    return out;
 }
 
 export let Mat4Utils = {
