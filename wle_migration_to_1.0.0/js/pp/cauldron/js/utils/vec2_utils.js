@@ -1,9 +1,9 @@
-import { vec2 } from "gl-matrix";
+import { vec2 as gl_vec2 } from "gl-matrix";
 
 // glMatrix Bridge
 
 export function create(x, y) {
-    let out = vec2.create();
+    let out = gl_vec2.create();
 
     if (x !== undefined) {
         set(out, x, y);
@@ -14,25 +14,25 @@ export function create(x, y) {
 
 export function set(vector, x, y) {
     if (y === undefined) {
-        vec2.set(vector, x, x);
+        gl_vec2.set(vector, x, x);
     } else {
-        vec2.set(vector, x, y);
+        gl_vec2.set(vector, x, y);
     }
 
     return vector;
 }
 
 export function length(vector) {
-    return vec2.length(vector);
+    return gl_vec2.length(vector);
 }
 
 export function normalize(vector, out = create()) {
-    vec2.normalize(out, vector);
+    gl_vec2.normalize(out, vector);
     return out;
 }
 
 export function copy(from, to) {
-    vec2.copy(to, from);
+    gl_vec2.copy(to, from);
     return to;
 }
 
@@ -42,7 +42,7 @@ export function clone(vector, out = create()) {
 }
 
 export function zero(vector) {
-    vec2.zero(vector);
+    gl_vec2.zero(vector);
     return vector;
 }
 

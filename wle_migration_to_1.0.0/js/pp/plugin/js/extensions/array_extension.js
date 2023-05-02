@@ -27,7 +27,7 @@
 
     The functions leave u the choice of forwarding an out parameter or just get the return value, example:
         - let quat = this.vec3_toQuat()
-        - this.vec3_toQuat(quaternion)
+        - this.vec3_toQuat(quat)
         - the out parameter is always the last one
 
     List of functions:
@@ -499,7 +499,7 @@ export function initArrayExtensionProtoype() {
         return Vec3Utils.cross(this, ...arguments);
     };
 
-    vec3Extension.vec3_transformQuat = function vec3_transformQuat(quaternion, out = vec3_create()) {
+    vec3Extension.vec3_transformQuat = function vec3_transformQuat(quat, out = vec3_create()) {
         return Vec3Utils.transformQuat(this, ...arguments);
     };
 
@@ -861,8 +861,8 @@ export function initArrayExtensionProtoype() {
         return QuatUtils.normalize(this, ...arguments);
     };
 
-    quatExtension.quat_copy = function quat_copy(quaternion) {
-        return QuatUtils.copy(quaternion, this);
+    quatExtension.quat_copy = function quat_copy(quat) {
+        return QuatUtils.copy(quat, this);
     };
 
     quatExtension.quat_clone = function quat_clone(out = quat_create()) {
@@ -1158,8 +1158,8 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    arrayExtension.quat2_copy = function quat2_copy(quaternion) {
-        glMatrix.quat2.copy(this, quaternion);
+    arrayExtension.quat2_copy = function quat2_copy(quat) {
+        glMatrix.quat2.copy(this, quat);
         return this;
     };
 
@@ -1279,8 +1279,8 @@ export function initArrayExtensionProtoype() {
         return glMatrix.quat2.squaredLength(this);
     };
 
-    arrayExtension.quat2_mul = function quat2_mul(quaternion, out = quat2_create()) {
-        glMatrix.quat2.mul(out, this, quaternion);
+    arrayExtension.quat2_mul = function quat2_mul(quat, out = quat2_create()) {
+        glMatrix.quat2.mul(out, this, quat);
         return out;
     };
 
@@ -1601,8 +1601,8 @@ export function initArrayExtensionProtoype() {
         return Mat4Utils.toQuat(this, ...arguments);
     };
 
-    mat4Extension.mat4_fromQuat = function mat4_fromQuat(quaternion) {
-        return Mat4Utils.fromQuat(quaternion, this);
+    mat4Extension.mat4_fromQuat = function mat4_fromQuat(quat) {
+        return Mat4Utils.fromQuat(quat, this);
     };
 
 

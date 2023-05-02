@@ -1,12 +1,12 @@
 import { mat3_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { create as vec3_utils_create } from "./vec3_utils";
 import { create as mat3_utils_create } from "./mat3_utils";
-import { quat, mat3 } from "gl-matrix";
+import { quat as gl_quat, mat3 as gl_mat3 } from "gl-matrix";
 
 // glMatrix Bridge
 
 export function create(x, y, z, w) {
-    let out = quat.create();
+    let out = gl_quat.create();
 
     if (x !== undefined) {
         set(out, x, y, z, w);
@@ -17,21 +17,21 @@ export function create(x, y, z, w) {
 
 export function set(quaternion, x, y, z, w) {
     if (y === undefined) {
-        quat.set(quaternion, x, x, x, x);
+        gl_quat.set(quaternion, x, x, x, x);
     } else {
-        quat.set(quaternion, x, y, z, w);
+        gl_quat.set(quaternion, x, y, z, w);
     }
 
     return quaternion;
 }
 
 export function normalize(quaternion, out = create()) {
-    quat.normalize(out, quaternion);
+    gl_quat.normalize(out, quaternion);
     return out;
 }
 
 export function copy(from, to) {
-    quat.copy(to, from);
+    gl_quat.copy(to, from);
     return to;
 }
 
@@ -41,37 +41,37 @@ export function clone(quaternion, out = create()) {
 }
 
 export function identity(quaternion) {
-    quat.identity(quaternion);
+    gl_quat.identity(quaternion);
     return quaternion;
 }
 
 export function length(quaternion) {
-    return quat.length(quaternion);
+    return gl_quat.length(quaternion);
 }
 
 export function lengthSquared(quaternion) {
-    return quat.squaredLength(quaternion);
+    return gl_quat.squaredLength(quaternion);
 }
 
 export function invert(quaternion, out = create()) {
-    quat.invert(out, quaternion);
+    gl_quat.invert(out, quaternion);
     return out;
 }
 
 export function conjugate(quaternion, out = create()) {
-    quat.conjugate(out, quaternion);
+    gl_quat.conjugate(out, quaternion);
     return out;
 }
 
 export function mul(first, second, out = create()) {
-    quat.mul(out, first, second);
+    gl_quat.mul(out, first, second);
     return out;
 }
 
 export let getAxis = function () {
     let zero = vec3_utils_create(0, 0, 0);
     return function getAxis(quaternion, out = vec3_create()) {
-        let angle = quat.getAxisAngle(out, quaternion);
+        let angle = gl_quat.getAxisAngle(out, quaternion);
         if (angle <= Math.PP_EPSILON) {
             out.vec3_copy(zero);
         }
@@ -92,7 +92,7 @@ export function getAngleDegrees(quaternion) {
 export let getAngleRadians = function () {
     let vector = vec3_utils_create();
     return function getAngleRadians(quaternion) {
-        let angle = quat.getAxisAngle(vector, quaternion);
+        let angle = gl_quat.getAxisAngle(vector, quaternion);
         return angle;
     };
 }();
@@ -253,15 +253,15 @@ export function fromAxisDegrees(angle, axis, out = create()) {
 }
 
 export function fromAxisRadians(angle, axis, out = create()) {
-    quat.setAxisAngle(out, axis, angle);
+    gl_quat.setAxisAngle(out, axis, angle);
     return out;
 }
 
 export let fromAxes = function () {
     let mat3 = mat3_utils_create();
     return function fromAxes(leftAxis, upAxis, forwardAxis, out = create()) {
-        mat3.mat3_fromAxes(leftAxis, upAxis, forwardAxis);
-        return mat3.mat3_toQuat(out);
+        gl_mat3.mat3_fromAxes(leftAxis, upAxis, forwardAxis);
+        return gl_mat3.mat3_toQuat(out);
     };
 }();
 
@@ -276,7 +276,7 @@ export let fromRadians = function () {
 }();
 
 export function fromDegrees(degreesRotation, out = create()) {
-    quat.fromEuler(out, degreesRotation[0], degreesRotation[1], degreesRotation[2]);
+    gl_quat.fromEuler(out, degreesRotation[0], degreesRotation[1], degreesRotation[2]);
     return out;
 }
 
@@ -450,7 +450,7 @@ export function fromTwistSwing(twist, swing, out = create()) {
 }
 
 export function toMatrix(quaternion, out = mat3_create()) {
-    mat3.fromQuat(out, quaternion);
+    gl_mat3.fromQuat(out, quaternion);
     return out;
 }
 
@@ -499,7 +499,7 @@ export function lerp(from, to, interpolationValue, out = create()) {
         return out;
     }
 
-    quat.lerp(out, from, to, interpolationValue);
+    gl_quat.lerp(out, from, to, interpolationValue);
     return out;
 }
 
@@ -517,7 +517,7 @@ export function slerp(from, to, interpolationValue, out = create()) {
         return out;
     }
 
-    quat.slerp(out, from, to, interpolationValue);
+    gl_quat.slerp(out, from, to, interpolationValue);
     return out;
 }
 

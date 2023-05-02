@@ -1,4 +1,4 @@
-import { vec3 } from "gl-matrix";
+import { vec3 as gl_vec3 } from "gl-matrix";
 import { mat3_create, quat_create } from "../../../plugin/js/extensions/array_extension";
 import { create as mat4_utils_create } from "./mat4_utils";
 import { MathUtils } from "./math_utils";
@@ -7,7 +7,7 @@ import { create as quat_utils_create } from "./quat_utils";
 // glMatrix Bridge
 
 export function create(x, y, z) {
-    let out = vec3.create();
+    let out = gl_vec3.create();
 
     if (x !== undefined) {
         set(out, x, y, z);
@@ -18,21 +18,21 @@ export function create(x, y, z) {
 
 export function set(vector, x, y, z) {
     if (y === undefined) {
-        vec3.set(vector, x, x, x);
+        gl_vec3.set(vector, x, x, x);
     } else {
-        vec3.set(vector, x, y, z);
+        gl_vec3.set(vector, x, y, z);
     }
 
     return vector;
 }
 
 export function normalize(vector, out = create()) {
-    vec3.normalize(out, vector);
+    gl_vec3.normalize(out, vector);
     return out;
 }
 
 export function copy(from, to) {
-    vec3.copy(to, from);
+    gl_vec3.copy(to, from);
     return to;
 }
 
@@ -42,7 +42,7 @@ export function clone(vector, out = create()) {
 }
 
 export function zero(vector) {
-    vec3.zero(vector);
+    gl_vec3.zero(vector);
     return vector;
 }
 
@@ -92,72 +92,72 @@ export function equals(first, second, epsilon = 0) {
 }
 
 export function length(vector) {
-    return vec3.length(vector);
+    return gl_vec3.length(vector);
 }
 
 export function lengthSquared(vector) {
-    return vec3.squaredLength(vector);
+    return gl_vec3.squaredLength(vector);
 }
 
 export function distance(first, second) {
-    return vec3.dist(first, second);
+    return gl_vec3.dist(first, second);
 }
 
 export function distanceSquared(first, second) {
-    return vec3.squaredDistance(first, second);
+    return gl_vec3.squaredDistance(first, second);
 }
 
 export function add(first, second, out = create()) {
-    vec3.add(out, first, second);
+    gl_vec3.add(out, first, second);
     return out;
 }
 
 export function sub(first, second, out = create()) {
-    vec3.sub(out, first, second);
+    gl_vec3.sub(out, first, second);
     return out;
 }
 
 export function mul(first, second, out = create()) {
-    vec3.mul(out, first, second);
+    gl_vec3.mul(out, first, second);
     return out;
 }
 
 export function div(first, second, out = create()) {
-    vec3.div(out, first, second);
+    gl_vec3.div(out, first, second);
     return out;
 }
 
 export function scale(vector, value, out = create()) {
-    vec3.scale(out, vector, value);
+    gl_vec3.scale(out, vector, value);
     return out;
 }
 
 export function dot(first, second) {
-    return vec3.dot(first, second);
+    return gl_vec3.dot(first, second);
 }
 
 export function negate(vector, out = create()) {
-    vec3.negate(out, vector);
+    gl_vec3.negate(out, vector);
     return out;
 }
 
 export function cross(first, second, out = create()) {
-    vec3.cross(out, first, second);
+    gl_vec3.cross(out, first, second);
     return out;
 }
 
 export function transformQuat(vector, quat, out = create()) {
-    vec3.transformQuat(out, vector, quat);
+    gl_vec3.transformQuat(out, vector, quat);
     return out;
 }
 
 export function transformMat3(vector, mat3, out = create()) {
-    vec3.transformMat3(out, vector, mat3);
+    gl_vec3.transformMat3(out, vector, mat3);
     return out;
 }
 
 export function transformMat4(vector, mat4, out = create()) {
-    vec3.transformMat4(out, vector, mat4);
+    gl_vec3.transformMat4(out, vector, mat4);
     return out;
 }
 
@@ -744,7 +744,7 @@ export function lerp(from, to, interpolationValue, out = create()) {
         return out;
     }
 
-    vec3.lerp(out, from, to, interpolationValue);
+    gl_vec3.lerp(out, from, to, interpolationValue);
     return out;
 }
 

@@ -1,5 +1,5 @@
 
-import { mat4 } from "gl-matrix";
+import { mat4 as gl_mat4 } from "gl-matrix";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { MathUtils } from "./math_utils";
 import { set as vec3_utils_set } from "./vec3_utils";
@@ -13,7 +13,7 @@ export function create(
     m10, m11, m12, m13,
     m20, m21, m22, m23,
     m30, m31, m32, m33) {
-    let out = mat4.create();
+    let out = gl_mat4.create();
     if (m00 !== undefined) {
         set(
             out,
@@ -31,13 +31,13 @@ export function set(matrix,
     m20, m21, m22, m23,
     m30, m31, m32, m33) {
     if (m01 === undefined) {
-        mat4.set(matrix,
+        gl_mat4.set(matrix,
             m00, m00, m00, m00,
             m00, m00, m00, m00,
             m00, m00, m00, m00,
             m00, m00, m00, m00);
     } else {
-        mat4.set(matrix,
+        gl_mat4.set(matrix,
             m00, m01, m02, m03,
             m10, m11, m12, m13,
             m20, m21, m22, m23,
@@ -47,27 +47,27 @@ export function set(matrix,
 }
 
 export function copy(from, to) {
-    mat4.copy(to, from);
+    gl_mat4.copy(to, from);
     return to;
 }
 
 export function identity(matrix) {
-    mat4.identity(matrix);
+    gl_mat4.identity(matrix);
     return matrix;
 }
 
 export function invert(matrix, out = create()) {
-    mat4.invert(out, matrix);
+    gl_mat4.invert(out, matrix);
     return out;
 }
 
 export function mul(first, second, out = create()) {
-    mat4.mul(out, first, second);
+    gl_mat4.mul(out, first, second);
     return out;
 }
 
 export function scale(matrix, vector, out = create()) {
-    mat4.scale(out, matrix, vector);
+    gl_mat4.scale(out, matrix, vector);
     return out;
 }
 
@@ -77,7 +77,7 @@ export function clone(matrix, out = create()) {
 }
 
 export function getPosition(matrix, out = vec3_create()) {
-    mat4.getTranslation(out, matrix);
+    gl_mat4.getTranslation(out, matrix);
     return out;
 }
 
@@ -113,14 +113,14 @@ export let getRotationQuat = function () {
         getScale(matrix, tempScale);
         one.vec3_div(tempScale, inverseScale);
         scale(matrix, inverseScale, transformMatrixNoScale);
-        mat4.getRotation(out, transformMatrixNoScale);
+        gl_mat4.getRotation(out, transformMatrixNoScale);
         out.quat_normalize(out);
         return out;
     };
 }();
 
 export function getScale(matrix, out = vec3_create()) {
-    mat4.getScaling(out, matrix);
+    gl_mat4.getScaling(out, matrix);
     return out;
 }
 
@@ -197,7 +197,7 @@ export let setPositionRotationRadiansScale = function () {
 }();
 
 export function setPositionRotationQuatScale(matrix, position, rotation, scale) {
-    mat4.fromRotationTranslationScale(matrix, rotation, position, scale);
+    gl_mat4.fromRotationTranslationScale(matrix, rotation, position, scale);
     return matrix;
 }
 
@@ -223,7 +223,7 @@ export let setPositionRotationRadians = function () {
 }();
 
 export function setPositionRotationQuat(matrix, position, rotation) {
-    mat4.fromRotationTranslation(matrix, rotation, position);
+    gl_mat4.fromRotationTranslation(matrix, rotation, position);
     return matrix;
 }
 
