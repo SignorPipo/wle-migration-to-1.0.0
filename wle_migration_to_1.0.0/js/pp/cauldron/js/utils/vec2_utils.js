@@ -31,9 +31,9 @@ export function normalize(vector, out = create()) {
     return out;
 }
 
-export function copy(toASD, from) {
-    vec2.copy(toASD, from);
-    return toASD;
+export function copy(from, to) {
+    vec2.copy(to, from);
+    return to;
 }
 
 export function clone(vector, out = create()) {

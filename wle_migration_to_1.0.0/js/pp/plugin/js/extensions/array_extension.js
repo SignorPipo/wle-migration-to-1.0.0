@@ -167,17 +167,14 @@ import { ArrayUtils } from "../../../cauldron/js/utils/array_utils";
 import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
 import { Vec4Utils } from "../../../cauldron/js/utils/vec4_utils";
 import { Mat3Utils } from "../../../cauldron/js/utils/mat3_utils";
+import { Vec2Utils } from "../../../cauldron/js/utils/vec2_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
 }
 
 export function vec2_create(x, y) {
-    let out = glMatrix.vec2.create();
-    if (x !== undefined) {
-        _vec2_set(out, x, y);
-    }
-    return out;
+    return Vec2Utils.create(...arguments);
 };
 
 export function vec3_create(x, y, z) {
@@ -237,10 +234,6 @@ export function initArrayExtensionProtoype() {
     // SETTER
 
     let arrayExtension = {};
-
-    arrayExtension.vec2_set = function vec2_set(x, y) {
-        return _vec2_set(this, x, y);
-    };
 
     arrayExtension.vec3_set = function vec3_set(x, y, z) {
         return _vec3_set(this, x, y, z);
@@ -417,38 +410,39 @@ export function initArrayExtensionProtoype() {
 
     // VECTOR 2
 
+    let vec2Extension = {};
+
+    vec2Extension.vec2_set = function vec2_set(x, y) {
+        return Vec2Utils.set(this, ...arguments);
+    };
+
     // glMatrix Bridge
 
-    arrayExtension.vec2_length = function vec2_length() {
-        return glMatrix.vec2.length(this);
+    vec2Extension.vec2_length = function vec2_length() {
+        return Vec2Utils.length(this, ...arguments);
     };
 
-    arrayExtension.vec2_normalize = function vec2_normalize(out = vec2_create()) {
-        glMatrix.vec2.normalize(out, this);
-        return out;
+    vec2Extension.vec2_normalize = function vec2_normalize(out = vec2_create()) {
+        return Vec2Utils.normalize(this, ...arguments);
     };
 
-    arrayExtension.vec2_copy = function vec2_copy(vector) {
-        glMatrix.vec2.copy(this, vector);
-        return this;
+    vec2Extension.vec2_copy = function vec2_copy(vector) {
+        return Vec2Utils.copy(vector, this);
     };
 
-    arrayExtension.vec2_clone = function vec2_clone(out = vec2_create()) {
-        out.vec2_copy(this);
-        return out;
+    vec2Extension.vec2_clone = function vec2_clone(out = vec2_create()) {
+        return Vec2Utils.clone(this, ...arguments);
     };
 
-    arrayExtension.vec2_zero = function vec2_zero() {
-        glMatrix.vec2.zero(this);
-        return this;
+    vec2Extension.vec2_zero = function vec2_zero() {
+        return Vec2Utils.zero(this, ...arguments);
     };
 
     // New Functions
 
-    arrayExtension.vec2_isZero = function vec2_isZero(epsilon = 0) {
-        return this.vec2_length() <= epsilon;
+    vec2Extension.vec2_isZero = function vec2_isZero(epsilon = 0) {
+        return Vec2Utils.isZero(this, ...arguments);
     };
-
     // VECTOR 3
 
     // glMatrix Bridge
@@ -2328,6 +2322,7 @@ export function initArrayExtensionProtoype() {
 
         PluginUtils.injectProperties(vecExtension, arrayPrototypeToExtend, false, true, true);
 
+        PluginUtils.injectProperties(vec2Extension, arrayPrototypeToExtend, false, true, true);
         PluginUtils.injectProperties(vec4Extension, arrayPrototypeToExtend, false, true, true);
 
         PluginUtils.injectProperties(mat3Extension, arrayPrototypeToExtend, false, true, true);
@@ -2485,14 +2480,6 @@ let _quat_setAxes = function () {
 }();
 
 
-function _vec2_set(vector, x, y) {
-    if (y === undefined) {
-        glMatrix.vec2.set(vector, x, x);
-    } else {
-        glMatrix.vec2.set(vector, x, y);
-    }
-    return vector;
-};
 
 function _vec3_set(vector, x, y, z) {
     if (y === undefined) {
