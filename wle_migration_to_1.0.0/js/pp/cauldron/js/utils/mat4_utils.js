@@ -242,7 +242,7 @@ export function getForward(matrix, out = vec3_create()) {
 }
 
 export function getBackward(matrix, out) {
-    out = getForward(matrix, out);
+    getForward(matrix, out);
     out.vec3_negate(out);
     return out;
 }
@@ -254,7 +254,7 @@ export function getLeft(matrix, out = vec3_create()) {
 }
 
 export function getRight(matrix, out) {
-    out = getLeft(matrix, out);
+    getLeft(matrix, out);
     out.vec3_negate(out);
     return out;
 }
@@ -266,7 +266,7 @@ export function getUp(matrix, out = vec3_create()) {
 }
 
 export function getDown(matrix, out) {
-    out = getUp(matrix, out);
+    getUp(matrix, out);
     out.vec3_negate(out);
     return out;
 }

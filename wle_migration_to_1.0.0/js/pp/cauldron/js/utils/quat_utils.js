@@ -2,6 +2,7 @@ import { mat3_create, vec3_create } from "../../../plugin/js/extensions/array_ex
 import { create as vec3_utils_create } from "./vec3_utils";
 import { create as mat3_utils_create } from "./mat3_utils";
 import { quat as gl_quat, mat3 as gl_mat3 } from "gl-matrix";
+import { EasingFunction } from "./math_utils";
 
 // glMatrix Bridge
 
@@ -142,7 +143,7 @@ export let getForward = function () {
 }();
 
 export function getBackward(quat, out) {
-    out = getForward(quat, out);
+    getForward(quat, out);
     out.vec3_negate(out);
     return out;
 }
@@ -160,7 +161,7 @@ export let getLeft = function () {
 }();
 
 export function getRight(quat, out) {
-    out = getLeft(quat, out);
+    getLeft(quat, out);
     out.vec3_negate(out);
     return out;
 }
@@ -178,7 +179,7 @@ export let getUp = function () {
 }();
 
 export function getDown(quat, out) {
-    out = getUp(quat, out);
+    getUp(quat, out);
     out.vec3_negate(out);
     return out;
 }
