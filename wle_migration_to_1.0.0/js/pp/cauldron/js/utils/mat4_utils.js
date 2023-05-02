@@ -3,6 +3,8 @@ import { mat4 } from "gl-matrix";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { MathUtils } from "./math_utils";
 import { set as vec3_utils_set } from "./vec3_utils";
+import { create as quat_utils_create } from "./quat_utils";
+import { create as vec3_utils_create } from "./vec3_utils";
 
 // glMatrix Bridge
 
@@ -84,7 +86,7 @@ export function getRotation(matrix, out = vec3_create()) {
 }
 
 export let getRotationDegrees = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function getRotationDegrees(matrix, out = vec3_create()) {
         getRotationQuat(matrix, quat);
         quat.quat_toDegrees(out);
@@ -93,7 +95,7 @@ export let getRotationDegrees = function () {
 }();
 
 export let getRotationRadians = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function getRotationRadians(matrix, out = vec3_create()) {
         getRotationQuat(matrix, quat);
         quat.quat_toRadians(out);
@@ -102,10 +104,10 @@ export let getRotationRadians = function () {
 }();
 
 export let getRotationQuat = function () {
-    let tempScale = vec3_create();
+    let tempScale = vec3_utils_create();
     let transformMatrixNoScale = create();
-    let inverseScale = vec3_create();
-    let one = vec3_create();
+    let inverseScale = vec3_utils_create();
+    let one = vec3_utils_create();
     vec3_utils_set(one, 1, 1, 1);
     return function getRotationQuat(matrix, out = quat_create()) {
         getScale(matrix, tempScale);
@@ -137,7 +139,7 @@ export function setRotation(matrix, rotation) {
 }
 
 export let setRotationDegrees = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function setRotationDegrees(matrix, rotation) {
         setRotationQuat(matrix, rotation.vec3_degreesToQuat(quat));
         return matrix;
@@ -145,7 +147,7 @@ export let setRotationDegrees = function () {
 }();
 
 export let setRotationRadians = function () {
-    let vector = vec3_create();
+    let vector = vec3_utils_create();
     return function setRotationRadians(matrix, rotation) {
         setRotationDegrees(matrix, rotation.vec3_toDegrees(vector));
         return matrix;
@@ -153,8 +155,8 @@ export let setRotationRadians = function () {
 }();
 
 export let setRotationQuat = function () {
-    let position = vec3_create();
-    let scale = vec3_create();
+    let position = vec3_utils_create();
+    let scale = vec3_utils_create();
     return function setRotationQuat(matrix, rotation) {
         getPosition(matrix, position);
         getScale(matrix, scale);
@@ -164,7 +166,7 @@ export let setRotationQuat = function () {
 }();
 
 export let setScale = function () {
-    let tempScale = vec3_create();
+    let tempScale = vec3_utils_create();
     return function setScale(matrix, scaleToSet) {
         getScale(matrix, tempScale);
         scaleToSet.vec3_div(tempScale, tempScale);
@@ -179,7 +181,7 @@ export function setPositionRotationScale(matrix, position, rotation, scale) {
 }
 
 export let setPositionRotationDegreesScale = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function setPositionRotationDegreesScale(matrix, position, rotation, scale) {
         setPositionRotationQuatScale(matrix, position, rotation.vec3_degreesToQuat(quat), scale);
         return matrix;
@@ -187,7 +189,7 @@ export let setPositionRotationDegreesScale = function () {
 }();
 
 export let setPositionRotationRadiansScale = function () {
-    let vector = vec3_create();
+    let vector = vec3_utils_create();
     return function setPositionRotationRadiansScale(matrix, position, rotation, scale) {
         setPositionRotationDegreesScale(matrix, position, rotation.vec3_toDegrees(vector), scale);
         return matrix;
@@ -205,7 +207,7 @@ export function setPositionRotation(matrix, position, rotation) {
 }
 
 export let setPositionRotationDegrees = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function setPositionRotationDegrees(matrix, position, rotation) {
         setPositionRotationQuat(matrix, position, rotation.vec3_degreesToQuat(quat));
         return matrix;
@@ -213,7 +215,7 @@ export let setPositionRotationDegrees = function () {
 }();
 
 export let setPositionRotationRadians = function () {
-    let vector = vec3_create();
+    let vector = vec3_utils_create();
     return function setPositionRotationRadians(matrix, position, rotation) {
         setPositionRotationDegrees(matrix, position, rotation.vec3_toDegrees(vector));
         return matrix;
@@ -271,10 +273,10 @@ export function getDown(matrix, out) {
 
 export let toWorld = function () {
     let convertTransform = create();
-    let position = vec3_create();
-    let tempScale = vec3_create();
-    let inverseScale = vec3_create();
-    let one = vec3_create();
+    let position = vec3_utils_create();
+    let tempScale = vec3_utils_create();
+    let inverseScale = vec3_utils_create();
+    let one = vec3_utils_create();
     vec3_utils_set(one, 1, 1, 1);
     return function toWorld(matrix, parentTransformMatrix, out = create()) {
         if (hasUniformScale(parentTransformMatrix)) {
@@ -301,10 +303,10 @@ export let toWorld = function () {
 
 export let toLocal = function () {
     let convertTransform = create();
-    let position = vec3_create();
-    let tempScale = vec3_create();
-    let inverseScale = vec3_create();
-    let one = vec3_create();
+    let position = vec3_utils_create();
+    let tempScale = vec3_utils_create();
+    let inverseScale = vec3_utils_create();
+    let one = vec3_utils_create();
     vec3_utils_set(one, 1, 1, 1);
     return function toLocal(matrix, parentTransformMatrix, out = create()) {
         if (hasUniformScale(parentTransformMatrix)) {
@@ -332,7 +334,7 @@ export let toLocal = function () {
 }();
 
 export let hasUniformScale = function () {
-    let scale = vec3_create();
+    let scale = vec3_utils_create();
     return function hasUniformScale(matrix) {
         getScale(matrix, scale);
         return Math.abs(scale[0] - scale[1]) < MathUtils.EPSILON && Math.abs(scale[1] - scale[2]) < MathUtils.EPSILON && Math.abs(scale[0] - scale[2]) < MathUtils.EPSILON;
@@ -340,8 +342,8 @@ export let hasUniformScale = function () {
 }();
 
 export let toQuat = function () {
-    let position = vec3_create();
-    let rotation = quat_create();
+    let position = vec3_utils_create();
+    let rotation = quat_utils_create();
     return function toQuat(matrix, out = quat2_create()) {
         getPosition(matrix, position);
         getRotationQuat(matrix, rotation);

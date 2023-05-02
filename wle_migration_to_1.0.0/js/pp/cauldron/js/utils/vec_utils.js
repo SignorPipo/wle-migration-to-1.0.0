@@ -1,25 +1,25 @@
 export function toString(vector, decimalPlaces = null) {
-    let message = _vec_buildConsoleMessage(vector, decimalPlaces);
+    let message = _buildConsoleMessage(vector, decimalPlaces);
     return message;
 }
 
 export function log(vector, decimalPlaces = 4) {
-    let message = _vec_buildConsoleMessage(vector, decimalPlaces);
+    let message = _buildConsoleMessage(vector, decimalPlaces);
     console.log(message);
 }
 
 export function error(vector, decimalPlaces = 4) {
-    let message = _vec_buildConsoleMessage(vector, decimalPlaces);
+    let message = _buildConsoleMessage(vector, decimalPlaces);
     console.error(message);
 }
 
 export function warn(vector, decimalPlaces = 4) {
-    let message = _vec_buildConsoleMessage(vector, decimalPlaces);
+    let message = _buildConsoleMessage(vector, decimalPlaces);
     console.warn(message);
 }
 
 export function scale(vector, value, out = null) {
-    out = _vec_prepareOut(vector, out);
+    out = _prepareOut(vector, out);
 
     for (let i = 0; i < out.length; i++) {
         out[i] = out[i] * value;
@@ -29,7 +29,7 @@ export function scale(vector, value, out = null) {
 }
 
 export function round(vector, out = null) {
-    out = _vec_prepareOut(vector, out);
+    out = _prepareOut(vector, out);
 
     for (let i = 0; i < out.length; i++) {
         out[i] = Math.round(out[i]);
@@ -39,7 +39,7 @@ export function round(vector, out = null) {
 }
 
 export function floor(vector, out = null) {
-    out = _vec_prepareOut(vector, out);
+    out = _prepareOut(vector, out);
 
     for (let i = 0; i < out.length; i++) {
         out[i] = Math.floor(out[i]);
@@ -49,7 +49,7 @@ export function floor(vector, out = null) {
 }
 
 export function ceil(vector, out = null) {
-    out = _vec_prepareOut(vector, out);
+    out = _prepareOut(vector, out);
 
     for (let i = 0; i < out.length; i++) {
         out[i] = Math.ceil(out[i]);
@@ -59,7 +59,7 @@ export function ceil(vector, out = null) {
 }
 
 export function clamp(vector, start, end, out = null) {
-    out = _vec_prepareOut(vector, out);
+    out = _prepareOut(vector, out);
 
     let fixedStart = (start != null) ? start : -Number.MAX_VALUE;
     let fixedEnd = (end != null) ? end : Number.MAX_VALUE;
@@ -98,7 +98,7 @@ export let VecUtils = {
 
 
 
-function _vec_buildConsoleMessage(vector, decimalPlaces) {
+function _buildConsoleMessage(vector, decimalPlaces) {
     let message = "[";
 
     for (let i = 0; i < vector.length; i++) {
@@ -117,7 +117,7 @@ function _vec_buildConsoleMessage(vector, decimalPlaces) {
     return message;
 }
 
-function _vec_prepareOut(vector, out) {
+function _prepareOut(vector, out) {
     if (out == null) {
         out = vector.pp_clone();
     } else if (out != vector) {

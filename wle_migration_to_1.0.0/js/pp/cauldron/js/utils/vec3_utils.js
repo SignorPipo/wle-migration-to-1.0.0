@@ -1,12 +1,13 @@
-import * as glMatrix from "gl-matrix";
+import { vec3 } from "gl-matrix";
 import { mat3_create, quat_create } from "../../../plugin/js/extensions/array_extension";
 import { create as mat4_utils_create } from "./mat4_utils";
 import { MathUtils } from "./math_utils";
+import { create as quat_utils_create } from "./quat_utils";
 
 // glMatrix Bridge
 
 export function create(x, y, z) {
-    let out = glMatrix.vec3.create();
+    let out = vec3.create();
 
     if (x !== undefined) {
         set(out, x, y, z);
@@ -17,41 +18,41 @@ export function create(x, y, z) {
 
 export function set(vector, x, y, z) {
     if (y === undefined) {
-        glMatrix.vec3.set(vector, x, x, x);
+        vec3.set(vector, x, x, x);
     } else {
-        glMatrix.vec3.set(vector, x, y, z);
+        vec3.set(vector, x, y, z);
     }
 
     return vector;
-};
+}
 
 export function normalize(vector, out = create()) {
-    glMatrix.vec3.normalize(out, vector);
+    vec3.normalize(out, vector);
     return out;
-};
+}
 
 export function copy(from, to) {
-    glMatrix.vec3.copy(to, from);
+    vec3.copy(to, from);
     return to;
-};
+}
 
 export function clone(vector, out = create()) {
     copy(vector, out);
     return out;
-};
+}
 
 export function zero(vector) {
-    glMatrix.vec3.zero(vector);
+    vec3.zero(vector);
     return vector;
-};
+}
 
 export function angle(first, second) {
     return angleDegrees(first, second);
-};
+}
 
 export function angleDegrees(first, second) {
     return Math.pp_toDegrees(angleRadians(first, second));
-};
+}
 
 export function angleRadians(first, second) {
     let firstX = first[0];
@@ -76,7 +77,7 @@ export function angleRadians(first, second) {
     }
 
     return angle;
-};
+}
 
 export function equals(first, second, epsilon = 0) {
     let equals = first.length == second.length;
@@ -88,77 +89,77 @@ export function equals(first, second, epsilon = 0) {
     }
 
     return equals;
-};
+}
 
 export function length(vector) {
-    return glMatrix.vec3.length(vector);
-};
+    return vec3.length(vector);
+}
 
 export function lengthSquared(vector) {
-    return glMatrix.vec3.squaredLength(vector);
-};
+    return vec3.squaredLength(vector);
+}
 
 export function distance(first, second) {
-    return glMatrix.vec3.dist(first, second);
-};
+    return vec3.dist(first, second);
+}
 
 export function distanceSquared(first, second) {
-    return glMatrix.vec3.squaredDistance(first, second);
-};
+    return vec3.squaredDistance(first, second);
+}
 
 export function add(first, second, out = create()) {
-    glMatrix.vec3.add(out, first, second);
+    vec3.add(out, first, second);
     return out;
-};
+}
 
 export function sub(first, second, out = create()) {
-    glMatrix.vec3.sub(out, first, second);
+    vec3.sub(out, first, second);
     return out;
-};
+}
 
 export function mul(first, second, out = create()) {
-    glMatrix.vec3.mul(out, first, second);
+    vec3.mul(out, first, second);
     return out;
-};
+}
 
 export function div(first, second, out = create()) {
-    glMatrix.vec3.div(out, first, second);
+    vec3.div(out, first, second);
     return out;
-};
+}
 
 export function scale(vector, value, out = create()) {
-    glMatrix.vec3.scale(out, vector, value);
+    vec3.scale(out, vector, value);
     return out;
-};
+}
 
 export function dot(first, second) {
-    return glMatrix.vec3.dot(first, second);
-};
+    return vec3.dot(first, second);
+}
 
 export function negate(vector, out = create()) {
-    glMatrix.vec3.negate(out, vector);
+    vec3.negate(out, vector);
     return out;
-};
+}
 
 export function cross(first, second, out = create()) {
-    glMatrix.vec3.cross(out, first, second);
+    vec3.cross(out, first, second);
     return out;
-};
+}
 
 export function transformQuat(vector, quat, out = create()) {
-    glMatrix.vec3.transformQuat(out, vector, quat);
+    vec3.transformQuat(out, vector, quat);
     return out;
-};
+}
 
 export function transformMat3(vector, mat3, out = create()) {
-    glMatrix.vec3.transformMat3(out, vector, mat3);
+    vec3.transformMat3(out, vector, mat3);
     return out;
-};
+}
 
 export function transformMat4(vector, mat4, out = create()) {
-    glMatrix.vec3.transformMat4(out, vector, mat4);
+    vec3.transformMat4(out, vector, mat4);
     return out;
-};
+}
 
 // New Functions
 
@@ -169,15 +170,15 @@ export function lengthSigned(vector, positiveDirection) {
     }
 
     return signedLength;
-};
+}
 
 export function angleSigned(first, second, upAxis) {
     return angleSignedDegrees(first, second, upAxis);
-};
+}
 
 export function angleSignedDegrees(first, second, upAxis) {
     return Math.pp_toDegrees(angleSignedRadians(first, second, upAxis));
-};
+}
 
 export let angleSignedRadians = function () {
     let crossAxis = create();
@@ -195,34 +196,34 @@ export let angleSignedRadians = function () {
 export function toRadians(vector, out = create()) {
     set(out, Math.pp_toRadians(vector[0]), Math.pp_toRadians(vector[1]), Math.pp_toRadians(vector[2]));
     return out;
-};
+}
 
 export function toDegrees(vector, out = create()) {
     set(out, Math.pp_toDegrees(vector[0]), Math.pp_toDegrees(vector[1]), Math.pp_toDegrees(vector[2]));
     return out;
-};
+}
 
 export function toQuat(vector, out) {
     return degreesToQuat(vector, out);
-};
+}
 
 export function radiansToQuat(vector, out = quat_create()) {
     out.quat_fromRadians(vector);
     return out;
-};
+}
 
 export function degreesToQuat(vector, out = quat_create()) {
     out.quat_fromDegrees(vector);
     return out;
-};
+}
 
 export function isNormalized(vector, epsilon = MathUtils.EPSILON) {
     return Math.abs(lengthSquared(vector) - 1) < epsilon;
-};
+}
 
 export function isZero(vector, epsilon = 0) {
     return lengthSquared(vector) <= (epsilon * epsilon);
-};
+}
 
 export function componentAlongAxis(vector, axis, out = create()) {
     let componentAlongAxisLength = dot(vector, axis);
@@ -230,12 +231,12 @@ export function componentAlongAxis(vector, axis, out = create()) {
     copy(axis, out);
     scale(out, componentAlongAxisLength, out);
     return out;
-};
+}
 
 export function valueAlongAxis(vector, axis) {
     let valueAlongAxis = dot(vector, axis);
     return valueAlongAxis;
-};
+}
 
 export let removeComponentAlongAxis = function () {
     let componentAlong = create();
@@ -259,15 +260,15 @@ export let copyComponentAlongAxis = function () {
 
 export function isConcordant(first, second) {
     return dot(first, second) >= 0;
-};
+}
 
 export function isFartherAlongAxis(first, second, axis) {
     return valueAlongAxis(first, axis) > valueAlongAxis(second, axis);
-};
+}
 
 export function isToTheRight(first, second, upAxis) {
     return signTo(first, second, upAxis) >= 0;
-};
+}
 
 export let signTo = function () {
     let componentAlongThis = create();
@@ -284,7 +285,7 @@ export let signTo = function () {
 export function projectOnAxis(vector, axis, out = create()) {
     componentAlongAxis(vector, axis, out);
     return out;
-};
+}
 
 // The result can easily be not 100% exact due to precision errors
 export let projectOnAxisAlongAxis = function () {
@@ -330,7 +331,7 @@ export let projectOnAxisAlongAxis = function () {
 export function projectOnPlane(vector, planeNormal, out = create()) {
     removeComponentAlongAxis(vector, planeNormal, out);
     return out;
-};
+}
 
 // The result can easily be not 100% exact due to precision errors
 export let projectOnPlaneAlongAxis = function () {
@@ -369,16 +370,16 @@ export let projectOnPlaneAlongAxis = function () {
 export function isOnAxis(vector, axis) {
     let angleResult = angle(vector, axis);
     return Math.abs(angleResult) < MathUtils.EPSILON_DEGREES || Math.abs(angleResult - 180) < MathUtils.EPSILON_DEGREES;
-};
+}
 
 export function isOnPlane(vector, planeNormal) {
     let angleResult = angle(vector, planeNormal);
     return Math.abs(angleResult - 90) < MathUtils.EPSILON_DEGREES;
-};
+}
 
 export function rotate(vector, rotation, out) {
     return rotateDegrees(vector, rotation, out);
-};
+}
 
 export let rotateDegrees = function () {
     let zero = create();
@@ -403,7 +404,7 @@ export let rotateQuat = function () {
 
 export function rotateAxis(vector, angle, axis, out) {
     return rotateAxisDegrees(vector, angle, axis, out);
-};
+}
 
 export let rotateAxisDegrees = function () {
     let zero = create();
@@ -421,10 +422,10 @@ export let rotateAxisRadians = function () {
 
 export function rotateAround(vector, rotation, origin, out) {
     return rotateAroundDegrees(vector, rotation, origin, out);
-};
+}
 
 export let rotateAroundDegrees = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function rotateAroundDegrees(vector, rotation, origin, out = create()) {
         degreesToQuat(rotation, quat);
         return rotateAroundQuat(vector, quat, origin, out);
@@ -432,7 +433,7 @@ export let rotateAroundDegrees = function () {
 }();
 
 export let rotateAroundRadians = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function rotateAroundRadians(vector, rotation, origin, out = create()) {
         radiansToQuat(rotation, quat);
         return rotateAroundQuat(vector, quat, origin, out);
@@ -444,18 +445,18 @@ export function rotateAroundQuat(vector, rotation, origin, out = create()) {
     transformQuat(out, rotation, out);
     add(out, origin, out);
     return out;
-};
+}
 
 export function rotateAroundAxis(vector, angle, axis, origin, out) {
     return rotateAroundAxisDegrees(vector, angle, axis, origin, out);
-};
+}
 
 export function rotateAroundAxisDegrees(vector, angle, axis, origin, out) {
     return rotateAroundAxisRadians(vector, Math.pp_toRadians(angle), axis, origin, out);
-};
+}
 
 export let rotateAroundAxisRadians = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function rotateAroundAxisRadians(vector, angle, axis, origin, out = create()) {
         quat.quat_fromAxisRadians(angle, axis);
         return rotateAroundQuat(vector, quat, origin, out);
@@ -464,16 +465,16 @@ export let rotateAroundAxisRadians = function () {
 
 export function convertPositionToWorld(vector, parentTransform, out) {
     return convertPositionToWorldMatrix(vector, parentTransform, out);
-};
+}
 
 export function convertPositionToLocal(vector, parentTransform, out) {
     return convertPositionToLocalMatrix(vector, parentTransform, out);
-};
+}
 
 export function convertPositionToWorldMatrix(vector, parentTransform, out = create()) {
     transformMat4(vector, parentTransform, out);
     return out;
-};
+}
 
 export let convertPositionToLocalMatrix = function () {
     let inverse = mat4_utils_create();
@@ -487,7 +488,7 @@ export let convertPositionToLocalMatrix = function () {
 export let convertPositionToWorldQuat = function () {
     let parentTransformMatrix = mat4_utils_create();
     let position = create();
-    let rotation = quat_create();
+    let rotation = quat_utils_create();
     let one = create();
     set(one, 1, 1, 1);
     return function convertPositionToWorldQuat(vector, parentTransform, out = create()) {
@@ -501,7 +502,7 @@ export let convertPositionToWorldQuat = function () {
 export let convertPositionToLocalQuat = function () {
     let parentTransformMatrix = mat4_utils_create();
     let position = create();
-    let rotation = quat_create();
+    let rotation = quat_utils_create();
     let one = create();
     set(one, 1, 1, 1);
     return function convertPositionToLocalQuat(vector, parentTransform, out = create()) {
@@ -514,14 +515,14 @@ export let convertPositionToLocalQuat = function () {
 
 export function convertDirectionToWorld(vector, parentTransform, out) {
     return convertDirectionToWorldMatrix(vector, parentTransform, out);
-};
+}
 
 export function convertDirectionToLocal(vector, parentTransform, out) {
     return convertDirectionToLocalMatrix(vector, parentTransform, out);
-};
+}
 
 export let convertDirectionToWorldMatrix = function () {
-    let rotation = quat_create();
+    let rotation = quat_utils_create();
     return function convertDirectionToWorldMatrix(vector, parentTransform, out = create()) {
         parentTransform.mat4_getRotationQuat(rotation);
         transformQuat(vector, rotation, out);
@@ -530,7 +531,7 @@ export let convertDirectionToWorldMatrix = function () {
 }();
 
 export let convertDirectionToLocalMatrix = function () {
-    let rotation = quat_create();
+    let rotation = quat_utils_create();
     return function convertDirectionToLocalMatrix(vector, parentTransform, out = create()) {
         parentTransform.mat4_getRotationQuat(rotation);
         rotation.quat_conjugate(rotation);
@@ -541,7 +542,7 @@ export let convertDirectionToLocalMatrix = function () {
 
 
 export let convertDirectionToWorldQuat = function () {
-    let rotation = quat_create();
+    let rotation = quat_utils_create();
     return function convertDirectionToWorldQuat(vector, parentTransform, out = create()) {
         parentTransform.quat2_getRotationQuat(rotation);
         transformQuat(vector, rotation, out);
@@ -550,7 +551,7 @@ export let convertDirectionToWorldQuat = function () {
 }();
 
 export let convertDirectionToLocalQuat = function () {
-    let rotation = quat_create();
+    let rotation = quat_utils_create();
     return function convertDirectionToLocalQuat(vector, parentTransform, out = create()) {
         parentTransform.quat2_getRotationQuat(rotation);
         rotation.quat_conjugate(rotation);
@@ -561,38 +562,38 @@ export let convertDirectionToLocalQuat = function () {
 
 export function log(vector, decimalPlaces = 4) {
     vector.vec_log(decimalPlaces);
-};
+}
 
 export function error(vector, decimalPlaces = 4) {
     vector.vec_error(decimalPlaces);
-};
+}
 
 export function warn(vector, decimalPlaces = 4) {
     vector.vec_warn(decimalPlaces);
-};
+}
 
 export function addRotation(vector, rotation, out) {
     return degreesAddRotation(vector, rotation, out);
-};
+}
 
 export function addRotationDegrees(vector, rotation, out) {
     return degreesAddRotationDegrees(vector, rotation, out);
-};
+}
 
 export function addRotationRadians(vector, rotation, out) {
     return degreesAddRotationRadians(vector, rotation, out);
-};
+}
 
 export function addRotationQuat(vector, rotation, out) {
     return degreesAddRotationQuat(vector, rotation, out);
-};
+}
 
 export function degreesAddRotation(vector, rotation, out) {
     return degreesAddRotationDegrees(vector, rotation, out);
-};
+}
 
 export let degreesAddRotationDegrees = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function degreesAddRotationDegrees(vector, rotation, out = create()) {
         degreesToQuat(vector, quat);
         return quat.quat_addRotationDegrees(rotation, quat).quat_toDegrees(out);
@@ -600,7 +601,7 @@ export let degreesAddRotationDegrees = function () {
 }();
 
 export let degreesAddRotationRadians = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function degreesAddRotationRadians(vector, rotation, out = create()) {
         degreesToQuat(vector, quat);
         return quat.quat_addRotationRadians(rotation, quat).quat_toDegrees(out);
@@ -608,7 +609,7 @@ export let degreesAddRotationRadians = function () {
 }();
 
 export let degreesAddRotationQuat = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function degreesAddRotationQuat(vector, rotation, out = create()) {
         degreesToQuat(vector, quat);
         return quat.quat_addRotationQuat(rotation, quat).quat_toDegrees(out);
@@ -617,10 +618,10 @@ export let degreesAddRotationQuat = function () {
 
 export function radiansAddRotation(vector, rotation, out) {
     return radiansAddRotationDegrees(vector, rotation, out);
-};
+}
 
 export let radiansAddRotationDegrees = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function radiansAddRotationDegrees(vector, rotation, out = create()) {
         radiansToQuat(vector, quat);
         return quat.quat_addRotationDegrees(rotation, quat).quat_toRadians(out);
@@ -628,7 +629,7 @@ export let radiansAddRotationDegrees = function () {
 }();
 
 export let radiansAddRotationRadians = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function radiansAddRotationRadians(vector, rotation, out = create()) {
         radiansToQuat(vector, quat);
         return quat.quat_addRotationRadians(rotation, quat).quat_toRadians(out);
@@ -636,7 +637,7 @@ export let radiansAddRotationRadians = function () {
 }();
 
 export let radiansAddRotationQuat = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function radiansAddRotationQuat(vector, rotation, out = create()) {
         radiansToQuat(vector, quat);
         return quat.quat_addRotationQuat(rotation, quat).quat_toRadians(out);
@@ -645,10 +646,10 @@ export let radiansAddRotationQuat = function () {
 
 export function toMatrix(vector, out = mat3_create()) {
     return degreesToMatrix(vector, out);
-};
+}
 
 export let degreesToMatrix = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function degreesToMatrix(vector, out = mat3_create()) {
         degreesToQuat(vector, quat);
         return quat.quat_toMatrix(out);
@@ -656,7 +657,7 @@ export let degreesToMatrix = function () {
 }();
 
 export let radiansToMatrix = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function radiansToMatrix(vector, out = mat3_create()) {
         radiansToQuat(vector, quat);
         return quat.quat_toMatrix(out);
@@ -665,10 +666,10 @@ export let radiansToMatrix = function () {
 
 export function rotationTo(vector, direction, out) {
     return rotationToDegrees(vector, direction, out);
-};
+}
 
 export let rotationToDegrees = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = quat_utils_create();
     return function rotationToDegrees(vector, direction, out = create()) {
         rotationToQuat(vector, direction, rotationQuat);
         rotationQuat.quat_toDegrees(out);
@@ -677,7 +678,7 @@ export let rotationToDegrees = function () {
 }();
 
 export let rotationToRadians = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = quat_utils_create();
     return function rotationToRadians(vector, direction, out = create()) {
         rotationToQuat(vector, direction, rotationQuat);
         rotationQuat.quat_toRadians(out);
@@ -698,10 +699,10 @@ export let rotationToQuat = function () {
 
 export function rotationToPivoted(vector, direction, pivotAxis, out) {
     return rotationToPivotedDegrees(vector, direction, pivotAxis, out);
-};
+}
 
 export let rotationToPivotedDegrees = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = quat_utils_create();
     return function rotationToPivotedDegrees(vector, direction, pivotAxis, out = create()) {
         rotationToPivotedQuat(vector, direction, pivotAxis, rotationQuat);
         rotationQuat.quat_toDegrees(out);
@@ -710,7 +711,7 @@ export let rotationToPivotedDegrees = function () {
 }();
 
 export let rotationToPivotedRadians = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = quat_utils_create();
     return function rotationToPivotedRadians(vector, direction, pivotAxis, out = create()) {
         rotationToPivotedQuat(vector, direction, pivotAxis, rotationQuat);
         rotationQuat.quat_toRadians(out);
@@ -734,23 +735,23 @@ export let rotationToPivotedQuat = function () {
     };
 }();
 
-export function lerp(vector, to, interpolationValue, out = create()) {
+export function lerp(from, to, interpolationValue, out = create()) {
     if (interpolationValue <= 0) {
-        copy(vector, out);
+        copy(from, out);
         return out;
     } else if (interpolationValue >= 1) {
         copy(to, out);
         return out;
     }
 
-    glMatrix.vec3.lerp(out, vector, to, interpolationValue);
+    vec3.lerp(out, from, to, interpolationValue);
     return out;
-};
+}
 
-export function interpolate(vector, to, interpolationValue, easingFunction = EasingFunction.linear, out = create()) {
+export function interpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear, out = create()) {
     let lerpValue = easingFunction(interpolationValue);
-    return lerp(vector, to, lerpValue, out);
-};
+    return lerp(from, to, lerpValue, out);
+}
 
 export let Vec3Utils = {
     create,

@@ -27,7 +27,7 @@
 
     The functions leave u the choice of forwarding an out parameter or just get the return value, example:
         - let quat = this.vec3_toQuat()
-        - this.vec3_toQuat(quat)
+        - this.vec3_toQuat(quaternion)
         - the out parameter is always the last one
 
     List of functions:
@@ -170,6 +170,8 @@ import { Vec3Utils } from "../../../cauldron/js/utils/vec3_utils";
 import { Vec4Utils } from "../../../cauldron/js/utils/vec4_utils";
 import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
 import { PluginUtils } from "../../utils/plugin_utils";
+import { QuatUtils } from "../../../cauldron/js/utils/quat_utils";
+import { EasingFunction } from "../../../cauldron/js/utils/math_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -188,11 +190,7 @@ export function vec4_create(x, y, z, w) {
 };
 
 export function quat_create(x, y, z, w) {
-    let out = glMatrix.quat.create();
-    if (x !== undefined) {
-        _quat_set(out, x, y, z, w);
-    }
-    return out;
+    return QuatUtils.create(...arguments);
 };
 
 export function quat2_create(x1, y1, z1, w1, x2, y2, z2, w2) {
@@ -223,10 +221,6 @@ export function initArrayExtensionProtoype() {
     // SETTER
 
     let arrayExtension = {};
-
-    arrayExtension.quat_set = function quat_set(x, y, z, w) {
-        return _quat_set(this, x, y, z, w);
-    };
 
     arrayExtension.quat2_set = function quat2_set(x1, y1, z1, w1, x2, y2, z2, w2) {
         return _quat2_set(this, x1, y1, z1, w1, x2, y2, z2, w2);
@@ -505,7 +499,7 @@ export function initArrayExtensionProtoype() {
         return Vec3Utils.cross(this, ...arguments);
     };
 
-    vec3Extension.vec3_transformQuat = function vec3_transformQuat(quat, out = vec3_create()) {
+    vec3Extension.vec3_transformQuat = function vec3_transformQuat(quaternion, out = vec3_create()) {
         return Vec3Utils.transformQuat(this, ...arguments);
     };
 
@@ -855,508 +849,294 @@ export function initArrayExtensionProtoype() {
 
     // QUAT
 
+    let quatExtension = {};
+
     // glMatrix Bridge
 
-    arrayExtension.quat_normalize = function quat_normalize(out = quat_create()) {
-        glMatrix.quat.normalize(out, this);
-        return out;
+    quatExtension.quat_set = function quat_set(x, y, z, w) {
+        return QuatUtils.set(this, ...arguments);
     };
 
-    arrayExtension.quat_copy = function quat_copy(quat) {
-        glMatrix.quat.copy(this, quat);
-        return this;
+    quatExtension.quat_normalize = function quat_normalize(out = quat_create()) {
+        return QuatUtils.normalize(this, ...arguments);
     };
 
-    arrayExtension.quat_clone = function quat_clone(out = quat_create()) {
-        out.quat_copy(this);
-        return out;
+    quatExtension.quat_copy = function quat_copy(quaternion) {
+        return QuatUtils.copy(quaternion, this);
     };
 
-    arrayExtension.quat_identity = function quat_identity() {
-        glMatrix.quat.identity(this);
-        return this;
+    quatExtension.quat_clone = function quat_clone(out = quat_create()) {
+        return QuatUtils.clone(this, ...arguments);
     };
 
-    arrayExtension.quat_length = function quat_length() {
-        return glMatrix.quat.length(this);
+    quatExtension.quat_identity = function quat_identity() {
+        return QuatUtils.identity(this, ...arguments);
     };
 
-    arrayExtension.quat_lengthSquared = function quat_lengthSquared() {
-        return glMatrix.quat.squaredLength(this);
+    quatExtension.quat_length = function quat_length() {
+        return QuatUtils.length(this, ...arguments);
     };
 
-    arrayExtension.quat_invert = function quat_invert(out = quat_create()) {
-        glMatrix.quat.invert(out, this);
-        return out;
+    quatExtension.quat_lengthSquared = function quat_lengthSquared() {
+        return QuatUtils.lengthSquared(this, ...arguments);
     };
 
-    arrayExtension.quat_conjugate = function quat_conjugate(out = quat_create()) {
-        glMatrix.quat.conjugate(out, this);
-        return out;
+    quatExtension.quat_invert = function quat_invert(out = quat_create()) {
+        return QuatUtils.invert(this, ...arguments);
     };
 
-    arrayExtension.quat_mul = function quat_mul(rotation, out = quat_create()) {
-        glMatrix.quat.mul(out, this, rotation);
-        return out;
+    quatExtension.quat_conjugate = function quat_conjugate(out = quat_create()) {
+        return QuatUtils.conjugate(this, ...arguments);
     };
 
-    arrayExtension.quat_getAxis = function () {
-        let zero = vec3_create(0, 0, 0);
-        return function quat_getAxis(out = vec3_create()) {
-            let angle = glMatrix.quat.getAxisAngle(out, this);
-            if (angle <= Math.PP_EPSILON) {
-                out.vec3_copy(zero);
-            }
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_getAngle = function quat_getAngle() {
-        return this.quat_getAngleDegrees();
+    quatExtension.quat_mul = function quat_mul(rotation, out = quat_create()) {
+        return QuatUtils.mul(this, ...arguments);
     };
 
-
-    arrayExtension.quat_getAngleDegrees = function quat_getAngleDegrees() {
-        let angle = this.quat_getAngleRadians();
-        return Math.pp_toDegrees(angle);
+    quatExtension.quat_getAxis = function quat_getAxis(out = vec3_create()) {
+        return QuatUtils.getAxis(this, ...arguments);
     };
 
-    arrayExtension.quat_getAngleRadians = function () {
-        let vector = vec3_create();
-        return function quat_getAngleRadians() {
-            let angle = glMatrix.quat.getAxisAngle(vector, this);
-            return angle;
-        };
-    }();
-
-    arrayExtension.quat_getAxisScaled = function quat_getAxisScaled(out = vec3_create()) {
-        return this.quat_getAxisScaledDegrees(out);
+    quatExtension.quat_getAngle = function quat_getAngle() {
+        return QuatUtils.getAngle(this, ...arguments);
     };
 
-    arrayExtension.quat_getAxisScaledDegrees = function quat_getAxisScaledDegrees(out = vec3_create()) {
-        this.quat_getAxis(out);
-        let angle = this.quat_getAngleDegrees();
-        out.vec3_scale(angle, out);
-        return out;
+    quatExtension.quat_getAngleDegrees = function quat_getAngleDegrees() {
+        return QuatUtils.getAngleDegrees(this, ...arguments);
     };
 
-    arrayExtension.quat_getAxisScaledRadians = function () {
-        let zero = vec3_create(0, 0, 0);
-        return function quat_getAxisScaledRadians(out = vec3_create()) {
-            this.quat_getAxis(out);
-            let angle = this.quat_getAngleRadians();
-            if (angle <= Math.PP_EPSILON) {
-                out.vec3_copy(zero);
-            } else {
-                out.vec3_scale(angle, out);
-            }
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_getAxes = function quat_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
-        this.quat_getLeft(out[0]);
-        this.quat_getUp(out[1]);
-        this.quat_getForward(out[2]);
-
-        return out;
+    quatExtension.quat_getAngleRadians = function quat_getAngleRadians() {
+        return QuatUtils.getAngleRadians(this, ...arguments);
     };
 
-    arrayExtension.quat_getForward = function () {
-        let rotationMatrix = mat3_create();
-        return function quat_getForward(out = vec3_create()) {
-            this.quat_toMatrix(rotationMatrix);
-
-            out.vec3_set(rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
-            out.vec3_normalize(out);
-
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_getBackward = function quat_getBackward(out) {
-        out = this.quat_getForward(out);
-        out.vec3_negate(out);
-        return out;
+    quatExtension.quat_getAxisScaled = function quat_getAxisScaled(out = vec3_create()) {
+        return QuatUtils.getAxisScaled(this, ...arguments);
     };
 
-    arrayExtension.quat_getLeft = function () {
-        let rotationMatrix = mat3_create();
-        return function quat_getLeft(out = vec3_create()) {
-            this.quat_toMatrix(rotationMatrix);
-
-            out.vec3_set(rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
-            out.vec3_normalize(out);
-
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_getRight = function quat_getRight(out) {
-        out = this.quat_getLeft(out);
-        out.vec3_negate(out);
-        return out;
+    quatExtension.quat_getAxisScaledDegrees = function quat_getAxisScaledDegrees(out = vec3_create()) {
+        return QuatUtils.getAxisScaledDegrees(this, ...arguments);
     };
 
-    arrayExtension.quat_getUp = function () {
-        let rotationMatrix = mat3_create();
-        return function quat_getUp(out = vec3_create()) {
-            this.quat_toMatrix(rotationMatrix);
-
-            out.vec3_set(rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
-            out.vec3_normalize(out);
-
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_getDown = function quat_getDown(out) {
-        out = this.quat_getUp(out);
-        out.vec3_negate(out);
-        return out;
+    quatExtension.quat_getAxisScaledRadians = function quat_getAxisScaledRadians(out = vec3_create()) {
+        return QuatUtils.getAxisScaledRadians(this, ...arguments);
     };
 
-    arrayExtension.quat_setAxes = function quat_setAxes(left, up, forward) {
-        if (forward != null) {
-            return this.quat_setForward(forward, up, left);
-        } else if (up != null) {
-            return this.quat_setUp(up, forward, left);
-        } else {
-            return this.quat_setLeft(left, up, forward);
-        }
+    quatExtension.quat_getAxes = function quat_getAxes(out = [vec3_create(), vec3_create(), vec3_create()]) {
+        return QuatUtils.getAxes(this, ...arguments);
     };
 
-    arrayExtension.quat_setForward = function quat_setForward(forward, up = null, left = null) {
-        return _quat_setAxes(this, [left, up, forward], [2, 1, 0]);
+    quatExtension.quat_getForward = function quat_getForward(out = vec3_create()) {
+        return QuatUtils.getForward(this, ...arguments);
     };
 
-    arrayExtension.quat_setBackward = function () {
-        let forward = vec3_create();
-        return function quat_setBackward(backward, up = null, left = null) {
-            backward.vec3_negate(forward);
-            return _quat_setAxes(this, [left, up, forward], [2, 1, 0]);
-        };
-    }();
-
-    arrayExtension.quat_setUp = function quat_setUp(up, forward = null, left = null) {
-        return _quat_setAxes(this, [left, up, forward], [1, 2, 0]);
+    quatExtension.quat_getBackward = function quat_getBackward(out) {
+        return QuatUtils.getBackward(this, ...arguments);
     };
 
-    arrayExtension.quat_setDown = function () {
-        let up = vec3_create();
-        return function quat_setDown(down, forward = null, left = null) {
-            down.vec3_negate(up);
-            return _quat_setAxes(this, [left, up, forward], [1, 2, 0]);
-        };
-    }();
-
-    arrayExtension.quat_setLeft = function quat_setLeft(left, up = null, forward = null) {
-        return _quat_setAxes(this, [left, up, forward], [0, 1, 2]);
+    quatExtension.quat_getLeft = function quat_getLeft(out = vec3_create()) {
+        return QuatUtils.getLeft(this, ...arguments);
     };
 
-    arrayExtension.quat_setRight = function () {
-        let left = vec3_create();
-        return function quat_setRight(right, up = null, forward = null) {
-            right.vec3_negate(left);
-            return _quat_setAxes(this, [left, up, forward], [0, 1, 2]);
-        };
-    }();
-
-    arrayExtension.quat_toWorld = function quat_toWorld(parentQuat, out = quat_create()) {
-        parentQuat.quat_mul(this, out);
-        return out;
+    quatExtension.quat_getRight = function quat_getRight(out) {
+        return QuatUtils.getRight(this, ...arguments);
     };
 
-    arrayExtension.quat_toLocal = function () {
-        let invertQuat = quat_create();
-        return function quat_toLocal(parentQuat, out = quat_create()) {
-            parentQuat.quat_conjugate(invertQuat);
-            invertQuat.quat_mul(this, out);
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_fromAxis = function quat_fromAxis(angle, axis) {
-        return this.quat_fromAxisDegrees(angle, axis);
+    quatExtension.quat_getUp = function quat_getUp(out = vec3_create()) {
+        return QuatUtils.getUp(this, ...arguments);
     };
 
-    arrayExtension.quat_fromAxisDegrees = function quat_fromAxisDegrees(angle, axis) {
-        this.quat_fromAxisRadians(Math.pp_toRadians(angle), axis);
-        return this;
+    quatExtension.quat_getDown = function quat_getDown(out) {
+        return QuatUtils.getDown(this, ...arguments);
     };
 
-    arrayExtension.quat_fromAxisRadians = function quat_fromAxisRadians(angle, axis) {
-        glMatrix.quat.setAxisAngle(this, axis, angle);
-        return this;
+    quatExtension.quat_setAxes = function quat_setAxes(left, up, forward) {
+        return QuatUtils.setAxes(this, ...arguments);
     };
 
-    arrayExtension.quat_fromAxes = function () {
-        let mat3 = mat3_create();
-        return function quat_fromAxes(leftAxis, upAxis, forwardAxis) {
-            mat3.mat3_fromAxes(leftAxis, upAxis, forwardAxis);
-            return mat3.mat3_toQuat(this);
-        };
-    }();
+    quatExtension.quat_setForward = function quat_setForward(forward, up = null, left = null) {
+        return QuatUtils.setForward(this, ...arguments);
+    };
+
+    quatExtension.quat_setBackward = function quat_setBackward(backward, up = null, left = null) {
+        return QuatUtils.setBackward(this, ...arguments);
+    };
+
+    quatExtension.quat_setUp = function quat_setUp(up, forward = null, left = null) {
+        return QuatUtils.setUp(this, ...arguments);
+    };
+
+    quatExtension.quat_setDown = function quat_setDown(down, forward = null, left = null) {
+        return QuatUtils.setDown(this, ...arguments);
+    };
+
+    quatExtension.quat_setLeft = function quat_setLeft(left, up = null, forward = null) {
+        return QuatUtils.setLeft(this, ...arguments);
+    };
+
+    quatExtension.quat_setRight = function quat_setRight(right, up = null, forward = null) {
+        return QuatUtils.setRight(this, ...arguments);
+    };
+
+    quatExtension.quat_toWorld = function quat_toWorld(parentQuat, out = quat_create()) {
+        return QuatUtils.toWorld(this, ...arguments);
+    };
+
+    quatExtension.quat_toLocal = function quat_toLocal(parentQuat, out = quat_create()) {
+        return QuatUtils.toLocal(this, ...arguments);
+    };
+
+    quatExtension.quat_fromAxis = function quat_fromAxis(angle, axis) {
+        return QuatUtils.fromAxis(angle, axis, this);
+    };
+
+    quatExtension.quat_fromAxisDegrees = function quat_fromAxisDegrees(angle, axis) {
+        return QuatUtils.fromAxisDegrees(angle, axis, this);
+    };
+
+    quatExtension.quat_fromAxisRadians = function quat_fromAxisRadians(angle, axis) {
+        return QuatUtils.fromAxisRadians(angle, axis, this);
+    };
+
+    quatExtension.quat_fromAxes = function quat_fromAxes(leftAxis, upAxis, forwardAxis) {
+        return QuatUtils.fromAxes(leftAxis, upAxis, forwardAxis, this);
+    };
 
     // New Functions
 
-    arrayExtension.quat_fromRadians = function () {
-        let vector = vec3_create();
-        return function quat_fromRadians(radiansRotation) {
-            radiansRotation.vec3_toDegrees(vector);
-            return this.quat_fromDegrees(vector);
-        };
-    }();
-
-    arrayExtension.quat_fromDegrees = function quat_fromDegrees(degreesRotation) {
-        glMatrix.quat.fromEuler(this, degreesRotation[0], degreesRotation[1], degreesRotation[2]);
-        return this;
+    quatExtension.quat_fromRadians = function quat_fromRadians(radiansRotation) {
+        return QuatUtils.fromRadians(radiansRotation, this);
     };
 
-    arrayExtension.quat_toRadians = function () {
-        let mat3 = mat3_create();
-        return function quat_toRadians(out = vec3_create()) {
-            this.quat_toMatrix(mat3);
-
-            // Rotation order is ZYX 
-            out[1] = Math.asin(-Math.pp_clamp(mat3[2], -1, 1));
-
-            if (Math.abs(mat3[2]) < (1 - Math.PP_EPSILON)) {
-                out[0] = Math.atan2(mat3[5], mat3[8]);
-                out[2] = Math.atan2(mat3[1], mat3[0]);
-            } else {
-                out[0] = 0;
-                out[2] = Math.atan2(-mat3[3], mat3[4]);
-            }
-
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_toDegrees = function quat_toDegrees(out = vec3_create()) {
-        this.quat_toRadians(out);
-        out.vec3_toDegrees(out);
-        return out;
+    quatExtension.quat_fromDegrees = function quat_fromDegrees(degreesRotation) {
+        return QuatUtils.fromDegrees(degreesRotation, this);
     };
 
-    arrayExtension.quat_isNormalized = function quat_isNormalized(epsilon = Math.PP_EPSILON) {
-        return Math.abs(this.quat_lengthSquared() - 1) < epsilon;
+    quatExtension.quat_toRadians = function quat_toRadians(out = vec3_create()) {
+        return QuatUtils.toRadians(this, ...arguments);
     };
 
-    arrayExtension.quat_addRotation = function quat_addRotation(rotation, out) {
-        return this.quat_addRotationDegrees(rotation, out);
+    quatExtension.quat_toDegrees = function quat_toDegrees(out = vec3_create()) {
+        return QuatUtils.toDegrees(this, ...arguments);
     };
 
-    arrayExtension.quat_addRotationDegrees = function () {
-        let quat = quat_create();
-        return function quat_addRotationDegrees(rotation, out) {
-            rotation.vec3_degreesToQuat(quat);
-            return this.quat_addRotationQuat(quat, out);
-        };
-    }();
-
-    arrayExtension.quat_addRotationRadians = function () {
-        let quat = quat_create();
-        return function quat_addRotationRadians(rotation, out) {
-            rotation.vec3_radiansToQuat(quat);
-            return this.quat_addRotationQuat(quat, out);
-        };
-    }();
-
-    arrayExtension.quat_addRotationQuat = function quat_addRotationQuat(rotation, out = quat_create()) {
-        rotation.quat_mul(this, out);
-        return out;
+    quatExtension.quat_isNormalized = function quat_isNormalized(epsilon = Math.PP_EPSILON) {
+        return QuatUtils.isNormalized(this, ...arguments);
     };
 
-    arrayExtension.quat_subRotation = function quat_subRotation(rotation, out) {
-        return this.quat_subRotationDegrees(rotation, out);
+    quatExtension.quat_addRotation = function quat_addRotation(rotation, out) {
+        return QuatUtils.addRotation(this, ...arguments);
     };
 
-    arrayExtension.quat_subRotationDegrees = function () {
-        let quat = quat_create();
-        return function quat_subRotationDegrees(rotation, out) {
-            rotation.vec3_degreesToQuat(quat);
-            return this.quat_subRotationQuat(quat, out);
-        };
-    }();
-
-    arrayExtension.quat_subRotationRadians = function () {
-        let quat = quat_create();
-        return function quat_subRotationRadians(rotation, out) {
-            rotation.vec3_radiansToQuat(quat);
-            return this.quat_subRotationQuat(quat, out);
-        };
-    }();
-
-    arrayExtension.quat_subRotationQuat = function () {
-        let inverse = quat_create();
-        return function quat_subRotationQuat(rotation, out = quat_create()) {
-            rotation.quat_invert(inverse);
-            this.quat_mul(inverse, out);
-
-            if (this.quat_isNormalized() && rotation.quat_isNormalized()) {
-                // I would normally not normalize this result since you may want the untouched sub
-                // But for normalized params it should be normalized
-                // It seems though that for some small error the quat will not be exactly normalized, so I fix it
-                out.quat_normalize(out);
-            }
-
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_rotationTo = function quat_rotationTo(rotation, out) {
-        return this.quat_rotationToDegrees(rotation, out);
+    quatExtension.quat_addRotationDegrees = function quat_addRotationDegrees(rotation, out) {
+        return QuatUtils.addRotationDegrees(this, ...arguments);
     };
 
-    arrayExtension.quat_rotationToDegrees = function () {
-        let rotationQuat = quat_create();
-        return function quat_rotationToDegrees(rotation, out) {
-            rotation.vec3_degreesToQuat(rotationQuat);
-            return this.quat_rotationToQuat(rotationQuat, out);
-        };
-    }();
-
-    arrayExtension.quat_rotationToRadians = function () {
-        let rotationQuat = quat_create();
-        return function quat_rotationToRadians(rotation, out) {
-            rotation.vec3_radiansToQuat(rotationQuat);
-            return this.quat_rotationToQuat(rotationQuat, out);
-        };
-    }();
-
-    arrayExtension.quat_rotationToQuat = function quat_rotationToQuat(rotation, out) {
-        return rotation.quat_subRotationQuat(this, out);
+    quatExtension.quat_addRotationRadians = function quat_addRotationRadians(rotation, out) {
+        return QuatUtils.addRotationRadians(this, ...arguments);
     };
 
-    arrayExtension.quat_getTwist = function () {
-        let rotationAxis = vec3_create();
-        let projection = vec3_create();
-        let rotationAlongAxis = quat_create();
-        return function quat_getTwist(axis, out = quat_create()) {
-            rotationAxis[0] = this[0];
-            rotationAxis[1] = this[1];
-            rotationAxis[2] = this[2];
-
-            let dotProd = axis.vec3_dot(rotationAxis);
-            axis.vec3_scale(dotProd, projection);
-            rotationAlongAxis[0] = projection[0];
-            rotationAlongAxis[1] = projection[1];
-            rotationAlongAxis[2] = projection[2];
-            rotationAlongAxis[3] = this[3];
-            rotationAlongAxis.quat_normalize(rotationAlongAxis);
-            if (dotProd < 0) {
-                rotationAlongAxis[0] = -rotationAlongAxis[0];
-                rotationAlongAxis[1] = -rotationAlongAxis[1];
-                rotationAlongAxis[2] = -rotationAlongAxis[2];
-                rotationAlongAxis[3] = -rotationAlongAxis[3];
-            }
-
-            return out.quat_copy(rotationAlongAxis);
-        };
-    }();
-
-    arrayExtension.quat_getSwing = function () {
-        let twist = quat_create();
-        return function quat_getSwing(axis, out = quat_create()) {
-            this.quat_getTwist(axis, twist);
-            this.quat_getSwingFromTwist(twist, out);
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_getSwingFromTwist = function quat_getSwingFromTwist(twist, out = quat_create()) {
-        return this.quat_subRotationQuat(twist, out);
+    quatExtension.quat_addRotationQuat = function quat_addRotationQuat(rotation, out = quat_create()) {
+        return QuatUtils.addRotationQuat(this, ...arguments);
     };
 
-    arrayExtension.quat_getTwistFromSwing = function () {
-        let inverse = quat_create();
-        return function quat_getTwistFromSwing(swing, out = quat_create()) {
-            swing.quat_invert(inverse);
-            this.quat_addRotationQuat(inverse, out);
-            return out;
-        };
-    }();
-
-    arrayExtension.quat_fromTwistSwing = function quat_fromTwistSwing(twist, swing) {
-        return twist.quat_addRotationQuat(swing, this);
+    quatExtension.quat_subRotation = function quat_subRotation(rotation, out) {
+        return QuatUtils.subRotation(this, ...arguments);
     };
 
-    arrayExtension.quat_toMatrix = function quat_toMatrix(out = mat3_create()) {
-        glMatrix.mat3.fromQuat(out, this);
-        return out;
+    quatExtension.quat_subRotationDegrees = function quat_subRotationDegrees(rotation, out) {
+        return QuatUtils.subRotationDegrees(this, ...arguments);
     };
 
-    arrayExtension.quat_rotate = function quat_rotate(rotation, out) {
-        return this.quat_rotateDegrees(rotation, out);
+    quatExtension.quat_subRotationRadians = function quat_subRotationRadians(rotation, out) {
+        return QuatUtils.subRotationRadians(this, ...arguments);
     };
 
-    arrayExtension.quat_rotateDegrees = function quat_rotateDegrees(rotation, out) {
-        return this.quat_addRotationDegrees(rotation, out);
+    quatExtension.quat_subRotationQuat = function quat_subRotationQuat(rotation, out = quat_create()) {
+        return QuatUtils.subRotationQuat(this, ...arguments);
     };
 
-    arrayExtension.quat_rotateRadians = function quat_rotateRadians(rotation, out) {
-        return this.quat_addRotationRadians(rotation, out);
+    quatExtension.quat_rotationTo = function quat_rotationTo(rotation, out) {
+        return QuatUtils.rotationTo(this, ...arguments);
     };
 
-    arrayExtension.quat_rotateQuat = function quat_rotateQuat(rotation, out) {
-        return this.quat_addRotationQuat(rotation, out);
+    quatExtension.quat_rotationToDegrees = function quat_rotationToDegrees(rotation, out) {
+        return QuatUtils.rotationToDegrees(this, ...arguments);
     };
 
-    arrayExtension.quat_rotateAxis = function quat_rotateAxis(angle, axis, out) {
-        return this.quat_rotateAxisDegrees(angle, axis, out);
+    quatExtension.quat_rotationToRadians = function quat_rotationToRadians(rotation, out) {
+        return QuatUtils.rotationToRadians(this, ...arguments);
     };
 
-    arrayExtension.quat_rotateAxisDegrees = function () {
-        let rotationQuat = quat_create();
-        return function quat_rotateAxisDegrees(angle, axis, out) {
-            rotationQuat.quat_fromAxisDegrees(angle, axis);
-            return this.quat_rotateQuat(rotationQuat, out);
-        };
-    }();
-
-    arrayExtension.quat_rotateAxisRadians = function () {
-        let rotationQuat = quat_create();
-        return function quat_rotateAxisRadians(angle, axis, out) {
-            rotationQuat.quat_fromAxisRadians(angle, axis);
-            return this.quat_rotateQuat(rotationQuat, out);
-        };
-    }();
-
-    arrayExtension.quat_lerp = function quat_lerp(to, interpolationValue, out = quat_create()) {
-        if (interpolationValue <= 0) {
-            out.quat_copy(this);
-            return out;
-        } else if (interpolationValue >= 1) {
-            out.quat_copy(to);
-            return out;
-        }
-
-        glMatrix.quat.lerp(out, this, to, interpolationValue);
-        return out;
+    quatExtension.quat_rotationToQuat = function quat_rotationToQuat(rotation, out) {
+        return QuatUtils.rotationToQuat(this, ...arguments);
     };
 
-    arrayExtension.quat_interpolate = function quat_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat_create()) {
-        let lerpValue = easingFunction(interpolationValue);
-        return this.quat_lerp(to, lerpValue, out);
+    quatExtension.quat_getTwist = function quat_getTwist(axis, out = quat_create()) {
+        return QuatUtils.getTwist(this, ...arguments);
     };
 
-    arrayExtension.quat_slerp = function quat_slerp(to, interpolationValue, out = quat_create()) {
-        if (interpolationValue <= 0) {
-            out.quat_copy(this);
-            return out;
-        } else if (interpolationValue >= 1) {
-            out.quat_copy(to);
-            return out;
-        }
-
-        glMatrix.quat.slerp(out, this, to, interpolationValue);
-        return out;
+    quatExtension.quat_getSwing = function quat_getSwing(axis, out = quat_create()) {
+        return QuatUtils.getSwing(this, ...arguments);
     };
 
-    arrayExtension.quat_sinterpolate = function quat_sinterpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat_create()) {
-        let lerpValue = easingFunction(interpolationValue);
-        return this.quat_slerp(to, lerpValue, out);
+    quatExtension.quat_getSwingFromTwist = function quat_getSwingFromTwist(twist, out = quat_create()) {
+        return QuatUtils.getSwingFromTwist(this, ...arguments);
+    };
+
+    quatExtension.quat_getTwistFromSwing = function quat_getTwistFromSwing(swing, out = quat_create()) {
+        return QuatUtils.getTwistFromSwing(this, ...arguments);
+    };
+
+    quatExtension.quat_fromTwistSwing = function quat_fromTwistSwing(twist, swing) {
+        return QuatUtils.fromTwistSwing(twist, swing, this);
+    };
+
+    quatExtension.quat_toMatrix = function quat_toMatrix(out = mat3_create()) {
+        return QuatUtils.toMatrix(this, ...arguments);
+    };
+
+    quatExtension.quat_rotate = function quat_rotate(rotation, out) {
+        return QuatUtils.rotate(this, ...arguments);
+    };
+
+    quatExtension.quat_rotateDegrees = function quat_rotateDegrees(rotation, out) {
+        return QuatUtils.rotateDegrees(this, ...arguments);
+    };
+
+    quatExtension.quat_rotateRadians = function quat_rotateRadians(rotation, out) {
+        return QuatUtils.rotateRadians(this, ...arguments);
+    };
+
+    quatExtension.quat_rotateQuat = function quat_rotateQuat(rotation, out) {
+        return QuatUtils.rotateQuat(this, ...arguments);
+    };
+
+    quatExtension.quat_rotateAxis = function quat_rotateAxis(angle, axis, out) {
+        return QuatUtils.rotateAxis(this, ...arguments);
+    };
+
+    quatExtension.quat_rotateAxisDegrees = function quat_rotateAxisDegrees(angle, axis, out) {
+        return QuatUtils.rotateAxisDegrees(this, ...arguments);
+    };
+
+    quatExtension.quat_rotateAxisRadians = function quat_rotateAxisRadians(angle, axis, out) {
+        return QuatUtils.rotateAxisRadians(this, ...arguments);
+    };
+
+    quatExtension.quat_lerp = function quat_lerp(to, interpolationValue, out = quat_create()) {
+        return QuatUtils.lerp(this, ...arguments);
+    };
+
+    quatExtension.quat_interpolate = function quat_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat_create()) {
+        return QuatUtils.interpolate(this, ...arguments);
+    };
+
+    quatExtension.quat_slerp = function quat_slerp(to, interpolationValue, out = quat_create()) {
+        return QuatUtils.slerp(this, ...arguments);
+    };
+
+    quatExtension.quat_sinterpolate = function quat_sinterpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = quat_create()) {
+        return QuatUtils.sinterpolate(this, ...arguments);
     };
 
     // QUAT 2
@@ -1378,8 +1158,8 @@ export function initArrayExtensionProtoype() {
         return out;
     };
 
-    arrayExtension.quat2_copy = function quat2_copy(quat2) {
-        glMatrix.quat2.copy(this, quat2);
+    arrayExtension.quat2_copy = function quat2_copy(quaternion) {
+        glMatrix.quat2.copy(this, quaternion);
         return this;
     };
 
@@ -1499,8 +1279,8 @@ export function initArrayExtensionProtoype() {
         return glMatrix.quat2.squaredLength(this);
     };
 
-    arrayExtension.quat2_mul = function quat2_mul(quat2, out = quat2_create()) {
-        glMatrix.quat2.mul(out, this, quat2);
+    arrayExtension.quat2_mul = function quat2_mul(quaternion, out = quat2_create()) {
+        glMatrix.quat2.mul(out, this, quaternion);
         return out;
     };
 
@@ -1654,7 +1434,7 @@ export function initArrayExtensionProtoype() {
         return Mat3Utils.toQuat(this, ...arguments);
     };
     mat3Extension.mat3_fromAxes = function mat3_fromAxes(leftAxis, upAxis, forwardAxis) {
-        return Mat3Utils.fromAxes(this, ...arguments);
+        return Mat3Utils.fromAxes(leftAxis, upAxis, forwardAxis, this);
     };
 
     // MATRIX 4
@@ -1821,8 +1601,8 @@ export function initArrayExtensionProtoype() {
         return Mat4Utils.toQuat(this, ...arguments);
     };
 
-    mat4Extension.mat4_fromQuat = function mat4_fromQuat(quat) {
-        return Mat4Utils.fromQuat(quat, this);
+    mat4Extension.mat4_fromQuat = function mat4_fromQuat(quaternion) {
+        return Mat4Utils.fromQuat(quaternion, this);
     };
 
 
@@ -1840,6 +1620,8 @@ export function initArrayExtensionProtoype() {
         PluginUtils.injectProperties(vec3Extension, arrayPrototypeToExtend, false, true, true);
         PluginUtils.injectProperties(vec4Extension, arrayPrototypeToExtend, false, true, true);
 
+        PluginUtils.injectProperties(quatExtension, arrayPrototypeToExtend, false, true, true);
+
         PluginUtils.injectProperties(mat3Extension, arrayPrototypeToExtend, false, true, true);
         PluginUtils.injectProperties(mat4Extension, arrayPrototypeToExtend, false, true, true);
 
@@ -1849,162 +1631,8 @@ export function initArrayExtensionProtoype() {
 
 
 
-function _vec_buildConsoleMessage(vector, decimalPlaces) {
-    let message = "[";
-
-    for (let i = 0; i < vector.length; i++) {
-        if (i != 0) {
-            message = message.concat(", ");
-        }
-
-        if (decimalPlaces != null) {
-            message = message.concat(vector[i].toFixed(decimalPlaces));
-        } else {
-            message = message.concat(vector[i].toString());
-        }
-    }
-
-    message = message.concat("]");
-    return message;
-};
-
-function _vec_prepareOut(vector, out) {
-    if (out == null) {
-        out = vector.pp_clone();
-    } else if (out != vector) {
-        out.pp_copy(vector);
-    }
-
-    return out;
-};
-
-function _findAllEqualOptimized(array, elementToFind, getIndexes) {
-    // Adapted from: https:// stackoverflow.com/a/20798567
-
-    let elementsFound = [];
-    let index = -1;
-    while ((index = array.indexOf(elementToFind, index + 1)) >= 0) {
-        elementsFound.push(getIndexes ? index : array[index]);
-    }
-
-    return elementsFound;
-};
-
-let _quat_setAxes = function () {
-    let fixedAxes = [vec3_create(), vec3_create(), vec3_create()];
-
-    let fixedAxesFixSignMap = [
-        [1, -1, 1],
-        [1, 1, -1],
-        [-1, 1, -1]
-    ];
-
-    let fixedLeft = vec3_create();
-    let fixedUp = vec3_create();
-    let fixedForward = vec3_create();
-
-    let currentAxis = vec3_create();
-
-    let rotationAxis = vec3_create();
-    let rotationMat = mat3_create();
-    let rotationQuat = quat_create();
-    return function _quat_setAxes(vector, axes, priority) {
-        let firstAxis = axes[priority[0]];
-        let secondAxis = axes[priority[1]];
-        let thirdAxis = axes[priority[2]];
-
-        if (firstAxis == null || firstAxis.vec3_isZero(Math.PP_EPSILON)) {
-            return;
-        }
-
-        let secondAxisValid = false;
-        if (secondAxis != null) {
-            let angleBetween = firstAxis.vec3_angleRadians(secondAxis);
-            if (angleBetween > Math.PP_EPSILON) {
-                secondAxisValid = true;
-            }
-        }
-
-        let thirdAxisValid = false;
-        if (thirdAxis != null) {
-            let angleBetween = firstAxis.vec3_angleRadians(thirdAxis);
-            if (angleBetween > Math.PP_EPSILON) {
-                thirdAxisValid = true;
-            }
-        }
-
-        if (secondAxisValid || thirdAxisValid) {
-            let crossAxis = null;
-            let secondAxisIndex = null;
-            let thirdAxisIndex = null;
-            if (secondAxisValid) {
-                crossAxis = secondAxis;
-                secondAxisIndex = 1;
-                thirdAxisIndex = 2;
-            } else {
-                crossAxis = thirdAxis;
-                secondAxisIndex = 2;
-                thirdAxisIndex = 1;
-            }
-
-            let fixSignMap = fixedAxesFixSignMap[priority[0]];
-
-            firstAxis.vec3_cross(crossAxis, fixedAxes[thirdAxisIndex]);
-            fixedAxes[thirdAxisIndex].vec3_scale(fixSignMap[priority[thirdAxisIndex]], fixedAxes[thirdAxisIndex]);
-
-            firstAxis.vec3_cross(fixedAxes[thirdAxisIndex], fixedAxes[secondAxisIndex]);
-            fixedAxes[secondAxisIndex].vec3_scale(fixSignMap[priority[secondAxisIndex]], fixedAxes[secondAxisIndex]);
-
-            fixedAxes[1].vec3_cross(fixedAxes[2], fixedAxes[0]);
-            fixedAxes[0].vec3_scale(fixSignMap[priority[0]], fixedAxes[0]);
-
-            fixedAxes[priority.pp_findIndexEqual(0)].vec3_normalize(fixedLeft);
-            fixedAxes[priority.pp_findIndexEqual(1)].vec3_normalize(fixedUp);
-            fixedAxes[priority.pp_findIndexEqual(2)].vec3_normalize(fixedForward);
-
-            rotationMat.mat3_set(
-                fixedLeft[0], fixedLeft[1], fixedLeft[2],
-                fixedUp[0], fixedUp[1], fixedUp[2],
-                fixedForward[0], fixedForward[1], fixedForward[2]
-            );
-
-            rotationMat.mat3_toQuat(rotationQuat);
-            rotationQuat.quat_normalize(rotationQuat);
-
-            vector.quat_copy(rotationQuat);
-        } else {
-            if (priority[0] == 0) {
-                vector.quat_getLeft(currentAxis);
-            } else if (priority[0] == 1) {
-                vector.quat_getUp(currentAxis);
-            } else {
-                vector.quat_getForward(currentAxis);
-            }
-
-            let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
-            if (angleBetween > Math.PP_EPSILON) {
-                currentAxis.vec3_cross(firstAxis, rotationAxis);
-                rotationAxis.vec3_normalize(rotationAxis);
-                rotationQuat.quat_fromAxisRadians(angleBetween, rotationAxis);
-
-                vector.quat_rotateQuat(rotationQuat, vector);
-            }
-        }
-
-        return vector;
-    };
-}();
 
 
-
-function _quat_set(vector, x, y, z, w) {
-    if (y === undefined) {
-        glMatrix.quat.set(vector, x, x, x, x);
-    } else {
-        glMatrix.quat.set(vector, x, y, z, w);
-    }
-    return vector;
-};
 
 function _quat2_set(vector, x1, y1, z1, w1, x2, y2, z2, w2) {
     if (y1 === undefined) {

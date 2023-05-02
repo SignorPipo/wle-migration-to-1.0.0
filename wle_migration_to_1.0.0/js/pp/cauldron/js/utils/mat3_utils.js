@@ -1,5 +1,6 @@
 import { mat3, quat } from "gl-matrix";
 import { quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
+import { create as quat_utils_create } from "./quat_utils";
 
 // glMatrix Bridge
 
@@ -40,7 +41,7 @@ export function set(matrix,
 // New Functions
 
 export let toDegrees = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function toDegrees(matrix, out = vec3_create()) {
         toQuat(matrix, quat);
         quat.quat_toDegrees(out);
@@ -49,7 +50,7 @@ export let toDegrees = function () {
 }();
 
 export let toRadians = function () {
-    let quat = quat_create();
+    let quat = quat_utils_create();
     return function toRadians(matrix, out = vec3_create()) {
         toQuat(matrix, quat);
         quat.quat_toRadians(out);
@@ -62,12 +63,12 @@ export function toQuat(matrix, out = quat_create()) {
     return out;
 }
 
-export function fromAxes(matrix, leftAxis, upAxis, forwardAxis) {
-    set(matrix,
+export function fromAxes(leftAxis, upAxis, forwardAxis, out = create()) {
+    set(out,
         leftAxis[0], leftAxis[1], leftAxis[2],
         upAxis[0], upAxis[1], upAxis[2],
         forwardAxis[0], forwardAxis[1], forwardAxis[2]);
-    return matrix;
+    return out;
 }
 
 export let Mat3Utils = {
