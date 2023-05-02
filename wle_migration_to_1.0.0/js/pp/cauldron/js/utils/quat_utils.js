@@ -15,18 +15,18 @@ export function create(x, y, z, w) {
     return out;
 }
 
-export function set(quaternion, x, y, z, w) {
+export function set(quat, x, y, z, w) {
     if (y === undefined) {
-        gl_quat.set(quaternion, x, x, x, x);
+        gl_quat.set(quat, x, x, x, x);
     } else {
-        gl_quat.set(quaternion, x, y, z, w);
+        gl_quat.set(quat, x, y, z, w);
     }
 
-    return quaternion;
+    return quat;
 }
 
-export function normalize(quaternion, out = create()) {
-    gl_quat.normalize(out, quaternion);
+export function normalize(quat, out = create()) {
+    gl_quat.normalize(out, quat);
     return out;
 }
 
@@ -35,31 +35,31 @@ export function copy(from, to) {
     return to;
 }
 
-export function clone(quaternion, out = create()) {
-    copy(quaternion, out);
+export function clone(quat, out = create()) {
+    copy(quat, out);
     return out;
 }
 
-export function identity(quaternion) {
-    gl_quat.identity(quaternion);
-    return quaternion;
+export function identity(quat) {
+    gl_quat.identity(quat);
+    return quat;
 }
 
-export function length(quaternion) {
-    return gl_quat.length(quaternion);
+export function length(quat) {
+    return gl_quat.length(quat);
 }
 
-export function lengthSquared(quaternion) {
-    return gl_quat.squaredLength(quaternion);
+export function lengthSquared(quat) {
+    return gl_quat.squaredLength(quat);
 }
 
-export function invert(quaternion, out = create()) {
-    gl_quat.invert(out, quaternion);
+export function invert(quat, out = create()) {
+    gl_quat.invert(out, quat);
     return out;
 }
 
-export function conjugate(quaternion, out = create()) {
-    gl_quat.conjugate(out, quaternion);
+export function conjugate(quat, out = create()) {
+    gl_quat.conjugate(out, quat);
     return out;
 }
 
@@ -70,8 +70,8 @@ export function mul(first, second, out = create()) {
 
 export let getAxis = function () {
     let zero = vec3_utils_create(0, 0, 0);
-    return function getAxis(quaternion, out = vec3_create()) {
-        let angle = gl_quat.getAxisAngle(out, quaternion);
+    return function getAxis(quat, out = vec3_create()) {
+        let angle = gl_quat.getAxisAngle(out, quat);
         if (angle <= Math.PP_EPSILON) {
             out.vec3_copy(zero);
         }
@@ -79,40 +79,40 @@ export let getAxis = function () {
     };
 }();
 
-export function getAngle(quaternion) {
-    return getAngleDegrees(quaternion);
+export function getAngle(quat) {
+    return getAngleDegrees(quat);
 }
 
 
-export function getAngleDegrees(quaternion) {
-    let angle = getAngleRadians(quaternion);
+export function getAngleDegrees(quat) {
+    let angle = getAngleRadians(quat);
     return Math.pp_toDegrees(angle);
 }
 
 export let getAngleRadians = function () {
     let vector = vec3_utils_create();
-    return function getAngleRadians(quaternion) {
-        let angle = gl_quat.getAxisAngle(vector, quaternion);
+    return function getAngleRadians(quat) {
+        let angle = gl_quat.getAxisAngle(vector, quat);
         return angle;
     };
 }();
 
-export function getAxisScaled(quaternion, out = vec3_create()) {
-    return getAxisScaledDegrees(quaternion, out);
+export function getAxisScaled(quat, out = vec3_create()) {
+    return getAxisScaledDegrees(quat, out);
 }
 
-export function getAxisScaledDegrees(quaternion, out = vec3_create()) {
-    getAxis(quaternion, out);
-    let angle = getAngleDegrees(quaternion);
+export function getAxisScaledDegrees(quat, out = vec3_create()) {
+    getAxis(quat, out);
+    let angle = getAngleDegrees(quat);
     out.vec3_scale(angle, out);
     return out;
 }
 
 export let getAxisScaledRadians = function () {
     let zero = vec3_utils_create(0, 0, 0);
-    return function getAxisScaledRadians(quaternion, out = vec3_create()) {
-        getAxis(quaternion, out);
-        let angle = getAngleRadians(quaternion);
+    return function getAxisScaledRadians(quat, out = vec3_create()) {
+        getAxis(quat, out);
+        let angle = getAngleRadians(quat);
         if (angle <= Math.PP_EPSILON) {
             out.vec3_copy(zero);
         } else {
@@ -122,17 +122,17 @@ export let getAxisScaledRadians = function () {
     };
 }();
 
-export function getAxes(quaternion, out = [vec3_create(), vec3_create(), vec3_create()]) {
-    getLeft(quaternion, out[0]);
-    getUp(quaternion, out[1]);
-    getForward(quaternion, out[2]);
+export function getAxes(quat, out = [vec3_create(), vec3_create(), vec3_create()]) {
+    getLeft(quat, out[0]);
+    getUp(quat, out[1]);
+    getForward(quat, out[2]);
     return out;
 }
 
 export let getForward = function () {
     let rotationMatrix = mat3_utils_create();
-    return function getForward(quaternion, out = vec3_create()) {
-        toMatrix(quaternion, rotationMatrix);
+    return function getForward(quat, out = vec3_create()) {
+        toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
         out.vec3_normalize(out);
@@ -141,16 +141,16 @@ export let getForward = function () {
     };
 }();
 
-export function getBackward(quaternion, out) {
-    out = getForward(quaternion, out);
+export function getBackward(quat, out) {
+    out = getForward(quat, out);
     out.vec3_negate(out);
     return out;
 }
 
 export let getLeft = function () {
     let rotationMatrix = mat3_utils_create();
-    return function getLeft(quaternion, out = vec3_create()) {
-        toMatrix(quaternion, rotationMatrix);
+    return function getLeft(quat, out = vec3_create()) {
+        toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
         out.vec3_normalize(out);
@@ -159,16 +159,16 @@ export let getLeft = function () {
     };
 }();
 
-export function getRight(quaternion, out) {
-    out = getLeft(quaternion, out);
+export function getRight(quat, out) {
+    out = getLeft(quat, out);
     out.vec3_negate(out);
     return out;
 }
 
 export let getUp = function () {
     let rotationMatrix = mat3_utils_create();
-    return function getUp(quaternion, out = vec3_create()) {
-        toMatrix(quaternion, rotationMatrix);
+    return function getUp(quat, out = vec3_create()) {
+        toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
         out.vec3_normalize(out);
@@ -177,68 +177,68 @@ export let getUp = function () {
     };
 }();
 
-export function getDown(quaternion, out) {
-    out = getUp(quaternion, out);
+export function getDown(quat, out) {
+    out = getUp(quat, out);
     out.vec3_negate(out);
     return out;
 }
 
-export function setAxes(quaternion, left, up, forward) {
+export function setAxes(quat, left, up, forward) {
     if (forward != null) {
-        return setForward(quaternion, forward, up, left);
+        return setForward(quat, forward, up, left);
     } else if (up != null) {
-        return setUp(quaternion, up, forward, left);
+        return setUp(quat, up, forward, left);
     } else {
-        return setLeft(quaternion, left, up, forward);
+        return setLeft(quat, left, up, forward);
     }
 }
 
-export function setForward(quaternion, forward, up = null, left = null) {
-    return _setAxes(quaternion, [left, up, forward], [2, 1, 0]);
+export function setForward(quat, forward, up = null, left = null) {
+    return _setAxes(quat, [left, up, forward], [2, 1, 0]);
 }
 
 export let setBackward = function () {
     let forward = vec3_utils_create();
-    return function setBackward(quaternion, backward, up = null, left = null) {
+    return function setBackward(quat, backward, up = null, left = null) {
         backward.vec3_negate(forward);
-        return _setAxes(quaternion, [left, up, forward], [2, 1, 0]);
+        return _setAxes(quat, [left, up, forward], [2, 1, 0]);
     };
 }();
 
-export function setUp(quaternion, up, forward = null, left = null) {
-    return _setAxes(quaternion, [left, up, forward], [1, 2, 0]);
+export function setUp(quat, up, forward = null, left = null) {
+    return _setAxes(quat, [left, up, forward], [1, 2, 0]);
 }
 
 export let setDown = function () {
     let up = vec3_utils_create();
-    return function setDown(quaternion, down, forward = null, left = null) {
+    return function setDown(quat, down, forward = null, left = null) {
         down.vec3_negate(up);
-        return _setAxes(quaternion, [left, up, forward], [1, 2, 0]);
+        return _setAxes(quat, [left, up, forward], [1, 2, 0]);
     };
 }();
 
-export function setLeft(quaternion, left, up = null, forward = null) {
-    return _setAxes(quaternion, [left, up, forward], [0, 1, 2]);
+export function setLeft(quat, left, up = null, forward = null) {
+    return _setAxes(quat, [left, up, forward], [0, 1, 2]);
 }
 
 export let setRight = function () {
     let left = vec3_utils_create();
-    return function setRight(quaternion, right, up = null, forward = null) {
+    return function setRight(quat, right, up = null, forward = null) {
         right.vec3_negate(left);
-        return _setAxes(quaternion, [left, up, forward], [0, 1, 2]);
+        return _setAxes(quat, [left, up, forward], [0, 1, 2]);
     };
 }();
 
-export function toWorld(quaternion, parentQuat, out = create()) {
-    mul(parentQuat, quaternion, out);
+export function toWorld(quat, parentQuat, out = create()) {
+    mul(parentQuat, quat, out);
     return out;
 }
 
 export let toLocal = function () {
     let invertQuat = create();
-    return function toLocal(quaternion, parentQuat, out = create()) {
+    return function toLocal(quat, parentQuat, out = create()) {
         conjugate(parentQuat, invertQuat);
-        mul(invertQuat, quaternion, out);
+        mul(invertQuat, quat, out);
         return out;
     };
 }();
@@ -282,8 +282,8 @@ export function fromDegrees(degreesRotation, out = create()) {
 
 export let toRadians = function () {
     let mat3 = mat3_utils_create();
-    return function toRadians(quaternion, out = vec3_create()) {
-        toMatrix(quaternion, mat3);
+    return function toRadians(quat, out = vec3_create()) {
+        toMatrix(quat, mat3);
 
         // Rotation order is ZYX 
         out[1] = Math.asin(-Math.pp_clamp(mat3[2], -1, 1));
@@ -300,14 +300,14 @@ export let toRadians = function () {
     };
 }();
 
-export function toDegrees(quaternion, out = vec3_create()) {
-    toRadians(quaternion, out);
+export function toDegrees(quat, out = vec3_create()) {
+    toRadians(quat, out);
     out.vec3_toDegrees(out);
     return out;
 }
 
-export function isNormalized(quaternion, epsilon = Math.PP_EPSILON) {
-    return Math.abs(lengthSquared(quaternion) - 1) < epsilon;
+export function isNormalized(quat, epsilon = Math.PP_EPSILON) {
+    return Math.abs(lengthSquared(quat) - 1) < epsilon;
 }
 
 export function addRotation(first, second, out) {
@@ -362,7 +362,7 @@ export let subRotationQuat = function () {
         mul(first, inverse, out);
 
         if (isNormalized(first) && isNormalized(second)) {
-            // I would normally not normalize quaternion results since you may want the untouched sub
+            // I would normally not normalize quat results since you may want the untouched sub
             // But for normalized params it should be normalized
             // It seems though that for some small error the quat will not be exactly normalized, so I fix it
             normalize(out, out);
@@ -400,17 +400,17 @@ export let getTwist = function () {
     let rotationAxis = vec3_utils_create();
     let projection = vec3_utils_create();
     let rotationAlongAxis = create();
-    return function getTwist(quaternion, axis, out = create()) {
-        rotationAxis[0] = quaternion[0];
-        rotationAxis[1] = quaternion[1];
-        rotationAxis[2] = quaternion[2];
+    return function getTwist(quat, axis, out = create()) {
+        rotationAxis[0] = quat[0];
+        rotationAxis[1] = quat[1];
+        rotationAxis[2] = quat[2];
 
         let dotProd = axis.vec3_dot(rotationAxis);
         axis.vec3_scale(dotProd, projection);
         rotationAlongAxis[0] = projection[0];
         rotationAlongAxis[1] = projection[1];
         rotationAlongAxis[2] = projection[2];
-        rotationAlongAxis[3] = quaternion[3];
+        rotationAlongAxis[3] = quat[3];
         normalize(rotationAlongAxis, rotationAlongAxis);
         if (dotProd < 0) {
             rotationAlongAxis[0] = -rotationAlongAxis[0];
@@ -425,22 +425,22 @@ export let getTwist = function () {
 
 export let getSwing = function () {
     let twist = create();
-    return function getSwing(quaternion, axis, out = create()) {
-        getTwist(quaternion, axis, twist);
-        getSwingFromTwist(quaternion, twist, out);
+    return function getSwing(quat, axis, out = create()) {
+        getTwist(quat, axis, twist);
+        getSwingFromTwist(quat, twist, out);
         return out;
     };
 }();
 
-export function getSwingFromTwist(quaternion, twist, out = create()) {
-    return subRotationQuat(quaternion, twist, out);
+export function getSwingFromTwist(quat, twist, out = create()) {
+    return subRotationQuat(quat, twist, out);
 }
 
 export let getTwistFromSwing = function () {
     let inverse = create();
-    return function getTwistFromSwing(quaternion, swing, out = create()) {
+    return function getTwistFromSwing(quat, swing, out = create()) {
         invert(swing, inverse);
-        addRotationQuat(quaternion, inverse, out);
+        addRotationQuat(quat, inverse, out);
         return out;
     };
 }();
@@ -449,8 +449,8 @@ export function fromTwistSwing(twist, swing, out = create()) {
     return addRotationQuat(twist, swing, out);
 }
 
-export function toMatrix(quaternion, out = mat3_create()) {
-    gl_mat3.fromQuat(out, quaternion);
+export function toMatrix(quat, out = mat3_create()) {
+    gl_mat3.fromQuat(out, quat);
     return out;
 }
 
@@ -470,23 +470,23 @@ export function rotateQuat(first, second, out) {
     return addRotationQuat(first, second, out);
 }
 
-export function rotateAxis(quaternion, angle, axis, out) {
-    return rotateAxisDegrees(quaternion, angle, axis, out);
+export function rotateAxis(quat, angle, axis, out) {
+    return rotateAxisDegrees(quat, angle, axis, out);
 }
 
 export let rotateAxisDegrees = function () {
     let secondQuat = create();
-    return function rotateAxisDegrees(quaternion, angle, axis, out) {
+    return function rotateAxisDegrees(quat, angle, axis, out) {
         fromAxisDegrees(angle, axis, secondQuat);
-        return rotateQuat(quaternion, secondQuat, out);
+        return rotateQuat(quat, secondQuat, out);
     };
 }();
 
 export let rotateAxisRadians = function () {
     let secondQuat = create();
-    return function rotateAxisRadians(quaternion, angle, axis, out) {
+    return function rotateAxisRadians(quat, angle, axis, out) {
         fromAxisRadians(angle, axis, secondQuat);
-        return rotateQuat(quaternion, secondQuat, out);
+        return rotateQuat(quat, secondQuat, out);
     };
 }();
 
@@ -621,7 +621,7 @@ let _setAxes = function () {
     let rotationAxis = vec3_utils_create();
     let rotationMat = mat3_utils_create();
     let rotationQuat = create();
-    return function _setAxes(quaternion, axes, priority) {
+    return function _setAxes(quat, axes, priority) {
         let firstAxis = axes[priority[0]];
         let secondAxis = axes[priority[1]];
         let thirdAxis = axes[priority[2]];
@@ -684,14 +684,14 @@ let _setAxes = function () {
             rotationMat.mat3_toQuat(rotationQuat);
             normalize(rotationQuat, rotationQuat);
 
-            copy(rotationQuat, quaternion);
+            copy(rotationQuat, quat);
         } else {
             if (priority[0] == 0) {
-                getLeft(quaternion, currentAxis);
+                getLeft(quat, currentAxis);
             } else if (priority[0] == 1) {
-                getUp(quaternion, currentAxis);
+                getUp(quat, currentAxis);
             } else {
-                getForward(quaternion, currentAxis);
+                getForward(quat, currentAxis);
             }
 
             let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
@@ -700,10 +700,10 @@ let _setAxes = function () {
                 rotationAxis.vec3_normalize(rotationAxis);
                 fromAxisRadians(angleBetween, rotationAxis, rotationQuat);
 
-                rotateQuat(quaternion, rotationQuat, quaternion);
+                rotateQuat(quat, rotationQuat, quat);
             }
         }
 
-        return quaternion;
+        return quat;
     };
 }();
