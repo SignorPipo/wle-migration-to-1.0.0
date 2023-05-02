@@ -269,36 +269,36 @@ export function doesObjectPropertyUseAccessors(object, propertyName) {
 }
 
 export function isFunctionByName(functionParent, functionName) {
-    let isFunction = false;
+    let isFunctionResult = false;
 
     let functionProperty = getObjectProperty(functionParent, functionName);
     if (functionProperty != null) {
-        isFunction = isFunction(functionProperty) && !isClassByName(functionParent, functionName);
+        isFunctionResult = isFunction(functionProperty) && !isClassByName(functionParent, functionName);
     }
 
-    return isFunction;
+    return isFunctionResult;
 }
 
 export function isClassByName(classParent, className) {
-    let isClass = false;
+    let isClassResult = false;
 
     let classProperty = getObjectProperty(classParent, className);
     if (classProperty != null) {
-        isClass = isClass(classProperty) && className != "constructor";
+        isClassResult = isClass(classProperty) && className != "constructor";
     }
 
-    return isClass;
+    return isClassResult;
 }
 
 export function isObjectByName(objectParent, objectName) {
-    let isObject = false;
+    let isObjectResult = false;
 
     let objectProperty = getObjectProperty(objectParent, objectName);
     if (objectProperty != null) {
-        isObject = typeof objectProperty == "object";
+        isObjectResult = isObject(objectProperty);
     }
 
-    return isObject;
+    return isObjectResult;
 }
 
 export function isFunction(property) {
@@ -309,6 +309,10 @@ export function isClass(property) {
     return typeof property == "function" &&
         property.prototype != null && typeof property.prototype.constructor == "function" &&
         property.toString != null && typeof property.toString == "function" && (/^class/).test(property.toString());
+}
+
+export function isObject(property) {
+    return typeof property == "object";
 }
 
 export let JSUtils = {
@@ -331,6 +335,7 @@ export let JSUtils = {
     isObjectByName,
     isFunction,
     isClass,
+    isObject
 };
 
 

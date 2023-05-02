@@ -1,8 +1,8 @@
 
 import { mat4 } from "gl-matrix";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { Vec3Utils } from "./vec3_utils";
 import { MathUtils } from "./math_utils";
+import { set as vec3_utils_set } from "./vec3_utils";
 
 // glMatrix Bridge
 
@@ -106,7 +106,7 @@ export let getRotationQuat = function () {
     let transformMatrixNoScale = create();
     let inverseScale = vec3_create();
     let one = vec3_create();
-    Vec3Utils.set(one, 1, 1, 1);
+    vec3_utils_set(one, 1, 1, 1);
     return function getRotationQuat(matrix, out = quat_create()) {
         getScale(matrix, tempScale);
         one.vec3_div(tempScale, inverseScale);
@@ -275,7 +275,7 @@ export let toWorld = function () {
     let tempScale = vec3_create();
     let inverseScale = vec3_create();
     let one = vec3_create();
-    Vec3Utils.set(one, 1, 1, 1);
+    vec3_utils_set(one, 1, 1, 1);
     return function toWorld(matrix, parentTransformMatrix, out = create()) {
         if (hasUniformScale(parentTransformMatrix)) {
             mul(parentTransformMatrix, matrix, out);
@@ -305,7 +305,7 @@ export let toLocal = function () {
     let tempScale = vec3_create();
     let inverseScale = vec3_create();
     let one = vec3_create();
-    Vec3Utils.set(one, 1, 1, 1);
+    vec3_utils_set(one, 1, 1, 1);
     return function toLocal(matrix, parentTransformMatrix, out = create()) {
         if (hasUniformScale(parentTransformMatrix)) {
             invert(parentTransformMatrix, convertTransform);
