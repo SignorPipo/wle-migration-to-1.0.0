@@ -165,6 +165,7 @@
 
 import * as glMatrix from "gl-matrix";
 import { PluginUtils } from "../../utils/plugin_utils";
+import { ArrayUtils } from "../../../cauldron/js/utils/array_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -362,288 +363,102 @@ export function initArrayExtensionProtoype() {
 
     // New Functions
 
-    arrayExtension.pp_first = function pp_first() {
-        return this.length > 0 ? this[0] : undefined;
+    let ppExtension = {};
+
+    ppExtension.pp_first = function pp_first() {
+        return ArrayUtils.first(this, ...arguments);
     };
 
-    arrayExtension.pp_last = function pp_last() {
-        return this.length > 0 ? this[this.length - 1] : undefined;
+    ppExtension.pp_last = function pp_last() {
+        return ArrayUtils.last(this, ...arguments);
     };
 
-    arrayExtension.pp_has = function pp_has(callback) {
-        return this.pp_find(callback) != undefined;
+    ppExtension.pp_has = function pp_has(callback) {
+        return ArrayUtils.has(this, ...arguments);
     };
 
-    arrayExtension.pp_hasEqual = function pp_hasEqual(elementToFind, elementsEqualCallback = null) {
-        return this.pp_findEqual(elementToFind, elementsEqualCallback) != undefined;
+    ppExtension.pp_hasEqual = function pp_hasEqual(elementToFind, elementsEqualCallback = null) {
+        return ArrayUtils.hasEqual(this, ...arguments);
     };
 
-    arrayExtension.pp_find = function pp_find(callback) {
-        let elementFound = undefined;
-
-        let index = this.findIndex(callback);
-        if (index >= 0) {
-            elementFound = this[index];
-        }
-
-        return elementFound;
+    ppExtension.pp_find = function pp_find(callback) {
+        return ArrayUtils.find(this, ...arguments);
     };
 
-    arrayExtension.pp_findIndex = function pp_findIndex(callback) {
-        return this.findIndex(callback);
+    ppExtension.pp_findIndex = function pp_findIndex(callback) {
+        return ArrayUtils.findIndex(this, ...arguments);
     };
 
-    arrayExtension.pp_findAll = function pp_findAll(callback) {
-        let elementsFound = this.filter(callback);
-
-        return elementsFound;
+    ppExtension.pp_findAll = function pp_findAll(callback) {
+        return ArrayUtils.findAll(this, ...arguments);
     };
 
-    arrayExtension.pp_findAllIndexes = function pp_findAllIndexes(callback) {
-        let indexes = [];
-        for (let i = 0; i < this.length; i++) {
-            let element = this[i];
-            if (callback(element)) {
-                indexes.push(i);
-            }
-        }
-        return indexes;
+    ppExtension.pp_findAllIndexes = function pp_findAllIndexes(callback) {
+        return ArrayUtils.findAllIndexes(this, ...arguments);
     };
 
-    arrayExtension.pp_findEqual = function pp_findEqual(elementToFind, elementsEqualCallback = null) {
-        if (elementsEqualCallback == null) {
-            let index = this.pp_findIndexEqual(elementToFind);
-            return index < 0 ? undefined : this[index];
-        }
-
-        let elementFound = undefined
-        for (let i = 0; i < this.length; i++) {
-            let currentElement = this[i];
-            if (elementsEqualCallback(currentElement, elementToFind)) {
-                elementFound = currentElement;
-                break;
-            }
-        }
-        return elementFound;
+    ppExtension.pp_findEqual = function pp_findEqual(elementToFind, elementsEqualCallback = null) {
+        return ArrayUtils.findEqual(this, ...arguments);
     };
 
-    arrayExtension.pp_findAllEqual = function pp_findAllEqual(elementToFind, elementsEqualCallback = null) {
-        if (elementsEqualCallback == null) {
-            return _findAllEqualOptimized(this, elementToFind, false);
-        }
-
-        let elementsFound = [];
-        for (let i = 0; i < this.length; i++) {
-            let currentElement = this[i];
-            if (elementsEqualCallback(currentElement, elementToFind)) {
-                elementsFound.push(currentElement);
-            }
-        }
-        return elementsFound;
+    ppExtension.pp_findAllEqual = function pp_findAllEqual(elementToFind, elementsEqualCallback = null) {
+        return ArrayUtils.findAllEqual(this, ...arguments);
     };
 
-    arrayExtension.pp_findIndexEqual = function pp_findIndexEqual(elementToFind, elementsEqualCallback = null) {
-        if (elementsEqualCallback == null) {
-            return this.indexOf(elementToFind);
-        }
-
-        let indexFound = -1;
-        for (let i = 0; i < this.length; i++) {
-            let currentElement = this[i];
-            if (elementsEqualCallback(currentElement, elementToFind)) {
-                indexFound = i;
-                break;
-            }
-        }
-        return indexFound;
+    ppExtension.pp_findIndexEqual = function pp_findIndexEqual(elementToFind, elementsEqualCallback = null) {
+        return ArrayUtils.findIndexEqual(this, ...arguments);
     };
 
-    arrayExtension.pp_findAllIndexesEqual = function pp_findAllIndexesEqual(elementToFind, elementsEqualCallback = null) {
-        if (elementsEqualCallback == null) {
-            return _findAllEqualOptimized(this, elementToFind, true);
-        }
-
-        let indexesFound = [];
-        for (let i = 0; i < this.length; i++) {
-            let currentElement = this[i];
-            if (elementsEqualCallback(currentElement, elementToFind)) {
-                indexesFound.push(i);
-            }
-        }
-        return indexesFound;
+    ppExtension.pp_findAllIndexesEqual = function pp_findAllIndexesEqual(elementToFind, elementsEqualCallback = null) {
+        return ArrayUtils.findAllIndexesEqual(this, ...arguments);
     };
 
-    arrayExtension.pp_removeIndex = function pp_removeIndex(index) {
-        let elementRemoved = undefined;
-
-        if (index >= 0 && index < this.length) {
-            let arrayRemoved = this.splice(index, 1);
-            if (arrayRemoved.length == 1) {
-                elementRemoved = arrayRemoved[0];
-            }
-        }
-
-        return elementRemoved;
+    ppExtension.pp_removeIndex = function pp_removeIndex(index) {
+        return ArrayUtils.removeIndex(this, ...arguments);
     };
 
-    arrayExtension.pp_removeAllIndexes = function pp_removeAllIndexes(indexes) {
-        let elementsRemoved = [];
-
-        for (let index of indexes) {
-            let elementRemoved = this.pp_removeIndex(index);
-            if (elementRemoved !== undefined) {
-                elementsRemoved.push(elementRemoved);
-            }
-        }
-
-        return elementsRemoved;
+    ppExtension.pp_removeAllIndexes = function pp_removeAllIndexes(indexes) {
+        return ArrayUtils.removeAllIndexes(this, ...arguments);
     };
 
-    arrayExtension.pp_remove = function pp_remove(callback) {
-        let elementRemoved = undefined;
-
-        let index = this.findIndex(callback);
-        if (index >= 0) {
-            elementRemoved = this.pp_removeIndex(index);
-        }
-
-        return elementRemoved;
+    ppExtension.pp_remove = function pp_remove(callback) {
+        return ArrayUtils.remove(this, ...arguments);
     };
 
-    arrayExtension.pp_removeAll = function pp_removeAll(callback) {
-        let elementsRemoved = [];
-
-        let currentElement = undefined;
-        do {
-            currentElement = this.pp_remove(callback);
-            if (currentElement !== undefined) {
-                elementsRemoved.push(currentElement);
-            }
-        } while (currentElement !== undefined);
-
-        return elementsRemoved;
+    ppExtension.pp_removeAll = function pp_removeAll(callback) {
+        return ArrayUtils.removeAll(this, ...arguments);
     };
 
-    arrayExtension.pp_removeEqual = function pp_removeEqual(elementToRemove, elementsEqualCallback = null) {
-        return this.pp_removeIndex(this.pp_findIndexEqual(elementToRemove, elementsEqualCallback));
+    ppExtension.pp_removeEqual = function pp_removeEqual(elementToRemove, elementsEqualCallback = null) {
+        return ArrayUtils.removeEqual(this, ...arguments);
     };
 
-    arrayExtension.pp_removeAllEqual = function pp_removeAllEqual(elementToRemove, elementsEqualCallback = null) {
-        return this.pp_removeAllIndexes(this.pp_findAllIndexesEqual(elementToRemove, elementsEqualCallback));
+    ppExtension.pp_removeAllEqual = function pp_removeAllEqual(elementToRemove, elementsEqualCallback = null) {
+        return ArrayUtils.removeAllEqual(this, ...arguments);
     };
 
-    arrayExtension.pp_pushUnique = function pp_pushUnique(element, elementsEqualCallback = null) {
-        let length = this.length;
-
-        let hasElement = this.pp_hasEqual(element, elementsEqualCallback);
-
-        if (!hasElement) {
-            length = this.push(element);
-        }
-
-        return length;
+    ppExtension.pp_pushUnique = function pp_pushUnique(element, elementsEqualCallback = null) {
+        return ArrayUtils.pushUnique(this, ...arguments);
     };
 
-    arrayExtension.pp_unshiftUnique = function pp_unshiftUnique(element, elementsEqualCallback = null) {
-        let length = this.length;
-
-        let hasElement = this.pp_hasEqual(element, elementsEqualCallback);
-
-        if (!hasElement) {
-            length = this.unshift(element);
-        }
-
-        return length;
+    ppExtension.pp_unshiftUnique = function pp_unshiftUnique(element, elementsEqualCallback = null) {
+        return ArrayUtils.unshiftUnique(this, ...arguments);
     };
 
-    arrayExtension.pp_copy = function pp_copy(array, copyCallback = null) {
-        while (this.length > array.length) {
-            this.pop();
-        }
-
-        for (let i = 0; i < array.length; i++) {
-            if (copyCallback == null) {
-                this[i] = array[i];
-            } else {
-                this[i] = copyCallback(this[i], array[i]);
-            }
-        }
-
-        return this;
+    ppExtension.pp_copy = function pp_copy(array, copyCallback = null) {
+        return ArrayUtils.copy(this, ...arguments);
     };
 
-    arrayExtension.pp_clone = function pp_clone(cloneCallback = null) {
-        if (cloneCallback == null) {
-            return this.slice(0);
-        }
-
-        let clone = null;
-        switch (this.constructor.name) {
-            case "Array":
-                clone = new Array(this.length);
-                break;
-            case "Uint8ClampedArray":
-                clone = new Uint8ClampedArray(this.length);
-                break;
-            case "Uint8Array":
-                clone = new Uint8Array(this.length);
-                break;
-            case "Uint16Array":
-                clone = new Uint16Array(this.length);
-                break;
-            case "Uint32Array":
-                clone = new Uint32Array(this.length);
-                break;
-            case "Int8Array":
-                clone = new Int8Array(this.length);
-                break;
-            case "Int16Array":
-                clone = new Int16Array(this.length);
-                break;
-            case "Int32Array":
-                clone = new Int32Array(this.length);
-                break;
-            case "Float32Array":
-                clone = new Float32Array(this.length);
-                break;
-            case "Float64Array":
-                clone = new Float64Array(this.length);
-                break;
-            default:
-                clone = new Array(this.length);
-                console.error("Cloned array type not supported!");
-                break;
-        }
-
-        for (let i = 0; i < this.length; i++) {
-            clone[i] = cloneCallback(this[i]);
-        }
-
-        return clone;
+    ppExtension.pp_clone = function pp_clone(cloneCallback = null) {
+        return ArrayUtils.clone(this, ...arguments);
     };
 
-    arrayExtension.pp_equals = function pp_equals(array, elementsEqualCallback = null) {
-        let equals = true;
-
-        if (array != null && this.length == array.length) {
-            for (let i = 0; i < this.length; i++) {
-                if ((elementsEqualCallback != null && !elementsEqualCallback(this[i], array[i])) ||
-                    (elementsEqualCallback == null && this[i] != array[i])) {
-                    equals = false;
-                    break;
-                }
-            }
-        } else {
-            equals = false;
-        }
-
-        return equals;
+    ppExtension.pp_equals = function pp_equals(array, elementsEqualCallback = null) {
+        return ArrayUtils.equals(this, ...arguments);
     };
 
-    arrayExtension.pp_clear = function pp_clear() {
-        this.length = 0;
-
-        return this;
+    ppExtension.pp_clear = function pp_clear() {
+        return ArrayUtils.clear(this, ...arguments);
     };
 
     // GENERIC VECTOR
@@ -2647,6 +2462,7 @@ export function initArrayExtensionProtoype() {
         Int16Array.prototype, Int32Array.prototype, Float32Array.prototype, Float64Array.prototype];
 
     for (let arrayPrototypeToExtend of arrayPrototypesToExtend) {
+        PluginUtils.injectProperties(ppExtension, arrayPrototypeToExtend, false, true, true);
         PluginUtils.injectProperties(arrayExtension, arrayPrototypeToExtend, false, true, true);
     }
 }
