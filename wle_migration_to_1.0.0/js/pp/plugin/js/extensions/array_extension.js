@@ -45,12 +45,10 @@
             - quat_create
 
             - quat2_create
-            - quat2_fromPositionRotation
 
             - mat3_create
 
             - mat4_create
-            - mat4_fromPositionRotation     / mat4_fromPositionRotationScale
 
         ARRAY:
             - pp_first      / pp_last
@@ -168,6 +166,7 @@ import { PluginUtils } from "../../utils/plugin_utils";
 import { ArrayUtils } from "../../../cauldron/js/utils/array_utils";
 import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
 import { Vec4Utils } from "../../../cauldron/js/utils/vec4_utils";
+import { Mat3Utils } from "../../../cauldron/js/utils/mat3_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -238,72 +237,6 @@ export function mat4_create(
             m20, m21, m22, m23,
             m30, m31, m32, m33);
     }
-    return out;
-};
-
-export function quat2_fromPositionRotation(position, rotation) {
-    return quat2_fromPositionRotationDegrees(position, rotation);
-};
-
-export function quat2_fromPositionRotationDegrees(position, rotation) {
-    let out = quat2_create();
-    out.quat2_setPositionRotationDegrees(position, rotation);
-    return out;
-};
-
-export function quat2_fromPositionRotationRadians(position, rotation) {
-    let out = quat2_create();
-    out.quat2_setPositionRotationRadians(position, rotation);
-    return out;
-};
-
-export function quat2_fromPositionRotationQuat(position, rotation) {
-    let out = quat2_create();
-    out.quat2_setPositionRotationQuat(position, rotation);
-    return out;
-};
-
-export function mat4_fromPositionRotation(position, rotation) {
-    return mat4_fromPositionRotationDegrees(position, rotation);
-};
-
-export function mat4_fromPositionRotationDegrees(position, rotation) {
-    let out = mat4_create();
-    out.mat4_setPositionRotationDegrees(position, rotation);
-    return out;
-};
-
-export function mat4_fromPositionRotationRadians(position, rotation) {
-    let out = mat4_create();
-    out.mat4_setPositionRotationRadians(position, rotation);
-    return out;
-};
-
-export function mat4_fromPositionRotationQuat(position, rotation) {
-    let out = mat4_create();
-    out.mat4_setPositionRotationQuat(position, rotation);
-    return out;
-};
-
-export function mat4_fromPositionRotationScale(position, rotation, scale) {
-    return mat4_fromPositionRotationDegreesScale(position, rotation, scale);
-};
-
-export function mat4_fromPositionRotationDegreesScale(position, rotation, scale) {
-    let out = mat4_create();
-    out.mat4_setPositionRotationDegreesScale(position, rotation, scale);
-    return out;
-};
-
-export function mat4_fromPositionRotationRadiansScale(position, rotation, scale) {
-    let out = mat4_create();
-    out.mat4_setPositionRotationRadiansScale(position, rotation, scale);
-    return out;
-};
-
-export function mat4_fromPositionRotationQuatScale(position, rotation, scale) {
-    let out = mat4_create();
-    out.mat4_setPositionRotationQuatScale(position, rotation, scale);
     return out;
 };
 
