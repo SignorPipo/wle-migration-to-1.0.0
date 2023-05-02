@@ -5,7 +5,7 @@ export function isMobile(engine = Globals.getMainEngine()) {
 }
 
 export function isDesktop(engine = Globals.getMainEngine()) {
-    return !isMobile(engine);
+    return !BrowserUtils.isMobile(engine);
 }
 
 export let BrowserUtils = {

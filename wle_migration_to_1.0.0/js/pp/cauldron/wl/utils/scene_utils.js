@@ -3,105 +3,105 @@ export function getRoot(scene) {
 }
 
 export function addObject(scene) {
-    return getRoot(scene).pp_addObject();
+    return SceneUtils.getRoot(scene).pp_addObject();
 }
 
 export function getObjects(scene) {
-    return getObjectsBreadth(scene);
+    return SceneUtils.getObjectsBreadth(scene);
 }
 
 export function getObjectsBreadth(scene) {
-    return getRoot(scene).pp_getHierarchyBreadth();
+    return SceneUtils.getRoot(scene).pp_getHierarchyBreadth();
 }
 
 export function getObjectsDepth(scene) {
-    return getRoot(scene).pp_getHierarchyDepth();
+    return SceneUtils.getRoot(scene).pp_getHierarchyDepth();
 }
 
 // Get Component    
 
 export function getComponent(scene, type, index = 0) {
-    return getComponentBreadth(scene, type, index);
+    return SceneUtils.getComponentBreadth(scene, type, index);
 }
 
 export function getComponentBreadth(scene, type, index = 0) {
-    return getRoot(scene).pp_getComponentHierarchyBreadth(type, index);
+    return SceneUtils.getRoot(scene).pp_getComponentHierarchyBreadth(type, index);
 }
 
 export function getComponentDepth(scene, type, index = 0) {
-    return getRoot(scene).pp_getComponentHierarchyDepth(type, index);
+    return SceneUtils.getRoot(scene).pp_getComponentHierarchyDepth(type, index);
 }
 
 export function getComponents(scene, type) {
-    return getComponentsBreadth(scene, type);
+    return SceneUtils.getComponentsBreadth(scene, type);
 }
 
 export function getComponentsBreadth(scene, type) {
-    return getRoot(scene).pp_getComponentsHierarchyBreadth(type);
+    return SceneUtils.getRoot(scene).pp_getComponentsHierarchyBreadth(type);
 }
 
 export function getComponentsDepth(scene, type) {
-    return getRoot(scene).pp_getComponentsHierarchyDepth(type);
+    return SceneUtils.getRoot(scene).pp_getComponentsHierarchyDepth(type);
 }
 
 // Get Object By Name
 
 export function getObjectByName(scene, name, index = 0) {
-    return getObjectByNameBreadth(scene, name, index);
+    return SceneUtils.getObjectByNameBreadth(scene, name, index);
 }
 
 export function getObjectByNameBreadth(scene, name, index = 0) {
-    return getRoot(scene).pp_getObjectByNameHierarchyBreadth(name, index);
+    return SceneUtils.getRoot(scene).pp_getObjectByNameHierarchyBreadth(name, index);
 }
 
 export function getObjectByNameDepth(scene, name, index = 0) {
-    return getRoot(scene).pp_getObjectByNameHierarchyDepth(name, index);
+    return SceneUtils.getRoot(scene).pp_getObjectByNameHierarchyDepth(name, index);
 }
 
 export function getObjectsByName(scene, name, index = 0) {
-    return getObjectsByNameBreadth(scene, name, index);
+    return SceneUtils.getObjectsByNameBreadth(scene, name, index);
 }
 
 export function getObjectsByNameBreadth(scene, name, index = 0) {
-    return getRoot(scene).pp_getObjectsByNameHierarchyBreadth(name, index);
+    return SceneUtils.getRoot(scene).pp_getObjectsByNameHierarchyBreadth(name, index);
 }
 
 export function getObjectsByNameDepth(scene, name, index = 0) {
-    return getRoot(scene).pp_getObjectsByNameHierarchyDepth(name, index);
+    return SceneUtils.getRoot(scene).pp_getObjectsByNameHierarchyDepth(name, index);
 }
 
 // Get Object By ID
 
 export function getObjectByID(scene, id) {
-    return getObjectByIDBreadth(scene, id);
+    return SceneUtils.getObjectByIDBreadth(scene, id);
 }
 
 export function getObjectByIDBreadth(scene, id) {
-    return getRoot(scene).pp_getObjectByIDHierarchyBreadth(id);
+    return SceneUtils.getRoot(scene).pp_getObjectByIDHierarchyBreadth(id);
 }
 
 export function getObjectByIDDepth(scene, id) {
-    return getRoot(scene).pp_getObjectByIDHierarchyDepth(id);
+    return SceneUtils.getRoot(scene).pp_getObjectByIDHierarchyDepth(id);
 }
 
 // To String
 
 export function toString(scene) {
-    return toStringCompact(scene);
+    return SceneUtils.toStringCompact(scene);
 }
 
 export function toStringCompact(scene) {
-    return getRoot(scene).pp_toStringCompact();
+    return SceneUtils.getRoot(scene).pp_toStringCompact();
 }
 
 export function toStringExtended(scene) {
-    return getRoot(scene).pp_toStringExtended();
+    return SceneUtils.getRoot(scene).pp_toStringExtended();
 }
 
 // Cauldron
 
 export function getComponentsAmountMap(scene, amountMap = new Map()) {
-    return getRoot(scene).pp_getComponentsAmountMap(amountMap);
+    return SceneUtils.getRoot(scene).pp_getComponentsAmountMap(amountMap);
 }
 
 export let SceneUtils = {

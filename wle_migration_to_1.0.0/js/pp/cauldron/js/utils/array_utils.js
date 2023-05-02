@@ -7,11 +7,11 @@ export function last(array) {
 }
 
 export function has(array, callback) {
-    return find(array, callback) != undefined;
+    return ArrayUtils.find(array, callback) != undefined;
 }
 
 export function hasEqual(array, elementToFind, elementsEqualCallback = null) {
-    return findEqual(array, elementToFind, elementsEqualCallback) != undefined;
+    return ArrayUtils.findEqual(array, elementToFind, elementsEqualCallback) != undefined;
 }
 
 export function find(array, callback) {
@@ -48,7 +48,7 @@ export function findAllIndexes(array, callback) {
 
 export function findEqual(array, elementToFind, elementsEqualCallback = null) {
     if (elementsEqualCallback == null) {
-        let index = findIndexEqual(array, elementToFind);
+        let index = ArrayUtils.findIndexEqual(array, elementToFind);
         return index < 0 ? undefined : array[index];
     }
 
@@ -126,7 +126,7 @@ export function removeAllIndexes(array, indexes) {
     let elementsRemoved = [];
 
     for (let index of indexes) {
-        let elementRemoved = removeIndex(array, index);
+        let elementRemoved = ArrayUtils.removeIndex(array, index);
         if (elementRemoved !== undefined) {
             elementsRemoved.push(elementRemoved);
         }
@@ -140,7 +140,7 @@ export function remove(array, callback) {
 
     let index = array.findIndex(callback);
     if (index >= 0) {
-        elementRemoved = removeIndex(array, index);
+        elementRemoved = ArrayUtils.removeIndex(array, index);
     }
 
     return elementRemoved;
@@ -151,7 +151,7 @@ export function removeAll(array, callback) {
 
     let currentElement = undefined;
     do {
-        currentElement = remove(array, callback);
+        currentElement = ArrayUtils.remove(array, callback);
         if (currentElement !== undefined) {
             elementsRemoved.push(currentElement);
         }
@@ -161,17 +161,17 @@ export function removeAll(array, callback) {
 }
 
 export function removeEqual(array, elementToRemove, elementsEqualCallback = null) {
-    return removeIndex(array, findIndexEqual(array, elementToRemove, elementsEqualCallback));
+    return ArrayUtils.removeIndex(array, ArrayUtils.findIndexEqual(array, elementToRemove, elementsEqualCallback));
 }
 
 export function removeAllEqual(array, elementToRemove, elementsEqualCallback = null) {
-    return removeAllIndexes(array, findAllIndexesEqual(array, elementToRemove, elementsEqualCallback));
+    return ArrayUtils.removeAllIndexes(array, ArrayUtils.findAllIndexesEqual(array, elementToRemove, elementsEqualCallback));
 }
 
 export function pushUnique(array, element, elementsEqualCallback = null) {
     let length = array.length;
 
-    let hasElement = hasEqual(array, element, elementsEqualCallback);
+    let hasElement = ArrayUtils.hasEqual(array, element, elementsEqualCallback);
 
     if (!hasElement) {
         length = array.push(element);
@@ -183,7 +183,7 @@ export function pushUnique(array, element, elementsEqualCallback = null) {
 export function unshiftUnique(array, element, elementsEqualCallback = null) {
     let length = array.length;
 
-    let hasElement = hasEqual(array, element, elementsEqualCallback);
+    let hasElement = ArrayUtils.hasEqual(array, element, elementsEqualCallback);
 
     if (!hasElement) {
         length = array.unshift(element);
@@ -252,7 +252,7 @@ export function clone(array, cloneCallback = null) {
     }
 
     for (let i = 0; i < array.length; i++) {
-        clone[i] = cloneCallback(array[i]);
+        clone[i] = ArrayUtils.cloneCallback(array[i]);
     }
 
     return clone;

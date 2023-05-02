@@ -427,7 +427,7 @@ CollisionCheck.prototype._moveStep = function () {
                 collisionRuntimeParams.myLastValidIsSliding = collisionRuntimeParams.myIsSliding;
                 collisionRuntimeParams.myIsSlidingFlickerPrevented = false;
                 collisionRuntimeParams.myLastValidEndHorizontalMovement.vec3_copy(fixedHorizontalMovement);
-                //fixedHorizontalMovement.vec3_error();
+                //fixedHorizontalMovement.vec_error();
 
                 if (!collisionRuntimeParams.myIsSliding) {
                     //console.error("not sliding");

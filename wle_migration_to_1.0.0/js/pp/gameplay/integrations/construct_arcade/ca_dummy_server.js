@@ -7,7 +7,7 @@ export class CADummyServer {
         this._myEngine = engine;
     }
 
-    getLeaderboard(leaderboardID, ascending, aroundPlayer, scoresAmount, callbackOnDone, callbackOnError) {
+    getLeaderboard(leaderboardID, ascending, aroundPlayer, scoresAmount, onDoneCallback, onErrorCallback) {
         let leaderboard = null;
 
         if (CAUtils.isSDKAvailable(this._myEngine)) {
@@ -57,23 +57,23 @@ export class CADummyServer {
             leaderboard.pop();
         }
 
-        if (callbackOnDone) {
-            callbackOnDone(leaderboard);
+        if (onDoneCallback) {
+            onDoneCallback(leaderboard);
         }
     }
 
-    submitScore(leaderboardID, scoreToSubmit, callbackOnDone, callbackOnError) {
-        if (callbackOnDone) {
-            callbackOnDone();
+    submitScore(leaderboardID, scoreToSubmit, onDoneCallback, onErrorCallback) {
+        if (onDoneCallback) {
+            onDoneCallback();
         }
     }
 
-    getUser(callbackOnDone, callbackOnError) {
+    getUser(onDoneCallback, onErrorCallback) {
         let user = {};
         user.displayName = "J";
 
-        if (callbackOnDone) {
-            callbackOnDone(user);
+        if (onDoneCallback) {
+            onDoneCallback(user);
         }
     }
 }

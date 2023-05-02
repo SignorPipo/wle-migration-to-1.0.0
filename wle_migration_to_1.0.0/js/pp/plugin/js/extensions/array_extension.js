@@ -93,8 +93,7 @@
             - vec3_rotate           / vec3_rotateAxis           / vec3_rotateAround / vec3_rotateAroundAxis
             - vec3_rotationTo       / vec3_rotationToPivoted
             - vec3_toRadians        / vec3_toDegrees            / vec3_toQuat       / vec3_toMatrix
-            - vec3_addRotation
-            - vec3_log       / vec3_error         / vec3_warn    
+            - vec3_addRotation  
             - vec3_lerp      / vec3_interpolate 
             
         VECTOR 4:
@@ -155,18 +154,17 @@
             ○ mat4_fromQuat
 */
 
-import * as glMatrix from "gl-matrix";
 import { ArrayUtils } from "../../../cauldron/js/utils/array_utils";
 import { Mat3Utils } from "../../../cauldron/js/utils/mat3_utils";
 import { Mat4Utils } from "../../../cauldron/js/utils/mat4_utils";
+import { EasingFunction, MathUtils } from "../../../cauldron/js/utils/math_utils";
+import { Quat2Utils } from "../../../cauldron/js/utils/quat2_utils";
+import { QuatUtils } from "../../../cauldron/js/utils/quat_utils";
 import { Vec2Utils } from "../../../cauldron/js/utils/vec2_utils";
 import { Vec3Utils } from "../../../cauldron/js/utils/vec3_utils";
 import { Vec4Utils } from "../../../cauldron/js/utils/vec4_utils";
 import { VecUtils } from "../../../cauldron/js/utils/vec_utils";
 import { PluginUtils } from "../../utils/plugin_utils";
-import { QuatUtils } from "../../../cauldron/js/utils/quat_utils";
-import { EasingFunction, MathUtils } from "../../../cauldron/js/utils/math_utils";
-import { Quat2Utils } from "../../../cauldron/js/utils/quat2_utils";
 
 export function initArrayExtension() {
     initArrayExtensionProtoype();
@@ -698,18 +696,6 @@ export function initArrayExtensionProtoype() {
 
     vec3Extension.vec3_convertDirectionToLocalQuat = function vec3_convertDirectionToLocalQuat(parentTransform, out = Vec3Utils.create()) {
         return Vec3Utils.convertDirectionToLocalQuat(this, ...arguments);
-    };
-
-    vec3Extension.vec3_log = function vec3_log(decimalPlaces = 4) {
-        return Vec3Utils.log(this, ...arguments);
-    };
-
-    vec3Extension.vec3_error = function vec3_error(decimalPlaces = 4) {
-        return Vec3Utils.error(this, ...arguments);
-    };
-
-    vec3Extension.vec3_warn = function vec3_warn(decimalPlaces = 4) {
-        return Vec3Utils.warn(this, ...arguments);
     };
 
     vec3Extension.vec3_addRotation = function vec3_addRotation(rotation, out) {

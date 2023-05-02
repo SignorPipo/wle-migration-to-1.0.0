@@ -10,7 +10,7 @@ export function create(x, y, z, w) {
     let out = gl_quat.create();
 
     if (x !== undefined) {
-        set(out, x, y, z, w);
+        QuatUtils.set(out, x, y, z, w);
     }
 
     return out;
@@ -26,7 +26,7 @@ export function set(quat, x, y, z, w) {
     return quat;
 }
 
-export function normalize(quat, out = create()) {
+export function normalize(quat, out = QuatUtils.create()) {
     gl_quat.normalize(out, quat);
     return out;
 }
@@ -36,8 +36,8 @@ export function copy(from, to) {
     return to;
 }
 
-export function clone(quat, out = create()) {
-    copy(quat, out);
+export function clone(quat, out = QuatUtils.create()) {
+    QuatUtils.copy(quat, out);
     return out;
 }
 
@@ -54,17 +54,17 @@ export function lengthSquared(quat) {
     return gl_quat.squaredLength(quat);
 }
 
-export function invert(quat, out = create()) {
+export function invert(quat, out = QuatUtils.create()) {
     gl_quat.invert(out, quat);
     return out;
 }
 
-export function conjugate(quat, out = create()) {
+export function conjugate(quat, out = QuatUtils.create()) {
     gl_quat.conjugate(out, quat);
     return out;
 }
 
-export function mul(first, second, out = create()) {
+export function mul(first, second, out = QuatUtils.create()) {
     gl_quat.mul(out, first, second);
     return out;
 }
@@ -81,12 +81,12 @@ export let getAxis = function () {
 }();
 
 export function getAngle(quat) {
-    return getAngleDegrees(quat);
+    return QuatUtils.getAngleDegrees(quat);
 }
 
 
 export function getAngleDegrees(quat) {
-    let angle = getAngleRadians(quat);
+    let angle = QuatUtils.getAngleRadians(quat);
     return Math.pp_toDegrees(angle);
 }
 
@@ -99,12 +99,12 @@ export let getAngleRadians = function () {
 }();
 
 export function getAxisScaled(quat, out = vec3_create()) {
-    return getAxisScaledDegrees(quat, out);
+    return QuatUtils.getAxisScaledDegrees(quat, out);
 }
 
 export function getAxisScaledDegrees(quat, out = vec3_create()) {
-    getAxis(quat, out);
-    let angle = getAngleDegrees(quat);
+    QuatUtils.getAxis(quat, out);
+    let angle = QuatUtils.getAngleDegrees(quat);
     out.vec3_scale(angle, out);
     return out;
 }
@@ -112,8 +112,8 @@ export function getAxisScaledDegrees(quat, out = vec3_create()) {
 export let getAxisScaledRadians = function () {
     let zero = vec3_utils_create(0, 0, 0);
     return function getAxisScaledRadians(quat, out = vec3_create()) {
-        getAxis(quat, out);
-        let angle = getAngleRadians(quat);
+        QuatUtils.getAxis(quat, out);
+        let angle = QuatUtils.getAngleRadians(quat);
         if (angle <= Math.PP_EPSILON) {
             out.vec3_copy(zero);
         } else {
@@ -124,16 +124,16 @@ export let getAxisScaledRadians = function () {
 }();
 
 export function getAxes(quat, out = [vec3_create(), vec3_create(), vec3_create()]) {
-    getLeft(quat, out[0]);
-    getUp(quat, out[1]);
-    getForward(quat, out[2]);
+    QuatUtils.getLeft(quat, out[0]);
+    QuatUtils.getUp(quat, out[1]);
+    QuatUtils.getForward(quat, out[2]);
     return out;
 }
 
 export let getForward = function () {
     let rotationMatrix = mat3_utils_create();
     return function getForward(quat, out = vec3_create()) {
-        toMatrix(quat, rotationMatrix);
+        QuatUtils.toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
         out.vec3_normalize(out);
@@ -143,7 +143,7 @@ export let getForward = function () {
 }();
 
 export function getBackward(quat, out) {
-    getForward(quat, out);
+    QuatUtils.getForward(quat, out);
     out.vec3_negate(out);
     return out;
 }
@@ -151,7 +151,7 @@ export function getBackward(quat, out) {
 export let getLeft = function () {
     let rotationMatrix = mat3_utils_create();
     return function getLeft(quat, out = vec3_create()) {
-        toMatrix(quat, rotationMatrix);
+        QuatUtils.toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
         out.vec3_normalize(out);
@@ -161,7 +161,7 @@ export let getLeft = function () {
 }();
 
 export function getRight(quat, out) {
-    getLeft(quat, out);
+    QuatUtils.getLeft(quat, out);
     out.vec3_negate(out);
     return out;
 }
@@ -169,7 +169,7 @@ export function getRight(quat, out) {
 export let getUp = function () {
     let rotationMatrix = mat3_utils_create();
     return function getUp(quat, out = vec3_create()) {
-        toMatrix(quat, rotationMatrix);
+        QuatUtils.toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
         out.vec3_normalize(out);
@@ -179,18 +179,18 @@ export let getUp = function () {
 }();
 
 export function getDown(quat, out) {
-    getUp(quat, out);
+    QuatUtils.getUp(quat, out);
     out.vec3_negate(out);
     return out;
 }
 
 export function setAxes(quat, left, up, forward) {
     if (forward != null) {
-        return setForward(quat, forward, up, left);
+        return QuatUtils.setForward(quat, forward, up, left);
     } else if (up != null) {
-        return setUp(quat, up, forward, left);
+        return QuatUtils.setUp(quat, up, forward, left);
     } else {
-        return setLeft(quat, left, up, forward);
+        return QuatUtils.setLeft(quat, left, up, forward);
     }
 }
 
@@ -230,37 +230,37 @@ export let setRight = function () {
     };
 }();
 
-export function toWorld(quat, parentQuat, out = create()) {
-    mul(parentQuat, quat, out);
+export function toWorld(quat, parentQuat, out = QuatUtils.create()) {
+    QuatUtils.mul(parentQuat, quat, out);
     return out;
 }
 
 export let toLocal = function () {
     let invertQuat = create();
-    return function toLocal(quat, parentQuat, out = create()) {
-        conjugate(parentQuat, invertQuat);
-        mul(invertQuat, quat, out);
+    return function toLocal(quat, parentQuat, out = QuatUtils.create()) {
+        QuatUtils.conjugate(parentQuat, invertQuat);
+        QuatUtils.mul(invertQuat, quat, out);
         return out;
     };
 }();
 
-export function fromAxis(angle, axis, out = create()) {
-    return fromAxisDegrees(angle, axis, out);
+export function fromAxis(angle, axis, out = QuatUtils.create()) {
+    return QuatUtils.fromAxisDegrees(angle, axis, out);
 }
 
-export function fromAxisDegrees(angle, axis, out = create()) {
-    fromAxisRadians(Math.pp_toRadians(angle), axis, out);
+export function fromAxisDegrees(angle, axis, out = QuatUtils.create()) {
+    QuatUtils.fromAxisRadians(Math.pp_toRadians(angle), axis, out);
     return out;
 }
 
-export function fromAxisRadians(angle, axis, out = create()) {
+export function fromAxisRadians(angle, axis, out = QuatUtils.create()) {
     gl_quat.setAxisAngle(out, axis, angle);
     return out;
 }
 
 export let fromAxes = function () {
     let mat3 = mat3_utils_create();
-    return function fromAxes(leftAxis, upAxis, forwardAxis, out = create()) {
+    return function fromAxes(leftAxis, upAxis, forwardAxis, out = QuatUtils.create()) {
         gl_mat3.mat3_fromAxes(leftAxis, upAxis, forwardAxis);
         return gl_mat3.mat3_toQuat(out);
     };
@@ -270,13 +270,13 @@ export let fromAxes = function () {
 
 export let fromRadians = function () {
     let vector = vec3_utils_create();
-    return function fromRadians(radiansRotation, out = create()) {
+    return function fromRadians(radiansRotation, out = QuatUtils.create()) {
         radiansRotation.vec3_toDegrees(vector);
-        return fromDegrees(vector, out);
+        return QuatUtils.fromDegrees(vector, out);
     };
 }();
 
-export function fromDegrees(degreesRotation, out = create()) {
+export function fromDegrees(degreesRotation, out = QuatUtils.create()) {
     gl_quat.fromEuler(out, degreesRotation[0], degreesRotation[1], degreesRotation[2]);
     return out;
 }
@@ -284,7 +284,7 @@ export function fromDegrees(degreesRotation, out = create()) {
 export let toRadians = function () {
     let mat3 = mat3_utils_create();
     return function toRadians(quat, out = vec3_create()) {
-        toMatrix(quat, mat3);
+        QuatUtils.toMatrix(quat, mat3);
 
         // Rotation order is ZYX 
         out[1] = Math.asin(-Math.pp_clamp(mat3[2], -1, 1));
@@ -302,24 +302,24 @@ export let toRadians = function () {
 }();
 
 export function toDegrees(quat, out = vec3_create()) {
-    toRadians(quat, out);
+    QuatUtils.toRadians(quat, out);
     out.vec3_toDegrees(out);
     return out;
 }
 
 export function isNormalized(quat, epsilon = Math.PP_EPSILON) {
-    return Math.abs(lengthSquared(quat) - 1) < epsilon;
+    return Math.abs(QuatUtils.lengthSquared(quat) - 1) < epsilon;
 }
 
 export function addRotation(first, second, out) {
-    return addRotationDegrees(first, second, out);
+    return QuatUtils.addRotationDegrees(first, second, out);
 }
 
 export let addRotationDegrees = function () {
     let secondQuat = create();
     return function addRotationDegrees(first, second, out) {
         second.vec3_degreesToQuat(secondQuat);
-        return addRotationQuat(first, secondQuat, out);
+        return QuatUtils.addRotationQuat(first, secondQuat, out);
     };
 }();
 
@@ -327,24 +327,24 @@ export let addRotationRadians = function () {
     let secondQuat = create();
     return function addRotationRadians(first, second, out) {
         second.vec3_radiansToQuat(secondQuat);
-        return addRotationQuat(first, secondQuat, out);
+        return QuatUtils.addRotationQuat(first, secondQuat, out);
     };
 }();
 
-export function addRotationQuat(first, second, out = create()) {
-    mul(second, first, out);
+export function addRotationQuat(first, second, out = QuatUtils.create()) {
+    QuatUtils.mul(second, first, out);
     return out;
 }
 
 export function subRotation(first, second, out) {
-    return subRotationDegrees(first, second, out);
+    return QuatUtils.subRotationDegrees(first, second, out);
 }
 
 export let subRotationDegrees = function () {
     let secondQuat = create();
     return function subRotationDegrees(first, second, out) {
         second.vec3_degreesToQuat(secondQuat);
-        return subRotationQuat(first, secondQuat, out);
+        return QuatUtils.subRotationQuat(first, secondQuat, out);
     };
 }();
 
@@ -352,21 +352,21 @@ export let subRotationRadians = function () {
     let secondQuat = create();
     return function subRotationRadians(first, second, out) {
         second.vec3_radiansToQuat(secondQuat);
-        return subRotationQuat(first, secondQuat, out);
+        return QuatUtils.subRotationQuat(first, secondQuat, out);
     };
 }();
 
 export let subRotationQuat = function () {
     let inverse = create();
-    return function subRotationQuat(first, second, out = create()) {
-        invert(second, inverse);
-        mul(first, inverse, out);
+    return function subRotationQuat(first, second, out = QuatUtils.create()) {
+        QuatUtils.invert(second, inverse);
+        QuatUtils.mul(first, inverse, out);
 
-        if (isNormalized(first) && isNormalized(second)) {
+        if (QuatUtils.isNormalized(first) && QuatUtils.isNormalized(second)) {
             // I would normally not normalize quat results since you may want the untouched sub
             // But for normalized params it should be normalized
             // It seems though that for some small error the quat will not be exactly normalized, so I fix it
-            normalize(out, out);
+            QuatUtils.normalize(out, out);
         }
 
         return out;
@@ -374,14 +374,14 @@ export let subRotationQuat = function () {
 }();
 
 export function rotationTo(first, second, out) {
-    return rotationToDegrees(first, second, out);
+    return QuatUtils.rotationToDegrees(first, second, out);
 }
 
 export let rotationToDegrees = function () {
     let secondQuat = create();
     return function rotationToDegrees(first, second, out) {
         second.vec3_degreesToQuat(secondQuat);
-        return rotationToQuat(first, secondQuat, out);
+        return QuatUtils.rotationToQuat(first, secondQuat, out);
     };
 }();
 
@@ -389,19 +389,19 @@ export let rotationToRadians = function () {
     let secondQuat = create();
     return function rotationToRadians(first, second, out) {
         second.vec3_radiansToQuat(secondQuat);
-        return rotationToQuat(first, secondQuat, out);
+        return QuatUtils.rotationToQuat(first, secondQuat, out);
     };
 }();
 
 export function rotationToQuat(first, second, out) {
-    return subRotationQuat(second, first, out);
+    return QuatUtils.subRotationQuat(second, first, out);
 }
 
 export let getTwist = function () {
     let rotationAxis = vec3_utils_create();
     let projection = vec3_utils_create();
     let rotationAlongAxis = create();
-    return function getTwist(quat, axis, out = create()) {
+    return function getTwist(quat, axis, out = QuatUtils.create()) {
         rotationAxis[0] = quat[0];
         rotationAxis[1] = quat[1];
         rotationAxis[2] = quat[2];
@@ -412,7 +412,7 @@ export let getTwist = function () {
         rotationAlongAxis[1] = projection[1];
         rotationAlongAxis[2] = projection[2];
         rotationAlongAxis[3] = quat[3];
-        normalize(rotationAlongAxis, rotationAlongAxis);
+        QuatUtils.normalize(rotationAlongAxis, rotationAlongAxis);
         if (dotProd < 0) {
             rotationAlongAxis[0] = -rotationAlongAxis[0];
             rotationAlongAxis[1] = -rotationAlongAxis[1];
@@ -420,34 +420,34 @@ export let getTwist = function () {
             rotationAlongAxis[3] = -rotationAlongAxis[3];
         }
 
-        return copy(rotationAlongAxis, out);
+        return QuatUtils.copy(rotationAlongAxis, out);
     };
 }();
 
 export let getSwing = function () {
     let twist = create();
-    return function getSwing(quat, axis, out = create()) {
-        getTwist(quat, axis, twist);
-        getSwingFromTwist(quat, twist, out);
+    return function getSwing(quat, axis, out = QuatUtils.create()) {
+        QuatUtils.getTwist(quat, axis, twist);
+        QuatUtils.getSwingFromTwist(quat, twist, out);
         return out;
     };
 }();
 
-export function getSwingFromTwist(quat, twist, out = create()) {
-    return subRotationQuat(quat, twist, out);
+export function getSwingFromTwist(quat, twist, out = QuatUtils.create()) {
+    return QuatUtils.subRotationQuat(quat, twist, out);
 }
 
 export let getTwistFromSwing = function () {
     let inverse = create();
-    return function getTwistFromSwing(quat, swing, out = create()) {
-        invert(swing, inverse);
-        addRotationQuat(quat, inverse, out);
+    return function getTwistFromSwing(quat, swing, out = QuatUtils.create()) {
+        QuatUtils.invert(swing, inverse);
+        QuatUtils.addRotationQuat(quat, inverse, out);
         return out;
     };
 }();
 
-export function fromTwistSwing(twist, swing, out = create()) {
-    return addRotationQuat(twist, swing, out);
+export function fromTwistSwing(twist, swing, out = QuatUtils.create()) {
+    return QuatUtils.addRotationQuat(twist, swing, out);
 }
 
 export function toMatrix(quat, out = mat3_create()) {
@@ -456,47 +456,47 @@ export function toMatrix(quat, out = mat3_create()) {
 }
 
 export function rotate(first, second, out) {
-    return rotateDegrees(first, second, out);
+    return QuatUtils.rotateDegrees(first, second, out);
 }
 
 export function rotateDegrees(first, second, out) {
-    return addRotationDegrees(first, second, out);
+    return QuatUtils.addRotationDegrees(first, second, out);
 }
 
 export function rotateRadians(first, second, out) {
-    return addRotationRadians(first, second, out);
+    return QuatUtils.addRotationRadians(first, second, out);
 }
 
 export function rotateQuat(first, second, out) {
-    return addRotationQuat(first, second, out);
+    return QuatUtils.addRotationQuat(first, second, out);
 }
 
 export function rotateAxis(quat, angle, axis, out) {
-    return rotateAxisDegrees(quat, angle, axis, out);
+    return QuatUtils.rotateAxisDegrees(quat, angle, axis, out);
 }
 
 export let rotateAxisDegrees = function () {
     let secondQuat = create();
     return function rotateAxisDegrees(quat, angle, axis, out) {
-        fromAxisDegrees(angle, axis, secondQuat);
-        return rotateQuat(quat, secondQuat, out);
+        QuatUtils.fromAxisDegrees(angle, axis, secondQuat);
+        return QuatUtils.rotateQuat(quat, secondQuat, out);
     };
 }();
 
 export let rotateAxisRadians = function () {
     let secondQuat = create();
     return function rotateAxisRadians(quat, angle, axis, out) {
-        fromAxisRadians(angle, axis, secondQuat);
-        return rotateQuat(quat, secondQuat, out);
+        QuatUtils.fromAxisRadians(angle, axis, secondQuat);
+        return QuatUtils.rotateQuat(quat, secondQuat, out);
     };
 }();
 
-export function lerp(from, to, interpolationValue, out = create()) {
+export function lerp(from, to, interpolationValue, out = QuatUtils.create()) {
     if (interpolationValue <= 0) {
-        copy(from, out);
+        QuatUtils.copy(from, out);
         return out;
     } else if (interpolationValue >= 1) {
-        copy(to, out);
+        QuatUtils.copy(to, out);
         return out;
     }
 
@@ -504,17 +504,17 @@ export function lerp(from, to, interpolationValue, out = create()) {
     return out;
 }
 
-export function interpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear, out = create()) {
+export function interpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear, out = QuatUtils.create()) {
     let lerpValue = easingFunction(interpolationValue);
-    return lerp(from, to, lerpValue, out);
+    return QuatUtils.lerp(from, to, lerpValue, out);
 }
 
-export function slerp(from, to, interpolationValue, out = create()) {
+export function slerp(from, to, interpolationValue, out = QuatUtils.create()) {
     if (interpolationValue <= 0) {
-        copy(from, out);
+        QuatUtils.copy(from, out);
         return out;
     } else if (interpolationValue >= 1) {
-        copy(to, out);
+        QuatUtils.copy(to, out);
         return out;
     }
 
@@ -522,9 +522,9 @@ export function slerp(from, to, interpolationValue, out = create()) {
     return out;
 }
 
-export function sinterpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear, out = create()) {
+export function sinterpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear, out = QuatUtils.create()) {
     let lerpValue = easingFunction(interpolationValue);
-    return slerp(from, to, lerpValue, out);
+    return QuatUtils.slerp(from, to, lerpValue, out);
 }
 
 export let QuatUtils = {
@@ -683,25 +683,25 @@ let _setAxes = function () {
             );
 
             rotationMat.mat3_toQuat(rotationQuat);
-            normalize(rotationQuat, rotationQuat);
+            QuatUtils.normalize(rotationQuat, rotationQuat);
 
-            copy(rotationQuat, quat);
+            QuatUtils.copy(rotationQuat, quat);
         } else {
             if (priority[0] == 0) {
-                getLeft(quat, currentAxis);
+                QuatUtils.getLeft(quat, currentAxis);
             } else if (priority[0] == 1) {
-                getUp(quat, currentAxis);
+                QuatUtils.getUp(quat, currentAxis);
             } else {
-                getForward(quat, currentAxis);
+                QuatUtils.getForward(quat, currentAxis);
             }
 
             let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
             if (angleBetween > Math.PP_EPSILON) {
                 currentAxis.vec3_cross(firstAxis, rotationAxis);
                 rotationAxis.vec3_normalize(rotationAxis);
-                fromAxisRadians(angleBetween, rotationAxis, rotationQuat);
+                QuatUtils.fromAxisRadians(angleBetween, rotationAxis, rotationQuat);
 
-                rotateQuat(quat, rotationQuat, quat);
+                QuatUtils.rotateQuat(quat, rotationQuat, quat);
             }
         }
 

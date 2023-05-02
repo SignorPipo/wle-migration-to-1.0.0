@@ -26,7 +26,7 @@ export function set(vector, x, y, z) {
     return vector;
 }
 
-export function normalize(vector, out = create()) {
+export function normalize(vector, out = Vec3Utils.create()) {
     gl_vec3.normalize(out, vector);
     return out;
 }
@@ -36,8 +36,8 @@ export function copy(from, to) {
     return to;
 }
 
-export function clone(vector, out = create()) {
-    copy(vector, out);
+export function clone(vector, out = Vec3Utils.create()) {
+    Vec3Utils.copy(vector, out);
     return out;
 }
 
@@ -47,11 +47,11 @@ export function zero(vector) {
 }
 
 export function angle(first, second) {
-    return angleDegrees(first, second);
+    return Vec3Utils.angleDegrees(first, second);
 }
 
 export function angleDegrees(first, second) {
-    return Math.pp_toDegrees(angleRadians(first, second));
+    return Math.pp_toDegrees(Vec3Utils.angleRadians(first, second));
 }
 
 export function angleRadians(first, second) {
@@ -72,7 +72,7 @@ export function angleRadians(first, second) {
     if (lengthSquared > MathUtils.EPSILON_SQUARED) {
         let length = Math.sqrt(lengthSquared);
 
-        let cos = dot(first, second) / length;
+        let cos = Vec3Utils.dot(first, second) / length;
         angle = Math.acos(Math.pp_clamp(cos, -1, 1));
     }
 
@@ -107,27 +107,27 @@ export function distanceSquared(first, second) {
     return gl_vec3.squaredDistance(first, second);
 }
 
-export function add(first, second, out = create()) {
+export function add(first, second, out = Vec3Utils.create()) {
     gl_vec3.add(out, first, second);
     return out;
 }
 
-export function sub(first, second, out = create()) {
+export function sub(first, second, out = Vec3Utils.create()) {
     gl_vec3.sub(out, first, second);
     return out;
 }
 
-export function mul(first, second, out = create()) {
+export function mul(first, second, out = Vec3Utils.create()) {
     gl_vec3.mul(out, first, second);
     return out;
 }
 
-export function div(first, second, out = create()) {
+export function div(first, second, out = Vec3Utils.create()) {
     gl_vec3.div(out, first, second);
     return out;
 }
 
-export function scale(vector, value, out = create()) {
+export function scale(vector, value, out = Vec3Utils.create()) {
     gl_vec3.scale(out, vector, value);
     return out;
 }
@@ -136,27 +136,27 @@ export function dot(first, second) {
     return gl_vec3.dot(first, second);
 }
 
-export function negate(vector, out = create()) {
+export function negate(vector, out = Vec3Utils.create()) {
     gl_vec3.negate(out, vector);
     return out;
 }
 
-export function cross(first, second, out = create()) {
+export function cross(first, second, out = Vec3Utils.create()) {
     gl_vec3.cross(out, first, second);
     return out;
 }
 
-export function transformQuat(vector, quat, out = create()) {
+export function transformQuat(vector, quat, out = Vec3Utils.create()) {
     gl_vec3.transformQuat(out, vector, quat);
     return out;
 }
 
-export function transformMat3(vector, mat3, out = create()) {
+export function transformMat3(vector, mat3, out = Vec3Utils.create()) {
     gl_vec3.transformMat3(out, vector, mat3);
     return out;
 }
 
-export function transformMat4(vector, mat4, out = create()) {
+export function transformMat4(vector, mat4, out = Vec3Utils.create()) {
     gl_vec3.transformMat4(out, vector, mat4);
     return out;
 }
@@ -164,8 +164,8 @@ export function transformMat4(vector, mat4, out = create()) {
 // New Functions
 
 export function lengthSigned(vector, positiveDirection) {
-    let signedLength = length(vector);
-    if (!isConcordant(vector, positiveDirection)) {
+    let signedLength = Vec3Utils.length(vector);
+    if (!Vec3Utils.isConcordant(vector, positiveDirection)) {
         signedLength *= -1;
     }
 
@@ -173,19 +173,19 @@ export function lengthSigned(vector, positiveDirection) {
 }
 
 export function angleSigned(first, second, upAxis) {
-    return angleSignedDegrees(first, second, upAxis);
+    return Vec3Utils.angleSignedDegrees(first, second, upAxis);
 }
 
 export function angleSignedDegrees(first, second, upAxis) {
-    return Math.pp_toDegrees(angleSignedRadians(first, second, upAxis));
+    return Math.pp_toDegrees(Vec3Utils.angleSignedRadians(first, second, upAxis));
 }
 
 export let angleSignedRadians = function () {
     let crossAxis = create();
     return function angleSignedRadians(first, second, upAxis) {
-        cross(first, second, crossAxis);
-        let angle = angleRadians(first, second);
-        if (!isConcordant(crossAxis, upAxis)) {
+        Vec3Utils.cross(first, second, crossAxis);
+        let angle = Vec3Utils.angleRadians(first, second);
+        if (!Vec3Utils.isConcordant(crossAxis, upAxis)) {
             angle = -angle;
         }
 
@@ -193,18 +193,18 @@ export let angleSignedRadians = function () {
     };
 }();
 
-export function toRadians(vector, out = create()) {
-    set(out, Math.pp_toRadians(vector[0]), Math.pp_toRadians(vector[1]), Math.pp_toRadians(vector[2]));
+export function toRadians(vector, out = Vec3Utils.create()) {
+    Vec3Utils.set(out, Math.pp_toRadians(vector[0]), Math.pp_toRadians(vector[1]), Math.pp_toRadians(vector[2]));
     return out;
 }
 
-export function toDegrees(vector, out = create()) {
-    set(out, Math.pp_toDegrees(vector[0]), Math.pp_toDegrees(vector[1]), Math.pp_toDegrees(vector[2]));
+export function toDegrees(vector, out = Vec3Utils.create()) {
+    Vec3Utils.set(out, Math.pp_toDegrees(vector[0]), Math.pp_toDegrees(vector[1]), Math.pp_toDegrees(vector[2]));
     return out;
 }
 
 export function toQuat(vector, out) {
-    return degreesToQuat(vector, out);
+    return Vec3Utils.degreesToQuat(vector, out);
 }
 
 export function radiansToQuat(vector, out = quat_create()) {
@@ -218,72 +218,72 @@ export function degreesToQuat(vector, out = quat_create()) {
 }
 
 export function isNormalized(vector, epsilon = MathUtils.EPSILON) {
-    return Math.abs(lengthSquared(vector) - 1) < epsilon;
+    return Math.abs(Vec3Utils.lengthSquared(vector) - 1) < epsilon;
 }
 
 export function isZero(vector, epsilon = 0) {
-    return lengthSquared(vector) <= (epsilon * epsilon);
+    return Vec3Utils.lengthSquared(vector) <= (epsilon * epsilon);
 }
 
-export function componentAlongAxis(vector, axis, out = create()) {
-    let componentAlongAxisLength = dot(vector, axis);
+export function componentAlongAxis(vector, axis, out = Vec3Utils.create()) {
+    let componentAlongAxisLength = Vec3Utils.dot(vector, axis);
 
-    copy(axis, out);
-    scale(out, componentAlongAxisLength, out);
+    Vec3Utils.copy(axis, out);
+    Vec3Utils.scale(out, componentAlongAxisLength, out);
     return out;
 }
 
 export function valueAlongAxis(vector, axis) {
-    let valueAlongAxis = dot(vector, axis);
+    let valueAlongAxis = Vec3Utils.dot(vector, axis);
     return valueAlongAxis;
 }
 
 export let removeComponentAlongAxis = function () {
     let componentAlong = create();
-    return function removeComponentAlongAxis(vector, axis, out = create()) {
-        componentAlongAxis(vector, axis, componentAlong);
-        sub(vector, componentAlong, out);
+    return function removeComponentAlongAxis(vector, axis, out = Vec3Utils.create()) {
+        Vec3Utils.componentAlongAxis(vector, axis, componentAlong);
+        Vec3Utils.sub(vector, componentAlong, out);
         return out;
     };
 }();
 
 export let copyComponentAlongAxis = function () {
     let componentAlong = create();
-    return function copyComponentAlongAxis(from, to, axis, out = create()) {
-        removeComponentAlongAxis(to, axis, out);
-        componentAlongAxis(from, axis, componentAlong);
-        add(out, componentAlong, out);
+    return function copyComponentAlongAxis(from, to, axis, out = Vec3Utils.create()) {
+        Vec3Utils.removeComponentAlongAxis(to, axis, out);
+        Vec3Utils.componentAlongAxis(from, axis, componentAlong);
+        Vec3Utils.add(out, componentAlong, out);
 
         return out;
     };
 }();
 
 export function isConcordant(first, second) {
-    return dot(first, second) >= 0;
+    return Vec3Utils.dot(first, second) >= 0;
 }
 
 export function isFartherAlongAxis(first, second, axis) {
-    return valueAlongAxis(first, axis) > valueAlongAxis(second, axis);
+    return Vec3Utils.valueAlongAxis(first, axis) > Vec3Utils.valueAlongAxis(second, axis);
 }
 
 export function isToTheRight(first, second, upAxis) {
-    return signTo(first, second, upAxis) >= 0;
+    return Vec3Utils.signTo(first, second, upAxis) >= 0;
 }
 
 export let signTo = function () {
     let componentAlongThis = create();
     let componentAlongVector = create();
     return function signTo(first, second, upAxis, zeroSign = 1) {
-        removeComponentAlongAxis(first, upAxis, componentAlongThis);
-        removeComponentAlongAxis(second, upAxis, componentAlongVector);
+        Vec3Utils.removeComponentAlongAxis(first, upAxis, componentAlongThis);
+        Vec3Utils.removeComponentAlongAxis(second, upAxis, componentAlongVector);
 
-        let angleSignedResult = angleSigned(first, second, upAxis);
+        let angleSignedResult = Vec3Utils.angleSigned(first, second, upAxis);
         return angleSignedResult > 0 ? 1 : (angleSignedResult == 0 ? zeroSign : -1);
     };
 }();
 
-export function projectOnAxis(vector, axis, out = create()) {
-    componentAlongAxis(vector, axis, out);
+export function projectOnAxis(vector, axis, out = Vec3Utils.create()) {
+    Vec3Utils.componentAlongAxis(vector, axis, out);
     return out;
 }
 
@@ -294,33 +294,33 @@ export let projectOnAxisAlongAxis = function () {
     let thisToAxis = create();
 
     let fixedProjectAlongAxis = create();
-    return function projectOnAxisAlongAxis(vector, axis, projectAlongAxis, out = create()) {
+    return function projectOnAxisAlongAxis(vector, axis, projectAlongAxis, out = Vec3Utils.create()) {
 
-        if (isOnAxis(vector, axis) || isOnAxis(projectAlongAxis, axis)) {
-            copy(vector, out);
+        if (Vec3Utils.isOnAxis(vector, axis) || Vec3Utils.isOnAxis(projectAlongAxis, axis)) {
+            Vec3Utils.copy(vector, out);
         } else {
-            cross(projectAlongAxis, axis, up);
-            normalize(up, up);
+            Vec3Utils.cross(projectAlongAxis, axis, up);
+            Vec3Utils.normalize(up, up);
 
-            removeComponentAlongAxis(vector, up, out);
-            if (!isOnAxis(out, axis)) {
-                projectOnAxis(out, axis, thisToAxis);
-                sub(thisToAxis, out, thisToAxis);
+            Vec3Utils.removeComponentAlongAxis(vector, up, out);
+            if (!Vec3Utils.isOnAxis(out, axis)) {
+                Vec3Utils.projectOnAxis(out, axis, thisToAxis);
+                Vec3Utils.sub(thisToAxis, out, thisToAxis);
 
-                if (isConcordant(thisToAxis, projectAlongAxis)) {
-                    copy(projectAlongAxis, fixedProjectAlongAxis);
+                if (Vec3Utils.isConcordant(thisToAxis, projectAlongAxis)) {
+                    Vec3Utils.copy(projectAlongAxis, fixedProjectAlongAxis);
                 } else {
-                    negate(projectAlongAxis, fixedProjectAlongAxis);
+                    Vec3Utils.negate(projectAlongAxis, fixedProjectAlongAxis);
                 }
 
-                let angleWithAlongAxis = angleRadians(fixedProjectAlongAxis, thisToAxis);
-                let lengthToRemove = length(thisToAxis,) / Math.cos(angleWithAlongAxis);
+                let angleWithAlongAxis = Vec3Utils.angleRadians(fixedProjectAlongAxis, thisToAxis);
+                let lengthToRemove = Vec3Utils.length(thisToAxis,) / Math.cos(angleWithAlongAxis);
 
-                normalize(fixedProjectAlongAxis, fixedProjectAlongAxis);
-                scale(fixedProjectAlongAxis, lengthToRemove, fixedProjectAlongAxis);
-                add(out, fixedProjectAlongAxis, out);
+                Vec3Utils.normalize(fixedProjectAlongAxis, fixedProjectAlongAxis);
+                Vec3Utils.scale(fixedProjectAlongAxis, lengthToRemove, fixedProjectAlongAxis);
+                Vec3Utils.add(out, fixedProjectAlongAxis, out);
 
-                projectOnAxis(out, axis, out); // Snap on the axis, due to float precision error
+                Vec3Utils.projectOnAxis(out, axis, out); // Snap on the axis, due to float precision error
             }
         }
 
@@ -328,8 +328,8 @@ export let projectOnAxisAlongAxis = function () {
     };
 }();
 
-export function projectOnPlane(vector, planeNormal, out = create()) {
-    removeComponentAlongAxis(vector, planeNormal, out);
+export function projectOnPlane(vector, planeNormal, out = Vec3Utils.create()) {
+    Vec3Utils.removeComponentAlongAxis(vector, planeNormal, out);
     return out;
 }
 
@@ -338,29 +338,29 @@ export let projectOnPlaneAlongAxis = function () {
     let thisToPlane = create();
 
     let fixedProjectAlongAxis = create();
-    return function projectOnPlaneAlongAxis(vector, planeNormal, projectAlongAxis, out = create()) {
-        if (isOnPlane(vector, planeNormal) || isOnPlane(projectAlongAxis, planeNormal)) {
-            copy(vector, out);
+    return function projectOnPlaneAlongAxis(vector, planeNormal, projectAlongAxis, out = Vec3Utils.create()) {
+        if (Vec3Utils.isOnPlane(vector, planeNormal) || Vec3Utils.isOnPlane(projectAlongAxis, planeNormal)) {
+            Vec3Utils.copy(vector, out);
         } else {
-            copy(vector, out);
+            Vec3Utils.copy(vector, out);
 
-            projectOnPlane(out, planeNormal, thisToPlane);
-            sub(thisToPlane, out, thisToPlane);
+            Vec3Utils.projectOnPlane(out, planeNormal, thisToPlane);
+            Vec3Utils.sub(thisToPlane, out, thisToPlane);
 
-            if (isConcordant(thisToPlane, projectAlongAxis)) {
-                copy(projectAlongAxis, fixedProjectAlongAxis);
+            if (Vec3Utils.isConcordant(thisToPlane, projectAlongAxis)) {
+                Vec3Utils.copy(projectAlongAxis, fixedProjectAlongAxis);
             } else {
-                negate(projectAlongAxis, fixedProjectAlongAxis);
+                Vec3Utils.negate(projectAlongAxis, fixedProjectAlongAxis);
             }
 
-            let angleWithAlongAxis = angleRadians(fixedProjectAlongAxis, thisToPlane);
-            let lengthToRemove = length(thisToPlane,) / Math.cos(angleWithAlongAxis);
+            let angleWithAlongAxis = Vec3Utils.angleRadians(fixedProjectAlongAxis, thisToPlane);
+            let lengthToRemove = Vec3Utils.length(thisToPlane,) / Math.cos(angleWithAlongAxis);
 
-            normalize(fixedProjectAlongAxis, fixedProjectAlongAxis);
-            scale(fixedProjectAlongAxis, lengthToRemove, fixedProjectAlongAxis);
-            add(out, fixedProjectAlongAxis, out);
+            Vec3Utils.normalize(fixedProjectAlongAxis, fixedProjectAlongAxis);
+            Vec3Utils.scale(fixedProjectAlongAxis, lengthToRemove, fixedProjectAlongAxis);
+            Vec3Utils.add(out, fixedProjectAlongAxis, out);
 
-            projectOnPlane(out, planeNormal, out); // Snap on the axis, due to float precision error
+            Vec3Utils.projectOnPlane(out, planeNormal, out); // Snap on the axis, due to float precision error
         }
 
         return out;
@@ -368,119 +368,119 @@ export let projectOnPlaneAlongAxis = function () {
 }();
 
 export function isOnAxis(vector, axis) {
-    let angleResult = angle(vector, axis);
+    let angleResult = Vec3Utils.angle(vector, axis);
     return Math.abs(angleResult) < MathUtils.EPSILON_DEGREES || Math.abs(angleResult - 180) < MathUtils.EPSILON_DEGREES;
 }
 
 export function isOnPlane(vector, planeNormal) {
-    let angleResult = angle(vector, planeNormal);
+    let angleResult = Vec3Utils.angle(vector, planeNormal);
     return Math.abs(angleResult - 90) < MathUtils.EPSILON_DEGREES;
 }
 
 export function rotate(vector, rotation, out) {
-    return rotateDegrees(vector, rotation, out);
+    return Vec3Utils.rotateDegrees(vector, rotation, out);
 }
 
 export let rotateDegrees = function () {
     let zero = create();
     return function rotateDegrees(vector, rotation, out) {
-        return rotateAroundDegrees(vector, rotation, zero, out);
+        return Vec3Utils.rotateAroundDegrees(vector, rotation, zero, out);
     };
 }();
 
 export let rotateRadians = function () {
     let zero = create();
     return function rotateRadians(vector, rotation, out) {
-        return rotateAroundRadians(vector, rotation, zero, out);
+        return Vec3Utils.rotateAroundRadians(vector, rotation, zero, out);
     };
 }();
 
 export let rotateQuat = function () {
     let zero = create();
     return function rotateQuat(vector, rotation, out) {
-        return rotateAroundQuat(vector, rotation, zero, out);
+        return Vec3Utils.rotateAroundQuat(vector, rotation, zero, out);
     };
 }();
 
 export function rotateAxis(vector, angle, axis, out) {
-    return rotateAxisDegrees(vector, angle, axis, out);
+    return Vec3Utils.rotateAxisDegrees(vector, angle, axis, out);
 }
 
 export let rotateAxisDegrees = function () {
     let zero = create();
     return function rotateAxisDegrees(vector, angle, axis, out) {
-        return rotateAroundAxisDegrees(vector, angle, axis, zero, out);
+        return Vec3Utils.rotateAroundAxisDegrees(vector, angle, axis, zero, out);
     };
 }();
 
 export let rotateAxisRadians = function () {
     let zero = create();
     return function rotateAxisRadians(vector, angle, axis, out) {
-        return rotateAroundAxisRadians(vector, angle, axis, zero, out);
+        return Vec3Utils.rotateAroundAxisRadians(vector, angle, axis, zero, out);
     };
 }();
 
 export function rotateAround(vector, rotation, origin, out) {
-    return rotateAroundDegrees(vector, rotation, origin, out);
+    return Vec3Utils.rotateAroundDegrees(vector, rotation, origin, out);
 }
 
 export let rotateAroundDegrees = function () {
     let quat = quat_utils_create();
-    return function rotateAroundDegrees(vector, rotation, origin, out = create()) {
-        degreesToQuat(rotation, quat);
-        return rotateAroundQuat(vector, quat, origin, out);
+    return function rotateAroundDegrees(vector, rotation, origin, out = Vec3Utils.create()) {
+        Vec3Utils.degreesToQuat(rotation, quat);
+        return Vec3Utils.rotateAroundQuat(vector, quat, origin, out);
     };
 }();
 
 export let rotateAroundRadians = function () {
     let quat = quat_utils_create();
-    return function rotateAroundRadians(vector, rotation, origin, out = create()) {
-        radiansToQuat(rotation, quat);
-        return rotateAroundQuat(vector, quat, origin, out);
+    return function rotateAroundRadians(vector, rotation, origin, out = Vec3Utils.create()) {
+        Vec3Utils.radiansToQuat(rotation, quat);
+        return Vec3Utils.rotateAroundQuat(vector, quat, origin, out);
     };
 }();
 
-export function rotateAroundQuat(vector, rotation, origin, out = create()) {
-    sub(vector, origin, out);
-    transformQuat(out, rotation, out);
-    add(out, origin, out);
+export function rotateAroundQuat(vector, rotation, origin, out = Vec3Utils.create()) {
+    Vec3Utils.sub(vector, origin, out);
+    Vec3Utils.transformQuat(out, rotation, out);
+    Vec3Utils.add(out, origin, out);
     return out;
 }
 
 export function rotateAroundAxis(vector, angle, axis, origin, out) {
-    return rotateAroundAxisDegrees(vector, angle, axis, origin, out);
+    return Vec3Utils.rotateAroundAxisDegrees(vector, angle, axis, origin, out);
 }
 
 export function rotateAroundAxisDegrees(vector, angle, axis, origin, out) {
-    return rotateAroundAxisRadians(vector, Math.pp_toRadians(angle), axis, origin, out);
+    return Vec3Utils.rotateAroundAxisRadians(vector, Math.pp_toRadians(angle), axis, origin, out);
 }
 
 export let rotateAroundAxisRadians = function () {
     let quat = quat_utils_create();
-    return function rotateAroundAxisRadians(vector, angle, axis, origin, out = create()) {
+    return function rotateAroundAxisRadians(vector, angle, axis, origin, out = Vec3Utils.create()) {
         quat.quat_fromAxisRadians(angle, axis);
-        return rotateAroundQuat(vector, quat, origin, out);
+        return Vec3Utils.rotateAroundQuat(vector, quat, origin, out);
     };
 }();
 
 export function convertPositionToWorld(vector, parentTransform, out) {
-    return convertPositionToWorldMatrix(vector, parentTransform, out);
+    return Vec3Utils.convertPositionToWorldMatrix(vector, parentTransform, out);
 }
 
 export function convertPositionToLocal(vector, parentTransform, out) {
-    return convertPositionToLocalMatrix(vector, parentTransform, out);
+    return Vec3Utils.convertPositionToLocalMatrix(vector, parentTransform, out);
 }
 
-export function convertPositionToWorldMatrix(vector, parentTransform, out = create()) {
-    transformMat4(vector, parentTransform, out);
+export function convertPositionToWorldMatrix(vector, parentTransform, out = Vec3Utils.create()) {
+    Vec3Utils.transformMat4(vector, parentTransform, out);
     return out;
 }
 
 export let convertPositionToLocalMatrix = function () {
     let inverse = mat4_utils_create();
-    return function convertPositionToLocalMatrix(vector, parentTransform, out = create()) {
+    return function convertPositionToLocalMatrix(vector, parentTransform, out = Vec3Utils.create()) {
         parentTransform.mat4_invert(inverse);
-        transformMat4(vector, inverse, out);
+        Vec3Utils.transformMat4(vector, inverse, out);
         return out;
     };
 }();
@@ -491,11 +491,11 @@ export let convertPositionToWorldQuat = function () {
     let rotation = quat_utils_create();
     let one = create();
     set(one, 1, 1, 1);
-    return function convertPositionToWorldQuat(vector, parentTransform, out = create()) {
+    return function convertPositionToWorldQuat(vector, parentTransform, out = Vec3Utils.create()) {
         parentTransform.quat2_getPosition(position);
         parentTransform.quat2_getRotationQuat(rotation);
         parentTransformMatrix.mat4_setPositionRotationQuatScale(position, rotation, one);
-        return convertPositionToWorldMatrix(vector, parentTransformMatrix, out);
+        return Vec3Utils.convertPositionToWorldMatrix(vector, parentTransformMatrix, out);
     };
 }();
 
@@ -505,37 +505,37 @@ export let convertPositionToLocalQuat = function () {
     let rotation = quat_utils_create();
     let one = create();
     set(one, 1, 1, 1);
-    return function convertPositionToLocalQuat(vector, parentTransform, out = create()) {
+    return function convertPositionToLocalQuat(vector, parentTransform, out = Vec3Utils.create()) {
         parentTransform.quat2_getPosition(position);
         parentTransform.quat2_getRotationQuat(rotation);
         parentTransformMatrix.mat4_setPositionRotationQuatScale(position, rotation, one);
-        return convertPositionToLocalMatrix(vector, parentTransformMatrix, out);
+        return Vec3Utils.convertPositionToLocalMatrix(vector, parentTransformMatrix, out);
     };
 }();
 
 export function convertDirectionToWorld(vector, parentTransform, out) {
-    return convertDirectionToWorldMatrix(vector, parentTransform, out);
+    return Vec3Utils.convertDirectionToWorldMatrix(vector, parentTransform, out);
 }
 
 export function convertDirectionToLocal(vector, parentTransform, out) {
-    return convertDirectionToLocalMatrix(vector, parentTransform, out);
+    return Vec3Utils.convertDirectionToLocalMatrix(vector, parentTransform, out);
 }
 
 export let convertDirectionToWorldMatrix = function () {
     let rotation = quat_utils_create();
-    return function convertDirectionToWorldMatrix(vector, parentTransform, out = create()) {
+    return function convertDirectionToWorldMatrix(vector, parentTransform, out = Vec3Utils.create()) {
         parentTransform.mat4_getRotationQuat(rotation);
-        transformQuat(vector, rotation, out);
+        Vec3Utils.transformQuat(vector, rotation, out);
         return out;
     };
 }();
 
 export let convertDirectionToLocalMatrix = function () {
     let rotation = quat_utils_create();
-    return function convertDirectionToLocalMatrix(vector, parentTransform, out = create()) {
+    return function convertDirectionToLocalMatrix(vector, parentTransform, out = Vec3Utils.create()) {
         parentTransform.mat4_getRotationQuat(rotation);
         rotation.quat_conjugate(rotation);
-        transformQuat(vector, rotation, out);
+        Vec3Utils.transformQuat(vector, rotation, out);
         return out;
     };
 }();
@@ -543,115 +543,103 @@ export let convertDirectionToLocalMatrix = function () {
 
 export let convertDirectionToWorldQuat = function () {
     let rotation = quat_utils_create();
-    return function convertDirectionToWorldQuat(vector, parentTransform, out = create()) {
+    return function convertDirectionToWorldQuat(vector, parentTransform, out = Vec3Utils.create()) {
         parentTransform.quat2_getRotationQuat(rotation);
-        transformQuat(vector, rotation, out);
+        Vec3Utils.transformQuat(vector, rotation, out);
         return out;
     };
 }();
 
 export let convertDirectionToLocalQuat = function () {
     let rotation = quat_utils_create();
-    return function convertDirectionToLocalQuat(vector, parentTransform, out = create()) {
+    return function convertDirectionToLocalQuat(vector, parentTransform, out = Vec3Utils.create()) {
         parentTransform.quat2_getRotationQuat(rotation);
         rotation.quat_conjugate(rotation);
-        transformQuat(vector, rotation, out);
+        Vec3Utils.transformQuat(vector, rotation, out);
         return out;
     };
 }();
 
-export function log(vector, decimalPlaces = 4) {
-    vector.vec_log(decimalPlaces);
-}
-
-export function error(vector, decimalPlaces = 4) {
-    vector.vec_error(decimalPlaces);
-}
-
-export function warn(vector, decimalPlaces = 4) {
-    vector.vec_warn(decimalPlaces);
-}
-
 export function addRotation(vector, rotation, out) {
-    return degreesAddRotation(vector, rotation, out);
+    return Vec3Utils.degreesAddRotation(vector, rotation, out);
 }
 
 export function addRotationDegrees(vector, rotation, out) {
-    return degreesAddRotationDegrees(vector, rotation, out);
+    return Vec3Utils.degreesAddRotationDegrees(vector, rotation, out);
 }
 
 export function addRotationRadians(vector, rotation, out) {
-    return degreesAddRotationRadians(vector, rotation, out);
+    return Vec3Utils.degreesAddRotationRadians(vector, rotation, out);
 }
 
 export function addRotationQuat(vector, rotation, out) {
-    return degreesAddRotationQuat(vector, rotation, out);
+    return Vec3Utils.degreesAddRotationQuat(vector, rotation, out);
 }
 
 export function degreesAddRotation(vector, rotation, out) {
-    return degreesAddRotationDegrees(vector, rotation, out);
+    return Vec3Utils.degreesAddRotationDegrees(vector, rotation, out);
 }
 
 export let degreesAddRotationDegrees = function () {
     let quat = quat_utils_create();
-    return function degreesAddRotationDegrees(vector, rotation, out = create()) {
-        degreesToQuat(vector, quat);
+    return function degreesAddRotationDegrees(vector, rotation, out = Vec3Utils.create()) {
+        Vec3Utils.degreesToQuat(vector, quat);
         return quat.quat_addRotationDegrees(rotation, quat).quat_toDegrees(out);
     };
 }();
 
 export let degreesAddRotationRadians = function () {
     let quat = quat_utils_create();
-    return function degreesAddRotationRadians(vector, rotation, out = create()) {
-        degreesToQuat(vector, quat);
+    return function degreesAddRotationRadians(vector, rotation, out = Vec3Utils.create()) {
+        Vec3Utils.degreesToQuat(vector, quat);
         return quat.quat_addRotationRadians(rotation, quat).quat_toDegrees(out);
     };
 }();
 
 export let degreesAddRotationQuat = function () {
     let quat = quat_utils_create();
-    return function degreesAddRotationQuat(vector, rotation, out = create()) {
-        degreesToQuat(vector, quat);
+    return function degreesAddRotationQuat(vector, rotation, out = Vec3Utils.create()) {
+        Vec3Utils.degreesToQuat(vector, quat);
         return quat.quat_addRotationQuat(rotation, quat).quat_toDegrees(out);
     };
 }();
 
 export function radiansAddRotation(vector, rotation, out) {
-    return radiansAddRotationDegrees(vector, rotation, out);
+    return Vec3Utils.radiansAddRotationDegrees(vector, rotation, out);
 }
 
 export let radiansAddRotationDegrees = function () {
     let quat = quat_utils_create();
-    return function radiansAddRotationDegrees(vector, rotation, out = create()) {
-        radiansToQuat(vector, quat);
+    return function radiansAddRotationDegrees(vector, rotation, out = Vec3Utils.create()) {
+        Vec3Utils.radiansToQuat(vector, quat);
         return quat.quat_addRotationDegrees(rotation, quat).quat_toRadians(out);
     };
 }();
 
 export let radiansAddRotationRadians = function () {
     let quat = quat_utils_create();
-    return function radiansAddRotationRadians(vector, rotation, out = create()) {
-        radiansToQuat(vector, quat);
+    return function radiansAddRotationRadians(vector, rotation, out = Vec3Utils.create()) {
+        Vec3Utils.radiansToQuat(vector, quat);
         return quat.quat_addRotationRadians(rotation, quat).quat_toRadians(out);
     };
 }();
 
 export let radiansAddRotationQuat = function () {
     let quat = quat_utils_create();
-    return function radiansAddRotationQuat(vector, rotation, out = create()) {
-        radiansToQuat(vector, quat);
+    return function radiansAddRotationQuat(vector, rotation, out = Vec3Utils.create()) {
+        Vec3Utils.radiansToQuat(vector, quat);
         return quat.quat_addRotationQuat(rotation, quat).quat_toRadians(out);
     };
 }();
 
 export function toMatrix(vector, out = mat3_create()) {
-    return degreesToMatrix(vector, out);
+    return Vec3Utils.degreesToMatrix(vector, out);
 }
 
 export let degreesToMatrix = function () {
     let quat = quat_utils_create();
     return function degreesToMatrix(vector, out = mat3_create()) {
-        degreesToQuat(vector, quat);
+        Vec3Utils.degreesToQuat(vector, quat);
         return quat.quat_toMatrix(out);
     };
 }();
@@ -659,19 +647,19 @@ export let degreesToMatrix = function () {
 export let radiansToMatrix = function () {
     let quat = quat_utils_create();
     return function radiansToMatrix(vector, out = mat3_create()) {
-        radiansToQuat(vector, quat);
+        Vec3Utils.radiansToQuat(vector, quat);
         return quat.quat_toMatrix(out);
     };
 }();
 
 export function rotationTo(vector, direction, out) {
-    return rotationToDegrees(vector, direction, out);
+    return Vec3Utils.rotationToDegrees(vector, direction, out);
 }
 
 export let rotationToDegrees = function () {
     let rotationQuat = quat_utils_create();
-    return function rotationToDegrees(vector, direction, out = create()) {
-        rotationToQuat(vector, direction, rotationQuat);
+    return function rotationToDegrees(vector, direction, out = Vec3Utils.create()) {
+        Vec3Utils.rotationToQuat(vector, direction, rotationQuat);
         rotationQuat.quat_toDegrees(out);
         return out;
     };
@@ -679,8 +667,8 @@ export let rotationToDegrees = function () {
 
 export let rotationToRadians = function () {
     let rotationQuat = quat_utils_create();
-    return function rotationToRadians(vector, direction, out = create()) {
-        rotationToQuat(vector, direction, rotationQuat);
+    return function rotationToRadians(vector, direction, out = Vec3Utils.create()) {
+        Vec3Utils.rotationToQuat(vector, direction, rotationQuat);
         rotationQuat.quat_toRadians(out);
         return out;
     };
@@ -689,22 +677,22 @@ export let rotationToRadians = function () {
 export let rotationToQuat = function () {
     let rotationAxis = create();
     return function rotationToQuat(vector, direction, out = quat_create()) {
-        cross(vector, direction, rotationAxis);
-        normalize(rotationAxis, rotationAxis);
-        let signedAngle = angleSigned(vector, direction, rotationAxis);
+        Vec3Utils.cross(vector, direction, rotationAxis);
+        Vec3Utils.normalize(rotationAxis, rotationAxis);
+        let signedAngle = Vec3Utils.angleSigned(vector, direction, rotationAxis);
         out.quat_fromAxis(signedAngle, rotationAxis);
         return out;
     };
 }();
 
 export function rotationToPivoted(vector, direction, pivotAxis, out) {
-    return rotationToPivotedDegrees(vector, direction, pivotAxis, out);
+    return Vec3Utils.rotationToPivotedDegrees(vector, direction, pivotAxis, out);
 }
 
 export let rotationToPivotedDegrees = function () {
     let rotationQuat = quat_utils_create();
-    return function rotationToPivotedDegrees(vector, direction, pivotAxis, out = create()) {
-        rotationToPivotedQuat(vector, direction, pivotAxis, rotationQuat);
+    return function rotationToPivotedDegrees(vector, direction, pivotAxis, out = Vec3Utils.create()) {
+        Vec3Utils.rotationToPivotedQuat(vector, direction, pivotAxis, rotationQuat);
         rotationQuat.quat_toDegrees(out);
         return out;
     };
@@ -712,8 +700,8 @@ export let rotationToPivotedDegrees = function () {
 
 export let rotationToPivotedRadians = function () {
     let rotationQuat = quat_utils_create();
-    return function rotationToPivotedRadians(vector, direction, pivotAxis, out = create()) {
-        rotationToPivotedQuat(vector, direction, pivotAxis, rotationQuat);
+    return function rotationToPivotedRadians(vector, direction, pivotAxis, out = Vec3Utils.create()) {
+        Vec3Utils.rotationToPivotedQuat(vector, direction, pivotAxis, rotationQuat);
         rotationQuat.quat_toRadians(out);
         return out;
     };
@@ -724,23 +712,23 @@ export let rotationToPivotedQuat = function () {
     let directionFlat = create();
     let rotationAxis = create();
     return function rotationToPivotedQuat(vector, direction, pivotAxis, out = quat_create()) {
-        removeComponentAlongAxis(vector, pivotAxis, thisFlat);
-        removeComponentAlongAxis(direction, pivotAxis, directionFlat);
+        Vec3Utils.removeComponentAlongAxis(vector, pivotAxis, thisFlat);
+        Vec3Utils.removeComponentAlongAxis(direction, pivotAxis, directionFlat);
 
-        cross(thisFlat, directionFlat, rotationAxis);
-        normalize(rotationAxis, rotationAxis);
-        let signedAngle = angleSigned(thisFlat, directionFlat, rotationAxis);
+        Vec3Utils.cross(thisFlat, directionFlat, rotationAxis);
+        Vec3Utils.normalize(rotationAxis, rotationAxis);
+        let signedAngle = Vec3Utils.angleSigned(thisFlat, directionFlat, rotationAxis);
         out.quat_fromAxis(signedAngle, rotationAxis);
         return out;
     };
 }();
 
-export function lerp(from, to, interpolationValue, out = create()) {
+export function lerp(from, to, interpolationValue, out = Vec3Utils.create()) {
     if (interpolationValue <= 0) {
-        copy(from, out);
+        Vec3Utils.copy(from, out);
         return out;
     } else if (interpolationValue >= 1) {
-        copy(to, out);
+        Vec3Utils.copy(to, out);
         return out;
     }
 
@@ -748,9 +736,9 @@ export function lerp(from, to, interpolationValue, out = create()) {
     return out;
 }
 
-export function interpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear, out = create()) {
+export function interpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear, out = Vec3Utils.create()) {
     let lerpValue = easingFunction(interpolationValue);
-    return lerp(from, to, lerpValue, out);
+    return Vec3Utils.lerp(from, to, lerpValue, out);
 }
 
 export let Vec3Utils = {
@@ -830,9 +818,6 @@ export let Vec3Utils = {
     convertDirectionToLocalMatrix,
     convertDirectionToWorldQuat,
     convertDirectionToLocalQuat,
-    log,
-    error,
-    warn,
     addRotation,
     addRotationDegrees,
     addRotationRadians,

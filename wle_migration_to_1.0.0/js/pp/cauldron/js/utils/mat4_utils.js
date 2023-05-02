@@ -56,23 +56,23 @@ export function identity(matrix) {
     return matrix;
 }
 
-export function invert(matrix, out = create()) {
+export function invert(matrix, out = Mat4Utils.create()) {
     gl_mat4.invert(out, matrix);
     return out;
 }
 
-export function mul(first, second, out = create()) {
+export function mul(first, second, out = Mat4Utils.create()) {
     gl_mat4.mul(out, first, second);
     return out;
 }
 
-export function scale(matrix, vector, out = create()) {
+export function scale(matrix, vector, out = Mat4Utils.create()) {
     gl_mat4.scale(out, matrix, vector);
     return out;
 }
 
-export function clone(matrix, out = create()) {
-    copy(matrix, out);
+export function clone(matrix, out = Mat4Utils.create()) {
+    Mat4Utils.copy(matrix, out);
     return out;
 }
 
@@ -82,13 +82,13 @@ export function getPosition(matrix, out = vec3_create()) {
 }
 
 export function getRotation(matrix, out = vec3_create()) {
-    return getRotationDegrees(matrix, out);
+    return Mat4Utils.getRotationDegrees(matrix, out);
 }
 
 export let getRotationDegrees = function () {
     let quat = quat_utils_create();
     return function getRotationDegrees(matrix, out = vec3_create()) {
-        getRotationQuat(matrix, quat);
+        Mat4Utils.getRotationQuat(matrix, quat);
         quat.quat_toDegrees(out);
         return out;
     };
@@ -97,7 +97,7 @@ export let getRotationDegrees = function () {
 export let getRotationRadians = function () {
     let quat = quat_utils_create();
     return function getRotationRadians(matrix, out = vec3_create()) {
-        getRotationQuat(matrix, quat);
+        Mat4Utils.getRotationQuat(matrix, quat);
         quat.quat_toRadians(out);
         return out;
     };
@@ -110,9 +110,9 @@ export let getRotationQuat = function () {
     let one = vec3_utils_create();
     vec3_utils_set(one, 1, 1, 1);
     return function getRotationQuat(matrix, out = quat_create()) {
-        getScale(matrix, tempScale);
+        Mat4Utils.getScale(matrix, tempScale);
         one.vec3_div(tempScale, inverseScale);
-        scale(matrix, inverseScale, transformMatrixNoScale);
+        Mat4Utils.scale(matrix, inverseScale, transformMatrixNoScale);
         gl_mat4.getRotation(out, transformMatrixNoScale);
         out.quat_normalize(out);
         return out;
@@ -134,14 +134,14 @@ export function setPosition(matrix, position) {
 }
 
 export function setRotation(matrix, rotation) {
-    setRotationDegrees(matrix, rotation);
+    Mat4Utils.setRotationDegrees(matrix, rotation);
     return matrix;
 }
 
 export let setRotationDegrees = function () {
     let quat = quat_utils_create();
     return function setRotationDegrees(matrix, rotation) {
-        setRotationQuat(matrix, rotation.vec3_degreesToQuat(quat));
+        Mat4Utils.setRotationQuat(matrix, rotation.vec3_degreesToQuat(quat));
         return matrix;
     };
 }();
@@ -149,7 +149,7 @@ export let setRotationDegrees = function () {
 export let setRotationRadians = function () {
     let vector = vec3_utils_create();
     return function setRotationRadians(matrix, rotation) {
-        setRotationDegrees(matrix, rotation.vec3_toDegrees(vector));
+        Mat4Utils.setRotationDegrees(matrix, rotation.vec3_toDegrees(vector));
         return matrix;
     };
 }();
@@ -158,9 +158,9 @@ export let setRotationQuat = function () {
     let position = vec3_utils_create();
     let scale = vec3_utils_create();
     return function setRotationQuat(matrix, rotation) {
-        getPosition(matrix, position);
-        getScale(matrix, scale);
-        setPositionRotationQuatScale(matrix, position, rotation, scale);
+        Mat4Utils.getPosition(matrix, position);
+        Mat4Utils.getScale(matrix, scale);
+        Mat4Utils.setPositionRotationQuatScale(matrix, position, rotation, scale);
         return matrix;
     };
 }();
@@ -168,22 +168,22 @@ export let setRotationQuat = function () {
 export let setScale = function () {
     let tempScale = vec3_utils_create();
     return function setScale(matrix, scaleToSet) {
-        getScale(matrix, tempScale);
+        Mat4Utils.getScale(matrix, tempScale);
         scaleToSet.vec3_div(tempScale, tempScale);
-        scale(matrix, tempScale, matrix);
+        Mat4Utils.scale(matrix, tempScale, matrix);
         return matrix;
     };
 }();
 
 export function setPositionRotationScale(matrix, position, rotation, scale) {
-    setPositionRotationDegreesScale(matrix, position, rotation, scale);
+    Mat4Utils.setPositionRotationDegreesScale(matrix, position, rotation, scale);
     return matrix;
 }
 
 export let setPositionRotationDegreesScale = function () {
     let quat = quat_utils_create();
     return function setPositionRotationDegreesScale(matrix, position, rotation, scale) {
-        setPositionRotationQuatScale(matrix, position, rotation.vec3_degreesToQuat(quat), scale);
+        Mat4Utils.setPositionRotationQuatScale(matrix, position, rotation.vec3_degreesToQuat(quat), scale);
         return matrix;
     };
 }();
@@ -191,7 +191,7 @@ export let setPositionRotationDegreesScale = function () {
 export let setPositionRotationRadiansScale = function () {
     let vector = vec3_utils_create();
     return function setPositionRotationRadiansScale(matrix, position, rotation, scale) {
-        setPositionRotationDegreesScale(matrix, position, rotation.vec3_toDegrees(vector), scale);
+        Mat4Utils.setPositionRotationDegreesScale(matrix, position, rotation.vec3_toDegrees(vector), scale);
         return matrix;
     };
 }();
@@ -202,14 +202,14 @@ export function setPositionRotationQuatScale(matrix, position, rotation, scale) 
 }
 
 export function setPositionRotation(matrix, position, rotation) {
-    setPositionRotationDegrees(matrix, position, rotation);
+    Mat4Utils.setPositionRotationDegrees(matrix, position, rotation);
     return matrix;
 }
 
 export let setPositionRotationDegrees = function () {
     let quat = quat_utils_create();
     return function setPositionRotationDegrees(matrix, position, rotation) {
-        setPositionRotationQuat(matrix, position, rotation.vec3_degreesToQuat(quat));
+        Mat4Utils.setPositionRotationQuat(matrix, position, rotation.vec3_degreesToQuat(quat));
         return matrix;
     };
 }();
@@ -217,7 +217,7 @@ export let setPositionRotationDegrees = function () {
 export let setPositionRotationRadians = function () {
     let vector = vec3_utils_create();
     return function setPositionRotationRadians(matrix, position, rotation) {
-        setPositionRotationDegrees(matrix, position, rotation.vec3_toDegrees(vector));
+        Mat4Utils.setPositionRotationDegrees(matrix, position, rotation.vec3_toDegrees(vector));
         return matrix;
     };
 }();
@@ -228,9 +228,9 @@ export function setPositionRotationQuat(matrix, position, rotation) {
 }
 
 export function getAxes(matrix, out = [vec3_create(), vec3_create(), vec3_create()]) {
-    getLeft(matrix, out[0]);
-    getUp(matrix, out[1]);
-    getForward(matrix, out[2]);
+    Mat4Utils.getLeft(matrix, out[0]);
+    Mat4Utils.getUp(matrix, out[1]);
+    Mat4Utils.getForward(matrix, out[2]);
 
     return out;
 }
@@ -242,7 +242,7 @@ export function getForward(matrix, out = vec3_create()) {
 }
 
 export function getBackward(matrix, out) {
-    getForward(matrix, out);
+    Mat4Utils.getForward(matrix, out);
     out.vec3_negate(out);
     return out;
 }
@@ -254,7 +254,7 @@ export function getLeft(matrix, out = vec3_create()) {
 }
 
 export function getRight(matrix, out) {
-    getLeft(matrix, out);
+    Mat4Utils.getLeft(matrix, out);
     out.vec3_negate(out);
     return out;
 }
@@ -266,7 +266,7 @@ export function getUp(matrix, out = vec3_create()) {
 }
 
 export function getDown(matrix, out) {
-    getUp(matrix, out);
+    Mat4Utils.getUp(matrix, out);
     out.vec3_negate(out);
     return out;
 }
@@ -278,19 +278,19 @@ export let toWorld = function () {
     let inverseScale = vec3_utils_create();
     let one = vec3_utils_create();
     vec3_utils_set(one, 1, 1, 1);
-    return function toWorld(matrix, parentTransformMatrix, out = create()) {
-        if (hasUniformScale(parentTransformMatrix)) {
-            mul(parentTransformMatrix, matrix, out);
+    return function toWorld(matrix, parentTransformMatrix, out = Mat4Utils.create()) {
+        if (Mat4Utils.hasUniformScale(parentTransformMatrix)) {
+            Mat4Utils.mul(parentTransformMatrix, matrix, out);
         } else {
             position.vec3_set(matrix[12], matrix[13], matrix[14]);
             position.vec3_convertPositionToWorldMatrix(parentTransformMatrix, position);
 
-            getScale(parentTransformMatrix, tempScale);
+            Mat4Utils.getScale(parentTransformMatrix, tempScale);
             one.vec3_div(tempScale, inverseScale);
-            scale(parentTransformMatrix, inverseScale, convertTransform);
+            Mat4Utils.scale(parentTransformMatrix, inverseScale, convertTransform);
 
-            mul(convertTransform, matrix, out);
-            scale(out, tempScale, out);
+            Mat4Utils.mul(convertTransform, matrix, out);
+            Mat4Utils.scale(out, tempScale, out);
 
             out[12] = position[0];
             out[13] = position[1];
@@ -308,21 +308,21 @@ export let toLocal = function () {
     let inverseScale = vec3_utils_create();
     let one = vec3_utils_create();
     vec3_utils_set(one, 1, 1, 1);
-    return function toLocal(matrix, parentTransformMatrix, out = create()) {
-        if (hasUniformScale(parentTransformMatrix)) {
-            invert(parentTransformMatrix, convertTransform);
-            mul(convertTransform, matrix, out);
+    return function toLocal(matrix, parentTransformMatrix, out = Mat4Utils.create()) {
+        if (Mat4Utils.hasUniformScale(parentTransformMatrix)) {
+            Mat4Utils.invert(parentTransformMatrix, convertTransform);
+            Mat4Utils.mul(convertTransform, matrix, out);
         } else {
             position.vec3_set(matrix[12], matrix[13], matrix[14]);
             position.vec3_convertPositionToLocalMatrix(parentTransformMatrix, position);
 
-            getScale(parentTransformMatrix, tempScale);
+            Mat4Utils.getScale(parentTransformMatrix, tempScale);
             one.vec3_div(tempScale, inverseScale);
-            scale(parentTransformMatrix, inverseScale, convertTransform);
+            Mat4Utils.scale(parentTransformMatrix, inverseScale, convertTransform);
 
-            invert(convertTransform, convertTransform);
-            mul(convertTransform, matrix, out);
-            scale(out, inverseScale, out);
+            Mat4Utils.invert(convertTransform, convertTransform);
+            Mat4Utils.mul(convertTransform, matrix, out);
+            Mat4Utils.scale(out, inverseScale, out);
 
             out[12] = position[0];
             out[13] = position[1];
@@ -336,7 +336,7 @@ export let toLocal = function () {
 export let hasUniformScale = function () {
     let scale = vec3_utils_create();
     return function hasUniformScale(matrix) {
-        getScale(matrix, scale);
+        Mat4Utils.getScale(matrix, scale);
         return Math.abs(scale[0] - scale[1]) < MathUtils.EPSILON && Math.abs(scale[1] - scale[2]) < MathUtils.EPSILON && Math.abs(scale[0] - scale[2]) < MathUtils.EPSILON;
     };
 }();
@@ -345,14 +345,14 @@ export let toQuat = function () {
     let position = vec3_utils_create();
     let rotation = quat_utils_create();
     return function toQuat(matrix, out = quat2_create()) {
-        getPosition(matrix, position);
-        getRotationQuat(matrix, rotation);
+        Mat4Utils.getPosition(matrix, position);
+        Mat4Utils.getRotationQuat(matrix, rotation);
         out.quat2_setPositionRotationQuat(position, rotation);
         return out;
     };
 }();
 
-export function fromQuat(quat, out = create()) {
+export function fromQuat(quat, out = Mat4Utils.create()) {
     quat.quat2_toMatrix(out);
     return out;
 }

@@ -28,7 +28,7 @@ export function copy(from, to) {
 }
 
 export function clone(vector, out = create()) {
-    copy(vector, out);
+    Vec4Utils.copy(vector, out);
     return out;
 }
 

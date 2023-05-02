@@ -47,7 +47,7 @@ export function mapToRange(value, originRangeStart, originRangeEnd, newRangeStar
         return newRangeStart;
     }
 
-    let clampedValue = clamp(value, originRangeStart, originRangeEnd);
+    let clampedValue = MathUtils.clamp(value, originRangeStart, originRangeEnd);
 
     if (clampedValue == originRangeStart) {
         return newRangeStart;
@@ -56,7 +56,7 @@ export function mapToRange(value, originRangeStart, originRangeEnd, newRangeStar
     }
 
     let newValue = newRangeStart + ((newRangeEnd - newRangeStart) / (originRangeEnd - originRangeStart)) * (clampedValue - originRangeStart);
-    let clampedNewValue = clamp(newValue, newRangeStart, newRangeEnd);
+    let clampedNewValue = MathUtils.clamp(newValue, newRangeStart, newRangeEnd);
     return clampedNewValue;
 }
 
@@ -73,7 +73,7 @@ export function randomInt(start, end) {
 }
 
 export function randomBool() {
-    return randomInt(0, 1) == 0;
+    return MathUtils.randomInt(0, 1) == 0;
 }
 
 // Return 1 or -1
@@ -88,11 +88,11 @@ export function randomPick(...args) {
     if (args.length > 0) {
         if (args.length == 1 && args[0].length != null) {
             if (args[0].length > 0) {
-                let randomIndex = randomInt(0, args[0].length - 1);
+                let randomIndex = MathUtils.randomInt(0, args[0].length - 1);
                 random = args[0][randomIndex];
             }
         } else {
-            let randomIndex = randomInt(0, args.length - 1);
+            let randomIndex = MathUtils.randomInt(0, args.length - 1);
             random = args[randomIndex];
         }
     }
@@ -112,28 +112,28 @@ export function lerp(from, to, interpolationValue) {
 
 export function interpolate(from, to, interpolationValue, easingFunction = EasingFunction.linear) {
     let lerpValue = easingFunction(interpolationValue);
-    return lerp(from, to, lerpValue);
+    return MathUtils.lerp(from, to, lerpValue);
 }
 
 export function angleDistance(from, to) {
-    return angleDistanceDegrees(from, to);
+    return MathUtils.angleDistanceDegrees(from, to);
 }
 
 export function angleDistanceDegrees(from, to) {
-    return Math.abs(angleDistanceSignedDegrees(from, to));
+    return Math.abs(MathUtils.angleDistanceSignedDegrees(from, to));
 }
 
 export function angleDistanceRadians(from, to) {
-    return Math.abs(angleDistanceSignedRadians(from, to));
+    return Math.abs(MathUtils.angleDistanceSignedRadians(from, to));
 }
 
 export function angleDistanceSigned(from, to) {
-    return angleDistanceSignedDegrees(from, to);
+    return MathUtils.angleDistanceSignedDegrees(from, to);
 }
 
 export function angleDistanceSignedDegrees(from, to) {
-    let clampedFrom = angleClampDegrees(from, true);
-    let clampedTo = angleClampDegrees(to, true);
+    let clampedFrom = MathUtils.angleClampDegrees(from, true);
+    let clampedTo = MathUtils.angleClampDegrees(to, true);
 
     let distance = clampedTo - clampedFrom;
     if (clampedTo - clampedFrom > 180) {
@@ -146,13 +146,13 @@ export function angleDistanceSignedDegrees(from, to) {
 }
 
 export function angleDistanceSignedRadians(from, to) {
-    return toRadians(angleDistanceSignedDegrees(toDegrees(from), toDegrees(to)));
+    return MathUtils.toRadians(MathUtils.angleDistanceSignedDegrees(MathUtils.toDegrees(from), MathUtils.toDegrees(to)));
 }
 
 // Clamp the angle to -180/+180, so that, for example, 270 will be -90
 // If usePositiveRange is true, the angle will be clamped to 0/360
 export function angleClamp(angle, usePositiveRange = false) {
-    return angleClampDegrees(angle, usePositiveRange);
+    return MathUtils.angleClampDegrees(angle, usePositiveRange);
 }
 
 // Clamp the angle to -180/+180, so that, for example, 270 will be -90
@@ -176,24 +176,24 @@ export function angleClampDegrees(angle, usePositiveRange = false) {
 // Clamp the angle to -Pi/+Pi, so that, for example, 270 will be -90
 // If usePositiveRange is true, the angle will be clamped to 0/2Pi
 export function angleClampRadians(angle, usePositiveRange = false) {
-    return toRadians(angleClampDegrees(toDegrees(angle), usePositiveRange));
+    return MathUtils.toRadians(MathUtils.angleClampDegrees(MathUtils.toDegrees(angle), usePositiveRange));
 }
 
 // The range goes from start to end by going toward the positive direction (if useShortestAngle is false)
 // [20,300] is a 280 degrees range, [300, 20] is an 80 degrees range, [-150,-170] = [210, 190] is a 240 degrees range, [0, -10] = [0, 350] is a 350 degrees range
 export function isInsideAngleRange(angle, start, end, useShortestAngle = false) {
-    return isInsideAngleRangeDegrees(angle, start, end, useShortestAngle);
+    return MathUtils.isInsideAngleRangeDegrees(angle, start, end, useShortestAngle);
 }
 
 export function isInsideAngleRangeDegrees(angle, start, end, useShortestAngle = false) {
     let insideAngleRange = false;
 
-    let anglePositive = angleClampDegrees(angle, true);
-    let startPositive = angleClampDegrees(start, true);
-    let endPositive = angleClampDegrees(end, true);
+    let anglePositive = MathUtils.angleClampDegrees(angle, true);
+    let startPositive = MathUtils.angleClampDegrees(start, true);
+    let endPositive = MathUtils.angleClampDegrees(end, true);
 
     if (useShortestAngle) {
-        if (angleDistanceSignedDegrees(startPositive, endPositive) < 0) {
+        if (MathUtils.angleDistanceSignedDegrees(startPositive, endPositive) < 0) {
             let temp = startPositive;
             startPositive = endPositive;
             endPositive = temp;
@@ -210,7 +210,7 @@ export function isInsideAngleRangeDegrees(angle, start, end, useShortestAngle = 
 }
 
 export function isInsideAngleRangeRadians(angle, start, end, useShortestAngle = false) {
-    return isInsideAngleRangeDegrees(toDegrees(angle), toDegrees(start), toDegrees(end), useShortestAngle);
+    return MathUtils.isInsideAngleRangeDegrees(MathUtils.toDegrees(angle), MathUtils.toDegrees(start), MathUtils.toDegrees(end), useShortestAngle);
 }
 
 export let MathUtils = {

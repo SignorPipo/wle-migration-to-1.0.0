@@ -37,9 +37,9 @@ export function getInputSource(handedness, inputSourceType = null, engine = Glob
 }
 
 export function getInputSourceTypeByHandedness(handedness, engine) {
-    let inputSource = getInputSource(handedness, undefined, engine);
+    let inputSource = InputUtils.getInputSource(handedness, undefined, engine);
 
-    return getInputSourceType(inputSource);
+    return InputUtils.getInputSourceType(inputSource);
 }
 
 export function getInputSourceType(inputSource) {

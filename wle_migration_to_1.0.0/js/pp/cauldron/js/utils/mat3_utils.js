@@ -43,7 +43,7 @@ export function set(matrix,
 export let toDegrees = function () {
     let quat = quat_utils_create();
     return function toDegrees(matrix, out = vec3_create()) {
-        toQuat(matrix, quat);
+        Mat3Utils.toQuat(matrix, quat);
         quat.quat_toDegrees(out);
         return out;
     };
@@ -52,7 +52,7 @@ export let toDegrees = function () {
 export let toRadians = function () {
     let quat = quat_utils_create();
     return function toRadians(matrix, out = vec3_create()) {
-        toQuat(matrix, quat);
+        Mat3Utils.toQuat(matrix, quat);
         quat.quat_toRadians(out);
         return out;
     };
@@ -63,8 +63,8 @@ export function toQuat(matrix, out = quat_create()) {
     return out;
 }
 
-export function fromAxes(leftAxis, upAxis, forwardAxis, out = create()) {
-    set(out,
+export function fromAxes(leftAxis, upAxis, forwardAxis, out = Mat3Utils.create()) {
+    Mat3Utils.set(out,
         leftAxis[0], leftAxis[1], leftAxis[2],
         upAxis[0], upAxis[1], upAxis[2],
         forwardAxis[0], forwardAxis[1], forwardAxis[2]);

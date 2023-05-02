@@ -28,7 +28,7 @@ export function getObjectPrototypes(object) {
 export function getObjectPropertyNames(object) {
     let propertyNames = [];
 
-    let prototypes = getObjectPrototypes(object);
+    let prototypes = JSUtils.getObjectPrototypes(object);
 
     for (let prototype of prototypes) {
         if (prototype != null) {
@@ -45,7 +45,7 @@ export function getObjectPropertyNames(object) {
 export function getObjectPropertyDescriptor(object, propertyName) {
     let propertyDescriptor = null;
 
-    let propertyParent = getObjectPropertyOwnParent(object, propertyName);
+    let propertyParent = JSUtils.getObjectPropertyOwnParent(object, propertyName);
 
     if (propertyParent != null) {
         propertyDescriptor = Object.getOwnPropertyDescriptor(propertyParent, propertyName);
@@ -57,7 +57,7 @@ export function getObjectPropertyDescriptor(object, propertyName) {
 export function getObjectProperty(object, propertyName) {
     let property = undefined;
 
-    let propertyDescriptor = getObjectPropertyDescriptor(object, propertyName);
+    let propertyDescriptor = JSUtils.getObjectPropertyDescriptor(object, propertyName);
     if (propertyDescriptor != null) {
         if (propertyDescriptor.get != null) {
             property = propertyDescriptor.get.bind(object)();
@@ -70,7 +70,7 @@ export function getObjectProperty(object, propertyName) {
 }
 
 export function setObjectProperty(valueToSet, object, propertyName) {
-    let propertyDescriptor = getObjectPropertyDescriptor(object, propertyName);
+    let propertyDescriptor = JSUtils.getObjectPropertyDescriptor(object, propertyName);
 
     let setUsed = false;
     if (propertyDescriptor != null) {
@@ -82,7 +82,7 @@ export function setObjectProperty(valueToSet, object, propertyName) {
     }
 
     if (!setUsed) {
-        let propertyParent = getObjectPropertyOwnParent(object, propertyName);
+        let propertyParent = JSUtils.getObjectPropertyOwnParent(object, propertyName);
         if (propertyParent == null) {
             propertyParent = object;
         }
@@ -96,7 +96,7 @@ export function setObjectProperty(valueToSet, object, propertyName) {
 export function getObjectPropertyOwnParent(object, propertyName) {
     let parent = null;
 
-    let parents = getObjectPropertyOwnParents(object, propertyName);
+    let parents = JSUtils.getObjectPropertyOwnParents(object, propertyName);
     if (parents.length > 0) {
         parent = parents[0];
     }
@@ -107,7 +107,7 @@ export function getObjectPropertyOwnParent(object, propertyName) {
 export function getObjectPropertyOwnParents(object, propertyName) {
     let parents = [];
 
-    let possibleParents = getObjectPrototypes(object);
+    let possibleParents = JSUtils.getObjectPrototypes(object);
 
     for (let possibleParent of possibleParents) {
         let propertyNames = Object.getOwnPropertyNames(possibleParent);
@@ -122,9 +122,9 @@ export function getObjectPropertyOwnParents(object, propertyName) {
 export function getObjectFromPath(path, pathStartObject = Globals.getWindow()) {
     let object = null;
 
-    let objectName = getObjectNameFromPath(path);
+    let objectName = JSUtils.getObjectNameFromPath(path);
     if (objectName != null) {
-        object = getObjectProperty(getObjectParentFromPath(path, pathStartObject), objectName);
+        object = JSUtils.getObjectProperty(JSUtils.getObjectParentFromPath(path, pathStartObject), objectName);
     }
 
     return object;
@@ -147,7 +147,7 @@ export function getObjectParentFromPath(path, pathStartObject = Globals.getWindo
     let pathSplit = path.split(".");
     let currentParent = pathStartObject;
     for (let i = 0; i < pathSplit.length - 1; i++) {
-        currentParent = getObjectProperty(currentParent, pathSplit[i]);
+        currentParent = JSUtils.getObjectProperty(currentParent, pathSplit[i]);
     }
 
     return currentParent;
@@ -157,13 +157,13 @@ export function overwriteObjectProperty(newProperty, object, propertyName, overw
     let success = false;
 
     try {
-        let propertyOwnParent = getObjectPropertyOwnParent(object, propertyName);
+        let propertyOwnParent = JSUtils.getObjectPropertyOwnParent(object, propertyName);
         if (propertyOwnParent != null) {
             let originalPropertyDescriptor = Object.getOwnPropertyDescriptor(propertyOwnParent, propertyName);
 
             if (originalPropertyDescriptor != null) {
-                let originalProperty = getObjectProperty(propertyOwnParent, propertyName);
-                copyObjectProperties(originalProperty, newProperty, true, jsObjectFunctionsSpecialOverwrite, logEnabled);
+                let originalProperty = JSUtils.getObjectProperty(propertyOwnParent, propertyName);
+                JSUtils.copyObjectProperties(originalProperty, newProperty, true, jsObjectFunctionsSpecialOverwrite, logEnabled);
 
                 let overwriteTarget = object;
                 if (overwriteOnOwnParent) {
@@ -204,7 +204,7 @@ export function overwriteObjectProperty(newProperty, object, propertyName, overw
 export function copyObjectProperties(fromObject, toObject, cleanCopy = false, jsObjectFunctionsSpecialCopy = false, logEnabled = false) {
     if (fromObject != null) {
         if (cleanCopy) {
-            cleanObjectProperties(toObject);
+            JSUtils.cleanObjectProperties(toObject);
         }
 
         Object.setPrototypeOf(toObject, Object.getPrototypeOf(fromObject));
@@ -259,7 +259,7 @@ export function cleanObjectProperties(object) {
 export function doesObjectPropertyUseAccessors(object, propertyName) {
     let propertyUseAccessors = false;
 
-    let propertyDescriptor = getObjectPropertyDescriptor(object, propertyName);
+    let propertyDescriptor = JSUtils.getObjectPropertyDescriptor(object, propertyName);
 
     if (propertyDescriptor != null && (propertyDescriptor.get != null || propertyDescriptor.set != null)) {
         propertyUseAccessors = true;
@@ -271,9 +271,9 @@ export function doesObjectPropertyUseAccessors(object, propertyName) {
 export function isFunctionByName(functionParent, functionName) {
     let isFunctionResult = false;
 
-    let functionProperty = getObjectProperty(functionParent, functionName);
+    let functionProperty = JSUtils.getObjectProperty(functionParent, functionName);
     if (functionProperty != null) {
-        isFunctionResult = isFunction(functionProperty) && !isClassByName(functionParent, functionName);
+        isFunctionResult = JSUtils.isFunction(functionProperty) && !JSUtils.isClassByName(functionParent, functionName);
     }
 
     return isFunctionResult;
@@ -282,9 +282,9 @@ export function isFunctionByName(functionParent, functionName) {
 export function isClassByName(classParent, className) {
     let isClassResult = false;
 
-    let classProperty = getObjectProperty(classParent, className);
+    let classProperty = JSUtils.getObjectProperty(classParent, className);
     if (classProperty != null) {
-        isClassResult = isClass(classProperty) && className != "constructor";
+        isClassResult = JSUtils.isClass(classProperty) && className != "constructor";
     }
 
     return isClassResult;
@@ -293,16 +293,16 @@ export function isClassByName(classParent, className) {
 export function isObjectByName(objectParent, objectName) {
     let isObjectResult = false;
 
-    let objectProperty = getObjectProperty(objectParent, objectName);
+    let objectProperty = JSUtils.getObjectProperty(objectParent, objectName);
     if (objectProperty != null) {
-        isObjectResult = isObject(objectProperty);
+        isObjectResult = JSUtils.isObject(objectProperty);
     }
 
     return isObjectResult;
 }
 
 export function isFunction(property) {
-    return typeof property == "function" && !isClass(property);
+    return typeof property == "function" && !JSUtils.isClass(property);
 }
 
 export function isClass(property) {
@@ -346,13 +346,13 @@ function _jsObjectFunctionsSpecialCopy(fromObject, toObject) {
             let functionsToOverwrite = ["toString", "toLocaleString", "valueOf"];
 
             for (let functionToOverwrite of functionsToOverwrite) {
-                let propertyDescriptorToOverwrite = getObjectPropertyDescriptor(fromObject, functionToOverwrite);
+                let propertyDescriptorToOverwrite = JSUtils.getObjectPropertyDescriptor(fromObject, functionToOverwrite);
 
                 if (propertyDescriptorToOverwrite != null && propertyDescriptorToOverwrite.value != null &&
                     (propertyDescriptorToOverwrite.value == Object[functionToOverwrite])) {
                     let valueToReturn = Object[functionToOverwrite].bind(fromObject)();
                     let overwrittenFunction = function () { return valueToReturn; };
-                    overwriteObjectProperty(overwrittenFunction, toObject, functionToOverwrite, false, false);
+                    JSUtils.overwriteObjectProperty(overwrittenFunction, toObject, functionToOverwrite, false, false);
                 }
             }
         }

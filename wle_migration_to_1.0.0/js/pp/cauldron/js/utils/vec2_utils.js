@@ -37,7 +37,7 @@ export function copy(from, to) {
 }
 
 export function clone(vector, out = create()) {
-    copy(vector, out);
+    Vec2Utils.copy(vector, out);
     return out;
 }
 
@@ -49,7 +49,7 @@ export function zero(vector) {
 // New Functions
 
 export function isZero(vector, epsilon = 0) {
-    return length(vector) <= epsilon;
+    return Vec2Utils.length(vector) <= epsilon;
 }
 
 export let Vec2Utils = {
