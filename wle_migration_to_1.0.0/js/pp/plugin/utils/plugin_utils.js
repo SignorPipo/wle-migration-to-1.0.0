@@ -27,24 +27,37 @@ export function injectProperties(fromReference, toReference, enumerable = true, 
             }
         }
 
-        let adjustedProperyValue = fromReference[ownPropertyName];
-        if (bindThisAsFirstParam && JSUtils.isFunction(adjustedProperyValue)) {
-            let originalFunction = fromReference[ownPropertyName];
-            adjustedProperyValue = function () {
-                return originalFunction(this, ...arguments);
+        let propertyDescriptor = Object.getOwnPropertyDescriptor(fromReference, ownPropertyName);
+        let useAccessors = propertyDescriptor != null && (propertyDescriptor.get != null || propertyDescriptor.set != null);
+
+        if (!useAccessors) {
+            let adjustedProperyValue = fromReference[ownPropertyName];
+
+            if (bindThisAsFirstParam && JSUtils.isFunction(adjustedProperyValue)) {
+                let originalFunction = fromReference[ownPropertyName];
+                adjustedProperyValue = function () {
+                    return originalFunction(this, ...arguments);
+                }
+
+                Object.defineProperty(adjustedProperyValue, "name", {
+                    value: adjustedPropertyName
+                });
             }
 
-            Object.defineProperty(adjustedProperyValue, "name", {
-                value: adjustedPropertyName
+            Object.defineProperty(toReference, adjustedPropertyName, {
+                value: adjustedProperyValue,
+                enumerable: enumerableToUse,
+                writable: writableToUse,
+                configurable: configurableToUse
+            });
+        } else {
+            Object.defineProperty(toReference, adjustedPropertyName, {
+                get: propertyDescriptor.get,
+                set: propertyDescriptor.set,
+                enumerable: enumerableToUse,
+                configurable: configurableToUse
             });
         }
-
-        Object.defineProperty(toReference, adjustedPropertyName, {
-            value: adjustedProperyValue,
-            enumerable: enumerableToUse,
-            writable: writableToUse,
-            configurable: configurableToUse
-        });
     }
 }
 
