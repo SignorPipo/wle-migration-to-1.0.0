@@ -106,15 +106,6 @@
         - pp_isChangedTransform
         - pp_equals
         - pp_destroy
-
-        GLOBAL FUNCTIONS:
-        - getComponentObjects
-        - getComponentsObjects
-        - setActiveObjects
-        - getObjectByNameObjects
-        - getObjectsByNameObjects
-        - getObjectByIDObjects
-        - getObjectsByIDObjects
 */
 
 import { Object3D } from "@wonderlandengine/api";
