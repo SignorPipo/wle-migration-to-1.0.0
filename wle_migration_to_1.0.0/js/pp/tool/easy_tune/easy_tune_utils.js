@@ -1,7 +1,7 @@
 import { Globals } from "../../pp/globals";
 
-let _mySetEasyTuneWidgetActiveVariableCallbacks = new WeakMap();
-let _myRefreshEasyTuneWidgetCallbacks = new WeakMap();
+let _mySetEasyTuneWidgetActiveVariableCallbacks = new WeakMap();    // Signature: callback(variableName)
+let _myRefreshEasyTuneWidgetCallbacks = new WeakMap();              // Signature: callback()
 
 export function setEasyTuneWidgetActiveVariable(variableName, engine = Globals.getMainEngine()) {
     if (_mySetEasyTuneWidgetActiveVariableCallbacks.has(engine)) {
