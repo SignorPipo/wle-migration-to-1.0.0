@@ -112,7 +112,7 @@ export let getRotationQuat = function () {
     vec3_utils_set(one, 1, 1, 1);
     return function getRotationQuat(matrix, out = QuatUtils.create()) {
         Mat4Utils.getScale(matrix, tempScale);
-        one.vec3_div(tempScale, inverseScale);
+        Vec3Utils.div(one, tempScale, inverseScale);
         Mat4Utils.scale(matrix, inverseScale, transformMatrixNoScale);
         gl_mat4.getRotation(out, transformMatrixNoScale);
         QuatUtils.normalize(out, out);
@@ -142,7 +142,7 @@ export function setRotation(matrix, rotation) {
 export let setRotationDegrees = function () {
     let quat = quat_utils_create();
     return function setRotationDegrees(matrix, rotation) {
-        Mat4Utils.setRotationQuat(matrix, rotation.vec3_degreesToQuat(quat));
+        Mat4Utils.setRotationQuat(matrix, Vec3Utils.degreesToQuat(rotation, quat));
         return matrix;
     };
 }();
@@ -150,7 +150,7 @@ export let setRotationDegrees = function () {
 export let setRotationRadians = function () {
     let vector = vec3_utils_create();
     return function setRotationRadians(matrix, rotation) {
-        Mat4Utils.setRotationDegrees(matrix, rotation.vec3_toDegrees(vector));
+        Mat4Utils.setRotationDegrees(matrix, Vec3Utils.toDegrees(rotation, vector));
         return matrix;
     };
 }();
@@ -170,7 +170,7 @@ export let setScale = function () {
     let tempScale = vec3_utils_create();
     return function setScale(matrix, scaleToSet) {
         Mat4Utils.getScale(matrix, tempScale);
-        scaleToSet.vec3_div(tempScale, tempScale);
+        Vec3Utils.div(scaleToSet, tempScale, tempScale);
         Mat4Utils.scale(matrix, tempScale, matrix);
         return matrix;
     };
@@ -184,7 +184,7 @@ export function setPositionRotationScale(matrix, position, rotation, scale) {
 export let setPositionRotationDegreesScale = function () {
     let quat = quat_utils_create();
     return function setPositionRotationDegreesScale(matrix, position, rotation, scale) {
-        Mat4Utils.setPositionRotationQuatScale(matrix, position, rotation.vec3_degreesToQuat(quat), scale);
+        Mat4Utils.setPositionRotationQuatScale(matrix, position, Vec3Utils.degreesToQuat(rotation, quat), scale);
         return matrix;
     };
 }();
@@ -192,7 +192,7 @@ export let setPositionRotationDegreesScale = function () {
 export let setPositionRotationRadiansScale = function () {
     let vector = vec3_utils_create();
     return function setPositionRotationRadiansScale(matrix, position, rotation, scale) {
-        Mat4Utils.setPositionRotationDegreesScale(matrix, position, rotation.vec3_toDegrees(vector), scale);
+        Mat4Utils.setPositionRotationDegreesScale(matrix, position, Vec3Utils.toDegrees(rotation, vector), scale);
         return matrix;
     };
 }();
@@ -210,7 +210,7 @@ export function setPositionRotation(matrix, position, rotation) {
 export let setPositionRotationDegrees = function () {
     let quat = quat_utils_create();
     return function setPositionRotationDegrees(matrix, position, rotation) {
-        Mat4Utils.setPositionRotationQuat(matrix, position, rotation.vec3_degreesToQuat(quat));
+        Mat4Utils.setPositionRotationQuat(matrix, position, Vec3Utils.degreesToQuat(rotation, quat));
         return matrix;
     };
 }();
@@ -218,7 +218,7 @@ export let setPositionRotationDegrees = function () {
 export let setPositionRotationRadians = function () {
     let vector = vec3_utils_create();
     return function setPositionRotationRadians(matrix, position, rotation) {
-        Mat4Utils.setPositionRotationDegrees(matrix, position, rotation.vec3_toDegrees(vector));
+        Mat4Utils.setPositionRotationDegrees(matrix, position, Vec3Utils.toDegrees(rotation, vector));
         return matrix;
     };
 }();
@@ -238,37 +238,37 @@ export function getAxes(matrix, out = [Vec3Utils.create(), Vec3Utils.create(), V
 
 export function getForward(matrix, out = Vec3Utils.create()) {
     Vec3Utils.set(out, matrix[8], matrix[9], matrix[10]);
-    out.vec3_normalize(out);
+    Vec3Utils.normalize(out, out);
     return out;
 }
 
 export function getBackward(matrix, out) {
     Mat4Utils.getForward(matrix, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 
 export function getLeft(matrix, out = Vec3Utils.create()) {
     Vec3Utils.set(out, matrix[0], matrix[1], matrix[2]);
-    out.vec3_normalize(out);
+    Vec3Utils.normalize(out, out);
     return out;
 }
 
 export function getRight(matrix, out) {
     Mat4Utils.getLeft(matrix, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 
 export function getUp(matrix, out = Vec3Utils.create()) {
     Vec3Utils.set(out, matrix[4], matrix[5], matrix[6]);
-    out.vec3_normalize(out);
+    Vec3Utils.normalize(out, out);
     return out;
 }
 
 export function getDown(matrix, out) {
     Mat4Utils.getUp(matrix, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 
@@ -284,10 +284,10 @@ export let toWorld = function () {
             Mat4Utils.mul(parentTransformMatrix, matrix, out);
         } else {
             Vec3Utils.set(position, matrix[12], matrix[13], matrix[14]);
-            position.vec3_convertPositionToWorldMatrix(parentTransformMatrix, position);
+            Vec3Utils.convertPositionToWorldMatrix(position, parentTransformMatrix, position);
 
             Mat4Utils.getScale(parentTransformMatrix, tempScale);
-            one.vec3_div(tempScale, inverseScale);
+            Vec3Utils.div(one, tempScale, inverseScale);
             Mat4Utils.scale(parentTransformMatrix, inverseScale, convertTransform);
 
             Mat4Utils.mul(convertTransform, matrix, out);
@@ -315,10 +315,10 @@ export let toLocal = function () {
             Mat4Utils.mul(convertTransform, matrix, out);
         } else {
             Vec3Utils.set(position, matrix[12], matrix[13], matrix[14]);
-            position.vec3_convertPositionToLocalMatrix(parentTransformMatrix, position);
+            Vec3Utils.convertPositionToLocalMatrix(position, parentTransformMatrix, position);
 
             Mat4Utils.getScale(parentTransformMatrix, tempScale);
-            one.vec3_div(tempScale, inverseScale);
+            Vec3Utils.div(one, tempScale, inverseScale);
             Mat4Utils.scale(parentTransformMatrix, inverseScale, convertTransform);
 
             Mat4Utils.invert(convertTransform, convertTransform);

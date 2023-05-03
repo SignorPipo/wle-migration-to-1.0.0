@@ -26,7 +26,6 @@ import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.
 import {TargetHitCheckComponent} from './playground/target_hit_check_component.js';
 import {WaveMovementComponent} from './playground/wave_movement_component.js';
 import {ConsoleVRToolComponent} from './pp/index.js';
-import {DebugPPFunctionsPerformanceAnalyzerComponent} from './pp/index.js';
 import {EasyTuneToolComponent} from './pp/index.js';
 import {GamepadMeshAnimatorComponent} from './pp/index.js';
 import {GrabbableComponent} from './pp/index.js';
@@ -110,7 +109,6 @@ engine.registerComponent(SFXOnGrabThrowComponent);
 engine.registerComponent(TargetHitCheckComponent);
 engine.registerComponent(WaveMovementComponent);
 engine.registerComponent(ConsoleVRToolComponent);
-engine.registerComponent(DebugPPFunctionsPerformanceAnalyzerComponent);
 engine.registerComponent(EasyTuneToolComponent);
 engine.registerComponent(GamepadMeshAnimatorComponent);
 engine.registerComponent(GrabbableComponent);

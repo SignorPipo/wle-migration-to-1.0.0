@@ -127,7 +127,7 @@ export function setPositionRotation(quat, position, rotation) {
 export let setPositionRotationDegrees = function () {
     let rotationQuat = quat_utils_create();
     return function setPositionRotationDegrees(quat, position, rotation) {
-        rotation.vec3_degreesToQuat(rotationQuat);
+        Vec3Utils.degreesToQuat(rotation, rotationQuat);
         Quat2Utils.setPositionRotationQuat(quat, position, rotationQuat);
 
         return quat;
@@ -137,7 +137,7 @@ export let setPositionRotationDegrees = function () {
 export let setPositionRotationRadians = function () {
     let rotationQuat = quat_utils_create();
     return function setPositionRotationRadians(quat, position, rotation) {
-        rotation.vec3_radiansToQuat(rotationQuat);
+        Vec3Utils.radiansToQuat(rotation, rotationQuat);
         Quat2Utils.setPositionRotationQuat(quat, position, rotationQuat);
         return quat;
     };
@@ -180,7 +180,7 @@ export let getForward = function () {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
-        out.vec3_normalize(out);
+        Vec3Utils.normalize(out, out);
 
         return out;
     };
@@ -188,7 +188,7 @@ export let getForward = function () {
 
 export function getBackward(quat, out) {
     Quat2Utils.getForward(quat, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 
@@ -198,7 +198,7 @@ export let getLeft = function () {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
-        out.vec3_normalize(out);
+        Vec3Utils.normalize(out, out);
 
         return out;
     };
@@ -206,7 +206,7 @@ export let getLeft = function () {
 
 export function getRight(quat, out) {
     Quat2Utils.getLeft(quat, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 
@@ -216,7 +216,7 @@ export let getUp = function () {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
-        out.vec3_normalize(out);
+        Vec3Utils.normalize(out, out);
 
         return out;
     };
@@ -224,7 +224,7 @@ export let getUp = function () {
 
 export function getDown(quat, out) {
     Quat2Utils.getUp(quat, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 

@@ -159,7 +159,7 @@ export function getRotationWorld(object, rotation) {
 
 export function getRotationWorldDegrees(object, rotation) {
     rotation = ObjectUtils.getRotationWorldRadians(object, rotation);
-    rotation = rotation.vec3_toDegrees(rotation);
+    rotation = Vec3Utils.toDegrees(rotation, rotation);
     return rotation;
 }
 
@@ -194,7 +194,7 @@ export function getRotationLocal(object, rotation) {
 
 export function getRotationLocalDegrees(object, rotation) {
     rotation = ObjectUtils.getRotationLocalRadians(object, rotation);
-    rotation = rotation.vec3_toDegrees(rotation);
+    rotation = Vec3Utils.toDegrees(rotation, rotation);
     return rotation;
 }
 
@@ -532,7 +532,7 @@ export function setRotationWorld(object, rotation) {
 export let setRotationWorldDegrees = function () {
     let quat = QuatUtils.create();
     return function setRotationWorldDegrees(object, rotation) {
-        rotation.vec3_degreesToQuat(quat);
+        Vec3Utils.degreesToQuat(rotation, quat);
         ObjectUtils.setRotationWorldQuat(object, quat);
     };
 }();
@@ -540,7 +540,7 @@ export let setRotationWorldDegrees = function () {
 export let setRotationWorldRadians = function () {
     let degreesRotation = Vec3Utils.create();
     return function setRotationWorldRadians(object, rotation) {
-        degreesRotation = rotation.vec3_toDegrees(degreesRotation);
+        degreesRotation = Vec3Utils.toDegrees(rotation, degreesRotation);
         ObjectUtils.setRotationWorldDegrees(object, degreesRotation);
     };
 }();
@@ -566,7 +566,7 @@ export function setRotationLocal(object, rotation) {
 export let setRotationLocalDegrees = function () {
     let quat = QuatUtils.create();
     return function setRotationLocalDegrees(object, rotation) {
-        rotation.vec3_degreesToQuat(quat);
+        Vec3Utils.degreesToQuat(rotation, quat);
         ObjectUtils.setRotationLocalQuat(object, quat);
     };
 }();
@@ -574,7 +574,7 @@ export let setRotationLocalDegrees = function () {
 export let setRotationLocalRadians = function () {
     let degreesRotation = Vec3Utils.create();
     return function setRotationLocalRadians(object, rotation) {
-        degreesRotation = rotation.vec3_toDegrees(degreesRotation);
+        degreesRotation = Vec3Utils.toDegrees(rotation, degreesRotation);
         ObjectUtils.setRotationLocalDegrees(object, degreesRotation);
     };
 }();
@@ -821,7 +821,7 @@ export let setTransformWorldMatrix = function () {
     return function setTransformWorldMatrix(object, transform) {
         Mat4Utils.getPosition(transform, position);
         Mat4Utils.getScale(transform, scale);
-        one.vec3_div(scale, inverseScale);
+        Vec3Utils.div(one, scale, inverseScale);
         Mat4Utils.scale(transform, inverseScale, transformMatrixNoScale);
         Mat4Utils.getRotationQuat(transformMatrixNoScale, rotation);
         QuatUtils.normalize(rotation, rotation);
@@ -851,7 +851,7 @@ export let setTransformLocalMatrix = function () {
     return function setTransformLocalMatrix(object, transform) {
         Mat4Utils.getPosition(transform, position);
         Mat4Utils.getScale(transform, scale);
-        one.vec3_div(scale, inverseScale);
+        Vec3Utils.div(one, scale, inverseScale);
         Mat4Utils.scale(transform, inverseScale, transformMatrixNoScale);
         Mat4Utils.getRotationQuat(transformMatrixNoScale, rotation);
         QuatUtils.normalize(rotation, rotation);
@@ -974,7 +974,7 @@ export function translateAxis(object, amount, direction) {
 export let translateAxisWorld = function () {
     let translation = Vec3Utils.create();
     return function translateAxisWorld(object, amount, direction) {
-        direction.vec3_scale(amount, translation);
+        Vec3Utils.scale(direction, amount, translation);
         ObjectUtils.translateWorld(object, translation);
     };
 }();
@@ -982,7 +982,7 @@ export let translateAxisWorld = function () {
 export let translateAxisLocal = function () {
     let translation = Vec3Utils.create();
     return function translateAxisLocal(object, amount, direction) {
-        direction.vec3_scale(amount, translation);
+        Vec3Utils.scale(direction, amount, translation);
         ObjectUtils.translateLocal(object, translation);
     };
 }();
@@ -990,7 +990,7 @@ export let translateAxisLocal = function () {
 export let translateAxisObject = function () {
     let translation = Vec3Utils.create();
     return function translateAxisObject(object, amount, direction) {
-        direction.vec3_scale(amount, translation);
+        Vec3Utils.scale(direction, amount, translation);
         ObjectUtils.translateObject(object, translation);
     };
 }();
@@ -1026,7 +1026,7 @@ export function rotateWorld(object, rotation) {
 export let rotateWorldDegrees = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateWorldDegrees(object, rotation) {
-        rotation.vec3_degreesToQuat(rotationQuat);
+        Vec3Utils.degreesToQuat(rotation, rotationQuat);
         ObjectUtils.rotateWorldQuat(object, rotationQuat);
     };
 }();
@@ -1034,7 +1034,7 @@ export let rotateWorldDegrees = function () {
 export let rotateWorldRadians = function () {
     let degreesRotation = Vec3Utils.create();
     return function rotateWorldRadians(object, rotation) {
-        degreesRotation = rotation.vec3_toDegrees(degreesRotation);
+        degreesRotation = Vec3Utils.toDegrees(rotation, degreesRotation);
         ObjectUtils.rotateWorldDegrees(object, degreesRotation);
     };
 }();
@@ -1067,7 +1067,7 @@ export function rotateLocal(object, rotation) {
 export let rotateLocalDegrees = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateLocalDegrees(object, rotation) {
-        rotation.vec3_degreesToQuat(rotationQuat);
+        Vec3Utils.degreesToQuat(rotation, rotationQuat);
         ObjectUtils.rotateLocalQuat(object, rotationQuat);
     };
 }();
@@ -1075,7 +1075,7 @@ export let rotateLocalDegrees = function () {
 export let rotateLocalRadians = function () {
     let degreesRotation = Vec3Utils.create();
     return function rotateLocalRadians(object, rotation) {
-        degreesRotation = rotation.vec3_toDegrees(degreesRotation);
+        degreesRotation = Vec3Utils.toDegrees(rotation, degreesRotation);
         ObjectUtils.rotateLocalDegrees(object, degreesRotation);
     };
 }();
@@ -1108,7 +1108,7 @@ export function rotateObject(object, rotation) {
 export let rotateObjectDegrees = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateObjectDegrees(object, rotation) {
-        rotation.vec3_degreesToQuat(rotationQuat);
+        Vec3Utils.degreesToQuat(rotation, rotationQuat);
         ObjectUtils.rotateObjectQuat(object, rotationQuat);
     };
 }();
@@ -1116,7 +1116,7 @@ export let rotateObjectDegrees = function () {
 export let rotateObjectRadians = function () {
     let degreesRotation = Vec3Utils.create();
     return function rotateObjectRadians(object, rotation) {
-        degreesRotation = rotation.vec3_toDegrees(degreesRotation);
+        degreesRotation = Vec3Utils.toDegrees(rotation, degreesRotation);
         ObjectUtils.rotateObjectDegrees(object, degreesRotation);
     };
 }();
@@ -1233,7 +1233,7 @@ export function rotateAroundWorld(object, rotation, origin) {
 export let rotateAroundWorldDegrees = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateAroundWorldDegrees(object, rotation, origin) {
-        rotation.vec3_degreesToQuat(rotationQuat);
+        Vec3Utils.degreesToQuat(rotation, rotationQuat);
         ObjectUtils.rotateAroundWorldQuat(object, rotationQuat, origin);
     };
 }();
@@ -1241,7 +1241,7 @@ export let rotateAroundWorldDegrees = function () {
 export let rotateAroundWorldRadians = function () {
     let degreesRotation = Vec3Utils.create();
     return function rotateAroundWorldRadians(object, rotation, origin) {
-        degreesRotation = rotation.vec3_toDegrees(degreesRotation);
+        degreesRotation = Vec3Utils.toDegrees(rotation, degreesRotation);
         ObjectUtils.rotateAroundWorldDegrees(object, degreesRotation, origin);
     };
 }();
@@ -1273,7 +1273,7 @@ export function rotateAroundLocal(object, rotation, origin) {
 export let rotateAroundLocalDegrees = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateAroundLocalDegrees(object, rotation, origin) {
-        rotation.vec3_degreesToQuat(rotationQuat);
+        Vec3Utils.degreesToQuat(rotation, rotationQuat);
         ObjectUtils.rotateAroundLocalQuat(object, rotationQuat, origin);
     };
 }();
@@ -1281,7 +1281,7 @@ export let rotateAroundLocalDegrees = function () {
 export let rotateAroundLocalRadians = function () {
     let degreesRotation = Vec3Utils.create();
     return function rotateAroundLocalRadians(object, rotation, origin) {
-        degreesRotation = rotation.vec3_toDegrees(degreesRotation);
+        degreesRotation = Vec3Utils.toDegrees(rotation, degreesRotation);
         ObjectUtils.rotateAroundLocalDegrees(object, degreesRotation, origin);
     };
 }();
@@ -1313,7 +1313,7 @@ export function rotateAroundObject(object, rotation, origin) {
 export let rotateAroundObjectDegrees = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateAroundObjectDegrees(object, rotation, origin) {
-        rotation.vec3_degreesToQuat(rotationQuat);
+        Vec3Utils.degreesToQuat(rotation, rotationQuat);
         ObjectUtils.rotateAroundObjectQuat(object, rotationQuat, origin);
     };
 }();
@@ -1321,7 +1321,7 @@ export let rotateAroundObjectDegrees = function () {
 export let rotateAroundObjectRadians = function () {
     let degreesRotation = Vec3Utils.create();
     return function rotateAroundObjectRadians(object, rotation, origin) {
-        degreesRotation = rotation.vec3_toDegrees(degreesRotation);
+        degreesRotation = Vec3Utils.toDegrees(rotation, degreesRotation);
         ObjectUtils.rotateAroundObjectDegrees(object, degreesRotation, origin);
     };
 }();
@@ -1451,7 +1451,7 @@ export let lookAtWorld = function () {
     let direction = Vec3Utils.create();
     return function lookAtWorld(object, position, up) {
         ObjectUtils.getPositionWorld(object, direction);
-        position.vec3_sub(direction, direction);
+        Vec3Utils.sub(position, direction, direction);
         ObjectUtils.lookToWorld(object, direction, up);
     };
 }();
@@ -1460,7 +1460,7 @@ export let lookAtLocal = function () {
     let direction = Vec3Utils.create();
     return function lookAtLocal(object, position, up) {
         ObjectUtils.getPositionLocal(object, direction);
-        position.vec3_sub(direction, direction);
+        Vec3Utils.sub(position, direction, direction);
         ObjectUtils.lookToLocal(object, direction, up);
     };
 }();
@@ -1516,7 +1516,7 @@ export let convertPositionObjectToWorld = function () {
     let matrix = Mat4Utils.create();
     return function convertPositionObjectToWorld(object, position, resultPosition = Vec3Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, matrix);
-        position.vec3_transformMat4(matrix, resultPosition);
+        Vec3Utils.transformMat4(position, matrix, resultPosition);
         return resultPosition;
     };
 }();
@@ -1525,7 +1525,7 @@ export let convertDirectionObjectToWorld = function () {
     let rotation = QuatUtils.create();
     return function convertDirectionObjectToWorld(object, direction, resultDirection = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
-        direction.vec3_transformQuat(rotation, resultDirection);
+        Vec3Utils.transformQuat(direction, rotation, resultDirection);
         return resultDirection;
     };
 }();
@@ -1535,7 +1535,7 @@ export let convertPositionWorldToObject = function () {
     return function convertPositionWorldToObject(object, position, resultPosition = Vec3Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, matrix);
         Mat4Utils.invert(matrix, matrix);
-        position.vec3_transformMat4(matrix, resultPosition);
+        Vec3Utils.transformMat4(position, matrix, resultPosition);
         return resultPosition;
     };
 }();
@@ -1545,7 +1545,7 @@ export let convertDirectionWorldToObject = function () {
     return function convertDirectionWorldToObject(object, direction, resultDirection = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
         QuatUtils.conjugate(rotation, rotation);
-        direction.vec3_transformQuat(rotation, resultDirection);
+        Vec3Utils.transformQuat(direction, rotation, resultDirection);
         return resultDirection;
     };
 }();
@@ -1637,7 +1637,7 @@ export let convertTransformObjectToWorldMatrix = function () {
             ObjectUtils.convertPositionObjectToWorld(object, position, position);
 
             Mat4Utils.getScale(convertTransform, scale);
-            one.vec3_div(scale, inverseScale);
+            Vec3Utils.div(one, scale, inverseScale);
             Mat4Utils.scale(convertTransform, inverseScale, convertTransform);
 
             Mat4Utils.mul(convertTransform, transform, resultTransform);
@@ -1685,7 +1685,7 @@ export let convertTransformWorldToObjectMatrix = function () {
             ObjectUtils.convertPositionWorldToObject(object, position, position);
 
             Mat4Utils.getScale(convertTransform, scale);
-            one.vec3_div(scale, inverseScale);
+            Vec3Utils.div(one, scale, inverseScale);
             Mat4Utils.scale(convertTransform, inverseScale, convertTransform);
 
             Mat4Utils.invert(convertTransform, convertTransform);

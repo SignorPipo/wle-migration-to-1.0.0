@@ -106,7 +106,7 @@ export function getAxisScaled(quat, out = Vec3Utils.create()) {
 export function getAxisScaledDegrees(quat, out = Vec3Utils.create()) {
     QuatUtils.getAxis(quat, out);
     let angle = QuatUtils.getAngleDegrees(quat);
-    out.vec3_scale(angle, out);
+    Vec3Utils.scale(out, angle, out);
     return out;
 }
 
@@ -118,7 +118,7 @@ export let getAxisScaledRadians = function () {
         if (angle <= MathUtils.EPSILON) {
             Vec3Utils.copy(zero, out);
         } else {
-            out.vec3_scale(angle, out);
+            Vec3Utils.scale(out, angle, out);
         }
         return out;
     };
@@ -137,7 +137,7 @@ export let getForward = function () {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
-        out.vec3_normalize(out);
+        Vec3Utils.normalize(out, out);
 
         return out;
     };
@@ -145,7 +145,7 @@ export let getForward = function () {
 
 export function getBackward(quat, out) {
     QuatUtils.getForward(quat, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 
@@ -155,7 +155,7 @@ export let getLeft = function () {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
-        out.vec3_normalize(out);
+        Vec3Utils.normalize(out, out);
 
         return out;
     };
@@ -163,7 +163,7 @@ export let getLeft = function () {
 
 export function getRight(quat, out) {
     QuatUtils.getLeft(quat, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 
@@ -173,7 +173,7 @@ export let getUp = function () {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
-        out.vec3_normalize(out);
+        Vec3Utils.normalize(out, out);
 
         return out;
     };
@@ -181,7 +181,7 @@ export let getUp = function () {
 
 export function getDown(quat, out) {
     QuatUtils.getUp(quat, out);
-    out.vec3_negate(out);
+    Vec3Utils.negate(out, out);
     return out;
 }
 
@@ -202,7 +202,7 @@ export function setForward(quat, forward, up = null, left = null) {
 export let setBackward = function () {
     let forward = vec3_utils_create();
     return function setBackward(quat, backward, up = null, left = null) {
-        backward.vec3_negate(forward);
+        Vec3Utils.negate(backward, forward);
         return _setAxes(quat, [left, up, forward], [2, 1, 0]);
     };
 }();
@@ -214,7 +214,7 @@ export function setUp(quat, up, forward = null, left = null) {
 export let setDown = function () {
     let up = vec3_utils_create();
     return function setDown(quat, down, forward = null, left = null) {
-        down.vec3_negate(up);
+        Vec3Utils.negate(down, up);
         return _setAxes(quat, [left, up, forward], [1, 2, 0]);
     };
 }();
@@ -226,7 +226,7 @@ export function setLeft(quat, left, up = null, forward = null) {
 export let setRight = function () {
     let left = vec3_utils_create();
     return function setRight(quat, right, up = null, forward = null) {
-        right.vec3_negate(left);
+        Vec3Utils.negate(right, left);
         return _setAxes(quat, [left, up, forward], [0, 1, 2]);
     };
 }();
@@ -272,7 +272,7 @@ export let fromAxes = function () {
 export let fromRadians = function () {
     let vector = vec3_utils_create();
     return function fromRadians(radiansRotation, out = QuatUtils.create()) {
-        radiansRotation.vec3_toDegrees(vector);
+        Vec3Utils.toDegrees(radiansRotation, vector);
         return QuatUtils.fromDegrees(vector, out);
     };
 }();
@@ -304,7 +304,7 @@ export let toRadians = function () {
 
 export function toDegrees(quat, out = Vec3Utils.create()) {
     QuatUtils.toRadians(quat, out);
-    out.vec3_toDegrees(out);
+    Vec3Utils.toDegrees(out, out);
     return out;
 }
 
@@ -319,7 +319,7 @@ export function addRotation(first, second, out) {
 export let addRotationDegrees = function () {
     let secondQuat = create();
     return function addRotationDegrees(first, second, out) {
-        second.vec3_degreesToQuat(secondQuat);
+        Vec3Utils.degreesToQuat(second, secondQuat);
         return QuatUtils.addRotationQuat(first, secondQuat, out);
     };
 }();
@@ -327,7 +327,7 @@ export let addRotationDegrees = function () {
 export let addRotationRadians = function () {
     let secondQuat = create();
     return function addRotationRadians(first, second, out) {
-        second.vec3_radiansToQuat(secondQuat);
+        Vec3Utils.radiansToQuat(second, secondQuat);
         return QuatUtils.addRotationQuat(first, secondQuat, out);
     };
 }();
@@ -344,7 +344,7 @@ export function subRotation(first, second, out) {
 export let subRotationDegrees = function () {
     let secondQuat = create();
     return function subRotationDegrees(first, second, out) {
-        second.vec3_degreesToQuat(secondQuat);
+        Vec3Utils.degreesToQuat(second, secondQuat);
         return QuatUtils.subRotationQuat(first, secondQuat, out);
     };
 }();
@@ -352,7 +352,7 @@ export let subRotationDegrees = function () {
 export let subRotationRadians = function () {
     let secondQuat = create();
     return function subRotationRadians(first, second, out) {
-        second.vec3_radiansToQuat(secondQuat);
+        Vec3Utils.radiansToQuat(second, secondQuat);
         return QuatUtils.subRotationQuat(first, secondQuat, out);
     };
 }();
@@ -381,7 +381,7 @@ export function rotationTo(first, second, out) {
 export let rotationToDegrees = function () {
     let secondQuat = create();
     return function rotationToDegrees(first, second, out) {
-        second.vec3_degreesToQuat(secondQuat);
+        Vec3Utils.degreesToQuat(second, secondQuat);
         return QuatUtils.rotationToQuat(first, secondQuat, out);
     };
 }();
@@ -389,7 +389,7 @@ export let rotationToDegrees = function () {
 export let rotationToRadians = function () {
     let secondQuat = create();
     return function rotationToRadians(first, second, out) {
-        second.vec3_radiansToQuat(secondQuat);
+        Vec3Utils.radiansToQuat(second, secondQuat);
         return QuatUtils.rotationToQuat(first, secondQuat, out);
     };
 }();
@@ -407,8 +407,8 @@ export let getTwist = function () {
         rotationAxis[1] = quat[1];
         rotationAxis[2] = quat[2];
 
-        let dotProd = axis.vec3_dot(rotationAxis);
-        axis.vec3_scale(dotProd, projection);
+        let dotProd = Vec3Utils.dot(axis, rotationAxis);
+        Vec3Utils.scale(axis, dotProd, projection);
         rotationAlongAxis[0] = projection[0];
         rotationAlongAxis[1] = projection[1];
         rotationAlongAxis[2] = projection[2];
@@ -628,13 +628,13 @@ let _setAxes = function () {
         let secondAxis = axes[priority[1]];
         let thirdAxis = axes[priority[2]];
 
-        if (firstAxis == null || firstAxis.vec3_isZero(MathUtils.EPSILON)) {
+        if (firstAxis == null || Vec3Utils.isZero(firstAxis, MathUtils.EPSILON)) {
             return;
         }
 
         let secondAxisValid = false;
         if (secondAxis != null) {
-            let angleBetween = firstAxis.vec3_angleRadians(secondAxis);
+            let angleBetween = Vec3Utils.angleRadians(firstAxis, secondAxis);
             if (angleBetween > MathUtils.EPSILON) {
                 secondAxisValid = true;
             }
@@ -642,7 +642,7 @@ let _setAxes = function () {
 
         let thirdAxisValid = false;
         if (thirdAxis != null) {
-            let angleBetween = firstAxis.vec3_angleRadians(thirdAxis);
+            let angleBetween = Vec3Utils.angleRadians(firstAxis, thirdAxis);
             if (angleBetween > MathUtils.EPSILON) {
                 thirdAxisValid = true;
             }
@@ -664,18 +664,18 @@ let _setAxes = function () {
 
             let fixSignMap = fixedAxesFixSignMap[priority[0]];
 
-            firstAxis.vec3_cross(crossAxis, fixedAxes[thirdAxisIndex]);
-            fixedAxes[thirdAxisIndex].vec3_scale(fixSignMap[priority[thirdAxisIndex]], fixedAxes[thirdAxisIndex]);
+            Vec3Utils.cross(firstAxis, crossAxis, fixedAxes[thirdAxisIndex]);
+            Vec3Utils.scale(fixedAxes[thirdAxisIndex], fixSignMap[priority[thirdAxisIndex]], fixedAxes[thirdAxisIndex]);
 
-            firstAxis.vec3_cross(fixedAxes[thirdAxisIndex], fixedAxes[secondAxisIndex]);
-            fixedAxes[secondAxisIndex].vec3_scale(fixSignMap[priority[secondAxisIndex]], fixedAxes[secondAxisIndex]);
+            Vec3Utils.cross(firstAxis, fixedAxes[thirdAxisIndex], fixedAxes[secondAxisIndex]);
+            Vec3Utils.scale(fixedAxes[secondAxisIndex], fixSignMap[priority[secondAxisIndex]], fixedAxes[secondAxisIndex]);
 
-            fixedAxes[1].vec3_cross(fixedAxes[2], fixedAxes[0]);
-            fixedAxes[0].vec3_scale(fixSignMap[priority[0]], fixedAxes[0]);
+            Vec3Utils.cross(fixedAxes[1], fixedAxes[2], fixedAxes[0]);
+            Vec3Utils.scale(fixedAxes[0], fixSignMap[priority[0]], fixedAxes[0]);
 
-            fixedAxes[ArrayUtils.findIndexEqual(priority, 0)].vec3_normalize(fixedLeft);
-            fixedAxes[ArrayUtils.findIndexEqual(priority, 1)].vec3_normalize(fixedUp);
-            fixedAxes[ArrayUtils.findIndexEqual(priority, 2)].vec3_normalize(fixedForward);
+            Vec3Utils.normalize(fixedAxes[ArrayUtils.findIndexEqual(priority, 0)], fixedLeft);
+            Vec3Utils.normalize(fixedAxes[ArrayUtils.findIndexEqual(priority, 1)], fixedUp);
+            Vec3Utils.normalize(fixedAxes[ArrayUtils.findIndexEqual(priority, 2)], fixedForward);
 
             Mat3Utils.set(rotationMat,
                 fixedLeft[0], fixedLeft[1], fixedLeft[2],
@@ -696,10 +696,10 @@ let _setAxes = function () {
                 QuatUtils.getForward(quat, currentAxis);
             }
 
-            let angleBetween = firstAxis.vec3_angleRadians(currentAxis);
+            let angleBetween = Vec3Utils.angleRadians(firstAxis, currentAxis);
             if (angleBetween > MathUtils.EPSILON) {
-                currentAxis.vec3_cross(firstAxis, rotationAxis);
-                rotationAxis.vec3_normalize(rotationAxis);
+                Vec3Utils.cross(currentAxis, firstAxis, rotationAxis);
+                Vec3Utils.normalize(rotationAxis, rotationAxis);
                 QuatUtils.fromAxisRadians(angleBetween, rotationAxis, rotationQuat);
 
                 QuatUtils.rotateQuat(quat, rotationQuat, quat);
