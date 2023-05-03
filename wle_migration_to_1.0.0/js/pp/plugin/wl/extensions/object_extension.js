@@ -36,10 +36,6 @@
         - pp_setActiveDescendantsDepth
     By default the functions explore by Breadth
 
-    For global functions the suffix Objects means it will work on a given object list, example:
-        - pp_getComponentsObjects
-        - pp_getObjectByNameObjects
-
     The functions leave u the choice of forwarding an out parameter or just get the return value, example:
         - let position = this.object.pp_getPosition()
         - this.object.pp_getPosition(position)
@@ -145,6 +141,10 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_getRotation = function pp_getRotation(rotation) {
         return ObjectUtils.getRotation(this, ...arguments);
+    };
+
+    objectExtension.pp_getRotationDegrees = function pp_getRotationDegrees(rotation) {
+        return ObjectUtils.getRotationDegrees(this, ...arguments);
     };
 
     objectExtension.pp_getRotationRadians = function pp_getRotationRadians(rotation) {
@@ -377,6 +377,10 @@ export function initObjectExtensionProtoype() {
 
     objectExtension.pp_setRotation = function pp_setRotation(rotation) {
         return ObjectUtils.setRotation(this, ...arguments);
+    };
+
+    objectExtension.pp_setRotationDegrees = function pp_setRotationDegrees(rotation) {
+        return ObjectUtils.setRotationDegrees(this, ...arguments);
     };
 
     objectExtension.pp_setRotationRadians = function pp_setRotationRadians(rotation) {
@@ -1294,6 +1298,116 @@ export function initObjectExtensionProtoype() {
     objectExtension.pp_toString = function pp_toString() {
         return ObjectUtils.toString(this, ...arguments);
     };
+
+    objectExtension.pp_toStringExtended = function pp_toStringExtended() {
+        return ObjectUtils.toStringExtended(this, ...arguments);
+    };
+
+    objectExtension.pp_toStringCompact = function pp_toStringCompact() {
+        return ObjectUtils.toStringCompact(this, ...arguments);
+    };
+
+    // Get Object By Name
+
+    objectExtension.pp_getObjectByName = function pp_getObjectByName(name, regex = false, index = 0) {
+        return ObjectUtils.getObjectByName(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByNameHierarchy = function pp_getObjectByNameHierarchy(name, regex = false, index = 0) {
+        return ObjectUtils.getObjectByNameHierarchy(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByNameHierarchyBreadth = function pp_getObjectByNameHierarchyBreadth(name, regex = false, index = 0) {
+        return ObjectUtils.getObjectByNameHierarchyBreadth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByNameHierarchyDepth = function pp_getObjectByNameHierarchyDepth(name, regex = false, index = 0) {
+        return ObjectUtils.getObjectByNameHierarchyDepth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByNameDescendants = function pp_getObjectByNameDescendants(name, regex = false, index = 0) {
+        return ObjectUtils.getObjectByNameDescendants(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByNameDescendantsBreadth = function pp_getObjectByNameDescendantsBreadth(name, regex = false, index = 0) {
+        return ObjectUtils.getObjectByNameDescendantsBreadth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByNameDescendantsDepth = function pp_getObjectByNameDescendantsDepth(name, regex = false, index = 0) {
+        return ObjectUtils.getObjectByNameDescendantsDepth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByNameChildren = function pp_getObjectByNameChildren(name, regex = false, index = 0) {
+        return ObjectUtils.getObjectByNameChildren(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectsByName = function pp_getObjectsByName(name, regex = false) {
+        return ObjectUtils.getObjectsByName(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectsByNameHierarchy = function pp_getObjectsByNameHierarchy(name, regex = false) {
+        return ObjectUtils.getObjectsByNameHierarchy(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectsByNameHierarchyBreadth = function pp_getObjectsByNameHierarchyBreadth(name, regex = false) {
+        return ObjectUtils.getObjectsByNameHierarchyBreadth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectsByNameHierarchyDepth = function pp_getObjectsByNameHierarchyDepth(name, regex = false) {
+        return ObjectUtils.getObjectsByNameHierarchyDepth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectsByNameDescendants = function pp_getObjectsByNameDescendants(name, regex = false) {
+        return ObjectUtils.getObjectsByNameDescendants(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectsByNameDescendantsBreadth = function pp_getObjectsByNameDescendantsBreadth(name, regex = false) {
+        return ObjectUtils.getObjectsByNameDescendantsBreadth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectsByNameDescendantsDepth = function pp_getObjectsByNameDescendantsDepth(name, regex = false) {
+        return ObjectUtils.getObjectsByNameDescendantsDepth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectsByNameChildren = function pp_getObjectsByNameChildren(name, regex = false) {
+        return ObjectUtils.getObjectsByNameChildren(this, ...arguments);
+    };
+
+    // Get Object By ID
+
+    objectExtension.pp_getObjectByID = function pp_getObjectByID(id) {
+        return ObjectUtils.getObjectByID(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByIDHierarchy = function pp_getObjectByIDHierarchy(id) {
+        return ObjectUtils.getObjectByIDHierarchy(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByIDHierarchyBreadth = function pp_getObjectByIDHierarchyBreadth(id) {
+        return ObjectUtils.getObjectByIDHierarchyBreadth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByIDHierarchyDepth = function pp_getObjectByIDHierarchyDepth(id) {
+        return ObjectUtils.getObjectByIDHierarchyDepth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByIDDescendants = function pp_getObjectByIDDescendants(id) {
+        return ObjectUtils.getObjectByIDDescendants(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByIDDescendantsBreadth = function pp_getObjectByIDDescendantsBreadth(id) {
+        return ObjectUtils.getObjectByIDDescendantsBreadth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByIDDescendantsDepth = function pp_getObjectByIDDescendantsDepth(id) {
+        return ObjectUtils.getObjectByIDDescendantsDepth(this, ...arguments);
+    };
+
+    objectExtension.pp_getObjectByIDChildren = function pp_getObjectByIDChildren(id) {
+        return ObjectUtils.getObjectByIDChildren(this, ...arguments);
+    };
+
+    // Get Hierarchy
 
     objectExtension.pp_getHierarchyBreadth = function pp_getHierarchyBreadth() {
         return ObjectUtils.getHierarchyBreadth(this, ...arguments);

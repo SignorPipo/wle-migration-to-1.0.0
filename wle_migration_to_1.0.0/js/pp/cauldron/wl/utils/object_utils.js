@@ -2289,78 +2289,78 @@ export let toStringCompact = function () {
 
 // Get Object By Name
 
-export function getObjectByName(object, name, index = 0) {
-    return ObjectUtils.getObjectByNameHierarchy(object, name, index);
+export function getObjectByName(object, name, regex = false, index = 0) {
+    return ObjectUtils.getObjectByNameHierarchy(object, name, regex, index);
 }
 
-export function getObjectByNameHierarchy(object, name, index = 0) {
-    return ObjectUtils.getObjectByNameHierarchyBreadth(object, name, index);
+export function getObjectByNameHierarchy(object, name, regex = false, index = 0) {
+    return ObjectUtils.getObjectByNameHierarchyBreadth(object, name, regex, index);
 }
 
-export function getObjectByNameHierarchyBreadth(object, name, index = 0) {
+export function getObjectByNameHierarchyBreadth(object, name, regex = false, index = 0) {
     let objects = ObjectUtils.getHierarchyBreadth(object);
-    return ObjectUtils.getObjectByNameObjects(objects, name, index);
+    return ObjectUtils.getObjectByNameObjects(objects, name, regex, index);
 }
 
-export function getObjectByNameHierarchyDepth(object, name, index = 0) {
+export function getObjectByNameHierarchyDepth(object, name, regex = false, index = 0) {
     let objects = ObjectUtils.getHierarchyDepth(object);
-    return ObjectUtils.getObjectByNameObjects(objects, name, index);
+    return ObjectUtils.getObjectByNameObjects(objects, name, regex, index);
 }
 
-export function getObjectByNameDescendants(object, name, index = 0) {
-    return ObjectUtils.getObjectByNameDescendantsBreadth(object, name, index);
+export function getObjectByNameDescendants(object, name, regex = false, index = 0) {
+    return ObjectUtils.getObjectByNameDescendantsBreadth(object, name, regex, index);
 }
 
-export function getObjectByNameDescendantsBreadth(object, name, index = 0) {
+export function getObjectByNameDescendantsBreadth(object, name, regex = false, index = 0) {
     let objects = ObjectUtils.getDescendantsBreadth(object);
-    return ObjectUtils.getObjectByNameObjects(objects, name, index);
+    return ObjectUtils.getObjectByNameObjects(objects, name, regex, index);
 }
 
-export function getObjectByNameDescendantsDepth(object, name, index = 0) {
+export function getObjectByNameDescendantsDepth(object, name, regex = false, index = 0) {
     let objects = ObjectUtils.getDescendantsDepth(object);
-    return ObjectUtils.getObjectByNameObjects(objects, name, index);
+    return ObjectUtils.getObjectByNameObjects(objects, name, regex, index);
 }
 
-export function getObjectByNameChildren(object, name, index = 0) {
+export function getObjectByNameChildren(object, name, regex = false, index = 0) {
     let objects = ObjectUtils.getChildren(object);
-    return ObjectUtils.getObjectByNameObjects(objects, name, index);
+    return ObjectUtils.getObjectByNameObjects(objects, name, regex, index);
 }
 
-export function getObjectsByName(object, name) {
-    return ObjectUtils.getObjectsByNameHierarchy(object, name);
+export function getObjectsByName(object, name, regex = false) {
+    return ObjectUtils.getObjectsByNameHierarchy(object, name, regex);
 }
 
-export function getObjectsByNameHierarchy(object, name) {
-    return ObjectUtils.getObjectsByNameHierarchyBreadth(object, name);
+export function getObjectsByNameHierarchy(object, name, regex = false) {
+    return ObjectUtils.getObjectsByNameHierarchyBreadth(object, name, regex);
 }
 
-export function getObjectsByNameHierarchyBreadth(object, name) {
+export function getObjectsByNameHierarchyBreadth(object, name, regex = false) {
     let objects = ObjectUtils.getHierarchyBreadth(object);
-    return ObjectUtils.getObjectsByNameObjects(objects, name);
+    return ObjectUtils.getObjectsByNameObjects(objects, name, regex);
 }
 
-export function getObjectsByNameHierarchyDepth(object, name) {
+export function getObjectsByNameHierarchyDepth(object, name, regex = false) {
     let objects = ObjectUtils.getHierarchyDepth(object);
-    return ObjectUtils.getObjectsByNameObjects(objects, name);
+    return ObjectUtils.getObjectsByNameObjects(objects, name, regex);
 }
 
-export function getObjectsByNameDescendants(object, name) {
-    return ObjectUtils.getObjectsByNameDescendantsBreadth(object, name);
+export function getObjectsByNameDescendants(object, name, regex = false) {
+    return ObjectUtils.getObjectsByNameDescendantsBreadth(object, name, regex);
 }
 
-export function getObjectsByNameDescendantsBreadth(object, name) {
+export function getObjectsByNameDescendantsBreadth(object, name, regex = false) {
     let objects = ObjectUtils.getDescendantsBreadth(object);
-    return ObjectUtils.getObjectsByNameObjects(objects, name);
+    return ObjectUtils.getObjectsByNameObjects(objects, name, regex);
 }
 
-export function getObjectsByNameDescendantsDepth(object, name) {
+export function getObjectsByNameDescendantsDepth(object, name, regex = false) {
     let objects = ObjectUtils.getDescendantsDepth(object);
-    return ObjectUtils.getObjectsByNameObjects(objects, name);
+    return ObjectUtils.getObjectsByNameObjects(objects, name, regex);
 }
 
-export function getObjectsByNameChildren(object, name) {
+export function getObjectsByNameChildren(object, name, regex = false) {
     let objects = ObjectUtils.getChildren(object);
-    return ObjectUtils.getObjectsByNameObjects(objects, name);
+    return ObjectUtils.getObjectsByNameObjects(objects, name, regex);
 }
 
 // Get Object By ID
@@ -2618,12 +2618,13 @@ export function setActiveObjects(objects, active) {
     }
 }
 
-export function getObjectByNameObjects(objects, name, index = 0) {
+export function getObjectByNameObjects(objects, name, regex = false, index = 0) {
     let objectFound = null;
 
     let currentIndex = index;
     for (let currentObject of objects) {
-        if (ObjectUtils.getName(currentObject) == name) {
+        let objectName = ObjectUtils.getName(currentObject);
+        if ((!regex && objectName == name) || (regex && objectName.match(name))) {
             if (currentIndex == 0) {
                 objectFound = currentObject;
                 break;
@@ -2636,11 +2637,12 @@ export function getObjectByNameObjects(objects, name, index = 0) {
     return objectFound;
 }
 
-export function getObjectsByNameObjects(objects, name) {
+export function getObjectsByNameObjects(objects, name, regex = false) {
     let objectsFound = [];
 
     for (let currentObject of objects) {
-        if (ObjectUtils.getName(currentObject) == name) {
+        let objectName = ObjectUtils.getName(currentObject);
+        if ((!regex && objectName == name) || (regex && objectName.match(name))) {
             objectsFound.push(currentObject);
         }
     }
@@ -2682,7 +2684,8 @@ export let ObjectUtils = {
     getPosition,
     getPositionWorld,
     getPositionLocal,
-    getRotation, getRotationDegrees,
+    getRotation,
+    getRotationDegrees,
     getRotationRadians,
     getRotationMatrix,
     getRotationQuat,
@@ -2732,7 +2735,8 @@ export let ObjectUtils = {
     setPosition,
     setPositionWorld,
     setPositionLocal,
-    setRotation, setRotationDegrees,
+    setRotation,
+    setRotationDegrees,
     setRotationRadians,
     setRotationMatrix,
     setRotationQuat,
