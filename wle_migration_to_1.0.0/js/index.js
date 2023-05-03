@@ -19,7 +19,7 @@ import {GrabbableSpawnerComponent} from './playground/grabbable_spawner_componen
 import {LoadAudioComponent} from './playground/load_audio_component.js';
 import {ParticlesSpawnerComponent} from './playground/particles_spawner_component.js';
 import {PlayMusicComponent} from './playground/play_music_component.js';
-import {PlaygroundGatewayComponent} from './playground/playground_gateway.js';
+import {PlaygroundGatewayComponent} from './playground/playground_gateway_component.js';
 import {ScaleOnSpawnComponent} from './playground/scale_on_spawn_component.js';
 import {SFXOnCollisionComponent} from './playground/sfx_on_collision_component.js';
 import {SFXOnGrabThrowComponent} from './playground/sfx_on_grab_throw_component.js';

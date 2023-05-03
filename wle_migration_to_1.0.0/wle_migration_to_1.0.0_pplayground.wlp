@@ -69,7 +69,7 @@
             "parent": "19",
             "translation": [
                 0.0,
-                0.094672,
+                0.0,
                 0.0
             ],
             "rotation": [
@@ -1795,7 +1795,7 @@
                 {
                     "type": "pp-grabbable",
                     "pp-grabbable": {
-                        "_myParentOnRelease": "Root",
+                        "_myParentOnRelease": "Scene",
                         "_myThrowLinearVelocityMultiplier": 1.0
                     }
                 },
@@ -1846,7 +1846,7 @@
                 {
                     "type": "pp-grabbable",
                     "pp-grabbable": {
-                        "_myParentOnRelease": "Root",
+                        "_myParentOnRelease": "Scene",
                         "_myThrowLinearVelocityMultiplier": 1.0
                     }
                 },
@@ -1910,7 +1910,7 @@
                 {
                     "type": "pp-grabbable",
                     "pp-grabbable": {
-                        "_myParentOnRelease": "Root",
+                        "_myParentOnRelease": "Scene",
                         "_myThrowLinearVelocityMultiplier": 1.0
                     }
                 },
@@ -1969,7 +1969,7 @@
                 {
                     "type": "pp-grabbable",
                     "pp-grabbable": {
-                        "_myParentOnRelease": "Root",
+                        "_myParentOnRelease": "Scene",
                         "_myThrowLinearVelocityMultiplier": 1.0
                     }
                 },
@@ -2036,7 +2036,7 @@
                 {
                     "type": "pp-grabbable",
                     "pp-grabbable": {
-                        "_myParentOnRelease": "Root",
+                        "_myParentOnRelease": "Scene",
                         "_myThrowLinearVelocityMultiplier": 1.0
                     }
                 },
@@ -2103,7 +2103,7 @@
                 {
                     "type": "pp-grabbable",
                     "pp-grabbable": {
-                        "_myParentOnRelease": "Root",
+                        "_myParentOnRelease": "Scene",
                         "_myThrowLinearVelocityMultiplier": 1.0
                     }
                 },
@@ -2257,7 +2257,7 @@
                 {
                     "type": "pp-grabbable",
                     "pp-grabbable": {
-                        "_myParentOnRelease": "Root",
+                        "_myParentOnRelease": "Scene",
                         "_myThrowLinearVelocityMultiplier": 1.0
                     }
                 },
@@ -2509,9 +2509,9 @@
             "pipeline": "13",
             "Phong": {
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ]
             }
@@ -2537,13 +2537,13 @@
                     1.0,
                     1.0,
                     1.0,
-                    0.4980392
+                    0.5
                 ],
                 "shininess": 2,
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ]
             }
@@ -2559,12 +2559,12 @@
                     1.0,
                     1.0,
                     1.0,
-                    0.4980392
+                    0.5
                 ],
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ]
             }
@@ -2573,9 +2573,9 @@
             "name": "Tracked Hand Joint",
             "Phong": {
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ],
                 "diffuseColor": [
@@ -2588,7 +2588,7 @@
                     1.0,
                     1.0,
                     1.0,
-                    0.4980392
+                    0.5
                 ],
                 "fogColor": [
                     1.0,
@@ -2608,9 +2608,9 @@
                     1.0
                 ],
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ],
                 "shininess": 2,
@@ -2626,9 +2626,9 @@
             "name": "Cyan",
             "Phong": {
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ],
                 "diffuseColor": [
@@ -2665,9 +2665,9 @@
                 ],
                 "shininess": 2,
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ]
             }
@@ -2692,9 +2692,9 @@
                 ],
                 "shininess": 2,
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ]
             }
@@ -2719,9 +2719,9 @@
                 ],
                 "shininess": 2,
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ]
             }
@@ -2746,9 +2746,9 @@
                 ],
                 "shininess": 2,
                 "ambientColor": [
-                    0.4980392,
-                    0.4980392,
-                    0.4980392,
+                    0.5,
+                    0.5,
+                    0.5,
                     1.0
                 ]
             }

@@ -44,7 +44,7 @@ export class FadeViewComponent extends Component {
             }
         } else if (this._myFadeInTimer.isRunning()) {
             this._myFadeInTimer.update(dt);
-            this._myColorVector[3] = 1 - EasingFunction.easeOut(this._myFadeInTimer.getPercentage());
+            this._myColorVector[3] = 1 - EasingFunction.easeIn(this._myFadeInTimer.getPercentage());
             if (this._myFadeInTimer.isDone()) {
                 this._myColorVector[3] = 0;
             }

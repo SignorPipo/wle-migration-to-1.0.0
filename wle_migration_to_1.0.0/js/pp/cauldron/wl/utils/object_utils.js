@@ -119,12 +119,12 @@ export function getPosition(object, position) {
 }
 
 export function getPositionWorld(object, position = Vec3Utils.create()) {
-    object.getTranslationWorld(position);
+    object.getPositionWorld(position);
     return position;
 }
 
 export function getPositionLocal(object, position = Vec3Utils.create()) {
-    object.getTranslationLocal(position);
+    object.getPositionLocal(position);
     return position;
 }
 

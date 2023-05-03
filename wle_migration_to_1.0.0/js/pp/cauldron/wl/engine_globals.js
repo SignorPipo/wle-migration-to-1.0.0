@@ -1,3 +1,5 @@
+import { SceneUtils } from "./utils/scene_utils";
+
 let _myMainEngine = null;
 let _myEngines = [];
 
@@ -56,7 +58,7 @@ export function getRoot(engine = getMainEngine()) {
 
     let scene = getScene(engine);
     if (scene != null) {
-        root = scene.pp_getRoot();
+        root = SceneUtils.getRoot(scene);
     }
 
     return root;

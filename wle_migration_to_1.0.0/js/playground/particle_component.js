@@ -66,12 +66,12 @@ export class ParticleComponent extends Component {
         this._myOnDoneCallback = onDoneCallback;
     }
 
-    onDeactivate() {
-        this._myOnDoneCallback = null;
-    }
-
     onActivate() {
         this.start();
+    }
+
+    onDeactivate() {
+        this._myOnDoneCallback = null;
     }
 
     pp_clone(targetObject) {

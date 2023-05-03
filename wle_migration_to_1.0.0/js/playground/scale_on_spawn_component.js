@@ -30,6 +30,10 @@ export class ScaleOnSpawnComponent extends Component {
         }
     }
 
+    onActivate() {
+        this.start();
+    }
+
     pp_clone(targetObject) {
         let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
 
