@@ -1,3 +1,6 @@
+import { ArrayUtils } from "./array_utils";
+import { MathUtils } from "./math_utils";
+
 export function toString(vector, decimalPlaces = null) {
     let message = _buildConsoleMessage(vector, decimalPlaces);
     return message;
@@ -67,7 +70,7 @@ export function clamp(vector, start, end, out = null) {
     let max = Math.max(fixedStart, fixedEnd);
 
     for (let i = 0; i < out.length; i++) {
-        out[i] = Math.pp_clamp(out[i], min, max);
+        out[i] = MathUtils.clamp(out[i], min, max);
     }
 
     return out;
@@ -121,7 +124,7 @@ function _prepareOut(vector, out) {
     if (out == null) {
         out = vector.pp_clone();
     } else if (out != vector) {
-        out.pp_copy(vector);
+        ArrayUtils.copy(vector, out);
     }
 
     return out;

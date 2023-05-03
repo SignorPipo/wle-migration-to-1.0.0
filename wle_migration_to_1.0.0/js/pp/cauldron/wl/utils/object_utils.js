@@ -1,6 +1,9 @@
 import { MathUtils } from "../../../cauldron/js/utils/math_utils";
 import { mat3_create, mat4_create, quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
+import { Mat4Utils } from "../../js/utils/mat4_utils";
+import { Quat2Utils } from "../../js/utils/quat2_utils";
+import { Vec3Utils } from "../../js/utils/vec3_utils";
 
 export class CloneParams {
 
@@ -1550,7 +1553,7 @@ export function convertPositionLocalToWorld(object, position, resultPosition = v
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.getParent(object).pp_convertPositionObjectToWorld(position, resultPosition);
     } else {
-        resultPosition.vec3_copy(position);
+        Vec3Utils.copy(position, resultPosition);
     }
     return resultPosition;
 }
@@ -1559,7 +1562,7 @@ export function convertDirectionLocalToWorld(object, direction, resultDirection 
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.getParent(object).pp_convertDirectionObjectToWorld(direction, resultDirection);
     } else {
-        resultDirection.vec3_copy(direction);
+        Vec3Utils.copy(direction, resultDirection);
     }
     return resultDirection;
 }
@@ -1568,7 +1571,7 @@ export function convertPositionWorldToLocal(object, position, resultPosition = v
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.getParent(object).pp_convertPositionWorldToObject(position, resultPosition);
     } else {
-        resultPosition.vec3_copy(position);
+        Vec3Utils.copy(position, resultPosition);
     }
     return resultPosition;
 }
@@ -1577,7 +1580,7 @@ export function convertDirectionWorldToLocal(object, direction, resultDirection 
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.getParent(object).pp_convertDirectionWorldToObject(direction, resultDirection);
     } else {
-        resultDirection.vec3_copy(direction);
+        Vec3Utils.copy(direction, resultDirection);
     }
     return resultDirection;
 }
@@ -1719,7 +1722,7 @@ export function convertTransformLocalToWorldMatrix(object, transform, resultTran
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.getParent(object).pp_convertTransformObjectToWorldMatrix(transform, resultTransform);
     } else {
-        resultTransform.mat4_copy(transform);
+        Mat4Utils.copy(transform, resultTransform);
     }
     return resultTransform;
 }
@@ -1728,7 +1731,7 @@ export function convertTransformLocalToWorldQuat(object, transform, resultTransf
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.getParent(object).pp_convertTransformObjectToWorldQuat(transform, resultTransform);
     } else {
-        resultTransform.quat2_copy(transform);
+        Quat2Utils.copy(transform, resultTransform);
     }
     return resultTransform;
 }
@@ -1741,7 +1744,7 @@ export function convertTransformWorldToLocalMatrix(object, transform, resultTran
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.getParent(object).pp_convertTransformWorldToObjectMatrix(transform, resultTransform);
     } else {
-        resultTransform.mat4_copy(transform);
+        Mat4Utils.copy(transform, resultTransform);
     }
     return resultTransform;
 }
@@ -1750,7 +1753,7 @@ export function convertTransformWorldToLocalQuat(object, transform, resultTransf
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.getParent(object).pp_convertTransformWorldToObjectQuat(transform, resultTransform);
     } else {
-        resultTransform.quat2_copy(transform);
+        Quat2Utils.copy(transform, resultTransform);
     }
     return resultTransform;
 }

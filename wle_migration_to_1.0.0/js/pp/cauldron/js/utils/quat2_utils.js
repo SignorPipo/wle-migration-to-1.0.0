@@ -1,7 +1,7 @@
 import { quat2 as gl_quat2, mat4 as gl_mat4 } from "gl-matrix";
 import { EasingFunction } from "./math_utils";
 import { mat4_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { create as quat_utils_create } from "./quat_utils";
+import { QuatUtils, create as quat_utils_create } from "./quat_utils";
 import { create as vec3_utils_create } from "./vec3_utils";
 import { create as mat3_utils_create } from "./mat3_utils";
 
@@ -76,7 +76,7 @@ export let getRotationRadians = function () {
 }();
 
 export function getRotationQuat(quat, out = quat_create()) {
-    out.quat_copy(quat);
+    QuatUtils.copy(quat, out);
     return out;
 }
 
@@ -150,7 +150,7 @@ export function setPositionRotationQuat(quat, position, rotation) {
 
 // New Functions
 
-export function isNormalized(quat, epsilon = Math.PP_EPSILON) {
+export function isNormalized(quat, epsilon = MathUtils.EPSILON) {
     return Math.abs(Quat2Utils.lengthSquared(quat,) - 1) < epsilon;
 }
 
@@ -247,7 +247,7 @@ export function rotateAxis(quat, angle, axis, out) {
 }
 
 export function rotateAxisDegrees(quat, angle, axis, out) {
-    return Quat2Utils.rotateAxisRadians(quat, Math.pp_toRadians(angle), axis, out);
+    return Quat2Utils.rotateAxisRadians(quat, MathUtils.toRadians(angle), axis, out);
 }
 
 export let rotateAxisRadians = function () {

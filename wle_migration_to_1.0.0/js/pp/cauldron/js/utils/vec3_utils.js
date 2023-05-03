@@ -51,7 +51,7 @@ export function angle(first, second) {
 }
 
 export function angleDegrees(first, second) {
-    return Math.pp_toDegrees(Vec3Utils.angleRadians(first, second));
+    return MathUtils.toDegrees(Vec3Utils.angleRadians(first, second));
 }
 
 export function angleRadians(first, second) {
@@ -73,7 +73,7 @@ export function angleRadians(first, second) {
         let length = Math.sqrt(lengthSquared);
 
         let cos = Vec3Utils.dot(first, second) / length;
-        angle = Math.acos(Math.pp_clamp(cos, -1, 1));
+        angle = Math.acos(MathUtils.clamp(cos, -1, 1));
     }
 
     return angle;
@@ -151,8 +151,8 @@ export function transformQuat(vector, quat, out = Vec3Utils.create()) {
     return out;
 }
 
-export function transformMat3(vector, mat3, out = Vec3Utils.create()) {
-    gl_vec3.transformMat3(out, vector, mat3);
+export function transformMat3(vector, matrix, out = Vec3Utils.create()) {
+    gl_vec3.transformMat3(out, vector, matrix);
     return out;
 }
 
@@ -177,7 +177,7 @@ export function angleSigned(first, second, upAxis) {
 }
 
 export function angleSignedDegrees(first, second, upAxis) {
-    return Math.pp_toDegrees(Vec3Utils.angleSignedRadians(first, second, upAxis));
+    return MathUtils.toDegrees(Vec3Utils.angleSignedRadians(first, second, upAxis));
 }
 
 export let angleSignedRadians = function () {
@@ -194,12 +194,12 @@ export let angleSignedRadians = function () {
 }();
 
 export function toRadians(vector, out = Vec3Utils.create()) {
-    Vec3Utils.set(out, Math.pp_toRadians(vector[0]), Math.pp_toRadians(vector[1]), Math.pp_toRadians(vector[2]));
+    Vec3Utils.set(out, MathUtils.toRadians(vector[0]), MathUtils.toRadians(vector[1]), MathUtils.toRadians(vector[2]));
     return out;
 }
 
 export function toDegrees(vector, out = Vec3Utils.create()) {
-    Vec3Utils.set(out, Math.pp_toDegrees(vector[0]), Math.pp_toDegrees(vector[1]), Math.pp_toDegrees(vector[2]));
+    Vec3Utils.set(out, MathUtils.toDegrees(vector[0]), MathUtils.toDegrees(vector[1]), MathUtils.toDegrees(vector[2]));
     return out;
 }
 
@@ -452,7 +452,7 @@ export function rotateAroundAxis(vector, angle, axis, origin, out) {
 }
 
 export function rotateAroundAxisDegrees(vector, angle, axis, origin, out) {
-    return Vec3Utils.rotateAroundAxisRadians(vector, Math.pp_toRadians(angle), axis, origin, out);
+    return Vec3Utils.rotateAroundAxisRadians(vector, MathUtils.toRadians(angle), axis, origin, out);
 }
 
 export let rotateAroundAxisRadians = function () {
