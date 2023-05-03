@@ -1,9 +1,8 @@
-import { mat3_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { Vec3Utils, create as vec3_utils_create } from "./vec3_utils";
-import { Mat3Utils, create as mat3_utils_create } from "./mat3_utils";
-import { quat as gl_quat, mat3 as gl_mat3 } from "gl-matrix";
-import { EasingFunction, MathUtils } from "./math_utils";
+import { mat3 as gl_mat3, quat as gl_quat } from "gl-matrix";
 import { ArrayUtils } from "./array_utils";
+import { Mat3Utils, create as mat3_utils_create } from "./mat3_utils";
+import { EasingFunction, MathUtils } from "./math_utils";
+import { Vec3Utils, create as vec3_utils_create } from "./vec3_utils";
 
 // glMatrix Bridge
 

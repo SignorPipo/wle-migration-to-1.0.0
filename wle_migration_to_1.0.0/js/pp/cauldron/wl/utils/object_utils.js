@@ -1,5 +1,4 @@
 import { MathUtils } from "../../../cauldron/js/utils/math_utils";
-import { mat3_create, mat4_create, quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
 import { Mat3Utils } from "../../js/utils/mat3_utils";
 import { Mat4Utils } from "../../js/utils/mat4_utils";

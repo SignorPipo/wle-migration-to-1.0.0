@@ -1,4 +1,5 @@
 import { Component, Emitter, PhysXComponent, Property } from "@wonderlandengine/api";
+import { EasingFunction } from "../../cauldron/js/utils/math_utils";
 import { PhysicsCollisionCollector } from "../../cauldron/physics/physics_collision_collector";
 import { HandednessIndex } from "../../input/cauldron/input_types";
 import { InputUtils } from "../../input/cauldron/input_utils";
@@ -6,7 +7,6 @@ import { GamepadButtonEvent, GamepadButtonID } from "../../input/gamepad/gamepad
 import { vec3_create, vec4_create } from "../../plugin/js/extensions/array_extension";
 import { Globals } from "../../pp/globals";
 import { GrabbableComponent } from "./grabbable_component";
-import { EasingFunction } from "../../cauldron/js/utils/math_utils";
 
 export class GrabberHandComponent extends Component {
     static TypeName = "pp-grabber-hand";

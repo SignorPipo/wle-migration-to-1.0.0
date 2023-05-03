@@ -1,6 +1,6 @@
 import { mat3 as gl_mat3, quat as gl_quat } from "gl-matrix";
-import { quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
-import { create as quat_utils_create } from "./quat_utils";
+import { QuatUtils, create as quat_utils_create } from "./quat_utils";
+import { Vec3Utils } from "./vec3_utils";
 
 // glMatrix Bridge
 
