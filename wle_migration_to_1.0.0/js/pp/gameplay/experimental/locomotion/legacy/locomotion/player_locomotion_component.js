@@ -38,8 +38,11 @@ export class PlayerLocomotionComponent extends Component {
         _myMainHand: Property.enum(["Left", "Right"], "Left"),
         _myVRDirectionReferenceType: Property.enum(["Head", "Hand", "Custom Object"], "Hand"),
         _myVRDirectionReferenceObject: Property.object(),
+
         _myTeleportParableStartReferenceObject: Property.object(),
         _myTeleportPositionObject: Property.object(),
+        _myTeleportMaxDistance: Property.float(3),
+        _myTeleportMaxHeightDifference: Property.float(3),
 
         _myColliderAccuracy: Property.enum(["Very Low", "Low", "Medium", "High", "Very High"], "High"),
         _myColliderCheckOnlyFeet: Property.bool(false),
@@ -93,6 +96,8 @@ export class PlayerLocomotionComponent extends Component {
         params.myForeheadExtraHeight = 0.1;
 
         params.myTeleportPositionObject = this._myTeleportPositionObject;
+        params.myTeleportMaxDistance = this._myTeleportMaxDistance;
+        params.myTeleportMaxHeightDifference = this._myTeleportMaxHeightDifference;
 
         params.myColliderAccuracy = this._myColliderAccuracy;
         params.myColliderCheckOnlyFeet = this._myColliderCheckOnlyFeet;

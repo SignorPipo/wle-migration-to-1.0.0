@@ -56,6 +56,8 @@ export class PlayerLocomotionParams {
         this.myForeheadExtraHeight = 0;
 
         this.myTeleportPositionObject = null;
+        this.myTeleportMaxDistance = 0;
+        this.myTeleportMaxHeightDifference = 0;
 
         this.myColliderAccuracy = null;
         this.myColliderCheckOnlyFeet = false;
@@ -296,8 +298,8 @@ export class PlayerLocomotion {
 
                 params.myHandedness = this._myParams.myMainHand;
 
-                params.myDetectionParams.myMaxDistance = 3;
-                params.myDetectionParams.myMaxHeightDifference = 4;
+                params.myDetectionParams.myMaxDistance = this._myParams.myTeleportMaxDistance;
+                params.myDetectionParams.myMaxHeightDifference = this._myParams.myTeleportMaxHeightDifference;
                 params.myDetectionParams.myGroundAngleToIgnoreUpward = this._myCollisionCheckParamsMovement.myGroundAngleToIgnore;
                 params.myDetectionParams.myMustBeOnGround = true;
 
