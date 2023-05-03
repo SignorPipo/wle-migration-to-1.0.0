@@ -38,7 +38,7 @@ export class ParticlesSpawnerComponent extends Component {
         let amount = Math.pp_randomInt(15, 30);
 
         for (let i = 0; i < amount; i++) {
-            let particle = this._myObjectPoolsManager.getObject(Math.pp_randomInt(0, this._myParticles.length - 1));
+            let particle = this._myObjectPoolsManager.get(Math.pp_randomInt(0, this._myParticles.length - 1));
             particle.pp_getComponent(ParticleComponent).onDone(this.onParticleDone.bind(this, particle));
 
             particle.pp_setPosition(position.vec3_add(particle.pp_getComponent(ParticleComponent)._myHorizontalSpeed.vec3_normalize().vec3_scale(Math.pp_random(0, this._myRadius))));
@@ -48,6 +48,6 @@ export class ParticlesSpawnerComponent extends Component {
     }
 
     onParticleDone(particle) {
-        this._myObjectPoolsManager.releaseObject(particle);
+        this._myObjectPoolsManager.release(particle);
     }
 }

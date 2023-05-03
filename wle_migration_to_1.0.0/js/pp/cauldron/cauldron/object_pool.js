@@ -54,9 +54,16 @@ export class ObjectPool {
 
     release(object) {
         let released = this._myBusyObjects.pp_remove(this._equals.bind(this, object));
-        if (released) {
+        if (released != null) {
             this._setActive(released, false);
             this._myAvailableObjects.push(released);
+        }
+    }
+
+    releaseAll() {
+        for (let busyObject of this._myBusyObjects) {
+            this._setActive(busyObject, false);
+            this._myAvailableObjects.push(busyObject);
         }
     }
 
@@ -87,7 +94,7 @@ export class ObjectPool {
         }
 
         if (this._myObjectPoolParams.myOptimizeObjectsAllocation) {
-            if (this._myObjectPoolParams.myOptimizeObjectsAllocationCallback) {
+            if (this._myObjectPoolParams.myOptimizeObjectsAllocationCallback != null) {
                 this._myObjectPoolParams.myOptimizeObjectsAllocationCallback(this._myPrototype, size);
             } else if (this._myPrototype.pp_reserveObjects != null) {
                 this._myPrototype.pp_reserveObjects(size);

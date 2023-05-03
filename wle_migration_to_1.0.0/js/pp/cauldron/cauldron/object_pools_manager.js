@@ -17,14 +17,42 @@ export class ObjectPoolsManager {
         }
     }
 
-    increasePool(poolID, amount) {
+    get(poolID) {
+        if (this._myPools.has(poolID)) {
+            return this._myPools.get(poolID).get();
+        }
+
+        return null;
+    }
+
+    release(poolIDOrObject, object) {
+        if (object === undefined) {
+            for (let pool of this._myPools.values()) {
+                pool.release(poolIDOrObject);
+            }
+        } else {
+            this._myPools.get(poolIDOrObject).release(object);
+        }
+    }
+
+    releaseAll(poolID = undefined) {
+        if (poolID === undefined) {
+            for (let pool of this._myPools.values()) {
+                pool.releaseAll();
+            }
+        } else {
+            this._myPools.get(poolID).releaseAll();
+        }
+    }
+
+    increase(poolID, amount) {
         let pool = this._myPools.get(poolID);
         if (pool) {
             pool.increase(amount);
         }
     }
 
-    increasePoolPercentage(poolID, percentage) {
+    increasePercentage(poolID, percentage) {
         let pool = this._myPools.get(poolID);
         if (pool) {
             pool.increasePercentage(percentage);
@@ -37,24 +65,6 @@ export class ObjectPoolsManager {
 
     hasPool(poolID) {
         return this._myPools.has(poolID);
-    }
-
-    getObject(poolID) {
-        if (this._myPools.has(poolID)) {
-            return this._myPools.get(poolID).get();
-        }
-
-        return null;
-    }
-
-    releaseObject(poolIDOrObject, object) {
-        if (object === undefined) {
-            for (let pool of this._myPools.values()) {
-                pool.release(poolIDOrObject);
-            }
-        } else {
-            this._myPools.get(poolIDOrObject).release(object);
-        }
     }
 
     destroy() {
