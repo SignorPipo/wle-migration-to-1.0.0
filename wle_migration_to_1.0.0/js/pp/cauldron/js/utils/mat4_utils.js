@@ -5,6 +5,7 @@ import { MathUtils } from "./math_utils";
 import { Vec3Utils, set as vec3_utils_set } from "./vec3_utils";
 import { create as quat_utils_create } from "./quat_utils";
 import { create as vec3_utils_create } from "./vec3_utils";
+import { Quat2Utils } from "./quat2_utils";
 
 // glMatrix Bridge
 
@@ -248,7 +249,6 @@ export function getBackward(matrix, out) {
 }
 
 export function getLeft(matrix, out = Vec3Utils.create()) {
-
     Vec3Utils.set(out, matrix[0], matrix[1], matrix[2]);
     out.vec3_normalize(out);
     return out;
@@ -348,13 +348,13 @@ export let toQuat = function () {
     return function toQuat(matrix, out = Quat2Utils.create()) {
         Mat4Utils.getPosition(matrix, position);
         Mat4Utils.getRotationQuat(matrix, rotation);
-        out.quat2_setPositionRotationQuat(position, rotation);
+        Quat2Utils.setPositionRotationQuat(out, position, rotation);
         return out;
     };
 }();
 
 export function fromQuat(quat, out = Mat4Utils.create()) {
-    quat.quat2_toMatrix(out);
+    Quat2Utils.toMatrix(quat, out);
     return out;
 }
 

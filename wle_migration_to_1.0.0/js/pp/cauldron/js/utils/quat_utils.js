@@ -263,7 +263,7 @@ export let fromAxes = function () {
     let matrix = mat3_utils_create();
     return function fromAxes(leftAxis, upAxis, forwardAxis, out = QuatUtils.create()) {
         Mat3Utils.fromAxes(leftAxis, upAxis, forwardAxis, matrix);
-        return matrix.mat3_toQuat(out);
+        return Mat3Utils.toQuat(matrix, out);
     };
 }();
 
@@ -683,7 +683,7 @@ let _setAxes = function () {
                 fixedForward[0], fixedForward[1], fixedForward[2]
             );
 
-            rotationMat.mat3_toQuat(rotationQuat);
+            Mat3Utils.toQuat(rotationMat, rotationQuat);
             QuatUtils.normalize(rotationQuat, rotationQuat);
 
             QuatUtils.copy(rotationQuat, quat);

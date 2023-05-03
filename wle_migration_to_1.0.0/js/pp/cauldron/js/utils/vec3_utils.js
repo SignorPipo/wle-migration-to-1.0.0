@@ -492,8 +492,8 @@ export let convertPositionToWorldQuat = function () {
     let one = create();
     set(one, 1, 1, 1);
     return function convertPositionToWorldQuat(vector, parentTransform, out = Vec3Utils.create()) {
-        parentTransform.quat2_getPosition(position);
-        parentTransform.quat2_getRotationQuat(rotation);
+        Quat2Utils.getPosition(parentTransform, position);
+        Quat2Utils.getRotationQuat(parentTransform, rotation);
         parentTransformMatrix.mat4_setPositionRotationQuatScale(position, rotation, one);
         return Vec3Utils.convertPositionToWorldMatrix(vector, parentTransformMatrix, out);
     };
@@ -506,8 +506,8 @@ export let convertPositionToLocalQuat = function () {
     let one = create();
     set(one, 1, 1, 1);
     return function convertPositionToLocalQuat(vector, parentTransform, out = Vec3Utils.create()) {
-        parentTransform.quat2_getPosition(position);
-        parentTransform.quat2_getRotationQuat(rotation);
+        Quat2Utils.getPosition(parentTransform, position);
+        Quat2Utils.getRotationQuat(parentTransform, rotation);
         parentTransformMatrix.mat4_setPositionRotationQuatScale(position, rotation, one);
         return Vec3Utils.convertPositionToLocalMatrix(vector, parentTransformMatrix, out);
     };
@@ -544,7 +544,7 @@ export let convertDirectionToLocalMatrix = function () {
 export let convertDirectionToWorldQuat = function () {
     let rotation = quat_utils_create();
     return function convertDirectionToWorldQuat(vector, parentTransform, out = Vec3Utils.create()) {
-        parentTransform.quat2_getRotationQuat(rotation);
+        Quat2Utils.getRotationQuat(parentTransform, rotation);
         Vec3Utils.transformQuat(vector, rotation, out);
         return out;
     };
@@ -553,7 +553,7 @@ export let convertDirectionToWorldQuat = function () {
 export let convertDirectionToLocalQuat = function () {
     let rotation = quat_utils_create();
     return function convertDirectionToLocalQuat(vector, parentTransform, out = Vec3Utils.create()) {
-        parentTransform.quat2_getRotationQuat(rotation);
+        Quat2Utils.getRotationQuat(parentTransform, rotation);
         rotation.quat_conjugate(rotation);
         Vec3Utils.transformQuat(vector, rotation, out);
         return out;
