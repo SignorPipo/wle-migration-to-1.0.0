@@ -714,5 +714,5 @@ export function initCursorComponentModPrototype() {
 
 
 
-    PluginUtils.assignProperties(cursorComponentMod, Cursor.prototype, false, true, true);
+    PluginUtils.injectProperties(cursorComponentMod, Cursor.prototype, false, true, true);
 }

@@ -2,10 +2,10 @@
 
 import { Timer } from "../../../../../cauldron/cauldron/timer";
 import { FSM } from "../../../../../cauldron/fsm/fsm";
+import { EasingFunction } from "../../../../../cauldron/js/utils/math_utils";
 import { MaterialUtils } from "../../../../../cauldron/utils/material_utils";
 import { VisualMesh, VisualMeshParams } from "../../../../../cauldron/visual/elements/visual_mesh";
 import { vec3_create, vec4_create } from "../../../../../plugin/js/extensions/array_extension";
-import { EasingFunction } from "../../../../../plugin/js/extensions/math_extension";
 import { Globals } from "../../../../../pp/globals";
 
 // Occlude

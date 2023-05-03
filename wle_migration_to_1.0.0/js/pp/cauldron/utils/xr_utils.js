@@ -34,20 +34,20 @@ export function getFrame(engine = Globals.getMainEngine()) {
 }
 
 export function isSessionActive(engine = Globals.getMainEngine()) {
-    return getSession(engine) != null;
+    return XRUtils.getSession(engine) != null;
 }
 
 export function isReferenceSpaceFloorBased(engine = Globals.getMainEngine()) {
-    return getReferenceSpaceType(engine).includes("floor");
+    return XRUtils.getReferenceSpaceType(engine).includes("floor");
 }
 
 export function registerSessionStartEventListener(id, listener, manuallyCallSessionStartIfSessionAlreadyActive = false, addManualCallFlagToStartListener = false, engine = Globals.getMainEngine()) {
     if (listener != null) {
-        if (manuallyCallSessionStartIfSessionAlreadyActive && isSessionActive(engine)) {
+        if (manuallyCallSessionStartIfSessionAlreadyActive && XRUtils.isSessionActive(engine)) {
             if (addManualCallFlagToStartListener) {
-                listener(true, getSession(engine), getSessionMode(engine));
+                listener(true, XRUtils.getSession(engine), XRUtils.getSessionMode(engine));
             } else {
-                listener(getSession(engine), getSessionMode(engine));
+                listener(XRUtils.getSession(engine), XRUtils.getSessionMode(engine));
             }
         }
 
@@ -74,13 +74,13 @@ export function unregisterSessionEndEventListener(id, engine = Globals.getMainEn
 }
 
 export function registerSessionStartEndEventListeners(id, startListener, endListener, manuallyCallSessionStartIfSessionAlreadyActive = false, addManualCallFlagToStartListener = false, engine = Globals.getMainEngine()) {
-    registerSessionStartEventListener(id, startListener, manuallyCallSessionStartIfSessionAlreadyActive, addManualCallFlagToStartListener, engine);
-    registerSessionEndEventListener(id, endListener, engine);
+    XRUtils.registerSessionStartEventListener(id, startListener, manuallyCallSessionStartIfSessionAlreadyActive, addManualCallFlagToStartListener, engine);
+    XRUtils.registerSessionEndEventListener(id, endListener, engine);
 }
 
 export function unregisterSessionStartEndEventListeners(id, engine = Globals.getMainEngine()) {
-    unregisterSessionStartEventListener(id, engine);
-    unregisterSessionEndEventListener(id, engine);
+    XRUtils.unregisterSessionStartEventListener(id, engine);
+    XRUtils.unregisterSessionEndEventListener(id, engine);
 }
 
 export function isVRSupported(engine = Globals.getMainEngine()) {

@@ -67,7 +67,7 @@ export function createPlaneMesh(engine = Globals.getMainEngine()) {
     meshCreationParams.myTriangles.push(firstTriangle);
     meshCreationParams.myTriangles.push(secondTriangle);
 
-    let mesh = createMesh(meshCreationParams);
+    let mesh = MeshUtils.createMesh(meshCreationParams);
 
     return mesh;
 }

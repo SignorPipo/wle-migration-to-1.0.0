@@ -32,5 +32,5 @@ export function initCursorTargetComponentModPrototype() {
 
 
 
-    PluginUtils.assignProperties(cursorTargetComponentMod, CursorTarget.prototype, false, true, true);
+    PluginUtils.injectProperties(cursorTargetComponentMod, CursorTarget.prototype, false, true, true);
 }

@@ -1,0 +1,61 @@
+\w+Extension\.pp_(\w+) = function pp_
+export function
+
+-
+
+export function (\w+)\(
+export function $1(scene,
+
+return function (\w+)\(
+return function $1(matrix,
+
+-
+
+scene,\)
+scene)
+
+-
+
+[\n]*export function (\w+)\([.|\S|\s|\n]*?\};\n
+export function (\w+)\([.|\S|\s|\n]*?\n\}
+export let (\w+) = function \([.|\S|\s|\n]*?\n\}\(\);
+\n$1,
+
+-
+
+\w+Extension\.mat3_(\w+) = function \(\) \{
+export let $1 = function() {
+
+-
+
+(\w+)\.mat4_(\w+)\(
+$2($1,
+
+-
+
+(pp_\w+) = function \w+\((.*)\).*\{[\s|\S|\n]*?\};\n
+$1 = function $1($2) {
+return VecUtils.$1(this,...arguments);
+};
+
+-
+
+(mat3\w+) = function \((.*)\).*\{[\s|\S|\n]*?return function \w+\((.*)\)[\s|\S|\n]*?\};\n.*
+$1 = function $1($3) {
+return VecUtils.$1(this,...arguments);
+};
+
+-
+
+(?<!function )(?<!\.)(?<!new )\b(\w+)\b\(
+Quat2Utils.$1(
+
+Vec3Utils\.(\w+_)
+$1
+
+Vec3Utils.create\(\)
+create()
+
+-
+
+(.*)\.\w+_(?!utils)(\w+)\(

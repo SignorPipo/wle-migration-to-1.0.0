@@ -1,4 +1,4 @@
-import { JSUtils } from "../../../cauldron/utils/js_utils";
+import { JSUtils } from "../../../cauldron/js/utils/js_utils";
 import { Globals } from "../../../pp/globals";
 import { DebugFunctionsOverwriter, DebugFunctionsOverwriterParams } from "../debug_functions_overwriter";
 

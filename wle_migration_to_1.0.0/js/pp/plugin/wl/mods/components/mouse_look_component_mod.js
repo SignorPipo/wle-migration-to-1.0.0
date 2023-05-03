@@ -196,5 +196,5 @@ export function initMouseLookComponentModPrototype() {
 
 
 
-    PluginUtils.assignProperties(mouseLookComponentMod, MouseLookComponent.prototype, false, true, true);
+    PluginUtils.injectProperties(mouseLookComponentMod, MouseLookComponent.prototype, false, true, true);
 }

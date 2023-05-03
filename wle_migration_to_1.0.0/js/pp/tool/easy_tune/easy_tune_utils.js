@@ -28,7 +28,7 @@ export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultVal
                 function (clipboard) {
                     Globals.getEasyTuneVariables(engine).fromJSON(clipboard, resetVariablesDefaultValueOnImport);
 
-                    refreshEasyTuneWidget(engine);
+                    EasyTuneUtils.refreshEasyTuneWidget(engine);
 
                     if (onSuccessCallback != null) {
                         onSuccessCallback();
@@ -62,7 +62,7 @@ export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultVal
                         function (text) {
                             Globals.getEasyTuneVariables(engine).fromJSON(text, resetVariablesDefaultValueOnImport);
 
-                            refreshEasyTuneWidget(engine);
+                            EasyTuneUtils.refreshEasyTuneWidget(engine);
 
                             if (onSuccessCallback != null) {
                                 onSuccessCallback();
@@ -107,7 +107,7 @@ export function importEasyTuneVariables(fileURL = null, resetVariablesDefaultVal
         });
     }
 
-    refreshEasyTuneWidget(engine);
+    EasyTuneUtils.refreshEasyTuneWidget(engine);
 }
 
 // fileURL can contain parameters inside brackets, like {param}
