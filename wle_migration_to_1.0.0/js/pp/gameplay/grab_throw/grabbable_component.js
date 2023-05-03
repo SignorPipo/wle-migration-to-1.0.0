@@ -164,7 +164,7 @@ export class GrabbableComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
+        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
 
         return clonedComponent;
     }

@@ -6,7 +6,7 @@ import { DeepCloneParams } from "../../../../cauldron/wl/utils/object_utils";
 export function initComponentCloneMod() {
 
     MeshComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
-        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
+        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
 
         if (deepCloneParams.isDeepCloneComponentVariable(MeshComponent.TypeName, "material")) {
             clonedComponent.material = this.material.clone();
@@ -20,13 +20,13 @@ export function initComponentCloneMod() {
     };
 
     CollisionComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
-        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
+        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
 
         return clonedComponent;
     };
 
     TextComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
-        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
+        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
 
         if (deepCloneParams.isDeepCloneComponent(TextComponent.TypeName)) {
             clonedComponent.text = this.text.slice(0);
@@ -40,7 +40,7 @@ export function initComponentCloneMod() {
     };
 
     PhysXComponent.prototype.pp_clone = function pp_clone(targetObject, deepCloneParams = new DeepCloneParams(), customCloneParams = null) {
-        let clonedComponent = CloneUtils.cloneComponentBase(this, targetObject);
+        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
 
         return clonedComponent;
     };

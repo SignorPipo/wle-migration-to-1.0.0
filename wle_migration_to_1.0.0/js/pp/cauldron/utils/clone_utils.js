@@ -1,4 +1,4 @@
-export function cloneComponentBase(componentToClone, targetObject) {
+export function cloneComponentDefault(componentToClone, targetObject) {
     let clonedComponent = targetObject.pp_addComponent(componentToClone.type, componentToClone);
 
     // trigger start, which otherwise would be called later
@@ -11,5 +11,5 @@ export function cloneComponentBase(componentToClone, targetObject) {
 }
 
 export let CloneUtils = {
-    cloneComponentBase
+    cloneComponentDefault
 };
