@@ -294,7 +294,7 @@ export function initArrayExtensionProtoype() {
     };
 
     arrayExtension.pp_copy = function pp_copy(array, copyCallback = null) {
-        return ArrayUtils.copy(this, ...arguments);
+        return ArrayUtils.copy(array, this, copyCallback);
     };
 
     arrayExtension.pp_clone = function pp_clone(cloneCallback = null) {

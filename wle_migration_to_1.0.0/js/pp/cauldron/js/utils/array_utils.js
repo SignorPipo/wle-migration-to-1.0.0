@@ -192,20 +192,20 @@ export function unshiftUnique(array, element, elementsEqualCallback = null) {
     return length;
 }
 
-export function copy(array, other, copyCallback = null) {
-    while (array.length > other.length) {
-        array.pop();
+export function copy(from, to, copyCallback = null) {
+    while (to.length > from.length) {
+        to.pop();
     }
 
-    for (let i = 0; i < other.length; i++) {
+    for (let i = 0; i < from.length; i++) {
         if (copyCallback == null) {
-            array[i] = other[i];
+            to[i] = from[i];
         } else {
-            array[i] = copyCallback(array[i], other[i]);
+            to[i] = copyCallback(to[i], from[i]);
         }
     }
 
-    return array;
+    return to;
 }
 
 export function clone(array, cloneCallback = null) {
