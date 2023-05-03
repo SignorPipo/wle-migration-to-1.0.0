@@ -3,6 +3,7 @@ import { Vec3Utils, create as vec3_utils_create } from "./vec3_utils";
 import { Mat3Utils, create as mat3_utils_create } from "./mat3_utils";
 import { quat as gl_quat, mat3 as gl_mat3 } from "gl-matrix";
 import { EasingFunction, MathUtils } from "./math_utils";
+import { ArrayUtils } from "./array_utils";
 
 // glMatrix Bridge
 
@@ -672,9 +673,9 @@ let _setAxes = function () {
             fixedAxes[1].vec3_cross(fixedAxes[2], fixedAxes[0]);
             fixedAxes[0].vec3_scale(fixSignMap[priority[0]], fixedAxes[0]);
 
-            fixedAxes[priority.pp_findIndexEqual(0)].vec3_normalize(fixedLeft);
-            fixedAxes[priority.pp_findIndexEqual(1)].vec3_normalize(fixedUp);
-            fixedAxes[priority.pp_findIndexEqual(2)].vec3_normalize(fixedForward);
+            fixedAxes[ArrayUtils.findIndexEqual(priority, 0)].vec3_normalize(fixedLeft);
+            fixedAxes[ArrayUtils.findIndexEqual(priority, 1)].vec3_normalize(fixedUp);
+            fixedAxes[ArrayUtils.findIndexEqual(priority, 2)].vec3_normalize(fixedForward);
 
             rotationMat.mat3_set(
                 fixedLeft[0], fixedLeft[1], fixedLeft[2],

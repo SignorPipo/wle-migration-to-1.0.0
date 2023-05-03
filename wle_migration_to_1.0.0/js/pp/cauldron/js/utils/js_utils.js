@@ -1,4 +1,5 @@
 import { Globals } from "../../../pp/globals";
+import { ArrayUtils } from "./array_utils";
 
 export function getObjectPrototypes(object) {
     let prototypes = [];
@@ -7,7 +8,7 @@ export function getObjectPrototypes(object) {
 
     let objectProto = Object.getPrototypeOf(object);
     while (objectProto != null) {
-        prototypes.pp_pushUnique(objectProto);
+        ArrayUtils.pushUnique(prototypes, objectProto);
         objectProto = Object.getPrototypeOf(objectProto);
     }
 
@@ -15,10 +16,10 @@ export function getObjectPrototypes(object) {
     while (prototypesToCheck.length > 0) {
         let prototypeToCheck = prototypesToCheck.shift();
         if (prototypeToCheck != null) {
-            prototypes.pp_pushUnique(prototypeToCheck);
+            ArrayUtils.pushUnique(prototypes, prototypeToCheck);
 
-            prototypesToCheck.pp_pushUnique(Object.getPrototypeOf(prototypeToCheck));
-            prototypesToCheck.pp_pushUnique(prototypeToCheck.prototype);
+            ArrayUtils.pushUnique(prototypesToCheck, Object.getPrototypeOf(prototypeToCheck));
+            ArrayUtils.pushUnique(prototypesToCheck, prototypeToCheck.prototype);
         }
     }
 
@@ -34,7 +35,7 @@ export function getObjectPropertyNames(object) {
         if (prototype != null) {
             let ownPropertyNames = Object.getOwnPropertyNames(prototype);
             for (let ownPropertyName of ownPropertyNames) {
-                propertyNames.pp_pushUnique(ownPropertyName);
+                ArrayUtils.pushUnique(propertyNames, ownPropertyName);
             }
         }
     }
@@ -111,7 +112,7 @@ export function getObjectPropertyOwnParents(object, propertyName) {
 
     for (let possibleParent of possibleParents) {
         let propertyNames = Object.getOwnPropertyNames(possibleParent);
-        if (propertyNames.pp_hasEqual(propertyName)) {
+        if (ArrayUtils.hasEqual(propertyNames, propertyName)) {
             parents.push(possibleParent);
         }
     }
@@ -235,7 +236,7 @@ export function copyObjectProperties(fromObject, toObject, cleanCopy = false, js
 
 export function cleanObjectProperties(object) {
     let objectNames = Object.getOwnPropertyNames(object);
-    objectNames.pp_pushUnique("__proto__");
+    ArrayUtils.pushUnique(objectNames, "__proto__");
 
     for (let objectName of objectNames) {
         try {

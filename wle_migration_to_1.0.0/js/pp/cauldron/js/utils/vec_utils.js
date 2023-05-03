@@ -122,7 +122,7 @@ function _buildConsoleMessage(vector, decimalPlaces) {
 
 function _prepareOut(vector, out) {
     if (out == null) {
-        out = vector.pp_clone();
+        out = ArrayUtils.clone(vector);
     } else if (out != vector) {
         ArrayUtils.copy(vector, out);
     }
