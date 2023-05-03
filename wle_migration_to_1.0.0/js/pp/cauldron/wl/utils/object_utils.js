@@ -603,7 +603,7 @@ export let setScaleWorld = function () {
         if (isNaN(scale)) {
             object.setScalingWorld(scale);
         } else {
-            vector.vec3_set(scale);
+            Vec3Utils.set(vector, scale);
             object.setScalingWorld(vector);
         }
     };
@@ -615,7 +615,7 @@ export let setScaleLocal = function () {
         if (isNaN(scale)) {
             object.setScalingLocal(scale);
         } else {
-            vector.vec3_set(scale);
+            Vec3Utils.set(vector, scale);
             object.setScalingLocal(vector);
         }
     };
@@ -1435,7 +1435,7 @@ export let scaleObject = function () {
         if (isNaN(scale)) {
             object.scale(scale);
         } else {
-            vector.vec3_set(scale);
+            Vec3Utils.set(vector, scale);
             object.scale(vector);
         }
     };
@@ -1633,7 +1633,7 @@ export let convertTransformObjectToWorldMatrix = function () {
         if (ObjectUtils.hasUniformScaleWorld(object)) {
             convertTransform.mat4_mul(transform, resultTransform);
         } else {
-            position.vec3_set(transform[12], transform[13], transform[14]);
+            Vec3Utils.set(position, transform[12], transform[13], transform[14]);
             ObjectUtils.convertPositionObjectToWorld(object, position, position);
 
             convertTransform.mat4_getScale(scale);
@@ -1681,7 +1681,7 @@ export let convertTransformWorldToObjectMatrix = function () {
             convertTransform.mat4_invert(convertTransform);
             convertTransform.mat4_mul(transform, resultTransform);
         } else {
-            position.vec3_set(transform[12], transform[13], transform[14]);
+            Vec3Utils.set(position, transform[12], transform[13], transform[14]);
             ObjectUtils.convertPositionWorldToObject(object, position, position);
 
             convertTransform.mat4_getScale(scale);

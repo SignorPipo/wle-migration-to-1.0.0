@@ -136,7 +136,7 @@ export let getForward = function () {
     return function getForward(quat, out = Vec3Utils.create()) {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
-        out.vec3_set(rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
+        Vec3Utils.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
         out.vec3_normalize(out);
 
         return out;
@@ -154,7 +154,7 @@ export let getLeft = function () {
     return function getLeft(quat, out = Vec3Utils.create()) {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
-        out.vec3_set(rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
+        Vec3Utils.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
         out.vec3_normalize(out);
 
         return out;
@@ -172,7 +172,7 @@ export let getUp = function () {
     return function getUp(quat, out = Vec3Utils.create()) {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
-        out.vec3_set(rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
+        Vec3Utils.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
         out.vec3_normalize(out);
 
         return out;
@@ -677,7 +677,7 @@ let _setAxes = function () {
             fixedAxes[ArrayUtils.findIndexEqual(priority, 1)].vec3_normalize(fixedUp);
             fixedAxes[ArrayUtils.findIndexEqual(priority, 2)].vec3_normalize(fixedForward);
 
-            rotationMat.mat3_set(
+            Mat3Utils.set(rotationMat,
                 fixedLeft[0], fixedLeft[1], fixedLeft[2],
                 fixedUp[0], fixedUp[1], fixedUp[2],
                 fixedForward[0], fixedForward[1], fixedForward[2]

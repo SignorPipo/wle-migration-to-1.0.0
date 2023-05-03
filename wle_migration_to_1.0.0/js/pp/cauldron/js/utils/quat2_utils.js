@@ -2,7 +2,7 @@ import { quat2 as gl_quat2, mat4 as gl_mat4 } from "gl-matrix";
 import { EasingFunction } from "./math_utils";
 import { mat4_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { QuatUtils, create as quat_utils_create } from "./quat_utils";
-import { create as vec3_utils_create } from "./vec3_utils";
+import { Vec3Utils, create as vec3_utils_create } from "./vec3_utils";
 import { create as mat3_utils_create } from "./mat3_utils";
 
 // glMatrix Bridge
@@ -179,7 +179,7 @@ export let getForward = function () {
     return function getForward(quat, out = Vec3Utils.create()) {
         quat.quat_toMatrix(rotationMatrix);
 
-        out.vec3_set(rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
+        Vec3Utils.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
         out.vec3_normalize(out);
 
         return out;
@@ -197,7 +197,7 @@ export let getLeft = function () {
     return function getLeft(quat, out = Vec3Utils.create()) {
         quat.quat_toMatrix(rotationMatrix);
 
-        out.vec3_set(rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
+        Vec3Utils.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
         out.vec3_normalize(out);
 
         return out;
@@ -215,7 +215,7 @@ export let getUp = function () {
     return function getUp(quat, out = Vec3Utils.create()) {
         quat.quat_toMatrix(rotationMatrix);
 
-        out.vec3_set(rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
+        Vec3Utils.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
         out.vec3_normalize(out);
 
         return out;

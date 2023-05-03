@@ -2,7 +2,7 @@
 import { mat4 as gl_mat4 } from "gl-matrix";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { MathUtils } from "./math_utils";
-import { set as vec3_utils_set } from "./vec3_utils";
+import { Vec3Utils, set as vec3_utils_set } from "./vec3_utils";
 import { create as quat_utils_create } from "./quat_utils";
 import { create as vec3_utils_create } from "./vec3_utils";
 
@@ -236,7 +236,7 @@ export function getAxes(matrix, out = [Vec3Utils.create(), Vec3Utils.create(), V
 }
 
 export function getForward(matrix, out = Vec3Utils.create()) {
-    out.vec3_set(matrix[8], matrix[9], matrix[10]);
+    Vec3Utils.set(out, matrix[8], matrix[9], matrix[10]);
     out.vec3_normalize(out);
     return out;
 }
@@ -248,7 +248,8 @@ export function getBackward(matrix, out) {
 }
 
 export function getLeft(matrix, out = Vec3Utils.create()) {
-    out.vec3_set(matrix[0], matrix[1], matrix[2]);
+
+    Vec3Utils.set(out, matrix[0], matrix[1], matrix[2]);
     out.vec3_normalize(out);
     return out;
 }
@@ -260,7 +261,7 @@ export function getRight(matrix, out) {
 }
 
 export function getUp(matrix, out = Vec3Utils.create()) {
-    out.vec3_set(matrix[4], matrix[5], matrix[6]);
+    Vec3Utils.set(out, matrix[4], matrix[5], matrix[6]);
     out.vec3_normalize(out);
     return out;
 }
@@ -282,7 +283,7 @@ export let toWorld = function () {
         if (Mat4Utils.hasUniformScale(parentTransformMatrix)) {
             Mat4Utils.mul(parentTransformMatrix, matrix, out);
         } else {
-            position.vec3_set(matrix[12], matrix[13], matrix[14]);
+            Vec3Utils.set(position, matrix[12], matrix[13], matrix[14]);
             position.vec3_convertPositionToWorldMatrix(parentTransformMatrix, position);
 
             Mat4Utils.getScale(parentTransformMatrix, tempScale);
@@ -313,7 +314,7 @@ export let toLocal = function () {
             Mat4Utils.invert(parentTransformMatrix, convertTransform);
             Mat4Utils.mul(convertTransform, matrix, out);
         } else {
-            position.vec3_set(matrix[12], matrix[13], matrix[14]);
+            Vec3Utils.set(position, matrix[12], matrix[13], matrix[14]);
             position.vec3_convertPositionToLocalMatrix(parentTransformMatrix, position);
 
             Mat4Utils.getScale(parentTransformMatrix, tempScale);
