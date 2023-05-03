@@ -3,7 +3,7 @@ import { mat4 as gl_mat4 } from "gl-matrix";
 import { quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { MathUtils } from "./math_utils";
 import { Vec3Utils, set as vec3_utils_set } from "./vec3_utils";
-import { create as quat_utils_create } from "./quat_utils";
+import { QuatUtils, create as quat_utils_create } from "./quat_utils";
 import { create as vec3_utils_create } from "./vec3_utils";
 import { Quat2Utils } from "./quat2_utils";
 
@@ -90,7 +90,7 @@ export let getRotationDegrees = function () {
     let quat = quat_utils_create();
     return function getRotationDegrees(matrix, out = Vec3Utils.create()) {
         Mat4Utils.getRotationQuat(matrix, quat);
-        quat.quat_toDegrees(out);
+        QuatUtils.toDegrees(quat, out);
         return out;
     };
 }();
@@ -99,7 +99,7 @@ export let getRotationRadians = function () {
     let quat = quat_utils_create();
     return function getRotationRadians(matrix, out = Vec3Utils.create()) {
         Mat4Utils.getRotationQuat(matrix, quat);
-        quat.quat_toRadians(out);
+        QuatUtils.toRadians(quat, out);
         return out;
     };
 }();
@@ -115,7 +115,7 @@ export let getRotationQuat = function () {
         one.vec3_div(tempScale, inverseScale);
         Mat4Utils.scale(matrix, inverseScale, transformMatrixNoScale);
         gl_mat4.getRotation(out, transformMatrixNoScale);
-        out.quat_normalize(out);
+        QuatUtils.normalize(out, out);
         return out;
     };
 }();

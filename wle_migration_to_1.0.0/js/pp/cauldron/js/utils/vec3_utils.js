@@ -534,7 +534,7 @@ export let convertDirectionToLocalMatrix = function () {
     let rotation = quat_utils_create();
     return function convertDirectionToLocalMatrix(vector, parentTransform, out = Vec3Utils.create()) {
         Mat4Utils.getRotationQuat(parentTransform, rotation);
-        rotation.quat_conjugate(rotation);
+        QuatUtils.conjugate(rotation, rotation);
         Vec3Utils.transformQuat(vector, rotation, out);
         return out;
     };
@@ -554,7 +554,7 @@ export let convertDirectionToLocalQuat = function () {
     let rotation = quat_utils_create();
     return function convertDirectionToLocalQuat(vector, parentTransform, out = Vec3Utils.create()) {
         Quat2Utils.getRotationQuat(parentTransform, rotation);
-        rotation.quat_conjugate(rotation);
+        QuatUtils.conjugate(rotation, rotation);
         Vec3Utils.transformQuat(vector, rotation, out);
         return out;
     };
@@ -584,7 +584,7 @@ export let degreesAddRotationDegrees = function () {
     let quat = quat_utils_create();
     return function degreesAddRotationDegrees(vector, rotation, out = Vec3Utils.create()) {
         Vec3Utils.degreesToQuat(vector, quat);
-        return quat.quat_addRotationDegrees(rotation, quat).quat_toDegrees(out);
+        return QuatUtils.toDegrees(QuatUtils.addRotationDegrees(quat, rotation, quat), out);
     };
 }();
 
@@ -592,7 +592,7 @@ export let degreesAddRotationRadians = function () {
     let quat = quat_utils_create();
     return function degreesAddRotationRadians(vector, rotation, out = Vec3Utils.create()) {
         Vec3Utils.degreesToQuat(vector, quat);
-        return quat.quat_addRotationRadians(rotation, quat).quat_toDegrees(out);
+        return QuatUtils.toDegrees(QuatUtils.addRotationRadians(quat, rotation, quat), out);
     };
 }();
 
@@ -600,7 +600,7 @@ export let degreesAddRotationQuat = function () {
     let quat = quat_utils_create();
     return function degreesAddRotationQuat(vector, rotation, out = Vec3Utils.create()) {
         Vec3Utils.degreesToQuat(vector, quat);
-        return quat.quat_addRotationQuat(rotation, quat).quat_toDegrees(out);
+        return QuatUtils.toDegrees(QuatUtils.addRotationQuat(quat, rotation, quat), out);
     };
 }();
 
@@ -612,7 +612,7 @@ export let radiansAddRotationDegrees = function () {
     let quat = quat_utils_create();
     return function radiansAddRotationDegrees(vector, rotation, out = Vec3Utils.create()) {
         Vec3Utils.radiansToQuat(vector, quat);
-        return quat.quat_addRotationDegrees(rotation, quat).quat_toRadians(out);
+        return QuatUtils.toRadians(QuatUtils.addRotationDegrees(quat, rotation, quat), out);
     };
 }();
 
@@ -620,7 +620,7 @@ export let radiansAddRotationRadians = function () {
     let quat = quat_utils_create();
     return function radiansAddRotationRadians(vector, rotation, out = Vec3Utils.create()) {
         Vec3Utils.radiansToQuat(vector, quat);
-        return quat.quat_addRotationRadians(rotation, quat).quat_toRadians(out);
+        return QuatUtils.toRadians(QuatUtils.addRotationRadians(quat, rotation, quat), out);
     };
 }();
 
@@ -628,7 +628,7 @@ export let radiansAddRotationQuat = function () {
     let quat = quat_utils_create();
     return function radiansAddRotationQuat(vector, rotation, out = Vec3Utils.create()) {
         Vec3Utils.radiansToQuat(vector, quat);
-        return quat.quat_addRotationQuat(rotation, quat).quat_toRadians(out);
+        return QuatUtils.toRadians(QuatUtils.addRotationQuat(quat, rotation, quat), out);
     };
 }();
 
@@ -640,7 +640,7 @@ export let degreesToMatrix = function () {
     let quat = quat_utils_create();
     return function degreesToMatrix(vector, out = Mat3Utils.create()) {
         Vec3Utils.degreesToQuat(vector, quat);
-        return quat.quat_toMatrix(out);
+        return QuatUtils.toMatrix(quat, out);
     };
 }();
 
@@ -648,7 +648,7 @@ export let radiansToMatrix = function () {
     let quat = quat_utils_create();
     return function radiansToMatrix(vector, out = Mat3Utils.create()) {
         Vec3Utils.radiansToQuat(vector, quat);
-        return quat.quat_toMatrix(out);
+        return QuatUtils.toMatrix(quat, out);
     };
 }();
 
@@ -660,7 +660,7 @@ export let rotationToDegrees = function () {
     let rotationQuat = quat_utils_create();
     return function rotationToDegrees(vector, direction, out = Vec3Utils.create()) {
         Vec3Utils.rotationToQuat(vector, direction, rotationQuat);
-        rotationQuat.quat_toDegrees(out);
+        QuatUtils.toDegrees(rotationQuat, out);
         return out;
     };
 }();
@@ -669,7 +669,7 @@ export let rotationToRadians = function () {
     let rotationQuat = quat_utils_create();
     return function rotationToRadians(vector, direction, out = Vec3Utils.create()) {
         Vec3Utils.rotationToQuat(vector, direction, rotationQuat);
-        rotationQuat.quat_toRadians(out);
+        QuatUtils.toRadians(rotationQuat, out);
         return out;
     };
 }();
@@ -693,7 +693,7 @@ export let rotationToPivotedDegrees = function () {
     let rotationQuat = quat_utils_create();
     return function rotationToPivotedDegrees(vector, direction, pivotAxis, out = Vec3Utils.create()) {
         Vec3Utils.rotationToPivotedQuat(vector, direction, pivotAxis, rotationQuat);
-        rotationQuat.quat_toDegrees(out);
+        QuatUtils.toDegrees(rotationQuat, out);
         return out;
     };
 }();
@@ -702,7 +702,7 @@ export let rotationToPivotedRadians = function () {
     let rotationQuat = quat_utils_create();
     return function rotationToPivotedRadians(vector, direction, pivotAxis, out = Vec3Utils.create()) {
         Vec3Utils.rotationToPivotedQuat(vector, direction, pivotAxis, rotationQuat);
-        rotationQuat.quat_toRadians(out);
+        QuatUtils.toRadians(rotationQuat, out);
         return out;
     };
 }();

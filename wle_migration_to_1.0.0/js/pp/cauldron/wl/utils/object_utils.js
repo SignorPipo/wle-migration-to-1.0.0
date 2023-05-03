@@ -167,7 +167,7 @@ export let getRotationWorldRadians = function () {
     let quat = QuatUtils.create();
     return function getRotationWorldRadians(object, rotation = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, quat);
-        quat.quat_toRadians(rotation);
+        QuatUtils.toRadians(quat, rotation);
         return rotation;
     };
 }();
@@ -176,7 +176,7 @@ export let getRotationWorldMatrix = function () {
     let quat = QuatUtils.create();
     return function getRotationWorldMatrix(object, rotation = Mat3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, quat);
-        quat.quat_toMatrix(rotation);
+        QuatUtils.toMatrix(quat, rotation);
         return rotation;
     };
 }();
@@ -202,7 +202,7 @@ export let getRotationLocalRadians = function () {
     let quat = QuatUtils.create();
     return function getRotationLocalRadians(object, rotation = Vec3Utils.create()) {
         ObjectUtils.getRotationLocalQuat(object, quat);
-        quat.quat_toRadians(rotation);
+        QuatUtils.toRadians(quat, rotation);
         return rotation;
     };
 }();
@@ -211,7 +211,7 @@ export let getRotationLocalMatrix = function () {
     let quat = QuatUtils.create();
     return function getRotationLocalMatrix(object, rotation = Mat3Utils.create()) {
         ObjectUtils.getRotationLocalQuat(object, quat);
-        quat.quat_toMatrix(rotation);
+        QuatUtils.toMatrix(quat, rotation);
         return rotation;
     };
 }();
@@ -657,7 +657,7 @@ export let setForwardWorld = function () {
     let quat = QuatUtils.create();
     return function setForwardWorld(object, forward, up = null, left = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
-        quat.quat_setForward(forward, up, left);
+        QuatUtils.setForward(quat, forward, up, left);
         ObjectUtils.setRotationWorldQuat(object, quat);
     };
 }();
@@ -666,7 +666,7 @@ export let setForwardLocal = function () {
     let quat = QuatUtils.create();
     return function setForwardLocal(object, forward, up = null, left = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
-        quat.quat_setForward(forward, up, left);
+        QuatUtils.setForward(quat, forward, up, left);
         ObjectUtils.setRotationLocalQuat(object, quat);
     };
 }();
@@ -681,7 +681,7 @@ export let setBackwardWorld = function () {
     let quat = QuatUtils.create();
     return function setBackwardWorld(object, backward, up = null, left = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
-        quat.quat_setBackward(backward, up, left);
+        QuatUtils.setBackward(quat, backward, up, left);
         ObjectUtils.setRotationWorldQuat(object, quat);
     };
 }();
@@ -690,7 +690,7 @@ export let setBackwardLocal = function () {
     let quat = QuatUtils.create();
     return function setBackwardLocal(object, backward, up = null, left = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
-        quat.quat_setBackward(backward, up, left);
+        QuatUtils.setBackward(quat, backward, up, left);
         ObjectUtils.setRotationLocalQuat(object, quat);
     };
 }();
@@ -705,7 +705,7 @@ export let setUpWorld = function () {
     let quat = QuatUtils.create();
     return function setUpWorld(object, up, forward = null, left = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
-        quat.quat_setUp(up, forward, left);
+        QuatUtils.setUp(quat, up, forward, left);
         ObjectUtils.setRotationWorldQuat(object, quat);
     };
 }();
@@ -714,7 +714,7 @@ export let setUpLocal = function () {
     let quat = QuatUtils.create();
     return function setUpLocal(object, up, forward = null, left = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
-        quat.quat_setUp(up, forward, left);
+        QuatUtils.setUp(quat, up, forward, left);
         ObjectUtils.setRotationLocalQuat(object, quat);
     };
 }();
@@ -729,7 +729,7 @@ export let setDownWorld = function () {
     let quat = QuatUtils.create();
     return function setDownWorld(object, down, forward = null, left = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
-        quat.quat_setDown(down, forward, left);
+        QuatUtils.setDown(quat, down, forward, left);
         ObjectUtils.setRotationWorldQuat(object, quat);
     };
 }();
@@ -738,7 +738,7 @@ export let setDownLocal = function () {
     let quat = QuatUtils.create();
     return function setDownLocal(object, down, forward = null, left = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
-        quat.quat_setDown(down, forward, left);
+        QuatUtils.setDown(quat, down, forward, left);
         ObjectUtils.setRotationLocalQuat(object, quat);
     };
 }();
@@ -753,7 +753,7 @@ export let setLeftWorld = function () {
     let quat = QuatUtils.create();
     return function setLeftWorld(object, left, up = null, forward = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
-        quat.quat_setLeft(left, up, forward);
+        QuatUtils.setLeft(quat, left, up, forward);
         ObjectUtils.setRotationWorldQuat(object, quat);
     };
 }();
@@ -762,7 +762,7 @@ export let setLeftLocal = function () {
     let quat = QuatUtils.create();
     return function setLeftLocal(object, left, up = null, forward = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
-        quat.quat_setLeft(left, up, forward);
+        QuatUtils.setLeft(quat, left, up, forward);
         ObjectUtils.setRotationLocalQuat(object, quat);
     };
 }();
@@ -777,7 +777,7 @@ export let setRightWorld = function () {
     let quat = QuatUtils.create();
     return function setRightWorld(object, right, up = null, forward = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
-        quat.quat_setRight(right, up, forward);
+        QuatUtils.setRight(quat, right, up, forward);
         ObjectUtils.setRotationWorldQuat(object, quat);
     };
 }();
@@ -786,7 +786,7 @@ export let setRightLocal = function () {
     let quat = QuatUtils.create();
     return function setRightLocal(object, right, up = null, forward = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
-        quat.quat_setRight(right, up, forward);
+        QuatUtils.setRight(quat, right, up, forward);
         ObjectUtils.setRotationLocalQuat(object, quat);
     };
 }();
@@ -824,7 +824,7 @@ export let setTransformWorldMatrix = function () {
         one.vec3_div(scale, inverseScale);
         Mat4Utils.scale(transform, inverseScale, transformMatrixNoScale);
         Mat4Utils.getRotationQuat(transformMatrixNoScale, rotation);
-        rotation.quat_normalize(rotation);
+        QuatUtils.normalize(rotation, rotation);
         ObjectUtils.setScaleWorld(object, scale);
         ObjectUtils.setRotationWorldQuat(object, rotation);
         ObjectUtils.setPositionWorld(object, position);
@@ -854,7 +854,7 @@ export let setTransformLocalMatrix = function () {
         one.vec3_div(scale, inverseScale);
         Mat4Utils.scale(transform, inverseScale, transformMatrixNoScale);
         Mat4Utils.getRotationQuat(transformMatrixNoScale, rotation);
-        rotation.quat_normalize(rotation);
+        QuatUtils.normalize(rotation, rotation);
         ObjectUtils.setScaleLocal(object, scale);
         ObjectUtils.setRotationLocalQuat(object, rotation);
         ObjectUtils.setPositionLocal(object, position);
@@ -1043,7 +1043,7 @@ export let rotateWorldMatrix = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateWorldMatrix(object, rotation) {
         Mat3Utils.toQuat(rotation, rotationQuat);
-        rotationQuat.quat_normalize(rotationQuat);
+        QuatUtils.normalize(rotationQuat, rotationQuat);
         ObjectUtils.rotateWorldQuat(object, rotationQuat);
     };
 }();
@@ -1052,8 +1052,8 @@ export let rotateWorldQuat = function () {
     let currentRotationQuat = QuatUtils.create();
     return function rotateWorldQuat(object, rotation) {
         ObjectUtils.getRotationWorldQuat(object, currentRotationQuat);
-        rotation.quat_mul(currentRotationQuat, currentRotationQuat);
-        currentRotationQuat.quat_normalize(currentRotationQuat);
+        QuatUtils.mul(rotation, currentRotationQuat, currentRotationQuat);
+        QuatUtils.normalize(currentRotationQuat, currentRotationQuat);
         ObjectUtils.setRotationWorldQuat(object, currentRotationQuat);
     };
 }();
@@ -1084,7 +1084,7 @@ export let rotateLocalMatrix = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateLocalMatrix(object, rotation) {
         Mat3Utils.toQuat(rotation, rotationQuat);
-        rotationQuat.quat_normalize(rotationQuat);
+        QuatUtils.normalize(rotationQuat, rotationQuat);
         ObjectUtils.rotateLocalQuat(object, rotationQuat);
     };
 }();
@@ -1093,8 +1093,8 @@ export let rotateLocalQuat = function () {
     let currentRotationQuat = QuatUtils.create();
     return function rotateLocalQuat(object, rotation) {
         ObjectUtils.getRotationLocalQuat(object, currentRotationQuat);
-        rotation.quat_mul(currentRotationQuat, currentRotationQuat);
-        currentRotationQuat.quat_normalize(currentRotationQuat);
+        QuatUtils.mul(rotation, currentRotationQuat, currentRotationQuat);
+        QuatUtils.normalize(currentRotationQuat, currentRotationQuat);
         ObjectUtils.setRotationLocalQuat(object, currentRotationQuat);
     };
 }();
@@ -1125,7 +1125,7 @@ export let rotateObjectMatrix = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateObjectMatrix(object, rotation) {
         Mat3Utils.toQuat(rotation, rotationQuat);
-        rotationQuat.quat_normalize(rotationQuat);
+        QuatUtils.normalize(rotationQuat, rotationQuat);
         ObjectUtils.rotateObjectQuat(object, rotationQuat);
     };
 }();
@@ -1250,7 +1250,7 @@ export let rotateAroundWorldMatrix = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateAroundWorldMatrix(object, rotation, origin) {
         Mat3Utils.toQuat(rotation, rotationQuat);
-        rotationQuat.quat_normalize(rotationQuat);
+        QuatUtils.normalize(rotationQuat, rotationQuat);
         ObjectUtils.rotateAroundWorldQuat(object, rotationQuat, origin);
     };
 }();
@@ -1258,8 +1258,8 @@ export let rotateAroundWorldMatrix = function () {
 export let rotateAroundWorldQuat = function () {
     let axis = Vec3Utils.create();
     return function rotateAroundWorldQuat(object, rotation, origin) {
-        rotation.quat_getAxis(axis);
-        let angle = rotation.quat_getAngleRadians();
+        QuatUtils.getAxis(rotation, axis);
+        let angle = QuatUtils.getAngleRadians(rotation,);
         ObjectUtils.rotateAroundAxisWorldRadians(object, angle, axis, origin);
     };
 }();
@@ -1290,7 +1290,7 @@ export let rotateAroundLocalMatrix = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateAroundLocalMatrix(object, rotation, origin) {
         Mat3Utils.toQuat(rotation, rotationQuat);
-        rotationQuat.quat_normalize(rotationQuat);
+        QuatUtils.normalize(rotationQuat, rotationQuat);
         ObjectUtils.rotateAroundLocalQuat(object, rotationQuat, origin);
     };
 }();
@@ -1298,8 +1298,8 @@ export let rotateAroundLocalMatrix = function () {
 export let rotateAroundLocalQuat = function () {
     let axis = Vec3Utils.create();
     return function rotateAroundLocalQuat(object, rotation, origin) {
-        rotation.quat_getAxis(axis);
-        let angle = rotation.quat_getAngleRadians();
+        QuatUtils.getAxis(rotation, axis);
+        let angle = QuatUtils.getAngleRadians(rotation,);
         ObjectUtils.rotateAroundAxisLocalRadians(object, angle, axis, origin);
     };
 }();
@@ -1330,7 +1330,7 @@ export let rotateAroundObjectMatrix = function () {
     let rotationQuat = QuatUtils.create();
     return function rotateAroundObjectMatrix(object, rotation, origin) {
         Mat3Utils.toQuat(rotation, rotationQuat);
-        rotationQuat.quat_normalize(rotationQuat);
+        QuatUtils.normalize(rotationQuat, rotationQuat);
         ObjectUtils.rotateAroundObjectQuat(object, rotationQuat, origin);
     };
 }();
@@ -1338,8 +1338,8 @@ export let rotateAroundObjectMatrix = function () {
 export let rotateAroundObjectQuat = function () {
     let axis = Vec3Utils.create();
     return function rotateAroundObjectQuat(object, rotation, origin) {
-        rotation.quat_getAxis(axis);
-        let angle = rotation.quat_getAngleRadians();
+        QuatUtils.getAxis(rotation, axis);
+        let angle = QuatUtils.getAngleRadians(rotation,);
         ObjectUtils.rotateAroundAxisObjectRadians(object, angle, axis, origin);
     };
 }();
@@ -1544,7 +1544,7 @@ export let convertDirectionWorldToObject = function () {
     let rotation = QuatUtils.create();
     return function convertDirectionWorldToObject(object, direction, resultDirection = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
-        rotation.quat_conjugate(rotation);
+        QuatUtils.conjugate(rotation, rotation);
         direction.vec3_transformQuat(rotation, resultDirection);
         return resultDirection;
     };
@@ -1657,7 +1657,7 @@ export let convertTransformObjectToWorldQuat = function () {
     let rotation = QuatUtils.create();
     return function convertTransformObjectToWorldQuat(object, transform, resultTransform = Quat2Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
-        rotation.quat_mul(transform, rotation);
+        QuatUtils.mul(rotation, transform, rotation);
         Quat2Utils.getPosition(transform, position);
         ObjectUtils.convertPositionObjectToWorld(object, position, position);
         Quat2Utils.setPositionRotationQuat(resultTransform, position, rotation);
@@ -1706,8 +1706,8 @@ export let convertTransformWorldToObjectQuat = function () {
     let rotation = QuatUtils.create();
     return function convertTransformWorldToObjectQuat(object, transform, resultTransform = Quat2Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
-        rotation.quat_conjugate(rotation);
-        rotation.quat_mul(transform, rotation);
+        QuatUtils.conjugate(rotation, rotation);
+        QuatUtils.mul(rotation, transform, rotation);
         Quat2Utils.getPosition(transform, position);
         ObjectUtils.convertPositionWorldToObject(object, position, position);
         Quat2Utils.setPositionRotationQuat(resultTransform, position, rotation);

@@ -62,7 +62,7 @@ export function getRotation(quat, out) {
 export let getRotationDegrees = function () {
     let rotationQuat = quat_utils_create();
     return function getRotationDegrees(quat, out = Vec3Utils.create()) {
-        Quat2Utils.getRotationQuat(quat, rotationQuat).quat_toDegrees(out);
+        QuatUtils.toDegrees(Quat2Utils.getRotationQuat(quat, rotationQuat), out);
         return out;
     };
 }();
@@ -70,7 +70,7 @@ export let getRotationDegrees = function () {
 export let getRotationRadians = function () {
     let rotationQuat = quat_utils_create();
     return function getRotationRadians(quat, out = Vec3Utils.create()) {
-        Quat2Utils.getRotationQuat(quat, rotationQuat).quat_toRadians(out);
+        QuatUtils.toRadians(Quat2Utils.getRotationQuat(quat, rotationQuat), out);
         return out;
     };
 }();
@@ -177,7 +177,7 @@ export function getAxes(quat, out = [Vec3Utils.create(), Vec3Utils.create(), Vec
 export let getForward = function () {
     let rotationMatrix = mat3_utils_create();
     return function getForward(quat, out = Vec3Utils.create()) {
-        quat.quat_toMatrix(rotationMatrix);
+        QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
         out.vec3_normalize(out);
@@ -195,7 +195,7 @@ export function getBackward(quat, out) {
 export let getLeft = function () {
     let rotationMatrix = mat3_utils_create();
     return function getLeft(quat, out = Vec3Utils.create()) {
-        quat.quat_toMatrix(rotationMatrix);
+        QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
         out.vec3_normalize(out);
@@ -213,7 +213,7 @@ export function getRight(quat, out) {
 export let getUp = function () {
     let rotationMatrix = mat3_utils_create();
     return function getUp(quat, out = Vec3Utils.create()) {
-        quat.quat_toMatrix(rotationMatrix);
+        QuatUtils.toMatrix(quat, rotationMatrix);
 
         Vec3Utils.set(out, rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
         out.vec3_normalize(out);
@@ -254,7 +254,7 @@ export let rotateAxisRadians = function () {
     let rotationQuat = quat_utils_create();
     return function rotateAxisRadians(quat, angle, axis, out) {
         Quat2Utils.getRotationQuat(quat, rotationQuat);
-        rotationQuat.quat_rotateAxisRadians(angle, axis, rotationQuat);
+        QuatUtils.rotateAxisRadians(rotationQuat, angle, axis, rotationQuat);
         Quat2Utils.copy(quat, out);
         Quat2Utils.setRotationQuat(out, rotationQuat);
         return out;

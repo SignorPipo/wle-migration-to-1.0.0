@@ -44,7 +44,7 @@ export let toDegrees = function () {
     let quat = quat_utils_create();
     return function toDegrees(matrix, out = Vec3Utils.create()) {
         Mat3Utils.toQuat(matrix, quat);
-        quat.quat_toDegrees(out);
+        QuatUtils.toDegrees(quat, out);
         return out;
     };
 }();
@@ -53,7 +53,7 @@ export let toRadians = function () {
     let quat = quat_utils_create();
     return function toRadians(matrix, out = Vec3Utils.create()) {
         Mat3Utils.toQuat(matrix, quat);
-        quat.quat_toRadians(out);
+        QuatUtils.toRadians(quat, out);
         return out;
     };
 }();
