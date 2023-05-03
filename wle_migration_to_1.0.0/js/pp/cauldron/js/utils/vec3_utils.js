@@ -742,6 +742,46 @@ export function interpolate(from, to, interpolationValue, easingFunction = Easin
     return Vec3Utils.lerp(from, to, lerpValue, out);
 }
 
+export let perpendicularRandom = function () {
+    let notVector = create();
+    return function perpendicularRandom(vector, out = Vec3Utils.create()) {
+        if (Vec3Utils.isZero(vector)) {
+            return Vec3Utils.zero(out);
+        }
+
+        Vec3Utils.copy(vector, notVector);
+
+        let zeroAmount = false;
+        for (let i = 0; i < 3; i++) {
+            if (vector[i] == 0) {
+                zeroAmount++;
+            }
+        }
+
+        if (zeroAmount == 2) {
+            if (notVector[0] == 0) {
+                notVector[0] = 1;
+            } else if (notVector[1] == 0) {
+                notVector[1] = 1;
+            } else if (notVector[2] == 0) {
+                notVector[2] = 1;
+            }
+        } else {
+            if (notVector[0] != 0) {
+                notVector[0] = -notVector[0];
+            } else if (notVector[1] != 0) {
+                notVector[1] = -notVector[1];
+            } else if (notVector[2] != 0) {
+                notVector[2] = -notVector[2];
+            }
+        }
+
+        Vec3Utils.cross(notVector, vector, out);
+
+        return out;
+    };
+}();
+
 export let Vec3Utils = {
     create,
     set,
@@ -844,4 +884,5 @@ export let Vec3Utils = {
     rotationToPivotedQuat,
     lerp,
     interpolate,
+    perpendicularRandom
 };

@@ -699,8 +699,12 @@ let _setAxes = function () {
             if (angleBetween > MathUtils.EPSILON) {
                 Vec3Utils.cross(currentAxis, firstAxis, rotationAxis);
                 Vec3Utils.normalize(rotationAxis, rotationAxis);
-                QuatUtils.fromAxisRadians(angleBetween, rotationAxis, rotationQuat);
 
+                if (Vec3Utils.isZero(rotationAxis)) {
+                    Vec3Utils.perpendicularRandom(currentAxis, rotationAxis);
+                }
+
+                QuatUtils.fromAxisRadians(angleBetween, rotationAxis, rotationQuat);
                 QuatUtils.rotateQuat(quat, rotationQuat, quat);
             }
         }

@@ -95,6 +95,7 @@
             - vec3_toRadians        / vec3_toDegrees            / vec3_toQuat       / vec3_toMatrix
             - vec3_addRotation  
             - vec3_lerp      / vec3_interpolate 
+            - vec3_perpendicularRandom 
             
         VECTOR 4:
             ○ vec4_set      / vec4_copy
@@ -796,6 +797,10 @@ export function initArrayExtensionProtoype() {
 
     vec3Extension.vec3_interpolate = function vec3_interpolate(to, interpolationValue, easingFunction = EasingFunction.linear, out = Vec3Utils.create()) {
         return Vec3Utils.interpolate(this, ...arguments);
+    };
+
+    vec3Extension.vec3_perpendicularRandom = function vec3_perpendicularRandom(out = Vec3Utils.create()) {
+        return Vec3Utils.perpendicularRandom(this, ...arguments);
     };
 
     // VECTOR 4
