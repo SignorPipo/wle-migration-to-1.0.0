@@ -5,6 +5,7 @@ import { Mat4Utils } from "../../js/utils/mat4_utils";
 import { Quat2Utils } from "../../js/utils/quat2_utils";
 import { QuatUtils } from "../../js/utils/quat_utils";
 import { Vec3Utils } from "../../js/utils/vec3_utils";
+import { SceneUtils } from "./scene_utils";
 
 export class CloneParams {
 
@@ -1425,7 +1426,7 @@ export let rotateAroundAxisObjectRadians = function () {
 // Scale
 
 // For now it does not really make sense in WL to scale in world space or parent space
-// so there is no pp_scale default function
+// so there is no scale default function
 
 export let scaleObject = function () {
     let vector = vec3_create();
@@ -1552,7 +1553,7 @@ export let convertDirectionWorldToObject = function () {
 
 export function convertPositionLocalToWorld(object, position, resultPosition = vec3_create()) {
     if (ObjectUtils.getParent(object)) {
-        ObjectUtils.getParent(object).pp_convertPositionObjectToWorld(position, resultPosition);
+        ObjectUtils.convertPositionObjectToWorld(ObjectUtils.getParent(object), position, resultPosition);
     } else {
         Vec3Utils.copy(position, resultPosition);
     }
@@ -1561,7 +1562,7 @@ export function convertPositionLocalToWorld(object, position, resultPosition = v
 
 export function convertDirectionLocalToWorld(object, direction, resultDirection = vec3_create()) {
     if (ObjectUtils.getParent(object)) {
-        ObjectUtils.getParent(object).pp_convertDirectionObjectToWorld(direction, resultDirection);
+        ObjectUtils.convertDirectionObjectToWorld(ObjectUtils.getParent(object), direction, resultDirection);
     } else {
         Vec3Utils.copy(direction, resultDirection);
     }
@@ -1570,7 +1571,7 @@ export function convertDirectionLocalToWorld(object, direction, resultDirection 
 
 export function convertPositionWorldToLocal(object, position, resultPosition = vec3_create()) {
     if (ObjectUtils.getParent(object)) {
-        ObjectUtils.getParent(object).pp_convertPositionWorldToObject(position, resultPosition);
+        ObjectUtils.convertPositionWorldToObject(ObjectUtils.getParent(object), position, resultPosition);
     } else {
         Vec3Utils.copy(position, resultPosition);
     }
@@ -1579,7 +1580,7 @@ export function convertPositionWorldToLocal(object, position, resultPosition = v
 
 export function convertDirectionWorldToLocal(object, direction, resultDirection = vec3_create()) {
     if (ObjectUtils.getParent(object)) {
-        ObjectUtils.getParent(object).pp_convertDirectionWorldToObject(direction, resultDirection);
+        ObjectUtils.convertDirectionWorldToObject(ObjectUtils.getParent(object), direction, resultDirection);
     } else {
         Vec3Utils.copy(direction, resultDirection);
     }
@@ -1721,7 +1722,7 @@ export function convertTransformLocalToWorld(object, transform, resultTransform)
 
 export function convertTransformLocalToWorldMatrix(object, transform, resultTransform = mat4_create()) {
     if (ObjectUtils.getParent(object)) {
-        ObjectUtils.getParent(object).pp_convertTransformObjectToWorldMatrix(transform, resultTransform);
+        ObjectUtils.convertTransformObjectToWorldMatrix(ObjectUtils.getParent(object), transform, resultTransform);
     } else {
         Mat4Utils.copy(transform, resultTransform);
     }
@@ -1730,7 +1731,7 @@ export function convertTransformLocalToWorldMatrix(object, transform, resultTran
 
 export function convertTransformLocalToWorldQuat(object, transform, resultTransform = quat2_create()) {
     if (ObjectUtils.getParent(object)) {
-        ObjectUtils.getParent(object).pp_convertTransformObjectToWorldQuat(transform, resultTransform);
+        ObjectUtils.convertTransformObjectToWorldQuat(ObjectUtils.getParent(object), transform, resultTransform);
     } else {
         Quat2Utils.copy(transform, resultTransform);
     }
@@ -1743,7 +1744,7 @@ export function convertTransformWorldToLocal(object, transform, resultTransform)
 
 export function convertTransformWorldToLocalMatrix(object, transform, resultTransform = mat4_create()) {
     if (ObjectUtils.getParent(object)) {
-        ObjectUtils.getParent(object).pp_convertTransformWorldToObjectMatrix(transform, resultTransform);
+        ObjectUtils.convertTransformWorldToObjectMatrix(ObjectUtils.getParent(object), transform, resultTransform);
     } else {
         Mat4Utils.copy(transform, resultTransform);
     }
@@ -1752,7 +1753,7 @@ export function convertTransformWorldToLocalMatrix(object, transform, resultTran
 
 export function convertTransformWorldToLocalQuat(object, transform, resultTransform = quat2_create()) {
     if (ObjectUtils.getParent(object)) {
-        ObjectUtils.getParent(object).pp_convertTransformWorldToObjectQuat(transform, resultTransform);
+        ObjectUtils.convertTransformWorldToObjectQuat(ObjectUtils.getParent(object), transform, resultTransform);
     } else {
         Quat2Utils.copy(transform, resultTransform);
     }
@@ -1987,7 +1988,7 @@ export let clone = function () {
                 let parent = cloneData[0];
                 let objectToClone = cloneData[1];
 
-                let currentClonedObject = (parent != null) ? ObjectUtils.addObject(parent,) : Globals.getScene(ObjectUtils.getEngine(object)).pp_addObject();
+                let currentClonedObject = (parent != null) ? ObjectUtils.addObject(parent) : SceneUtils.addObject(Globals.getScene(ObjectUtils.getEngine(object)));
                 ObjectUtils.setName(currentClonedObject, ObjectUtils.getName(objectToClone));
 
                 ObjectUtils.setScaleLocal(currentClonedObject, ObjectUtils.getScaleLocal(objectToClone, scale));
@@ -2213,7 +2214,7 @@ export let toStringExtended = function () {
             for (let i = 0; i < children.length; i++) {
                 let child = children[i];
 
-                let childString = ObjectUtils.toStringExtended(child,);
+                let childString = ObjectUtils.toStringExtended(child);
                 childString = childString.replaceAll(newLine, newLineTab);
                 childString = tab.concat(tab, childString);
                 objectString = objectString.concat(childString);
@@ -2271,7 +2272,7 @@ export let toStringCompact = function () {
             for (let i = 0; i < children.length; i++) {
                 let child = children[i];
 
-                let childString = ObjectUtils.toStringCompact(child,);
+                let childString = ObjectUtils.toStringCompact(child);
                 childString = childString.replaceAll(newLine, newLineTab);
                 childString = tab.concat(childString);
                 objectString = objectString.concat(childString);
@@ -2435,7 +2436,7 @@ export function getDescendantsBreadth(object) {
     while (descendantsQueue.length > 0) {
         let descendant = descendantsQueue.shift();
         descendants.push(descendant);
-        for (let child of ObjectUtils.getChildren(descendant,)) {
+        for (let child of ObjectUtils.getChildren(descendant)) {
             descendantsQueue.push(child);
         }
     }
@@ -2451,7 +2452,7 @@ export function getDescendantsDepth(object) {
     for (let child of children) {
         descendants.push(child);
 
-        let childDescendants = ObjectUtils.getDescendantsDepth(child,);
+        let childDescendants = ObjectUtils.getDescendantsDepth(child);
         if (childDescendants.length > 0) {
             descendants.push(...childDescendants);
         }

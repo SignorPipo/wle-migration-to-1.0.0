@@ -151,7 +151,7 @@ export function setPositionRotationQuat(quat, position, rotation) {
 // New Functions
 
 export function isNormalized(quat, epsilon = MathUtils.EPSILON) {
-    return Math.abs(Quat2Utils.lengthSquared(quat,) - 1) < epsilon;
+    return Math.abs(Quat2Utils.lengthSquared(quat) - 1) < epsilon;
 }
 
 export function length(quat) {
