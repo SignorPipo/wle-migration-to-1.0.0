@@ -207,12 +207,12 @@ export function toQuat(vector, out) {
     return Vec3Utils.degreesToQuat(vector, out);
 }
 
-export function radiansToQuat(vector, out = quat_create()) {
+export function radiansToQuat(vector, out = QuatUtils.create()) {
     QuatUtils.fromRadians(vector, out);
     return out;
 }
 
-export function degreesToQuat(vector, out = quat_create()) {
+export function degreesToQuat(vector, out = QuatUtils.create()) {
     QuatUtils.fromDegrees(vector, out);
     return out;
 }
@@ -632,13 +632,13 @@ export let radiansAddRotationQuat = function () {
     };
 }();
 
-export function toMatrix(vector, out = mat3_create()) {
+export function toMatrix(vector, out = Mat3Utils.create()) {
     return Vec3Utils.degreesToMatrix(vector, out);
 }
 
 export let degreesToMatrix = function () {
     let quat = quat_utils_create();
-    return function degreesToMatrix(vector, out = mat3_create()) {
+    return function degreesToMatrix(vector, out = Mat3Utils.create()) {
         Vec3Utils.degreesToQuat(vector, quat);
         return quat.quat_toMatrix(out);
     };
@@ -646,7 +646,7 @@ export let degreesToMatrix = function () {
 
 export let radiansToMatrix = function () {
     let quat = quat_utils_create();
-    return function radiansToMatrix(vector, out = mat3_create()) {
+    return function radiansToMatrix(vector, out = Mat3Utils.create()) {
         Vec3Utils.radiansToQuat(vector, quat);
         return quat.quat_toMatrix(out);
     };
@@ -676,7 +676,7 @@ export let rotationToRadians = function () {
 
 export let rotationToQuat = function () {
     let rotationAxis = create();
-    return function rotationToQuat(vector, direction, out = quat_create()) {
+    return function rotationToQuat(vector, direction, out = QuatUtils.create()) {
         Vec3Utils.cross(vector, direction, rotationAxis);
         Vec3Utils.normalize(rotationAxis, rotationAxis);
         let signedAngle = Vec3Utils.angleSigned(vector, direction, rotationAxis);
@@ -711,7 +711,7 @@ export let rotationToPivotedQuat = function () {
     let thisFlat = create();
     let directionFlat = create();
     let rotationAxis = create();
-    return function rotationToPivotedQuat(vector, direction, pivotAxis, out = quat_create()) {
+    return function rotationToPivotedQuat(vector, direction, pivotAxis, out = QuatUtils.create()) {
         Vec3Utils.removeComponentAlongAxis(vector, pivotAxis, thisFlat);
         Vec3Utils.removeComponentAlongAxis(direction, pivotAxis, directionFlat);
 

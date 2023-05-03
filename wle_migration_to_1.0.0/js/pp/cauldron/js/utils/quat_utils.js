@@ -72,7 +72,7 @@ export function mul(first, second, out = QuatUtils.create()) {
 
 export let getAxis = function () {
     let zero = vec3_utils_create(0, 0, 0);
-    return function getAxis(quat, out = vec3_create()) {
+    return function getAxis(quat, out = Vec3Utils.create()) {
         let angle = gl_quat.getAxisAngle(out, quat);
         if (angle <= MathUtils.EPSILON) {
             Vec3Utils.copy(zero, out);
@@ -99,11 +99,11 @@ export let getAngleRadians = function () {
     };
 }();
 
-export function getAxisScaled(quat, out = vec3_create()) {
+export function getAxisScaled(quat, out = Vec3Utils.create()) {
     return QuatUtils.getAxisScaledDegrees(quat, out);
 }
 
-export function getAxisScaledDegrees(quat, out = vec3_create()) {
+export function getAxisScaledDegrees(quat, out = Vec3Utils.create()) {
     QuatUtils.getAxis(quat, out);
     let angle = QuatUtils.getAngleDegrees(quat);
     out.vec3_scale(angle, out);
@@ -112,7 +112,7 @@ export function getAxisScaledDegrees(quat, out = vec3_create()) {
 
 export let getAxisScaledRadians = function () {
     let zero = vec3_utils_create(0, 0, 0);
-    return function getAxisScaledRadians(quat, out = vec3_create()) {
+    return function getAxisScaledRadians(quat, out = Vec3Utils.create()) {
         QuatUtils.getAxis(quat, out);
         let angle = QuatUtils.getAngleRadians(quat);
         if (angle <= MathUtils.EPSILON) {
@@ -124,7 +124,7 @@ export let getAxisScaledRadians = function () {
     };
 }();
 
-export function getAxes(quat, out = [vec3_create(), vec3_create(), vec3_create()]) {
+export function getAxes(quat, out = [Vec3Utils.create(), Vec3Utils.create(), Vec3Utils.create()]) {
     QuatUtils.getLeft(quat, out[0]);
     QuatUtils.getUp(quat, out[1]);
     QuatUtils.getForward(quat, out[2]);
@@ -133,7 +133,7 @@ export function getAxes(quat, out = [vec3_create(), vec3_create(), vec3_create()
 
 export let getForward = function () {
     let rotationMatrix = mat3_utils_create();
-    return function getForward(quat, out = vec3_create()) {
+    return function getForward(quat, out = Vec3Utils.create()) {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
@@ -151,7 +151,7 @@ export function getBackward(quat, out) {
 
 export let getLeft = function () {
     let rotationMatrix = mat3_utils_create();
-    return function getLeft(quat, out = vec3_create()) {
+    return function getLeft(quat, out = Vec3Utils.create()) {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[0], rotationMatrix[1], rotationMatrix[2]);
@@ -169,7 +169,7 @@ export function getRight(quat, out) {
 
 export let getUp = function () {
     let rotationMatrix = mat3_utils_create();
-    return function getUp(quat, out = vec3_create()) {
+    return function getUp(quat, out = Vec3Utils.create()) {
         QuatUtils.toMatrix(quat, rotationMatrix);
 
         out.vec3_set(rotationMatrix[3], rotationMatrix[4], rotationMatrix[5]);
@@ -284,7 +284,7 @@ export function fromDegrees(degreesRotation, out = QuatUtils.create()) {
 
 export let toRadians = function () {
     let matrix = mat3_utils_create();
-    return function toRadians(quat, out = vec3_create()) {
+    return function toRadians(quat, out = Vec3Utils.create()) {
         QuatUtils.toMatrix(quat, matrix);
 
         // Rotation order is ZYX 
@@ -302,7 +302,7 @@ export let toRadians = function () {
     };
 }();
 
-export function toDegrees(quat, out = vec3_create()) {
+export function toDegrees(quat, out = Vec3Utils.create()) {
     QuatUtils.toRadians(quat, out);
     out.vec3_toDegrees(out);
     return out;
@@ -451,7 +451,7 @@ export function fromTwistSwing(twist, swing, out = QuatUtils.create()) {
     return QuatUtils.addRotationQuat(twist, swing, out);
 }
 
-export function toMatrix(quat, out = mat3_create()) {
+export function toMatrix(quat, out = Mat3Utils.create()) {
     gl_mat3.fromQuat(out, quat);
     return out;
 }

@@ -1,6 +1,7 @@
 import { MathUtils } from "../../../cauldron/js/utils/math_utils";
 import { mat3_create, mat4_create, quat2_create, quat_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
+import { Mat3Utils } from "../../js/utils/mat3_utils";
 import { Mat4Utils } from "../../js/utils/mat4_utils";
 import { Quat2Utils } from "../../js/utils/quat2_utils";
 import { QuatUtils } from "../../js/utils/quat_utils";
@@ -118,12 +119,12 @@ export function getPosition(object, position) {
     return ObjectUtils.getPositionWorld(object, position);
 }
 
-export function getPositionWorld(object, position = vec3_create()) {
+export function getPositionWorld(object, position = Vec3Utils.create()) {
     object.getTranslationWorld(position);
     return position;
 }
 
-export function getPositionLocal(object, position = vec3_create()) {
+export function getPositionLocal(object, position = Vec3Utils.create()) {
     object.getTranslationLocal(position);
     return position;
 }
@@ -163,8 +164,8 @@ export function getRotationWorldDegrees(object, rotation) {
 }
 
 export let getRotationWorldRadians = function () {
-    let quat = quat_create();
-    return function getRotationWorldRadians(object, rotation = vec3_create()) {
+    let quat = QuatUtils.create();
+    return function getRotationWorldRadians(object, rotation = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, quat);
         quat.quat_toRadians(rotation);
         return rotation;
@@ -172,15 +173,15 @@ export let getRotationWorldRadians = function () {
 }();
 
 export let getRotationWorldMatrix = function () {
-    let quat = quat_create();
-    return function getRotationWorldMatrix(object, rotation = mat3_create()) {
+    let quat = QuatUtils.create();
+    return function getRotationWorldMatrix(object, rotation = Mat3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, quat);
         quat.quat_toMatrix(rotation);
         return rotation;
     };
 }();
 
-export function getRotationWorldQuat(object, rotation = quat_create()) {
+export function getRotationWorldQuat(object, rotation = QuatUtils.create()) {
     object.getRotationWorld(rotation);
     return rotation;
 }
@@ -198,8 +199,8 @@ export function getRotationLocalDegrees(object, rotation) {
 }
 
 export let getRotationLocalRadians = function () {
-    let quat = quat_create();
-    return function getRotationLocalRadians(object, rotation = vec3_create()) {
+    let quat = QuatUtils.create();
+    return function getRotationLocalRadians(object, rotation = Vec3Utils.create()) {
         ObjectUtils.getRotationLocalQuat(object, quat);
         quat.quat_toRadians(rotation);
         return rotation;
@@ -207,15 +208,15 @@ export let getRotationLocalRadians = function () {
 }();
 
 export let getRotationLocalMatrix = function () {
-    let quat = quat_create();
-    return function getRotationLocalMatrix(object, rotation = mat3_create()) {
+    let quat = QuatUtils.create();
+    return function getRotationLocalMatrix(object, rotation = Mat3Utils.create()) {
         ObjectUtils.getRotationLocalQuat(object, quat);
         quat.quat_toMatrix(rotation);
         return rotation;
     };
 }();
 
-export function getRotationLocalQuat(object, rotation = quat_create()) {
+export function getRotationLocalQuat(object, rotation = QuatUtils.create()) {
     object.getRotationLocal(rotation);
     return rotation;
 }
@@ -226,12 +227,12 @@ export function getScale(object, scale) {
     return ObjectUtils.getScaleWorld(object, scale);
 }
 
-export function getScaleWorld(object, scale = vec3_create()) {
+export function getScaleWorld(object, scale = Vec3Utils.create()) {
     object.getScalingWorld(scale);
     return scale;
 }
 
-export function getScaleLocal(object, scale = vec3_create()) {
+export function getScaleLocal(object, scale = Vec3Utils.create()) {
     object.getScalingLocal(scale);
     return scale;
 }
@@ -257,9 +258,9 @@ export function getTransformWorld(object, transform) {
 }
 
 export let getTransformWorldMatrix = function () {
-    let transformQuat = quat2_create();
-    let scale = vec3_create();
-    return function getTransformWorldMatrix(object, transform = mat4_create()) {
+    let transformQuat = Quat2Utils.create();
+    let scale = Vec3Utils.create();
+    return function getTransformWorldMatrix(object, transform = Mat4Utils.create()) {
         ObjectUtils.getTransformWorldQuat(object, transformQuat);
         ObjectUtils.getScaleWorld(object, scale);
         Mat4Utils.fromQuat(transformQuat, transform);
@@ -268,7 +269,7 @@ export let getTransformWorldMatrix = function () {
     };
 }();
 
-export function getTransformWorldQuat(object, transform = quat2_create()) {
+export function getTransformWorldQuat(object, transform = Quat2Utils.create()) {
     object.getTransformWorld(transform);
     return transform;
 }
@@ -280,9 +281,9 @@ export function getTransformLocal(object, transform) {
 }
 
 export let getTransformLocalMatrix = function () {
-    let transformQuat = quat2_create();
-    let scale = vec3_create();
-    return function getTransformLocalMatrix(object, transform = mat4_create()) {
+    let transformQuat = Quat2Utils.create();
+    let scale = Vec3Utils.create();
+    return function getTransformLocalMatrix(object, transform = Mat4Utils.create()) {
         ObjectUtils.getTransformLocalQuat(object, transformQuat);
         ObjectUtils.getScaleLocal(object, scale);
         Mat4Utils.fromQuat(transformQuat, transform);
@@ -291,7 +292,7 @@ export let getTransformLocalMatrix = function () {
     };
 }();
 
-export function getTransformLocalQuat(object, transform = quat2_create()) {
+export function getTransformLocalQuat(object, transform = Quat2Utils.create()) {
     object.getTransformLocal(transform);
     return transform;
 }
@@ -302,14 +303,14 @@ export function getAxes(object, axes) {
     return ObjectUtils.getAxesWorld(object, axes);
 }
 
-export function getAxesWorld(object, axes = [vec3_create(), vec3_create(), vec3_create()]) {
+export function getAxesWorld(object, axes = [Vec3Utils.create(), Vec3Utils.create(), Vec3Utils.create()]) {
     ObjectUtils.getLeftWorld(object, axes[0]);
     ObjectUtils.getUpWorld(object, axes[1]);
     ObjectUtils.getForwardWorld(object, axes[2]);
     return axes;
 }
 
-export function getAxesLocal(object, axes = [vec3_create(), vec3_create(), vec3_create()]) {
+export function getAxesLocal(object, axes = [Vec3Utils.create(), Vec3Utils.create(), Vec3Utils.create()]) {
     ObjectUtils.getLeftLocal(object, axes[0]);
     ObjectUtils.getUpLocal(object, axes[1]);
     ObjectUtils.getForwardLocal(object, axes[2]);
@@ -323,8 +324,8 @@ export function getForward(object, forward) {
 }
 
 export let getForwardWorld = function () {
-    let rotation = mat3_create();
-    return function getForwardWorld(object, forward = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getForwardWorld(object, forward = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldMatrix(object, rotation);
         forward[0] = rotation[6];
         forward[1] = rotation[7];
@@ -334,8 +335,8 @@ export let getForwardWorld = function () {
 }();
 
 export let getForwardLocal = function () {
-    let rotation = mat3_create();
-    return function getForwardLocal(object, forward = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getForwardLocal(object, forward = Vec3Utils.create()) {
         ObjectUtils.getRotationLocalMatrix(object, rotation);
         forward[0] = rotation[6];
         forward[1] = rotation[7];
@@ -351,8 +352,8 @@ export function getBackward(object, backward) {
 }
 
 export let getBackwardWorld = function () {
-    let rotation = mat3_create();
-    return function getBackwardWorld(object, backward = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getBackwardWorld(object, backward = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldMatrix(object, rotation);
         backward[0] = -rotation[6];
         backward[1] = -rotation[7];
@@ -362,8 +363,8 @@ export let getBackwardWorld = function () {
 }();
 
 export let getBackwardLocal = function () {
-    let rotation = mat3_create();
-    return function getBackwardLocal(object, backward = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getBackwardLocal(object, backward = Vec3Utils.create()) {
         ObjectUtils.getRotationLocalMatrix(object, rotation);
         backward[0] = -rotation[6];
         backward[1] = -rotation[7];
@@ -379,8 +380,8 @@ export function getUp(object, up) {
 }
 
 export let getUpWorld = function () {
-    let rotation = mat3_create();
-    return function getUpWorld(object, up = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getUpWorld(object, up = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldMatrix(object, rotation);
         up[0] = rotation[3];
         up[1] = rotation[4];
@@ -390,8 +391,8 @@ export let getUpWorld = function () {
 }();
 
 export let getUpLocal = function () {
-    let rotation = mat3_create();
-    return function getUpLocal(object, up = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getUpLocal(object, up = Vec3Utils.create()) {
         ObjectUtils.getRotationLocalMatrix(object, rotation);
         up[0] = rotation[3];
         up[1] = rotation[4];
@@ -407,8 +408,8 @@ export function getDown(object, down) {
 }
 
 export let getDownWorld = function () {
-    let rotation = mat3_create();
-    return function getDownWorld(object, down = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getDownWorld(object, down = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldMatrix(object, rotation);
         down[0] = -rotation[3];
         down[1] = -rotation[4];
@@ -418,8 +419,8 @@ export let getDownWorld = function () {
 }();
 
 export let getDownLocal = function () {
-    let rotation = mat3_create();
-    return function getDownLocal(object, down = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getDownLocal(object, down = Vec3Utils.create()) {
         ObjectUtils.getRotationLocalMatrix(object, rotation);
         down[0] = -rotation[3];
         down[1] = -rotation[4];
@@ -435,8 +436,8 @@ export function getLeft(object, left) {
 }
 
 export let getLeftWorld = function () {
-    let rotation = mat3_create();
-    return function getLeftWorld(object, left = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getLeftWorld(object, left = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldMatrix(object, rotation);
         left[0] = rotation[0];
         left[1] = rotation[1];
@@ -446,8 +447,8 @@ export let getLeftWorld = function () {
 }();
 
 export let getLeftLocal = function () {
-    let rotation = mat3_create();
-    return function getLeftLocal(object, left = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getLeftLocal(object, left = Vec3Utils.create()) {
         ObjectUtils.getRotationLocalMatrix(object, rotation);
         left[0] = rotation[0];
         left[1] = rotation[1];
@@ -463,8 +464,8 @@ export function getRight(object, right) {
 }
 
 export let getRightWorld = function () {
-    let rotation = mat3_create();
-    return function getRightWorld(object, right = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getRightWorld(object, right = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldMatrix(object, rotation);
         right[0] = -rotation[0];
         right[1] = -rotation[1];
@@ -474,8 +475,8 @@ export let getRightWorld = function () {
 }();
 
 export let getRightLocal = function () {
-    let rotation = mat3_create();
-    return function getRightLocal(object, right = vec3_create()) {
+    let rotation = Mat3Utils.create();
+    return function getRightLocal(object, right = Vec3Utils.create()) {
         ObjectUtils.getRotationLocalMatrix(object, rotation);
         right[0] = -rotation[0];
         right[1] = -rotation[1];
@@ -529,7 +530,7 @@ export function setRotationWorld(object, rotation) {
 }
 
 export let setRotationWorldDegrees = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setRotationWorldDegrees(object, rotation) {
         rotation.vec3_degreesToQuat(quat);
         ObjectUtils.setRotationWorldQuat(object, quat);
@@ -537,7 +538,7 @@ export let setRotationWorldDegrees = function () {
 }();
 
 export let setRotationWorldRadians = function () {
-    let degreesRotation = vec3_create();
+    let degreesRotation = Vec3Utils.create();
     return function setRotationWorldRadians(object, rotation) {
         degreesRotation = rotation.vec3_toDegrees(degreesRotation);
         ObjectUtils.setRotationWorldDegrees(object, degreesRotation);
@@ -545,7 +546,7 @@ export let setRotationWorldRadians = function () {
 }();
 
 export let setRotationWorldMatrix = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setRotationWorldMatrix(object, rotation) {
         rotation.mat3_toQuat(quat);
         ObjectUtils.setRotationWorldQuat(object, quat);
@@ -563,7 +564,7 @@ export function setRotationLocal(object, rotation) {
 }
 
 export let setRotationLocalDegrees = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setRotationLocalDegrees(object, rotation) {
         rotation.vec3_degreesToQuat(quat);
         ObjectUtils.setRotationLocalQuat(object, quat);
@@ -571,7 +572,7 @@ export let setRotationLocalDegrees = function () {
 }();
 
 export let setRotationLocalRadians = function () {
-    let degreesRotation = vec3_create();
+    let degreesRotation = Vec3Utils.create();
     return function setRotationLocalRadians(object, rotation) {
         degreesRotation = rotation.vec3_toDegrees(degreesRotation);
         ObjectUtils.setRotationLocalDegrees(object, degreesRotation);
@@ -579,7 +580,7 @@ export let setRotationLocalRadians = function () {
 }();
 
 export let setRotationLocalMatrix = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setRotationLocalMatrix(object, rotation) {
         rotation.mat3_toQuat(quat);
         ObjectUtils.setRotationLocalQuat(object, quat);
@@ -597,7 +598,7 @@ export function setScale(object, scale) {
 }
 
 export let setScaleWorld = function () {
-    let vector = vec3_create();
+    let vector = Vec3Utils.create();
     return function setScaleWorld(object, scale) {
         if (isNaN(scale)) {
             object.setScalingWorld(scale);
@@ -609,7 +610,7 @@ export let setScaleWorld = function () {
 }();
 
 export let setScaleLocal = function () {
-    let vector = vec3_create();
+    let vector = Vec3Utils.create();
     return function setScaleLocal(object, scale) {
         if (isNaN(scale)) {
             object.setScalingLocal(scale);
@@ -653,7 +654,7 @@ export function setForward(object, forward, up, left) {
 }
 
 export let setForwardWorld = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setForwardWorld(object, forward, up = null, left = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
         quat.quat_setForward(forward, up, left);
@@ -662,7 +663,7 @@ export let setForwardWorld = function () {
 }();
 
 export let setForwardLocal = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setForwardLocal(object, forward, up = null, left = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
         quat.quat_setForward(forward, up, left);
@@ -677,7 +678,7 @@ export function setBackward(object, backward, up, left) {
 }
 
 export let setBackwardWorld = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setBackwardWorld(object, backward, up = null, left = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
         quat.quat_setBackward(backward, up, left);
@@ -686,7 +687,7 @@ export let setBackwardWorld = function () {
 }();
 
 export let setBackwardLocal = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setBackwardLocal(object, backward, up = null, left = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
         quat.quat_setBackward(backward, up, left);
@@ -701,7 +702,7 @@ export function setUp(object, up, forward, left) {
 }
 
 export let setUpWorld = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setUpWorld(object, up, forward = null, left = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
         quat.quat_setUp(up, forward, left);
@@ -710,7 +711,7 @@ export let setUpWorld = function () {
 }();
 
 export let setUpLocal = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setUpLocal(object, up, forward = null, left = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
         quat.quat_setUp(up, forward, left);
@@ -725,7 +726,7 @@ export function setDown(object, down, forward, left) {
 }
 
 export let setDownWorld = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setDownWorld(object, down, forward = null, left = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
         quat.quat_setDown(down, forward, left);
@@ -734,7 +735,7 @@ export let setDownWorld = function () {
 }();
 
 export let setDownLocal = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setDownLocal(object, down, forward = null, left = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
         quat.quat_setDown(down, forward, left);
@@ -749,7 +750,7 @@ export function setLeft(object, left, up, forward) {
 }
 
 export let setLeftWorld = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setLeftWorld(object, left, up = null, forward = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
         quat.quat_setLeft(left, up, forward);
@@ -758,7 +759,7 @@ export let setLeftWorld = function () {
 }();
 
 export let setLeftLocal = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setLeftLocal(object, left, up = null, forward = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
         quat.quat_setLeft(left, up, forward);
@@ -773,7 +774,7 @@ export function setRight(object, right, up, forward) {
 }
 
 export let setRightWorld = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setRightWorld(object, right, up = null, forward = null) {
         ObjectUtils.getRotationWorldQuat(object, quat);
         quat.quat_setRight(right, up, forward);
@@ -782,7 +783,7 @@ export let setRightWorld = function () {
 }();
 
 export let setRightLocal = function () {
-    let quat = quat_create();
+    let quat = QuatUtils.create();
     return function setRightLocal(object, right, up = null, forward = null) {
         ObjectUtils.getRotationLocalQuat(object, quat);
         quat.quat_setRight(right, up, forward);
@@ -811,12 +812,12 @@ export function setTransformWorld(object, transform) {
 }
 
 export let setTransformWorldMatrix = function () {
-    let position = vec3_create();
-    let rotation = quat_create();
-    let scale = vec3_create();
-    let transformMatrixNoScale = mat4_create();
-    let inverseScale = vec3_create();
-    let one = vec3_create(1);
+    let position = Vec3Utils.create();
+    let rotation = QuatUtils.create();
+    let scale = Vec3Utils.create();
+    let transformMatrixNoScale = Mat4Utils.create();
+    let inverseScale = Vec3Utils.create();
+    let one = Vec3Utils.create(1);
     return function setTransformWorldMatrix(object, transform) {
         transform.mat4_getPosition(position);
         transform.mat4_getScale(scale);
@@ -841,12 +842,12 @@ export function setTransformLocal(object, transform) {
 }
 
 export let setTransformLocalMatrix = function () {
-    let position = vec3_create();
-    let rotation = quat_create();
-    let scale = vec3_create();
-    let transformMatrixNoScale = mat4_create();
-    let inverseScale = vec3_create();
-    let one = vec3_create(1);
+    let position = Vec3Utils.create();
+    let rotation = QuatUtils.create();
+    let scale = Vec3Utils.create();
+    let transformMatrixNoScale = Mat4Utils.create();
+    let inverseScale = Vec3Utils.create();
+    let one = Vec3Utils.create(1);
     return function setTransformLocalMatrix(object, transform) {
         transform.mat4_getPosition(position);
         transform.mat4_getScale(scale);
@@ -873,14 +874,14 @@ export function resetPosition(object) {
 }
 
 export let resetPositionWorld = function () {
-    let zero = vec3_create();
+    let zero = Vec3Utils.create();
     return function resetPositionWorld(object) {
         ObjectUtils.setPositionWorld(object, zero);
     };
 }();
 
 export let resetPositionLocal = function () {
-    let zero = vec3_create();
+    let zero = Vec3Utils.create();
     return function resetPositionLocal(object) {
         ObjectUtils.setPositionLocal(object, zero);
     };
@@ -893,14 +894,14 @@ export function resetRotation(object) {
 }
 
 export let resetRotationWorld = function () {
-    let identity = quat_create();
+    let identity = QuatUtils.create();
     return function resetRotationWorld(object) {
         ObjectUtils.setRotationWorldQuat(object, identity);
     };
 }();
 
 export let resetRotationLocal = function () {
-    let identity = quat_create();
+    let identity = QuatUtils.create();
     return function resetRotationLocal(object) {
         ObjectUtils.setRotationLocalQuat(object, identity);
     };
@@ -913,14 +914,14 @@ export function resetScale(object) {
 }
 
 export let resetScaleWorld = function () {
-    let one = vec3_create(1);
+    let one = Vec3Utils.create(1);
     return function resetScaleWorld(object) {
         ObjectUtils.setScaleWorld(object, one);
     };
 }();
 
 export let resetScaleLocal = function () {
-    let one = vec3_create(1);
+    let one = Vec3Utils.create(1);
     return function resetScaleLocal(object) {
         ObjectUtils.setScaleLocal(object, one);
     };
@@ -971,7 +972,7 @@ export function translateAxis(object, amount, direction) {
 }
 
 export let translateAxisWorld = function () {
-    let translation = vec3_create();
+    let translation = Vec3Utils.create();
     return function translateAxisWorld(object, amount, direction) {
         direction.vec3_scale(amount, translation);
         ObjectUtils.translateWorld(object, translation);
@@ -979,7 +980,7 @@ export let translateAxisWorld = function () {
 }();
 
 export let translateAxisLocal = function () {
-    let translation = vec3_create();
+    let translation = Vec3Utils.create();
     return function translateAxisLocal(object, amount, direction) {
         direction.vec3_scale(amount, translation);
         ObjectUtils.translateLocal(object, translation);
@@ -987,7 +988,7 @@ export let translateAxisLocal = function () {
 }();
 
 export let translateAxisObject = function () {
-    let translation = vec3_create();
+    let translation = Vec3Utils.create();
     return function translateAxisObject(object, amount, direction) {
         direction.vec3_scale(amount, translation);
         ObjectUtils.translateObject(object, translation);
@@ -1023,7 +1024,7 @@ export function rotateWorld(object, rotation) {
 }
 
 export let rotateWorldDegrees = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateWorldDegrees(object, rotation) {
         rotation.vec3_degreesToQuat(rotationQuat);
         ObjectUtils.rotateWorldQuat(object, rotationQuat);
@@ -1031,7 +1032,7 @@ export let rotateWorldDegrees = function () {
 }();
 
 export let rotateWorldRadians = function () {
-    let degreesRotation = vec3_create();
+    let degreesRotation = Vec3Utils.create();
     return function rotateWorldRadians(object, rotation) {
         degreesRotation = rotation.vec3_toDegrees(degreesRotation);
         ObjectUtils.rotateWorldDegrees(object, degreesRotation);
@@ -1039,7 +1040,7 @@ export let rotateWorldRadians = function () {
 }();
 
 export let rotateWorldMatrix = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateWorldMatrix(object, rotation) {
         rotation.mat3_toQuat(rotationQuat);
         rotationQuat.quat_normalize(rotationQuat);
@@ -1048,7 +1049,7 @@ export let rotateWorldMatrix = function () {
 }();
 
 export let rotateWorldQuat = function () {
-    let currentRotationQuat = quat_create();
+    let currentRotationQuat = QuatUtils.create();
     return function rotateWorldQuat(object, rotation) {
         ObjectUtils.getRotationWorldQuat(object, currentRotationQuat);
         rotation.quat_mul(currentRotationQuat, currentRotationQuat);
@@ -1064,7 +1065,7 @@ export function rotateLocal(object, rotation) {
 }
 
 export let rotateLocalDegrees = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateLocalDegrees(object, rotation) {
         rotation.vec3_degreesToQuat(rotationQuat);
         ObjectUtils.rotateLocalQuat(object, rotationQuat);
@@ -1072,7 +1073,7 @@ export let rotateLocalDegrees = function () {
 }();
 
 export let rotateLocalRadians = function () {
-    let degreesRotation = vec3_create();
+    let degreesRotation = Vec3Utils.create();
     return function rotateLocalRadians(object, rotation) {
         degreesRotation = rotation.vec3_toDegrees(degreesRotation);
         ObjectUtils.rotateLocalDegrees(object, degreesRotation);
@@ -1080,7 +1081,7 @@ export let rotateLocalRadians = function () {
 }();
 
 export let rotateLocalMatrix = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateLocalMatrix(object, rotation) {
         rotation.mat3_toQuat(rotationQuat);
         rotationQuat.quat_normalize(rotationQuat);
@@ -1089,7 +1090,7 @@ export let rotateLocalMatrix = function () {
 }();
 
 export let rotateLocalQuat = function () {
-    let currentRotationQuat = quat_create();
+    let currentRotationQuat = QuatUtils.create();
     return function rotateLocalQuat(object, rotation) {
         ObjectUtils.getRotationLocalQuat(object, currentRotationQuat);
         rotation.quat_mul(currentRotationQuat, currentRotationQuat);
@@ -1105,7 +1106,7 @@ export function rotateObject(object, rotation) {
 }
 
 export let rotateObjectDegrees = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateObjectDegrees(object, rotation) {
         rotation.vec3_degreesToQuat(rotationQuat);
         ObjectUtils.rotateObjectQuat(object, rotationQuat);
@@ -1113,7 +1114,7 @@ export let rotateObjectDegrees = function () {
 }();
 
 export let rotateObjectRadians = function () {
-    let degreesRotation = vec3_create();
+    let degreesRotation = Vec3Utils.create();
     return function rotateObjectRadians(object, rotation) {
         degreesRotation = rotation.vec3_toDegrees(degreesRotation);
         ObjectUtils.rotateObjectDegrees(object, degreesRotation);
@@ -1121,7 +1122,7 @@ export let rotateObjectRadians = function () {
 }();
 
 export let rotateObjectMatrix = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateObjectMatrix(object, rotation) {
         rotation.mat3_toQuat(rotationQuat);
         rotationQuat.quat_normalize(rotationQuat);
@@ -1158,7 +1159,7 @@ export function rotateAxisWorldDegrees(object, angle, axis) {
 }
 
 export let rotateAxisWorldRadians = function () {
-    let rotation = quat_create();
+    let rotation = QuatUtils.create();
     return function rotateAxisWorldRadians(object, angle, axis) {
         QuatUtils.fromAxisRadians(angle, axis, rotation);
         ObjectUtils.rotateWorldQuat(object, rotation);
@@ -1176,7 +1177,7 @@ export function rotateAxisLocalDegrees(object, angle, axis) {
 }
 
 export let rotateAxisLocalRadians = function () {
-    let rotation = quat_create();
+    let rotation = QuatUtils.create();
     return function rotateAxisLocalRadians(object, angle, axis) {
         QuatUtils.fromAxisRadians(angle, axis, rotation);
         ObjectUtils.rotateLocalQuat(object, rotation);
@@ -1194,7 +1195,7 @@ export function rotateAxisObjectDegrees(object, angle, axis) {
 }
 
 export let rotateAxisObjectRadians = function () {
-    let rotation = quat_create();
+    let rotation = QuatUtils.create();
     return function rotateAxisObjectRadians(object, angle, axis) {
         QuatUtils.fromAxisRadians(angle, axis, rotation);
         ObjectUtils.rotateObjectQuat(object, rotation);
@@ -1230,7 +1231,7 @@ export function rotateAroundWorld(object, rotation, origin) {
 }
 
 export let rotateAroundWorldDegrees = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateAroundWorldDegrees(object, rotation, origin) {
         rotation.vec3_degreesToQuat(rotationQuat);
         ObjectUtils.rotateAroundWorldQuat(object, rotationQuat, origin);
@@ -1238,7 +1239,7 @@ export let rotateAroundWorldDegrees = function () {
 }();
 
 export let rotateAroundWorldRadians = function () {
-    let degreesRotation = vec3_create();
+    let degreesRotation = Vec3Utils.create();
     return function rotateAroundWorldRadians(object, rotation, origin) {
         degreesRotation = rotation.vec3_toDegrees(degreesRotation);
         ObjectUtils.rotateAroundWorldDegrees(object, degreesRotation, origin);
@@ -1246,7 +1247,7 @@ export let rotateAroundWorldRadians = function () {
 }();
 
 export let rotateAroundWorldMatrix = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateAroundWorldMatrix(object, rotation, origin) {
         rotation.mat3_toQuat(rotationQuat);
         rotationQuat.quat_normalize(rotationQuat);
@@ -1255,7 +1256,7 @@ export let rotateAroundWorldMatrix = function () {
 }();
 
 export let rotateAroundWorldQuat = function () {
-    let axis = vec3_create();
+    let axis = Vec3Utils.create();
     return function rotateAroundWorldQuat(object, rotation, origin) {
         rotation.quat_getAxis(axis);
         let angle = rotation.quat_getAngleRadians();
@@ -1270,7 +1271,7 @@ export function rotateAroundLocal(object, rotation, origin) {
 }
 
 export let rotateAroundLocalDegrees = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateAroundLocalDegrees(object, rotation, origin) {
         rotation.vec3_degreesToQuat(rotationQuat);
         ObjectUtils.rotateAroundLocalQuat(object, rotationQuat, origin);
@@ -1278,7 +1279,7 @@ export let rotateAroundLocalDegrees = function () {
 }();
 
 export let rotateAroundLocalRadians = function () {
-    let degreesRotation = vec3_create();
+    let degreesRotation = Vec3Utils.create();
     return function rotateAroundLocalRadians(object, rotation, origin) {
         degreesRotation = rotation.vec3_toDegrees(degreesRotation);
         ObjectUtils.rotateAroundLocalDegrees(object, degreesRotation, origin);
@@ -1286,7 +1287,7 @@ export let rotateAroundLocalRadians = function () {
 }();
 
 export let rotateAroundLocalMatrix = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateAroundLocalMatrix(object, rotation, origin) {
         rotation.mat3_toQuat(rotationQuat);
         rotationQuat.quat_normalize(rotationQuat);
@@ -1295,7 +1296,7 @@ export let rotateAroundLocalMatrix = function () {
 }();
 
 export let rotateAroundLocalQuat = function () {
-    let axis = vec3_create();
+    let axis = Vec3Utils.create();
     return function rotateAroundLocalQuat(object, rotation, origin) {
         rotation.quat_getAxis(axis);
         let angle = rotation.quat_getAngleRadians();
@@ -1310,7 +1311,7 @@ export function rotateAroundObject(object, rotation, origin) {
 }
 
 export let rotateAroundObjectDegrees = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateAroundObjectDegrees(object, rotation, origin) {
         rotation.vec3_degreesToQuat(rotationQuat);
         ObjectUtils.rotateAroundObjectQuat(object, rotationQuat, origin);
@@ -1318,7 +1319,7 @@ export let rotateAroundObjectDegrees = function () {
 }();
 
 export let rotateAroundObjectRadians = function () {
-    let degreesRotation = vec3_create();
+    let degreesRotation = Vec3Utils.create();
     return function rotateAroundObjectRadians(object, rotation, origin) {
         degreesRotation = rotation.vec3_toDegrees(degreesRotation);
         ObjectUtils.rotateAroundObjectDegrees(object, degreesRotation, origin);
@@ -1326,7 +1327,7 @@ export let rotateAroundObjectRadians = function () {
 }();
 
 export let rotateAroundObjectMatrix = function () {
-    let rotationQuat = quat_create();
+    let rotationQuat = QuatUtils.create();
     return function rotateAroundObjectMatrix(object, rotation, origin) {
         rotation.mat3_toQuat(rotationQuat);
         rotationQuat.quat_normalize(rotationQuat);
@@ -1335,7 +1336,7 @@ export let rotateAroundObjectMatrix = function () {
 }();
 
 export let rotateAroundObjectQuat = function () {
-    let axis = vec3_create();
+    let axis = Vec3Utils.create();
     return function rotateAroundObjectQuat(object, rotation, origin) {
         rotation.quat_getAxis(axis);
         let angle = rotation.quat_getAngleRadians();
@@ -1368,10 +1369,10 @@ export function rotateAroundAxisWorldDegrees(object, angle, axis, origin) {
 }
 
 export let rotateAroundAxisWorldRadians = function () {
-    let transformToRotate = quat2_create();
-    let transformToRotateConjugate = quat2_create();
-    let transformQuat = quat2_create();
-    let defaultQuat = quat_create();
+    let transformToRotate = Quat2Utils.create();
+    let transformToRotateConjugate = Quat2Utils.create();
+    let transformQuat = Quat2Utils.create();
+    let defaultQuat = QuatUtils.create();
     return function rotateAroundAxisWorldRadians(object, angle, axis, origin) {
         transformToRotate.quat2_setPositionRotationQuat(origin, defaultQuat);
         ObjectUtils.getTransformWorldQuat(object, transformQuat);
@@ -1394,8 +1395,8 @@ export function rotateAroundAxisLocalDegrees(object, angle, axis, origin) {
 }
 
 export let rotateAroundAxisLocalRadians = function () {
-    let convertedPosition = vec3_create();
-    let convertedAxis = vec3_create();
+    let convertedPosition = Vec3Utils.create();
+    let convertedAxis = Vec3Utils.create();
     return function rotateAroundAxisLocalRadians(object, angle, axis, origin) {
         ObjectUtils.convertPositionLocalToWorld(object, origin, convertedPosition);
         ObjectUtils.convertDirectionLocalToWorld(object, axis, convertedAxis);
@@ -1414,8 +1415,8 @@ export function rotateAroundAxisObjectDegrees(object, angle, axis, origin) {
 }
 
 export let rotateAroundAxisObjectRadians = function () {
-    let convertedPosition = vec3_create();
-    let convertedAxis = vec3_create();
+    let convertedPosition = Vec3Utils.create();
+    let convertedAxis = Vec3Utils.create();
     return function rotateAroundAxisObjectRadians(object, angle, axis, origin) {
         ObjectUtils.convertPositionObjectToWorld(object, origin, convertedPosition);
         ObjectUtils.convertDirectionObjectToWorld(object, axis, convertedAxis);
@@ -1429,7 +1430,7 @@ export let rotateAroundAxisObjectRadians = function () {
 // so there is no scale default function
 
 export let scaleObject = function () {
-    let vector = vec3_create();
+    let vector = Vec3Utils.create();
     return function scaleObject(object, scale) {
         if (isNaN(scale)) {
             object.scale(scale);
@@ -1447,7 +1448,7 @@ export function lookAt(object, position, up) {
 }
 
 export let lookAtWorld = function () {
-    let direction = vec3_create();
+    let direction = Vec3Utils.create();
     return function lookAtWorld(object, position, up) {
         ObjectUtils.getPositionWorld(object, direction);
         position.vec3_sub(direction, direction);
@@ -1456,7 +1457,7 @@ export let lookAtWorld = function () {
 }();
 
 export let lookAtLocal = function () {
-    let direction = vec3_create();
+    let direction = Vec3Utils.create();
     return function lookAtLocal(object, position, up) {
         ObjectUtils.getPositionLocal(object, direction);
         position.vec3_sub(direction, direction);
@@ -1469,14 +1470,14 @@ export function lookTo(object, direction, up) {
 }
 
 export let lookToWorld = function () {
-    let internalUp = vec3_create();
+    let internalUp = Vec3Utils.create();
     return function lookToWorld(object, direction, up = ObjectUtils.getUpWorld(object, internalUp)) {
         ObjectUtils.setForwardWorld(object, direction, up);
     };
 }();
 
 export let lookToLocal = function () {
-    let internalUp = vec3_create();
+    let internalUp = Vec3Utils.create();
     return function lookToLocal(object, direction, up = ObjectUtils.getUpLocal(object, internalUp)) {
         ObjectUtils.setForwardLocal(object, direction, up);
     };
@@ -1487,9 +1488,9 @@ export let lookToLocal = function () {
 // Parent
 
 export let setParent = function () {
-    let position = vec3_create();
-    let rotation = quat_create();
-    let scale = vec3_create();
+    let position = Vec3Utils.create();
+    let rotation = QuatUtils.create();
+    let scale = Vec3Utils.create();
     return function setParent(object, newParent, keepTransformWorld = true) {
         if (!keepTransformWorld) {
             object.parent = newParent;
@@ -1512,8 +1513,8 @@ export function getParent(object) {
 // Convert Vector Object World
 
 export let convertPositionObjectToWorld = function () {
-    let matrix = mat4_create();
-    return function convertPositionObjectToWorld(object, position, resultPosition = vec3_create()) {
+    let matrix = Mat4Utils.create();
+    return function convertPositionObjectToWorld(object, position, resultPosition = Vec3Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, matrix);
         position.vec3_transformMat4(matrix, resultPosition);
         return resultPosition;
@@ -1521,8 +1522,8 @@ export let convertPositionObjectToWorld = function () {
 }();
 
 export let convertDirectionObjectToWorld = function () {
-    let rotation = quat_create();
-    return function convertDirectionObjectToWorld(object, direction, resultDirection = vec3_create()) {
+    let rotation = QuatUtils.create();
+    return function convertDirectionObjectToWorld(object, direction, resultDirection = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
         direction.vec3_transformQuat(rotation, resultDirection);
         return resultDirection;
@@ -1530,8 +1531,8 @@ export let convertDirectionObjectToWorld = function () {
 }();
 
 export let convertPositionWorldToObject = function () {
-    let matrix = mat4_create();
-    return function convertPositionWorldToObject(object, position, resultPosition = vec3_create()) {
+    let matrix = Mat4Utils.create();
+    return function convertPositionWorldToObject(object, position, resultPosition = Vec3Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, matrix);
         matrix.mat4_invert(matrix);
         position.vec3_transformMat4(matrix, resultPosition);
@@ -1540,8 +1541,8 @@ export let convertPositionWorldToObject = function () {
 }();
 
 export let convertDirectionWorldToObject = function () {
-    let rotation = quat_create();
-    return function convertDirectionWorldToObject(object, direction, resultDirection = vec3_create()) {
+    let rotation = QuatUtils.create();
+    return function convertDirectionWorldToObject(object, direction, resultDirection = Vec3Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
         rotation.quat_conjugate(rotation);
         direction.vec3_transformQuat(rotation, resultDirection);
@@ -1551,7 +1552,7 @@ export let convertDirectionWorldToObject = function () {
 
 // Convert Vector Local World
 
-export function convertPositionLocalToWorld(object, position, resultPosition = vec3_create()) {
+export function convertPositionLocalToWorld(object, position, resultPosition = Vec3Utils.create()) {
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.convertPositionObjectToWorld(ObjectUtils.getParent(object), position, resultPosition);
     } else {
@@ -1560,7 +1561,7 @@ export function convertPositionLocalToWorld(object, position, resultPosition = v
     return resultPosition;
 }
 
-export function convertDirectionLocalToWorld(object, direction, resultDirection = vec3_create()) {
+export function convertDirectionLocalToWorld(object, direction, resultDirection = Vec3Utils.create()) {
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.convertDirectionObjectToWorld(ObjectUtils.getParent(object), direction, resultDirection);
     } else {
@@ -1569,7 +1570,7 @@ export function convertDirectionLocalToWorld(object, direction, resultDirection 
     return resultDirection;
 }
 
-export function convertPositionWorldToLocal(object, position, resultPosition = vec3_create()) {
+export function convertPositionWorldToLocal(object, position, resultPosition = Vec3Utils.create()) {
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.convertPositionWorldToObject(ObjectUtils.getParent(object), position, resultPosition);
     } else {
@@ -1578,7 +1579,7 @@ export function convertPositionWorldToLocal(object, position, resultPosition = v
     return resultPosition;
 }
 
-export function convertDirectionWorldToLocal(object, direction, resultDirection = vec3_create()) {
+export function convertDirectionWorldToLocal(object, direction, resultDirection = Vec3Utils.create()) {
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.convertDirectionWorldToObject(ObjectUtils.getParent(object), direction, resultDirection);
     } else {
@@ -1591,25 +1592,25 @@ export function convertDirectionWorldToLocal(object, direction, resultDirection 
 
 // I need to use the converson to world and then local also use the parent scale that changes the position in local space
 
-export function convertPositionObjectToLocal(object, position, resultPosition = vec3_create()) {
+export function convertPositionObjectToLocal(object, position, resultPosition = Vec3Utils.create()) {
     ObjectUtils.convertPositionObjectToWorld(object, position, resultPosition);
     ObjectUtils.convertPositionWorldToLocal(object, resultPosition, resultPosition);
     return resultPosition;
 }
 
-export function convertDirectionObjectToLocal(object, direction, resultDirection = vec3_create()) {
+export function convertDirectionObjectToLocal(object, direction, resultDirection = Vec3Utils.create()) {
     ObjectUtils.convertDirectionObjectToWorld(object, direction, resultDirection);
     ObjectUtils.convertDirectionWorldToLocal(object, resultDirection, resultDirection);
     return resultDirection;
 }
 
-export function convertPositionLocalToObject(object, position, resultPosition = vec3_create()) {
+export function convertPositionLocalToObject(object, position, resultPosition = Vec3Utils.create()) {
     ObjectUtils.convertPositionLocalToWorld(object, position, resultPosition);
     ObjectUtils.convertPositionWorldToObject(object, resultPosition, resultPosition);
     return resultPosition;
 }
 
-export function convertDirectionLocalToObject(object, direction, resultDirection = vec3_create()) {
+export function convertDirectionLocalToObject(object, direction, resultDirection = Vec3Utils.create()) {
     ObjectUtils.convertDirectionLocalToWorld(object, direction, resultDirection);
     ObjectUtils.convertDirectionWorldToObject(object, resultDirection, resultDirection);
     return resultDirection;
@@ -1622,12 +1623,12 @@ export function convertTransformObjectToWorld(object, transform, resultTransform
 }
 
 export let convertTransformObjectToWorldMatrix = function () {
-    let convertTransform = mat4_create();
-    let position = vec3_create();
-    let scale = vec3_create();
-    let inverseScale = vec3_create();
-    let one = vec3_create(1);
-    return function convertTransformObjectToWorldMatrix(object, transform, resultTransform = mat4_create()) {
+    let convertTransform = Mat4Utils.create();
+    let position = Vec3Utils.create();
+    let scale = Vec3Utils.create();
+    let inverseScale = Vec3Utils.create();
+    let one = Vec3Utils.create(1);
+    return function convertTransformObjectToWorldMatrix(object, transform, resultTransform = Mat4Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, convertTransform);
         if (ObjectUtils.hasUniformScaleWorld(object)) {
             convertTransform.mat4_mul(transform, resultTransform);
@@ -1652,9 +1653,9 @@ export let convertTransformObjectToWorldMatrix = function () {
 }();
 
 export let convertTransformObjectToWorldQuat = function () {
-    let position = vec3_create();
-    let rotation = quat_create();
-    return function convertTransformObjectToWorldQuat(object, transform, resultTransform = quat2_create()) {
+    let position = Vec3Utils.create();
+    let rotation = QuatUtils.create();
+    return function convertTransformObjectToWorldQuat(object, transform, resultTransform = Quat2Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
         rotation.quat_mul(transform, rotation);
         transform.quat2_getPosition(position);
@@ -1669,12 +1670,12 @@ export function convertTransformWorldToObject(object, transform, resultTransform
 }
 
 export let convertTransformWorldToObjectMatrix = function () {
-    let convertTransform = mat4_create();
-    let position = vec3_create();
-    let scale = vec3_create();
-    let inverseScale = vec3_create();
-    let one = vec3_create(1);
-    return function convertTransformWorldToObjectMatrix(object, transform, resultTransform = mat4_create()) {
+    let convertTransform = Mat4Utils.create();
+    let position = Vec3Utils.create();
+    let scale = Vec3Utils.create();
+    let inverseScale = Vec3Utils.create();
+    let one = Vec3Utils.create(1);
+    return function convertTransformWorldToObjectMatrix(object, transform, resultTransform = Mat4Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, convertTransform);
         if (ObjectUtils.hasUniformScaleWorld(object)) {
             convertTransform.mat4_invert(convertTransform);
@@ -1701,9 +1702,9 @@ export let convertTransformWorldToObjectMatrix = function () {
 }();
 
 export let convertTransformWorldToObjectQuat = function () {
-    let position = vec3_create();
-    let rotation = quat_create();
-    return function convertTransformWorldToObjectQuat(object, transform, resultTransform = quat2_create()) {
+    let position = Vec3Utils.create();
+    let rotation = QuatUtils.create();
+    return function convertTransformWorldToObjectQuat(object, transform, resultTransform = Quat2Utils.create()) {
         ObjectUtils.getRotationWorldQuat(object, rotation);
         rotation.quat_conjugate(rotation);
         rotation.quat_mul(transform, rotation);
@@ -1720,7 +1721,7 @@ export function convertTransformLocalToWorld(object, transform, resultTransform)
     return ObjectUtils.convertTransformLocalToWorldMatrix(object, transform, resultTransform);
 }
 
-export function convertTransformLocalToWorldMatrix(object, transform, resultTransform = mat4_create()) {
+export function convertTransformLocalToWorldMatrix(object, transform, resultTransform = Mat4Utils.create()) {
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.convertTransformObjectToWorldMatrix(ObjectUtils.getParent(object), transform, resultTransform);
     } else {
@@ -1729,7 +1730,7 @@ export function convertTransformLocalToWorldMatrix(object, transform, resultTran
     return resultTransform;
 }
 
-export function convertTransformLocalToWorldQuat(object, transform, resultTransform = quat2_create()) {
+export function convertTransformLocalToWorldQuat(object, transform, resultTransform = Quat2Utils.create()) {
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.convertTransformObjectToWorldQuat(ObjectUtils.getParent(object), transform, resultTransform);
     } else {
@@ -1742,7 +1743,7 @@ export function convertTransformWorldToLocal(object, transform, resultTransform)
     return ObjectUtils.convertTransformWorldToLocalMatrix(object, transform, resultTransform);
 }
 
-export function convertTransformWorldToLocalMatrix(object, transform, resultTransform = mat4_create()) {
+export function convertTransformWorldToLocalMatrix(object, transform, resultTransform = Mat4Utils.create()) {
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.convertTransformWorldToObjectMatrix(ObjectUtils.getParent(object), transform, resultTransform);
     } else {
@@ -1751,7 +1752,7 @@ export function convertTransformWorldToLocalMatrix(object, transform, resultTran
     return resultTransform;
 }
 
-export function convertTransformWorldToLocalQuat(object, transform, resultTransform = quat2_create()) {
+export function convertTransformWorldToLocalQuat(object, transform, resultTransform = Quat2Utils.create()) {
     if (ObjectUtils.getParent(object)) {
         ObjectUtils.convertTransformWorldToObjectQuat(ObjectUtils.getParent(object), transform, resultTransform);
     } else {
@@ -1768,13 +1769,13 @@ export function convertTransformObjectToLocal(object, transform, resultTransform
     return ObjectUtils.convertTransformObjectToLocalMatrix(object, transform, resultTransform);
 }
 
-export function convertTransformObjectToLocalMatrix(object, transform, resultTransform = mat4_create()) {
+export function convertTransformObjectToLocalMatrix(object, transform, resultTransform = Mat4Utils.create()) {
     ObjectUtils.convertTransformObjectToWorldMatrix(object, transform, resultTransform);
     ObjectUtils.convertTransformWorldToLocalMatrix(object, resultTransform, resultTransform);
     return resultTransform;
 }
 
-export function convertTransformObjectToLocalQuat(object, transform, resultTransform = quat2_create()) {
+export function convertTransformObjectToLocalQuat(object, transform, resultTransform = Quat2Utils.create()) {
     ObjectUtils.convertTransformObjectToWorldQuat(object, transform, resultTransform);
     ObjectUtils.convertTransformWorldToLocalQuat(object, resultTransform, resultTransform);
     return resultTransform;
@@ -1784,13 +1785,13 @@ export function convertTransformLocalToObject(object, transform, resultTransform
     return ObjectUtils.convertTransformLocalToObjectMatrix(object, transform, resultTransform);
 }
 
-export function convertTransformLocalToObjectMatrix(object, transform, resultTransform = mat4_create()) {
+export function convertTransformLocalToObjectMatrix(object, transform, resultTransform = Mat4Utils.create()) {
     ObjectUtils.convertTransformLocalToWorldMatrix(object, transform, resultTransform);
     ObjectUtils.convertTransformWorldToObjectMatrix(object, resultTransform, resultTransform);
     return resultTransform;
 }
 
-export function convertTransformLocalToObjectQuat(object, transform, resultTransform = quat2_create()) {
+export function convertTransformLocalToObjectQuat(object, transform, resultTransform = Quat2Utils.create()) {
     ObjectUtils.convertTransformLocalToWorldQuat(object, transform, resultTransform);
     ObjectUtils.convertTransformWorldToObjectQuat(object, resultTransform, resultTransform);
     return resultTransform;
@@ -1954,7 +1955,7 @@ export function hasUniformScale(object) {
 }
 
 export let hasUniformScaleWorld = function () {
-    let scale = vec3_create();
+    let scale = Vec3Utils.create();
     return function hasUniformScaleWorld(object) {
         ObjectUtils.getScaleWorld(object, scale);
         return Math.abs(scale[0] - scale[1]) < MathUtils.EPSILON && Math.abs(scale[1] - scale[2]) < MathUtils.EPSILON && Math.abs(scale[0] - scale[2]) < MathUtils.EPSILON;
@@ -1962,7 +1963,7 @@ export let hasUniformScaleWorld = function () {
 }();
 
 export let hasUniformScaleLocal = function () {
-    let scale = vec3_create();
+    let scale = Vec3Utils.create();
     return function hasUniformScaleLocal(object) {
         ObjectUtils.getScaleLocal(object, scale);
         return Math.abs(scale[0] - scale[1]) < MathUtils.EPSILON && Math.abs(scale[1] - scale[2]) < MathUtils.EPSILON && Math.abs(scale[0] - scale[2]) < MathUtils.EPSILON;
@@ -1972,8 +1973,8 @@ export let hasUniformScaleLocal = function () {
 // Clone
 
 export let clone = function () {
-    let scale = vec3_create();
-    let transformQuat = quat2_create();
+    let scale = Vec3Utils.create();
+    let transformQuat = Quat2Utils.create();
     return function clone(object, cloneParams = new CloneParams()) {
         let clonedObject = null;
 
