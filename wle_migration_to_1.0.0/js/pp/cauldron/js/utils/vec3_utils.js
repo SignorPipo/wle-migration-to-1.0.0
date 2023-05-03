@@ -2,7 +2,7 @@ import { vec3 as gl_vec3 } from "gl-matrix";
 import { mat3_create, quat_create } from "../../../plugin/js/extensions/array_extension";
 import { create as mat4_utils_create } from "./mat4_utils";
 import { EasingFunction, MathUtils } from "./math_utils";
-import { create as quat_utils_create } from "./quat_utils";
+import { QuatUtils, create as quat_utils_create } from "./quat_utils";
 
 // glMatrix Bridge
 
@@ -208,12 +208,12 @@ export function toQuat(vector, out) {
 }
 
 export function radiansToQuat(vector, out = quat_create()) {
-    out.quat_fromRadians(vector);
+    QuatUtils.fromRadians(vector, out);
     return out;
 }
 
 export function degreesToQuat(vector, out = quat_create()) {
-    out.quat_fromDegrees(vector);
+    QuatUtils.fromDegrees(vector, out);
     return out;
 }
 
@@ -458,7 +458,7 @@ export function rotateAroundAxisDegrees(vector, angle, axis, origin, out) {
 export let rotateAroundAxisRadians = function () {
     let quat = quat_utils_create();
     return function rotateAroundAxisRadians(vector, angle, axis, origin, out = Vec3Utils.create()) {
-        quat.quat_fromAxisRadians(angle, axis);
+        QuatUtils.fromAxisRadians(angle, axis, quat);
         return Vec3Utils.rotateAroundQuat(vector, quat, origin, out);
     };
 }();
@@ -680,7 +680,7 @@ export let rotationToQuat = function () {
         Vec3Utils.cross(vector, direction, rotationAxis);
         Vec3Utils.normalize(rotationAxis, rotationAxis);
         let signedAngle = Vec3Utils.angleSigned(vector, direction, rotationAxis);
-        out.quat_fromAxis(signedAngle, rotationAxis);
+        QuatUtils.fromAxisRadians(signedAngle, rotationAxis, out);
         return out;
     };
 }();
@@ -718,7 +718,7 @@ export let rotationToPivotedQuat = function () {
         Vec3Utils.cross(thisFlat, directionFlat, rotationAxis);
         Vec3Utils.normalize(rotationAxis, rotationAxis);
         let signedAngle = Vec3Utils.angleSigned(thisFlat, directionFlat, rotationAxis);
-        out.quat_fromAxis(signedAngle, rotationAxis);
+        QuatUtils.fromAxisRadians(signedAngle, rotationAxis, out);
         return out;
     };
 }();

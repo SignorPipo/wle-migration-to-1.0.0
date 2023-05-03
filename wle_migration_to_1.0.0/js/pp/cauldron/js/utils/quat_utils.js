@@ -1,6 +1,6 @@
 import { mat3_create, vec3_create } from "../../../plugin/js/extensions/array_extension";
 import { Vec3Utils, create as vec3_utils_create } from "./vec3_utils";
-import { create as mat3_utils_create } from "./mat3_utils";
+import { Mat3Utils, create as mat3_utils_create } from "./mat3_utils";
 import { quat as gl_quat, mat3 as gl_mat3 } from "gl-matrix";
 import { EasingFunction, MathUtils } from "./math_utils";
 
@@ -261,7 +261,7 @@ export function fromAxisRadians(angle, axis, out = QuatUtils.create()) {
 export let fromAxes = function () {
     let matrix = mat3_utils_create();
     return function fromAxes(leftAxis, upAxis, forwardAxis, out = QuatUtils.create()) {
-        matrix.mat3_fromAxes(leftAxis, upAxis, forwardAxis);
+        Mat3Utils.fromAxes(leftAxis, upAxis, forwardAxis, matrix);
         return matrix.mat3_toQuat(out);
     };
 }();

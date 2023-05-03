@@ -3,6 +3,7 @@ import { mat3_create, mat4_create, quat2_create, quat_create, vec3_create } from
 import { Globals } from "../../../pp/globals";
 import { Mat4Utils } from "../../js/utils/mat4_utils";
 import { Quat2Utils } from "../../js/utils/quat2_utils";
+import { QuatUtils } from "../../js/utils/quat_utils";
 import { Vec3Utils } from "../../js/utils/vec3_utils";
 
 export class CloneParams {
@@ -260,7 +261,7 @@ export let getTransformWorldMatrix = function () {
     return function getTransformWorldMatrix(object, transform = mat4_create()) {
         ObjectUtils.getTransformWorldQuat(object, transformQuat);
         ObjectUtils.getScaleWorld(object, scale);
-        transform.mat4_fromQuat(transformQuat);
+        Mat4Utils.fromQuat(transformQuat, transform);
         transform.mat4_scale(scale, transform);
         return transform;
     };
@@ -283,7 +284,7 @@ export let getTransformLocalMatrix = function () {
     return function getTransformLocalMatrix(object, transform = mat4_create()) {
         ObjectUtils.getTransformLocalQuat(object, transformQuat);
         ObjectUtils.getScaleLocal(object, scale);
-        transform.mat4_fromQuat(transformQuat);
+        Mat4Utils.fromQuat(transformQuat, transform);
         transform.mat4_scale(scale, transform);
         return transform;
     };
@@ -1158,7 +1159,7 @@ export function rotateAxisWorldDegrees(object, angle, axis) {
 export let rotateAxisWorldRadians = function () {
     let rotation = quat_create();
     return function rotateAxisWorldRadians(object, angle, axis) {
-        rotation.quat_fromAxisRadians(angle, axis);
+        QuatUtils.fromAxisRadians(angle, axis, rotation);
         ObjectUtils.rotateWorldQuat(object, rotation);
     };
 }();
@@ -1176,7 +1177,7 @@ export function rotateAxisLocalDegrees(object, angle, axis) {
 export let rotateAxisLocalRadians = function () {
     let rotation = quat_create();
     return function rotateAxisLocalRadians(object, angle, axis) {
-        rotation.quat_fromAxisRadians(angle, axis);
+        QuatUtils.fromAxisRadians(angle, axis, rotation);
         ObjectUtils.rotateLocalQuat(object, rotation);
     };
 }();
@@ -1194,7 +1195,7 @@ export function rotateAxisObjectDegrees(object, angle, axis) {
 export let rotateAxisObjectRadians = function () {
     let rotation = quat_create();
     return function rotateAxisObjectRadians(object, angle, axis) {
-        rotation.quat_fromAxisRadians(angle, axis);
+        QuatUtils.fromAxisRadians(angle, axis, rotation);
         ObjectUtils.rotateObjectQuat(object, rotation);
     };
 }();
