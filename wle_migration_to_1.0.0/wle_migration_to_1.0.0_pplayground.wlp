@@ -740,7 +740,7 @@
                     "type": "fade-view",
                     "fade-view": {
                         "_myStartDelay": 0.5,
-                        "_myTimeToFadeIn": 2.0,
+                        "_myTimeToFadeIn": 1.5,
                         "_myColor": "108, 255, 222"
                     }
                 },

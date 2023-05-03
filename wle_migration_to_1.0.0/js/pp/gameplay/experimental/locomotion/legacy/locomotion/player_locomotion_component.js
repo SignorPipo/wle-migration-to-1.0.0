@@ -50,11 +50,13 @@ export class PlayerLocomotionComponent extends Component {
         _myColliderMaxWalkableGroundStepHeight: Property.float(0.1),
         _myColliderPreventFallingFromEdges: Property.bool(false),
 
+        _myUseCleanedVersion: Property.bool(true),
+
         _myDebugHorizontalEnabled: Property.bool(false),
         _myDebugVerticalEnabled: Property.bool(false),
-        _myUseCleanedVersion: Property.bool(true),
         _myMoveThroughCollisionShortcutEnabled: Property.bool(false),
-        _myMoveHeadShortcutEnabled: Property.bool(false)
+        _myMoveHeadShortcutEnabled: Property.bool(false),
+        _myTripleSpeedShortcutEnabled: Property.bool(false)
     };
 
     start() {
@@ -103,6 +105,7 @@ export class PlayerLocomotionComponent extends Component {
 
         params.myMoveThroughCollisionShortcutEnabled = this._myMoveThroughCollisionShortcutEnabled;
         params.myMoveHeadShortcutEnabled = this._myMoveHeadShortcutEnabled;
+        params.myTripleSpeedShortcutEnabled = this._myTripleSpeedShortcutEnabled;
 
         params.myDebugHorizontalEnabled = this._myDebugHorizontalEnabled;
         params.myDebugVerticalEnabled = this._myDebugVerticalEnabled;

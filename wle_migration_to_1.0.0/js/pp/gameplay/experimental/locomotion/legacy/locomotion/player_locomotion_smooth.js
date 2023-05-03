@@ -38,6 +38,7 @@ export class PlayerLocomotionSmoothParams {
 
         this.myMoveThroughCollisionShortcutEnabled = false;
         this.myMoveHeadShortcutEnabled = false;
+        this.myTripleSpeedShortcutEnabled = false;
 
         this.myEngine = engine;
     }

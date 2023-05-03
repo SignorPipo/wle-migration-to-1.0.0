@@ -219,6 +219,7 @@ export class CleanedPlayerLocomotion {
 
                 params.myMoveThroughCollisionShortcutEnabled = this._myParams.myMoveThroughCollisionShortcutEnabled;
                 params.myMoveHeadShortcutEnabled = this._myParams.myMoveHeadShortcutEnabled;
+                params.myTripleSpeedShortcutEnabled = this._myParams.myTripleSpeedShortcutEnabled;
 
                 this._myPlayerLocomotionSmooth = new CleanedPlayerLocomotionSmooth(params, this._myMovementRuntimeParams);
             }
@@ -407,8 +408,8 @@ export class CleanedPlayerLocomotion {
         simplifiedParams.myVerticalCheckBlockLayerFlags.copy(simplifiedParams.myHorizontalCheckBlockLayerFlags);
         simplifiedParams.myVerticalCheckObjectsToIgnore.pp_copy(simplifiedParams.myHorizontalCheckObjectsToIgnore);
 
-        simplifiedParams.myHorizontalCheckDebugEnabled = this._myParams.myDebugHorizontalEnabled;
-        simplifiedParams.myVerticalCheckDebugEnabled = this._myParams.myDebugVerticalEnabled;
+        simplifiedParams.myHorizontalCheckDebugEnabled = this._myParams.myDebugHorizontalEnabled && Globals.isDebugEnabled(this._myParams.myEngine);
+        simplifiedParams.myVerticalCheckDebugEnabled = this._myParams.myDebugVerticalEnabled && Globals.isDebugEnabled(this._myParams.myEngine);
 
         let colliderSetup = CharacterColliderUtils.createCharacterColliderSetupSimplified(simplifiedParams);
 
