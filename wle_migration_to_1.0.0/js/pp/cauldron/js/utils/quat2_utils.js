@@ -267,7 +267,7 @@ export function toMatrix(quat, out = Mat4Utils.create()) {
 }
 
 export function fromMatrix(matrix, out = Quat2Utils.create()) {
-    matrix.mat4_toQuat(out);
+    Mat4Utils.toQuat(matrix, out);
     return out;
 }
 

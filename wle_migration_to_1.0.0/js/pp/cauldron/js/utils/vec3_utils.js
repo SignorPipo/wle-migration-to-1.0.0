@@ -479,7 +479,7 @@ export function convertPositionToWorldMatrix(vector, parentTransform, out = Vec3
 export let convertPositionToLocalMatrix = function () {
     let inverse = mat4_utils_create();
     return function convertPositionToLocalMatrix(vector, parentTransform, out = Vec3Utils.create()) {
-        parentTransform.mat4_invert(inverse);
+        Mat4Utils.invert(parentTransform, inverse);
         Vec3Utils.transformMat4(vector, inverse, out);
         return out;
     };
@@ -494,7 +494,7 @@ export let convertPositionToWorldQuat = function () {
     return function convertPositionToWorldQuat(vector, parentTransform, out = Vec3Utils.create()) {
         Quat2Utils.getPosition(parentTransform, position);
         Quat2Utils.getRotationQuat(parentTransform, rotation);
-        parentTransformMatrix.mat4_setPositionRotationQuatScale(position, rotation, one);
+        Mat4Utils.setPositionRotationQuatScale(parentTransformMatrix, position, rotation, one);
         return Vec3Utils.convertPositionToWorldMatrix(vector, parentTransformMatrix, out);
     };
 }();
@@ -508,7 +508,7 @@ export let convertPositionToLocalQuat = function () {
     return function convertPositionToLocalQuat(vector, parentTransform, out = Vec3Utils.create()) {
         Quat2Utils.getPosition(parentTransform, position);
         Quat2Utils.getRotationQuat(parentTransform, rotation);
-        parentTransformMatrix.mat4_setPositionRotationQuatScale(position, rotation, one);
+        Mat4Utils.setPositionRotationQuatScale(parentTransformMatrix, position, rotation, one);
         return Vec3Utils.convertPositionToLocalMatrix(vector, parentTransformMatrix, out);
     };
 }();
@@ -524,7 +524,7 @@ export function convertDirectionToLocal(vector, parentTransform, out) {
 export let convertDirectionToWorldMatrix = function () {
     let rotation = quat_utils_create();
     return function convertDirectionToWorldMatrix(vector, parentTransform, out = Vec3Utils.create()) {
-        parentTransform.mat4_getRotationQuat(rotation);
+        Mat4Utils.getRotationQuat(parentTransform, rotation);
         Vec3Utils.transformQuat(vector, rotation, out);
         return out;
     };
@@ -533,7 +533,7 @@ export let convertDirectionToWorldMatrix = function () {
 export let convertDirectionToLocalMatrix = function () {
     let rotation = quat_utils_create();
     return function convertDirectionToLocalMatrix(vector, parentTransform, out = Vec3Utils.create()) {
-        parentTransform.mat4_getRotationQuat(rotation);
+        Mat4Utils.getRotationQuat(parentTransform, rotation);
         rotation.quat_conjugate(rotation);
         Vec3Utils.transformQuat(vector, rotation, out);
         return out;

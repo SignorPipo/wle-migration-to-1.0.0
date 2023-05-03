@@ -264,7 +264,7 @@ export let getTransformWorldMatrix = function () {
         ObjectUtils.getTransformWorldQuat(object, transformQuat);
         ObjectUtils.getScaleWorld(object, scale);
         Mat4Utils.fromQuat(transformQuat, transform);
-        transform.mat4_scale(scale, transform);
+        Mat4Utils.scale(transform, scale, transform);
         return transform;
     };
 }();
@@ -287,7 +287,7 @@ export let getTransformLocalMatrix = function () {
         ObjectUtils.getTransformLocalQuat(object, transformQuat);
         ObjectUtils.getScaleLocal(object, scale);
         Mat4Utils.fromQuat(transformQuat, transform);
-        transform.mat4_scale(scale, transform);
+        Mat4Utils.scale(transform, scale, transform);
         return transform;
     };
 }();
@@ -819,11 +819,11 @@ export let setTransformWorldMatrix = function () {
     let inverseScale = Vec3Utils.create();
     let one = Vec3Utils.create(1);
     return function setTransformWorldMatrix(object, transform) {
-        transform.mat4_getPosition(position);
-        transform.mat4_getScale(scale);
+        Mat4Utils.getPosition(transform, position);
+        Mat4Utils.getScale(transform, scale);
         one.vec3_div(scale, inverseScale);
-        transform.mat4_scale(inverseScale, transformMatrixNoScale);
-        transformMatrixNoScale.mat4_getRotationQuat(rotation);
+        Mat4Utils.scale(transform, inverseScale, transformMatrixNoScale);
+        Mat4Utils.getRotationQuat(transformMatrixNoScale, rotation);
         rotation.quat_normalize(rotation);
         ObjectUtils.setScaleWorld(object, scale);
         ObjectUtils.setRotationWorldQuat(object, rotation);
@@ -849,11 +849,11 @@ export let setTransformLocalMatrix = function () {
     let inverseScale = Vec3Utils.create();
     let one = Vec3Utils.create(1);
     return function setTransformLocalMatrix(object, transform) {
-        transform.mat4_getPosition(position);
-        transform.mat4_getScale(scale);
+        Mat4Utils.getPosition(transform, position);
+        Mat4Utils.getScale(transform, scale);
         one.vec3_div(scale, inverseScale);
-        transform.mat4_scale(inverseScale, transformMatrixNoScale);
-        transformMatrixNoScale.mat4_getRotationQuat(rotation);
+        Mat4Utils.scale(transform, inverseScale, transformMatrixNoScale);
+        Mat4Utils.getRotationQuat(transformMatrixNoScale, rotation);
         rotation.quat_normalize(rotation);
         ObjectUtils.setScaleLocal(object, scale);
         ObjectUtils.setRotationLocalQuat(object, rotation);
@@ -1534,7 +1534,7 @@ export let convertPositionWorldToObject = function () {
     let matrix = Mat4Utils.create();
     return function convertPositionWorldToObject(object, position, resultPosition = Vec3Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, matrix);
-        matrix.mat4_invert(matrix);
+        Mat4Utils.invert(matrix, matrix);
         position.vec3_transformMat4(matrix, resultPosition);
         return resultPosition;
     };
@@ -1631,17 +1631,17 @@ export let convertTransformObjectToWorldMatrix = function () {
     return function convertTransformObjectToWorldMatrix(object, transform, resultTransform = Mat4Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, convertTransform);
         if (ObjectUtils.hasUniformScaleWorld(object)) {
-            convertTransform.mat4_mul(transform, resultTransform);
+            Mat4Utils.mul(convertTransform, transform, resultTransform);
         } else {
             Vec3Utils.set(position, transform[12], transform[13], transform[14]);
             ObjectUtils.convertPositionObjectToWorld(object, position, position);
 
-            convertTransform.mat4_getScale(scale);
+            Mat4Utils.getScale(convertTransform, scale);
             one.vec3_div(scale, inverseScale);
-            convertTransform.mat4_scale(inverseScale, convertTransform);
+            Mat4Utils.scale(convertTransform, inverseScale, convertTransform);
 
-            convertTransform.mat4_mul(transform, resultTransform);
-            resultTransform.mat4_scale(scale, resultTransform);
+            Mat4Utils.mul(convertTransform, transform, resultTransform);
+            Mat4Utils.scale(resultTransform, scale, resultTransform);
 
             resultTransform[12] = position[0];
             resultTransform[13] = position[1];
@@ -1678,19 +1678,19 @@ export let convertTransformWorldToObjectMatrix = function () {
     return function convertTransformWorldToObjectMatrix(object, transform, resultTransform = Mat4Utils.create()) {
         ObjectUtils.getTransformWorldMatrix(object, convertTransform);
         if (ObjectUtils.hasUniformScaleWorld(object)) {
-            convertTransform.mat4_invert(convertTransform);
-            convertTransform.mat4_mul(transform, resultTransform);
+            Mat4Utils.invert(convertTransform, convertTransform);
+            Mat4Utils.mul(convertTransform, transform, resultTransform);
         } else {
             Vec3Utils.set(position, transform[12], transform[13], transform[14]);
             ObjectUtils.convertPositionWorldToObject(object, position, position);
 
-            convertTransform.mat4_getScale(scale);
+            Mat4Utils.getScale(convertTransform, scale);
             one.vec3_div(scale, inverseScale);
-            convertTransform.mat4_scale(inverseScale, convertTransform);
+            Mat4Utils.scale(convertTransform, inverseScale, convertTransform);
 
-            convertTransform.mat4_invert(convertTransform);
-            convertTransform.mat4_mul(transform, resultTransform);
-            resultTransform.mat4_scale(inverseScale, resultTransform);
+            Mat4Utils.invert(convertTransform, convertTransform);
+            Mat4Utils.mul(convertTransform, transform, resultTransform);
+            Mat4Utils.scale(resultTransform, inverseScale, resultTransform);
 
             resultTransform[12] = position[0];
             resultTransform[13] = position[1];
