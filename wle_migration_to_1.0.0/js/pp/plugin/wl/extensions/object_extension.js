@@ -1155,79 +1155,79 @@ export function initObjectExtensionProtoype() {
 
     // Component
 
-    objectExtension.pp_addComponent = function pp_addComponent(type, paramsOrActive, active = null) {
+    objectExtension.pp_addComponent = function pp_addComponent(typeOrClass, paramsOrActive, active = null) {
         return ObjectUtils.addComponent(this, ...arguments);
     };
 
-    objectExtension.pp_getComponent = function pp_getComponent(type, index = 0) {
+    objectExtension.pp_getComponent = function pp_getComponent(typeOrClass, index = 0) {
         return ObjectUtils.getComponent(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentSelf = function pp_getComponentSelf(type, index = 0) {
+    objectExtension.pp_getComponentSelf = function pp_getComponentSelf(typeOrClass, index = 0) {
         return ObjectUtils.getComponentSelf(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentHierarchy = function pp_getComponentHierarchy(type, index = 0) {
+    objectExtension.pp_getComponentHierarchy = function pp_getComponentHierarchy(typeOrClass, index = 0) {
         return ObjectUtils.getComponentHierarchy(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentHierarchyBreadth = function pp_getComponentHierarchyBreadth(type, index = 0) {
+    objectExtension.pp_getComponentHierarchyBreadth = function pp_getComponentHierarchyBreadth(typeOrClass, index = 0) {
         return ObjectUtils.getComponentHierarchyBreadth(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentHierarchyDepth = function pp_getComponentHierarchyDepth(type, index = 0) {
+    objectExtension.pp_getComponentHierarchyDepth = function pp_getComponentHierarchyDepth(typeOrClass, index = 0) {
         return ObjectUtils.getComponentHierarchyDepth(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentDescendants = function pp_getComponentDescendants(type, index = 0) {
+    objectExtension.pp_getComponentDescendants = function pp_getComponentDescendants(typeOrClass, index = 0) {
         return ObjectUtils.getComponentDescendants(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentDescendantsBreadth = function pp_getComponentDescendantsBreadth(type, index = 0) {
+    objectExtension.pp_getComponentDescendantsBreadth = function pp_getComponentDescendantsBreadth(typeOrClass, index = 0) {
         return ObjectUtils.getComponentDescendantsBreadth(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentDescendantsDepth = function pp_getComponentDescendantsDepth(type, index = 0) {
+    objectExtension.pp_getComponentDescendantsDepth = function pp_getComponentDescendantsDepth(typeOrClass, index = 0) {
         return ObjectUtils.getComponentDescendantsDepth(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentChildren = function pp_getComponentChildren(type, index = 0) {
+    objectExtension.pp_getComponentChildren = function pp_getComponentChildren(typeOrClass, index = 0) {
         return ObjectUtils.getComponentChildren(this, ...arguments);
     };
 
-    objectExtension.pp_getComponents = function pp_getComponents(type) {
+    objectExtension.pp_getComponents = function pp_getComponents(typeOrClass) {
         return ObjectUtils.getComponents(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentsSelf = function pp_getComponentsSelf(type) {
+    objectExtension.pp_getComponentsSelf = function pp_getComponentsSelf(typeOrClass) {
         return ObjectUtils.getComponentsSelf(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentsHierarchy = function pp_getComponentsHierarchy(type) {
+    objectExtension.pp_getComponentsHierarchy = function pp_getComponentsHierarchy(typeOrClass) {
         return ObjectUtils.getComponentsHierarchy(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentsHierarchyBreadth = function pp_getComponentsHierarchyBreadth(type) {
+    objectExtension.pp_getComponentsHierarchyBreadth = function pp_getComponentsHierarchyBreadth(typeOrClass) {
         return ObjectUtils.getComponentsHierarchyBreadth(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentsHierarchyDepth = function pp_getComponentsHierarchyDepth(type) {
+    objectExtension.pp_getComponentsHierarchyDepth = function pp_getComponentsHierarchyDepth(typeOrClass) {
         return ObjectUtils.getComponentsHierarchyDepth(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentsDescendants = function pp_getComponentsDescendants(type) {
+    objectExtension.pp_getComponentsDescendants = function pp_getComponentsDescendants(typeOrClass) {
         return ObjectUtils.getComponentsDescendants(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentsDescendantsBreadth = function pp_getComponentsDescendantsBreadth(type) {
+    objectExtension.pp_getComponentsDescendantsBreadth = function pp_getComponentsDescendantsBreadth(typeOrClass) {
         return ObjectUtils.getComponentsDescendantsBreadth(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentsDescendantsDepth = function pp_getComponentsDescendantsDepth(type) {
+    objectExtension.pp_getComponentsDescendantsDepth = function pp_getComponentsDescendantsDepth(typeOrClass) {
         return ObjectUtils.getComponentsDescendantsDepth(this, ...arguments);
     };
 
-    objectExtension.pp_getComponentsChildren = function pp_getComponentsChildren(type) {
+    objectExtension.pp_getComponentsChildren = function pp_getComponentsChildren(typeOrClass) {
         return ObjectUtils.getComponentsChildren(this, ...arguments);
     };
 

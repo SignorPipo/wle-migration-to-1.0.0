@@ -1798,7 +1798,7 @@ export function convertTransformLocalToObjectQuat(object, transform, resultTrans
 
 // Component
 
-export function addComponent(object, type, paramsOrActive, active = null) {
+export function addComponent(object, typeOrClass, paramsOrActive, active = null) {
     let params = null;
 
     if (typeof paramsOrActive == "boolean") {
@@ -1815,89 +1815,89 @@ export function addComponent(object, type, paramsOrActive, active = null) {
         }
     }
 
-    return object.addComponent(type, params);
+    return object.addComponent(typeOrClass, params);
 }
 
-export function getComponent(object, type, index = 0) {
-    return ObjectUtils.getComponentHierarchy(object, type, index);
+export function getComponent(object, typeOrClass, index = 0) {
+    return ObjectUtils.getComponentHierarchy(object, typeOrClass, index);
 }
 
-export function getComponentSelf(object, type, index = 0) {
-    return object.getComponent(type, index);
+export function getComponentSelf(object, typeOrClass, index = 0) {
+    return object.getComponent(typeOrClass, index);
 }
 
-export function getComponentHierarchy(object, type, index = 0) {
-    return ObjectUtils.getComponentHierarchyBreadth(object, type, index);
+export function getComponentHierarchy(object, typeOrClass, index = 0) {
+    return ObjectUtils.getComponentHierarchyBreadth(object, typeOrClass, index);
 }
 
-export function getComponentHierarchyBreadth(object, type, index = 0) {
+export function getComponentHierarchyBreadth(object, typeOrClass, index = 0) {
     let objects = ObjectUtils.getHierarchyBreadth(object);
-    return ObjectUtils.getComponentObjects(objects, type, index);
+    return ObjectUtils.getComponentObjects(objects, typeOrClass, index);
 }
 
-export function getComponentHierarchyDepth(object, type, index = 0) {
+export function getComponentHierarchyDepth(object, typeOrClass, index = 0) {
     let objects = ObjectUtils.getHierarchyDepth(object);
-    return ObjectUtils.getComponentObjects(objects, type, index);
+    return ObjectUtils.getComponentObjects(objects, typeOrClass, index);
 }
 
-export function getComponentDescendants(object, type, index = 0) {
-    return ObjectUtils.getComponentDescendantsBreadth(object, type, index);
+export function getComponentDescendants(object, typeOrClass, index = 0) {
+    return ObjectUtils.getComponentDescendantsBreadth(object, typeOrClass, index);
 }
 
-export function getComponentDescendantsBreadth(object, type, index = 0) {
+export function getComponentDescendantsBreadth(object, typeOrClass, index = 0) {
     let objects = ObjectUtils.getDescendantsBreadth(object);
-    return ObjectUtils.getComponentObjects(objects, type, index);
+    return ObjectUtils.getComponentObjects(objects, typeOrClass, index);
 }
 
-export function getComponentDescendantsDepth(object, type, index = 0) {
+export function getComponentDescendantsDepth(object, typeOrClass, index = 0) {
     let objects = ObjectUtils.getDescendantsDepth(object);
-    return ObjectUtils.getComponentObjects(objects, type, index);
+    return ObjectUtils.getComponentObjects(objects, typeOrClass, index);
 }
 
-export function getComponentChildren(object, type, index = 0) {
+export function getComponentChildren(object, typeOrClass, index = 0) {
     let objects = ObjectUtils.getChildren(object);
-    return ObjectUtils.getComponentObjects(objects, type, index);
+    return ObjectUtils.getComponentObjects(objects, typeOrClass, index);
 }
 
-export function getComponents(object, type) {
-    return ObjectUtils.getComponentsHierarchy(object, type);
+export function getComponents(object, typeOrClass) {
+    return ObjectUtils.getComponentsHierarchy(object, typeOrClass);
 }
 
-export function getComponentsSelf(object, type) {
-    return object.getComponents(type);
+export function getComponentsSelf(object, typeOrClass) {
+    return object.getComponents(typeOrClass);
 }
 
-export function getComponentsHierarchy(object, type) {
-    return ObjectUtils.getComponentsHierarchyBreadth(object, type);
+export function getComponentsHierarchy(object, typeOrClass) {
+    return ObjectUtils.getComponentsHierarchyBreadth(object, typeOrClass);
 }
 
-export function getComponentsHierarchyBreadth(object, type) {
+export function getComponentsHierarchyBreadth(object, typeOrClass) {
     let objects = ObjectUtils.getHierarchyBreadth(object);
-    return ObjectUtils.getComponentsObjects(objects, type);
+    return ObjectUtils.getComponentsObjects(objects, typeOrClass);
 }
 
-export function getComponentsHierarchyDepth(object, type) {
+export function getComponentsHierarchyDepth(object, typeOrClass) {
     let objects = ObjectUtils.getHierarchyDepth(object);
-    return ObjectUtils.getComponentsObjects(objects, type);
+    return ObjectUtils.getComponentsObjects(objects, typeOrClass);
 }
 
-export function getComponentsDescendants(object, type) {
-    return ObjectUtils.getComponentsDescendantsBreadth(object, type);
+export function getComponentsDescendants(object, typeOrClass) {
+    return ObjectUtils.getComponentsDescendantsBreadth(object, typeOrClass);
 }
 
-export function getComponentsDescendantsBreadth(object, type) {
+export function getComponentsDescendantsBreadth(object, typeOrClass) {
     let objects = ObjectUtils.getDescendantsBreadth(object);
-    return ObjectUtils.getComponentsObjects(objects, type);
+    return ObjectUtils.getComponentsObjects(objects, typeOrClass);
 }
 
-export function getComponentsDescendantsDepth(object, type) {
+export function getComponentsDescendantsDepth(object, typeOrClass) {
     let objects = ObjectUtils.getDescendantsDepth(object);
-    return ObjectUtils.getComponentsObjects(objects, type);
+    return ObjectUtils.getComponentsObjects(objects, typeOrClass);
 }
 
-export function getComponentsChildren(object, type) {
+export function getComponentsChildren(object, typeOrClass) {
     let objects = ObjectUtils.getChildren(object);
-    return ObjectUtils.getComponentsObjects(objects, type);
+    return ObjectUtils.getComponentsObjects(objects, typeOrClass);
 }
 
 // Active
@@ -2589,11 +2589,11 @@ export function getComponentsAmountMapChildren(object, amountMap = new Map()) {
 
 // GLOBALS
 
-export function getComponentObjects(objects, type, index = 0) {
+export function getComponentObjects(objects, typeOrClass, index = 0) {
     let component = null;
 
     for (let object of objects) {
-        component = object.getComponent(type, index);
+        component = object.getComponent(typeOrClass, index);
         if (component != null) {
             break;
         }
@@ -2602,11 +2602,11 @@ export function getComponentObjects(objects, type, index = 0) {
     return component;
 }
 
-export function getComponentsObjects(objects, type) {
+export function getComponentsObjects(objects, typeOrClass) {
     let components = [];
 
     for (let currentObject of objects) {
-        components.push(...currentObject.getComponents(type));
+        components.push(...currentObject.getComponents(typeOrClass));
     }
 
     return components;

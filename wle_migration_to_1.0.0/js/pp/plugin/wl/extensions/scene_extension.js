@@ -57,27 +57,27 @@ export function initSceneExtensionPrototype() {
 
     // Get Component    
 
-    sceneExtension.pp_getComponent = function pp_getComponent(type, index = 0) {
+    sceneExtension.pp_getComponent = function pp_getComponent(typeOrClass, index = 0) {
         return SceneUtils.getComponent(this, ...arguments);
     }
 
-    sceneExtension.pp_getComponentBreadth = function pp_getComponentBreadth(type, index = 0) {
+    sceneExtension.pp_getComponentBreadth = function pp_getComponentBreadth(typeOrClass, index = 0) {
         return SceneUtils.getComponentBreadth(this, ...arguments);
     }
 
-    sceneExtension.pp_getComponentDepth = function pp_getComponentDepth(type, index = 0) {
+    sceneExtension.pp_getComponentDepth = function pp_getComponentDepth(typeOrClass, index = 0) {
         return SceneUtils.getComponentDepth(this, ...arguments);
     }
 
-    sceneExtension.pp_getComponents = function pp_getComponents(type) {
+    sceneExtension.pp_getComponents = function pp_getComponents(typeOrClass) {
         return SceneUtils.getComponents(this, ...arguments);
     }
 
-    sceneExtension.pp_getComponentsBreadth = function pp_getComponentsBreadth(type) {
+    sceneExtension.pp_getComponentsBreadth = function pp_getComponentsBreadth(typeOrClass) {
         return SceneUtils.getComponentsBreadth(this, ...arguments);
     }
 
-    sceneExtension.pp_getComponentsDepth = function pp_getComponentsDepth(type) {
+    sceneExtension.pp_getComponentsDepth = function pp_getComponentsDepth(typeOrClass) {
         return SceneUtils.getComponentsDepth(this, ...arguments);
     }
 

@@ -66,7 +66,7 @@ export function isWLJavascriptComponent(typeOrClass) {
         wlJavascript = true;
     }
 
-    return wlNative;
+    return wlJavascript;
 }
 
 export function getWLNativeComponentTypes() {

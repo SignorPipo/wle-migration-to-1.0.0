@@ -22,28 +22,28 @@ export function getObjectsDepth(scene) {
 
 // Get Component    
 
-export function getComponent(scene, type, index = 0) {
-    return SceneUtils.getComponentBreadth(scene, type, index);
+export function getComponent(scene, typeOrClass, index = 0) {
+    return SceneUtils.getComponentBreadth(scene, typeOrClass, index);
 }
 
-export function getComponentBreadth(scene, type, index = 0) {
-    return ObjectUtils.getComponentHierarchyBreadth(SceneUtils.getRoot(scene), type, index);
+export function getComponentBreadth(scene, typeOrClass, index = 0) {
+    return ObjectUtils.getComponentHierarchyBreadth(SceneUtils.getRoot(scene), typeOrClass, index);
 }
 
-export function getComponentDepth(scene, type, index = 0) {
-    return ObjectUtils.getComponentHierarchyDepth(SceneUtils.getRoot(scene), type, index);
+export function getComponentDepth(scene, typeOrClass, index = 0) {
+    return ObjectUtils.getComponentHierarchyDepth(SceneUtils.getRoot(scene), typeOrClass, index);
 }
 
-export function getComponents(scene, type) {
-    return SceneUtils.getComponentsBreadth(scene, type);
+export function getComponents(scene, typeOrClass) {
+    return SceneUtils.getComponentsBreadth(scene, typeOrClass);
 }
 
-export function getComponentsBreadth(scene, type) {
-    return ObjectUtils.getComponentsHierarchyBreadth(SceneUtils.getRoot(scene), type);
+export function getComponentsBreadth(scene, typeOrClass) {
+    return ObjectUtils.getComponentsHierarchyBreadth(SceneUtils.getRoot(scene), typeOrClass);
 }
 
-export function getComponentsDepth(scene, type) {
-    return ObjectUtils.getComponentsHierarchyDepth(SceneUtils.getRoot(scene), type);
+export function getComponentsDepth(scene, typeOrClass) {
+    return ObjectUtils.getComponentsHierarchyDepth(SceneUtils.getRoot(scene), typeOrClass);
 }
 
 // Get Object By Name
