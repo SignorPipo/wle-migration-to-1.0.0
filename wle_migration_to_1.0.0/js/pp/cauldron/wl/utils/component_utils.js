@@ -135,33 +135,35 @@ export function getClassFromType(type) {
     let classToReturn = null;
 
     if (ComponentUtils.isWLNativeComponent(type)) {
-        switch (type) {
-            case AnimationComponent.TypeName:
-                classToReturn = AnimationComponent;
-                break;
-            case CollisionComponent.TypeName:
-                classToReturn = CollisionComponent;
-                break;
-            case InputComponent.TypeName:
-                classToReturn = InputComponent;
-                break;
-            case LightComponent.TypeName:
-                classToReturn = LightComponent;
-                break;
-            case MeshComponent.TypeName:
-                classToReturn = MeshComponent;
-                break;
-            case PhysXComponent.TypeName:
-                classToReturn = PhysXComponent;
-                break;
-            case TextComponent.TypeName:
-                classToReturn = TextComponent;
-                break;
-            case ViewComponent.TypeName:
-                classToReturn = ViewComponent;
-                break;
-            default:
-                classToReturn = null;
+        if (ComponentUtils.isWLNativeComponentRegistered(type)) {
+            switch (type) {
+                case AnimationComponent.TypeName:
+                    classToReturn = AnimationComponent;
+                    break;
+                case CollisionComponent.TypeName:
+                    classToReturn = CollisionComponent;
+                    break;
+                case InputComponent.TypeName:
+                    classToReturn = InputComponent;
+                    break;
+                case LightComponent.TypeName:
+                    classToReturn = LightComponent;
+                    break;
+                case MeshComponent.TypeName:
+                    classToReturn = MeshComponent;
+                    break;
+                case PhysXComponent.TypeName:
+                    classToReturn = PhysXComponent;
+                    break;
+                case TextComponent.TypeName:
+                    classToReturn = TextComponent;
+                    break;
+                case ViewComponent.TypeName:
+                    classToReturn = ViewComponent;
+                    break;
+                default:
+                    classToReturn = null;
+            }
         }
     } else {
         classToReturn = ComponentUtils.getJavascriptComponentClass(type);
@@ -175,36 +177,42 @@ export function isTypeRegistered(typeOrClass) {
     return ComponentUtils.getClassFromType(type) != null;
 }
 
-export function getJavascriptComponentInstances() {
-    return Globals.getWASM(this.engine)._components;
+export function getJavascriptComponentInstances(engine = Globals.getMainEngine()) {
+    return Globals.getWASM(engine)._components;
 }
 
-export function getJavascriptComponentClass(type) {
-    return ComponentUtils.getJavascriptComponentClassesByIndex()[ComponentUtils.getJavascriptComponentTypeIndex(type)];
+export function getJavascriptComponentClass(type, engine = Globals.getMainEngine()) {
+    return ComponentUtils.getJavascriptComponentClassesByIndex(engine)[ComponentUtils.getJavascriptComponentTypeIndex(type)];
 }
 
-export function getJavascriptComponentClassesByIndex() {
-    return Globals.getWASM(this.engine)._componentTypes;
+export function getJavascriptComponentClassesByIndex(engine = Globals.getMainEngine()) {
+    return Globals.getWASM(engine)._componentTypes;
 }
 
-export function getJavascriptComponentTypeIndex(typeOrClass) {
+export function getJavascriptComponentTypeIndex(typeOrClass, engine = Globals.getMainEngine()) {
     let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
-    return ComponentUtils.getJavascriptComponentTypeIndexes()[type];
+    return ComponentUtils.getJavascriptComponentTypeIndexes(engine)[type];
 }
 
-export function getJavascriptComponentTypeIndexes() {
-    return Globals.getWASM(this.engine)._componentTypeIndices;
+export function getJavascriptComponentTypeIndexes(engine = Globals.getMainEngine()) {
+    return Globals.getWASM(engine)._componentTypeIndices;
 }
 
-export function getJavascriptComponentTypeFromIndex(typeIndex) {
+export function getJavascriptComponentTypeFromIndex(typeIndex, engine = Globals.getMainEngine()) {
     let type = null;
 
-    let componentClass = ComponentUtils.getJavascriptComponentClassesByIndex()[typeIndex];
+    let componentClass = ComponentUtils.getJavascriptComponentClassesByIndex(engine)[typeIndex];
     if (componentClass != null) {
         type = componentClass.TypeName;
     }
 
     return type;
+}
+
+export function isWLNativeComponentRegistered(typeOrClass, engine = Globals.getMainEngine()) {
+    let wasm = Globals.getWASM(engine);
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
+    return wasm._wl_get_component_manager_index(wasm.tempUTF8(type)) >= 0;
 }
 
 export function isCloneable(typeOrClass, defaultCloneValid = false) {
@@ -353,6 +361,7 @@ export let ComponentUtils = {
     getJavascriptComponentTypeIndex,
     getJavascriptComponentTypeIndexes,
     getJavascriptComponentTypeFromIndex,
+    isWLNativeComponentRegistered,
 
     isCloneable,
     hasClonePostProcess,

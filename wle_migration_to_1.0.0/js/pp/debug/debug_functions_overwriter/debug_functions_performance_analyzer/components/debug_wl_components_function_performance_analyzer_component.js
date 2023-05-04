@@ -49,17 +49,19 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
     _start() {
 
         let objectsByReference = [];
+        let classesByReference = [];
 
         if (this._myAnalyzeComponentInstances) {
             this._addComponentInstanceReferences(objectsByReference);
         }
 
         if (this._myAnalyzeComponentTypes) {
-            this._addComponentTypeReferences(objectsByReference);
+            this._addComponentTypeReferences(classesByReference);
         }
 
         this._myAnalyzerComponent = this.object.pp_addComponent(DebugFunctionsPerformanceAnalyzerComponent, {
             _myObjectsByReference: objectsByReference,
+            _myClassesByReference: classesByReference,
             _myDelayStart: 0,
             _myLogTitle: "WL Components Performance Analysis Results",
             _myLogFunction: this._myLogFunction,
@@ -84,7 +86,7 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
         });
     }
 
-    _addComponentTypeReferences(objectsByReference) {
+    _addComponentTypeReferences(classesByReference) {
         let nativeComponentTypes = [
             AnimationComponent,
             CollisionComponent,
@@ -97,18 +99,16 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
         ];
 
         for (let nativeComponentType of nativeComponentTypes) {
-            objectsByReference.push([Object.getPrototypeOf(this.engine._wrapComponent(nativeComponentType.TypeName, Globals.getWASM(this.engine)._typeIndexFor(nativeComponentType.TypeName), 0)),
-            "{\"" + nativeComponentType.TypeName + "\"}"]);
+            classesByReference.push([nativeComponentType.prototype, "{\"" + nativeComponentType.TypeName + "\"}"]);
         }
 
-        for (let componentClass of ComponentUtils.getJavascriptComponentClassesByIndex()) {
-            objectsByReference.push([componentClass.prototype,
-            "{\"" + componentClass.TypeName + "\"}"]);
+        for (let componentClass of ComponentUtils.getJavascriptComponentClassesByIndex(this.engine)) {
+            classesByReference.push([componentClass.prototype, "{\"" + componentClass.TypeName + "\"}"]);
         }
     }
 
     _addComponentInstanceReferences(objectsByReference) {
-        for (let componentInstance of ComponentUtils.getJavascriptComponentInstances()) {
+        for (let componentInstance of ComponentUtils.getJavascriptComponentInstances(this.engine)) {
             let id = "";
 
             switch (this._myComponentInstanceID) {
