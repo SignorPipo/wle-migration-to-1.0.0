@@ -108,6 +108,8 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
     }
 
     _addComponentInstanceReferences(objectsByReference) {
+        // #TODO add native components
+
         for (let componentInstance of ComponentUtils.getJavascriptComponentInstances(this.engine)) {
             let id = "";
 

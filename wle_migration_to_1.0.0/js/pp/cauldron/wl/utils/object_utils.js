@@ -2419,7 +2419,7 @@ export function markDirty(object) {
     return object.setDirty();
 }
 
-export function isChangedTransform(object) {
+export function isTransformChanged(object) {
     return object.changed;
 }
 
@@ -2602,6 +2602,10 @@ export function getObjectsByIDObjects(objects, id) {
     }
 
     return objectsFound;
+}
+
+export function wrapObject(id, engine = Globals.getMainEngine()) {
+    return engine.wrapObject(id);
 }
 
 export let ObjectUtils = {
@@ -2904,7 +2908,7 @@ export let ObjectUtils = {
     getEngine,
     getID,
     markDirty,
-    isChangedTransform,
+    isTransformChanged,
     equals,
     destroy,
     reserveObjects,
@@ -2923,7 +2927,8 @@ export let ObjectUtils = {
     getObjectByNameObjects,
     getObjectsByNameObjects,
     getObjectByIDObjects,
-    getObjectsByIDObjects
+    getObjectsByIDObjects,
+    wrapObject
 }
 
 

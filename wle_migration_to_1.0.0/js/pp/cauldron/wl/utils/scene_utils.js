@@ -1,7 +1,7 @@
 import { ObjectUtils } from "./object_utils";
 
 export function getRoot(scene) {
-    return scene.engine.wrapObject(0);
+    return ObjectUtils.wrapObject(0, scene.engine);
 }
 
 export function addObject(scene) {

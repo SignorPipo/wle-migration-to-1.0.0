@@ -2,6 +2,7 @@ import { Component, Property } from "@wonderlandengine/api";
 import { quat2_create } from "../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../pp/globals";
 import { InputUtils } from "../input_utils";
+import { ObjectUtils } from "../../../cauldron/wl/utils/object_utils";
 
 export class TrackedHandDrawSkinComponent extends Component {
     static TypeName = "pp-tracked-hand-draw-skin";
@@ -26,7 +27,7 @@ export class TrackedHandDrawSkinComponent extends Component {
         let skinJointIDs = this._myHandSkin.jointIds;
 
         for (let i = 0; i < skinJointIDs.length; i++) {
-            this._myJoints[i] = this.engine.wrapObject(skinJointIDs[i]);
+            this._myJoints[i] = ObjectUtils.wrapObject(skinJointIDs[i]);
         }
     }
 }

@@ -99,7 +99,7 @@
         - pp_reserveObjects / pp_reserveObjectsHierarchy / pp_reserveObjectsDescendants / pp_reserveObjectsChildren / pp_reserveObjectsSelf
         - pp_getComponentsAmountMap / pp_getComponentsAmountMapHierarchy / pp_getComponentsAmountMapDescendants / pp_getComponentsAmountMapChildren / pp_getComponentsAmountMapSelf
         - pp_markDirty
-        - pp_isChangedTransform
+        - pp_isTransformChanged
         - pp_equals
         - pp_destroy
 */
@@ -1463,8 +1463,8 @@ export function initObjectExtensionProtoype() {
         return ObjectUtils.markDirty(this, ...arguments);
     };
 
-    objectExtension.pp_isChangedTransform = function pp_isChangedTransform() {
-        return ObjectUtils.isChangedTransform(this, ...arguments);
+    objectExtension.pp_isTransformChanged = function pp_isTransformChanged() {
+        return ObjectUtils.isTransformChanged(this, ...arguments);
     };
 
     objectExtension.pp_equals = function pp_equals(otherObject) {
