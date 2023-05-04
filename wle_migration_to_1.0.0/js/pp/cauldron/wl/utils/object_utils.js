@@ -5,6 +5,7 @@ import { Mat4Utils } from "../../js/utils/mat4_utils";
 import { Quat2Utils } from "../../js/utils/quat2_utils";
 import { QuatUtils } from "../../js/utils/quat_utils";
 import { Vec3Utils } from "../../js/utils/vec3_utils";
+import { ComponentUtils, CustomCloneParams, DeepCloneParams } from "./component_utils";
 import { SceneUtils } from "./scene_utils";
 
 export class CloneParams {
@@ -22,91 +23,13 @@ export class CloneParams {
         this.myChildrenToInclude = [];      // Clones only the objects in this list (example: "mesh"), has higher priority over myChildrenToIgnore, if empty it's ignored
         this.myIgnoreChildCallback = null;  // Signature: callback(object) returns true if the object must be ignored, it is called after the previous filters
 
-        this.myUseWLClone = false;               // Use the WL component clone function 
-        this.myUseWLCloneAsFallback = false;     // Use the WL component clone function as fallback only if pp_clone is not found on the component
+        this.myUseDefaultComponentClone = false;               // Use the default component clone function
+        this.myUseDefaultComponentCloneAsFallback = false;     // Use the default component clone function only as fallback
+        this.myDefaultComponentCloneAutoStartIfNotActive = true;
 
-        this.myDeepCloneParams = new DeepCloneParams(); // Used to specify if the object must be deep cloned or not, you can also override the behavior for specific components and variables
+        this.myComponentDeepCloneParams = new DeepCloneParams(); // Used to specify if the object components must be deep cloned or not, you can also override the behavior for specific components and variables
 
-        this.myCustomCloneParams = new CustomCloneParams(); // This class can be filled with whatever custom paramater the component clone function could need
-    }
-}
-
-export class DeepCloneParams {
-
-    constructor() {
-        this._myDeepCloneObject = false;
-        this._myDeepCloneOverrideComponentsMap = new Map();
-        this._myDeepCloneOverrideComponentsVariablesMap = new Map();
-    }
-
-    // The implementation is component dependant, not every component implements the deep clone
-    setDeepCloneObject(deepClone) {
-        this._myDeepCloneObject = deepClone;
-    }
-
-    // This value override the deep clone object value
-    // The implementation is component dependant, not every component implements the deep clone
-    setDeepCloneComponent(componentName, deepClone) {
-        this._myDeepCloneOverrideComponentsMap.set(componentName, deepClone);
-    }
-
-    // This value override both the deep clone object value and the deep clone component one
-    // The implementation is component dependant, not every component variable override is taken into consideration
-    setDeepCloneComponentVariable(componentName, variableName, deepClone) {
-        let componentsVariablesMap = null;
-
-        if (!this._myDeepCloneOverrideComponentsVariablesMap.has(componentName)) {
-            this._myDeepCloneOverrideComponentsVariablesMap.set(componentName, new Map());
-        }
-
-        componentsVariablesMap = this._myDeepCloneOverrideComponentsVariablesMap.get(componentName);
-
-        componentsVariablesMap.set(variableName, deepClone);
-    }
-
-    isDeepCloneComponent(componentName) {
-        let deepCloneOverride = this._myDeepCloneOverrideComponentsMap.get(componentName);
-
-        if (deepCloneOverride != null) {
-            return deepCloneOverride;
-        }
-
-        return this._myDeepCloneObject;
-    }
-
-    isDeepCloneComponentVariable(componentName, variableName) {
-        let componentsVariablesMap = this._myDeepCloneOverrideComponentsVariablesMap.get(componentName);
-        if (componentsVariablesMap != null) {
-            let deepCloneOverride = componentsVariablesMap.get(variableName);
-            if (deepCloneOverride != null) {
-                return deepCloneOverride;
-            }
-        }
-
-        return this.isDeepCloneComponent(componentName);
-    }
-}
-
-export class CustomCloneParams {
-
-    constructor() {
-        this._myParams = new Map();
-    }
-
-    addParam(name, value) {
-        this._myParams.set(name, value);
-    }
-
-    removeParam(name) {
-        this._myParams.delete(name);
-    }
-
-    getParam(name) {
-        this._myParams.get(name);
-    }
-
-    hasParam(name) {
-        this._myParams.has(name);
+        this.myComponentCustomCloneParams = new CustomCloneParams(); // This class can be filled with whatever custom paramater the component clone functions could need
     }
 }
 
@@ -2031,7 +1954,7 @@ export let clone = function () {
 
                 let components = ObjectUtils.getComponentsSelf(objectToClone);
                 for (let component of components) {
-                    if (component.pp_clone != null || cloneParams.myUseWLClone || cloneParams.myUseWLCloneAsFallback) {
+                    if (ComponentUtils.isCloneable(component.type, cloneParams.myUseDefaultComponentClone || cloneParams.myUseDefaultComponentCloneAsFallback)) {
                         let cloneComponent = false;
                         if (cloneParams.myComponentsToInclude.length > 0) {
                             cloneComponent = cloneParams.myComponentsToInclude.indexOf(component.type) != -1;
@@ -2058,14 +1981,15 @@ export let clone = function () {
                 let currentClonedObject = cloneData[1];
                 let clonedComponent = null;
 
-                if (!cloneParams.myUseWLClone && componentToClone.pp_clone != null) {
-                    clonedComponent = componentToClone.pp_clone(currentClonedObject, cloneParams.myDeepCloneParams, cloneParams.myCustomCloneParams);
-                } else if (cloneParams.myUseWLClone || cloneParams.myUseWLCloneAsFallback) {
-                    clonedComponent = ObjectUtils.addComponent(currentClonedObject, componentToClone.type, componentToClone);
+
+                if (!cloneParams.myUseDefaultComponentClone) {
+                    clonedComponent = ComponentUtils.clone(componentToClone, currentClonedObject, cloneParams.myComponentDeepCloneParams, cloneParams.myComponentCustomCloneParams, cloneParams.myUseDefaultComponentCloneAsFallback, cloneParams.myDefaultComponentCloneAutoStartIfNotActive);
+                } else {
+                    clonedComponent = ComponentUtils.cloneDefault(componentToClone, currentClonedObject, cloneParams.myDefaultComponentCloneAutoStartIfNotActive);
                 }
 
                 if (clonedComponent != null) {
-                    if (componentToClone.pp_clonePostProcess != null) {
+                    if (ComponentUtils.hasClonePostProcess(componentToClone.type)) {
                         componentsToPostProcessData.push([componentToClone, clonedComponent]);
                     }
                 }
@@ -2078,7 +2002,7 @@ export let clone = function () {
                 let componentToClone = cloneData[0];
                 let currentClonedComponent = cloneData[1];
 
-                componentToClone.pp_clonePostProcess(currentClonedComponent, cloneParams.myDeepCloneParams, cloneParams.myCustomCloneParams);
+                ComponentUtils.clonePostProcess(componentToClone, currentClonedComponent, cloneParams.myComponentDeepCloneParams, cloneParams.myComponentCustomCloneParams)
             }
         }
 

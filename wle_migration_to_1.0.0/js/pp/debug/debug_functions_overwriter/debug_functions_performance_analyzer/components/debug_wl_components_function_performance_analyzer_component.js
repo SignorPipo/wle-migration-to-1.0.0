@@ -1,4 +1,4 @@
-import { AnimationComponent, CollisionComponent, Component, InputComponent, LightComponent, MeshComponent, Property, TextComponent, ViewComponent } from "@wonderlandengine/api";
+import { AnimationComponent, CollisionComponent, Component, InputComponent, LightComponent, MeshComponent, PhysXComponent, Property, TextComponent, ViewComponent } from "@wonderlandengine/api";
 import { Timer } from "../../../../cauldron/cauldron/timer";
 import { Globals } from "../../../../pp/globals";
 import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
@@ -85,11 +85,12 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
 
     _addComponentTypeReferences(objectsByReference) {
         let nativeComponentTypes = [
-            MeshComponent,
             AnimationComponent,
             CollisionComponent,
             InputComponent,
             LightComponent,
+            MeshComponent,
+            PhysXComponent,
             TextComponent,
             ViewComponent
         ];

@@ -308,8 +308,8 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         poolParams.myPercentageToAddWhenEmpty = 0;
         poolParams.myAmountToAddWhenEmpty = 10000;
         poolParams.myCloneParams = new CloneParams();
-        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "material", this._myCloneMaterial);
-        poolParams.myCloneParams.myDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "mesh", this._myCloneMesh);
+        poolParams.myCloneParams.myComponentDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "material", this._myCloneMaterial);
+        poolParams.myCloneParams.myComponentDeepCloneParams.setDeepCloneComponentVariable(MeshComponent.TypeName, "mesh", this._myCloneMesh);
         this._myPlanePool = new ObjectPool(this._myPlaneObject, poolParams);
 
         this._myBackgroundObject.pp_setActive(false);
