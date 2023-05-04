@@ -164,14 +164,47 @@ export function getClassFromType(type) {
                 classToReturn = null;
         }
     } else {
-        classToReturn = Globals.getWASM(this.engine)._componentTypes[Globals.getWASM(this.engine)._componentTypeIndices[type]];
+        classToReturn = ComponentUtils.getJavascriptComponentClass(type);
     }
 
     return classToReturn;
 }
 
-export function isTypeValid(type) {
+export function isTypeRegistered(typeOrClass) {
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
     return ComponentUtils.getClassFromType(type) != null;
+}
+
+export function getJavascriptComponentInstances() {
+    return Globals.getWASM(this.engine)._components;
+}
+
+export function getJavascriptComponentClass(type) {
+    return ComponentUtils.getJavascriptComponentClassesByIndex()[ComponentUtils.getJavascriptComponentTypeIndex(type)];
+}
+
+export function getJavascriptComponentClassesByIndex() {
+    return Globals.getWASM(this.engine)._componentTypes;
+}
+
+export function getJavascriptComponentTypeIndex(typeOrClass) {
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
+    return ComponentUtils.getJavascriptComponentTypeIndexes()[type];
+}
+
+export function getJavascriptComponentTypeIndexes() {
+    return Globals.getWASM(this.engine)._componentTypeIndices;
+}
+
+export function getJavascriptComponentTypeFromIndex(typeIndex) {
+    let type = null;
+
+    let componentClass = ComponentUtils.getJavascriptComponentClassesByIndex()[typeIndex];
+    if (componentClass != null) {
+        type = componentClass.TypeName;
+    }
+
+    return type;
 }
 
 export function isCloneable(typeOrClass, defaultCloneValid = false) {
@@ -312,7 +345,14 @@ export let ComponentUtils = {
     getWLJavascriptComponentTypes,
     getTypeFromTypeOrClass,
     getClassFromType,
-    isTypeValid,
+    isTypeRegistered,
+
+    getJavascriptComponentInstances,
+    getJavascriptComponentClass,
+    getJavascriptComponentClassesByIndex,
+    getJavascriptComponentTypeIndex,
+    getJavascriptComponentTypeIndexes,
+    getJavascriptComponentTypeFromIndex,
 
     isCloneable,
     hasClonePostProcess,

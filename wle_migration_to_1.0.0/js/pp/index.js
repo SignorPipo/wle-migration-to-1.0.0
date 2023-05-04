@@ -114,6 +114,8 @@ export * from "./cauldron/wl/engine_globals";
 export * from "./cauldron/wl/register_wl_components";
 export * from "./cauldron/wl/utils/scene_utils";
 export * from "./cauldron/wl/utils/object_utils";
+export * from "./cauldron/wl/utils/component_utils";
+export * from "./cauldron/wl/utils/wl_component_clone_functions";
 export * from "./cauldron/wl/components/add_wl_to_window_component";
 
 //	DEBUG

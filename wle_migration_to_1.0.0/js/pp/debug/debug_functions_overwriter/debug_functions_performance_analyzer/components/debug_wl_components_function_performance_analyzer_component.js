@@ -2,6 +2,7 @@ import { AnimationComponent, CollisionComponent, Component, InputComponent, Ligh
 import { Timer } from "../../../../cauldron/cauldron/timer";
 import { Globals } from "../../../../pp/globals";
 import { DebugFunctionsPerformanceAnalyzerComponent } from "./debug_functions_performance_analyzer_component";
+import { ComponentUtils } from "../../../../cauldron/wl/utils/component_utils";
 
 export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Component {
     static TypeName = "pp-debug-wl-components-functions-performance-analyzer";
@@ -100,33 +101,33 @@ export class DebugWLComponentsFunctionsPerformanceAnalyzerComponent extends Comp
             "{\"" + nativeComponentType.TypeName + "\"}"]);
         }
 
-        for (let componentType of Globals.getWASM(this.engine)._componentTypes) {
-            objectsByReference.push([componentType.prototype,
-            "{\"" + componentType.TypeName + "\"}"]);
+        for (let componentClass of ComponentUtils.getJavascriptComponentClassesByIndex()) {
+            objectsByReference.push([componentClass.prototype,
+            "{\"" + componentClass.TypeName + "\"}"]);
         }
     }
 
     _addComponentInstanceReferences(objectsByReference) {
-        for (let component of Globals.getWASM(this.engine)._components) {
+        for (let componentInstance of ComponentUtils.getJavascriptComponentInstances()) {
             let id = "";
 
             switch (this._myComponentInstanceID) {
                 case 0:
-                    id = component.object.pp_getID();
+                    id = componentInstance.object.pp_getID();
                     break;
                 case 1:
-                    id = component.object.pp_getName();
+                    id = componentInstance.object.pp_getName();
                     break;
                 case 2:
-                    id = component.object.pp_getID();
-                    if (component.object.pp_getName().length > 0) {
-                        id = id + " - " + component.object.pp_getName();
+                    id = componentInstance.object.pp_getID();
+                    if (componentInstance.object.pp_getName().length > 0) {
+                        id = id + " - " + componentInstance.object.pp_getName();
                     }
                     break;
             }
 
-            objectsByReference.push([component,
-                "{\"" + component.type + "\"}[" + id + "]"]);
+            objectsByReference.push([componentInstance,
+                "{\"" + componentInstance.type + "\"}[" + id + "]"]);
         }
     }
 }
