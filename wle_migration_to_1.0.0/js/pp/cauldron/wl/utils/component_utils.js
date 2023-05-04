@@ -1,4 +1,5 @@
 import { AnimationComponent, CollisionComponent, InputComponent, LightComponent, MeshComponent, PhysXComponent, TextComponent, ViewComponent } from "@wonderlandengine/api";
+import { ARCamera8thwall, Anchor, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlaneDetection, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent } from "@wonderlandengine/components";
 import { Globals } from "../../../pp/globals";
 
 let _myCloneCallbacks = new WeakMap();                 // Signature: callback(componentToClone, targetObject, useDefaultCloneAsFallback, deeCloneParams, customCloneParams)
@@ -223,69 +224,81 @@ export function cloneDefault(componentToClone, targetObject, autoStartIfNotActiv
     return clonedComponent;
 }
 
-export function addCloneCallback(componenType, callback, engine = Globals.getMainEngine()) {
+export function addCloneCallback(typeOrClass, callback, engine = Globals.getMainEngine()) {
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
+
     if (!_myCloneCallbacks.has(engine)) {
         _myCloneCallbacks.set(engine, new Map());
     }
 
-    _myCloneCallbacks.get(engine).set(componenType, callback);
+    _myCloneCallbacks.get(engine).set(type, callback);
 }
 
-export function removeCloneCallback(componenType, engine = Globals.getMainEngine()) {
+export function removeCloneCallback(typeOrClass, engine = Globals.getMainEngine()) {
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
+
     if (_myCloneCallbacks.has(engine)) {
-        _myCloneCallbacks.get(engine).delete(componenType);
+        _myCloneCallbacks.get(engine).delete(type);
     }
 }
 
-export function getCloneCallback(componenType, engine = Globals.getMainEngine()) {
+export function getCloneCallback(typeOrClass, engine = Globals.getMainEngine()) {
     let callback = null;
 
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
     if (_myCloneCallbacks.has(engine)) {
-        callback = _myCloneCallbacks.get(engine).get(componenType);
+        callback = _myCloneCallbacks.get(engine).get(type);
     }
 
     return callback;
 }
 
-export function hasCloneCallback(componenType, engine = Globals.getMainEngine()) {
+export function hasCloneCallback(typeOrClass, engine = Globals.getMainEngine()) {
     let hasCallback = false;
 
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
     if (_myCloneCallbacks.has(engine)) {
-        hasCallback = _myCloneCallbacks.get(engine).has(componenType);
+        hasCallback = _myCloneCallbacks.get(engine).has(type);
     }
 
     return hasCallback;
 }
 
-export function addClonePostProcessCallback(componenType, callback, engine = Globals.getMainEngine()) {
+export function addClonePostProcessCallback(typeOrClass, callback, engine = Globals.getMainEngine()) {
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
+
     if (!_myClonePostProcessCallbacks.has(engine)) {
         _myClonePostProcessCallbacks.set(engine, new Map());
     }
 
-    _myClonePostProcessCallbacks.get(engine).set(componenType, callback);
+    _myClonePostProcessCallbacks.get(engine).set(type, callback);
 }
 
-export function removeClonePostProcessCallback(componenType, engine = Globals.getMainEngine()) {
+export function removeClonePostProcessCallback(typeOrClass, engine = Globals.getMainEngine()) {
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
+
     if (_myClonePostProcessCallbacks.has(engine)) {
-        _myClonePostProcessCallbacks.get(engine).delete(componenType);
+        _myClonePostProcessCallbacks.get(engine).delete(type);
     }
 }
 
-export function getClonePostProcessCallback(componenType, engine = Globals.getMainEngine()) {
+export function getClonePostProcessCallback(typeOrClass, engine = Globals.getMainEngine()) {
     let callback = null;
 
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
     if (_myClonePostProcessCallbacks.has(engine)) {
-        callback = _myClonePostProcessCallbacks.get(engine).get(componenType);
+        callback = _myClonePostProcessCallbacks.get(engine).get(type);
     }
 
     return callback;
 }
 
-export function hasClonePostProcessCallback(componenType, engine = Globals.getMainEngine()) {
+export function hasClonePostProcessCallback(typeOrClass, engine = Globals.getMainEngine()) {
     let hasCallback = false;
 
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
     if (_myClonePostProcessCallbacks.has(engine)) {
-        hasCallback = _myClonePostProcessCallbacks.get(engine).has(componenType);
+        hasCallback = _myClonePostProcessCallbacks.get(engine).has(type);
     }
 
     return hasCallback;
@@ -331,30 +344,30 @@ let _myWLNativeComponentTypes = [
 ];
 
 let _myWLJavascriptComponentTypes = [
-    "8thwall-camera",
-    "anchor",
-    "cursor",
-    "cursor-target",
-    "debug-object",
-    "device-orientation-look",
-    "finger-cursor",
-    "fixed-foveation",
-    "hand-tracking",
-    "hit-test-location",
-    "howler-audio-listener",
-    "howler-audio-source",
-    "image-texture",
-    "mouse-look",
-    "plane-detection",
-    "player-height",
-    "target-framerate",
-    "teleport",
-    "trail",
-    "two-joint-ik-solver",
-    "vcomponenTypeeo-texture",
-    "vr-mode-active-switch",
-    "vrm",
-    "wasd-controls"
+    ARCamera8thwall.TypeName,
+    Anchor.TypeName,
+    Cursor.TypeName,
+    CursorTarget.TypeName,
+    DebugObject.TypeName,
+    DeviceOrientationLook.TypeName,
+    FingerCursor.TypeName,
+    FixedFoveation.TypeName,
+    HandTracking.TypeName,
+    HitTestLocation.TypeName,
+    HowlerAudioListener.TypeName,
+    HowlerAudioSource.TypeName,
+    ImageTexture.TypeName,
+    MouseLookComponent.TypeName,
+    PlaneDetection.TypeName,
+    PlayerHeight.TypeName,
+    TargetFramerate.TypeName,
+    TeleportComponent.TypeName,
+    Trail.TypeName,
+    TwoJointIkSolver.TypeName,
+    VideoTexture.TypeName,
+    VrModeActiveSwitch.TypeName,
+    Vrm.TypeName,
+    WasdControlsComponent.TypeName
 ];
 
 /*
