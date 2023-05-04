@@ -1,5 +1,5 @@
 import { Component, Property, TextComponent } from "@wonderlandengine/api";
-import { CloneUtils } from "../../../cauldron/utils/clone_utils";
+import { ComponentUtils } from "../../../cauldron/wl/utils/component_utils";
 import { CADummyServer } from "./ca_dummy_server";
 import { CAUtils } from "./ca_utils";
 
@@ -146,7 +146,7 @@ export class CADisplayLeaderboardComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
+        let clonedComponent = ComponentUtils.cloneDefault(this, targetObject);
 
         return clonedComponent;
     }

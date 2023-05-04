@@ -1,6 +1,5 @@
 import { Component } from "@wonderlandengine/api";
-import { EasingFunction, Timer, vec3_create } from "../pp";
-import { CloneUtils } from "../pp/cauldron/utils/clone_utils";
+import { ComponentUtils, EasingFunction, Timer, vec3_create } from "../pp";
 
 export class ParticleComponent extends Component {
     static TypeName = "particle";
@@ -75,7 +74,7 @@ export class ParticleComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
+        let clonedComponent = ComponentUtils.cloneDefault(this, targetObject);
 
         return clonedComponent;
     }

@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { CloneUtils } from "../../../../cauldron/utils/clone_utils";
+import { ComponentUtils } from "../../../../cauldron/wl/utils/component_utils";
 import { Globals } from "../../../../pp/globals";
 import { EasyTransform } from "../easy_transform";
 
@@ -38,7 +38,7 @@ export class EasyTransformComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
+        let clonedComponent = ComponentUtils.cloneDefault(this, targetObject);
 
         return clonedComponent;
     }

@@ -1,5 +1,5 @@
 import { Component, Property } from "@wonderlandengine/api";
-import { CloneUtils } from "../../../../cauldron/utils/clone_utils";
+import { ComponentUtils } from "../../../../cauldron/wl/utils/component_utils";
 import { Globals } from "../../../../pp/globals";
 import { EasyMeshAmbientFactor } from "../easy_mesh_ambient_factor";
 
@@ -36,7 +36,7 @@ export class EasyMeshAmbientFactorComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
+        let clonedComponent = ComponentUtils.cloneDefault(this, targetObject);
 
         return clonedComponent;
     }

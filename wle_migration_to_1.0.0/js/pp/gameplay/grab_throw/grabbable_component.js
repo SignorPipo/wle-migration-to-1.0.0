@@ -1,5 +1,5 @@
 import { Component, Emitter, PhysXComponent, Property } from "@wonderlandengine/api";
-import { CloneUtils } from "../../cauldron/utils/clone_utils";
+import { ComponentUtils } from "../../cauldron/wl/utils/component_utils";
 import { vec3_create } from "../../plugin/js/extensions/array_extension";
 import { Globals } from "../../pp/globals";
 
@@ -164,7 +164,7 @@ export class GrabbableComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
+        let clonedComponent = ComponentUtils.cloneDefault(this, targetObject);
 
         return clonedComponent;
     }

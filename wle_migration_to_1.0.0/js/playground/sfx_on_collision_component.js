@@ -1,6 +1,5 @@
 import { Component, PhysXComponent } from "@wonderlandengine/api";
-import { Globals, GrabbableComponent, PhysicsCollisionCollector } from "../pp";
-import { CloneUtils } from "../pp/cauldron/utils/clone_utils";
+import { ComponentUtils, Globals, GrabbableComponent, PhysicsCollisionCollector } from "../pp";
 
 export class SFXOnCollisionComponent extends Component {
     static TypeName = "sfx-on-collision";
@@ -37,7 +36,7 @@ export class SFXOnCollisionComponent extends Component {
     }
 
     pp_clone(targetObject) {
-        let clonedComponent = CloneUtils.cloneComponentDefault(this, targetObject);
+        let clonedComponent = ComponentUtils.cloneDefault(this, targetObject);
 
         return clonedComponent;
     }
