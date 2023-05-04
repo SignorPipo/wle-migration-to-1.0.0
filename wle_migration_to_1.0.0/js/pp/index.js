@@ -30,7 +30,6 @@ export * from "./plugin/wl/extensions/scene_extension";
 export * from "./plugin/wl/mods/init_wl_mods";
 export * from "./plugin/wl/mods/emitter_mod";
 export * from "./plugin/wl/mods/components/init_component_mods";
-export * from "./plugin/wl/mods/components/component_clone_mod";
 export * from "./plugin/wl/mods/components/cursor_component_mod";
 export * from "./plugin/wl/mods/components/cursor_target_component_mod";
 export * from "./plugin/wl/mods/components/mouse_look_component_mod";
@@ -115,7 +114,7 @@ export * from "./cauldron/wl/register_wl_components";
 export * from "./cauldron/wl/utils/scene_utils";
 export * from "./cauldron/wl/utils/object_utils";
 export * from "./cauldron/wl/utils/component_utils";
-export * from "./cauldron/wl/utils/wl_component_clone_functions";
+export * from "./cauldron/wl/utils/default_wl_component_clone_callbacks";
 export * from "./cauldron/wl/components/add_wl_to_window_component";
 
 //	DEBUG

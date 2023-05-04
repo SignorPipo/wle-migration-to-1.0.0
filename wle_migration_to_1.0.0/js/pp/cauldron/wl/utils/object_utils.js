@@ -2011,7 +2011,7 @@ export let clone = function () {
 }();
 
 export function isCloneable(object, cloneParams = new CloneParams()) {
-    if (cloneParams.myIgnoreNonCloneable || cloneParams.myIgnoreComponents || cloneParams.myUseWLClone || cloneParams.myUseWLCloneAsFallback) {
+    if (cloneParams.myIgnoreNonCloneable || cloneParams.myIgnoreComponents || cloneParams.myUseDefaultComponentClone || cloneParams.myUseDefaultComponentCloneAsFallback) {
         return true;
     }
 
@@ -2036,7 +2036,7 @@ export function isCloneable(object, cloneParams = new CloneParams()) {
                 cloneComponent = !cloneParams.myIgnoreComponentCallback(component);
             }
 
-            if (cloneComponent && component.pp_clone == null) {
+            if (cloneComponent && !ComponentUtils.isCloneable(component.type)) {
                 cloneable = false;
                 break;
             }

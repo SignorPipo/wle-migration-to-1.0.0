@@ -1,6 +1,8 @@
 import { AnimationComponent, CollisionComponent, InputComponent, LightComponent, MeshComponent, PhysXComponent, TextComponent, ViewComponent } from "@wonderlandengine/api";
 import { ARCamera8thwall, Anchor, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlaneDetection, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent } from "@wonderlandengine/components";
 import { Globals } from "../../../pp/globals";
+import { DefaultWLComponentCloneCallbacks } from "./default_wl_component_clone_callbacks";
+import { ObjectUtils } from "./object_utils";
 
 let _myCloneCallbacks = new WeakMap();                 // Signature: callback(componentToClone, targetObject, useDefaultCloneAsFallback, deeCloneParams, customCloneParams)
 let _myClonePostProcessCallbacks = new WeakMap();      // Signature: callback(componentToClone, clonedComponent, deeCloneParams, customCloneParams)
@@ -345,6 +347,74 @@ export function hasClonePostProcessCallback(typeOrClass, engine = Globals.getMai
     return hasCallback;
 }
 
+
+export function getDefaultWLComponentCloneCallback(typeOrClass, engine = Globals.getMainEngine()) {
+    let callback = null;
+
+    let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
+
+    switch (type) {
+        case MeshComponent.TypeName:
+            callback = DefaultWLComponentCloneCallbacks.cloneMesh;
+            break;
+        case CollisionComponent.TypeName:
+            callback = DefaultWLComponentCloneCallbacks.cloneCollision;
+            break;
+        case TextComponent.TypeName:
+            callback = DefaultWLComponentCloneCallbacks.cloneText;
+            break;
+        case PhysXComponent.TypeName:
+            callback = DefaultWLComponentCloneCallbacks.clonePhysX;
+            break;
+        default:
+            callback = null;
+    }
+
+    return callback;
+}
+
+
+export function hasDefaultWLComponentCloneCallback(typeOrClass, engine = Globals.getMainEngine()) {
+    return ComponentUtils.getDefaultWLComponentCloneCallback(typeOrClass, engine) != null;
+}
+
+
+export function addDefaultWLComponentCloneCallbacks(engine = Globals.getMainEngine()) {
+    for (let nativeType of ComponentUtils.getWLNativeComponentTypes()) {
+        let cloneCallback = ComponentUtils.getDefaultWLComponentCloneCallback(nativeType, engine);
+        if (cloneCallback != null) {
+            ComponentUtils.addCloneCallback(nativeType, cloneCallback, engine)
+        }
+    }
+
+    for (let javascriptType of ComponentUtils.getWLJavascriptComponentTypes()) {
+        let cloneCallback = ComponentUtils.getDefaultWLComponentCloneCallback(javascriptType, engine);
+        if (cloneCallback != null) {
+            ComponentUtils.addCloneCallback(javascriptType, cloneCallback, engine)
+        }
+    }
+}
+
+export function removeDefaultWLComponentCloneCallbacks(engine = Globals.getMainEngine()) {
+    for (let nativeType of ComponentUtils.getWLNativeComponentTypes()) {
+        let cloneCallback = ComponentUtils.getDefaultWLComponentCloneCallback(nativeType, engine);
+        if (cloneCallback != null) {
+            if (ComponentUtils.getCloneCallback(nativeType, engine) == cloneCallback) {
+                ComponentUtils.removeCloneCallback(nativeType, engine);
+            }
+        }
+    }
+
+    for (let javascriptType of ComponentUtils.getWLNativeComponentTypes()) {
+        let cloneCallback = ComponentUtils.getDefaultWLComponentCloneCallback(javascriptType, engine);
+        if (cloneCallback != null) {
+            if (ComponentUtils.getCloneCallback(javascriptType, engine) == cloneCallback) {
+                ComponentUtils.removeCloneCallback(javascriptType, engine);
+            }
+        }
+    }
+}
+
 export let ComponentUtils = {
     isWLComponent,
     isWLNativeComponent,
@@ -376,7 +446,12 @@ export let ComponentUtils = {
     addClonePostProcessCallback,
     removeClonePostProcessCallback,
     getClonePostProcessCallback,
-    hasClonePostProcessCallback
+    hasClonePostProcessCallback,
+
+    getDefaultWLComponentCloneCallback,
+    hasDefaultWLComponentCloneCallback,
+    addDefaultWLComponentCloneCallbacks,
+    removeDefaultWLComponentCloneCallbacks
 };
 
 
