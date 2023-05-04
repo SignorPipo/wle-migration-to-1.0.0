@@ -25,11 +25,11 @@ export class EasyTuneToolComponent extends Component {
 
         this._myWidget = new EasyTuneWidget(this.engine);
 
-        EasyTuneUtils.addSetEasyTuneWidgetActiveVariableCallback(this, function (variableName) {
+        EasyTuneUtils.addSetWidgetActiveVariableCallback(this, function (variableName) {
             this._myWidget.setActiveVariable(variableName);
         }.bind(this), this.engine);
 
-        EasyTuneUtils.addRefreshEasyTuneWidgetCallback(this, function () {
+        EasyTuneUtils.addRefreshWidgetCallback(this, function () {
             this._myWidget.refresh();
         }.bind(this), this.engine);
 
@@ -49,10 +49,10 @@ export class EasyTuneToolComponent extends Component {
 
             params.myVariablesImportExportButtonsVisible = this._myVariablesImportExportButtonsVisible;
             params.myVariablesImportCallback = function (onSuccessCallback, onFailureCallback) {
-                EasyTuneUtils.importEasyTuneVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, onSuccessCallback, onFailureCallback, this.engine);
+                EasyTuneUtils.importVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, onSuccessCallback, onFailureCallback, this.engine);
             }.bind(this);
             params.myVariablesExportCallback = function (onSuccessCallback, onFailureCallback) {
-                EasyTuneUtils.exportEasyTuneVariables(this._myVariablesExportURL, onSuccessCallback, onFailureCallback, this.engine);
+                EasyTuneUtils.exportVariables(this._myVariablesExportURL, onSuccessCallback, onFailureCallback, this.engine);
             }.bind(this);
 
             this._myWidget.start(this.object, params, Globals.getEasyTuneVariables(this.engine));
@@ -71,7 +71,7 @@ export class EasyTuneToolComponent extends Component {
                 if (this._myFirstUpdate) {
                     this._myFirstUpdate = false;
                     if (this._myImportVariablesOnStart) {
-                        EasyTuneUtils.importEasyTuneVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, undefined, undefined, this.engine);
+                        EasyTuneUtils.importVariables(this._myVariablesImportURL, this._myResetVariablesDefaultValueOnImport, undefined, undefined, this.engine);
                     }
                 }
 
@@ -107,7 +107,7 @@ export class EasyTuneToolComponent extends Component {
     onDestroy() {
         this._myWidget.destroy();
 
-        EasyTuneUtils.removeSetEasyTuneWidgetActiveVariableCallback(this, this.engine);
-        EasyTuneUtils.removeRefreshEasyTuneWidgetCallback(this, this.engine);
+        EasyTuneUtils.removeSetWidgetActiveVariableCallback(this, this.engine);
+        EasyTuneUtils.removeRefreshWidgetCallback(this, this.engine);
     }
 }

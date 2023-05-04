@@ -279,7 +279,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
         this._myBackgroundObject = this._myTrianglesObject.pp_addObject();
         {
             let meshComponent = this._myBackgroundObject.pp_addComponent(MeshComponent);
-            meshComponent.mesh = MeshUtils.createPlaneMesh(this.engine);
+            meshComponent.mesh = MeshUtils.createPlane(this.engine);
             meshComponent.material = this._myBackgroundMaterial.clone();
         }
 
@@ -495,7 +495,7 @@ export class BenchmarkMaxVisibleTrianglesComponent extends Component {
             }
         }
 
-        let mesh = MeshUtils.createMesh(meshCreationParams);
+        let mesh = MeshUtils.create(meshCreationParams);
 
         return mesh;
     }

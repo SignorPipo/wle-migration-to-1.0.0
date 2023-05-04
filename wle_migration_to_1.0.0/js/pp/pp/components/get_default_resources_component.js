@@ -25,17 +25,17 @@ export class GetDefaultResourcesComponent extends Component {
         // Prevents double global from same engine
         if (!Globals.hasDefaultResources(this.engine)) {
             this._myDefaultResources = new DefaultResources();
-            this._myDefaultResources.myMeshes.myPlane = MeshUtils.cloneMesh(this._myPlane);
-            this._myDefaultResources.myMeshes.myCube = MeshUtils.cloneMesh(this._myCube);
-            this._myDefaultResources.myMeshes.mySphere = MeshUtils.cloneMesh(this._mySphere);
-            this._myDefaultResources.myMeshes.myCone = MeshUtils.cloneMesh(this._myCone);
-            this._myDefaultResources.myMeshes.myCylinder = MeshUtils.cloneMesh(this._myCylinder);
-            this._myDefaultResources.myMeshes.myCircle = MeshUtils.cloneMesh(this._myCircle);
+            this._myDefaultResources.myMeshes.myPlane = MeshUtils.clone(this._myPlane);
+            this._myDefaultResources.myMeshes.myCube = MeshUtils.clone(this._myCube);
+            this._myDefaultResources.myMeshes.mySphere = MeshUtils.clone(this._mySphere);
+            this._myDefaultResources.myMeshes.myCone = MeshUtils.clone(this._myCone);
+            this._myDefaultResources.myMeshes.myCylinder = MeshUtils.clone(this._myCylinder);
+            this._myDefaultResources.myMeshes.myCircle = MeshUtils.clone(this._myCircle);
 
-            this._myDefaultResources.myMeshes.myInvertedCube = MeshUtils.invertMesh(this._myCube);
-            this._myDefaultResources.myMeshes.myInvertedSphere = MeshUtils.invertMesh(this._mySphere);
-            this._myDefaultResources.myMeshes.myInvertedCone = MeshUtils.invertMesh(this._myCone);
-            this._myDefaultResources.myMeshes.myInvertedCylinder = MeshUtils.invertMesh(this._myCylinder);
+            this._myDefaultResources.myMeshes.myInvertedCube = MeshUtils.invert(this._myCube);
+            this._myDefaultResources.myMeshes.myInvertedSphere = MeshUtils.invert(this._mySphere);
+            this._myDefaultResources.myMeshes.myInvertedCone = MeshUtils.invert(this._myCone);
+            this._myDefaultResources.myMeshes.myInvertedCylinder = MeshUtils.invert(this._myCylinder);
 
             if (this._myFlatOpaque != null) {
                 this._myDefaultResources.myMaterials.myFlatOpaque = this._myFlatOpaque.clone();

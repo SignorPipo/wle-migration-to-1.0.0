@@ -10,7 +10,7 @@ export function cloneMesh(componentToClone, targetObject, deepCloneParams = new 
     }
 
     if (deepCloneParams.isDeepCloneComponentVariable(MeshComponent.TypeName, "mesh")) {
-        clonedComponent.mesh = MeshUtils.cloneMesh(componentToClone.mesh);
+        clonedComponent.mesh = MeshUtils.clone(componentToClone.mesh);
     }
 
     return clonedComponent;

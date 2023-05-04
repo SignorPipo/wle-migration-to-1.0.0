@@ -5,7 +5,7 @@ import { InputUtils } from "../../../../../../input/cauldron/input_utils";
 import { GamepadButtonID } from "../../../../../../input/gamepad/gamepad_buttons";
 import { vec3_create } from "../../../../../../plugin/js/extensions/array_extension";
 import { Globals } from "../../../../../../pp/globals";
-import { CharacterColliderSetupSimplifiedCreationParams, CharacterColliderUtils } from "../../../../character_controller/collision/character_collider_utils";
+import { CharacterColliderSetupSimplifiedCreationParams, CharacterColliderSetupUtils } from "../../../../character_controller/collision/character_collider_setup_utils";
 import { CollisionCheckBridge } from "../../../../character_controller/collision/collision_check_bridge";
 import { CollisionCheckUtils } from "../../../../character_controller/collision/legacy/collision_check/collision_check";
 import { CollisionCheckParams, CollisionRuntimeParams } from "../../../../character_controller/collision/legacy/collision_check/collision_params";
@@ -411,7 +411,7 @@ export class CleanedPlayerLocomotion {
         simplifiedParams.myHorizontalCheckDebugEnabled = this._myParams.myDebugHorizontalEnabled && Globals.isDebugEnabled(this._myParams.myEngine);
         simplifiedParams.myVerticalCheckDebugEnabled = this._myParams.myDebugVerticalEnabled && Globals.isDebugEnabled(this._myParams.myEngine);
 
-        let colliderSetup = CharacterColliderUtils.createCharacterColliderSetupSimplified(simplifiedParams);
+        let colliderSetup = CharacterColliderSetupUtils.createSimplified(simplifiedParams);
 
         this._myCollisionCheckParamsMovement = CollisionCheckBridge.convertCharacterColliderSetupToCollisionCheckParams(colliderSetup, this._myCollisionCheckParamsMovement, this._myParams.myEngine);
     }

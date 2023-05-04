@@ -45,7 +45,7 @@ export class CharacterColliderSetupSimplifiedCreationParams {
     }
 }
 
-export function createCharacterColliderSetupSimplified(simplifiedCreationParams, outCharacterColliderSetup = new CharacterColliderSetup()) {
+export function createSimplified(simplifiedCreationParams, outCharacterColliderSetup = new CharacterColliderSetup()) {
     outCharacterColliderSetup.myHeight = simplifiedCreationParams.myHeight;
     outCharacterColliderSetup.myHorizontalCheckParams.myHorizontalCheckConeRadius = simplifiedCreationParams.myRadius;
     outCharacterColliderSetup.myVerticalCheckParams.myVerticalCheckCircumferenceRadius = simplifiedCreationParams.myRadius / 2;
@@ -293,7 +293,7 @@ export function createCharacterColliderSetupSimplified(simplifiedCreationParams,
     return outCharacterColliderSetup;
 }
 
-export function createTeleportColliderFromMovementCollider(movementColliderSetup, outTeleportColliderSetup = new CharacterColliderSetup()) {
+export function createTeleportColliderSetupFromMovementColliderSetup(movementColliderSetup, outTeleportColliderSetup = new CharacterColliderSetup()) {
     outTeleportColliderSetup.copy(movementColliderSetup);
 
     outTeleportColliderSetup.myHorizontalCheckParams.myHorizontalCheckConeHalfAngle = 180;
@@ -307,7 +307,7 @@ export function createTeleportColliderFromMovementCollider(movementColliderSetup
     return outTeleportColliderSetup;
 }
 
-export let CharacterColliderUtils = {
-    createCharacterColliderSetupSimplified,
-    createTeleportColliderFromMovementCollider
+export let CharacterColliderSetupUtils = {
+    createSimplified,
+    createTeleportColliderSetupFromMovementColliderSetup
 }

@@ -67,7 +67,7 @@ export class EasyTuneVariable {
             EasyTuneVariable.prototype.setDefaultValue.call(this, value);
         }
 
-        EasyTuneUtils.refreshEasyTuneWidget(this._myEngine);
+        EasyTuneUtils.refreshWidget(this._myEngine);
 
         if (valueChanged) {
             this._myValueChangedEmitter.notify(this.getValue(), this);
@@ -120,7 +120,7 @@ export class EasyTuneVariableArray extends EasyTuneVariable {
             EasyTuneVariableArray.prototype.setDefaultValue.call(this, value);
         }
 
-        EasyTuneUtils.refreshEasyTuneWidget(this._myEngine);
+        EasyTuneUtils.refreshWidget(this._myEngine);
 
         if (valueChanged) {
             this._myValueChangedEmitter.notify(this.getValue(), this);
@@ -324,7 +324,7 @@ export class EasyTuneTransform extends EasyTuneVariable {
             EasyTuneTransform.prototype.setDefaultValue.call(this, value);
         }
 
-        EasyTuneUtils.refreshEasyTuneWidget(this._myEngine);
+        EasyTuneUtils.refreshWidget(this._myEngine);
 
         if (valueChanged) {
             this._myValueChangedEmitter.notify(this.getValue(), this);

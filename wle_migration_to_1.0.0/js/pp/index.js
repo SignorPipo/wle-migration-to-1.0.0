@@ -173,7 +173,7 @@ export * from "./gameplay/experimental/character_controller/collision/legacy/col
 
 export * from "./gameplay/experimental/character_controller/collision/collision_check_bridge";
 export * from "./gameplay/experimental/character_controller/collision/character_collider_setup";
-export * from "./gameplay/experimental/character_controller/collision/character_collider_utils";
+export * from "./gameplay/experimental/character_controller/collision/character_collider_setup_utils";
 export * from "./gameplay/experimental/character_controller/collision/character_collision_results";
 export * from "./gameplay/experimental/character_controller/collision/character_collision_system";
 export * from "./gameplay/experimental/character_controller/collision/character_collision_system_globals";
