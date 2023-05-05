@@ -295,6 +295,7 @@ export class CharacterColliderSplitMovementParams {
 
         /*
         this will not be available until the bridge is removed with a new implementation that directly use the collider and results
+        
         this.mySplitMovementStopOnCallback = null;              // Signature: callback(paramsToBeDefined)
         */
 
@@ -314,6 +315,7 @@ export class CharacterColliderAdditionalParams {
 
         /*
         these will not be available until the bridge is removed with a new implementation that directly use the collider and results
+
         this.myExtraMovementCheckCallback = null;              // Signature: callback(paramsToBeDefined)
         this.myExtraTeleportCheckCallback = null;              // Signature: callback(paramsToBeDefined)
         this.myExtraCheckTransformCheckCallback = null;        // Signature: callback(paramsToBeDefined)

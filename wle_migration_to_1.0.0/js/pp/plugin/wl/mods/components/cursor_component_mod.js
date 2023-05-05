@@ -74,6 +74,8 @@ export function initCursorComponentModPrototype() {
 
         this._rayHitLocation = vec3_create();
         this._hitObjectData = [null, null, null];
+
+        this._myViewEventListenersRegistered = false;
     };
 
     cursorComponentMod.start = function start() {
@@ -99,7 +101,7 @@ export function initCursorComponentModPrototype() {
             this.cursorRayObject.pp_setActive(true);
             this._cursorRayScale.set(this.cursorRayObject.pp_getScaleLocal());
 
-            /* Set ray to a good default distance of the cursor of 1m */
+            // Set ray to a good default distance of the cursor of 1m 
             this._setCursorRayTransform(null);
         }
 
@@ -111,10 +113,11 @@ export function initCursorComponentModPrototype() {
         }
     };
 
-    cursorComponentMod.onViewportResize = function onViewportResize() {
+    cursorComponentMod._onViewportResize = function _onViewportResize() {
         if (!this._viewComponent) return;
-        /* Projection matrix will change if the viewport is resized, which will affect the
-         * projection matrix because of the aspect ratio. */
+
+        // Projection matrix will change if the viewport is resized, which will affect the
+        // projection matrix because of the aspect ratio
         this._viewComponent.projectionMatrix.mat4_invert(this._projectionMatrix);
     };
 
@@ -206,12 +209,12 @@ export function initCursorComponentModPrototype() {
             this._tripleClickTimer -= dt;
         }
 
-        /* If in XR, set the cursor ray based on object transform */
+        // If in XR, set the cursor ray based on object transform
         if (XRUtils.isSessionActive(this.engine)) {
-            /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
+            // Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence 
             if (this.arTouchDown && this.input && XRUtils.getSession(this.engine).inputSources[0].handedness === "none" && XRUtils.getSession(this.engine).inputSources[0].gamepad) {
                 let axes = XRUtils.getSession(this.engine).inputSources[0].gamepad.axes;
-                /* Screenspace Y is inverted */
+                // Screenspace Y is inverted 
                 this._direction.vec3_set(axes[0], -axes[1], -1.0);
                 this.updateDirection();
             } else {
@@ -268,7 +271,7 @@ export function initCursorComponentModPrototype() {
         if (!forceUnhover && hitObject != null) {
             let hoveringObjectChanged = false;
             if (!this.hoveringObject || !this.hoveringObject.pp_equals(hitObject)) {
-                /* Unhover previous, if exists */
+                // Unhover previous, if exists 
                 if (this.hoveringObject) {
                     if (!this.hoveringReality) {
                         if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUnhover.notify(this.hoveringObject, this);
@@ -280,7 +283,7 @@ export function initCursorComponentModPrototype() {
 
                 hoveringObjectChanged = true;
 
-                /* Hover new object */
+                // Hover new object 
                 this.hoveringObject = hitObject;
                 this.hoveringObjectTarget = this.hoveringObject.pp_getComponent(CursorTarget);
 
@@ -332,7 +335,7 @@ export function initCursorComponentModPrototype() {
             }
 
             if (this._pp_isDownToProcess()) {
-                /* Cursor down */
+                // Cursor down 
                 if (!this.hoveringReality) {
                     if (this.hoveringObjectTarget) this.hoveringObjectTarget.onDown.notify(this.hoveringObject, this);
                     this.globalTarget.onDown.notify(this.hoveringObject, this);
@@ -340,7 +343,7 @@ export function initCursorComponentModPrototype() {
                     this.hitTestTarget.onDown.notify(hitTestResults, this);
                 }
 
-                /* Click */
+                // Click 
                 if (!this.hoveringReality) {
                     if (this.hoveringObjectTarget) this.hoveringObjectTarget.onClick.notify(this.hoveringObject, this);
                     this.globalTarget.onClick.notify(this.hoveringObject, this);
@@ -348,7 +351,7 @@ export function initCursorComponentModPrototype() {
                     this.hitTestTarget.onClick.notify(hitTestResults, this);
                 }
 
-                /* Multiple Clicks */
+                // Multiple Clicks 
                 if (this._tripleClickTimer > 0 && this._multipleClickObject && this._multipleClickObject.pp_equals(this.hoveringObject)) {
                     if (!this.hoveringReality) {
                         if (this.hoveringObjectTarget) this.hoveringObjectTarget.onTripleClick.notify(this.hoveringObject, this);
@@ -381,7 +384,7 @@ export function initCursorComponentModPrototype() {
                     this._multipleClickObject = this.hoveringObject;
                 }
             } else {
-                /* Cursor up */
+                // Cursor up 
                 if (!this._isUpWithNoDown && !hoveringObjectChanged && this._pp_isUpToProcess()) {
                     if (!this.hoveringReality) {
                         if (this.hoveringObjectTarget) this.hoveringObjectTarget.onUp.notify(this.hoveringObject, this);
@@ -438,7 +441,7 @@ export function initCursorComponentModPrototype() {
     };
 
     cursorComponentMod.setupXREvents = function setupXREvents(session) {
-        /* If in XR, one-time bind the listener */
+        // If in XR, one-time bind the listener 
 
         let onSelect = this.onSelect.bind(this);
         session.addEventListener("select", onSelect);
@@ -456,8 +459,8 @@ export function initCursorComponentModPrototype() {
             session.removeEventListener("selectend", onSelectEnd);
         });
 
-        /* After XR session was entered, the projection matrix changed */
-        this.onViewportResize();
+        // After XR session was entered, the projection matrix changed 
+        this._onViewportResize();
     };
 
     cursorComponentMod.onSelect = function onSelect(e) {
@@ -503,7 +506,7 @@ export function initCursorComponentModPrototype() {
 
     cursorComponentMod.onPointerMove = function onPointerMove(e) {
         if (this.active) {
-            /* Don't care about secondary pointers */
+            // Don't care about secondary pointers 
             if (this._pointerID != null && this._pointerID != e.pointerId) return;
 
             let bounds = Globals.getBody(this.engine).getBoundingClientRect();
@@ -515,7 +518,7 @@ export function initCursorComponentModPrototype() {
     };
 
     cursorComponentMod.onPointerDown = function onPointerDown(e) {
-        /* Don't care about secondary pointers or non-left clicks */
+        // Don't care about secondary pointers or non-left clicks 
         if ((this._pointerID != null && this._pointerID != e.pointerId) || e.button !== 0) return;
 
         if (this.active) {
@@ -534,7 +537,7 @@ export function initCursorComponentModPrototype() {
     };
 
     cursorComponentMod.onPointerUp = function onPointerUp(e) {
-        /* Don't care about secondary pointers or non-left clicks */
+        // Don't care about secondary pointers or non-left clicks 
         if ((this._pointerID != null && this._pointerID != e.pointerId) || e.button !== 0) return;
 
         if (this.active) {
@@ -557,7 +560,7 @@ export function initCursorComponentModPrototype() {
     };
 
     cursorComponentMod.updateMousePos = function updateMousePos(clientX, clientY, w, h) {
-        /* Get direction in normalized device coordinate space from mouse position */
+        // Get direction in normalized device coordinate space from mouse position 
         let left = clientX / w;
         let top = clientY / h;
         this._direction.vec3_set(left * 2 - 1, -top * 2 + 1, -1.0);
@@ -578,7 +581,7 @@ export function initCursorComponentModPrototype() {
         return function updateDirection() {
             this.object.pp_getPosition(this._origin);
 
-            /* Reverse-project the direction into view space */
+            // Reverse-project the direction into view space 
             this._direction.vec3_transformMat4(this._projectionMatrix, this._direction);
             this._direction.vec3_normalize(this._direction);
             this._direction.vec3_transformQuat(this.object.pp_getTransformQuat(transformWorld), this._direction);
@@ -649,32 +652,41 @@ export function initCursorComponentModPrototype() {
 
     cursorComponentMod.pp_setViewComponent = function pp_setViewComponent(viewComponent) {
         this._viewComponent = viewComponent;
-        /* If this object also has a view component, we will enable inverse-projected mouse clicks,
-         * otherwise just use the objects transformation */
+
+        // If this object also has a view component, we will enable inverse-projected mouse clicks,
+        // otherwise just use the objects transformation
         if (this._viewComponent != null) {
-            let onClick = this.onClick.bind(this);
-            Globals.getCanvas(this.engine).addEventListener("click", onClick);
-            let onPointerDown = this.onPointerDown.bind(this);
-            Globals.getCanvas(this.engine).addEventListener("pointerdown", onPointerDown);
-            let onPointerMove = this.onPointerMove.bind(this);
-            Globals.getCanvas(this.engine).addEventListener("pointermove", onPointerMove);
-            let onPointerUp = this.onPointerUp.bind(this);
-            Globals.getCanvas(this.engine).addEventListener("pointerup", onPointerUp);
-            let onPointerLeave = this._pp_onPointerLeave.bind(this);
-            Globals.getCanvas(this.engine).addEventListener("pointerleave", onPointerLeave);
-
             this._viewComponent.projectionMatrix.mat4_invert(this._projectionMatrix);
-            let onViewportResize = this.onViewportResize.bind(this);
-            Globals.getWindow(this.engine).addEventListener("resize", onViewportResize);
 
-            this._onDestroyListeners.push(() => {
-                Globals.getCanvas(this.engine).removeEventListener("click", onClick);
-                Globals.getCanvas(this.engine).removeEventListener("pointerdown", onPointerDown);
-                Globals.getCanvas(this.engine).removeEventListener("pointermove", onPointerMove);
-                Globals.getCanvas(this.engine).removeEventListener("pointerup", onPointerUp);
-                Globals.getCanvas(this.engine).removeEventListener("pointerleave", onPointerLeave);
-                Globals.getWindow(this.engine).removeEventListener("resize", onViewportResize);
-            });
+            if (!this._myViewEventListenersRegistered) {
+                this._myViewEventListenersRegistered = true;
+
+                let onClick = this.onClick.bind(this);
+                Globals.getCanvas(this.engine).addEventListener("click", onClick);
+                let onPointerDown = this.onPointerDown.bind(this);
+                Globals.getCanvas(this.engine).addEventListener("pointerdown", onPointerDown);
+                let onPointerMove = this.onPointerMove.bind(this);
+                Globals.getCanvas(this.engine).addEventListener("pointermove", onPointerMove);
+                let onPointerUp = this.onPointerUp.bind(this);
+                Globals.getCanvas(this.engine).addEventListener("pointerup", onPointerUp);
+                let onPointerLeave = this._pp_onPointerLeave.bind(this);
+                Globals.getCanvas(this.engine).addEventListener("pointerleave", onPointerLeave);
+
+                let onViewportResize = this._onViewportResize.bind(this);
+                this.engine.onResize.add(onViewportResize);
+
+                this._onDestroyListeners.push(() => {
+                    Globals.getCanvas(this.engine).removeEventListener("click", onClick);
+                    Globals.getCanvas(this.engine).removeEventListener("pointerdown", onPointerDown);
+                    Globals.getCanvas(this.engine).removeEventListener("pointermove", onPointerMove);
+                    Globals.getCanvas(this.engine).removeEventListener("pointerup", onPointerUp);
+                    Globals.getCanvas(this.engine).removeEventListener("pointerleave", onPointerLeave);
+
+                    this.engine.onResize.remove(onViewportResize);
+
+                    this._myViewEventListenersRegistered = false;
+                });
+            }
         }
     };
 
