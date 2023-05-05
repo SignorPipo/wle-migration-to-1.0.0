@@ -7,7 +7,7 @@ import { registerPPComponents } from "./register_pp_components";
 export function initPP(engine) {
     Globals.initEngine(engine);
 
-    ComponentUtils.addDefaultWLComponentCloneCallbacks(engine);
+    ComponentUtils.setDefaultWLComponentCloneCallbacks(engine);
 
     registerWLComponents(engine);
     registerPPComponents(engine);

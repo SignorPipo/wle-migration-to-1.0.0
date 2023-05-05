@@ -267,7 +267,7 @@ export function cloneDefault(componentToClone, targetObject, autoStartIfNotActiv
     return clonedComponent;
 }
 
-export function addCloneCallback(typeOrClass, callback, engine = Globals.getMainEngine()) {
+export function setCloneCallback(typeOrClass, callback, engine = Globals.getMainEngine()) {
     let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
 
     if (!_myCloneCallbacks.has(engine)) {
@@ -307,7 +307,7 @@ export function hasCloneCallback(typeOrClass, engine = Globals.getMainEngine()) 
     return hasCallback;
 }
 
-export function addClonePostProcessCallback(typeOrClass, callback, engine = Globals.getMainEngine()) {
+export function setClonePostProcessCallback(typeOrClass, callback, engine = Globals.getMainEngine()) {
     let type = ComponentUtils.getTypeFromTypeOrClass(typeOrClass);
 
     if (!_myClonePostProcessCallbacks.has(engine)) {
@@ -379,18 +379,18 @@ export function hasDefaultWLComponentCloneCallback(typeOrClass, engine = Globals
 }
 
 
-export function addDefaultWLComponentCloneCallbacks(engine = Globals.getMainEngine()) {
+export function setDefaultWLComponentCloneCallbacks(engine = Globals.getMainEngine()) {
     for (let nativeType of ComponentUtils.getWLNativeComponentTypes()) {
         let cloneCallback = ComponentUtils.getDefaultWLComponentCloneCallback(nativeType, engine);
         if (cloneCallback != null) {
-            ComponentUtils.addCloneCallback(nativeType, cloneCallback, engine)
+            ComponentUtils.setCloneCallback(nativeType, cloneCallback, engine)
         }
     }
 
     for (let javascriptType of ComponentUtils.getWLJavascriptComponentTypes()) {
         let cloneCallback = ComponentUtils.getDefaultWLComponentCloneCallback(javascriptType, engine);
         if (cloneCallback != null) {
-            ComponentUtils.addCloneCallback(javascriptType, cloneCallback, engine)
+            ComponentUtils.setCloneCallback(javascriptType, cloneCallback, engine)
         }
     }
 }
@@ -439,19 +439,19 @@ export let ComponentUtils = {
     clonePostProcess,
     cloneDefault,
 
-    addCloneCallback,
+    setCloneCallback,
     removeCloneCallback,
     getCloneCallback,
     hasCloneCallback,
-    addClonePostProcessCallback,
+    setClonePostProcessCallback,
     removeClonePostProcessCallback,
     getClonePostProcessCallback,
     hasClonePostProcessCallback,
 
+    setDefaultWLComponentCloneCallbacks,
+    removeDefaultWLComponentCloneCallbacks,
     getDefaultWLComponentCloneCallback,
-    hasDefaultWLComponentCloneCallback,
-    addDefaultWLComponentCloneCallbacks,
-    removeDefaultWLComponentCloneCallbacks
+    hasDefaultWLComponentCloneCallback
 };
 
 
@@ -493,6 +493,3 @@ let _myWLJavascriptComponentTypes = [
     Vrm.TypeName,
     WasdControlsComponent.TypeName
 ];
-
-/*
-            - addWLComponentsCloneCallbacks / remove(da fare in initPP)*/
